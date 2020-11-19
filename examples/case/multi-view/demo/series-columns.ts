@@ -10,12 +10,20 @@ const data = [
 ];
 
 const defaultGrey = '#BFBFBF';
-const semanticGreen = '#30BF78'; /** 语义绿 */
 
 // Step 2: 创建图表
+
 const labPlot = new Lab.MultiView('container', {
   appendPadding: 8,
   tooltip: { showMarkers: false },
+  views: [],
+});
+
+labPlot.chart.theme({
+  defaultColor: '#30BF78' /** 语义绿 */,
+});
+
+labPlot.update({
   views: [
     {
       region: { start: { x: 0, y: 0 }, end: { x: 1 / 2, y: 2 / 5 } },
@@ -35,7 +43,7 @@ const labPlot = new Lab.MultiView('container', {
           mapping: {
             color: ({ area }) => {
               const value = data.find((d) => d.area === area).value;
-              return value > 0.3 ? semanticGreen : defaultGrey;
+              return value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey;
             },
             style: { lineWidth: 1 },
           },
@@ -65,11 +73,15 @@ const labPlot = new Lab.MultiView('container', {
           mapping: {
             color: ({ area }) => {
               const value = data.find((d) => d.area === area).value;
-              return value > 0.3 ? semanticGreen : defaultGrey;
+              return value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey;
             },
             style: { lineWidth: 1 },
           },
-          label: { position: 'left', formatter: ({ value }) => `${(value * 100).toFixed(1)}%` },
+          label: {
+            layout: { type: 'adjust-color' },
+            position: 'left',
+            formatter: ({ value }) => `${(value * 100).toFixed(1)}%`,
+          },
         },
       ],
     },
@@ -93,7 +105,7 @@ const labPlot = new Lab.MultiView('container', {
           mapping: {
             color: ({ area }) => {
               const value = data.find((d) => d.area === area).value;
-              return value > 0.3 ? semanticGreen : defaultGrey;
+              return value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey;
             },
             style: { fillOpacity: 0 },
           },
@@ -109,11 +121,13 @@ const labPlot = new Lab.MultiView('container', {
             offsetX: -1,
             html: () =>
               `<div style="border:1.5px solid ${
-                d.value > 0.3 ? semanticGreen : defaultGrey
+                d.value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey
               };width:12px;height:12px;transform:translateY(-50%);border-radius:12px;"></div>`,
-            style: {
-              fill: d.value > 0.3 ? semanticGreen : defaultGrey,
-              fontWeight: 800,
+            style: () => {
+              return {
+                fill: d.value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey,
+                fontWeight: 800,
+              };
             },
           };
         }),
@@ -124,7 +138,7 @@ const labPlot = new Lab.MultiView('container', {
             end: [d.area, d.value],
             style: {
               lineWidth: 4,
-              stroke: d.value > 0.3 ? semanticGreen : defaultGrey,
+              stroke: d.value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey,
             },
           };
         }),
@@ -158,8 +172,9 @@ const labPlot = new Lab.MultiView('container', {
           xField: 'area',
           yField: 'value',
           label: {
-            offsetX: -8,
+            offsetX: -4,
             position: 'left',
+            layout: { type: 'adjust-color' },
             style: { fill: '#fff', fontSize: 12 },
             formatter: ({ area, value }) => {
               return `${area}\n${(value * 100).toFixed(1)}%`;
@@ -168,7 +183,7 @@ const labPlot = new Lab.MultiView('container', {
           mapping: {
             color: ({ area }) => {
               const value = data.find((d) => d.area === area).value;
-              return value > 0.3 ? semanticGreen : defaultGrey;
+              return value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey;
             },
           },
         },

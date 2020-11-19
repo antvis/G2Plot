@@ -1,15 +1,19 @@
+import { clone } from '@antv/util';
 import { Sunburst } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
+import { SUNBRUST_DATA } from '../../../data/sunburst';
+import { mobile } from '../../../data/mobile';
+
+const MOBILE_DATA = clone(mobile).forEach((mobile) => {
+  mobile.value = null;
+});
 
 describe('sunburst', () => {
   it('init: default', async () => {
-    const data = await fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json').then((res) =>
-      res.json()
-    );
     const sunburstPlot = new Sunburst(createDiv(), {
       width: 400,
       height: 400,
-      data,
+      data: SUNBRUST_DATA,
       seriesField: 'sum',
       colorField: 'value',
       color: ['#BAE7FF', '#1890FF', '#0050B3'],
@@ -43,15 +47,9 @@ describe('sunburst', () => {
 
 describe('sunburst', () => {
   it('init: type treemap', async () => {
-    const fetchData = await fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/mobile.json').then((res) =>
-      res.json()
-    );
-    fetchData.forEach((mobile) => {
-      mobile.value = null;
-    });
     const data = {
       name: 'root',
-      children: fetchData,
+      children: MOBILE_DATA,
     };
     const sunburstPlot = new Sunburst(createDiv(), {
       width: 400,
@@ -96,15 +94,9 @@ describe('sunburst', () => {
 
 describe('sunburst', () => {
   it('init: hierarchy config', async () => {
-    const fetchData = await fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/mobile.json').then((res) =>
-      res.json()
-    );
-    fetchData.forEach((mobile) => {
-      mobile.value = null;
-    });
     const data = {
       name: 'root',
-      children: fetchData,
+      children: MOBILE_DATA,
     };
     const sunburstPlot = new Sunburst(createDiv('sunburst*config', document.body, 'sunburst-id-one'), {
       width: 400,
@@ -162,15 +154,9 @@ describe('sunburst', () => {
 
 describe('sunburst', () => {
   it('formatter: tooltip formatter', async () => {
-    const fetchData = await fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/mobile.json').then((res) =>
-      res.json()
-    );
-    fetchData.forEach((mobile) => {
-      mobile.value = null;
-    });
     const data = {
       name: 'root',
-      children: fetchData,
+      children: MOBILE_DATA,
     };
     const sunburstPlot = new Sunburst(createDiv('sunburset', document.body, 'sunburset-id'), {
       width: 400,

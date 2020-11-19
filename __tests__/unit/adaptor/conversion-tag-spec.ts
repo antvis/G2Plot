@@ -393,7 +393,7 @@ describe('totalWidth - headSize) / 2 < spacing', () => {
     const plot = new Bar(createDiv(), {
       data: DATA_WITH_ZERO,
       autoFit: false,
-      width: 500,
+      width: 100,
       height: 300,
       xField: 'pv',
       yField: 'action',

@@ -1,11 +1,9 @@
 import { Heatmap } from '../../src';
 import { createDiv } from '../utils/dom';
+import { heatmapData } from '../data/heatmap';
 
 describe('heatmap', () => {
   it('x*y*color and type', async () => {
-    const data = await fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/heatmap.json').then((res) =>
-      res.json()
-    );
     const heatmap = new Heatmap(createDiv('type density'), {
       width: 600,
       height: 500,
@@ -37,7 +35,7 @@ describe('heatmap', () => {
     expect(attributeOption.color.values).toBe(
       '#F51D27-#FA541C-#FF8C12-#FFC838-#FAFFA8-#80FF73-#12CCCC-#1890FF-#6E32C2'
     );
-    heatmap.changeData(data);
+    heatmap.changeData(heatmapData);
     expect(heatmap.chart.geometries[0].data.length).toBe(500);
     expect(heatmap.chart.getOptions().data.length).toBe(500);
 

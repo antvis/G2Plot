@@ -3,9 +3,40 @@ import { Pie, G2 } from '@antv/g2plot';
 const { registerTheme } = G2;
 
 registerTheme('custom-theme', {
-  colors10: ['#FACDAA', '#F4A49E', '#EE7B91', '#E85285', '#BE408C', '#BE408C'],
-  /** 20色板 */
-  colors20: ['#FACDAA', '#F4A49E', '#EE7B91', '#E85285', '#BE408C', '#BE408C', '#942D93'],
+  colors10: [
+    '#025DF4',
+    '#DB6BCF',
+    '#2498D1',
+    '#BBBDE6',
+    '#4045B2',
+    '#21A97A',
+    '#FF745A',
+    '#007E99',
+    '#FFA8A8',
+    '#2391FF',
+  ],
+  colors20: [
+    '#025DF4',
+    '#DB6BCF',
+    '#2498D1',
+    '#BBBDE6',
+    '#4045B2',
+    '#21A97A',
+    '#FF745A',
+    '#007E99',
+    '#FFA8A8',
+    '#2391FF',
+    '#FFC328',
+    '#A0DC2C',
+    '#946DFF',
+    '#626681',
+    '#EB4185',
+    '#CD8150',
+    '#36BCCB',
+    '#327039',
+    '#803488',
+    '#83BC99',
+  ],
 });
 
 const data = [
@@ -22,8 +53,13 @@ const piePlot = new Pie('container', {
   data,
   angleField: 'value',
   colorField: 'type',
+  legend: { offsetX: -90 },
   radius: 0.8,
-  label: {},
+  label: {
+    type: 'inner',
+    offset: '-10%',
+    content: '{percentage}',
+  },
   interactions: [{ type: 'element-active' }],
   theme: 'custom-theme',
 });

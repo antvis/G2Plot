@@ -242,6 +242,6 @@ regressionLine: {
 
 `markdown:docs/common/chart-methods.zh.md`
 
-### 图表主题
+
 
 `markdown:docs/common/theme.zh.md`

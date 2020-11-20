@@ -103,7 +103,7 @@ xAxis、yAxis 配置相同，由于 DualAxes 是双轴， yAxis 类型是对象�
 
 `markdown:docs/common/legend.en.md`
 
-#### theme
+
 
 `markdown:docs/common/theme.en.md`
 

@@ -5,12 +5,12 @@
   },
   "demos": [
     {
-      "filename": "line.ts",
+      "filename": "line-association.ts",
       "title": {
-        "zh": "折线图(趋势)",
-        "en": "Statistical Charts-Line"
+        "zh": "7-day COVID case rates",
+        "en": "7-day COVID case rates"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*MikuQoOtm1cAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*kHHZQa-fpAQAAAAAAAAAAAAAARQnAQ"
     }, 
     {
       "filename": "pie.ts",

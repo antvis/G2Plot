@@ -235,6 +235,39 @@ const scatterPlot = new Scatter('container', {
         fontSize: 12,
       },
     },
+    {
+      type: 'region',
+      start: [7, 7],
+      end: [7.8, 7.8],
+      top: true,
+      style: {
+        fill: '#fff',
+        fillOpacity: 1,
+        opacity: 1,
+      },
+    },
+    {
+      type: 'region',
+      start: [0.2, 7],
+      end: [1, 7.8],
+      top: true,
+      style: {
+        fill: '#fff',
+        fillOpacity: 1,
+        opacity: 1,
+      },
+    },
+    {
+      type: 'region',
+      start: [7, 0.2],
+      end: [7.8, 1],
+      top: true,
+      style: {
+        fill: '#fff',
+        fillOpacity: 1,
+        opacity: 1,
+      },
+    },
   ],
   quadrant: {
     xBaseline: 4,
@@ -263,16 +296,18 @@ const scatterPlot = new Scatter('container', {
     labels: [
       {
         content: '热门市场',
-        position: [8, 7.2],
+        position: [7.2, 7],
         style: {
           fill: 'rgba(0,0,0, 0.85)',
+          textAlign: 'start',
         },
       },
       {
         content: '潜力市场',
-        position: [0, 7.2],
+        position: [0.2, 7],
         style: {
           fill: 'rgba(0,0,0, 0.85)',
+          textAlign: 'start',
         },
       },
       {
@@ -280,9 +315,10 @@ const scatterPlot = new Scatter('container', {
       },
       {
         content: '提频市场',
-        position: [8, 0.8],
+        position: [7.2, 1],
         style: {
           fill: 'rgba(0,0,0, 0.85)',
+          textAlign: 'start',
         },
       },
     ],

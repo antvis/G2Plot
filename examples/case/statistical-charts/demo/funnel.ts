@@ -10,7 +10,7 @@ const containerStyle = 'margin: 16px -8px; display: flex;';
 const boxStyle = 'padding: 0px 16px;';
 const titleStyle = 'font-weight: bold;';
 const tooltipItemStyle = 'margin-top: 12px; display: flex; width: 120px; justify-content: space-between;';
-const linkStyle = 'display: inline-block; margin-top: 12px; color: #5B8FF9';
+const linkStyle = 'display: inline-block; margin-top: 12px; color: #5B8FF9; text-decoration: none;';
 
 const funnelPlot = new Funnel('container', {
   data: data,
@@ -40,7 +40,7 @@ const funnelPlot = new Funnel('container', {
           (itemData.conversionUV / itemData.uv) *
           100
         ).toFixed(0)}%</span></div>` +
-        `<a  style='${linkStyle}'>查看转化详情</a>` +
+        `<a href="https://g2plot.antv.vision/zh" target='_blank' style='${linkStyle}'>查看转化详情</a>` +
         `</div>` +
         `<div style='${boxStyle}'>` +
         `<div style='${titleStyle}'>未转化</div>` +
@@ -51,7 +51,7 @@ const funnelPlot = new Funnel('container', {
           (1 - itemData.conversionUV / itemData.uv) *
           100
         ).toFixed(0)}%</span></div>` +
-        `<a  style='${linkStyle}'>查看未转化详情</a>` +
+        `<a href="https://g2plot.antv.vision/zh" target='_blank' style='${linkStyle}'>查看未转化详情</a>` +
         `</div>` +
         `</div>`
       );

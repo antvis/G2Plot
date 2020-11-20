@@ -51,6 +51,14 @@
         "en": "Scatter plot custom shape"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*zfwOTZE7KwcAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "quadrant-tooltip.ts",
+      "title": {
+        "zh": "散点图-自定义tooltip",
+        "en": "Scatter custom tooltip"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CvOyT6MoUAQAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

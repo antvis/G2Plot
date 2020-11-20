@@ -44,6 +44,12 @@ const columnPlot = new Column('container', {
       },
     },
   ],
+  xAxis: {
+    label: {
+      autoHide: true,
+      autoRotate: false,
+    },
+  },
 });
 
 columnPlot.render();

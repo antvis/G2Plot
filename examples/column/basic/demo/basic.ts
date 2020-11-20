@@ -48,6 +48,12 @@ const columnPlot = new Column('container', {
       opacity: 0.6,
     },
   },
+  xAxis: {
+    label: {
+      autoHide: true,
+      autoRotate: false,
+    },
+  },
   meta: {
     type: {
       alias: '类别',

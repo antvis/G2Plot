@@ -27,5 +27,7 @@ jobs:
           gitee-username: afc163
           # 注意在 Settings->Secrets 配置 GITEE_PASSWORD
           gitee-password: ${{ secrets.GITEE_PASSWORD }}
+          # 现在默认分支为 main
+          branch: master
           # 注意替换为你的 Gitee 仓库
           gitee-repo: antv-g2plot/antv-g2plot

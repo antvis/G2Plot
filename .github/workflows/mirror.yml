@@ -1,9 +1,7 @@
 name: 🤖 Sync to Gitee Mirror
 
 on:
-  push:
-    branches:
-      - gh-pages
+  page_build
 
 jobs:
   build:
@@ -16,9 +14,9 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }}
         with:
           # 注意替换为你的 GitHub 源仓库地址
-          source-repo: 'git@github.com:antvis/G2Plot.git'
+          source-repo: git@github.com:antvis/G2Plot.git
           # 注意替换为你的 Gitee 目标仓库地址
-          destination-repo: 'git@gitee.com:antv-g2plot/antv-g2plot.git'
+          destination-repo: git@gitee.com:antv-g2plot/antv-g2plot.git
 
       - name: ✅ Build Gitee Pages
         uses: yanglbme/gitee-pages-action@master
@@ -27,7 +25,7 @@ jobs:
           gitee-username: afc163
           # 注意在 Settings->Secrets 配置 GITEE_PASSWORD
           gitee-password: ${{ secrets.GITEE_PASSWORD }}
-          # 现在默认分支为 main
-          branch: master
+          # 参数默认是 master，若是其他分支，需要指定
+          branch: gh-pages
           # 注意替换为你的 Gitee 仓库
           gitee-repo: antv-g2plot/antv-g2plot

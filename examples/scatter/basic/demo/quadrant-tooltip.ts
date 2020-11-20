@@ -242,7 +242,7 @@ const scatterPlot = new Scatter('container', {
       top: true,
       style: {
         fill: '#fff',
-        fillOpacity: 1,
+        fillOpacity: 0.5,
         opacity: 1,
       },
     },
@@ -253,7 +253,7 @@ const scatterPlot = new Scatter('container', {
       top: true,
       style: {
         fill: '#fff',
-        fillOpacity: 1,
+        fillOpacity: 0.5,
         opacity: 1,
       },
     },
@@ -264,7 +264,7 @@ const scatterPlot = new Scatter('container', {
       top: true,
       style: {
         fill: '#fff',
-        fillOpacity: 1,
+        fillOpacity: 0.5,
         opacity: 1,
       },
     },

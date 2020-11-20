@@ -40,6 +40,12 @@ const columnPlot = new Column('container', {
   xField: 'type',
   yField: 'sales',
   columnWidthRatio: 0.8,
+  xAxis: {
+    label: {
+      autoHide: true,
+      autoRotate: false,
+    },
+  },
   meta: {
     type: {
       alias: '类别',

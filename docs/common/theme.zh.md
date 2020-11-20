@@ -19,7 +19,7 @@
 
 | 主题属性 | 类型 |	描述 |
 | --- | --- | ---|
-｜ defaultColor ｜	string ｜	主题色 |
+| defaultColor ｜	string ｜	主题色 |
 | padding |	number |	number[] |
 | fontFamily |	string |	图表字体 |
 | colors10	string[] |	分类颜色色板，分类个数小于 | 10 | 时使用 |
@@ -28,14 +28,12 @@
 | maxColumnWidth |	number |	柱状图最大宽度，像素值 |
 | minColumnWidth|	number |	柱状图最小宽度，像素值 |
 | roseWidthRatio |	number |	玫瑰图占比，0 - 1 范围数值 |
-| multiplePieWidthRatio	| number	多层饼图/环图占比，0 - 1 范围数值 |
+| multiplePieWidthRatio	| number | 多层饼图/环图占比，0 - 1 范围数值 |
 | geometries | object |	配置每个 Geometry 下每个 shape 的样式，包括默认样式以及各个状态下的样式 |
 | components | object |	配置坐标轴，图例，tooltip, annotation 的主题样式 |
 | labels | object |	配置 Geometry 下 label 的主题样式 |
 | innerLabels	| object  | 配置 Geometry 下展示在图形内部的 labels 的主题样式 |
 | pieLabels	| object | 配置饼图 labels 的主题样式 |
-
-关于以上每个属性的结构及内容，详见 G2 主题配置项详解。
 
 ### 自定义注册主题
 
@@ -62,9 +60,8 @@ const piePlot = new Pie('container', {
 });
 
 piePlot.render();
+
 ```
-
-
 
 
 

@@ -39,7 +39,7 @@ const piePlot = new Pie('container', {
       offsetY: -4,
     },
   },
-  pieStyle: { lineWidth: '' },
+  pieStyle: { lineWidth: 0 },
 });
 
 piePlot.render();

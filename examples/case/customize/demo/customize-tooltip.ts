@@ -1,29 +1,6 @@
 import { Line, Pie } from '@antv/g2plot';
 import { last } from '@antv/util';
 
-const colors = ['#5B8FF9', '#5AD8A6', '#5D7092'];
-
-const createPie = (container, data) => {
-  const piePlot = new Pie(container, {
-    data,
-    width: 120,
-    height: 120,
-    appendPadding: 10,
-    autoFit: false,
-    angleField: 'value',
-    colorField: 'type',
-    legend: false,
-    tooltip: false,
-    animation: false,
-    label: {
-      type: 'inner',
-      offset: '-10%',
-      content: ({ percent }) => `${(percent * 100).toFixed(0)}%`,
-    },
-  });
-  piePlot.render();
-};
-
 const divStyles = {
   position: 'absolute',
   background: '#fff',
@@ -54,7 +31,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/5a209bb2-ee85-412f-a689-cdb16159
       lineStyle: ({ country }) => {
         const importantCountries = ['United States', 'France', 'Germany'];
         const idx = importantCountries.indexOf(country);
-        return { stroke: colors[idx] || '#8C8C8C', lineWidth: idx !== -1 ? 2 : 1 };
+        return { lineWidth: idx !== -1 ? 2 : 1 };
       },
       interactions: [{ type: 'brush' }],
       tooltip: {
@@ -63,6 +40,34 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/5a209bb2-ee85-412f-a689-cdb16159
         offset: 18,
         shared: true,
         marker: { lineWidth: 0.5, r: 3 },
+      },
+    });
+
+    line.render();
+
+    const createPie = (container, data) => {
+      const piePlot = new Pie(container, {
+        data,
+        width: 120,
+        height: 120,
+        appendPadding: 10,
+        autoFit: false,
+        angleField: 'value',
+        colorField: 'type',
+        legend: false,
+        tooltip: false,
+        animation: false,
+        color: line.chart.themeObject.colors10,
+        label: {
+          type: 'inner',
+          offset: '-10%',
+          content: ({ percent }) => `${(percent * 100).toFixed(0)}%`,
+        },
+      });
+      piePlot.render();
+    };
+    line.update({
+      tooltip: {
         customContent: (value, items) => {
           const pieData = items.map((item) => ({
             type: item.name,
@@ -77,8 +82,6 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/5a209bb2-ee85-412f-a689-cdb16159
         },
       },
     });
-
-    line.render();
     // 初始化，默认激活
     const point = line.chart.getXY(last(data.filter((d) => !!d.value)));
     line.chart.showTooltip(point);

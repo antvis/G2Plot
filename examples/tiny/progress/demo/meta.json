@@ -5,28 +5,20 @@
   },
   "demos": [
     {
+      "filename": "progress.ts",
+      "title": {
+        "zh": "迷你进度条图",
+        "en": "Tiny progress style"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*9mP9TZY3_RkAAAAAAAAAAAAAARQnAQ"
+    },
+    {
       "filename": "progress-style.ts",
       "title": {
         "zh": "迷你进度条图样式",
-        "en": "Tiny progress style"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*xjbxRJTD2wUAAAAAAAAAAAAAARQnAQ"
-    },
-    {
-      "filename": "progress-style-callback.ts",
-      "title": {
-        "zh": "迷你进度条图回调样式",
         "en": "Tiny progress style callback"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*wKUaS7xLrYgAAAAAAAAAAAAAARQnAQ"
-    },
-    {
-      "filename": "progress-width.ts",
-      "title": {
-        "zh": "迷你进度条图大小",
-        "en": "Tiny progress width"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*qseORomBj9sAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*nkCtQKZgcJEAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

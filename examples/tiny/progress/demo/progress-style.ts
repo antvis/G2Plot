@@ -4,8 +4,9 @@ const progress = new Progress('container', {
   height: 100,
   width: 300,
   autoFit: false,
-  percent: 0.7,
-  color: ['#5B8FF9', '#E8EDF3'],
+  percent: 0.536,
+  barWidthRatio: 0.3,
+  color: ['#F4664A', '#E8EDF3'],
 });
 
 progress.render();

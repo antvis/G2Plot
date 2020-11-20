@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "funnel.jsx",
+      "title": {
+        "zh": "场景漏斗图",
+        "en": "Funnel Scenario"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*U2mPQLoxIR4AAAAAAAAAAAAAARQnAQ"
+    }
+  ]
+}

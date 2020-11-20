@@ -37,7 +37,6 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/c335e0c4-caa5-4c76-a321-20df96b6
           line: {
             style: {
               lineWidth: 0.5,
-              lineDash: [4, 4],
             },
           },
         },
@@ -98,7 +97,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/c335e0c4-caa5-4c76-a321-20df96b6
             justifyContent: ' space-between',
           },
           'g2-tooltip-item-marker': {
-            width: '4px',
+            width: '3px',
             position: 'absolute',
             top: 0,
             right: 0,
@@ -116,12 +115,12 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/c335e0c4-caa5-4c76-a321-20df96b6
             fontWeight: 700,
             fontSize: '18px',
             color: 'rgba(0, 0, 0, 0.65)',
-            margin: '4px 0 12px 0',
+            margin: '0 0 4px 0px',
           },
           'g2-tooltip-item-label': {
             fontSize: '14px',
             lineHeight: '14px',
-            margin: '0 0 4px 0px',
+            margin: '4px 0 12px 0',
           },
         },
         crosshairs: {
@@ -166,8 +165,8 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/c335e0c4-caa5-4c76-a321-20df96b6
               item.Date
             } style="opacity:${item.series === activeSeries ? 0.25 : 1}">
                 <div class="g2-tooltip-item-marker" style="background:${colors10[idx]}"></div>
-                <div class="g2-tooltip-item-value">${item.value || '-'}</div>
                 <div class="g2-tooltip-item-label">${item.series}</div>
+                <div class="g2-tooltip-item-value">${item.value || '-'}</div>
               </div>`;
           });
           htmlStr += '</div>';

@@ -6,8 +6,6 @@
 
 `markdown:docs/common/annotations.en.md`
 
-#### theme
-
 `markdown:docs/common/theme.en.md`
 
 ### Event

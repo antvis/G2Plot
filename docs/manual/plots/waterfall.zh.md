@@ -108,6 +108,6 @@ leader: { lineWidth: 1, stroke: '#8c8c8c', lineDash: [4, 2] }
 
 `markdown:docs/common/chart-methods.zh.md`
 
-### 图表主题
+
 
 `markdown:docs/common/theme.zh.md`

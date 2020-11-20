@@ -11,6 +11,14 @@
         "en": "Percent Column plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*fFEqTrpsNQQAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "interaction.ts",
+      "title": {
+        "zh": "带联动区域的百分比柱状图",
+        "en": "Percent Column plot with interaction"
+      },
+      "screenshot": "https://gw.alipayobjects.com/os/antfincdn/1UHwYd%26oCV/percent-column-with-interacion.mp4"
     }
   ]
 }

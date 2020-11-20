@@ -16,7 +16,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/b6fde479-c353-47de-a4c0-442d5847
       padding: 'auto',
       isStack: false,
       appendPadding: [0, 0, 30, 0],
-      height: 300,
+      height: 200,
       tooltip: { shared: true },
       meta: {
         visits: {
@@ -33,16 +33,18 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/b6fde479-c353-47de-a4c0-442d5847
         tickLine: { style: { stroke: '#ddd' } },
       },
       xAxis: false,
-      line: {},
-      areaStyle: {
-        fillOpacity: 0.25,
-        // fill: `l(90) 0:red 0.8:#CDDDFD 1:rgba(255,255,255,0.2)`,
+      areaStyle: ({ type }) => {
+        return {
+          fill:
+            type === 'Current Month'
+              ? 'l(90) 0:#5B8FF9 0.75:rgba(91,143,249,0.25) 1:rgba(255,255,255,0.2)'
+              : 'l(90) 0:#61DDAA 0.75:rgba(97,221,170,0.25) 1:rgba(255,255,255,0.2)',
+        };
       },
+      color: ['#5B8FF9', '#61DDAA'],
       legend: { position: 'top' },
     });
     area.render();
-
-    const colors10 = area.chart.getTheme().colors10;
 
     fetch('https://gw.alipayobjects.com/os/bmw-prod/b0b850d4-a8ce-4abe-8466-232a677af79c.json')
       .then((data) => data.json())
@@ -64,11 +66,9 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/b6fde479-c353-47de-a4c0-442d5847
           referringSites: d,
         }));
         const labChart = new Lab.MultiView('container2', {
-          height: 200,
-          appendPadding: [25, 0, 0, 0],
-          theme: {
-            colors10,
-          },
+          height: 140,
+          appendPadding: [20, 0, 0, 0],
+          color: ['#5B8FF9', '#61DDAA'],
           views: [
             {
               region: { start: { x: 0, y: 0 }, end: { x: 11 / 24, y: 1 / 4 } },

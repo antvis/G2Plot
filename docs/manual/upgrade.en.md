@@ -30,7 +30,7 @@ G2Plot 2.0 is under continuous development. Up to now, we have completed the dev
 
 ## Configuration change
 
-G2plot 2.0 is compatible with most of the chart functions and configuration items of version 1.x. The details are as follows:
+G2Plot 2.0 is compatible with most of the chart functions and configuration items of version 1.x. The details are as follows:
 
 ### General attributes
 

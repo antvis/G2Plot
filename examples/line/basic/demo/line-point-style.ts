@@ -30,26 +30,9 @@ const line = new Line('container', {
   state: {
     active: {
       style: {
-        shadowColor: 'yellow',
         shadowBlur: 4,
-        stroke: 'transparent',
+        stroke: '#000',
         fill: 'red',
-      },
-    },
-  },
-  theme: {
-    geometries: {
-      point: {
-        // 设置 point(geometry)-diamond(shape) 样式
-        diamond: {
-          active: {
-            style: {
-              shadowColor: '#FCEBB9',
-              shadowBlur: 2,
-              stroke: '#F6BD16',
-            },
-          },
-        },
       },
     },
   },

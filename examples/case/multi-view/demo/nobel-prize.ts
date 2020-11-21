@@ -5,8 +5,6 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c
   .then((data) => data.json())
   .then((data) => {
     const COLORS = ['#ff93a7', '#ff9300', '#bb82f3', '#6349ec', '#0074ff'];
-    const START_BTN = 'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rhl0QYDkV7EAAAAAAAAAAAAAARQnAQ';
-    const STOP_BTN = 'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*2F9fRr2RfEEAAAAAAAAAAAAAARQnAQ';
     let currentYear = 1901;
     /** 散点图数据（各国诺贝尔奖获奖者的年龄分布） */
     const getPointViewData = (year) => {

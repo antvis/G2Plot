@@ -4,7 +4,6 @@ const data = [274, 337, 81, 497, 666, 219, 269];
 
 const tinyColumn = new TinyColumn('container', {
   height: 64,
-  width: 240,
   autoFit: false,
   data,
   tooltip: false,

@@ -309,4 +309,60 @@ describe('bar', () => {
 
     bar.destroy();
   });
+
+  it('theme', () => {
+    const bar = new Bar(createDiv('theme'), {
+      width: 300,
+      height: 400,
+      data: salesByArea,
+      xField: 'area',
+      yField: 'sales',
+      barWidthRatio: 0.1,
+      theme: {
+        styleSheet: {
+          brandColor: '#FF6B3B',
+          paletteQualitative10: [
+            '#FF6B3B',
+            '#626681',
+            '#FFC100',
+            '#9FB40F',
+            '#76523B',
+            '#DAD5B5',
+            '#0E8E89',
+            '#E19348',
+            '#F383A2',
+            '#247FEA',
+          ],
+          paletteQualitative20: [
+            '#FF6B3B',
+            '#626681',
+            '#FFC100',
+            '#9FB40F',
+            '#76523B',
+            '#DAD5B5',
+            '#0E8E89',
+            '#E19348',
+            '#F383A2',
+            '#247FEA',
+            '#2BCB95',
+            '#B1ABF4',
+            '#1D42C2',
+            '#1D9ED1',
+            '#D64BC0',
+            '#255634',
+            '#8C8C47',
+            '#8CDAE5',
+            '#8E283B',
+            '#791DC9',
+          ],
+        },
+      },
+    });
+
+    bar.render();
+
+    const theme = bar.chart.getTheme();
+    expect(theme.defaultColor).toBe('#FF6B3B');
+    expect(theme.columnWidthRatio).toBe(0.1);
+  });
 });

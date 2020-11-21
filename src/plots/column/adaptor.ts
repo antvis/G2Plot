@@ -177,6 +177,7 @@ export function adaptor(params: Params<ColumnOptions>, isBar = false) {
   const { options } = params;
   return flow(
     defaultOptions, // 处理默认配置
+    theme, // theme 需要在 geometry 之前
     geometry,
     meta,
     axis,
@@ -184,7 +185,6 @@ export function adaptor(params: Params<ColumnOptions>, isBar = false) {
     tooltip,
     slider,
     scrollbar,
-    theme,
     label,
     interaction,
     animation,

@@ -196,6 +196,9 @@ class TrendChart extends React.Component {
   }
 }
 
+// 我们用 insert-css 演示引入自定义样式
+// 推荐将样式添加到自己的样式文件中
+// 若拷贝官方代码，别忘了 npm install insert-css
 insertCss(`
   .g2-tooltip {
     position: absolute;
@@ -270,11 +273,11 @@ insertCss(`
   }
   .wrapper .chart-wrapper {
     position: absolute !important;
-    top: 90px;
+    top: 94px;
     bottom: 0px;
     right: 10px;
     left: 10px;
-    height: calc(100% - 60px);
+    height: calc(100% - 88px);
   }
 `);
 

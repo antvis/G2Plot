@@ -92,6 +92,39 @@ const dualAxes = new DualAxes('container', {
       },
     },
   },
+  annotations: {
+    consumeTime: [
+      {
+        type: 'line',
+        top: true,
+        start: ['2020-08-26', 'min'],
+        end: ['2020-08-26', 'max'],
+        text: {
+          content: '发布时间点',
+          position: 'end',
+          autoRotate: false,
+          style: {
+            textAlign: 'start',
+          },
+        },
+      },
+    ],
+    completeTime: [
+      {
+        type: 'line',
+        top: true,
+        start: ['min', 1000],
+        end: ['max', 1000],
+        text: {
+          content: '完成时间阈值(1000s)',
+          position: 'end',
+          style: {
+            textAlign: 'end',
+          },
+        },
+      },
+    ],
+  },
 });
 
 dualAxes.render();

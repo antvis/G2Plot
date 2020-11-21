@@ -47,6 +47,31 @@ const dualAxes = new DualAxes('container', {
       type: 'active-region',
     },
   ],
+  annotations: {
+    value: [
+      {
+        type: 'text',
+        position: ['2019-06', 'max'],
+        content: '柱线混合图',
+      },
+    ],
+    count: [
+      {
+        type: 'dataMarker',
+        top: true,
+        position: ['2019-05', 400],
+        line: {
+          length: 20,
+        },
+        text: {
+          content: '2019-05, 发布新版本',
+          style: {
+            textAlign: 'left',
+          },
+        },
+      },
+    ],
+  },
 });
 
 dualAxes.render();

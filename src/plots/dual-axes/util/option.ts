@@ -55,22 +55,25 @@ export function getGeometryOption(xField: string, yField: string, geometryOption
 }
 
 /**
- * 兼容 yAxis 为 arr 和 obj 的两种情况
+ * 兼容一些属性 为 arr 和 obj 的两种情况， 如 yAxis，annotations
  * @param yField
- * @param yAxis
+ * @param options['some attribute']
  */
-export function getCompatibleYAxis(
+export function transArrayToObject(
   yField: DualAxesOptions['yField'],
-  yAxis: Record<string, Axis> | Axis[]
-): DualAxesOptions['yAxis'] {
+  transAttribute: Record<string, any> | any[],
+  arrayTip: string
+): Record<string, any> {
   const [y1, y2] = yField;
-  if (isArray(yAxis)) {
-    console.warn('yAxis should be object.');
-    return { [y1]: yAxis[0], [y2]: yAxis[1] };
+  if (isArray(transAttribute)) {
+    if (arrayTip) {
+      console.warn('yAxis should be object.');
+    }
+    return { [y1]: transAttribute[0], [y2]: transAttribute[1] };
   }
 
   // 追加默认值
-  return deepAssign({ [y1]: undefined, [y2]: undefined }, yAxis);
+  return deepAssign({ [y1]: undefined, [y2]: undefined }, transAttribute);
 }
 
 /**

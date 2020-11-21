@@ -58,7 +58,8 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/github-commit.json')
   .then((data) => {
     const heatmapPlot = new Heatmap(document.getElementById('container'), {
       data,
-      padding: [150, 30, 150, 70],
+      height: 400,
+      autoFit: false,
       xField: 'week',
       yField: 'day',
       colorField: 'commits',

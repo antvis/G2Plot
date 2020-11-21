@@ -12,7 +12,6 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/68d3f380-089e-4683-ab9e-44932001
       shape: 'square',
       color: ['#dddddd', '#9ec8e0', '#5fa4cd', '#2e7ab6', '#114d90'],
       label: {
-        offset: -2,
         style: {
           fill: '#fff',
           shadowBlur: 2,

@@ -24,13 +24,15 @@ const piePlot = new Pie('container', {
   pieStyle: ({ sex }) => {
     if (sex === '男') {
       return {
-        fill: 'p(a)https://gw.alipayobjects.com/zos/rmsportal/nASTPWDPJDMgkDRlAUmw.jpeg',
+        fill: 'p(a)https://gw.alipayobjects.com/zos/antfincdn/FioHMFgIld/pie-wenli1.png',
       };
     }
     return {
-      fill: 'p(a)https://gw.alipayobjects.com/zos/rmsportal/ziMWHpHSTlTzURSzCarw.jpeg',
+      fill: 'p(a)https://gw.alipayobjects.com/zos/antfincdn/Ye2DqRx%2627/pie-wenli2.png',
     };
   },
+  tooltip: false,
+  interactions: [{ type: 'element-single-selected' }],
 });
 
 piePlot.render();

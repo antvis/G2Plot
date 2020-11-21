@@ -27,7 +27,6 @@ const data = [
 
 const tinyLine = new TinyLine('container', {
   height: 60,
-  width: 300,
   autoFit: false,
   data,
   smooth: true,

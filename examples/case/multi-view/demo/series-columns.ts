@@ -49,6 +49,7 @@ labPlot.update({
           },
           label: {
             position: 'left',
+            layout: { type: 'adjust-color' },
             formatter: ({ value }) => `${(value * 100).toFixed(1)}%`,
             style: { fill: '#fff' },
           },
@@ -75,10 +76,15 @@ labPlot.update({
               const value = data.find((d) => d.area === area).value;
               return value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey;
             },
-            style: { lineWidth: 1 },
+            style: ({ value }) => {
+              return {
+                lineWidth: 1,
+                fillOpacity: 0,
+                stroke: value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey,
+              };
+            },
           },
           label: {
-            layout: { type: 'adjust-color' },
             position: 'left',
             formatter: ({ value }) => `${(value * 100).toFixed(1)}%`,
           },
@@ -99,7 +105,7 @@ labPlot.update({
       coordinate: { cfg: { isTransposed: true } },
       geometries: [
         {
-          type: 'interval',
+          type: 'point',
           xField: 'area',
           yField: 'value',
           mapping: {
@@ -107,38 +113,36 @@ labPlot.update({
               const value = data.find((d) => d.area === area).value;
               return value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey;
             },
-            style: { fillOpacity: 0 },
+            style: ({ value }) => {
+              return {
+                r: 4,
+                strokeOpacity: 0,
+                fill: value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey,
+              };
+            },
           },
-          label: { position: 'right', formatter: ({ value }) => `${(value * 100).toFixed(1)}%` },
+          label: {
+            offsetY: -12,
+            offsetX: 8,
+            style: { textAlign: 'right' },
+            position: 'top',
+            formatter: ({ value }) => `${(value * 100).toFixed(1)}%`,
+          },
         },
       ],
 
       annotations: [
         ...data.map((d) => {
           return {
-            type: 'html',
-            position: d,
-            offsetX: -1,
-            html: () =>
-              `<div style="border:1.5px solid ${
-                d.value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey
-              };width:12px;height:12px;transform:translateY(-50%);border-radius:12px;"></div>`,
-            style: () => {
-              return {
-                fill: d.value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey,
-                fontWeight: 800,
-              };
-            },
-          };
-        }),
-        ...data.map((d) => {
-          return {
             type: 'line',
             start: [d.area, 'min'],
-            end: [d.area, d.value],
+            end: [d.area, 'max'],
+            top: false,
             style: {
-              lineWidth: 4,
-              stroke: d.value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey,
+              lineWidth: 2,
+              radius: 2,
+              lineDash: [2, 4],
+              stroke: defaultGrey,
             },
           };
         }),
@@ -191,8 +195,8 @@ labPlot.update({
       annotations: data.map((d, idx) => {
         return {
           type: 'line',
-          start: [3 - idx - 0.4, 'min'],
-          end: [3 - idx - 0.4, 'max'],
+          start: [3 - idx - 0.25, 'min'],
+          end: [3 - idx - 0.25, 'max'],
           style: {
             lineWidth: 2,
             stroke: '#595959',
@@ -201,9 +205,6 @@ labPlot.update({
       }),
     },
   ],
-});
-labPlot.chart.theme({
-  columnWidthRatio: 0.85,
 });
 // Step 3: 渲染图表
 labPlot.render();

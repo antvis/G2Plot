@@ -5,8 +5,6 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c
   .then((data) => data.json())
   .then((data) => {
     const COLORS = ['#ff93a7', '#ff9300', '#bb82f3', '#6349ec', '#0074ff'];
-    const START_BTN = 'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rhl0QYDkV7EAAAAAAAAAAAAAARQnAQ';
-    const STOP_BTN = 'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*2F9fRr2RfEEAAAAAAAAAAAAAARQnAQ';
     let currentYear = 1901;
     /** 散点图数据（各国诺贝尔奖获奖者的年龄分布） */
     const getPointViewData = (year) => {
@@ -61,7 +59,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c
           region: { start: { x: 0, y: 0.35 }, end: { x: 1, y: 0.65 } },
           coordinate: {
             type: 'theta',
-            cfg: { innerRadius: 0.89, radius: 0.96 },
+            cfg: { innerRadius: 0.78, radius: 0.96 },
           },
           geometries: [
             {
@@ -73,24 +71,6 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c
                 color: [...COLORS, '#D9D9D9'],
               },
               adjust: { type: 'stack' },
-            },
-          ],
-          annotations: [
-            {
-              type: 'html',
-              position: ['50%', '50%'],
-              style: {
-                textAlign: 'center',
-                fill: 'rgba(255,255,255,0.85)',
-              },
-              html: (container, view) => {
-                const width = Math.min(view.getCoordinate().getWidth(), view.getCoordinate().getHeight()) * 0.2;
-                return `<div id="btn" style="width=${width * 1.2}px;height=${
-                  width * 1.2
-                }px;color: rgba(255,255,2550.85);transform: translate(-50%,-50%);cursor: pointer;">
-                  <img alt="image" width=${width} height=${width} src=${START_BTN}>
-                </div>`;
-              },
             },
           ],
         },
@@ -291,11 +271,6 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c
 
     let interval;
     function start() {
-      if (!interval) {
-        if (document.querySelector('#btn').querySelector('img')) {
-          document.querySelector('#btn').querySelector('img').setAttribute('src', START_BTN);
-        }
-      }
       interval = setInterval(() => {
         if (currentYear < 2016) {
           currentYear += 1;
@@ -308,9 +283,6 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c
     function end() {
       clearInterval(interval);
       interval = null;
-      if (document.querySelector('#btn').querySelector('img')) {
-        document.querySelector('#btn').querySelector('img').setAttribute('src', STOP_BTN);
-      }
     }
 
     start();

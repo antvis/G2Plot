@@ -12,7 +12,7 @@ class TrendChart extends React.Component {
   state = {
     tooltipItems: [],
     activeTooltipTitle: null,
-    activeSeries: null,
+    activeSeriesList: [],
   };
 
   componentDidMount() {
@@ -34,7 +34,6 @@ class TrendChart extends React.Component {
           value: d.value ? Number(d.value) : d.value,
         }));
         if (this.chartRef) {
-          console.log('this.chartRef', this.chartRef);
           this.chartRef?.current?.clear();
         }
         const line = new Line(chartDom, {
@@ -127,14 +126,20 @@ class TrendChart extends React.Component {
       });
   }
 
-  changeActiveSeries = (activeSeries, activeTooltipTitle) => {
-    console.log('change', activeSeries);
-    this.setState({ activeSeries, activeTooltipTitle }, () => {
+  changeActiveSeries = (activeSeries) => {
+    const { activeTooltipTitle, activeSeriesList } = this.state;
+    let newList = [];
+    if (!activeSeriesList.includes(activeSeries)) {
+      newList = [...activeSeriesList, activeSeries];
+    } else {
+      newList = activeSeriesList.filter((s) => s !== activeSeries);
+    }
+    this.setState({ activeSeriesList: newList }, () => {
       // @ts-ignore
       const chart = this.chartRef?.chart;
       if (chart && activeSeries) {
         chart.filter('series', (series) => {
-          return series === activeSeries ? false : true;
+          return newList.includes(series) ? false : true;
         });
         chart.render(true);
         chart.geometries
@@ -155,18 +160,21 @@ class TrendChart extends React.Component {
     if (!chart) {
       return;
     }
-    const { tooltipItems, activeSeries, activeTooltipTitle } = this.state;
+    const { tooltipItems, activeSeriesList, activeTooltipTitle } = this.state;
     const { colors10 } = chart.themeObject;
     return (
       <div className="g2-tooltip">
         <div className="g2-tooltip-title">{activeTooltipTitle}</div>
         <div className="g2-tooltip-items">
           {tooltipItems.map((item, idx) => {
-            const changeActiveSeries = () => this.changeActiveSeries(item.series, item.Date);
-            const opacity = item.series === activeSeries ? 0.25 : 1;
-            console.log('opacity', opacity, activeSeries);
+            const changeActiveSeries = () => this.changeActiveSeries(item.series);
             return (
-              <div className={`g2-tooltip-item tooltip-${item.series} ${item.series === activeSeries ? 'active' : ''}`} onClick={changeActiveSeries}>
+              <div
+                className={`g2-tooltip-item tooltip-${item.series} ${
+                  activeSeriesList.includes(item.series) ? 'inactive' : ''
+                }`}
+                onClick={changeActiveSeries}
+              >
                 <div className="g2-tooltip-item-marker" style={{ background: colors10[idx] }}></div>
                 <div className="g2-tooltip-item-label">{item.series}</div>
                 <div className="g2-tooltip-item-value">{item.value || '-'}</div>
@@ -227,7 +235,7 @@ insertCss(`
     padding-left: 12px;
     justify-content: space-between;
   }
-  .g2-tooltip-item.active {
+  .g2-tooltip-item.inactive {
     opacity: 0.25;
   }
   .g2-tooltip-item-marker {

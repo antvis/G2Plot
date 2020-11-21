@@ -16,14 +16,15 @@ registerShape('polygon', 'circle', {
     const sizeRatio = Number(cfg.shape[2]);
     const radiusRatio = Math.sqrt(sizeRatio);
     const radius = maxRadius * radiusRatio * Math.sqrt(value);
-
+    const fill = cfg.style?.fill || cfg.color || cfg.defaultStyle?.fill;
     const polygon = group.addShape('circle', {
       attrs: {
         x: cx,
         y: cy,
         r: radius,
-        fill: cfg.color,
         ...cfg.defaultStyle,
+        ...cfg.style,
+        fill,
       },
     });
     return polygon;

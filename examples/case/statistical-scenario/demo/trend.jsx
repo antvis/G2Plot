@@ -188,7 +188,7 @@ class TrendChart extends React.Component {
 
   render() {
     return (
-      <section className={'wrapper'}>
+      <section className={'wrapper trend-wrapper'}>
         {this.generateTooltip()}
         <div className={'chart-wrapper'} ref={this.chartNodeRef} />
       </section>
@@ -200,7 +200,7 @@ class TrendChart extends React.Component {
 // 推荐将样式添加到自己的样式文件中
 // 若拷贝官方代码，别忘了 npm install insert-css
 insertCss(`
-  .g2-tooltip {
+  .trend-wrapper .g2-tooltip {
     position: absolute;
     z-index: 8;
     transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s, top 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s;
@@ -214,20 +214,20 @@ insertCss(`
     top: 0px;
     pointer-events: auto;
   }
-  .g2-tooltip-title {
+  .trend-wrapper .g2-tooltip-title {
     margin: 10px 0;
     font-weight: 700;
     height: 12px;
     line-height: 12px;
   }
-  .g2-tooltip-items {
+  .trend-wrapper .g2-tooltip-items {
     display: flex;
     flex-direction: row;
     align-items: center;
     overflow: auto;
     width: 100%;
   }
-  .g2-tooltip-item {
+  .trend-wrapper .g2-tooltip-item {
     opacity: 1;
     cursor: pointer;
     position: relative;
@@ -238,10 +238,10 @@ insertCss(`
     padding-left: 12px;
     justify-content: space-between;
   }
-  .g2-tooltip-item.inactive {
+  .trend-wrapper .g2-tooltip-item.inactive {
     opacity: 0.25;
   }
-  .g2-tooltip-item-marker {
+  .trend-wrapper .g2-tooltip-item-marker {
     width: 3px;
     position: absolute;
     top: 0px;
@@ -250,12 +250,12 @@ insertCss(`
     height: 48px;
     left: 0px;
   }
-  .g2-tooltip-item-label {
+  .trend-wrapper .g2-tooltip-item-label {
     font-size: 14px;
     line-height: 14px;
     margin: 2px 0px 12px;
   }
-  .g2-tooltip-item-value {
+  .trend-wrapper .g2-tooltip-item-value {
     font-weight: 700;
     font-size: 18px;
     line-height: 18px;

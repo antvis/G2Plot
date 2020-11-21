@@ -115,6 +115,10 @@ const dualAxes = new DualAxes('container', {
         top: true,
         start: ['min', 1000],
         end: ['max', 1000],
+        style: {
+          lineWidth: 1,
+          lineDash: [3, 3],
+        },
         text: {
           content: '完成时间阈值(1000s)',
           position: 'end',

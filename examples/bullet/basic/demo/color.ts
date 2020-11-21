@@ -16,9 +16,9 @@ const bulletPlot = new Bullet('container', {
   targetField: 'target',
   xField: 'title',
   color: {
-    range: ['#FFB1AC', '#FFDBA2', '#B4EBBF'],
-    measure: '#5B8FF9',
-    target: '#5B8FF9',
+    range: ['#FFbcb8', '#FFe0b0', '#bfeec8'],
+    measure: '#1890ff',
+    target: '#39a3f4',
   },
   xAxis: {
     line: null,
@@ -35,27 +35,27 @@ const bulletPlot = new Bullet('container', {
       {
         value: '差',
         name: '差',
-        marker: { symbol: 'square', style: { fill: '#FFB1AC', r: 5 } },
+        marker: { symbol: 'square', style: { fill: '#FFbcb8', r: 5 } },
       },
       {
         value: '良',
         name: '良',
-        marker: { symbol: 'square', style: { fill: '#FFDBA2', r: 5 } },
+        marker: { symbol: 'square', style: { fill: '#FFe0b0', r: 5 } },
       },
       {
         value: '优',
         name: '优',
-        marker: { symbol: 'square', style: { fill: '#B4EBBF', r: 5 } },
+        marker: { symbol: 'square', style: { fill: '#bfeec8', r: 5 } },
       },
       {
         value: '实际值',
         name: '实际值',
-        marker: { symbol: 'square', style: { fill: '#5B8FF9', r: 5 } },
+        marker: { symbol: 'square', style: { fill: '#1890ff', r: 5 } },
       },
       {
         value: '目标值',
         name: '目标值',
-        marker: { symbol: 'line', style: { stroke: '#5B8FF9', r: 5 } },
+        marker: { symbol: 'line', style: { stroke: '#39a3f4', r: 5 } },
       },
     ],
   },

@@ -96,4 +96,91 @@ describe('heatmap', () => {
 
     heatmap.destroy();
   });
+  it('x*y*color and shape*circle', () => {
+    const heatmap = new Heatmap(createDiv('shape*fill'), {
+      width: 400,
+      height: 300,
+      data: semanticBasicHeatmapData,
+      xField: 'name',
+      yField: 'day',
+      shape: 'circle',
+      label: {
+        offset: -2,
+        style: {
+          fill: '#fff',
+          shadowBlur: 2,
+          shadowColor: 'rgba(0, 0, 0, .45)',
+        },
+      },
+    });
+
+    heatmap.render();
+
+    const geometry = heatmap.chart.geometries[0];
+    const { elements } = geometry;
+    expect(elements[0].shape.cfg.type).toEqual('circle');
+    // default fill
+    expect(elements[0].getModel().color).toBeUndefined();
+    expect(elements[0].getModel().defaultStyle.fill).toBe('#5B8FF9');
+    expect(heatmap.chart.geometries[0].labelOption).toBeUndefined();
+    heatmap.update({
+      colorField: 'sales',
+    });
+    expect(heatmap.chart.geometries[0].elements[0].getModel().color).toBeDefined();
+    // @ts-ignore
+    expect(heatmap.chart.geometries[0].labelOption.fields).toEqual(['sales']);
+    heatmap.update({
+      heatmapStyle: {
+        fill: 'red',
+      },
+    });
+    expect(heatmap.chart.geometries[0].elements[0].getModel().style.fill).toBe('red');
+    // @ts-ignore
+    expect(heatmap.chart.geometries[0].styleOption.cfg.fill).toBe('red');
+    heatmap.destroy();
+  });
+  it.only('x*y*color and shape*square', () => {
+    const heatmap = new Heatmap(createDiv('shape*fill'), {
+      width: 400,
+      height: 300,
+      data: semanticBasicHeatmapData,
+      xField: 'name',
+      yField: 'day',
+      shape: 'square',
+      label: {
+        offset: -2,
+        style: {
+          fill: '#fff',
+          shadowBlur: 2,
+          shadowColor: 'rgba(0, 0, 0, .45)',
+        },
+      },
+    });
+
+    heatmap.render();
+
+    const geometry = heatmap.chart.geometries[0];
+    const { elements } = geometry;
+    expect(elements[0].shape.cfg.type).toEqual('rect');
+    // default fill
+    expect(elements[0].getModel().color).toBeUndefined();
+    expect(elements[0].getModel().defaultStyle.fill).toBe('#5B8FF9');
+    expect(heatmap.chart.geometries[0].labelOption).toBeUndefined();
+
+    heatmap.update({
+      colorField: 'sales',
+    });
+    expect(heatmap.chart.geometries[0].elements[0].getModel().color).toBeDefined();
+    // @ts-ignore
+    expect(heatmap.chart.geometries[0].labelOption.fields).toEqual(['sales']);
+    heatmap.update({
+      heatmapStyle: {
+        fill: 'red',
+      },
+    });
+    expect(heatmap.chart.geometries[0].elements[0].getModel().style.fill).toBe('red');
+    // @ts-ignore
+    expect(heatmap.chart.geometries[0].styleOption.cfg.fill).toBe('red');
+    heatmap.destroy();
+  });
 });

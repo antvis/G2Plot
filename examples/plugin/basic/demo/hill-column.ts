@@ -1,9 +1,10 @@
+import { isObject, deepMix } from '@antv/util';
 import { P, G2 } from '@antv/g2plot';
 
 // 自定义图形
 G2.registerShape('interval', 'hill', {
   draw(info, container) {
-    const { points, style } = info;
+    const { points, style, defaultStyle = {} } = info;
 
     let path = [
       ['M', points[0].x, points[0].y],
@@ -17,6 +18,7 @@ G2.registerShape('interval', 'hill', {
     return container.addShape('path', {
       attrs: {
         path,
+        ...defaultStyle,
         ...style,
       },
     });
@@ -31,7 +33,7 @@ const defaultOptions = {
 // 2. adaptor 实现
 function adaptor(params) {
   const { chart, options } = params;
-  const { data, xField, yField, columnWidthRatio, columnStyle, seriesField } = options;
+  const { data, xField, yField, columnWidthRatio, columnStyle, theme } = options;
 
   // 数据
   chart.data(data);
@@ -46,9 +48,11 @@ function adaptor(params) {
     });
 
   // 设置重叠比率
-  chart.theme({
-    columnWidthRatio: columnWidthRatio,
-  });
+  chart.theme(
+    deepMix({}, isObject(theme) ? theme : G2.getTheme(theme), {
+      columnWidthRatio: columnWidthRatio,
+    })
+  );
 
   const gap = (1 / data.length / 2) * columnWidthRatio; // 左右预留
   chart.scale({
@@ -86,7 +90,6 @@ const hill = new P(
     yField: 'sold',
     columnStyle: {
       fillOpacity: 0.3,
-      fill: 'red',
     },
   },
   adaptor,

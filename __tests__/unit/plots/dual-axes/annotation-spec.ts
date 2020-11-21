@@ -67,7 +67,7 @@ describe('dualAxes: annotation', () => {
     expect(leftView.getController('annotation').getComponents()[0].component.get('content')).toBe('左轴');
     expect(rightView.getController('annotation').getComponents().length).toBe(2);
     expect(rightView.getController('annotation').getComponents()[0].component.get('content')).toBe('右轴');
-    expect(rightView.getController('annotation').getComponents()[0].component.get('type')).toBe('dataMarker');
+    expect(rightView.getController('annotation').getComponents()[1].component.get('type')).toBe('dataMarker');
   });
 
   afterAll(() => {

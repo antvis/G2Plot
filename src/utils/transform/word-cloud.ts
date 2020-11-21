@@ -63,30 +63,28 @@ export function transform(words: Word[], options: Options) {
   const result = layout.start();
   const tags: any[] = result._tags;
 
-  const bounds = result._bounds || [
-    { x: 0, y: 0 },
-    { x: options.size[0], y: options.size[1] },
-  ];
-
   tags.forEach((tag) => {
     tag.x += options.size[0] / 2;
     tag.y += options.size[1] / 2;
   });
 
   const [w, h] = options.size;
-  const hasImage = result.hasImage;
+  // 添加两个参照数据，分别表示左上角和右下角。
+  // 不添加的话不会按照真实的坐标渲染，而是以
+  // 数据中的边界坐标为边界进行拉伸，以铺满画布。
+  // 这样的后果会导致词语之间的重叠。
   tags.push({
     text: '',
     value: 0,
-    x: hasImage ? 0 : bounds[0].x,
-    y: hasImage ? 0 : bounds[0].y,
+    x: 0,
+    y: 0,
     opacity: 0,
   });
   tags.push({
     text: '',
     value: 0,
-    x: hasImage ? w : bounds[1].x,
-    y: hasImage ? h : bounds[1].y,
+    x: w,
+    y: h,
     opacity: 0,
   });
 

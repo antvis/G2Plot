@@ -7,11 +7,19 @@
     {
       "filename": "line-association.ts",
       "title": {
-        "zh": "7-day COVID case rates",
-        "en": "7-day COVID case rates"
+        "zh": "指标卡趋势图",
+        "en": "Indicator Trend Diagram"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*kHHZQa-fpAQAAAAAAAAAAAAAARQnAQ"
-    }, 
+    },
+    {
+      "filename": "funnel.jsx",
+      "title": {
+        "zh": "场景漏斗图",
+        "en": "Funnel Scenario"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ucU-QIutfqwAAAAAAAAAAAAAARQnAQ"
+    },
     {
       "filename": "pie.ts",
       "title": {

@@ -1,13 +1,19 @@
 import { each, findIndex, get, find, isObject, every } from '@antv/util';
 import { Scale } from '@antv/g2/lib/dependents';
 import { LegendItem } from '@antv/g2/lib/interface';
-import { theme, animation as commonAnimation, scale, interaction as commonInteraction } from '../../adaptor/common';
+import {
+  theme,
+  animation as commonAnimation,
+  scale,
+  interaction as commonInteraction,
+  annotation as commonAnnotation,
+} from '../../adaptor/common';
 import { percent } from '../../utils/transform/percent';
 import { Params } from '../../core/adaptor';
 import { Datum } from '../../types';
 import { flow, deepAssign } from '../../utils';
 import { findViewById } from '../../utils/view';
-import { isColumn, getYAxisWithDefault, getGeometryOption, getCompatibleYAxis } from './util/option';
+import { isColumn, getYAxisWithDefault, getGeometryOption, transArrayToObject } from './util/option';
 import { getViewLegendItems } from './util/legend';
 import { drawSingleGeometry } from './util/geometry';
 import { DualAxesOptions, AxisType, DualAxesGeometry } from './types';
@@ -37,6 +43,8 @@ export function transformOptions(params: Params<DualAxesOptions>): Params<DualAx
         geometryOptions: [],
         meta: {
           [xField]: {
+            // 默认为 cat 类型
+            type: 'cat',
             // x 轴一定是同步 scale 的
             sync: true,
             // 如果有没有柱子，则
@@ -64,12 +72,14 @@ export function transformOptions(params: Params<DualAxesOptions>): Params<DualAx
     {
       options: {
         // yAxis
-        yAxis: getCompatibleYAxis(yField, options.yAxis),
+        yAxis: transArrayToObject(yField, options.yAxis, 'yAxis should be object.'),
         // geometryOptions
         geometryOptions: [
           getGeometryOption(xField, yField[0], geometryOptions[0]),
           getGeometryOption(xField, yField[1], geometryOptions[1]),
         ],
+        // annotations
+        annotations: transArrayToObject(yField, options.annotations, 'annotations should be object.'),
       },
     }
   );
@@ -241,6 +251,33 @@ export function interaction(params: Params<DualAxesOptions>): Params<DualAxesOpt
   return params;
 }
 
+/**
+ * annotation 配置
+ * @param params
+ */
+export function annotation(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
+  const { chart, options } = params;
+  const { yField, annotations } = options;
+
+  commonAnnotation(get(annotations, [yField[0]]))(
+    deepAssign({}, params, {
+      chart: findViewById(chart, LEFT_AXES_VIEW),
+      options: {
+        annotations: get(annotations, [yField[0]]),
+      },
+    })
+  );
+  commonAnnotation(get(annotations, [yField[1]]))(
+    deepAssign({}, params, {
+      chart: findViewById(chart, RIGHT_AXES_VIEW),
+      options: {
+        annotations: get(annotations, [yField[1]]),
+      },
+    })
+  );
+  return params;
+}
+
 export function animation(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart } = params;
 
@@ -342,5 +379,17 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
  */
 export function adaptor(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   // transformOptions 一定在最前面处理；color legend 使用了 beforepaint，为便于理解放在最后面
-  return flow(transformOptions, geometry, meta, axis, tooltip, interaction, theme, animation, color, legend)(params);
+  return flow(
+    transformOptions,
+    geometry,
+    meta,
+    axis,
+    tooltip,
+    interaction,
+    annotation,
+    theme,
+    animation,
+    color,
+    legend
+  )(params);
 }

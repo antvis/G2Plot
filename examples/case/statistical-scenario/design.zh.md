@@ -10,7 +10,7 @@ title: 设计规范
 
 ### 技术栈
 
-G2Plot，AntD
+G2Plot，Ant Design
 
 ### 何时使用
 
@@ -25,7 +25,7 @@ G2Plot，AntD
 
 ### 技术栈
 
-G2Plot，AntD
+G2Plot，Ant Design
 
 ### 何时使用
 

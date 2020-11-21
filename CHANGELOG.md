@@ -1,3 +1,34 @@
+#### 2.2.11 (2020-11-21)
+
+##### Chores
+
+*  gitee mirror action ([#1964](https://github.com/antvis/g2plot/pull/1964)) ([ccc3e418](https://github.com/antvis/g2plot/commit/ccc3e418b9509888398998f299e0bfebae8a6926))
+
+##### Documentation Changes
+
+*  调整色值 ([#1987](https://github.com/antvis/g2plot/pull/1987)) ([2375272b](https://github.com/antvis/g2plot/commit/2375272b81b7781b5cddd6142a349a537ac39b9d))
+*  demo 走查 ([#1975](https://github.com/antvis/g2plot/pull/1975)) ([ed623a28](https://github.com/antvis/g2plot/commit/ed623a28cc48e964e410a02b7f33aee92da9073e))
+*  补充四象限气泡图 ([#1960](https://github.com/antvis/g2plot/pull/1960)) ([ea0f6753](https://github.com/antvis/g2plot/commit/ea0f67532a86efeb36296bb01631217709c56e4b))
+*  fix column bar demo label layout ([#1962](https://github.com/antvis/g2plot/pull/1962)) ([909665ad](https://github.com/antvis/g2plot/commit/909665ada07d0a83766991de9a42bea5b2a66a33))
+* **funnel:**  场景漏斗图 DEMO ([#1967](https://github.com/antvis/g2plot/pull/1967)) ([2b62c8cb](https://github.com/antvis/g2plot/commit/2b62c8cbb0ad70c170c2dc6a97c5f5b58b06363d))
+* **demo:**  将 case 案例进行一个归类，重命名为统计场景 & 更新 gastby ([#1980](https://github.com/antvis/g2plot/pull/1980)) ([78a2feb8](https://github.com/antvis/g2plot/commit/78a2feb8d911197b349247051e6a053c757f3917))
+*  demo 优化 ([#1948](https://github.com/antvis/g2plot/pull/1948)) ([0c5a8340](https://github.com/antvis/g2plot/commit/0c5a834050bd6d5c155f491937cf8661bbb994fd))
+* **demo:**  fix line, area demo ([#1988](https://github.com/antvis/g2plot/pull/1988)) ([0dc8bf23](https://github.com/antvis/g2plot/commit/0dc8bf232667ee31d85e432b3110cbc5c07d0532))
+*  对称条形图 & 迷你折柱面图 demo ([#1982](https://github.com/antvis/g2plot/pull/1982)) ([c460fe9e](https://github.com/antvis/g2plot/commit/c460fe9e5559b631eb16503892a2534eac1c450c))
+*  修复 g2plot 文案 ([#1981](https://github.com/antvis/g2plot/pull/1981)) ([bab01a90](https://github.com/antvis/g2plot/commit/bab01a90049e4325511469c708358f5e94f00f4b))
+
+##### Bug Fixes
+
+*  自定义图形颜色和主题切换 ([#1989](https://github.com/antvis/g2plot/pull/1989)) ([a328e7b0](https://github.com/antvis/g2plot/commit/a328e7b0072bd7f0beec2532bded56b5ad840af3))
+*  fix theme update for bar/column ([#1986](https://github.com/antvis/g2plot/pull/1986)) ([35cf6516](https://github.com/antvis/g2plot/commit/35cf6516829dadfa24e71c557e06ecb90323c0ba))
+*  修复热力图颜色映射错误 ([#1979](https://github.com/antvis/g2plot/pull/1979)) ([e3824c9a](https://github.com/antvis/g2plot/commit/e3824c9adf71a48e60916933241d7def7b230f1c))
+*  change the triggering condition ([#1972](https://github.com/antvis/g2plot/pull/1972)) ([ca173525](https://github.com/antvis/g2plot/commit/ca1735250f380fdf44263425bb7ef2af05b45b5e))
+* **word-cloud:**  修复错误的边界值导致的重叠及间隙过大问题 ([#1976](https://github.com/antvis/g2plot/pull/1976)) ([24bd0650](https://github.com/antvis/g2plot/commit/24bd065092ef3bac81d018c1bf9e812af853023c))
+
+#### Tests
+
+*  完善单测,去除 only ([#1984](https://github.com/antvis/g2plot/pull/1984)) ([e8643d20](https://github.com/antvis/g2plot/commit/e8643d20b36cb3b9a79bdc73e8761cd198d4b326))
+
 #### 2.0.10 (2020-11-19)
 
 ##### Chores

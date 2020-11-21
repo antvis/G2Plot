@@ -33,7 +33,7 @@ export class WordCloud extends Plot<WordCloudOptions> {
         fontFamily: 'Verdana',
         fontWeight: 'normal',
         padding: 1,
-        fontSize: [20, 60],
+        fontSize: [12, 60],
         rotation: [0, 90],
         rotationSteps: 2,
         rotateRatio: 0.5,

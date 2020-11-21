@@ -122,11 +122,16 @@ describe('heatmap', () => {
     // default fill
     expect(elements[0].getModel().color).toBeUndefined();
     expect(elements[0].getModel().defaultStyle.fill).toBe('#5B8FF9');
+    expect(elements[0].shape.attr('fill')).toBe('#5B8FF9');
     expect(heatmap.chart.geometries[0].labelOption).toBeUndefined();
     heatmap.update({
       colorField: 'sales',
     });
     expect(heatmap.chart.geometries[0].elements[0].getModel().color).toBeDefined();
+    const currentElements = heatmap.chart.geometries[0].elements;
+    const firstColor = currentElements[0].shape.attr('fill');
+    const lastColor = currentElements[currentElements.length - 1].shape.attr('fill');
+    expect(firstColor !== lastColor).toBeTruthy();
     // @ts-ignore
     expect(heatmap.chart.geometries[0].labelOption.fields).toEqual(['sales']);
     heatmap.update({
@@ -135,15 +140,18 @@ describe('heatmap', () => {
       },
     });
     expect(heatmap.chart.geometries[0].elements[0].getModel().style.fill).toBe('red');
+    const updateElements = heatmap.chart.geometries[0].elements;
+    expect(updateElements[0].shape.attr('fill')).toBe('red');
+    expect(updateElements[updateElements.length - 1].shape.attr('fill')).toBe('red');
     // @ts-ignore
     expect(heatmap.chart.geometries[0].styleOption.cfg.fill).toBe('red');
     heatmap.destroy();
   });
-  it.only('x*y*color and shape*square', () => {
+  it('x*y*color and shape*square', () => {
     const heatmap = new Heatmap(createDiv('shape*fill'), {
       width: 400,
       height: 300,
-      data: semanticBasicHeatmapData,
+      data: semanticBasicHeatmapData.sort((p, n) => p.sales - n.sales),
       xField: 'name',
       yField: 'day',
       shape: 'square',
@@ -165,12 +173,17 @@ describe('heatmap', () => {
     // default fill
     expect(elements[0].getModel().color).toBeUndefined();
     expect(elements[0].getModel().defaultStyle.fill).toBe('#5B8FF9');
+    expect(elements[0].shape.attr('fill')).toBe('#5B8FF9');
     expect(heatmap.chart.geometries[0].labelOption).toBeUndefined();
 
     heatmap.update({
       colorField: 'sales',
     });
     expect(heatmap.chart.geometries[0].elements[0].getModel().color).toBeDefined();
+    const currentElements = heatmap.chart.geometries[0].elements;
+    const firstColor = currentElements[0].shape.attr('fill');
+    const lastColor = currentElements[currentElements.length - 1].shape.attr('fill');
+    expect(firstColor !== lastColor).toBeTruthy();
     // @ts-ignore
     expect(heatmap.chart.geometries[0].labelOption.fields).toEqual(['sales']);
     heatmap.update({
@@ -179,6 +192,9 @@ describe('heatmap', () => {
       },
     });
     expect(heatmap.chart.geometries[0].elements[0].getModel().style.fill).toBe('red');
+    const updateElements = heatmap.chart.geometries[0].elements;
+    expect(updateElements[0].shape.attr('fill')).toBe('red');
+    expect(updateElements[updateElements.length - 1].shape.attr('fill')).toBe('red');
     // @ts-ignore
     expect(heatmap.chart.geometries[0].styleOption.cfg.fill).toBe('red');
     heatmap.destroy();

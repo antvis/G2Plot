@@ -4,6 +4,7 @@ import { Column, ColumnOptions, Bar, BarOptions } from '../../../src';
 import { createDiv } from '../../utils/dom';
 import { delay } from '../../utils/delay';
 import { near } from '../../utils/number';
+import { subSalesByArea } from '../../data/sales';
 
 const DATA = [
   { x: 'A', y: 100 },
@@ -522,5 +523,45 @@ describe('totalWidth - headSize) / 2 < spacing', () => {
     const arrows = group.findAllByName('conversion-tag-arrow');
     expect(arrows[0].getBBox().width).toBe(80);
     plot.destroy();
+  });
+});
+
+describe('conversion tag disabled with seriesField', () => {
+  it('column series field', () => {
+    const plot = new Column(createDiv(), {
+      data: subSalesByArea,
+      xField: 'area',
+      yField: 'sales',
+      seriesField: 'series',
+      isGroup: true,
+      autoFit: true,
+      height: 400,
+      conversionTag: {},
+    });
+    plot.render();
+
+    const foreground = plot.chart.foregroundGroup;
+    // 整体
+    const group: IGroup = foreground.findAllByName('conversion-tag-group')[0] as IGroup;
+    expect(group).toBeUndefined();
+  });
+
+  it('bar series field', () => {
+    const plot = new Column(createDiv(), {
+      data: subSalesByArea,
+      yField: 'area',
+      xField: 'sales',
+      seriesField: 'series',
+      isGroup: true,
+      autoFit: true,
+      height: 400,
+      conversionTag: {},
+    });
+    plot.render();
+
+    const foreground = plot.chart.foregroundGroup;
+    // 整体
+    const group: IGroup = foreground.findAllByName('conversion-tag-group')[0] as IGroup;
+    expect(group).toBeUndefined();
   });
 });

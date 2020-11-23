@@ -198,13 +198,18 @@ function renderTag(options: TagRenderConfig, elemPrev: Element, elemNext: Elemen
  * 返回支持转化率组件的 adaptor，适用于柱形图/条形图
  * @param field 用户转化率计算的字段
  * @param horizontal 是否水平方向的转化率
+ * @param disabled 是否禁用
  */
-export function conversionTag<O extends OptionWithConversionTag & Options>(field: string, horizontal = true) {
+export function conversionTag<O extends OptionWithConversionTag & Options>(
+  field: string,
+  horizontal = true,
+  disabled = false
+) {
   return function (params: Params<O>): Params<O> {
     const { options, chart } = params;
     const { conversionTag, theme } = options;
 
-    if (conversionTag) {
+    if (conversionTag && !disabled) {
       // 有转化率组件时，柱子宽度占比自动为 1/3
       chart.theme(
         deepAssign({}, isObject(theme) ? theme : getTheme(theme), {

@@ -104,3 +104,7 @@ piePlot.render();
 ### 图表主题
 
 `markdown:docs/common/theme.zh.md`
+
+### 图表交互
+
+`markdown:docs/common/interactions.zh.md`

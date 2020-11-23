@@ -3,7 +3,7 @@ import { last } from '@antv/util';
 
 const divStyles = {
   position: 'absolute',
-  background: '#fff',
+  background: 'rgba(255,255,255,0.95)',
   boxShadow: 'rgb(174, 174, 174) 0px 0px 10px',
   borderRadius: '4px',
 };

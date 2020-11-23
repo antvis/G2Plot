@@ -336,6 +336,45 @@ describe('bar conversion tag', () => {
     });
   });
 
+  it('no arrow', async () => {
+    plot.update({
+      conversionTag: {
+        arrow: false,
+      },
+    });
+    plot.render();
+
+    await delay(100);
+
+    const foreground = plot.chart.foregroundGroup;
+    const group: IGroup = foreground.findAllByName('conversion-tag-group')[0] as IGroup;
+    const texts = group.findAllByName('conversion-tag-text');
+    const arrows = group.findAllByName('conversion-tag-arrow');
+
+    expect(texts).toHaveLength(DATA.length - 1);
+    expect(arrows).toHaveLength(0);
+  });
+
+  it('no text', async () => {
+    plot.update({
+      conversionTag: {
+        arrow: {},
+        text: false,
+      },
+    });
+    plot.render();
+
+    await delay(100);
+
+    const foreground = plot.chart.foregroundGroup;
+    const group: IGroup = foreground.findAllByName('conversion-tag-group')[0] as IGroup;
+    const texts = group.findAllByName('conversion-tag-text');
+    const arrows = group.findAllByName('conversion-tag-arrow');
+
+    expect(texts).toHaveLength(0);
+    expect(arrows).toHaveLength(DATA.length - 1);
+  });
+
   it('conversionTag with theme', async () => {
     plot.update({
       theme: {

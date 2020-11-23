@@ -136,4 +136,6 @@ type SizeAttr = number | [number, number] | ((datum: Datum) => number);
 
 
 
+### 图表主题
+
 `markdown:docs/common/theme.zh.md`

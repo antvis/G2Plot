@@ -14,6 +14,8 @@ xAxis、yAxis 配置相同。
 
 
 
+### 图表主题
+
 `markdown:docs/common/theme.zh.md`
 
 ### 事件

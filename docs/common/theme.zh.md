@@ -1,11 +1,8 @@
-
-### 图表主题
-
 #### 内置主题
 
 目前默认的内置主要要两套：`default` 和 `dark` 
 
-```sign
+```plain
 {
   theme: 'default', // 'dark',
 }
@@ -19,11 +16,11 @@
 
 | 主题属性 | 类型 |	描述 |
 | --- | --- | ---|
-| defaultColor ｜	string ｜	主题色 |
+| defaultColor | string | 主题色 |
 | padding |	number |	number[] |
 | fontFamily |	string |	图表字体 |
-| colors10	string[] |	分类颜色色板，分类个数小于 | 10 | 时使用 |
-| colors20	string[] |	分类颜色色板，分类个数大于 | 10 | 时使用 |
+| colors10 | string[] |	分类颜色色板，分类个数小于 10 时使用 |
+| colors20 |	string[] |	分类颜色色板，分类个数大于 10 时使用 |
 | columnWidthRatio |	number |	一般柱状图宽度占比，0 - 1 范围数值
 | maxColumnWidth |	number |	柱状图最大宽度，像素值 |
 | minColumnWidth|	number |	柱状图最小宽度，像素值 |
@@ -34,6 +31,26 @@
 | labels | object |	配置 Geometry 下 label 的主题样式 |
 | innerLabels	| object  | 配置 Geometry 下展示在图形内部的 labels 的主题样式 |
 | pieLabels	| object | 配置饼图 labels 的主题样式 |
+
+使用方式：
+```plain
+{
+  theme: {
+    colors10: ['#FF6B3B', '#626681', '#FFC100', '#9FB40F', '#76523B', '#DAD5B5', '#0E8E89', '#E19348', '#F383A2', '#247FEA']
+  }
+}
+```
+
+#### 更新主题
+
+使用方式：
+```plain
+// 示例1:
+plot.update({ theme: 'dark' });
+
+// 示例2:
+plot.update({ theme: { defaultColor: '#FF6B3B' } })
+```
 
 #### 自定义注册主题
 

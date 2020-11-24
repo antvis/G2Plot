@@ -175,6 +175,7 @@ function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
  */
 export function adaptor(params: Params<ColumnOptions>, isBar = false) {
   const { options } = params;
+  const { seriesField } = options;
   return flow(
     defaultOptions, // 处理默认配置
     theme, // theme 需要在 geometry 之前
@@ -189,7 +190,7 @@ export function adaptor(params: Params<ColumnOptions>, isBar = false) {
     interaction,
     animation,
     annotation(),
-    conversionTag<ColumnOptions>(options.yField, !isBar),
+    conversionTag<ColumnOptions>(options.yField, !isBar, !!seriesField), // 有拆分的时候禁用转化率
     connectedArea<ColumnOptions>(!options.isStack)
   )(params);
 }

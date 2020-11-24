@@ -190,4 +190,17 @@ describe('core', () => {
     expect(line.chart.height).toBe(400);
     line.destroy();
   });
+
+  it('limit in Plot', () => {
+    const line = new Line(createDiv(''), {
+      data: partySupport.filter((o) => o.type === 'FF'),
+      xField: 'date',
+      yField: 'value',
+      limitInPlot: true,
+    });
+
+    line.render();
+    expect(line.chart.limitInPlot).toBe(true);
+    line.destroy();
+  });
 });

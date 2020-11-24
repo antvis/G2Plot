@@ -105,4 +105,6 @@ order: 2
 
 ### Plot Theme
 
+### Plot Theme
+
 `markdown:docs/common/theme.en.md`

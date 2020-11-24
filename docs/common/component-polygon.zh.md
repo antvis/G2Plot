@@ -8,6 +8,8 @@
 
 
 
+### 图表主题
+
 `markdown:docs/common/theme.zh.md`
 
 ### 事件

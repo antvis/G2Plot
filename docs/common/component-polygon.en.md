@@ -6,6 +6,8 @@
 
 `markdown:docs/common/annotations.en.md`
 
+### Plot Theme
+
 `markdown:docs/common/theme.en.md`
 
 ### Event

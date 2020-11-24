@@ -101,6 +101,10 @@ piePlot.render();
 
 `markdown:docs/common/chart-methods.en.md`
 
-### Theme
+### Plot Theme
 
 `markdown:docs/common/theme.en.md`
+
+### Plot Interactions
+
+`markdown:docs/common/interactions.en.md`

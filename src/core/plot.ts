@@ -19,6 +19,7 @@ export type PickOptions = Pick<
   | 'autoFit'
   | 'syncViewPadding'
   | 'supportCSSTransform'
+  | 'limitInPlot'
 >;
 
 /**
@@ -60,6 +61,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
       pixelRatio,
       syncViewPadding,
       supportCSSTransform,
+      limitInPlot = false,
     } = this.options;
 
     this.chart = new Chart({
@@ -74,7 +76,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
       syncViewPadding,
       supportCSSTransform,
       /** 图形不超出画布 */
-      limitInPlot: false,
+      limitInPlot,
     });
   }
 

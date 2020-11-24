@@ -196,13 +196,10 @@ describe('core', () => {
       data: partySupport.filter((o) => o.type === 'FF'),
       xField: 'date',
       yField: 'value',
+      limitInPlot: true,
     });
 
     line.render();
-    expect(line.chart.limitInPlot).toBe(false);
-    line.update({
-      limitInPlot: true,
-    });
     expect(line.chart.limitInPlot).toBe(true);
     line.destroy();
   });

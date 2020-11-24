@@ -1,6 +1,8 @@
 import { DualAxes } from '../../../../src';
 import { PV_DATA, UV_DATA, UV_DATA_MULTI } from '../../../data/pv-uv';
 import { createDiv } from '../../../utils/dom';
+import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from '../../../../src/plots/dual-axes/constant';
+import { findViewById } from '../../../../src/utils/view';
 
 describe('default options', () => {
   it('dual line', () => {
@@ -19,7 +21,12 @@ describe('default options', () => {
     expect(dualAxes.chart.options.tooltip.showCrosshairs).toEqual(true);
     // @ts-ignore
     expect(dualAxes.chart.options.tooltip.showMarkers).toEqual(true);
-
+    const leftView = findViewById(dualAxes.chart, LEFT_AXES_VIEW);
+    const rightView = findViewById(dualAxes.chart, RIGHT_AXES_VIEW);
+    // @ts-ignore
+    expect(leftView.options.scales.date.type).toBeUndefined();
+    // @ts-ignore
+    expect(rightView.options.scales.date.type).toBeUndefined();
     dualAxes.destroy();
   });
 

@@ -44,7 +44,7 @@ export function transformOptions(params: Params<DualAxesOptions>): Params<DualAx
         meta: {
           [xField]: {
             // 默认为 cat 类型
-            type: 'cat',
+            // type: 'cat',
             // x 轴一定是同步 scale 的
             sync: true,
             // 如果有没有柱子，则

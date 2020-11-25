@@ -1,18 +1,17 @@
 #### 2.2.12 (2020-11-25)
 
-##### Documentation Changes
-
-*  theme & interactions ([#1999](https://github.com/antvis/g2plot/pull/1999)) ([851283b6](https://github.com/antvis/g2plot/commit/851283b6ae73c37f9af0c9370073cec05582d272))
-
 ##### New Features
 
+*  scatter regression 新增 top 配置 ([#2010](https://github.com/antvis/g2plot/pull/2010)) ([50fee30d](https://github.com/antvis/g2plot/commit/50fee30d6a6b91e7a5c196f345b66ee5c298a14f))
 *  auto set limitInPlot based on yAxis config ([#2009](https://github.com/antvis/g2plot/pull/2009)) ([c4a1794f](https://github.com/antvis/g2plot/commit/c4a1794fe05eceab69d0f37f14a0c2a19573faa9))
 *  打开 limit in plot 配置 ([#2002](https://github.com/antvis/g2plot/pull/2002)) ([65b485d6](https://github.com/antvis/g2plot/commit/65b485d6957a2443eda82cd99ef751098aa150b4))
 
 ##### Bug Fixes
 
-* **line:**  do not set default range as [0, 1] ([#2007](https://github.com/antvis/g2plot/pull/2007)) ([ef87448e](https://github.com/antvis/g2plot/commit/ef87448e8c297b93ea6f5321d81d5014df74f329))
+* **y-scale:**  update y scale min, max ([#2013](https://github.com/antvis/g2plot/pull/2013)) ([125c4b74](https://github.com/antvis/g2plot/commit/125c4b741d26cd0d2a906379614c1c52e98f14f6))
+*  auto adjust scale min to zero for column/bar ([#2012](https://github.com/antvis/g2plot/pull/2012)) ([c5ff5fde](https://github.com/antvis/g2plot/commit/c5ff5fde7b4fbe48a34d2c869e956100448aefb6))
 *  只允许在基础柱形图和条形图上开启转化率组件 ([#1994](https://github.com/antvis/g2plot/pull/1994)) ([257151c8](https://github.com/antvis/g2plot/commit/257151c82a73bb056159a24f306d677d7e24ffce))
+* **line:**  do not set default range as [0, 1] ([#2007](https://github.com/antvis/g2plot/pull/2007)) ([ef87448e](https://github.com/antvis/g2plot/commit/ef87448e8c297b93ea6f5321d81d5014df74f329))
 
 #### 2.2.11 (2020-11-21)
 

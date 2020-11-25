@@ -1,7 +1,7 @@
 import { Bar } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 
-describe('line', () => {
+describe('bar', () => {
   it('y min, max meta', () => {
     const plot = new Bar(createDiv(), {
       width: 400,

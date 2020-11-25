@@ -221,6 +221,7 @@ scatterPlot.render();
 | type      | string                                                              | 回归线类型, exp \| linear \| loess \| log \| poly \| pow \| quad |
 | style     | object                                                              | 配置回归线样式，详细配置参考绘图属性                             |
 | algorithm | Array<[number, number]> \| ((data: any) => Array<[number, number]>) | 自定义算法，优先级高于 type                                      |
+| top       | boolean                                                             | 是否顶层显示                                                     |
 
 ```ts
 regressionLine: {

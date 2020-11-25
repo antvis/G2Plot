@@ -27,6 +27,8 @@ interface QuadrantOptions {
 }
 
 export interface RegressionLineOptions {
+  /** 是否顶层显示，默认 false  */
+  readonly top?: boolean;
   /** 回归线类型  */
   readonly type?: string;
   /** 配置回归线样式  */

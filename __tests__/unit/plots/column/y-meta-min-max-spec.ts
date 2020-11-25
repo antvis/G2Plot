@@ -1,7 +1,7 @@
 import { Column } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 
-describe('line', () => {
+describe('column', () => {
   it('y min, max meta', () => {
     const plot = new Column(createDiv(), {
       width: 400,

@@ -178,13 +178,14 @@ function regressionLine(params: Params<ScatterOptions>): Params<ScatterOptions> 
   const { options, chart } = params;
   const { regressionLine } = options;
   if (regressionLine) {
-    const { style } = regressionLine;
+    const { style, top = false } = regressionLine;
     const defaultStyle = {
       stroke: '#9ba29a',
       lineWidth: 2,
       opacity: 0.5,
     };
     chart.annotation().shape({
+      top,
       render: (container, view) => {
         const group = container.addGroup({
           id: `${chart.id}-regression-line`,

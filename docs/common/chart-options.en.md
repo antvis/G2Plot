@@ -14,7 +14,7 @@ Set the height of the chart.
 
 <description>**optional** _boolean_ _default:_ `true`</description>
 
-Whether the chart automatically adjusts to fit the container. If it is set to `true`, `width` and `height` configuration would fail. 
+Whether the chart automatically adjusts to fit the container. If it is set to `true`, `width` and `height` configuration would fail.
 
 #### padding
 
@@ -39,3 +39,9 @@ Set the render way to `canvas` or `svg`.
 <description>**optional** _number_ _default:_ `window.devicePixelRatio`</description>
 
 Set the pixel ratio of the chart.
+
+#### limitInPlot
+
+<description>**optional** _boolean_</description>
+
+Whether clip the Geometry beyond the coordinate system。

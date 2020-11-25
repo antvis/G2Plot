@@ -51,4 +51,22 @@ describe('line limitInPlot', () => {
     plot.render();
     expect(plot.chart.limitInPlot).toBeFalsy();
   });
+
+  it('user config', () => {
+    plot.update({
+      yAxis: {
+        minLimit: 6,
+      },
+      limitInPlot: false,
+    });
+    plot.render();
+    expect(plot.chart.limitInPlot).toBeFalsy();
+
+    plot.update({
+      yAxis: false,
+      limitInPlot: true,
+    });
+    plot.render();
+    expect(plot.chart.limitInPlot).toBeTruthy();
+  });
 });

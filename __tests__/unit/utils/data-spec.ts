@@ -13,5 +13,9 @@ describe('data', () => {
     expect(adjustYMetaByZero([{ y: -20 }, { y: -20 }, { y: undefined }], 'y')).toEqual({ max: 0 });
 
     expect(adjustYMetaByZero([{ y: null }, { y: 0 }, { y: undefined }], 'y')).toEqual({ min: 0 });
+
+    expect(adjustYMetaByZero([{ y: null }, { y: 0 }, { y: NaN }], 'y')).toEqual({ min: 0 });
+    expect(adjustYMetaByZero([{ y: 20 }, { y: 20 }, { y: NaN }], 'y')).toEqual({ min: 0 });
+    expect(adjustYMetaByZero([{ y: -20 }, { y: -20 }, { y: NaN }], 'y')).toEqual({ max: 0 });
   });
 });

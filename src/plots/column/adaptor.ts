@@ -15,6 +15,7 @@ import { conversionTag } from '../../adaptor/conversion-tag';
 import { connectedArea } from '../../adaptor/connected-area';
 import { interval } from '../../adaptor/geometries';
 import { flow, transformLabel, deepAssign } from '../../utils';
+import { adjustYMetaByZero } from '../../utils/data';
 import { percent } from '../../utils/transform/percent';
 import { Datum } from '../../types';
 import { ColumnOptions } from './types';
@@ -88,7 +89,7 @@ function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
  */
 function meta(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { options } = params;
-  const { xAxis, yAxis, xField, yField } = options;
+  const { xAxis, yAxis, xField, yField, data } = options;
 
   return flow(
     scale(
@@ -100,6 +101,7 @@ function meta(params: Params<ColumnOptions>): Params<ColumnOptions> {
         [xField]: {
           type: 'cat',
         },
+        [yField]: adjustYMetaByZero(data, yField),
       }
     )
   )(params);

@@ -58,7 +58,6 @@ export function meta(params: Params<LineOptions>): Params<LineOptions> {
       {
         [xField]: {
           type: 'cat',
-          range: [0, 1],
         },
         [yField]: adjustYMetaByZero(data, yField),
       }

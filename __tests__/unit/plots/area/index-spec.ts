@@ -39,7 +39,7 @@ describe('area', () => {
     area.render();
 
     expect(area.chart.getScaleByField('x').type).toBe('cat');
-    expect(area.chart.getScaleByField('x').range).toEqual([0, 1]);
+    expect(area.chart.getScaleByField('x').range).toEqual([1 / 8, 7 / 8]);
     area.update({
       ...area.options,
       meta: {

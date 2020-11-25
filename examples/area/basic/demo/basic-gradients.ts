@@ -8,6 +8,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38cc
       xField: 'Date',
       yField: 'scales',
       xAxis: {
+        range: [0, 1],
         tickCount: 5,
       },
       areaStyle: () => {

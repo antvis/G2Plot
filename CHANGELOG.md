@@ -1,3 +1,19 @@
+#### 2.2.12 (2020-11-25)
+
+##### Documentation Changes
+
+*  theme & interactions ([#1999](https://github.com/antvis/g2plot/pull/1999)) ([851283b6](https://github.com/antvis/g2plot/commit/851283b6ae73c37f9af0c9370073cec05582d272))
+
+##### New Features
+
+*  auto set limitInPlot based on yAxis config ([#2009](https://github.com/antvis/g2plot/pull/2009)) ([c4a1794f](https://github.com/antvis/g2plot/commit/c4a1794fe05eceab69d0f37f14a0c2a19573faa9))
+*  打开 limit in plot 配置 ([#2002](https://github.com/antvis/g2plot/pull/2002)) ([65b485d6](https://github.com/antvis/g2plot/commit/65b485d6957a2443eda82cd99ef751098aa150b4))
+
+##### Bug Fixes
+
+* **line:**  do not set default range as [0, 1] ([#2007](https://github.com/antvis/g2plot/pull/2007)) ([ef87448e](https://github.com/antvis/g2plot/commit/ef87448e8c297b93ea6f5321d81d5014df74f329))
+*  只允许在基础柱形图和条形图上开启转化率组件 ([#1994](https://github.com/antvis/g2plot/pull/1994)) ([257151c8](https://github.com/antvis/g2plot/commit/257151c82a73bb056159a24f306d677d7e24ffce))
+
 #### 2.2.11 (2020-11-21)
 
 ##### Chores

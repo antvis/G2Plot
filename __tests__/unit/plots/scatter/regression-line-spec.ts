@@ -203,7 +203,7 @@ describe('scatter', () => {
       },
       animation: false,
       regressionLine: {
-        top: true,
+        top: true, // top true
       },
     });
 
@@ -213,12 +213,17 @@ describe('scatter', () => {
     expect(pathGroup?.layer).toBe('fore');
     scatter.update({
       regressionLine: {
-        top: false,
+        top: false, // top false
       },
     });
     await delay(100);
     const currentPathGroup = scatter.chart.getComponents().find((item) => item.type === 'annotation');
     expect(currentPathGroup?.layer).toBe('bg');
+    scatter.update({
+      regressionLine: {}, // default
+    });
+    await delay(100);
+    expect(scatter.chart.getComponents().find((item) => item.type === 'annotation')?.layer).toBe('bg');
     scatter.destroy();
   });
 });

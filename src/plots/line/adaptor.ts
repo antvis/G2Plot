@@ -1,7 +1,7 @@
 import { Geometry } from '@antv/g2';
 import { each } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip, slider, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
+import { tooltip, slider, interaction, animation, theme, scale, annotation, limitInPlot } from '../../adaptor/common';
 import { findGeometry, transformLabel, deepAssign } from '../../utils';
 import { point, line } from '../../adaptor/geometries';
 import { flow } from '../../utils';
@@ -167,6 +167,7 @@ export function adaptor(params: Params<LineOptions>) {
     slider,
     interaction,
     animation,
-    annotation()
+    annotation(),
+    limitInPlot
   )(params);
 }

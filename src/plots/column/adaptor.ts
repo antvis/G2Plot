@@ -1,6 +1,16 @@
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../utils';
-import { tooltip, slider, interaction, animation, theme, scale, annotation, scrollbar } from '../../adaptor/common';
+import {
+  tooltip,
+  slider,
+  interaction,
+  animation,
+  theme,
+  scale,
+  annotation,
+  scrollbar,
+  limitInPlot,
+} from '../../adaptor/common';
 import { conversionTag } from '../../adaptor/conversion-tag';
 import { connectedArea } from '../../adaptor/connected-area';
 import { interval } from '../../adaptor/geometries';
@@ -191,6 +201,7 @@ export function adaptor(params: Params<ColumnOptions>, isBar = false) {
     animation,
     annotation(),
     conversionTag<ColumnOptions>(options.yField, !isBar, !!seriesField), // 有拆分的时候禁用转化率
-    connectedArea<ColumnOptions>(!options.isStack)
+    connectedArea<ColumnOptions>(!options.isStack),
+    limitInPlot
   )(params);
 }

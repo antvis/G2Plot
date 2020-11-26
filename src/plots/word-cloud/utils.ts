@@ -202,6 +202,9 @@ function getFontSize(options: WordCloudOptions, range: [number, number]) {
   if (isArray(fontSize)) {
     const [fMin, fMax] = fontSize;
     return function fontSize({ value }) {
+      if (max === min) {
+        return (fMax + fMin) / 2;
+      }
       return ((fMax - fMin) / (max - min)) * (value - min) + fMin;
     };
   }

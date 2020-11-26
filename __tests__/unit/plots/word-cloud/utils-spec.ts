@@ -1,7 +1,7 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../../../src/core/adaptor';
 import { WordCloudOptions } from '../../../../src/plots/word-cloud';
-import { processImageMask, transform } from '../../../../src/plots/word-cloud/utils';
+import { getFontSizeMapping, processImageMask, transform } from '../../../../src/plots/word-cloud/utils';
 import { CountryEconomy } from '../../../data/country-economy';
 
 describe('word-cloud utils', () => {
@@ -265,6 +265,33 @@ describe('word-cloud utils', () => {
       expect(item.rotate).toBe(99);
       expect(item.x).toBe(100);
       expect(item.y).toBe(100);
+    });
+  });
+
+  it('getFontSize', () => {
+    const f1: any = getFontSizeMapping(10);
+    expect(f1()).toBe(10);
+
+    const foo = () => 10;
+    const f2 = getFontSizeMapping(foo);
+    expect(f2).toBe(foo);
+
+    const data = [{ value: 1 }, { value: 2 }, { value: 3 }, { value: 4 }, { value: 5 }];
+    // 数据中字体权重都相同时，返回字体大小的中间值
+    const f3: any = getFontSizeMapping([10, 20], [10, 10]);
+    data.forEach((v) => {
+      expect(f3(v)).toBe(15);
+    });
+
+    // 没有提供字体权重范围的话，返回字体大小的中间值
+    const f4: any = getFontSizeMapping([10, 20]);
+    data.forEach((v) => {
+      expect(f4(v)).toBe(15);
+    });
+
+    const f5: any = getFontSizeMapping([10, 20], [1, 5]);
+    data.forEach((v) => {
+      expect(f5(v) >= 10 && f5(v) <= 20).toBe(true);
     });
   });
 });

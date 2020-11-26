@@ -4,7 +4,7 @@ import { Params } from '../../core/adaptor';
 import { Datum } from '../../types';
 import { log, LEVEL, getContainerSize } from '../../utils';
 import { functor, wordCloud } from '../../utils/transform/word-cloud';
-import { Tag, Word, WordCloudOptions } from './types';
+import { Tag, Word, WordCloudOptions, WordStyle } from './types';
 
 /**
  * 用 DataSet 转换词云图数据
@@ -27,7 +27,7 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
   if (!data || !data.length) {
     return [];
   }
-  const { fontFamily, fontWeight, padding } = wordStyle;
+  const { fontFamily, fontWeight, padding, fontSize } = wordStyle;
   const arr = data.map((v) => v[weightField]) as number[];
   const range = [min(arr), max(arr)] as [number, number];
 
@@ -44,7 +44,7 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
   const options = {
     imageMask: imageMask as HTMLImageElement,
     font: fontFamily,
-    fontSize: getFontSize(rawOptions, range),
+    fontSize: getFontSizeMapping(fontSize, range),
     fontWeight: fontWeight,
     // 图表宽高减去 padding 之后的宽高
     size: getSize(params as any),
@@ -183,7 +183,7 @@ export function processImageMask(img: HTMLImageElement | string): Promise<HTMLIm
       };
       return;
     }
-    log(LEVEL.WARN, img === undefined, 'the type of imageMask option must be String or HTMLImageElement.');
+    log(LEVEL.WARN, img === undefined, 'The type of imageMask option must be String or HTMLImageElement.');
     rej();
   });
 }
@@ -193,22 +193,24 @@ export function processImageMask(img: HTMLImageElement | string): Promise<HTMLIm
  * @param options
  * @param range
  */
-function getFontSize(options: WordCloudOptions, range: [number, number]) {
-  const { fontSize } = options.wordStyle;
-  const [min, max] = range;
+export function getFontSizeMapping(fontSize: WordStyle['fontSize'], range?: [number, number]) {
   if (isFunction(fontSize)) {
     return fontSize;
   }
   if (isArray(fontSize)) {
     const [fMin, fMax] = fontSize;
+    if (!range) {
+      return () => (fMax + fMin) / 2;
+    }
+    const [min, max] = range;
+    if (max === min) {
+      return () => (fMax + fMin) / 2;
+    }
     return function fontSize({ value }) {
-      if (max === min) {
-        return (fMax + fMin) / 2;
-      }
       return ((fMax - fMin) / (max - min)) * (value - min) + fMin;
     };
   }
-  return fontSize;
+  return () => fontSize;
 }
 
 /**
@@ -235,7 +237,7 @@ function getRotate(options: WordCloudOptions) {
 function resolveRotate(options: WordCloudOptions) {
   let { rotationSteps } = options.wordStyle;
   if (rotationSteps < 1) {
-    log(LEVEL.WARN, false, 'the rotationSteps option must be greater than or equal to 1.');
+    log(LEVEL.WARN, false, 'The rotationSteps option must be greater than or equal to 1.');
     rotationSteps = 1;
   }
   return {

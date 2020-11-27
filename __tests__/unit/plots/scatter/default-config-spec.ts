@@ -19,7 +19,13 @@ describe('scatter', () => {
     scatter.render();
     const { options } = scatter;
     // @ts-ignore
-    expect(options.tooltip.offset).toBe(20);
+    expect(options.tooltip.showTitle).toBe(false);
+    // @ts-ignore
+    expect(options.tooltip.showMarkers).toBe(false);
+    // @ts-ignore
+    expect(options.tooltip.showCrosshairs).toBeTruthy();
+    // @ts-ignore
+    expect(options.tooltip.crosshairs.type).toEqual('xy');
 
     scatter.destroy();
   });

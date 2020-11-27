@@ -1,7 +1,12 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../../../src/core/adaptor';
 import { WordCloudOptions } from '../../../../src/plots/word-cloud';
-import { getFontSizeMapping, processImageMask, transform } from '../../../../src/plots/word-cloud/utils';
+import {
+  getFontSizeMapping,
+  getSingleKeyValues,
+  processImageMask,
+  transform,
+} from '../../../../src/plots/word-cloud/utils';
 import { CountryEconomy } from '../../../data/country-economy';
 
 describe('word-cloud utils', () => {
@@ -268,7 +273,7 @@ describe('word-cloud utils', () => {
     });
   });
 
-  it('getFontSize', () => {
+  it('getFontSizeMapping', () => {
     const f1: any = getFontSizeMapping(10);
     expect(f1()).toBe(10);
 
@@ -293,5 +298,25 @@ describe('word-cloud utils', () => {
     data.forEach((v) => {
       expect(f5(v) >= 10 && f5(v) <= 20).toBe(true);
     });
+  });
+
+  it('getSingleKeyValues', () => {
+    const data = [
+      { value: 0 },
+      { value: 1 },
+      { value: '4' },
+      { value: null },
+      { value: undefined },
+      { value: '' },
+      { value: NaN },
+      { value: false },
+      { value: true },
+      { value: Symbol('') },
+      { value: {} },
+      { value: () => 10 },
+    ];
+
+    // 只保留数字
+    expect(getSingleKeyValues(data, 'value')).toEqual([0, 1]);
   });
 });

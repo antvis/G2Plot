@@ -28,7 +28,7 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
     return [];
   }
   const { fontFamily, fontWeight, padding, fontSize } = wordStyle;
-  const arr = data.map((v) => v[weightField]) as number[];
+  const arr = getSingleKeyValues(data, weightField);
   const range = [min(arr), max(arr)] as [number, number];
 
   // 变换出 text 和 value 字段
@@ -211,6 +211,16 @@ export function getFontSizeMapping(fontSize: WordStyle['fontSize'], range?: [num
     };
   }
   return () => fontSize;
+}
+
+export function getSingleKeyValues(data: Datum[], key: string) {
+  return data
+    .map((v) => v[key])
+    .filter((v) => {
+      // 过滤非 number
+      if (typeof v === 'number' && !isNaN(v)) return true;
+      return false;
+    });
 }
 
 /**

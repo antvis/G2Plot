@@ -75,7 +75,7 @@ export type SankeyLayoutOptions = {
   // sankey.nodeSort(undefined) is the default and resorts by ascending breadth during each iteration.
   // sankey.nodeSort(null) specifies the input order of nodes and never sorts.
   // sankey.nodeSort(function) specifies the given order as a comparator function and sorts once on initialization.
-  readonly sort?: (a: Datum, b: Datum) => number;
+  readonly sort?: (a: any, b: any) => number;
   readonly nodeAlign?: NodeAlign;
   readonly nodeWidth?: number;
   readonly nodePadding?: number;
@@ -86,9 +86,6 @@ export type SankeyLayoutOptions = {
  */
 const DEFAULT_OPTIONS: Partial<SankeyLayoutOptions> = {
   nodeId: (node: Datum) => node.index,
-  value: (node: Datum) => node.value,
-  source: (edge: Datum) => edge.source,
-  target: (edge: Datum) => edge.target,
   nodeAlign: 'justify',
   nodeWidth: 0.008,
   nodePadding: 0.03,
@@ -124,7 +121,6 @@ export function sankeyLayout(
   const { nodeId, sort, nodeAlign, nodeWidth, nodePadding } = options;
 
   const sankeyProcessor = sankey()
-    .nodeId(nodeId)
     .nodeSort(sort)
     .links((d: any) => d.links)
     .nodeWidth(nodeWidth)
@@ -133,7 +129,8 @@ export function sankeyLayout(
     .extent([
       [0, 0],
       [1, 1],
-    ]);
+    ])
+    .nodeId(nodeId);
 
   // 进行桑基图布局处理
   const layoutData: SankeyLayoutOutPutData = sankeyProcessor(data);

@@ -14,6 +14,9 @@ describe('sankeyLayout', () => {
     const fn = jest.fn();
     // @ts-ignore
     expect(getNodeAlignFunction(fn)).toBe(fn);
+
+    // @ts-ignore
+    expect(getNodeAlignFunction(123)).toBe(sankeyJustify);
   });
 
   it('getDefaultOptions', () => {

@@ -13,7 +13,13 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
 
   chart.data(data);
 
-  chart.interval().position(`${sourceField}*${targetField}`).color(weightField);
+  // node view
+  const nodeView = chart.createView();
+  nodeView.data([]);
+
+  // edge view
+  const edgeView = chart.createView();
+  edgeView.data([]);
 
   return params;
 }

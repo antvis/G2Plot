@@ -16,7 +16,7 @@ export class Sankey extends Plot<SankeyOptions> {
     return {
       syncViewPadding: true,
       nodeWidthRatio: 0.008,
-      nodePaddingRatio: 0.03,
+      nodePaddingRatio: 0.01,
       tooltip: {
         showTitle: false,
         showMarkers: false,

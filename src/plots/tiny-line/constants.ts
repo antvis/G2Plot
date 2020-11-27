@@ -1,5 +1,8 @@
 import { get } from '@antv/util';
 
+export const X_FIELD = 'x';
+export const Y_FIELD = 'y';
+
 export const DEFAULT_TOOLTIP_OPTIONS = {
   showTitle: false,
   shared: true,

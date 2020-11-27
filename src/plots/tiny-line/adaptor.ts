@@ -2,7 +2,9 @@ import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
 import { scale, theme, animation, annotation, tooltip } from '../../adaptor/common';
 import { line, point } from '../../adaptor/geometries';
+import { adjustYMetaByZero } from '../../utils/data';
 import { TinyLineOptions } from './types';
+import { X_FIELD, Y_FIELD } from './constants';
 
 /**
  * 字段
@@ -10,7 +12,7 @@ import { TinyLineOptions } from './types';
  */
 function geometry(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
   const { chart, options } = params;
-  const { data, color, lineStyle, point: pointMapping } = options;
+  const { data, xAxis, yAxis, color, lineStyle, point: pointMapping } = options;
 
   const seriesData = data.map((y: number, x: number) => {
     return { x, y };
@@ -21,8 +23,8 @@ function geometry(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
   // line geometry 处理
   const p = deepAssign({}, params, {
     options: {
-      xField: 'x',
-      yField: 'y',
+      xField: X_FIELD,
+      yField: Y_FIELD,
       line: {
         color,
         style: lineStyle,
@@ -37,6 +39,20 @@ function geometry(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
   chart.axis(false);
   chart.legend(false);
 
+  // scale
+  scale(
+    {
+      [X_FIELD]: xAxis,
+      [Y_FIELD]: yAxis,
+    },
+    {
+      [X_FIELD]: {
+        type: 'cat',
+      },
+      [Y_FIELD]: adjustYMetaByZero(seriesData, Y_FIELD),
+    }
+  )(params);
+
   return params;
 }
 
@@ -46,5 +62,5 @@ function geometry(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
  * @param options
  */
 export function adaptor(params: Params<TinyLineOptions>) {
-  return flow(geometry, scale({}), theme, tooltip, animation, annotation())(params);
+  return flow(geometry, theme, tooltip, animation, annotation())(params);
 }

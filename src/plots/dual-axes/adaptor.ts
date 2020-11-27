@@ -7,6 +7,7 @@ import {
   scale,
   interaction as commonInteraction,
   annotation as commonAnnotation,
+  limitInPlot as commonLimitInPlot,
 } from '../../adaptor/common';
 import { percent } from '../../utils/transform/percent';
 import { Params } from '../../core/adaptor';
@@ -288,6 +289,35 @@ export function animation(params: Params<DualAxesOptions>): Params<DualAxesOptio
 }
 
 /**
+ * 双轴图 limitInPlot
+ * @param params
+ */
+export function limitInPlot(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
+  const { chart, options } = params;
+  const { yField, yAxis } = options;
+
+  commonLimitInPlot(
+    deepAssign({}, params, {
+      chart: findViewById(chart, LEFT_AXES_VIEW),
+      options: {
+        yAxis: yAxis[yField[0]],
+      },
+    })
+  );
+
+  commonLimitInPlot(
+    deepAssign({}, params, {
+      chart: findViewById(chart, RIGHT_AXES_VIEW),
+      options: {
+        yAxis: yAxis[yField[1]],
+      },
+    })
+  );
+
+  return params;
+}
+
+/**
  * legend 配置
  * 使用 custom，便于和类似于分组柱状图-单折线图的逻辑统一
  * @param params
@@ -384,6 +414,7 @@ export function adaptor(params: Params<DualAxesOptions>): Params<DualAxesOptions
     geometry,
     meta,
     axis,
+    limitInPlot,
     tooltip,
     interaction,
     annotation,

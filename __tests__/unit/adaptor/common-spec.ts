@@ -37,6 +37,21 @@ describe('limit-in-plot', () => {
     // @ts-ignore
     expect(limitInPlot(params).chart.limitInPlot).toBeFalsy();
   });
+
+  it('limitInPlot: limitinplot config, yaxis {} with min null', () => {
+    const params = {
+      chart: {},
+      options: {
+        limitInPlot: true,
+        yAxis: {
+          min: null,
+        },
+      },
+    };
+    // @ts-ignore
+    expect(limitInPlot(params).chart.limitInPlot).toBeTruthy();
+  });
+
   it('limitInPlot: limitinplot undefined, yaxis undefined', () => {
     const params = {
       chart: {},
@@ -68,5 +83,18 @@ describe('limit-in-plot', () => {
     };
     // @ts-ignore
     expect(limitInPlot(params).chart.limitInPlot).toBeTruthy();
+  });
+
+  it('limitInPlot: limitinplot config, yaxis {} with min null', () => {
+    const params = {
+      chart: {},
+      options: {
+        yAxis: {
+          min: null,
+        },
+      },
+    };
+    // @ts-ignore
+    expect(limitInPlot(params).chart.limitInPlot).toBeFalsy();
   });
 });

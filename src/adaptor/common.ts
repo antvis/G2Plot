@@ -1,5 +1,5 @@
 import { Geometry } from '@antv/g2';
-import { each, isNil } from '@antv/util';
+import { each, isNil, isObject } from '@antv/util';
 import { Params } from '../core/adaptor';
 import { Options } from '../types';
 import { Interaction } from '../types/interaction';
@@ -195,8 +195,8 @@ export function limitInPlot(params: Params<Options>): Params<Options> {
   let value = limitInPlot;
 
   // 用户没有设置 limitInPlot，则自动根据 yAxis 是否有 min/max 来设置 limitInPlot
-  if (typeof yAxis !== 'boolean' && isNil(limitInPlot)) {
-    if (!isNil(yAxis.min) || !isNil(yAxis.max) || !isNil(yAxis.minLimit) || !isNil(yAxis.maxLimit)) {
+  if (isObject(yAxis) && isNil(limitInPlot)) {
+    if (Object.values(pick(yAxis, ['min', 'max', 'minLimit', 'maxLimit'])).some((value) => !isNil(value))) {
       value = true;
     } else {
       value = false;

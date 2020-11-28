@@ -196,7 +196,7 @@ export function limitInPlot(params: Params<Options>): Params<Options> {
 
   // 用户没有设置 limitInPlot，则自动根据 yAxis 是否有 min/max 来设置 limitInPlot
   if (isObject(yAxis) && isNil(limitInPlot)) {
-    if (Object.keys(pick(yAxis, ['min', 'max', 'minLimit', 'maxLimit'])).length > 0) {
+    if (Object.values(pick(yAxis, ['min', 'max', 'minLimit', 'maxLimit'])).some((value) => !isNil(value))) {
       value = true;
     } else {
       value = false;

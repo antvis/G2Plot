@@ -1,4 +1,4 @@
-import { getField, getAllNodes } from '../../../../../src/plots/sunburst/hierarchy/util';
+import { getField, getAllNodes } from '../../../../src/utils/hierarchy/util';
 
 describe('hierarchy/util', () => {
   it('getField', () => {

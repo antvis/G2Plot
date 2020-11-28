@@ -260,6 +260,14 @@ module.exports = {
           en: 'Bidirectional Bar',
         },
       },
+      {
+        slug: 'treemap',
+        icon: 'other',
+        title: {
+          zh: '矩形树图',
+          en: 'Treemap',
+        },
+      },
       // OTHERS
       {
         slug: 'general',

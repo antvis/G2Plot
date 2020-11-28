@@ -195,8 +195,8 @@ export function limitInPlot(params: Params<Options>): Params<Options> {
   let value = limitInPlot;
 
   // 用户没有设置 limitInPlot，则自动根据 yAxis 是否有 min/max 来设置 limitInPlot
-  if (typeof yAxis !== 'boolean' && isNil(limitInPlot) && isObject(yAxis)) {
-    if (!isNil(yAxis.min) || !isNil(yAxis.max) || !isNil(yAxis.minLimit) || !isNil(yAxis.maxLimit)) {
+  if (isObject(yAxis) && isNil(limitInPlot)) {
+    if (Object.keys(pick(yAxis, ['min', 'max', 'minLimit', 'maxLimit'])).length > 0) {
       value = true;
     } else {
       value = false;

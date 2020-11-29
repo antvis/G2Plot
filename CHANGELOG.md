@@ -1,3 +1,13 @@
+#### 2.2.13 (2020-11-29)
+
+#####  New Features
+*  auto set limitInPlot in dual-axes and bidirectional-bar ([#2020](https://github.com/antvis/g2plot/pull/2020)) ([0882ca3](https://github.com/antvis/g2plot/commit/0882ca30d596f79bd8490aca9adce116f9663fae))
+
+##### Bug Fixes
+* fix yAxis.min & yAxis.max in tiny chart([#2022](https://github.com/antvis/g2plot/pull/2022)) ([56ae9f3](https://github.com/antvis/g2plot/commit/56ae9f3fe545387bbf578094b9a5501ba84d6679))
+* fix tooltip setting in scatter([#2019](https://github.com/antvis/g2plot/pull/2019)) ([81885fe](https://github.com/antvis/G2Plot/commit/81885fe7daa1b2c0fd154e75cb589ed3ab0b7bad))
+* fix word-cloud's font-size issue([#2017](https://github.com/antvis/G2Plot/pull/2017)) ([f19ad50](https://github.com/antvis/G2Plot/commit/f19ad50bd499b982df18af4db3d2f515c945aa6d))
+
 #### 2.2.12 (2020-11-25)
 
 ##### New Features

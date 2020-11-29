@@ -3,6 +3,55 @@ import { data } from '../../../data/gender';
 import { createDiv } from '../../../utils/dom';
 
 describe('scatter', () => {
+  it('legend: default', () => {
+    const scatter = new Scatter(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data,
+      xField: 'weight',
+      yField: 'height',
+      xAxis: {
+        nice: true,
+      },
+    });
+
+    scatter.render();
+    const legendController = scatter.chart.getController('legend');
+    // @ts-ignore
+    const { option } = legendController;
+    expect(option).toBe(false);
+    scatter.update({
+      shapeField: 'gender',
+    });
+    // @ts-ignore
+    expect(scatter.chart.getController('legend').option).toEqual({
+      gender: undefined,
+      height: false,
+      weight: false,
+    });
+    scatter.update({
+      shapeField: '',
+      colorField: 'g',
+    });
+    // @ts-ignore
+    expect(scatter.chart.getController('legend').option).toEqual({
+      g: undefined,
+      height: false,
+      weight: false,
+    });
+    scatter.update({
+      sizeField: 'gender',
+    });
+    // @ts-ignore
+    expect(scatter.chart.getController('legend').option).toEqual({
+      g: undefined,
+      gender: false,
+      height: false,
+      weight: false,
+    });
+    scatter.destroy();
+  });
   it('legend: false', () => {
     const scatter = new Scatter(createDiv(), {
       width: 400,

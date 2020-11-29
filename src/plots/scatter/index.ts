@@ -22,9 +22,12 @@ export class Scatter extends Plot<ScatterOptions> {
     return deepAssign({}, super.getDefaultOptions(), {
       size: 4,
       tooltip: {
-        shared: null,
         showTitle: false,
-        offset: 20,
+        showMarkers: false,
+        showCrosshairs: true,
+        crosshairs: {
+          type: 'xy',
+        },
       },
     });
   }

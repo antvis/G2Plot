@@ -23,12 +23,28 @@ describe('scatter', () => {
 
     // @ts-ignore
     expect(scatter.chart.options.tooltip.title).toBe('scatter');
+    // @ts-ignore
+    expect(scatter.chart.geometries[0].tooltipOption.fields).toEqual(['weight', 'height', '', '', '']);
     scatter.update({
-      ...scatter.options,
+      colorField: 'gender',
+      sizeField: 'g',
+      shapeField: 'd',
+    });
+    // @ts-ignore
+    expect(scatter.chart.geometries[0].tooltipOption.fields).toEqual(['weight', 'height', 'gender', 'g', 'd']);
+
+    scatter.update({
+      tooltip: {
+        fields: ['weight', 'height'],
+      },
+    });
+    // @ts-ignore
+    expect(scatter.chart.geometries[0].tooltipOption.fields).toEqual(['weight', 'height']);
+    scatter.update({
       tooltip: false,
     });
-
-    expect(scatter.chart.getOptions().tooltip).toBe(undefined);
+    expect(scatter.chart.getOptions().tooltip).toBe(false);
+    expect(scatter.chart.geometries[0].tooltipOption).toBeUndefined();
     expect(scatter.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
 
     scatter.destroy();

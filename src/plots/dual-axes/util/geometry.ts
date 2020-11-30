@@ -2,7 +2,7 @@ import { each } from '@antv/util';
 import { Geometry } from '@antv/g2';
 import { Params } from '../../../core/adaptor';
 import { point, line, interval } from '../../../adaptor/geometries';
-import { pick, findGeometry, deepAssign } from '../../../utils';
+import { pick, deepAssign } from '../../../utils';
 import { GeometryOption } from '../types';
 import { isLine, isColumn } from './option';
 
@@ -14,7 +14,7 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
   params: Params<O>
 ): Params<O> {
   const { options, chart } = params;
-  const { geometryOption, yField } = options;
+  const { geometryOption } = options;
   const { isStack, color, seriesField, groupField, isGroup } = geometryOption;
 
   const FIELD_KEY = ['xField', 'yField'];
@@ -81,19 +81,6 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
         },
       })
     );
-  }
-
-  // 绘制 label
-  const mainGeometry = findGeometry(chart, 'line') || findGeometry(chart, 'interval');
-  if (!geometryOption.label) {
-    mainGeometry.label(false);
-  } else {
-    const { callback, ...cfg } = geometryOption.label;
-    mainGeometry.label({
-      fields: [yField],
-      callback,
-      cfg,
-    });
   }
 
   return params;

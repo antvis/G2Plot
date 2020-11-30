@@ -1,4 +1,4 @@
-import { DualAxes, Plot } from '../../../../src';
+import { DualAxes } from '../../../../src';
 import { PV_DATA, UV_DATA } from '../../../data/pv-uv';
 import { createDiv } from '../../../utils/dom';
 

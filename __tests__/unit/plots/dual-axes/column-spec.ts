@@ -25,9 +25,19 @@ describe('Line-Column', () => {
           connectNulls: false,
           smooth: true,
           color: '#f00',
+          label: {
+            formatter: (datum) => {
+              return `${datum.pv}个`;
+            },
+          },
         },
         {
           geometry: 'column',
+          label: {
+            formatter: (datum) => {
+              return `${datum.uv}*`;
+            },
+          },
         },
       ],
     });
@@ -46,6 +56,15 @@ describe('Line-Column', () => {
     // @ts-ignore
     expect(leftGeometry.shapeType).toBe('line');
     expect(rightGeometry.shapeType).toBe('interval');
+
+    // @ts-ignore
+    expect(leftGeometry.labelOption.fields).toEqual(['pv']);
+    // @ts-ignore
+    expect(leftGeometry.labelOption.cfg.formatter(PV_DATA[0])).toBe('123000个');
+    // @ts-ignore
+    expect(rightGeometry.labelOption.fields).toEqual(['uv']);
+    // @ts-ignore
+    expect(rightGeometry.labelOption.cfg.formatter(UV_DATA[0])).toBe('1212*');
 
     dualAxes.destroy();
   });

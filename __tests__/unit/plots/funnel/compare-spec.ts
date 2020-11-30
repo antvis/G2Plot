@@ -60,7 +60,7 @@ describe('compare funnel', () => {
         };
 
         const { data } = funnel.chart.getOptions();
-        data.forEach((item, index) => {
+        data.forEach((item) => {
           const originData = origin[item.quarter];
           const originIndex = originData.findIndex((jtem) => jtem.pv === item.pv);
           expect(item[FUNNEL_PERCENT]).toEqual(item.pv / originData[0].pv);

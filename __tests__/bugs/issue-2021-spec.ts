@@ -1,5 +1,4 @@
 import { TinyLine, TinyArea, TinyColumn } from '../../src';
-import { CountryEconomy } from '../data/country-economy';
 import { createDiv } from '../utils/dom';
 
 const DATA = [

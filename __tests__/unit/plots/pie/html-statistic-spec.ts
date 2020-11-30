@@ -3,7 +3,6 @@ import { Pie } from '../../../../src';
 import { StatisticAction } from '../../../../src/plots/pie/interactions/pie-statistic-action';
 import { POSITIVE_NEGATIVE_DATA } from '../../../data/common';
 import { createDiv } from '../../../utils/dom';
-import { delay } from '../../../utils/delay';
 
 describe('html-statistics', () => {
   const div = createDiv();

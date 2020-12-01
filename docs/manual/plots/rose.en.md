@@ -124,3 +124,7 @@ piePlot.render();
 ### Plot Theme
 
 `markdown:docs/common/theme.en.md`
+
+### Plot Interactions
+
+`markdown:docs/common/interactions.en.md`

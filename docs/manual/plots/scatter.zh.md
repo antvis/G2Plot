@@ -235,7 +235,7 @@ regressionLine: {
 }
 ```
 
-### 事件
+### 图表事件
 
 `markdown:docs/common/events.zh.md`
 
@@ -246,3 +246,7 @@ regressionLine: {
 ### 图表主题
 
 `markdown:docs/common/theme.zh.md`
+
+### 图表交互
+
+`markdown:docs/common/interactions.zh.md`

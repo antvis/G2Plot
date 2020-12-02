@@ -146,11 +146,9 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
       outer: 'pie-outer',
       spider: 'pie-spider',
     };
-    const labelLayoutType = get(LABEL_LAYOUT_TYPE_MAP, labelCfg.type, 'pie-outer');
+    const labelLayoutType = labelCfg.type ? LABEL_LAYOUT_TYPE_MAP[labelCfg.type] : 'pie-outer';
     const labelLayoutCfg = labelCfg.layout ? (!isArray(labelCfg.layout) ? [labelCfg.layout] : labelCfg.layout) : [];
-    labelCfg.layout = [{ type: labelLayoutType }, { type: 'limit-in-plot', cfg: { action: 'ellipsis' } }].concat(
-      labelLayoutCfg
-    );
+    labelCfg.layout = (labelLayoutType ? [{ type: labelLayoutType }] : []).concat(labelLayoutCfg);
 
     geometry.label({
       // fix: could not create scale, when field is undefined（attributes 中的 fields 定义都会被用来创建 scale）

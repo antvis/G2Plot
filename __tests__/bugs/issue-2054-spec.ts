@@ -2,7 +2,7 @@ import { Pie } from '../../src';
 import { createDiv } from '../utils/dom';
 
 describe('#2054', () => {
-  it('pie', () => {
+  it('pie {percentage} label', () => {
     const pie = new Pie(createDiv(), {
       width: 400,
       height: 300,

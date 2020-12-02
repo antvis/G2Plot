@@ -1,4 +1,4 @@
-import { every, filter, isFunction, isString, isNil, get } from '@antv/util';
+import { every, filter, isFunction, isString, isNil, get, isNumber } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
@@ -135,7 +135,7 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
               value,
               name,
               // percentage (string), default keep 2
-              percentage: percent ? `${(percent * 100).toFixed(2)}%` : null,
+              percentage: isNumber(percent) && !isNil(value) ? `${(percent * 100).toFixed(2)}%` : null,
             })
           : content;
       };

@@ -77,6 +77,8 @@ describe('area', () => {
     area.render();
     // @ts-ignore
     expect(area.chart.geometries[0].labelOption).toBeFalsy();
+
+    area.destroy();
   });
 
   it('default layout, on', () => {
@@ -103,5 +105,7 @@ describe('area', () => {
         { type: 'limit-in-plot', cfg: { action: 'hide' } },
       ],
     });
+
+    area.destroy();
   });
 });

@@ -2,6 +2,7 @@ import { interaction, animation, theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { sankeyLayout } from '../../utils/transform/sankey';
+import { polygon, edge } from '../../adaptor/geometries';
 import { SankeyOptions } from './types';
 import { transformDataToSankey } from './util/data';
 import { X_FIELD, Y_FIELD, COLOR_FIELD } from './constant';
@@ -17,6 +18,11 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
     sourceField,
     targetField,
     weightField,
+    color,
+    nodeStyle,
+    edgeStyle,
+    label,
+    tooltip,
     nodeAlign,
     nodePaddingRatio,
     nodeWidthRatio,
@@ -25,16 +31,11 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
 
   // 1. 组件，优先设置，因为子 view 会继承配置
   chart.legend(false);
-  chart.tooltip({
-    showTitle: false,
-    showMarkers: false,
-  });
+  chart.tooltip(tooltip);
   chart.axis(false);
 
   // 2. 转换出 layout 前数据
   const sankeyLayoutInputData = transformDataToSankey(data, sourceField, targetField, weightField);
-
-  console.log(111, sankeyLayoutInputData);
 
   // 3. layout 之后的数据
   const { nodes, links } = sankeyLayout(
@@ -70,44 +71,66 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
   const nodeView = chart.createView();
   nodeView.data(nodesData);
 
-  nodeView
-    .polygon()
-    .position(`${X_FIELD}*${Y_FIELD}`)
-    .color(COLOR_FIELD)
-    .style({
-      opacity: 1,
-      fillOpacity: 1,
-      lineWidth: 1,
-    })
-    .tooltip(false);
+  polygon({
+    chart: nodeView,
+    options: {
+      xField: X_FIELD,
+      yField: Y_FIELD,
+      seriesField: COLOR_FIELD,
+      polygon: {
+        color,
+        style: nodeStyle,
+      },
+      label,
+      tooltip: false,
+    },
+  });
 
   // edge view
   const edgeView = chart.createView();
   edgeView.data(edgesData);
 
-  edgeView
-    .edge()
-    .position(`${X_FIELD}*${Y_FIELD}`)
-    .shape('arc')
-    .color(COLOR_FIELD)
-    .style({
-      opacity: 0.3,
-      lineWidth: 0,
-    })
-    .tooltip('target*source*value', (target, source, value) => {
-      return {
-        name: source + ' to ' + target,
-        value,
-      };
-    })
-    .state({
-      active: {
-        style: {
-          opacity: 0.8,
-          lineWidth: 0,
+  edge({
+    chart: edgeView,
+    // @ts-ignore
+    options: {
+      xField: X_FIELD,
+      yField: Y_FIELD,
+      seriesField: COLOR_FIELD,
+      edge: {
+        color,
+        style: edgeStyle,
+        shape: 'arc',
+      },
+      tooltip,
+      state: {
+        active: {
+          style: {
+            opacity: 0.8,
+            lineWidth: 0,
+          },
         },
       },
-    });
+    },
+  });
+
+  // edgeView
+  //   .edge()
+  //   .position(`${X_FIELD}*${Y_FIELD}`)
+  //   .shape('arc')
+  //   .color(COLOR_FIELD)
+  //   .style(edgeStyle)
+  //   .tooltip(tooltipFields.join('*'), (target, source, value) => {
+  //     return formatter({ target, source, value })
+  //   })
+  // .state({
+  //   active: {
+  //     style: {
+  //       opacity: 0.8,
+  //       lineWidth: 0,
+  //     },
+  //   },
+  //   });
 
   chart.interaction('element-active');
 

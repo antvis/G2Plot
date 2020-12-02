@@ -124,7 +124,15 @@ function label(params: Params<LineOptions>): Params<LineOptions> {
     lineGeometry.label({
       fields: [yField],
       callback,
-      cfg: transformLabel(cfg),
+      cfg: {
+        layout: [
+          { type: 'limit-in-plot' },
+          { type: 'path-adjust-position' },
+          { type: 'point-adjust-position' },
+          { type: 'limit-in-plot', cfg: { action: 'hide' } },
+        ],
+        ...transformLabel(cfg),
+      },
     });
   }
 

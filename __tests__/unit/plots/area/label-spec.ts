@@ -62,4 +62,48 @@ describe('area', () => {
 
     area.destroy();
   });
+
+  it('default layout, off', () => {
+    const area = new Area(createDiv('default layout, off'), {
+      width: 400,
+      height: 300,
+      data: partySupport.filter((o) => ['FF', 'Lab'].includes(o.type)),
+      xField: 'date',
+      yField: 'value',
+      seriesField: 'type',
+      appendPadding: 10,
+    });
+
+    area.render();
+    // @ts-ignore
+    expect(area.chart.geometries[0].labelOption).toBeFalsy();
+  });
+
+  it('default layout, on', () => {
+    const area = new Area(createDiv('default layout, on'), {
+      width: 400,
+      height: 300,
+      data: partySupport.filter((o) => ['FF', 'Lab'].includes(o.type)),
+      xField: 'date',
+      yField: 'value',
+      seriesField: 'type',
+      appendPadding: 10,
+      animation: false,
+      label: {},
+    });
+
+    area.render();
+    // @ts-ignore
+    window.__plot__ = area;
+
+    // @ts-ignore
+    expect(area.chart.geometries[0].labelOption.cfg).toEqual({
+      layout: [
+        { type: 'limit-in-plot' },
+        { type: 'path-adjust-position' },
+        { type: 'point-adjust-position' },
+        { type: 'limit-in-plot', cfg: { action: 'hide' } },
+      ],
+    });
+  });
 });

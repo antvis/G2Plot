@@ -134,8 +134,18 @@ describe('support template string formatter', () => {
   });
   labels = pie.chart.geometries[0].labelsContainer.getChildren();
   // todo 暂时没有提供精度配置，直接粗暴返回
+  expect((labels[0] as IGroup).getChildren()[0].attr('text')).toBe('item1: 1(2...');
+
+  // 移除 limit-in-plot ellipsis
+  pie.update({
+    ...pie.options,
+    label: {
+      content: '{name}: {value}({percentage})',
+      layout: [],
+    },
+  });
+  labels = pie.chart.geometries[0].labelsContainer.getChildren();
   expect((labels[0] as IGroup).getChildren()[0].attr('text')).toBe('item1: 1(20.00%)');
-  // todo 补充图例点击后，百分比计算依然准确的 case
 
   pie.destroy();
 });

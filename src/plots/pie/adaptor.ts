@@ -1,4 +1,4 @@
-import { every, filter, isFunction, isString, isNil, get, isNumber } from '@antv/util';
+import { every, filter, isFunction, isString, isNil, get, isArray, isNumber } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
@@ -146,8 +146,9 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
       outer: 'pie-outer',
       spider: 'pie-spider',
     };
-    const labelLayoutType = LABEL_LAYOUT_TYPE_MAP[labelCfg.type] || 'pie-outer';
-    labelCfg.layout = deepAssign({}, labelCfg.layout, { type: labelLayoutType });
+    const labelLayoutType = labelCfg.type ? LABEL_LAYOUT_TYPE_MAP[labelCfg.type] : 'pie-outer';
+    const labelLayoutCfg = labelCfg.layout ? (!isArray(labelCfg.layout) ? [labelCfg.layout] : labelCfg.layout) : [];
+    labelCfg.layout = (labelLayoutType ? [{ type: labelLayoutType }] : []).concat(labelLayoutCfg);
 
     geometry.label({
       // fix: could not create scale, when field is undefined（attributes 中的 fields 定义都会被用来创建 scale）

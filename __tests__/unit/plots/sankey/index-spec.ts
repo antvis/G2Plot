@@ -121,6 +121,6 @@ describe('sankey', () => {
       y: [0.8358823529411765, 0.8358823529411765, 1, 1],
     });
 
-    // sankey.destroy();
+    sankey.destroy();
   });
 });

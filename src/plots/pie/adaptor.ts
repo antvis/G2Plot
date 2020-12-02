@@ -135,7 +135,7 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
               value,
               name,
               // percentage (string), default keep 2
-              percentage: isNumber(percent) && !isNil(percent) ? `${(percent * 100).toFixed(2)}%` : null,
+              percentage: isNumber(percent) && !isNil(value) ? `${(percent * 100).toFixed(2)}%` : null,
             })
           : content;
       };

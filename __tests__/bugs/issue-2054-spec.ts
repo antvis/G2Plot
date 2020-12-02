@@ -25,7 +25,6 @@ describe('#2054', () => {
 
     const labels = pie.chart.geometries[0].labelsContainer.getChildren();
     expect(labels[2].get('children')[0].attr('text')).toBe('0.00%');
-    expect(labels[3].get('children')[0].attr('text')).toBe(null);
 
     pie.destroy();
   });

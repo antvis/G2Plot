@@ -1,4 +1,4 @@
-import { interaction, animation, theme, scale } from '../../adaptor/common';
+import { interaction, animation, theme } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { sankeyLayout } from '../../utils/transform/sankey';

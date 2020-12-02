@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "alipay.ts",
+      "title": {
+        "zh": "支付宝流量桑基图",
+        "en": "Alipay sankey"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*bLulSLk-VskAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "energy.ts",
+      "title": {
+        "zh": "能量关系桑基图",
+        "en": "Energy sankey"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*W-V0QYiLLbgAAAAAAAAAAAAAARQnAQ"
+    }
+  ]
+}

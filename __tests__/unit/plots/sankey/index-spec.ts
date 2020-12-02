@@ -1,9 +1,9 @@
-import { Sankey } from '../../../../src';
+import { Datum, Sankey } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { ENERGY_RELATIONS } from '../../../data/sankey-energy';
 
 describe('sankey', () => {
-  it('Sankey', () => {
+  it('sankey', () => {
     const sankey = new Sankey(createDiv(), {
       height: 500,
       data: ENERGY_RELATIONS,
@@ -62,5 +62,65 @@ describe('sankey', () => {
     sankey.chart.showTooltip({ x: 100, y: 100 });
     expect(document.querySelector('.g2-tooltip-name').textContent).toBe('Oil imports -> Oil');
     expect(document.querySelector('.g2-tooltip-value').textContent).toBe('504.287');
+
+    sankey.destroy();
+  });
+
+  it('sankey style', () => {
+    const DATA = [
+      { source: '首次打开', target: '首页 UV', value: 160 },
+      { source: '结果页', target: '首页 UV', value: 40 },
+      { source: '验证页', target: '首页 UV', value: 10 },
+      { source: '我的', target: '首页 UV', value: 10 },
+      { source: '朋友', target: '首页 UV', value: 8 },
+      { source: '其他来源', target: '首页 UV', value: 27 },
+      { source: '首页 UV', target: '理财', value: 30 },
+      { source: '首页 UV', target: '扫一扫', value: 40 },
+      { source: '首页 UV', target: '服务', value: 35 },
+      { source: '首页 UV', target: '蚂蚁森林', value: 25 },
+      { source: '首页 UV', target: '跳失', value: 10 },
+      { source: '首页 UV', target: '借呗', value: 30 },
+      { source: '首页 UV', target: '花呗', value: 40 },
+      { source: '首页 UV', target: '其他流向', value: 45 },
+    ];
+
+    let d = null;
+    const sankey = new Sankey(createDiv(), {
+      data: DATA,
+      sourceField: 'source',
+      targetField: 'target',
+      weightField: 'value',
+      nodeStyle: (datum: Datum) => {
+        d = datum;
+        return {
+          fill: 'red',
+        };
+      },
+      edgeStyle: {
+        fill: '#ccc',
+        fillOpacity: 0.5,
+      },
+    });
+
+    sankey.render();
+
+    // @ts-ignore
+    expect(sankey.chart.views[1].geometries[0].styleOption.cfg).toEqual({
+      fill: '#ccc',
+      fillOpacity: 0.5,
+      lineWidth: 0,
+      opacity: 0.3,
+    });
+
+    // @ts-ignore
+    expect(sankey.chart.views[0].geometries[0].styleOption.fields).toEqual(['x', 'y', 'name']);
+
+    expect(d).toEqual({
+      name: '其他流向',
+      x: [0.992, 1, 1, 0.992],
+      y: [0.8358823529411765, 0.8358823529411765, 1, 1],
+    });
+
+    // sankey.destroy();
   });
 });

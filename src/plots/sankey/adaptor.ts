@@ -114,24 +114,6 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
     },
   });
 
-  // edgeView
-  //   .edge()
-  //   .position(`${X_FIELD}*${Y_FIELD}`)
-  //   .shape('arc')
-  //   .color(COLOR_FIELD)
-  //   .style(edgeStyle)
-  //   .tooltip(tooltipFields.join('*'), (target, source, value) => {
-  //     return formatter({ target, source, value })
-  //   })
-  // .state({
-  //   active: {
-  //     style: {
-  //       opacity: 0.8,
-  //       lineWidth: 0,
-  //     },
-  //   },
-  //   });
-
   chart.interaction('element-active');
 
   // scale

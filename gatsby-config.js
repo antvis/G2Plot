@@ -253,6 +253,14 @@ module.exports = {
         },
       },
       {
+        slug: 'sankey',
+        icon: 'sankey',
+        title: {
+          zh: '桑基图',
+          en: 'Sankey',
+        },
+      },
+      {
         slug: 'bidirectional-bar',
         icon: 'bi-directional-bar',
         title: {

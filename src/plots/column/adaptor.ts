@@ -165,16 +165,27 @@ function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
     geometry.label({
       fields: [yField],
       callback,
-      cfg: transformLabel(
-        isRange
-          ? {
-              content: (item: object) => {
-                return item[yField]?.join('-');
-              },
-              ...cfg,
-            }
-          : cfg
-      ),
+      cfg: {
+        // 配置默认的 label layout： 如果用户没有指定 layout 和 position， 则自动配置 layout
+        layout: cfg?.position
+          ? undefined
+          : [
+              { type: 'interval-adjust-position' },
+              { type: 'interval-hide-overlap' },
+              { type: 'adjust-color' },
+              { type: 'limit-in-plot', cfg: { action: 'hide' } },
+            ],
+        ...transformLabel(
+          isRange
+            ? {
+                content: (item: object) => {
+                  return item[yField]?.join('-');
+                },
+                ...cfg,
+              }
+            : cfg
+        ),
+      },
     });
   }
 

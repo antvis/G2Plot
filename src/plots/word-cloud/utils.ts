@@ -1,4 +1,5 @@
-import { Chart, View } from '@antv/g2';
+import { Chart } from '@antv/g2';
+import { ViewAppendPadding, ViewPadding } from '@antv/g2/lib/interface';
 import { isArray, isFunction, isNumber, isString } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { Datum } from '../../types';
@@ -12,6 +13,7 @@ import { Tag, Word, WordCloudOptions, WordStyle } from './types';
  */
 export function transform(params: Params<WordCloudOptions>): Tag[] {
   const { options: rawOptions, chart } = params;
+  const { width, height, padding: chartPadding, appendPadding, ele } = chart as Chart;
   const {
     data,
     imageMask,
@@ -22,6 +24,7 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
     timeInterval,
     random,
     spiral,
+    autoFit = true,
     placementStrategy,
   } = rawOptions;
   if (!data || !data.length) {
@@ -47,7 +50,14 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
     fontSize: getFontSizeMapping(fontSize, range),
     fontWeight: fontWeight,
     // 图表宽高减去 padding 之后的宽高
-    size: getSize(params as any),
+    size: getSize({
+      width,
+      height,
+      padding: chartPadding,
+      appendPadding,
+      autoFit,
+      container: ele,
+    }),
     padding: padding,
     timeInterval,
     random,
@@ -95,22 +105,32 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
  * 获取最终的实际绘图尺寸：[width, height]
  * @param chart
  */
-function getSize(params: Params<WordCloudOptions> & { chart: Chart }): [number, number] {
-  const { chart, options } = params;
-  const { autoFit = true } = options;
-  let { width, height } = chart;
+export function getSize(options: {
+  width: number;
+  height: number;
+  padding: ViewPadding;
+  appendPadding: ViewAppendPadding;
+  autoFit: boolean;
+  container: HTMLElement;
+}): [number, number] {
+  let { width, height } = options;
+  const { container, autoFit, padding, appendPadding } = options;
 
   // 由于词云图每个词语的坐标都是先通过 DataSet 根据图表宽高计算出来的，
   // 也就是说，如果一开始提供给 DataSet 的宽高信息和最终显示的宽高不相同，
   // 那么就会出现布局错乱的情况，所以这里处理的目的就是让一开始提供给 DataSet 的
   // 宽高信息与最终显示的宽高信息相同，避免显示错乱。
   if (autoFit) {
-    const containerSize = getContainerSize(chart.ele);
-    width = containerSize.width || 0;
-    height = containerSize.height || 0;
+    const containerSize = getContainerSize(container);
+    width = containerSize.width;
+    height = containerSize.height;
   }
 
-  const [top, right, bottom, left] = resolvePadding(chart);
+  // 宽高不能为 0，否则会造成死循环
+  width = width || 400;
+  height = height || 400;
+
+  const [top, right, bottom, left] = resolvePadding({ padding, appendPadding });
   const result = [width - (left + right), height - (top + bottom)];
 
   return result as [number, number];
@@ -120,9 +140,9 @@ function getSize(params: Params<WordCloudOptions> & { chart: Chart }): [number, 
  * 根据图表的 padding 和 appendPadding 计算出图表的最终 padding
  * @param chart
  */
-function resolvePadding(chart: View) {
-  const padding = normalPadding(chart.padding);
-  const appendPadding = normalPadding(chart.appendPadding);
+function resolvePadding(options: { padding: ViewPadding; appendPadding: ViewAppendPadding }) {
+  const padding = normalPadding(options.padding);
+  const appendPadding = normalPadding(options.appendPadding);
   const top = padding[0] + appendPadding[0];
   const right = padding[1] + appendPadding[1];
   const bottom = padding[2] + appendPadding[2];

@@ -70,6 +70,7 @@ describe('word-cloud utils', () => {
   it('utils: getSize & autoFit is true', () => {
     const container = createDiv();
     container.setAttribute('style', 'display: inline-block; width: 100px; height: 100px');
+
     const size = getSize({
       autoFit: true,
       width: 200,
@@ -85,6 +86,7 @@ describe('word-cloud utils', () => {
   it('utils: getSize & autoFit is false', () => {
     const container = createDiv();
     container.setAttribute('style', 'display: inline-block; width: 100px; height: 100px');
+
     const size = getSize({
       autoFit: false,
       width: 200,
@@ -100,6 +102,7 @@ describe('word-cloud utils', () => {
   it('utils: getSize & width and height both 0', () => {
     const container = createDiv();
     container.setAttribute('style', 'display: inline-block; width: 100px; height: 100px');
+
     const size = getSize({
       autoFit: false,
       width: 0,
@@ -115,6 +118,7 @@ describe('word-cloud utils', () => {
   it('utils: getSize & padding and appendPadding', () => {
     const container = createDiv();
     container.setAttribute('style', 'display: inline-block; width: 100px; height: 100px');
+
     const size = getSize({
       autoFit: false,
       width: 200,

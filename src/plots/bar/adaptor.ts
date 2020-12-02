@@ -22,7 +22,8 @@ export function adaptor(params: Params<BarOptions>) {
     if (legend !== false) {
       legend = {
         position: isStack ? 'top-left' : 'right-top',
-        ...legend,
+        reversed: isStack ? false : true,
+        ...(legend || {}),
       };
     }
   } else {
@@ -30,6 +31,19 @@ export function adaptor(params: Params<BarOptions>) {
   }
   // @ts-ignore 直接改值
   params.options.legend = legend;
+
+  // 默认 tooltip 配置
+  let { tooltip } = options;
+  if (seriesField) {
+    if (tooltip !== false) {
+      tooltip = {
+        reversed: isStack ? false : true,
+        ...(tooltip || {}),
+      };
+    }
+  }
+  // @ts-ignore 直接改值
+  params.options.tooltip = tooltip;
 
   // transpose column to bar
   chart.coordinate().transpose();

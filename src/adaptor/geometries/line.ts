@@ -1,3 +1,4 @@
+import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { ColorAttr, StyleAttr, SizeAttr, ShapeAttr } from '../../types';
 import { getTooltipMapping } from '../../utils/tooltip';
@@ -39,11 +40,13 @@ export function line<O extends LineGeometryOptions>(params: Params<O>): Params<O
             type: 'line',
             colorField: seriesField,
             tooltipFields: fields,
-            mapping: {
-              shape: stepType || (smooth ? 'smooth' : 'line'),
-              tooltip: formatter,
-              ...line,
-            },
+            mapping: deepMix(
+              {
+                shape: stepType || (smooth ? 'smooth' : 'line'),
+                tooltip: formatter,
+              },
+              line
+            ),
             args: { connectNulls },
           },
         })

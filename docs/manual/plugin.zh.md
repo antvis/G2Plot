@@ -67,3 +67,4 @@ plot.render();
 | [React-G2Plot](https://github.com/hustcc/React-G2Plot) | **React** | Unofficial react component wrapper for `@antvis/G2Plot`. | ![npm](https://img.shields.io/npm/v/react-g2plot.svg) |
 | [@opd/g2plot-react](https://github.com/open-data-plan/g2plot-react) | **React** | G2Plot for React. | ![npm](https://img.shields.io/npm/v/@opd/g2plot-react.svg) |
 | [@opd/g2plot-vue](https://github.com/open-data-plan/g2plot-vue) | **Vue** | G2Plot for Vue 3. | ![npm](https://img.shields.io/npm/v/@opd/g2plot-vue.svg) |
+| [ngx-g2plot](https://github.com/stack-stark/ngx-g2plot) | **Angular** | G2Plot for Angular 11. | ![npm](https://img.shields.io/npm/v/ngx-g2plot.svg) |

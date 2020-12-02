@@ -365,4 +365,40 @@ describe('bar', () => {
     expect(theme.defaultColor).toBe('#FF6B3B');
     expect(theme.columnWidthRatio).toBe(0.1);
   });
+
+  it('legend/tooltip reversed, grouped', () => {
+    const bar = new Bar(createDiv('group'), {
+      width: 300,
+      height: 400,
+      data: subSalesByArea,
+      yField: 'area',
+      xField: 'sales',
+      seriesField: 'series',
+      isGroup: true,
+    });
+    bar.render();
+
+    // @ts-ignore
+    expect(bar.chart.getOptions().legends['series'].reversed).toBe(true);
+    // @ts-ignore
+    expect(bar.chart.getOptions().tooltip.reversed).toBe(true);
+  });
+
+  it('legend/tooltip reversed, stacked', () => {
+    const bar = new Bar(createDiv('group'), {
+      width: 300,
+      height: 400,
+      data: subSalesByArea,
+      yField: 'area',
+      xField: 'sales',
+      seriesField: 'series',
+      isStack: true,
+    });
+    bar.render();
+
+    // @ts-ignore
+    expect(bar.chart.getOptions().legends['series'].reversed).toBe(false);
+    // @ts-ignore
+    expect(bar.chart.getOptions().tooltip?.reversed).toBe(false);
+  });
 });

@@ -112,7 +112,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
       xAxis: {
         nice: true,
         label: {
-          autoRotate: true,
+          autoRotate: false,
           autoHide: true,
         },
       },

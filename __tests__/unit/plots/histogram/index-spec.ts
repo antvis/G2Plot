@@ -37,7 +37,7 @@ describe('histogram', () => {
       nice: true,
       label: {
         autoHide: true,
-        autoRotate: true,
+        autoRotate: false,
       },
     });
 

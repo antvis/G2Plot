@@ -4,10 +4,12 @@ import { WordCloudOptions } from '../../../../src/plots/word-cloud';
 import {
   getFontSizeMapping,
   getSingleKeyValues,
+  getSize,
   processImageMask,
   transform,
 } from '../../../../src/plots/word-cloud/utils';
 import { CountryEconomy } from '../../../data/country-economy';
+import { createDiv } from '../../../utils/dom';
 
 describe('word-cloud utils', () => {
   const params: Params<WordCloudOptions> = {
@@ -65,19 +67,64 @@ describe('word-cloud utils', () => {
     expect(transform(p).length).toBe(0);
   });
 
-  it('utils: getSize', () => {
-    const p = deepMix({}, params, {
-      chart: {
-        padding: 0,
-        appendPadding: 0,
-      },
-      options: {
-        autoFit: true,
-      },
+  it('utils: getSize & autoFit is true', () => {
+    const container = createDiv();
+    container.setAttribute('style', 'display: inline-block; width: 100px; height: 100px');
+    const size = getSize({
+      autoFit: true,
+      width: 200,
+      height: 200,
+      padding: 0,
+      appendPadding: 0,
+      container,
     });
 
-    const result = transform(p).filter((v) => v.hasText);
-    expect(result.length).toBe(0);
+    expect(size).toEqual([100, 100]);
+  });
+
+  it('utils: getSize & autoFit is false', () => {
+    const container = createDiv();
+    container.setAttribute('style', 'display: inline-block; width: 100px; height: 100px');
+    const size = getSize({
+      autoFit: false,
+      width: 200,
+      height: 200,
+      padding: 0,
+      appendPadding: 0,
+      container,
+    });
+
+    expect(size).toEqual([200, 200]);
+  });
+
+  it('utils: getSize & width and height both 0', () => {
+    const container = createDiv();
+    container.setAttribute('style', 'display: inline-block; width: 100px; height: 100px');
+    const size = getSize({
+      autoFit: false,
+      width: 0,
+      height: 0,
+      padding: 0,
+      appendPadding: 0,
+      container,
+    });
+
+    expect(size).toEqual([400, 400]);
+  });
+
+  it('utils: getSize & padding and appendPadding', () => {
+    const container = createDiv();
+    container.setAttribute('style', 'display: inline-block; width: 100px; height: 100px');
+    const size = getSize({
+      autoFit: false,
+      width: 200,
+      height: 200,
+      padding: 10,
+      appendPadding: 10,
+      container,
+    });
+
+    expect(size).toEqual([160, 160]);
   });
 
   it('utils: padding is Array', () => {

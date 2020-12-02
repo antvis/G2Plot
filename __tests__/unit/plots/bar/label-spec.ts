@@ -228,6 +228,8 @@ describe('bar label', () => {
     plot.render();
 
     expect(plot.chart.geometries[0].labelOption).toBeFalsy();
+
+    plot.destroy();
   });
 
   it('default layout, on', () => {
@@ -258,6 +260,8 @@ describe('bar label', () => {
         { type: 'limit-in-plot', cfg: { action: 'hide' } },
       ],
     });
+
+    plot.destroy();
   });
 
   it('default layout, custom', () => {
@@ -288,5 +292,7 @@ describe('bar label', () => {
       layout: [{ type: 'adjust-color' }],
       position: 'left',
     });
+
+    plot.destroy();
   });
 });

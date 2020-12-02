@@ -77,6 +77,8 @@ describe('line', () => {
     line.render();
 
     expect(line.chart.geometries[0].labelOption).toBeFalsy();
+
+    line.destroy();
   });
 
   it('default layout, on', () => {
@@ -102,5 +104,7 @@ describe('line', () => {
         { type: 'limit-in-plot', cfg: { action: 'hide' } },
       ],
     });
+
+    line.destroy();
   });
 });

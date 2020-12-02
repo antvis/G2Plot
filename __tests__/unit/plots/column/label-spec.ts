@@ -226,6 +226,8 @@ describe('column label', () => {
     plot.render();
 
     expect(plot.chart.geometries[0].labelOption).toBeFalsy();
+
+    plot.destroy();
   });
 
   it('default layout, on', () => {
@@ -255,6 +257,8 @@ describe('column label', () => {
         { type: 'limit-in-plot', cfg: { action: 'hide' } },
       ],
     });
+
+    plot.destroy();
   });
 
   it('default layout, custom', () => {
@@ -284,5 +288,7 @@ describe('column label', () => {
     expect(plot.chart.geometries[0].labelOption.cfg).toEqual({
       layout: [{ type: 'adjust-color' }],
     });
+
+    plot.destroy();
   });
 });

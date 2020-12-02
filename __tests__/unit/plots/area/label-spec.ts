@@ -93,8 +93,6 @@ describe('area', () => {
     });
 
     area.render();
-    // @ts-ignore
-    window.__plot__ = area;
 
     // @ts-ignore
     expect(area.chart.geometries[0].labelOption.cfg).toEqual({

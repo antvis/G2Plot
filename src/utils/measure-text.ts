@@ -1,6 +1,5 @@
 import { isString, memoize, values } from '@antv/util';
-
-const ctx = document.createElement('canvas').getContext('2d');
+import { getCanvasContext } from './context';
 
 /**
  * 计算文本在画布中的宽度
@@ -10,6 +9,7 @@ const ctx = document.createElement('canvas').getContext('2d');
 export const measureTextWidth = memoize(
   (text: string, font: any = {}): number => {
     const { fontSize, fontFamily = 'sans-serif', fontWeight, fontStyle, fontVariant } = font;
+    const ctx = getCanvasContext();
     // @see https://developer.mozilla.org/zh-CN/docs/Web/CSS/font
     ctx.font = [fontStyle, fontWeight, fontVariant, `${fontSize}px`, fontFamily].join(' ');
     const metrics = ctx.measureText(isString(text) ? text : '');

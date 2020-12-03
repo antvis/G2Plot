@@ -1,6 +1,6 @@
 import { Geometry } from '@antv/g2';
 import { each } from '@antv/util';
-import { tooltip, slider, interaction, animation, theme, annotation } from '../../adaptor/common';
+import { tooltip, slider, interaction, animation, theme, annotation, limitInPlot } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
 import { Params } from '../../core/adaptor';
 import { area, point, line } from '../../adaptor/geometries';
@@ -82,7 +82,15 @@ function label(params: Params<AreaOptions>): Params<AreaOptions> {
     areaGeometry.label({
       fields: [yField],
       callback,
-      cfg: transformLabel(cfg),
+      cfg: {
+        layout: [
+          { type: 'limit-in-plot' },
+          { type: 'path-adjust-position' },
+          { type: 'point-adjust-position' },
+          { type: 'limit-in-plot', cfg: { action: 'hide' } },
+        ],
+        ...transformLabel(cfg),
+      },
     });
   }
 
@@ -124,6 +132,7 @@ export function adaptor(params: Params<AreaOptions>) {
     slider,
     annotation(),
     interaction,
-    animation
+    animation,
+    limitInPlot
   )(params);
 }

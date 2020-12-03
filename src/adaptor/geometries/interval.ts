@@ -1,5 +1,5 @@
-import { Geometry } from '@antv/g2';
-import { isNil } from '@antv/util';
+import { Geometry, getTheme } from '@antv/g2';
+import { isNil, isObject } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { deepAssign } from '../../utils';
 import { getTooltipMapping } from '../../utils/tooltip';
@@ -32,7 +32,7 @@ export interface IntervalGeometryOptions extends GeometryOptions {
  */
 function otherAdaptor<O extends IntervalGeometryOptions>(params: Params<O>): Params<O> {
   const { chart, options, ext } = params;
-  const { seriesField, isGroup, isStack, marginRatio, widthRatio, groupField } = options;
+  const { seriesField, isGroup, isStack, marginRatio, widthRatio, groupField, theme } = options;
 
   const g = ext.geometry as Geometry;
   /**
@@ -63,9 +63,12 @@ function otherAdaptor<O extends IntervalGeometryOptions>(params: Params<O>): Par
 
   // widthRatio
   if (!isNil(widthRatio)) {
-    chart.theme({
-      columnWidthRatio: widthRatio,
-    });
+    chart.theme(
+      deepAssign({}, isObject(theme) ? theme : getTheme(theme), {
+        // columWidthRatio 配置覆盖 theme 中的配置
+        columnWidthRatio: widthRatio,
+      })
+    );
   }
 
   return params;

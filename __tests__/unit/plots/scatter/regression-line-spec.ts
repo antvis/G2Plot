@@ -187,4 +187,43 @@ describe('scatter', () => {
 
     scatter.destroy();
   });
+  it('regressionLine: top', async () => {
+    const scatter = new Scatter(createDiv('regressionLine*top'), {
+      data,
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      xField: 'x',
+      yField: 'y',
+      size: 5,
+      pointStyle: {
+        stroke: '#777777',
+        lineWidth: 1,
+        fill: '#5B8FF9',
+      },
+      animation: false,
+      regressionLine: {
+        top: true, // top true
+      },
+    });
+
+    scatter.render();
+    await delay(100);
+    const pathGroup = scatter.chart.getComponents().find((item) => item.type === 'annotation');
+    expect(pathGroup?.layer).toBe('fore');
+    scatter.update({
+      regressionLine: {
+        top: false, // top false
+      },
+    });
+    await delay(100);
+    const currentPathGroup = scatter.chart.getComponents().find((item) => item.type === 'annotation');
+    expect(currentPathGroup?.layer).toBe('bg');
+    scatter.update({
+      regressionLine: {}, // default
+    });
+    await delay(100);
+    expect(scatter.chart.getComponents().find((item) => item.type === 'annotation')?.layer).toBe('bg');
+    scatter.destroy();
+  });
 });

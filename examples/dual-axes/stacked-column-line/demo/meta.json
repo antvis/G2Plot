@@ -10,7 +10,7 @@
         "zh": "堆叠柱线图表",
         "en": "Stacked column line"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*S7V_SbjUSwsAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*R2j7SIpYvDsAAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "custom-stacked-column-line.ts",
@@ -18,15 +18,15 @@
         "zh": "堆叠柱线图表-自定义样式",
         "en": "Custom stacked column line"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*9IptSKDIopIAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*RCl4Tr-4TqwAAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "stacked-percent-column-line.ts",
       "title": {
-        "zh": "百分比堆叠柱线图表-显示多折线",
+        "zh": "百分比堆叠柱线图表",
         "en": "stacked-percent-column-line"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*El_nTpXUXHMAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*w_VfQ5sDvS0AAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "stacked-column-multi-line.ts",
@@ -34,7 +34,7 @@
         "zh": "堆叠柱线图表-显示多折线",
         "en": "Stacked column multi line"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*El_nTpXUXHMAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*I_bmR6CZJScAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

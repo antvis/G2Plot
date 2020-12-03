@@ -69,6 +69,8 @@ const stackedBarPlot = new Bar('container', {
     layout: [
       // 柱形图数据标签位置自动调整
       { type: 'interval-adjust-position' },
+      // 数据标签防遮挡
+      { type: 'interval-hide-overlap' },
       // 数据标签文颜色自动调整
       { type: 'adjust-color' },
     ],

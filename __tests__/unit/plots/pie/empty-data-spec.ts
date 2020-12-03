@@ -19,6 +19,7 @@ describe('饼图 数据全空', () => {
       data,
       angleField: 'value',
       colorField: 'type',
+      radius: 0.8,
       label: {
         callback: (value) => {
           return {
@@ -53,7 +54,8 @@ describe('饼图 数据全空', () => {
         },
       },
       animation: false,
-      label: {},
+      // 移除 ellipsis
+      label: { layout: [] },
       tooltip: {},
     });
 

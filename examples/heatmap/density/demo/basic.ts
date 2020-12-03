@@ -10,6 +10,9 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/heatmap.json')
       yField: 'l',
       colorField: 'tmp',
       color: '#F51D27-#FA541C-#FF8C12-#FFC838-#FAFFA8-#80FF73-#12CCCC-#1890FF-#6E32C2',
+      legend: {
+        position: 'bottom',
+      },
       annotations: [
         {
           type: 'image',

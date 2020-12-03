@@ -13,8 +13,16 @@ import { ScatterOptions } from './types';
  */
 function geometry(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { data, type, color, shape, size, pointStyle, colorField } = options;
+  const { data, type, color, shape, size, pointStyle, shapeField, colorField, xField, yField, sizeField } = options;
 
+  let { tooltip } = options;
+
+  if (tooltip && !tooltip.fields) {
+    tooltip = {
+      ...tooltip,
+      fields: [xField, yField, colorField, sizeField, shapeField],
+    };
+  }
   // 数据
   chart.data(data);
 
@@ -29,6 +37,7 @@ function geometry(params: Params<ScatterOptions>): Params<ScatterOptions> {
           size,
           style: pointStyle,
         },
+        tooltip,
       },
     })
   );
@@ -178,13 +187,14 @@ function regressionLine(params: Params<ScatterOptions>): Params<ScatterOptions> 
   const { options, chart } = params;
   const { regressionLine } = options;
   if (regressionLine) {
-    const { style } = regressionLine;
+    const { style, top = false } = regressionLine;
     const defaultStyle = {
       stroke: '#9ba29a',
       lineWidth: 2,
       opacity: 0.5,
     };
     chart.annotation().shape({
+      top,
       render: (container, view) => {
         const group = container.addGroup({
           id: `${chart.id}-regression-line`,
@@ -215,13 +225,12 @@ function regressionLine(params: Params<ScatterOptions>): Params<ScatterOptions> 
  */
 export function tooltip(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { tooltip, shapeField, colorField, xField, yField, sizeField } = options;
+  const { tooltip } = options;
 
   if (tooltip) {
-    chart.tooltip({
-      fields: [xField, yField, colorField, sizeField, shapeField],
-      ...tooltip,
-    });
+    chart.tooltip(tooltip);
+  } else if (tooltip === false) {
+    chart.tooltip(false);
   }
 
   return params;

@@ -29,8 +29,8 @@ const liquidPlot = new Liquid(document.getElementById('container'), {
   },
   liquidStyle: ({ percent }) => {
     return {
-      fill: percent > 0.75 ? '#5B8FF9' : '#FAAD14',
-      stroke: percent > 0.75 ? '#5B8FF9' : '#FAAD14',
+      fill: percent > 0.45 ? '#5B8FF9' : '#FAAD14',
+      stroke: percent > 0.45 ? '#5B8FF9' : '#FAAD14',
     };
   },
   color: () => '#5B8FF9',

@@ -1,9 +1,11 @@
-import { map, find, each } from '@antv/util';
+import { map, find, each, isObject } from '@antv/util';
 import { Coordinate, IGroup, ShapeAttrs } from '@antv/g2/lib/dependents';
-import { Geometry, View } from '@antv/g2';
+import { Geometry, View, getTheme } from '@antv/g2';
 import Element from '@antv/g2/lib/geometry/element';
 import { Params } from '../core/adaptor';
 import { deepAssign } from '../utils';
+import { conversionTagformatter } from '../utils/conversion';
+import { Options } from '../types';
 
 /** 转化率组件配置选项 */
 export interface ConversionTagOptions {
@@ -74,18 +76,7 @@ function getConversionTagOptionsWithDefaults(options: ConversionTagOptions, hori
           textAlign: 'center',
           textBaseline: 'middle',
         },
-        formatter: (prev: number, next: number) => {
-          if (prev === next) {
-            return `${(0).toFixed(2)}%`;
-          }
-          if (prev === 0) {
-            return '∞';
-          }
-          if (next === 0) {
-            return '-∞';
-          }
-          return `${((100 * next) / prev).toFixed(2)}%`;
-        },
+        formatter: conversionTagformatter,
       },
     },
     options
@@ -207,17 +198,24 @@ function renderTag(options: TagRenderConfig, elemPrev: Element, elemNext: Elemen
  * 返回支持转化率组件的 adaptor，适用于柱形图/条形图
  * @param field 用户转化率计算的字段
  * @param horizontal 是否水平方向的转化率
+ * @param disabled 是否禁用
  */
-export function conversionTag<O extends OptionWithConversionTag>(field: string, horizontal = true) {
+export function conversionTag<O extends OptionWithConversionTag & Options>(
+  field: string,
+  horizontal = true,
+  disabled = false
+) {
   return function (params: Params<O>): Params<O> {
     const { options, chart } = params;
-    const { conversionTag } = options;
+    const { conversionTag, theme } = options;
 
-    if (conversionTag) {
+    if (conversionTag && !disabled) {
       // 有转化率组件时，柱子宽度占比自动为 1/3
-      chart.theme({
-        columnWidthRatio: 1 / 3,
-      });
+      chart.theme(
+        deepAssign({}, isObject(theme) ? theme : getTheme(theme), {
+          columnWidthRatio: 1 / 3,
+        })
+      );
       // 使用  shape annotation 绘制转化率组件
       chart.annotation().shape({
         render: (container, view) => {

@@ -74,7 +74,7 @@ describe('line', () => {
     line.render();
 
     expect(line.chart.getScaleByField('x').type).toBe('cat');
-    expect(line.chart.getScaleByField('x').range).toEqual([0, 1]);
+    expect(line.chart.getScaleByField('x').range).toEqual([1 / 8, 7 / 8]);
     line.update({
       meta: {
         x: {

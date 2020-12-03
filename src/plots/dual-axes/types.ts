@@ -47,7 +47,7 @@ export type GeometryColumnOption = Pick<
 
 export type GeometryOption = GeometryColumnOption | GeometryLineOption;
 
-export type DualAxesOptions = Omit<Options, 'data' | 'yAxis' | 'color'> & {
+export type DualAxesOptions = Omit<Options, 'data' | 'yAxis' | 'color' | 'annotations'> & {
   /**
    * 具体的数据，左右两边的数据
    */
@@ -71,4 +71,9 @@ export type DualAxesOptions = Omit<Options, 'data' | 'yAxis' | 'color'> & {
    * 左右两边的图形配置
    */
   readonly geometryOptions?: GeometryOption[];
+
+  /**
+   * 左右两边的 annotation 配置, 同时支持数组和object 两种形式，以防出现 field 相同无法设置的情况
+   */
+  readonly annotations?: Options['annotations'][] | Record<string, Options['annotations']>;
 };

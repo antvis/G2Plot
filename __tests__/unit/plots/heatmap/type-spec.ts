@@ -1,15 +1,13 @@
 import { Heatmap } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
+import { heatmapData } from '../../../data/heatmap';
 
 describe('heatmap', () => {
   it('x*y*color and type', async () => {
-    const data = await fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/heatmap.json').then((res) =>
-      res.json()
-    );
     const heatmap = new Heatmap(createDiv('type density'), {
       width: 600,
       height: 500,
-      data,
+      data: heatmapData,
       autoFit: false,
       type: 'density',
       xField: 'g',

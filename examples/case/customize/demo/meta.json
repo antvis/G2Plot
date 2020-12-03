@@ -5,20 +5,12 @@
   },
   "demos": [
     {
-      "filename": "line-marker.ts",
+      "filename": "line.ts",
       "title": {
-        "zh": "自定义折线图 marker",
-        "en": "Custom Line marker point"
+        "zh": "用户会话",
+        "en": "User session"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*U2mPQLoxIR4AAAAAAAAAAAAAARQnAQ"
-    },
-    {
-      "filename": "line-style.ts",
-      "title": {
-        "zh": "自定义折线图样式",
-        "en": "Custom Line style"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*NSq2SJgS3lEAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*_iXASYTyIzcAAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "customize-tooltip.ts",
@@ -26,15 +18,7 @@
         "zh": "自定义 Tooltip",
         "en": "Custom tooltip"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*5bPrQK5F-toAAAAAAAAAAAAAARQnAQ"
-    },
-    {
-      "filename": "pie/basic/basic.ts",
-      "title": {
-        "zh": "自定义 Tooltip",
-        "en": "Custom tooltip"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*5bPrQK5F-toAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*5fg3Q7n3tFEAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

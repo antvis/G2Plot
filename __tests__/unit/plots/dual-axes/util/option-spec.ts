@@ -2,7 +2,7 @@ import {
   isLine,
   isColumn,
   getGeometryOption,
-  getCompatibleYAxis,
+  transArrayToObject,
   getYAxisWithDefault,
 } from '../../../../../src/plots/dual-axes/util/option';
 import { AxisType } from '../../../../../src/plots/dual-axes/types';
@@ -26,6 +26,8 @@ const DEFAULT_RIGHT_YAXIS_CONFIG = {
   grid: null,
 };
 
+const ARRAY_TIP = 'ARRAY_TIP';
+
 describe('DualAxes option', () => {
   it('isLine, isColumn', () => {
     expect(isLine({})).toBe(false);
@@ -37,28 +39,28 @@ describe('DualAxes option', () => {
     expect(isColumn({ geometry: 'column' })).toBe(true);
   });
 
-  it('getCompatibleYAxis', () => {
-    expect(getCompatibleYAxis(['yField1', 'yField2'], undefined)).toEqual({
+  it('transArrayToObject', () => {
+    expect(transArrayToObject(['yField1', 'yField2'], undefined, undefined)).toEqual({
       yField1: undefined,
       yField2: undefined,
     });
 
-    expect(getCompatibleYAxis(['yField1', 'yField2'], [{ nice: false }])).toEqual({
+    expect(transArrayToObject(['yField1', 'yField2'], [{ nice: false }], ARRAY_TIP)).toEqual({
       yField1: { nice: false },
       yField2: undefined,
     });
 
-    expect(getCompatibleYAxis(['yField1', 'yField2'], [false])).toEqual({
+    expect(transArrayToObject(['yField1', 'yField2'], [false], ARRAY_TIP)).toEqual({
       yField1: false,
       yField2: undefined,
     });
 
-    expect(getCompatibleYAxis(['yField1', 'yField2'], { yField1: { nice: true } })).toEqual({
+    expect(transArrayToObject(['yField1', 'yField2'], { yField1: { nice: true } }, ARRAY_TIP)).toEqual({
       yField1: { nice: true },
       yField2: undefined,
     });
 
-    expect(getCompatibleYAxis(['yField1', 'yField2'], { yField1: { nice: true }, yField2: false })).toEqual({
+    expect(transArrayToObject(['yField1', 'yField2'], { yField1: { nice: true }, yField2: false }, ARRAY_TIP)).toEqual({
       yField1: { nice: true },
       yField2: false,
     });
@@ -88,24 +90,21 @@ describe('DualAxes option', () => {
   });
 
   it('getGeometryOption', () => {
-    expect(getGeometryOption('test', 'yField1', undefined, AxisType.Left)).toEqual({
+    expect(getGeometryOption('test', 'yField1', undefined)).toEqual({
       geometry: 'line',
-      color: '#5B8FF9',
     });
 
     // @ts-ignore
-    expect(getGeometryOption('test', 'yField1', { a: 1 }, AxisType.Left)).toEqual({
+    expect(getGeometryOption('test', 'yField1', { a: 1 })).toEqual({
       geometry: 'line',
-      color: '#5B8FF9',
       a: 1,
     });
 
-    expect(getGeometryOption('test', 'yField1', { geometry: 'column' }, AxisType.Left)).toEqual({
+    expect(getGeometryOption('test', 'yField1', { geometry: 'column' })).toEqual({
       geometry: 'column',
     });
 
-    const label = getGeometryOption('test', 'yField1', { geometry: 'column', isRange: true, label: {} }, AxisType.Left)
-      .label;
+    const label = getGeometryOption('test', 'yField1', { geometry: 'column', isRange: true, label: {} }).label;
 
     expect(
       label && typeof label.content === 'function' && label.content({ yField1: [40, 50] }, { _origin: [40, 50] }, 1)

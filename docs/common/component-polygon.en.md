@@ -6,7 +6,7 @@
 
 `markdown:docs/common/annotations.en.md`
 
-#### theme
+### Plot Theme
 
 `markdown:docs/common/theme.en.md`
 

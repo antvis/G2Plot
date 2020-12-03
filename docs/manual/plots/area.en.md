@@ -13,7 +13,7 @@ order: 1
 
 <description>**required** _array object_</description>
 
-设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+Configure the data source. The data source is a collection of objects. For example:`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
 `markdown:docs/common/xy-field.en.md`
 
@@ -21,35 +21,35 @@ order: 1
 
 <description>**optional** _string_</description>
 
-分组字段。
+Grouping field. For example, when we need to analyze the transaction volume trend of different provinces, the `province` field is the grouping field.
 
 `markdown:docs/common/meta.en.md`
 
-### Geometry Style
+### Graphic Style
 
 #### smooth
 
 <description>**optional** _boolean_ _default:_ `false`</description>
 
-是否平滑。
+Whether the curve is smooth.
 
 #### isStack
 
 <description>**optional** _boolean_ _default:_ `true`</description>
 
-是否堆积面积图。
+Whether the plot is Stacked Area.
 
 #### isPercent
 
 <description>**optional** _boolean_ _default:_ `true`</description>
 
-是否百分比面积图，百分比时默认开启 isStack。
+Whether the plot is Percent Area. When the plot is Percent Area, isStack is `true` by default.
 
 #### areaStyle
 
 <description>**optional** _StyleAttr | Function_</description>
 
-面积图形样式。
+Area graphic style.
 
 `markdown:docs/common/shape-style.en.md`
 
@@ -57,19 +57,19 @@ order: 1
 
 <description>**optional** _lineStyle_</description>
 
-面积中折线的样式。
+Line graphic style in the Area.
 
-| 细分配置项名称 | 类型                                     | 功能描述 |
+| Attr | Type                                      | Description |
 | -------------- | ---------------------------------------- | -------- |
-| color          | _string \| string[] \| Function_         | 颜色映射 |
-| style          | _ShapeStyle \| Function_                 | 样式映射 |
-| size           | _number \| [number, number] \| Function_ | 折线宽度 |
+| color          | _string \| string[] \| Function_         | Line color |
+| style          | _ShapeStyle \| Function_                 | Line graphic style |
+| size           | _number \| [number, number] \| Function_ | Line width |
 
 #### point
 
 <description>**optional** _pointStyle_</description>
 
-面积图数据点图形样式。
+Point graphic style in the Area.
 
 `markdown:docs/common/point-style.en.md`
 

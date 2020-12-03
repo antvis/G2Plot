@@ -6,6 +6,7 @@ import {
   interaction as commonInteraction,
   animation as commonAnimation,
   theme as commonTheme,
+  limitInPlot as commonLimitInPlot,
   scale,
 } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
@@ -198,6 +199,35 @@ export function interaction(params: Params<BidirectionalBarOptions>): Params<Bid
 }
 
 /**
+ * limitInPlot
+ * @param params
+ */
+export function limitInPlot(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarOptions> {
+  const { chart, options } = params;
+  const { yField, yAxis } = options;
+
+  commonLimitInPlot(
+    deepAssign({}, params, {
+      chart: findViewById(chart, FIRST_AXES_VIEW),
+      options: {
+        yAxis: yAxis[yField[0]],
+      },
+    })
+  );
+
+  commonLimitInPlot(
+    deepAssign({}, params, {
+      chart: findViewById(chart, SECOND_AXES_VIEW),
+      options: {
+        yAxis: yAxis[yField[1]],
+      },
+    })
+  );
+
+  return params;
+}
+
+/**
  * theme
  * @param params
  */
@@ -263,5 +293,5 @@ function label(params: Params<BidirectionalBarOptions>): Params<BidirectionalBar
  */
 export function adaptor(params: Params<BidirectionalBarOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(geometry, meta, axis, theme, label, tooltip, interaction, animation)(params);
+  return flow(geometry, meta, axis, limitInPlot, theme, label, tooltip, interaction, animation)(params);
 }

@@ -13,6 +13,12 @@ const columnPlot = new Column('container', {
   xField: 'action',
   yField: 'pv',
   conversionTag: {},
+  xAxis: {
+    label: {
+      autoHide: true,
+      autoRotate: false,
+    },
+  },
 });
 
 columnPlot.render();

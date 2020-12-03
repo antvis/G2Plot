@@ -1,17 +1,9 @@
+import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { ColorAttr, StyleAttr, SizeAttr } from '../../types';
+import { ColorAttr, StyleAttr, SizeAttr, ShapeAttr } from '../../types';
 import { getTooltipMapping } from '../../utils/tooltip';
 import { deepAssign } from '../../utils';
-import { GeometryOptions, geometry } from './base';
-
-type LineOption = {
-  /** line color 映射, 提供回调的方式, 不开放 field 映射配置 */
-  readonly color?: ColorAttr;
-  /** 样式映射 */
-  readonly style?: StyleAttr;
-  /** 折线宽度 */
-  readonly size?: SizeAttr;
-};
+import { GeometryOptions, geometry, MappingOptions } from './base';
 
 export interface LineGeometryOptions extends GeometryOptions {
   /** x 轴字段 */
@@ -25,7 +17,7 @@ export interface LineGeometryOptions extends GeometryOptions {
   /** 是否连接空数据 */
   readonly connectNulls?: boolean;
   /** line 映射配置 */
-  readonly line?: LineOption;
+  readonly line?: MappingOptions;
   /** 阶梯折线图类型 */
   readonly stepType?: string;
 }
@@ -48,11 +40,13 @@ export function line<O extends LineGeometryOptions>(params: Params<O>): Params<O
             type: 'line',
             colorField: seriesField,
             tooltipFields: fields,
-            mapping: {
-              shape: stepType || (smooth ? 'smooth' : 'line'),
-              tooltip: formatter,
-              ...line,
-            },
+            mapping: deepMix(
+              {
+                shape: stepType || (smooth ? 'smooth' : 'line'),
+                tooltip: formatter,
+              },
+              line
+            ),
             args: { connectNulls },
           },
         })

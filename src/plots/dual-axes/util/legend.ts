@@ -21,7 +21,9 @@ export function getViewLegendItems(params: {
   const geometry = findGeometry(view, isLine(geometryOption) ? 'line' : 'interval');
   if (!geometryOption.seriesField) {
     // 返回 g2 设置的图例
-    const { color } = geometryOption;
+    const colorAttribute = geometry.getAttribute('color');
+    const color = colorAttribute.values[0];
+
     const marker =
       userMarker ||
       (isLine(geometryOption)

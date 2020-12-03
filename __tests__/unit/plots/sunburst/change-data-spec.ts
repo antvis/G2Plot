@@ -1,12 +1,10 @@
 import { Sunburst } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
+import { SUNBRUST_DATA } from '../../../data/sunburst';
 
 describe('sunburst', () => {
   it('init: change data', async () => {
-    const data = await fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json').then((res) =>
-      res.json()
-    );
     const sunburstPlot = new Sunburst(createDiv(), {
       width: 400,
       height: 400,
@@ -23,7 +21,7 @@ describe('sunburst', () => {
     });
     sunburstPlot.render();
     await delay(200);
-    sunburstPlot.changeData(data);
+    sunburstPlot.changeData(SUNBRUST_DATA);
     const geometry = sunburstPlot.chart.geometries[0];
     expect(geometry.type).toBe('polygon');
     expect(sunburstPlot.options.color).toEqual(['#BAE7FF', '#1890FF', '#0050B3']);
@@ -45,13 +43,10 @@ describe('sunburst', () => {
   });
 
   it('init: update', async () => {
-    const data = await fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json').then((res) =>
-      res.json()
-    );
     const sunburstPlot = new Sunburst(createDiv(), {
       width: 400,
       height: 400,
-      data,
+      data: SUNBRUST_DATA,
       seriesField: 'sum',
       innerRadius: 0.3,
       radius: 1,

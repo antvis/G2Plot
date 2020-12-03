@@ -4,7 +4,7 @@ import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
 
 describe('area', () => {
-  it.only('x*y*color point', () => {
+  it('x*y*color point', () => {
     const area = new Area(createDiv(), {
       width: 400,
       height: 300,

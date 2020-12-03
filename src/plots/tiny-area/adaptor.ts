@@ -2,6 +2,8 @@ import { theme, scale, animation, annotation, tooltip } from '../../adaptor/comm
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
 import { area, line, point } from '../../adaptor/geometries';
+import { X_FIELD, Y_FIELD } from '../tiny-line/constants';
+import { adjustYMetaByZero } from '../../utils/data';
 import { TinyAreaOptions } from './types';
 
 /**
@@ -10,7 +12,7 @@ import { TinyAreaOptions } from './types';
  */
 function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   const { chart, options } = params;
-  const { data, color, areaStyle, point: pointOptions, line: lineOptions } = options;
+  const { data, xAxis, yAxis, color, areaStyle, point: pointOptions, line: lineOptions } = options;
 
   const seriesData = data.map((y: number, x: number) => {
     return { x, y };
@@ -20,8 +22,8 @@ function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
 
   const p = deepAssign({}, params, {
     options: {
-      xField: 'x',
-      yField: 'y',
+      xField: X_FIELD,
+      yField: Y_FIELD,
       area: { color, style: areaStyle },
       line: lineOptions,
       point: pointOptions,
@@ -35,6 +37,20 @@ function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   chart.axis(false);
   chart.legend(false);
 
+  // scale
+  scale(
+    {
+      [X_FIELD]: xAxis,
+      [Y_FIELD]: yAxis,
+    },
+    {
+      [X_FIELD]: {
+        type: 'cat',
+      },
+      [Y_FIELD]: adjustYMetaByZero(seriesData, Y_FIELD),
+    }
+  )(params);
+
   return params;
 }
 
@@ -44,5 +60,5 @@ function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
  * @param options
  */
 export function adaptor(params: Params<TinyAreaOptions>) {
-  return flow(geometry, scale({}), tooltip, theme, animation, annotation())(params);
+  return flow(geometry, tooltip, theme, animation, annotation())(params);
 }

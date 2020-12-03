@@ -1,0 +1,41 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "trend.jsx",
+      "title": {
+        "zh": "指标卡趋势图",
+        "en": "Indicator Trend Diagram"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*kHHZQa-fpAQAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "funnel.jsx",
+      "title": {
+        "zh": "场景漏斗图",
+        "en": "Funnel Scenario"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/kqkXF8ap7d/24934434-0067-4c1f-9c22-e51b27beb3f6.png"
+    },
+    {
+      "filename": "pie.ts",
+      "title": {
+        "zh": "饼图(占比)",
+        "en": "Statistical Charts-Pie"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OOnhQI4Sme4AAAAAAAAAAAAAARQnAQ"
+
+    },
+    {
+      "filename": "funnel.ts",
+      "title": {
+        "zh": "漏斗图(趋势)",
+        "en": "Statistical Charts-Funnel"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/yYAiTdM%242e/case-funnel.png"
+    }
+  ]
+}

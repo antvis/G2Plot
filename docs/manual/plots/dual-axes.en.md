@@ -99,11 +99,56 @@ xAxis、yAxis 配置相同，由于 DualAxes 是双轴， yAxis 类型是对象�
 
 `markdown:docs/common/axis.en.md`
 
+#### annotations
+
+xAxis、yAxis 配置相同，由于 DualAxes 是双轴， annotations 类型是对象类型，形式为{左轴字段: 左轴配置，右轴字段: 右轴配置}。例如
+
+```ts
+{
+  yField: ['pv', 'uv'],
+  yAxis: {
+    pv: [
+      {
+        type: 'line',
+        top: true,
+        start: ['2020-08-26', 'min'],
+        end: ['2020-08-26', 'max'],
+        text: {
+          content: '发布时间点',
+          position: 'end',
+          autoRotate: false,
+          style: {
+            textAlign: 'start',
+          },
+        },
+      }
+    ],
+    uv: [
+      {
+        type: 'line',
+        top: true,
+        start: ['2020-08-26', 'min'],
+        end: ['2020-08-26', 'max'],
+        text: {
+          content: '发布时间点',
+          position: 'end',
+          autoRotate: false,
+          style: {
+            textAlign: 'start',
+          },
+        },
+      }
+    ]
+  }
+}
+```
+`markdown:docs/common/annotations.zh.md`
+
 #### legend
 
 `markdown:docs/common/legend.en.md`
 
-#### theme
+### Plot Theme
 
 `markdown:docs/common/theme.en.md`
 

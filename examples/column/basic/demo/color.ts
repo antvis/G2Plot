@@ -34,6 +34,12 @@ const columnPlot = new Column('container', {
     offset: 10,
   },
   legend: false,
+  xAxis: {
+    label: {
+      autoHide: true,
+      autoRotate: false,
+    },
+  },
   meta: {
     type: {
       alias: '类别',

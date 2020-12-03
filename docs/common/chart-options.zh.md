@@ -39,3 +39,9 @@
 <description>**optional** _number_ _default:_ `window.devicePixelRatio`</description>
 
 设置图表渲染的像素比，和底层的 devicePixelRatio 含义一致，一般不用设置，除非在页面有整体 scale 的情况下，可以自定义。
+
+#### limitInPlot
+
+<description>**optional** _boolean_</description>
+
+是否对超出坐标系范围的 Geometry 进行剪切。

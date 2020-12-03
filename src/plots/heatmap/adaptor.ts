@@ -161,7 +161,7 @@ function label(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
 
   if (!label) {
     geometry.label(false);
-  } else {
+  } else if (colorField) {
     const { callback, ...cfg } = label;
     geometry.label({
       fields: [colorField],

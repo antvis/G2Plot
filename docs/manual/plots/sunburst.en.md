@@ -113,3 +113,19 @@ order: 17
 ### Plot Components
 
 `markdown:docs/common/component-polygon.en.md`
+
+### Event
+
+`markdown:docs/common/events.en.md`
+
+### Plot Method
+
+`markdown:docs/common/chart-methods.en.md`
+
+### Plot Theme
+
+`markdown:docs/common/theme.en.md`
+
+### Plot Interactions
+
+`markdown:docs/common/interactions.en.md`

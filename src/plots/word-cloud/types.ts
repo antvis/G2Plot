@@ -40,7 +40,7 @@ export type Tag = Word & {
 };
 
 /** 词云字体样式 */
-interface WordStyle {
+export interface WordStyle {
   /** 词云的字体, 当为函数时，其参数是一个经过处理之后的数据元素的值 */
   readonly fontFamily?: string | ((word: Word, index?: number, words?: Word[]) => string);
   /** 设置字体的粗细, 当为函数时，其参数是一个经过处理之后的数据元素的值 */

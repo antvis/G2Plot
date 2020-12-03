@@ -13,6 +13,14 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IZ9nRq-a6fIAAAAAAAAAAABkARQnAQ"
     },
     {
+      "filename": "line-grid.ts",
+      "title": {
+        "zh": "网格填充",
+        "en": "Grid filled"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*pDC0TIJFgvwAAAAAAAAAAAAAARQnAQ"
+    },
+    {
       "filename": "line-label.ts",
       "title": {
         "zh": "多折线动画",

@@ -120,4 +120,6 @@ export type Options = {
   readonly annotations?: Annotation[];
   // 配置 active，inactive，selected 三种状态的样式，也可在 Theme 主题中配置
   readonly state?: State;
+  /** 是否对超出坐标系范围的 Geometry 进行剪切 */
+  readonly limitInPlot?: boolean;
 };

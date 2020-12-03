@@ -2,17 +2,19 @@ import { each, findIndex, get, find, isObject, every } from '@antv/util';
 import { Scale } from '@antv/g2/lib/dependents';
 import { LegendItem } from '@antv/g2/lib/interface';
 import {
-  theme as commonTheme,
+  theme,
   animation as commonAnimation,
   scale,
   interaction as commonInteraction,
+  annotation as commonAnnotation,
+  limitInPlot as commonLimitInPlot,
 } from '../../adaptor/common';
 import { percent } from '../../utils/transform/percent';
 import { Params } from '../../core/adaptor';
 import { Datum } from '../../types';
 import { flow, deepAssign } from '../../utils';
 import { findViewById } from '../../utils/view';
-import { isColumn, getYAxisWithDefault, getGeometryOption, getCompatibleYAxis } from './util/option';
+import { isColumn, getYAxisWithDefault, getGeometryOption, transArrayToObject } from './util/option';
 import { getViewLegendItems } from './util/legend';
 import { drawSingleGeometry } from './util/geometry';
 import { DualAxesOptions, AxisType, DualAxesGeometry } from './types';
@@ -20,9 +22,11 @@ import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
 
 /**
  * transformOptions，双轴图整体的取参逻辑如下
- * 1. 获取 defaultOption（dual-axes/index) : deepMix({}, super.getDefaultOptions(options), dualDefaultOptions)
- * 2. 获取 options (core/plot): deepMix({}, defaultOption, options);
- * 3. transformOptions: 这是因为第二步无法使得 geometryOptions 被有效 deepmix, 因此最后新增一步 transform
+ * 1. get index getOptions: 对应的是默认的图表参数，如 appendPadding，syncView 等
+ * 2. get adpator transformOption: 对应的是双轴图的默认参数，deepAssign 优先级从低到高如下
+ *    2.1 defaultoption，如 tooltip，legend
+ *    2.2 用户填写 options
+ *    2.3 根据用户填写的 options 补充的数组型 options，如 yaxis，GeometryOption，因为 deepAssign 无法 assign 数组
  *
  * @param params
  */
@@ -33,37 +37,53 @@ export function transformOptions(params: Params<DualAxesOptions>): Params<DualAx
     geometryOptions,
     ({ geometry }) => geometry === DualAxesGeometry.Line || geometry === undefined
   );
-  return deepAssign({}, params, {
-    options: {
-      meta: {
-        [xField]: {
-          // x 轴一定是同步 scale 的
-          sync: true,
-          // 如果有没有柱子，则
-          range: allLine ? [0, 1] : undefined,
+  return deepAssign(
+    {},
+    {
+      options: {
+        geometryOptions: [],
+        meta: {
+          [xField]: {
+            // 默认为 cat 类型
+            type: 'cat',
+            // x 轴一定是同步 scale 的
+            sync: true,
+            // 如果有没有柱子，则
+            range: allLine ? [0, 1] : undefined,
+          },
+        },
+        tooltip: {
+          showMarkers: allLine,
+          // 存在柱状图，不显示 crosshairs
+          showCrosshairs: allLine,
+          shared: true,
+          crosshairs: {
+            type: 'x',
+          },
+        },
+        interactions: !allLine
+          ? [{ type: 'legend-visible-filter' }, { type: 'active-region' }]
+          : [{ type: 'legend-visible-filter' }],
+        legend: {
+          position: 'top-left',
         },
       },
-      tooltip: {
-        showMarkers: allLine,
-        // 存在柱状图，不显示 crosshairs
-        showCrosshairs: allLine,
-        shared: true,
-        crosshairs: {
-          type: 'x',
-        },
-      },
-      interactions: !allLine
-        ? [{ type: 'legend-visible-filter' }, { type: 'active-region' }]
-        : [{ type: 'legend-visible-filter' }],
-      // yAxis
-      yAxis: getCompatibleYAxis(yField, options.yAxis),
-      // geometryOptions
-      geometryOptions: [
-        getGeometryOption(xField, yField[0], geometryOptions[0], AxisType.Left),
-        getGeometryOption(xField, yField[1], geometryOptions[1], AxisType.Right),
-      ],
     },
-  });
+    params,
+    {
+      options: {
+        // yAxis
+        yAxis: transArrayToObject(yField, options.yAxis, 'yAxis should be object.'),
+        // geometryOptions
+        geometryOptions: [
+          getGeometryOption(xField, yField[0], geometryOptions[0]),
+          getGeometryOption(xField, yField[1], geometryOptions[1]),
+        ],
+        // annotations
+        annotations: transArrayToObject(yField, options.annotations, 'annotations should be object.'),
+      },
+    }
+  );
 }
 
 /**
@@ -113,6 +133,41 @@ function geometry(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
         },
       });
     });
+  return params;
+}
+
+export function color(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
+  const { chart, options } = params;
+  const { geometryOptions } = options;
+  const themeColor = chart.getTheme()?.colors10 || [];
+
+  let start = 0;
+  /* 为 geometry 添加默认 color。
+   * 1. 若 geometryOptions 存在 color，则在 drawGeometry 时已处理
+   * 2. 若 不存在 color，获取 Geometry group scales个数，在 theme color 10 中提取
+   * 3. 为防止 group 过多导致右色板无值或值很少，右 view 面板在依次提取剩下的 N 个 后再 concat 一次 themeColor
+   * 4. 为简便获取 Geometry group scales个数，在绘制完后再执行 color
+   * 5. 考虑之后将不同 view 使用同一个色板的需求沉淀到 g2
+   */
+  chart.once('beforepaint', () => {
+    each(geometryOptions, (geometryOption, index) => {
+      const view = findViewById(chart, index === 0 ? LEFT_AXES_VIEW : RIGHT_AXES_VIEW);
+      if (geometryOption.color) return;
+      const groupScale = view.getGroupScales();
+      const count = get(groupScale, [0, 'values', 'length'], 1);
+      const color = themeColor.slice(start, start + count).concat(index === 0 ? [] : themeColor);
+      view.geometries.forEach((geometry) => {
+        if (geometryOption.seriesField) {
+          geometry.color(geometryOption.seriesField, color);
+        } else {
+          geometry.color(color[0]);
+        }
+      });
+      start += count;
+    });
+    chart.render(true);
+  });
+
   return params;
 }
 
@@ -198,15 +253,29 @@ export function interaction(params: Params<DualAxesOptions>): Params<DualAxesOpt
 }
 
 /**
- * theme
+ * annotation 配置
  * @param params
  */
-export function theme(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
-  const { chart } = params;
+export function annotation(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
+  const { chart, options } = params;
+  const { yField, annotations } = options;
 
-  commonTheme(deepAssign({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
-  commonTheme(deepAssign({}, params, { chart: findViewById(chart, RIGHT_AXES_VIEW) }));
-
+  commonAnnotation(get(annotations, [yField[0]]))(
+    deepAssign({}, params, {
+      chart: findViewById(chart, LEFT_AXES_VIEW),
+      options: {
+        annotations: get(annotations, [yField[0]]),
+      },
+    })
+  );
+  commonAnnotation(get(annotations, [yField[1]]))(
+    deepAssign({}, params, {
+      chart: findViewById(chart, RIGHT_AXES_VIEW),
+      options: {
+        annotations: get(annotations, [yField[1]]),
+      },
+    })
+  );
   return params;
 }
 
@@ -215,6 +284,35 @@ export function animation(params: Params<DualAxesOptions>): Params<DualAxesOptio
 
   commonAnimation(deepAssign({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
   commonAnimation(deepAssign({}, params, { chart: findViewById(chart, RIGHT_AXES_VIEW) }));
+
+  return params;
+}
+
+/**
+ * 双轴图 limitInPlot
+ * @param params
+ */
+export function limitInPlot(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
+  const { chart, options } = params;
+  const { yField, yAxis } = options;
+
+  commonLimitInPlot(
+    deepAssign({}, params, {
+      chart: findViewById(chart, LEFT_AXES_VIEW),
+      options: {
+        yAxis: yAxis[yField[0]],
+      },
+    })
+  );
+
+  commonLimitInPlot(
+    deepAssign({}, params, {
+      chart: findViewById(chart, RIGHT_AXES_VIEW),
+      options: {
+        yAxis: yAxis[yField[1]],
+      },
+    })
+  );
 
   return params;
 }
@@ -310,6 +408,19 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
  * @param options
  */
 export function adaptor(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
-  // transformOptions 一定在最前面处理
-  return flow(transformOptions, geometry, meta, axis, tooltip, interaction, theme, animation, legend)(params);
+  // transformOptions 一定在最前面处理；color legend 使用了 beforepaint，为便于理解放在最后面
+  return flow(
+    transformOptions,
+    geometry,
+    meta,
+    axis,
+    limitInPlot,
+    tooltip,
+    interaction,
+    annotation,
+    theme,
+    animation,
+    color,
+    legend
+  )(params);
 }

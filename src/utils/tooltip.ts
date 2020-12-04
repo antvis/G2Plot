@@ -9,7 +9,7 @@ import { Tooltip, TooltipMapping } from '../types/tooltip';
 export function getTooltipMapping(tooltip: Tooltip, defaultFields: string[]): TooltipMapping {
   if (tooltip === false) {
     return {
-      fields: false,
+      fields: false, // 关闭 tooltip
     };
   }
 

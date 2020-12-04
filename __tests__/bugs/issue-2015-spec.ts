@@ -33,7 +33,7 @@ describe('issue 2015', () => {
       tooltip: false,
     });
     // @ts-ignore
-    expect(scatter.chart.geometries[0].tooltipOption).toBeUndefined();
+    expect(scatter.chart.geometries[0].tooltipOption).toBe(false);
     scatter.destroy();
   });
 });

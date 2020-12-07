@@ -34,6 +34,8 @@ function geometry(params: Params<LineOptions>): Params<LineOptions> {
         shape: 'circle',
         ...pointMapping,
       },
+      // label 不传递给各个 geometry adaptor，由 label adaptor 处理
+      label: undefined,
     },
   });
 

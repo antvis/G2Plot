@@ -33,6 +33,8 @@ function geometry(params: Params<RadarOptions>): Params<RadarOptions> {
             ...areaOptions,
           }
         : areaOptions,
+      // label 不传递给各个 geometry adaptor，由 label adaptor 处理
+      label: undefined,
     },
   });
 

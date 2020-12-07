@@ -7,7 +7,7 @@ import {
   regressionPow,
   regressionQuad,
 } from 'd3-regression';
-import { isArray } from '@antv/util';
+import { isArray, get, isNumber } from '@antv/util';
 import { View } from '@antv/g2';
 import { getSplinePath } from '../../utils';
 import { ScatterOptions } from './types';
@@ -160,4 +160,45 @@ export const getPath = (config: RenderOptions) => {
     pathData = reg(data);
   }
   return splinePath(pathData, config);
+};
+
+// 散点图data.length === 1时调整 meta: {min, max}
+export const getMeta = (options: ScatterOptions): ScatterOptions['meta'] => {
+  const { meta = {}, xField, yField, data } = options;
+  const xFieldValue = data[0][xField];
+  const yFieldValue = data[0][yField];
+  const xIsPositiveNumber = xFieldValue > 0;
+  const yIsPositiveNumber = yFieldValue > 0;
+
+  const getValue = (field: string, type: 'min' | 'max', axis: 'x' | 'y') => {
+    const customValue = get(meta, [field, type]);
+    if (isNumber(customValue)) {
+      return customValue;
+    }
+    if (axis === 'x') {
+      const rangeX = {
+        min: xIsPositiveNumber ? 0 : xFieldValue * 2,
+        max: xIsPositiveNumber ? xFieldValue * 2 : 0,
+      };
+      return rangeX[type];
+    }
+    const rangeY = {
+      min: yIsPositiveNumber ? 0 : yFieldValue * 2,
+      max: yIsPositiveNumber ? yFieldValue * 2 : 0,
+    };
+    return rangeY[type];
+  };
+  return {
+    ...meta,
+    [xField]: {
+      ...meta[xField],
+      min: getValue(xField, 'min', 'x'),
+      max: getValue(xField, 'max', 'x'),
+    },
+    [yField]: {
+      ...meta[yField],
+      min: getValue(yField, 'min', 'y'),
+      max: getValue(yField, 'max', 'y'),
+    },
+  };
 };

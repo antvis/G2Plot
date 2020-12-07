@@ -35,43 +35,6 @@ describe('scatter', () => {
     expect(yScale.nice).toBe(false);
     expect(yScale.min).toBe(0);
     expect(yScale.max).toBe(data[0].height * 2);
-
-    const data1 = [{ gender: 'female', height: -161.2, weight: -51.6 }];
-    scatter.changeData(data1);
-    const c1_xScale = scatter.chart.getScaleByField('weight');
-    const c1_yScale = scatter.chart.getScaleByField('height');
-    expect(c1_xScale.max).toBe(0);
-    expect(c1_xScale.min).toBe(data1[0].weight * 2);
-    expect(c1_yScale.max).toBe(0);
-    expect(c1_yScale.min).toBe(data1[0].height * 2);
-
-    const data2 = [{ gender: 'female', height: 161.2, weight: -51.6 }];
-    scatter.changeData(data2);
-    const c2_xScale = scatter.chart.getScaleByField('weight');
-    const c2_yScale = scatter.chart.getScaleByField('height');
-    expect(c2_xScale.max).toBe(0);
-    expect(c2_xScale.min).toBe(data2[0].weight * 2);
-    expect(c2_yScale.min).toBe(0);
-    expect(c2_yScale.max).toBe(data2[0].height * 2);
-
-    const data3 = [{ gender: 'female', height: -161.2, weight: 51.6 }];
-    scatter.changeData(data3);
-    const c3_xScale = scatter.chart.getScaleByField('weight');
-    const c3_yScale = scatter.chart.getScaleByField('height');
-    expect(c3_xScale.min).toBe(0);
-    expect(c3_xScale.max).toBe(data3[0].weight * 2);
-    expect(c3_yScale.max).toBe(0);
-    expect(c3_yScale.min).toBe(data3[0].height * 2);
-
-    const data4 = [{ gender: 'female', height: 0, weight: 0 }];
-    scatter.changeData(data4);
-    const c4_xScale = scatter.chart.getScaleByField('weight');
-    const c4_yScale = scatter.chart.getScaleByField('height');
-    expect(c4_xScale.min).toBe(0);
-    expect(c4_xScale.max).toBe(0);
-    expect(c4_yScale.max).toBe(0);
-    expect(c4_yScale.min).toBe(0);
-    scatter.destroy();
   });
   it('transformOptions & axis min max', () => {
     const scatter = new Scatter(createDiv(), {

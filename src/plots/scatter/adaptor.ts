@@ -1,10 +1,10 @@
-import { isBoolean, get } from '@antv/util';
+import { isBoolean } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
 import { point } from '../../adaptor/geometries';
 import { interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { findGeometry, transformLabel } from '../../utils';
-import { getQuadrantDefaultConfig, getPath } from './util';
+import { getQuadrantDefaultConfig, getPath, getMeta } from './util';
 import { ScatterOptions } from './types';
 
 /**
@@ -17,25 +17,10 @@ export function transformOptions(params: Params<ScatterOptions>): Params<Scatter
   const { data = [] } = options;
   // 仅对 data.length === 1 的情况进行处理
   if (data.length === 1) {
-    const { xAxis, yAxis, meta, xField, yField } = options;
-    const xFieldValue = data[0][xField];
-    const yFieldValue = data[0][yField];
-    const xIsPositiveNumber = xFieldValue > 0;
-    const yIsPositiveNumber = yFieldValue > 0;
     return deepAssign({}, params, {
       options: {
         ...options,
-        xAxis: {
-          ...xAxis,
-          // 优先级 xAxis > meta[xField]
-          min: get(xAxis, 'min') || get(meta, [xField, 'min']) || (xIsPositiveNumber ? 0 : xFieldValue * 2),
-          max: get(xAxis, 'max') || get(meta, [xField, 'max']) || (xIsPositiveNumber ? xFieldValue * 2 : 0),
-        },
-        yAxis: {
-          ...yAxis,
-          min: get(yAxis, 'min') || get(meta, [yField, 'min']) || (yIsPositiveNumber ? 0 : yFieldValue * 2),
-          max: get(yAxis, 'max') || get(meta, [yField, 'max']) || (yIsPositiveNumber ? yFieldValue * 2 : 0),
-        },
+        meta: getMeta(options),
       },
     });
   }
@@ -123,7 +108,7 @@ function axis(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { legend, colorField, shapeField, sizeField, data } = options;
+  const { legend, colorField, shapeField, sizeField } = options;
   // legend 没有指定时根据 shapeField 和 colorField 来设置默认值
   const showLegend = isBoolean(legend) ? legend : legend || !!(shapeField || colorField);
   if (showLegend) {

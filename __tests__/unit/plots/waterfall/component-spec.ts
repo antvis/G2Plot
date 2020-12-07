@@ -50,7 +50,7 @@ describe('waterfall components', () => {
       tooltip: false,
     });
     // @ts-ignore
-    expect(waterfall.chart.options.tooltip).toBe(undefined);
+    expect(waterfall.chart.options.tooltip).toBe(false);
     expect(waterfall.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
   });
 

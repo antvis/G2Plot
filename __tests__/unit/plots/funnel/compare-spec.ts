@@ -16,6 +16,9 @@ describe('compare funnel', () => {
     minSize: 0.3,
     maxSize: 0.8,
     compareField: 'quarter',
+    tooltip: {
+      fields: ['action', 'pv'],
+    },
   };
 
   beforeAll(() => {
@@ -50,6 +53,9 @@ describe('compare funnel', () => {
         expect(positionFields).toHaveLength(2);
         expect(positionFields[0]).toBe('action');
         expect(positionFields[1]).toBe(FUNNEL_MAPPING_VALUE);
+
+        // geometry tooltip
+        expect(geometry.tooltipOption.fields.length).toBe(4);
 
         const shapeFields = geometry.getAttribute('shape').getFields();
         expect(shapeFields[0]).toBe('funnel');

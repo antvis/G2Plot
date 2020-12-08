@@ -87,7 +87,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
   const { xField, yField, color, tooltip } = options;
 
-  const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, FUNNEL_PERCENT, FUNNEL_CONVERSATION]);
+  const { fields = [], formatter } = getTooltipMapping(tooltip, [xField, yField]);
   // 绘制漏斗图
   baseGeometry({
     chart,
@@ -96,7 +96,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
       xField: PLOYGON_X,
       yField: PLOYGON_Y,
       colorField: xField,
-      tooltipFields: fields,
+      tooltipFields: fields.concat([FUNNEL_PERCENT, FUNNEL_CONVERSATION]),
       mapping: {
         tooltip: formatter,
         color,

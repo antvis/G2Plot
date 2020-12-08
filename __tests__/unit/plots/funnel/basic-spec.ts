@@ -14,6 +14,9 @@ describe('basic funnel', () => {
     yField: 'pv',
     maxSize: 0.8,
     minSize: 0.3,
+    tooltip: {
+      fields: ['action'],
+    },
   };
 
   beforeAll(() => {
@@ -35,6 +38,8 @@ describe('basic funnel', () => {
       expect(geometry.type).toBe('interval');
       // @ts-ignore
       expect(geometry.adjustOption[0].type).toBe('symmetric');
+
+      expect(geometry.tooltipOption.fields.length).toBe(3);
 
       // position
       const positionFields = geometry.getAttribute('position').getFields();

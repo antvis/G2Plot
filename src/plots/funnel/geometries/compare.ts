@@ -56,7 +56,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
       view.data(formatterData);
 
       // 绘制图形
-      const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, FUNNEL_PERCENT, FUNNEL_CONVERSATION]);
+      const { fields = [], formatter } = getTooltipMapping(tooltip, [xField, yField, compareField]);
 
       baseGeometry({
         chart: view,
@@ -65,7 +65,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
           xField: xField,
           yField: FUNNEL_MAPPING_VALUE,
           colorField: xField,
-          tooltipFields: fields,
+          tooltipFields: fields.concat([FUNNEL_PERCENT, FUNNEL_CONVERSATION]),
           mapping: {
             shape: 'funnel',
             tooltip: formatter,

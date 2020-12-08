@@ -16,6 +16,9 @@ describe('facet funnel', () => {
     seriesField: 'quarter',
     minSize: 0.3,
     maxSize: 0.8,
+    tooltip: {
+      fields: ['action'],
+    },
   };
 
   beforeAll(() => {
@@ -43,7 +46,8 @@ describe('facet funnel', () => {
 
         // geometry
         expect(geometry.type).toBe('interval');
-        // @ts-ignore
+
+        expect(geometry.tooltipOption.fields.length).toBe(3);
 
         // position
         const positionFields = geometry.getAttribute('position').getFields();

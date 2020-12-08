@@ -54,4 +54,34 @@ describe('area', () => {
 
     area.destroy();
   });
+
+  it('line and point toolip', () => {
+    const area = new Area(createDiv(), {
+      width: 400,
+      height: 300,
+      data: partySupport.filter((o) => ['FF', 'Lab'].includes(o.type)),
+      xField: 'date',
+      yField: 'value',
+      seriesField: 'type',
+      appendPadding: 10,
+      line: {},
+      point: {},
+      tooltip: {
+        shared: true,
+      },
+    });
+
+    area.render();
+    const areaGeometry = area.chart.geometries.find((geom) => geom.type === 'area');
+    const lineGeometry = area.chart.geometries.find((geom) => geom.type === 'line');
+    const pointGeometry = area.chart.geometries.find((geom) => geom.type === 'point');
+
+    expect(areaGeometry.tooltipOption).toBeUndefined();
+    expect(lineGeometry.tooltipOption).toBe(false);
+    expect(pointGeometry.tooltipOption).toBe(false);
+    // @ts-ignore
+    expect(area.chart.options.tooltip.shared).toBe(true);
+
+    area.destroy();
+  });
 });

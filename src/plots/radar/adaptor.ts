@@ -14,8 +14,8 @@ function geometry(params: Params<RadarOptions>): Params<RadarOptions> {
 
   chart.data(data);
 
-  // 雷达图 geometry
-  const p = deepAssign({}, params, {
+  // 雷达图 主 geometry
+  const primary = deepAssign({}, params, {
     options: {
       line: {
         style: lineStyle,
@@ -37,10 +37,16 @@ function geometry(params: Params<RadarOptions>): Params<RadarOptions> {
       label: undefined,
     },
   });
+  // 副 Geometry
+  const second = deepAssign({}, primary, {
+    options: {
+      tooltip: false,
+    },
+  });
 
-  line(p);
-  point(p);
-  area(p);
+  line(primary);
+  point(second);
+  area(second);
 
   return params;
 }

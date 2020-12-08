@@ -20,7 +20,7 @@ function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
 
   chart.data(seriesData);
 
-  const p = deepAssign({}, params, {
+  const primary = deepAssign({}, params, {
     options: {
       xField: X_FIELD,
       yField: Y_FIELD,
@@ -29,10 +29,12 @@ function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
       point: pointOptions,
     },
   });
+  const second = deepAssign({}, primary, { options: { tooltip: false } });
+
   // area geometry 处理
-  area(p);
-  line(p);
-  point(p);
+  area(primary);
+  line(second);
+  point(second);
 
   chart.axis(false);
   chart.legend(false);

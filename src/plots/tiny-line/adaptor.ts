@@ -21,7 +21,7 @@ function geometry(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
   chart.data(seriesData);
 
   // line geometry 处理
-  const p = deepAssign({}, params, {
+  const primary = deepAssign({}, params, {
     options: {
       xField: X_FIELD,
       yField: Y_FIELD,
@@ -32,9 +32,10 @@ function geometry(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
       point: pointMapping,
     },
   });
+  const second = deepAssign({}, primary, { options: { tooltip: false } });
 
-  line(p);
-  point(p);
+  line(primary);
+  point(second);
 
   chart.axis(false);
   chart.legend(false);

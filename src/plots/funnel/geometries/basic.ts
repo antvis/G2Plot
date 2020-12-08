@@ -1,4 +1,3 @@
-import { map } from '@antv/util';
 import { LineOption } from '@antv/g2/lib/interface';
 import { flow, findGeometry } from '../../../utils';
 import { getTooltipMapping } from '../../../utils/tooltip';

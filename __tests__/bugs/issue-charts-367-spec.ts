@@ -25,9 +25,6 @@ describe('charts #367', () => {
 
     gauge.render();
 
-    // @ts-ignore
-    window.gauge = gauge;
-
     expect(gauge.chart.views[0].getXScale().tickCount).toBe(5);
     expect(gauge.chart.views[0].getXScale().tickInterval).toBe(0.2);
     expect(
@@ -51,12 +48,12 @@ describe('charts #367', () => {
       },
     });
 
-    // @ts-ignore
     expect(
       gauge.chart.views[0]
         .getController('axis')
         .getComponents()[0]
         .component.getContainer()
+        // @ts-ignore
         .getChildByIndex(0)
         .getChildByIndex(0)
         .getChildren()

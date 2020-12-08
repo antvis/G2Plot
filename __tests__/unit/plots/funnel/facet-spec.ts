@@ -4,7 +4,7 @@ import { PV_DATA_COMPARE } from '../../../data/conversion';
 import { createDiv } from '../../../utils/dom';
 import { FUNNEL_PERCENT, FUNNEL_CONVERSATION, FUNNEL_MAPPING_VALUE } from '../../../../src/plots/funnel/constant';
 
-describe('compare funnel', () => {
+describe('facet funnel', () => {
   let funnel;
   const funnelOption = {
     width: 400,
@@ -13,13 +13,13 @@ describe('compare funnel', () => {
     autoFit: true,
     xField: 'action',
     yField: 'pv',
+    seriesField: 'quarter',
     minSize: 0.3,
     maxSize: 0.8,
-    compareField: 'quarter',
   };
 
   beforeAll(() => {
-    funnel = new Funnel(createDiv('basic funnel'), funnelOption);
+    funnel = new Funnel(createDiv('fact funnel'), funnelOption);
     funnel.render();
   });
 
@@ -50,6 +50,7 @@ describe('compare funnel', () => {
         expect(positionFields).toHaveLength(2);
         expect(positionFields[0]).toBe('action');
         expect(positionFields[1]).toBe(FUNNEL_MAPPING_VALUE);
+        expect(funnelView.padding).toEqual([32, 10, 0, 10]);
 
         const shapeFields = geometry.getAttribute('shape').getFields();
         expect(shapeFields[0]).toBe('funnel');
@@ -62,12 +63,11 @@ describe('compare funnel', () => {
           '2020Q2': PV_DATA_COMPARE.filter((item) => item.quarter === '2020Q2'),
         };
 
-        const max = maxBy(PV_DATA_COMPARE, 'pv').pv;
-
         const { data } = funnel.chart.getOptions();
         data.forEach((item) => {
           const originData = origin[item.quarter];
           const originIndex = originData.findIndex((jtem) => jtem.pv === item.pv);
+          const max = maxBy(originData, 'pv')['pv'];
           const percent = item.pv / max;
           expect(item[FUNNEL_PERCENT]).toEqual(percent);
           expect(item[FUNNEL_MAPPING_VALUE]).toEqual(0.5 * percent + 0.3);
@@ -88,6 +88,10 @@ describe('compare funnel', () => {
       const coordinate = funnel.chart.getCoordinate();
       expect(coordinate.isRect).toBe(true);
       expect(coordinate.isTransposed).toBe(false);
+
+      funnel.chart.views.forEach((funnelView) => {
+        expect(funnelView.padding).toEqual([0, 10, 0, 10]);
+      });
     });
   });
 });

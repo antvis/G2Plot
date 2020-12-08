@@ -6,8 +6,8 @@ import { Params } from '../../../core/adaptor';
 import { Datum, Data } from '../../../types/common';
 import { geometry as baseGeometry } from '../../../adaptor/geometries/base';
 import { FunnelOptions } from '../types';
-import { FUNNEL_CONVERSATION, FUNNEL_PERCENT } from '../constant';
-import { geometryLabel, conversionTagComponent } from './common';
+import { FUNNEL_CONVERSATION, FUNNEL_PERCENT, FUNNEL_MAPPING_VALUE } from '../constant';
+import { geometryLabel, conversionTagComponent, transformData } from './common';
 
 /**
  * 处理字段数据
@@ -15,18 +15,12 @@ import { geometryLabel, conversionTagComponent } from './common';
  */
 function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { data = [], yField } = options;
-  let formatData = [];
-  // format 数据
-  if (data[0][yField]) {
-    formatData = map(data, (row, index) => {
-      if (row[yField] !== undefined) {
-        row[FUNNEL_PERCENT] = row[yField] / data[0][yField];
-        row[FUNNEL_CONVERSATION] = index === 0 ? 1 : row[yField] / data[index - 1][yField];
-      }
-      return row;
-    });
-  }
+  const { data = [], yField, maxSize, minSize } = options;
+  const formatData = transformData(data, data, {
+    yField,
+    maxSize,
+    minSize,
+  });
 
   // 绘制漏斗图
   chart.data(formatData);
@@ -48,7 +42,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
     options: {
       type: 'interval',
       xField: xField,
-      yField: yField,
+      yField: FUNNEL_MAPPING_VALUE,
       colorField: xField,
       tooltipFields: fields,
       mapping: {
@@ -95,7 +89,7 @@ function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { options } = params;
-  const { yField } = options;
+  const { maxSize } = options;
 
   const getLineCoordinate = (
     datum: Datum,
@@ -103,11 +97,11 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
     data: Data,
     initLineOption: Record<string, any>
   ): LineOption => {
-    const percent = 1 - (1 - datum[FUNNEL_PERCENT]) / 2;
+    const percent = maxSize - (maxSize - datum[FUNNEL_MAPPING_VALUE]) / 2;
     return {
       ...initLineOption,
-      start: [datumIndex - 0.5, data[0][yField] * percent],
-      end: [datumIndex - 0.5, data[0][yField] * (percent + 0.05)],
+      start: [datumIndex - 0.5, percent],
+      end: [datumIndex - 0.5, percent + 0.05],
     };
   };
 

@@ -1,4 +1,4 @@
-import { map, reduce } from '@antv/util';
+import { map, reduce, maxBy } from '@antv/util';
 import { LineOption } from '@antv/g2/lib/interface';
 import { flow, findGeometry } from '../../../utils';
 import { Params } from '../../../core/adaptor';
@@ -36,6 +36,8 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
     0
   );
 
+  const max = maxBy(data, yField)[yField];
+
   const formatData = map(data, (row, index) => {
     // 储存四个点 x，y 坐标，方向为顺时针，即 [左上, 右上，右下，左下]
     const x = [];
@@ -67,7 +69,7 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
     // 赋值
     row[PLOYGON_X] = x;
     row[PLOYGON_Y] = y;
-    row[FUNNEL_PERCENT] = row[yField] / data[0][yField];
+    row[FUNNEL_PERCENT] = row[yField] / max;
     row[FUNNEL_CONVERSATION] = index === 0 ? 1 : row[yField] / data[index - 1][yField];
     return row;
   });

@@ -29,6 +29,14 @@
       "screenshot": "https://gw.alicdn.com/tfs/TB1Y7dtuAL0gK0jSZFtXXXQCXXa-709-495.png"
     },
     {
+      "filename": "facet.ts",
+      "title": {
+        "zh": "分面漏斗图",
+        "en": "Facet funnel plot"
+      },
+      "screenshot": "https://gw.alicdn.com/tfs/TB1Y7dtuAL0gK0jSZFtXXXQCXXa-709-495.png"
+    },
+    {
       "filename": "basic-transpose.ts",
       "title": {
         "zh": "基础漏斗图-转置",
@@ -49,6 +57,14 @@
       "title": {
         "zh": "对比漏斗图-转置",
         "en": "Compare funnel plot"
+      },
+      "screenshot": "https://gw.alicdn.com/tfs/TB1Hkluurr1gK0jSZR0XXbP8XXa-1095-565.png"
+    },
+    { 
+      "filename": "facet-transpose.ts",
+      "title": {
+        "zh": "分面漏斗图-转置",
+        "en": "Facet funnel plot-transpose"
       },
       "screenshot": "https://gw.alicdn.com/tfs/TB1Hkluurr1gK0jSZR0XXbP8XXa-1095-565.png"
     }

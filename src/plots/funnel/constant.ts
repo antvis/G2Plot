@@ -1,5 +1,7 @@
 // 漏斗占比: data[n][yField] / data[0][yField]
 export const FUNNEL_PERCENT = '$$percentage$$';
+// 漏斗映射值
+export const FUNNEL_MAPPING_VALUE = '$$mappingValue$$';
 // 漏斗转化率: data[n][yField] / data[n-1][yField];
 export const FUNNEL_CONVERSATION = '$$conversion$$';
 // 漏斗单项占总体和的百分比，用于动态漏斗图计算高度：

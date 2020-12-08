@@ -23,6 +23,13 @@ Configure the data source. The data source is a collection of objects. For examp
 
 Field for comparing.
 
+
+#### seriesField
+
+<description>**optional** _string_</description>
+
+Field for spliting.
+
 #### isTransposed
 
 <description>**optional** _boolean_ _default:_ `false`</description>
@@ -38,6 +45,22 @@ Whether the plot is transposed.
 <description>**optional** _boolean_ _default:_ `false`</description>
 
 Whether the height is dynamic.
+
+#### maxSize
+
+<description>**optional** _number_ _default:_ `1`</description>
+
+the max size of graphic，is between 0 and 1, default 1。
+
+Tip: when set dynamicHeight to be true, this field is invalid 
+
+#### minSize
+
+<description>**optional** _number_ _default:_ `1`</description>
+
+the min size of graphic，is between 0 and 1, default 0。
+
+Tip: when set dynamicHeight to be true, this field is invalid 
 
 #### conversionTag
 

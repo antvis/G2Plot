@@ -21,7 +21,13 @@ order: 9
 
 <description>**optional** _string_</description>
 
-对比字段。
+对比字段。声明此字段时会自动渲染为对比漏斗图
+
+#### seriesField
+
+<description>**optional** _string_</description>
+
+分组字段。声明此字段时会自动渲染为分组漏斗图
 
 #### isTransposed
 
@@ -37,8 +43,25 @@ order: 9
 
 <description>**optional** _boolean_ _default:_ `false`</description>
 
-是否是动态高度。
+是否映射为动态高度。
 
+
+#### maxSize
+
+<description>**optional** _number_ _default:_ `1`</description>
+
+图形最大宽度，为 [0, 1] 之间小数，默认为 1。
+
+注：因动态高度漏斗图将值映射为高度，因此声明 dynamicHeight: true 时，该字段无效
+
+
+#### minSize
+
+<description>**optional** _number_ _default:_ `1`</description>
+
+图形最小宽度，为 [0, 1] 之间小数，默认为 0。
+
+注：因动态高度漏斗图将值映射为高度，因此声明 dynamicHeight: true 时，该字段无效
 #### conversionTag
 
 <description>**optional** _false | object_</description>

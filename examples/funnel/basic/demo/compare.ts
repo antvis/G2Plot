@@ -27,6 +27,13 @@ const funnelPlot = new Funnel('container', {
       formatter: (v) => `${v}次`,
     },
   },
+  tooltip: {
+    fields: ['stage', 'number', 'company'],
+    formatter: (v) => ({
+      name: `${v.company}的${v.stage}`,
+      value: v.number,
+    }),
+  },
   legend: false,
 });
 funnelPlot.render();

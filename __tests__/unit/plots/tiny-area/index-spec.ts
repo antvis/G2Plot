@@ -193,6 +193,32 @@ describe('tiny-area', () => {
     tinyArea.destroy();
   });
 
+  it('second geometry tooltip', () => {
+    const tinyArea = new TinyArea(createDiv(), {
+      width: 80,
+      height: 40,
+      line: {},
+      point: {},
+      data: partySupport
+        .filter((o) => o.type === 'FF')
+        .map((item) => {
+          return item.value;
+        }),
+      autoFit: false,
+    });
+
+    tinyArea.render();
+
+    const chart = tinyArea.chart;
+    const areaGeometry = chart.geometries.find((geom) => geom.type === 'area');
+    const lineGeometry = chart.geometries.find((geom) => geom.type === 'line');
+    const pointGeometry = chart.geometries.find((geom) => geom.type === 'point');
+
+    expect(areaGeometry.tooltipOption).toBeUndefined();
+    expect(lineGeometry.tooltipOption).toBe(false);
+    expect(pointGeometry.tooltipOption).toBe(false);
+  });
+
   it('annotation', () => {
     const tinyArea = new TinyArea(createDiv(), {
       width: 200,

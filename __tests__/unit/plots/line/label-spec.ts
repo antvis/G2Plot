@@ -62,4 +62,49 @@ describe('line', () => {
 
     line.destroy();
   });
+
+  it('default layout, off', () => {
+    const line = new Line(createDiv(), {
+      width: 400,
+      height: 300,
+      data: partySupport.filter((o) => ['FF', 'Lab'].includes(o.type)),
+      xField: 'date',
+      yField: 'value',
+      seriesField: 'type',
+      appendPadding: 10,
+    });
+
+    line.render();
+
+    expect(line.chart.geometries[0].labelOption).toBeFalsy();
+
+    line.destroy();
+  });
+
+  it('default layout, on', () => {
+    const line = new Line(createDiv(), {
+      width: 400,
+      height: 300,
+      data: partySupport.filter((o) => ['FF', 'Lab'].includes(o.type)),
+      xField: 'date',
+      yField: 'value',
+      seriesField: 'type',
+      appendPadding: 10,
+      label: {},
+    });
+
+    line.render();
+
+    // @ts-ignore
+    expect(line.chart.geometries[0].labelOption.cfg).toEqual({
+      layout: [
+        { type: 'limit-in-plot' },
+        { type: 'path-adjust-position' },
+        { type: 'point-adjust-position' },
+        { type: 'limit-in-plot', cfg: { action: 'hide' } },
+      ],
+    });
+
+    line.destroy();
+  });
 });

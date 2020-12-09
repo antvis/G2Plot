@@ -2,6 +2,7 @@ import { uniq, isFunction, isObject, isString, isNumber, isEmpty } from '@antv/u
 import { Params } from '../../core/adaptor';
 import { ColorAttr, ShapeAttr, SizeAttr, StyleAttr, TooltipAttr, Options, Datum } from '../../types';
 import { Label } from '../../types/label';
+import { State } from '../../types/state';
 import { transformLabel } from '../../utils';
 
 /**
@@ -26,7 +27,7 @@ export type MappingOptions = {
  */
 export type Geometry = {
   /** geometry 类型, 'line' | 'interval' | 'point' | 'area' | 'polygon' */
-  readonly type: string;
+  readonly type?: string;
   /** x 轴字段 */
   readonly xField?: string;
   /** y 轴字段 */
@@ -44,10 +45,12 @@ export type Geometry = {
   /** 其他原始字段, 用于 mapping 回调参数 */
   readonly rawFields?: string[];
   /** 图形映射规则 */
-  readonly mapping: MappingOptions;
-  /** geometry params */
-  /** label 通道 */
+  readonly mapping?: MappingOptions;
+  /** label 映射通道，因为历史原因导致实现略有区别 */
   readonly label?: Label;
+  /** 不同状态的样式 */
+  readonly state?: State;
+  /** geometry params */
   readonly args?: any;
 };
 
@@ -119,7 +122,19 @@ export function getMappingFunction(mappingFields: string[], func: (datum: Datum)
  */
 export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O> {
   const { chart, options } = params;
-  const { type, args, mapping, xField, yField, colorField, shapeField, sizeField, tooltipFields, label } = options;
+  const {
+    type,
+    args,
+    mapping,
+    xField,
+    yField,
+    colorField,
+    shapeField,
+    sizeField,
+    tooltipFields,
+    label,
+    state,
+  } = options;
 
   // 如果没有 mapping 信息，那么直接返回
   if (!mapping) {
@@ -214,6 +229,13 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
       callback,
       cfg: transformLabel(cfg),
     });
+  }
+
+  /**
+   * state 状态样式
+   */
+  if (state) {
+    geometry.state(state);
   }
 
   // 防止因为 x y 字段做了通道映射，导致生成图例

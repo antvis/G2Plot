@@ -113,7 +113,7 @@ describe('Histogram: axis', () => {
       nice: true,
       label: {
         autoHide: true,
-        autoRotate: true,
+        autoRotate: false,
       },
     });
 

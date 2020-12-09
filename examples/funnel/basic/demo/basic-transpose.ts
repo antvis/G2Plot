@@ -13,6 +13,8 @@ const funnelPlot = new Funnel('container', {
   xField: 'stage',
   yField: 'number',
   isTransposed: true,
+  minSize: 0.3,
+  maxSize: 0.8,
   label: {
     formatter: (datum) => {
       // 提供占比$$percentage$$，转化率$$conversion$$两种格式

@@ -17,7 +17,7 @@ const funnelPlot = new Funnel('container', {
   data,
   xField: 'stage',
   yField: 'number',
-  compareField: 'company',
+  seriesField: 'company',
   meta: {
     stage: {
       alias: '行为',
@@ -26,13 +26,6 @@ const funnelPlot = new Funnel('container', {
       alias: '人数',
       formatter: (v) => `${v}次`,
     },
-  },
-  tooltip: {
-    fields: ['stage', 'number', 'company'],
-    formatter: (v) => ({
-      name: `${v.company}的${v.stage}`,
-      value: v.number,
-    }),
   },
   legend: false,
 });

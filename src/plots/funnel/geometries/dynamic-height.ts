@@ -1,4 +1,4 @@
-import { map, reduce, maxBy } from '@antv/util';
+import { map, reduce, maxBy, isArray } from '@antv/util';
 import { LineOption } from '@antv/g2/lib/interface';
 import { flow, findGeometry } from '../../../utils';
 import { Params } from '../../../core/adaptor';
@@ -87,7 +87,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
   const { xField, yField, color, tooltip } = options;
 
-  const { fields = [], formatter } = getTooltipMapping(tooltip, [xField, yField]);
+  const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField]);
   // 绘制漏斗图
   baseGeometry({
     chart,
@@ -96,7 +96,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
       xField: PLOYGON_X,
       yField: PLOYGON_Y,
       colorField: xField,
-      tooltipFields: fields.concat([FUNNEL_PERCENT, FUNNEL_CONVERSATION]),
+      tooltipFields: isArray(fields) && fields.concat([FUNNEL_PERCENT, FUNNEL_CONVERSATION]),
       mapping: {
         tooltip: formatter,
         color,

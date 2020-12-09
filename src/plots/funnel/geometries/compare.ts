@@ -1,4 +1,5 @@
 import { LineOption } from '@antv/g2/lib/interface';
+import { isArray } from '@antv/util';
 import { flow, findGeometry, deepAssign } from '../../../utils';
 import { Params } from '../../../core/adaptor';
 import { Datum, Data } from '../../../types/common';
@@ -56,7 +57,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
       view.data(formatterData);
 
       // 绘制图形
-      const { fields = [], formatter } = getTooltipMapping(tooltip, [xField, yField, compareField]);
+      const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, compareField]);
 
       baseGeometry({
         chart: view,
@@ -65,7 +66,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
           xField: xField,
           yField: FUNNEL_MAPPING_VALUE,
           colorField: xField,
-          tooltipFields: fields.concat([FUNNEL_PERCENT, FUNNEL_CONVERSATION]),
+          tooltipFields: isArray(fields) && fields.concat([FUNNEL_PERCENT, FUNNEL_CONVERSATION]),
           mapping: {
             shape: 'funnel',
             tooltip: formatter,

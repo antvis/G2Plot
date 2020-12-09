@@ -1,4 +1,5 @@
 import { LineOption } from '@antv/g2/lib/interface';
+import { isArray } from '@antv/util';
 import { flow, findGeometry } from '../../../utils';
 import { getTooltipMapping } from '../../../utils/tooltip';
 import { Params } from '../../../core/adaptor';
@@ -34,7 +35,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
   const { xField, yField, color, tooltip } = options;
 
-  const { fields = [], formatter } = getTooltipMapping(tooltip, [xField, yField]);
+  const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField]);
 
   baseGeometry({
     chart,
@@ -43,7 +44,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
       xField: xField,
       yField: FUNNEL_MAPPING_VALUE,
       colorField: xField,
-      tooltipFields: fields.concat([FUNNEL_PERCENT, FUNNEL_CONVERSATION]),
+      tooltipFields: isArray(fields) && fields.concat([FUNNEL_PERCENT, FUNNEL_CONVERSATION]),
       mapping: {
         shape: 'funnel',
         tooltip: formatter,

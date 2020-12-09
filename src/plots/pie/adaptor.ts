@@ -174,20 +174,24 @@ function statistic(params: Params<PieOptions>): Params<PieOptions> {
 
   /** 中心文本 指标卡 */
   if (innerRadius && statistic) {
-    const { title, content } = statistic;
-    if (title !== false && !get(title, 'formatter')) {
-      // @ts-ignore
-      title.formatter = (datum) => (datum ? datum[colorField] : '总计');
+    let { title, content } = statistic;
+    if (title !== false) {
+      title = deepAssign({}, { formatter: (datum) => (datum ? datum[colorField] : '总计') }, title);
     }
-    if (content !== false && !get(content, 'formatter')) {
-      // @ts-ignore
-      content.formatter = (datum, data) => {
-        const metaFormatter = get(meta, [angleField, 'formatter']);
-        const dataValue = datum ? datum[angleField] : getTotalValue(data, angleField);
-        return metaFormatter ? metaFormatter(dataValue) : dataValue;
-      };
+    if (content !== false) {
+      content = deepAssign(
+        {},
+        {
+          formatter: (datum, data) => {
+            const metaFormatter = get(meta, [angleField, 'formatter']);
+            const dataValue = datum ? datum[angleField] : getTotalValue(data, angleField);
+            return metaFormatter ? metaFormatter(dataValue) : dataValue;
+          },
+        },
+        content
+      );
     }
-    renderStatistic(chart, { statistic, plotType: 'pie' });
+    renderStatistic(chart, { statistic: { title, content }, plotType: 'pie' });
   }
 
   return params;

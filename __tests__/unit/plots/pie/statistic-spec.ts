@@ -43,6 +43,37 @@ describe('中心文本 - 指标卡', () => {
     expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('总计' /** 中心文本指标卡，默认title */);
   });
 
+  it('中心文本内容更新', () => {
+    pie.update({ statistic: null });
+    let annotations = getAnnotations(pie.chart);
+    expect(annotations.length).toBe(0);
+
+    pie.update({ statistic: {} });
+    annotations = getAnnotations(pie.chart);
+    expect(annotations.length).toBe(2);
+    let htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('总计' /** 中心文本指标卡，默认title */);
+    expect((htmlAnnotations[1] as HTMLElement).innerText).toBe(`${data.reduce((a, b) => a + b.value, 0)}`);
+
+    pie.update({ statistic: { title: false } });
+    annotations = getAnnotations(pie.chart);
+    expect(annotations.length).toBe(1);
+
+    pie.update({ statistic: { content: false } });
+    annotations = getAnnotations(pie.chart);
+    expect(annotations.length).toBe(0);
+
+    pie.update({ statistic: { title: { formatter: () => 'sss' } } });
+    annotations = getAnnotations(pie.chart);
+    expect(annotations.length).toBe(1);
+    htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('sss');
+
+    pie.update({ meta: { value: { formatter: (v) => `${v}¥` } }, statistic: { content: {} } });
+    htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect((htmlAnnotations[1] as HTMLElement).innerText).toBe(`${data.reduce((a, b) => a + b.value, 0)}¥`);
+  });
+
   it('自定义中心文本内容: update statistic title & content', () => {
     pie.update({
       ...pie.options,

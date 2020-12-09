@@ -40,7 +40,7 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
         ...tooltip,
       }
     : tooltip;
-  const p = deepAssign({}, params, {
+  const primary = deepAssign({}, params, {
     options: {
       area: { color, style: areaStyle },
       // 颜色保持一致，因为如果颜色不一致，会导致 tooltip 中元素重复。
@@ -58,10 +58,12 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
       label: undefined,
     },
   });
+  const second = deepAssign({}, primary, { options: { tooltip: false } });
+
   // area geometry 处理
-  area(p);
-  line(p);
-  point(p);
+  area(primary);
+  line(second);
+  point(second);
 
   return params;
 }

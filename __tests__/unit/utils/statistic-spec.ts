@@ -1,6 +1,6 @@
-import { adapteStyle, setStatisticContainerStyle } from '../../../../../src/utils/statistic';
-import { ShapeStyle } from '../../../../../src/types';
-import { createDiv } from '../../../../utils/dom';
+import { adapteStyle, setStatisticContainerStyle } from '../../../src/utils/statistic';
+import { ShapeStyle } from '../../../src/types';
+import { createDiv } from '../../utils/dom';
 
 describe('饼图 statistics 相关处理函数', () => {
   it('adapteStyle', () => {
@@ -8,6 +8,16 @@ describe('饼图 statistics 相关处理函数', () => {
       fontSize: '12px',
       lineHeight: '12px',
     };
+
+    expect(adapteStyle()).toMatchObject({
+      overflow: 'hidden',
+      'white-space': 'nowrap',
+      'text-overflow': 'ellipsis',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    });
+
     expect(adapteStyle(style)).toMatchObject({
       'font-size': '12px',
       'line-height': '12px',

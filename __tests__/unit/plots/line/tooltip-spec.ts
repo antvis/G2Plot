@@ -54,4 +54,31 @@ describe('line', () => {
 
     line.destroy();
   });
+
+  it('point tooltip', () => {
+    const line = new Line(createDiv(), {
+      width: 400,
+      height: 300,
+      data: partySupport.filter((o) => ['FF', 'Lab'].includes(o.type)),
+      xField: 'date',
+      yField: 'value',
+      seriesField: 'type',
+      appendPadding: 10,
+      point: {},
+      tooltip: {
+        shared: true,
+      },
+    });
+
+    line.render();
+    const lineGeometry = line.chart.geometries.find((geom) => geom.type === 'line');
+    const pointGeometry = line.chart.geometries.find((geom) => geom.type === 'point');
+
+    expect(lineGeometry.tooltipOption).toBeUndefined();
+    expect(pointGeometry.tooltipOption).toBe(false);
+    // @ts-ignore
+    expect(line.chart.getOptions().tooltip.shared).toBe(true);
+
+    line.destroy();
+  });
 });

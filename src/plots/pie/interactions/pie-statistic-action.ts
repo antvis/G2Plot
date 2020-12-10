@@ -1,17 +1,17 @@
+import { View } from '@antv/g2';
 import { Action } from '@antv/g2/lib/interaction';
 import { ComponentOption } from '@antv/g2/lib/interface';
 import { getDelegationObject } from '@antv/g2/lib/interaction/action/util';
 import { each, get, isFunction, isString } from '@antv/util';
 import { adapteStyle, setStatisticContainerStyle } from '../../../utils/statistic';
-
 /**
  * Pie 中心文本事件的 Action
  */
 export class StatisticAction extends Action {
   private initialAnnotation;
 
-  private getAnnotations(): object[] {
-    const view = this.context.view;
+  private getAnnotations(_view?: View): object[] {
+    const view = _view || this.context.view;
     // @ts-ignore
     return view.getController('annotation').option;
   }
@@ -25,7 +25,7 @@ export class StatisticAction extends Action {
     view.removeInteraction('tooltip');
 
     view.on('afterchangesize', () => {
-      const annotations = this.getAnnotations();
+      const annotations = this.getAnnotations(view);
       this.initialAnnotation = annotations;
     });
   }

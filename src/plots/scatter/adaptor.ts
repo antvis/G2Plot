@@ -4,8 +4,28 @@ import { flow, deepAssign } from '../../utils';
 import { point } from '../../adaptor/geometries';
 import { interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { findGeometry, transformLabel } from '../../utils';
-import { getQuadrantDefaultConfig, getPath } from './util';
+import { getQuadrantDefaultConfig, getPath, getMeta } from './util';
 import { ScatterOptions } from './types';
+
+/**
+ * 散点图 data.length === 1 时居中显示，
+ * @param params
+ * @returns params
+ */
+export function transformOptions(params: Params<ScatterOptions>): Params<ScatterOptions> {
+  const { options } = params;
+  const { data = [] } = options;
+  // 仅对 data.length === 1 的情况进行处理
+  if (data.length === 1) {
+    return deepAssign({}, params, {
+      options: {
+        ...options,
+        meta: getMeta(options),
+      },
+    });
+  }
+  return params;
+}
 
 /**
  * 字段
@@ -244,6 +264,7 @@ export function tooltip(params: Params<ScatterOptions>): Params<ScatterOptions> 
 export function adaptor(params: Params<ScatterOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
+    transformOptions,
     geometry,
     meta,
     axis,

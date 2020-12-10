@@ -23,6 +23,13 @@ Configure the data source. The data source is a collection of objects. For examp
 
 Field for comparing.
 
+
+#### seriesField
+
+<description>**optional** _string_</description>
+
+Field for spliting.
+
 #### isTransposed
 
 <description>**optional** _boolean_ _default:_ `false`</description>
@@ -39,6 +46,22 @@ Whether the plot is transposed.
 
 Whether the height is dynamic.
 
+#### maxSize
+
+<description>**optional** _number_ _default:_ `1`</description>
+
+the max size of graphic，is between 0 and 1, default 1。
+
+Tip: when set dynamicHeight to be true, this field is invalid 
+
+#### minSize
+
+<description>**optional** _number_ _default:_ `1`</description>
+
+the min size of graphic，is between 0 and 1, default 0。
+
+Tip: when set dynamicHeight to be true, this field is invalid 
+
 #### conversionTag
 
 <description>**optional** _false | object_</description>
@@ -51,7 +74,22 @@ Defalut: `{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$
 
 ### Plot Components
 
-`markdown:docs/common/component.en.md`
+#### tooltip
+
+`markdown:docs/common/tooltip.en.md`
+
+#### label
+
+`markdown:docs/common/label.en.md`
+
+#### 图例
+
+`markdown:docs/common/legend.en.md`
+
+#### annotations
+
+`markdown:docs/common/annotations.en.md`
+
 
 ### Event
 

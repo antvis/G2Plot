@@ -1,7 +1,7 @@
 import { Funnel } from '../../../../src';
 import { PV_DATA } from '../../../data/conversion';
 import { createDiv } from '../../../utils/dom';
-import { FUNNEL_CONVERSATION, FUNNEL_PERCENT } from '../../../../src/plots/funnel/constant';
+import { FUNNEL_CONVERSATION, FUNNEL_PERCENT, FUNNEL_MAPPING_VALUE } from '../../../../src/plots/funnel/constant';
 
 describe('basic funnel', () => {
   let funnel;
@@ -12,6 +12,11 @@ describe('basic funnel', () => {
     data: PV_DATA,
     xField: 'action',
     yField: 'pv',
+    maxSize: 0.8,
+    minSize: 0.3,
+    tooltip: {
+      fields: ['action'],
+    },
   };
 
   beforeAll(() => {
@@ -34,11 +39,13 @@ describe('basic funnel', () => {
       // @ts-ignore
       expect(geometry.adjustOption[0].type).toBe('symmetric');
 
+      expect(geometry.tooltipOption.fields.length).toBe(3);
+
       // position
       const positionFields = geometry.getAttribute('position').getFields();
       expect(positionFields).toHaveLength(2);
       expect(positionFields[0]).toBe('action');
-      expect(positionFields[1]).toBe('pv');
+      expect(positionFields[1]).toBe(FUNNEL_MAPPING_VALUE);
 
       // shape
       const shapeFields = geometry.getAttribute('shape').getFields();
@@ -57,6 +64,7 @@ describe('basic funnel', () => {
       const { data } = funnel.chart.getOptions();
       data.forEach((item, index) => {
         expect(item[FUNNEL_PERCENT]).toEqual(item.pv / data[0].pv);
+        expect(item[FUNNEL_MAPPING_VALUE]).toEqual((item.pv / data[0].pv) * 0.5 + 0.3);
         expect(item[FUNNEL_CONVERSATION]).toEqual(index === 0 ? 1 : item.pv / data[index - 1].pv);
       });
     });

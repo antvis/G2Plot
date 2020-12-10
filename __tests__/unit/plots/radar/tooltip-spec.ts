@@ -175,4 +175,35 @@ describe('radar, 自定义 tooltip', () => {
 
     radar.destroy();
   });
+
+  it('second geometry tooltip', () => {
+    const radar = new Radar(createDiv(), {
+      width: 400,
+      height: 300,
+      data: SERIES_DATA,
+      xField: 'name',
+      yField: 'value',
+      seriesField: 'type',
+      radius: 0.8,
+      point: {},
+      area: {},
+      tooltip: {
+        shared: true,
+      },
+    });
+
+    radar.render();
+
+    const lineGeometry = radar.chart.geometries.find((geom) => geom.type === 'line');
+    const pointGeometry = radar.chart.geometries.find((geom) => geom.type === 'point');
+    const areaGeometry = radar.chart.geometries.find((geom) => geom.type === 'area');
+
+    expect(lineGeometry.tooltipOption).toBeUndefined();
+    expect(pointGeometry.tooltipOption).toBe(false);
+    expect(areaGeometry.tooltipOption).toBe(false);
+    // @ts-ignore
+    expect(radar.chart.getOptions().tooltip.shared).toBe(true);
+
+    radar.destroy();
+  });
 });

@@ -206,6 +206,8 @@ export function tooltip(params: Params<WaterfallOptions>): Params<WaterfallOptio
       fields: [yField],
       ...tooltip,
     });
+  } else {
+    chart.tooltip(false);
   }
 
   return params;

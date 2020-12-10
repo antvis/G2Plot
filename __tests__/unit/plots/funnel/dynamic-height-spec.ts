@@ -19,6 +19,9 @@ describe('dynamicHeight funnel', () => {
     xField: 'action',
     yField: 'pv',
     dynamicHeight: true,
+    tooltip: {
+      fields: ['action'],
+    },
   };
 
   beforeAll(() => {
@@ -38,6 +41,8 @@ describe('dynamicHeight funnel', () => {
 
       // geometry
       expect(geometry.type).toBe('polygon');
+
+      expect(geometry.tooltipOption.fields.length).toBe(3);
 
       // position
       const positionFields = geometry.getAttribute('position').getFields();

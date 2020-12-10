@@ -68,6 +68,8 @@ export class Gauge extends Plot<GaugeOptions> {
         },
         [PERCENT]: {
           sync: 'v',
+          tickCount: 5,
+          tickInterval: 0.2,
         },
       },
       animation: false,

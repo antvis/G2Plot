@@ -9,6 +9,9 @@ describe('waterfall components', () => {
     data: salesByArea,
     xField: 'area',
     yField: 'sales',
+    total: {
+      label: '总计',
+    },
   });
 
   waterfall.render();
@@ -19,6 +22,11 @@ describe('waterfall components', () => {
     // 默认展示：rising, falling & total
     expect(legendController.getComponents()[0].id).toMatch('custom');
     expect(legendController.getComponents()[0].component.get('items').length).toBe(3);
+    expect(legendController.getComponents()[0].component.get('items')[2].name).toBe('总计');
+    expect(legendController.getComponents()[0].component.get('items')[2].value).toBe('total');
+
+    waterfall.update({ total: { label: '测试' } });
+    expect(legendController.getComponents()[0].component.get('items')[2].name).toBe('测试');
 
     waterfall.update({ total: false });
     expect(legendController.getComponents()[0].component.get('items').length).toBe(2);
@@ -50,7 +58,7 @@ describe('waterfall components', () => {
       tooltip: false,
     });
     // @ts-ignore
-    expect(waterfall.chart.options.tooltip).toBe(undefined);
+    expect(waterfall.chart.options.tooltip).toBe(false);
     expect(waterfall.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
   });
 

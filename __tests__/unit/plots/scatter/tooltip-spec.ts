@@ -44,10 +44,10 @@ describe('scatter', () => {
       tooltip: false,
     });
     expect(scatter.chart.getOptions().tooltip).toBe(false);
-    expect(scatter.chart.geometries[0].tooltipOption).toBeUndefined();
+    expect(scatter.chart.geometries[0].tooltipOption).toBe(false);
     expect(scatter.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
 
-    scatter.destroy();
+    // scatter.destroy();
   });
 
   it('tooltip: itemTpl options', () => {

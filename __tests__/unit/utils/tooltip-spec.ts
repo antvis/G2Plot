@@ -2,7 +2,7 @@ import { getTooltipMapping } from '../../../src/utils/tooltip';
 
 describe('util tooltip', () => {
   it('getTooltipMapping', () => {
-    expect(getTooltipMapping(false, [])).toEqual({});
+    expect(getTooltipMapping(false, [])).toEqual({ fields: false });
 
     expect(getTooltipMapping({}, ['x'])).toEqual({});
 

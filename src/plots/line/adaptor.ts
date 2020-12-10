@@ -19,7 +19,7 @@ function geometry(params: Params<LineOptions>): Params<LineOptions> {
   chart.data(data);
 
   // line geometry 处理
-  const p = deepAssign({}, params, {
+  const primary = deepAssign({}, params, {
     options: {
       shapeField: seriesField,
       line: {
@@ -34,11 +34,15 @@ function geometry(params: Params<LineOptions>): Params<LineOptions> {
         shape: 'circle',
         ...pointMapping,
       },
+      // label 不传递给各个 geometry adaptor，由 label adaptor 处理
+      label: undefined,
     },
   });
+  const second = deepAssign({}, primary, { options: { tooltip: false } });
 
-  line(p);
-  point(p);
+  line(primary);
+  point(second);
+
   return params;
 }
 

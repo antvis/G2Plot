@@ -126,7 +126,6 @@ describe('label', () => {
       ...funnelOption,
       label: false,
     });
-    expect(funnel.chart.geometries[0].labelsContainer.cfg.children.length).toBe(0);
 
     funnel.chart.views.forEach((funnelView) => {
       expect(funnelView.geometries[0].labelsContainer.cfg.children.length).toBe(0);

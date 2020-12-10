@@ -110,7 +110,6 @@ export function meta(params: Params<FunnelOptions>): Params<FunnelOptions> {
     scale({
       [xField]: xAxis,
       [yField]: yAxis,
-      [FUNNEL_MAPPING_VALUE]: meta[FUNNEL_MAPPING_VALUE],
     })
   )(params);
 }

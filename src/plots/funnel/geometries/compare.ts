@@ -1,13 +1,13 @@
-import { LineOption } from '@antv/g2/lib/interface';
+import { LineOption, IntervalGeometryLabelPosition } from '@antv/g2/lib/interface';
 import { isArray } from '@antv/util';
-import { flow, findGeometry, deepAssign } from '../../../utils';
+import { flow, deepAssign } from '../../../utils';
 import { Params } from '../../../core/adaptor';
 import { Datum, Data } from '../../../types/common';
 import { getTooltipMapping } from '../../../utils/tooltip';
 import { geometry as baseGeometry } from '../../../adaptor/geometries/base';
 import { FunnelOptions } from '../types';
 import { FUNNEL_PERCENT, FUNNEL_CONVERSATION, FUNNEL_MAPPING_VALUE } from '../constant';
-import { geometryLabel, conversionTagComponent, transformData } from './common';
+import { conversionTagComponent, transformData } from './common';
 
 /**
  * 处理字段数据
@@ -33,7 +33,7 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, color, compareField, isTransposed, tooltip, maxSize, minSize } = options;
+  const { data, xField, yField, color, compareField, isTransposed, tooltip, maxSize, minSize, label } = options;
 
   chart.facet('mirror', {
     fields: [compareField],
@@ -41,10 +41,12 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
     transpose: !isTransposed,
     padding: isTransposed ? 0 : [32, 0, 0, 0],
     eachView(view, facet) {
+      const index = isTransposed ? facet.rowIndex : facet.columnIndex;
+
       if (!isTransposed) {
         view.coordinate({
           type: 'rect',
-          actions: [['transpose'], ['scale', facet.columnIndex === 0 ? -1 : 1, -1]],
+          actions: [['transpose'], ['scale', index === 0 ? -1 : 1, -1]],
         });
       }
 
@@ -58,6 +60,19 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
 
       // 绘制图形
       const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, compareField]);
+
+      const defaultFacetLabel = isTransposed
+        ? {
+            offset: index === 0 ? 10 : -23,
+            position: index === 0 ? 'bottom' : ('top' as IntervalGeometryLabelPosition),
+          }
+        : {
+            offset: 10,
+            position: 'left' as IntervalGeometryLabelPosition,
+            style: {
+              textAlign: index === 0 ? 'end' : 'start',
+            },
+          };
 
       baseGeometry({
         chart: view,
@@ -76,48 +91,12 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
               stroke: '#fff',
             },
           },
+          label: label === false ? false : deepAssign({}, defaultFacetLabel, label),
         },
       });
     },
   });
 
-  return params;
-}
-
-/**
- * label 处理
- * @param params
- */
-function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
-  const { chart, options } = params;
-  const { label, isTransposed } = options;
-
-  chart.once('beforepaint', () => {
-    chart.views.forEach((view, index) => {
-      const geometry = findGeometry(view, 'interval');
-      geometryLabel(geometry)(
-        label
-          ? deepAssign({}, params, {
-              chart: view,
-              options: {
-                label: isTransposed
-                  ? {
-                      offset: index === 0 ? 10 : -23,
-                      position: index === 0 ? 'bottom' : 'top',
-                    }
-                  : {
-                      offset: 10,
-                      position: 'left',
-                      style: {
-                        textAlign: index === 0 ? 'end' : 'start',
-                      },
-                    },
-              },
-            })
-          : params
-      );
-    });
-  });
   return params;
 }
 
@@ -176,5 +155,5 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
  * @param options
  */
 export function compareFunnel(params: Params<FunnelOptions>) {
-  return flow(field, geometry, label, conversionTag)(params);
+  return flow(field, geometry, conversionTag)(params);
 }

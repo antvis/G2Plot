@@ -6,7 +6,7 @@ import { basicFunnel } from './geometries/basic';
 import { compareFunnel } from './geometries/compare';
 import { facetFunnel } from './geometries/facet';
 import { dynamicHeightFunnel } from './geometries/dynamic-height';
-import { FUNNEL_CONVERSATION, FUNNEL_MAPPING_VALUE } from './constant';
+import { FUNNEL_CONVERSATION, FUNNEL_MAPPING_VALUE, FUNNEL_PERCENT } from './constant';
 
 /**
  *
@@ -34,15 +34,25 @@ function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
         nice: false,
       },
     },
-    label: {
-      offset: 0,
-      position: 'middle',
-      style: {
-        fill: '#fff',
-        fontSize: 12,
-      },
-      formatter: compareField ? (datum) => `${datum[yField]}` : (datum) => `${datum[xField]} ${datum[yField]}`,
-    },
+    label: compareField
+      ? {
+          fields: [xField, yField, compareField, FUNNEL_PERCENT, FUNNEL_CONVERSATION],
+          style: {
+            fill: '#fff',
+            fontSize: 12,
+          },
+          formatter: (datum) => `${datum[yField]}`,
+        }
+      : {
+          fields: [xField, yField, FUNNEL_PERCENT, FUNNEL_CONVERSATION],
+          offset: 0,
+          position: 'middle',
+          style: {
+            fill: '#fff',
+            fontSize: 12,
+          },
+          formatter: (datum) => `${datum[xField]} ${datum[yField]}`,
+        },
     tooltip: {
       showTitle: false,
       showMarkers: false,

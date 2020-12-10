@@ -64,7 +64,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
       const defaultFacetLabel = isTransposed
         ? {
             offset: index === 0 ? 10 : -23,
-            position: index === 0 ? 'bottom' : ('top' as IntervalGeometryLabelPosition),
+            position: (index === 0 ? 'bottom' : 'top') as IntervalGeometryLabelPosition,
           }
         : {
             offset: 10,

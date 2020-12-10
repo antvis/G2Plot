@@ -1,8 +1,6 @@
-import { Geometry } from '@antv/g2';
 import { LineOption } from '@antv/g2/lib/interface';
 import { isFunction, map, isNumber, maxBy } from '@antv/util';
 import { Datum, Data } from '../../../types/common';
-import { transformLabel } from '../../../utils';
 import { FUNNEL_PERCENT, FUNNEL_CONVERSATION, FUNNEL_MAPPING_VALUE } from '../constant';
 import { Params } from '../../../core/adaptor';
 import { FunnelOptions } from '../types';

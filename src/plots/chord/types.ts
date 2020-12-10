@@ -11,13 +11,9 @@ export interface ChordOptions extends Omit<Options, 'xField' | 'yField' | 'xAxis
    */
   readonly targetField: string;
   /**
-   * 来源权重字段
+   * 权重字段
    */
-  readonly sourceWeightField: string;
-  /**
-   * 去向字段
-   */
-  readonly targetWeightField: string;
+  readonly weightField: string;
   /**
    * 数据
    */
@@ -25,11 +21,11 @@ export interface ChordOptions extends Omit<Options, 'xField' | 'yField' | 'xAxis
   /**
    * 节点间距比例，参考画布的宽度，默认值为 0.1，取值为[0, 1)
    */
-  readonly marginRatio?: number;
+  readonly nodePaddingRatio?: number;
   /**
-   * 刻度的厚度，默认值为0.05，取值为(0, 1)
+   * 节点的厚度，默认值为0.05，取值为(0, 1)
    */
-  readonly thickness?: number;
+  readonly nodeWidthRatio?: number;
   /**
    * 是否考虑节点权重值
    */

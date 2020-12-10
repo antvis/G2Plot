@@ -96,6 +96,7 @@ export { BidirectionalBar, BidirectionalBarOptions } from './plots/bidirectional
 
 // 桑基图及类型定义 | author by [hustcc](https://github.com/hustcc)
 export { Sankey, SankeyOptions } from './plots/sankey';
+
 // 弦图及类型定义 | author by [MrSmallLiu](https://github.com/MrSmallLiu)
 export { Chord, ChordOptions } from './plots/chord';
 

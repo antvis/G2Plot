@@ -15,8 +15,6 @@ export class Chord extends Plot<ChordOptions> {
 
   protected getDefaultOptions() {
     return {
-      // appendPadding: 8,
-      // syncViewPadding: true,
       nodeStyle: {
         opacity: 1,
         fillOpacity: 1,
@@ -24,7 +22,7 @@ export class Chord extends Plot<ChordOptions> {
       },
       edgeStyle: {
         opacity: 0.5,
-        lineWidth: 0,
+        lineWidth: 2,
       },
       color: [
         '#FF4500',
@@ -42,6 +40,7 @@ export class Chord extends Plot<ChordOptions> {
         fields: ['x', 'name'],
         callback: (x: number[], name: string) => {
           const centerX = (x[0] + x[1]) / 2;
+          // TODO: 暂时偏移固定值
           const offsetX = centerX > 0.5 ? -4 : 4;
           return {
             labelEmit: true,
@@ -54,20 +53,18 @@ export class Chord extends Plot<ChordOptions> {
         },
       },
       tooltip: {
-        fields: ['sourceName', 'targetName', 'sourceWeight', 'targetWeight'],
+        fields: ['source', 'target', 'value'],
         formatter: (datum: Datum) => {
-          const { sourceName, targetName, sourceWeight, targetWeight } = datum;
-          let value = sourceWeight;
-          if (sourceWeight != targetWeight) value = `${sourceWeight} -> ${targetWeight}`;
+          const { source, target, value } = datum;
           return {
-            name: `${sourceName} -> ${targetName}`,
+            name: `${source} -> ${target}`,
             value,
           };
         },
       },
       weight: true,
-      marginRatio: 0.1,
-      thickness: 0.05,
+      nodePaddingRatio: 0.1,
+      nodeWidthRatio: 0.05,
     };
   }
 

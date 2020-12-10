@@ -2,28 +2,27 @@
  * for Arc Diagram (edges without weight) / Chord Diagram (edges with source and target weight)
  * graph data required (nodes, edges)
  */
-import { assign, forIn, isArray, values, isFunction } from '@antv/util';
-// import { DataSet } from '../../data-set';
-// import { View } from '../../view';
+import { assign, forIn, isFunction } from '@antv/util';
+import { NodeLinkData } from '../../types';
 
 const DEFAULT_OPTIONS: ChordLayoutOptions = {
   y: 0,
-  thickness: 0.05, // thickness of the node, (0, 1)
+  nodeWidthRatio: 0.05, // width of the node, (0, 1)
   weight: false,
-  marginRatio: 0.1, // margin ratio, [0, 1)
+  nodePaddingRatio: 0.1, // margin ratio, [0, 1)
   id: (node) => node.id,
   source: (edge) => edge.source,
   target: (edge) => edge.target,
-  sourceWeight: (edge) => edge.sourceWeight || 1,
-  targetWeight: (edge) => edge.targetWeight || 1,
+  sourceWeight: (edge) => edge.value || 1,
+  targetWeight: (edge) => edge.value || 1,
   sortBy: null, // optional, id | weight | frequency | {function}
 };
 
 export type ChordLayoutOptions = {
-  y?: number;
-  thickness?: number;
   weight?: boolean;
-  marginRatio?: number;
+  y?: number;
+  nodeWidthRatio?: number; // 节点的宽度比例，对应于极坐标系的厚度，(0, 1)
+  nodePaddingRatio?: number; // 节点之间的间距的比例，[0, 1)
   id?(node: any): any;
   source?(edge: any): any;
   target?(edge: any): any;
@@ -32,26 +31,9 @@ export type ChordLayoutOptions = {
   sortBy?: 'id' | 'weigth' | 'frequency' | null | ((a: any, b: any) => number);
 };
 
-type InputNode = {
-  readonly id: string;
-  readonly value: number;
-  readonly name: string;
-};
-
-type InputLink = {
-  readonly source: number;
-  readonly target: number;
-  readonly sourceWeight: number;
-  readonly targetWeight: number;
-};
-
 type OutputNode = {
+  readonly id: number;
   readonly name: string;
-  readonly x0: number;
-  readonly x1: number;
-  readonly y0: number;
-  readonly y1: number;
-  readonly id: string;
   // readonly depth: number;
   readonly value: number;
 
@@ -63,46 +45,24 @@ type OutputNode = {
 type OutputLink = {
   readonly source: OutputNode;
   readonly target: OutputNode;
-  readonly sourceName: string;
-  readonly targetName: string;
-  readonly sourceWeight: number;
-  readonly targetWeight: number;
-  readonly y0: number;
-  readonly y1: number;
+  readonly value: number;
 
   // 用于绘制 edge
   x?: number[];
   y?: number[];
-};
-export type ChordLayoutInputData = {
-  readonly nodes: InputNode[];
-  readonly links: InputLink[];
 };
 
 type ChordLayoutOutputData = {
   readonly nodes: OutputNode[];
   readonly links: OutputLink[];
 };
-
-function _nodesFromEdges(edges, options, map = {}) {
-  edges.forEach((edge) => {
-    const sId = options.edgeSource(edge);
-    const tId = options.edgeTarget(edge);
-    if (!map[sId]) {
-      map[sId] = {
-        id: sId,
-      };
-    }
-    if (!map[tId]) {
-      map[tId] = {
-        id: tId,
-      };
-    }
-  });
-  return values(map);
-}
-
-function _processGraph(nodeById, edges, options) {
+/**
+ * 处理节点的value、edges
+ * @param nodeById
+ * @param edges
+ * @param options
+ */
+function processGraph(nodeById, edges, options) {
   forIn(nodeById, (node, id) => {
     // in edges, out edges
     node.inEdges = edges.filter((edge) => `${options.target(edge)}` === `${id}`);
@@ -120,8 +80,12 @@ function _processGraph(nodeById, edges, options) {
     });
   });
 }
-
-function _sortNodes(nodes, options) {
+/**
+ * 节点排序
+ * @param nodes
+ * @param options
+ */
+function sortNodes(nodes, options) {
   const sortMethods = {
     weight: (a, b) => b.value - a.value,
     frequency: (a, b) => b.frequency - a.frequency,
@@ -136,20 +100,20 @@ function _sortNodes(nodes, options) {
   }
 }
 
-function _layoutNodes(nodes, options): OutputNode[] {
+function layoutNodes(nodes, options): OutputNode[] {
   const len = nodes.length;
   if (!len) {
     throw new TypeError("Invalid nodes: it's empty!");
   }
   if (options.weight) {
-    const marginRatio = options.marginRatio;
-    if (marginRatio < 0 || marginRatio >= 1) {
-      throw new TypeError('Invalid marginRatio: it must be in range [0, 1)!');
+    const nodePaddingRatio = options.nodePaddingRatio;
+    if (nodePaddingRatio < 0 || nodePaddingRatio >= 1) {
+      throw new TypeError('Invalid nodePaddingRatio: it must be in range [0, 1)!');
     }
-    const margin = marginRatio / (2 * len);
-    const thickness = options.thickness;
-    if (thickness <= 0 || thickness >= 1) {
-      throw new TypeError('Invalid thickness: it must be in range (0, 1)!');
+    const margin = nodePaddingRatio / (2 * len);
+    const nodeWidthRatio = options.nodeWidthRatio;
+    if (nodeWidthRatio <= 0 || nodeWidthRatio >= 1) {
+      throw new TypeError('Invalid nodeWidthRatio: it must be in range (0, 1)!');
     }
     let totalValue = 0;
     nodes.forEach((node) => {
@@ -157,8 +121,8 @@ function _layoutNodes(nodes, options): OutputNode[] {
     });
     nodes.forEach((node) => {
       node.weight = node.value / totalValue;
-      node.width = node.weight * (1 - marginRatio);
-      node.height = thickness;
+      node.width = node.weight * (1 - nodePaddingRatio);
+      node.height = nodeWidthRatio;
     });
     nodes.forEach((node, index) => {
       // x
@@ -168,8 +132,8 @@ function _layoutNodes(nodes, options): OutputNode[] {
       }
       const minX = (node.minX = margin + deltaX);
       const maxX = (node.maxX = node.minX + node.width);
-      const minY = (node.minY = options.y - thickness / 2);
-      const maxY = (node.maxY = minY + thickness);
+      const minY = (node.minY = options.y - nodeWidthRatio / 2);
+      const maxY = (node.maxY = minY + nodeWidthRatio);
       node.x = [minX, maxX, maxX, minX];
       node.y = [minY, minY, maxY, maxY];
       /* points
@@ -190,7 +154,7 @@ function _layoutNodes(nodes, options): OutputNode[] {
   return nodes;
 }
 
-function _locatingEdges(nodeById, edges, options): OutputLink[] {
+function locatingEdges(nodeById, edges, options): OutputLink[] {
   if (options.weight) {
     const valueById = {};
     forIn(nodeById, (node, id) => {
@@ -217,6 +181,9 @@ function _locatingEdges(nodeById, edges, options): OutputLink[] {
         const y = options.y;
         edge.x = [sStart, sEnd, tStart, tEnd];
         edge.y = [y, y, y, y];
+        // 将edge的source与target的id换为 sourceNode与targetNode
+        edge.source = sNode;
+        edge.target = tNode;
       }
     });
   } else {
@@ -226,31 +193,33 @@ function _locatingEdges(nodeById, edges, options): OutputLink[] {
       if (sNode && tNode) {
         edge.x = [sNode.x, tNode.x];
         edge.y = [sNode.y, tNode.y];
+        // 将edge的source与target的id换为 sourceNode与targetNode
+        edge.source = sNode;
+        edge.target = tNode;
       }
     });
   }
   return edges;
 }
-
+function getDefaultOptions(options: ChordLayoutOptions): ChordLayoutOptions {
+  return assign({}, DEFAULT_OPTIONS, options);
+}
 export function chordLayout(
   chordLayoutOptions: ChordLayoutOptions,
-  chordLayoutInputData: ChordLayoutInputData
+  chordLayoutInputData: NodeLinkData
 ): ChordLayoutOutputData {
-  const options = assign({}, DEFAULT_OPTIONS, chordLayoutOptions);
+  const options = getDefaultOptions(chordLayoutOptions);
   const nodeById = {};
-  let nodes = chordLayoutInputData.nodes;
+  const nodes = chordLayoutInputData.nodes;
   const links = chordLayoutInputData.links;
-  if (!isArray(nodes) || nodes.length === 0) {
-    nodes = _nodesFromEdges(links, options, nodeById);
-  }
   nodes.forEach((node) => {
     const id = options.id(node);
     nodeById[id] = node;
   });
-  _processGraph(nodeById, links, options);
-  _sortNodes(nodes, options);
-  const outputNodes = _layoutNodes(nodes, options);
-  const outputLinks = _locatingEdges(nodeById, links, options);
+  processGraph(nodeById, links, options);
+  sortNodes(nodes, options);
+  const outputNodes = layoutNodes(nodes, options);
+  const outputLinks = locatingEdges(nodeById, links, options);
   return {
     nodes: outputNodes,
     links: outputLinks,

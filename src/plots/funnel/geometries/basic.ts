@@ -7,7 +7,7 @@ import { Datum, Data } from '../../../types/common';
 import { geometry as baseGeometry } from '../../../adaptor/geometries/base';
 import { FunnelOptions } from '../types';
 import { FUNNEL_CONVERSATION, FUNNEL_PERCENT, FUNNEL_MAPPING_VALUE } from '../constant';
-import { geometryLabel, conversionTagComponent, transformData } from './common';
+import { conversionTagComponent, transformData } from './common';
 
 /**
  * 处理字段数据
@@ -33,7 +33,7 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { xField, yField, color, tooltip } = options;
+  const { xField, yField, color, tooltip, label } = options;
 
   const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField]);
 
@@ -50,6 +50,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
         tooltip: formatter,
         color,
       },
+      label,
     },
   });
 
@@ -70,16 +71,6 @@ function transpose(params: Params<FunnelOptions>): Params<FunnelOptions> {
     type: 'rect',
     actions: !isTransposed ? [['transpose'], ['scale', 1, -1]] : [],
   });
-  return params;
-}
-
-/**
- * label 处理
- * @param params
- */
-function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
-  geometryLabel(findGeometry(params.chart, 'interval'))(params);
-
   return params;
 }
 
@@ -116,5 +107,5 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
  * @param options
  */
 export function basicFunnel(params: Params<FunnelOptions>) {
-  return flow(field, geometry, transpose, conversionTag, label)(params);
+  return flow(field, geometry, transpose, conversionTag)(params);
 }

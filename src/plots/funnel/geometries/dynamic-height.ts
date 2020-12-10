@@ -1,13 +1,13 @@
 import { map, reduce, maxBy, isArray } from '@antv/util';
 import { LineOption } from '@antv/g2/lib/interface';
-import { flow, findGeometry } from '../../../utils';
+import { flow } from '../../../utils';
 import { Params } from '../../../core/adaptor';
 import { FUNNEL_PERCENT, FUNNEL_CONVERSATION, FUNNEL_TOTAL_PERCENT, PLOYGON_X, PLOYGON_Y } from '../constant';
 import { geometry as baseGeometry } from '../../../adaptor/geometries/base';
 import { getTooltipMapping } from '../../../utils/tooltip';
 import { Datum, Data } from '../../../types/common';
 import { FunnelOptions } from '../types';
-import { geometryLabel, conversionTagComponent } from './common';
+import { conversionTagComponent } from './common';
 
 /**
  * 动态高度漏斗图
@@ -85,7 +85,7 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { xField, yField, color, tooltip } = options;
+  const { xField, yField, color, tooltip, label } = options;
 
   const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField]);
   // 绘制漏斗图
@@ -97,6 +97,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
       yField: PLOYGON_Y,
       colorField: xField,
       tooltipFields: isArray(fields) && fields.concat([FUNNEL_PERCENT, FUNNEL_CONVERSATION]),
+      label,
       mapping: {
         tooltip: formatter,
         color,
@@ -117,18 +118,6 @@ function transpose(params: Params<FunnelOptions>): Params<FunnelOptions> {
     type: 'rect',
     actions: isTransposed ? [['transpose'], ['reflect', 'x']] : [],
   });
-  return params;
-}
-
-/**
- * label 处理
- * @param params
- */
-function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
-  const { chart } = params;
-
-  geometryLabel(findGeometry(chart, 'polygon'))(params);
-
   return params;
 }
 
@@ -161,5 +150,5 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
  * @param options
  */
 export function dynamicHeightFunnel(params: Params<FunnelOptions>) {
-  return flow(field, geometry, transpose, label, conversionTag)(params);
+  return flow(field, geometry, transpose, conversionTag)(params);
 }

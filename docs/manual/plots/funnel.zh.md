@@ -74,7 +74,22 @@ order: 9
 
 ### 图表组件
 
-`markdown:docs/common/component.zh.md`
+#### tooltip
+
+`markdown:docs/common/tooltip.zh.md`
+
+#### label
+
+`markdown:docs/common/label.zh.md`
+
+#### 图例
+
+`markdown:docs/common/legend.zh.md`
+
+#### annotations
+
+`markdown:docs/common/annotations.zh.md`
+
 
 ### 事件
 

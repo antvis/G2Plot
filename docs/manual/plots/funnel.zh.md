@@ -37,6 +37,16 @@ order: 9
 
 `markdown:docs/common/meta.zh.md`
 
+注: 漏斗图的宽度由 yfield 对应的数值，计算生成的 mapping Data 映射而来，其名称为 `$$mappingValue$$`, 默认值为
+
+```javascript
+{
+  min: 0,
+  max: 1,
+  nice: false,
+}
+```
+
 ### 图形样式
 
 #### dynamicHeight
@@ -74,7 +84,22 @@ order: 9
 
 ### 图表组件
 
-`markdown:docs/common/component.zh.md`
+#### tooltip
+
+`markdown:docs/common/tooltip.zh.md`
+
+#### label
+
+`markdown:docs/common/label.zh.md`
+
+#### 图例
+
+`markdown:docs/common/legend.zh.md`
+
+#### annotations
+
+`markdown:docs/common/annotations.zh.md`
+
 
 ### 事件
 

@@ -74,7 +74,22 @@ Defalut: `{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$
 
 ### Plot Components
 
-`markdown:docs/common/component.en.md`
+#### tooltip
+
+`markdown:docs/common/tooltip.en.md`
+
+#### label
+
+`markdown:docs/common/label.en.md`
+
+#### 图例
+
+`markdown:docs/common/legend.en.md`
+
+#### annotations
+
+`markdown:docs/common/annotations.en.md`
+
 
 ### Event
 

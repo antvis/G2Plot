@@ -59,5 +59,7 @@ describe('charts #367', () => {
         .getChildren()
         .map((v) => v.attr('text'))
     ).toEqual(LABELS);
+
+    gauge.destroy();
   });
 });

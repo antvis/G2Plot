@@ -1,4 +1,3 @@
-
 * **G2Plot Version**:
 * **Platform**:
 * **Mini Showcase(like screenshots)**:

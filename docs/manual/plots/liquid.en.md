@@ -33,6 +33,28 @@ Liguid graphic style.
 
 `markdown:docs/common/color.en.md`
 
+#### outline
+
+<description>**optional** _Outline_</description>
+
+The ouline configure for liquid plot, includes:
+
+| Attr         | Type           | Desc                                                  |
+| ------------ | -------------- | ----------------------------------------------------- |
+| border       | number         | border width of ouline, default 2px                   |
+| disatance    | number         | disatance between ouline and wave, default 0px        |
+
+#### wave
+
+<description>**optional** _Wave_</description>
+
+The wave configure for liquid plot, includes:
+
+| Attr         | Type           | Desc                                                  |
+| ------------ | -------------- | ----------------------------------------------------- |
+| count        | number         | wave count, default 3                                 |
+| length       | number         | wave length, default is 192px                         |
+
 ### Plot Components
 
 #### statistic

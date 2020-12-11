@@ -12,7 +12,7 @@ describe('#1909', () => {
     liquidPlot.render();
 
     // @ts-ignore
-    expect(liquidPlot.chart.geometries[0].container.getChildren()[0].getChildren()[0].attr('opacity')).toBe(0.6);
+    expect(liquidPlot.chart.geometries[0].container.getChildren()[1].getChildren()[0].attr('opacity')).toBe(0.2);
 
     liquidPlot.update({
       liquidStyle: {
@@ -21,7 +21,10 @@ describe('#1909', () => {
     });
 
     // @ts-ignore
-    expect(liquidPlot.chart.geometries[0].container.getChildren()[0].getChildren()[0].attr('opacity')).toBe(0.06);
+    expect(liquidPlot.chart.geometries[0].container.getChildren()[1].getChildren()[0].attr('opacity')).toBeCloseTo(
+      0.02,
+      5
+    );
 
     liquidPlot.destroy();
   });

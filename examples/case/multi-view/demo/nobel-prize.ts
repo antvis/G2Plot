@@ -1,11 +1,12 @@
 import { DataView } from '@antv/data-set';
 import { Lab } from '@antv/g2plot';
+import { keys, groupBy } from '@antv/util';
 
 fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c2e0a.json')
   .then((data) => data.json())
-  .then((data) => {
-    const COLORS = ['#ff93a7', '#ff9300', '#bb82f3', '#6349ec', '#0074ff'];
+  .then((data: any[]) => {
     let currentYear = 1901;
+    const types = keys(groupBy(data, (d) => d.type));
     /** 散点图数据（各国诺贝尔奖获奖者的年龄分布） */
     const getPointViewData = (year) => {
       return data.map((d) => (d.year <= year ? d : { ...d, age: null }));
@@ -68,7 +69,11 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c
               yField: 'counts',
               colorField: 'type',
               mapping: {
-                color: [...COLORS, '#D9D9D9'],
+                color: ({ type }) => {
+                  const idx = types.indexOf(type);
+                  const { colors10 = [] } = labChart.chart.getTheme();
+                  return colors10[idx] || '#D9D9D9';
+                },
               },
               adjust: { type: 'stack' },
             },
@@ -120,7 +125,6 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c
                 style: {
                   lineWidth: 0,
                 },
-                color: COLORS,
               },
             },
           ],

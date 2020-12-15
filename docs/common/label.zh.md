@@ -17,7 +17,7 @@
 | animate      | boolean \| AnimateOption                                   | 动画配置。                                                                                 |
 | formatter    | Function                                                   | 格式化函数                                                                                 |
 | autoHide     | boolean                                                    | 是否自动隐藏，默认 false                                                                   |
-| autoEllipsis | boolean                                                    | 是否自动省略，默认 false                                                                   |
+                                                               |
 
 示例代码：
 

@@ -118,7 +118,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
         nice: true,
         label: {
           autoRotate: false,
-          autoHide: true,
+          autoHide: { type: 'equidistance', cfg: { minGap: 6 } },
         },
       },
       yAxis: {

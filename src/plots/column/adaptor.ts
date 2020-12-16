@@ -89,7 +89,9 @@ function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
  */
 function meta(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { options } = params;
-  const { xAxis, yAxis, xField, yField, data } = options;
+  const { xAxis, yAxis, xField, yField, data, isPercent } = options;
+
+  const percentYMeta = isPercent ? { max: 1, min: 0, minLimit: 0, maxLimit: 1 } : {};
 
   return flow(
     scale(
@@ -101,7 +103,10 @@ function meta(params: Params<ColumnOptions>): Params<ColumnOptions> {
         [xField]: {
           type: 'cat',
         },
-        [yField]: adjustYMetaByZero(data, yField),
+        [yField]: {
+          ...adjustYMetaByZero(data, yField),
+          ...percentYMeta,
+        },
       }
     )
   )(params);

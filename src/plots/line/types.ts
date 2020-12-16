@@ -19,7 +19,7 @@ export interface LineOptions extends Options {
   /** 折线图形样式 */
   readonly lineStyle?: StyleAttr;
   /** 折线 shape 配置 */
-  readonly lineShape?: LineGeometryOptions['line']['shape'];
+  readonly lineShape?: Required<LineGeometryOptions>['line']['shape'];
   /** 折线数据点图形样式 */
   readonly point?: PointGeometryOptions['point'];
 }

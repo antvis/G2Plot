@@ -34,7 +34,6 @@ function otherAdaptor<O extends IntervalGeometryOptions>(params: Params<O>): Par
   const { chart, options, ext } = params;
   const { seriesField, isGroup, isStack, marginRatio, widthRatio, groupField, theme } = options;
 
-  const g = ext.geometry as Geometry;
   /**
    * adjust
    */
@@ -57,7 +56,8 @@ function otherAdaptor<O extends IntervalGeometryOptions>(params: Params<O>): Par
     }
   }
 
-  if (adjust.length) {
+  if (adjust.length && ext?.geometry) {
+    const g = ext?.geometry as Geometry;
     g.adjust(adjust);
   }
 

@@ -27,11 +27,33 @@ order: 12
 
 <description>**optional** _StyleAttr | Function_</description>
 
-水波图的样式。
+水波图的配色样式。
 
 `markdown:docs/common/shape-style.zh.md`
 
 `markdown:docs/common/color.zh.md`
+
+#### outline
+
+<description>**optional** _Outline_</description>
+
+水波图的外框容器配置。主要包含以下内容：
+
+| 属性名        | 类型            | 介绍                                         |
+| ------------ | -------------- | -------------------------------------------- |
+| border       | number         | 外框容器的 border 宽度，默认为 2 像素             |
+| disatance    | number         | 外框容器和内部波形的间距，默认为 0 像素             |
+
+#### wave
+
+<description>**optional** _Wave_</description>
+
+水波图的波形配置。主要包含以下内容：
+
+| 属性名        | 类型            | 介绍                                         |
+| ------------ | -------------- | -------------------------------------------- |
+| count        | number         | 水波的个数，默认为 3 个                          |
+| length       | number         | 水波的波长度，默认为 192 像素                     |
 
 ### 图表组件
 

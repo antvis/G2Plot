@@ -1,3 +1,25 @@
+#### 2.3.2 (2020-12-11)
+
+##### Chores
+
+*  fix preview workflow vulnerability ([#2069](https://github.com/antvis/g2plot/pull/2069)) ([960b7413](https://github.com/antvis/g2plot/commit/960b741372b00d95f115647db5ce60b9cf50f5a1))
+
+##### New Features
+
+*  散点图一个数据点时调整 min max ([#2075](https://github.com/antvis/g2plot/pull/2075)) ([290fb5a0](https://github.com/antvis/g2plot/commit/290fb5a062a9c04af929c9a2ec0ef5b0ad914ce1))
+
+##### Bug Fixes
+
+* **pie-statistic:**  修复环图中心文本从 false 更新为 null，读取空对象属性出错 ([#2092](https://github.com/antvis/g2plot/pull/2092)) ([cf14b369](https://github.com/antvis/g2plot/commit/cf14b369d490d617fc1352f1a2635bf2eb00dc4f))
+* **pie-statistic-action:**  修复 changeSize 时，环图中心文本偶发报错 ([#2093](https://github.com/antvis/g2plot/pull/2093)) ([d3a0ece9](https://github.com/antvis/g2plot/commit/d3a0ece94398f2a4db63e3a63dfed42b10a33b8d))
+*  修改官网样式覆盖问题 ([#2090](https://github.com/antvis/g2plot/pull/2090)) ([5a2ce6de](https://github.com/antvis/g2plot/commit/5a2ce6de173700789e38d7d223c3ad565693fee7))
+*  only enable tooltip for prmary geometry for line/area/radar ([#2087](https://github.com/antvis/g2plot/pull/2087)) ([c006f467](https://github.com/antvis/g2plot/commit/c006f467decf8596f7987debea2041546ef56037))
+*  fix duplicated label renderde for line/area/radar plot ([#2071](https://github.com/antvis/g2plot/pull/2071)) ([66a1088b](https://github.com/antvis/g2plot/commit/66a1088b095596d785c0bb62e9fad67465cc3b4a))
+*  fix early create canvas context cause build error in server side ([#2066](https://github.com/antvis/g2plot/pull/2066)) ([5cdbda35](https://github.com/antvis/g2plot/commit/5cdbda355d3772e9b0daf41db997e8c3fe3904ca))
+* **gauge:**  仪表盘的 ticks 默认不均匀,且自定义 scale 无效 ([#2085](https://github.com/antvis/g2plot/pull/2085)) ([089b123f](https://github.com/antvis/g2plot/commit/089b123f908173ff11aced5bc3e636898cabd1f0))
+* **sankey:**  close sankey node tooltip ([#2072](https://github.com/antvis/g2plot/pull/2072)) ([4be91f92](https://github.com/antvis/g2plot/commit/4be91f92b8e2f08ec34ff37a3397ecfa3963727f))
+* **issue-2078:**  修复 waterfall 无法关闭 tooltip ([#2079](https://github.com/antvis/g2plot/pull/2079)) ([b2716608](https://github.com/antvis/g2plot/commit/b271660868a25957fa2b6eb94219e9d161910b90))
+
 #### 2.3.1 (2020-12-02)
 
 ##### Documentation Changes

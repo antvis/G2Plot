@@ -29,6 +29,14 @@ export class Liquid extends Plot<LiquidOptions> {
           },
         },
       },
+      outline: {
+        border: 2,
+        distance: 0,
+      },
+      wave: {
+        count: 3,
+        length: 192,
+      },
     };
   }
 

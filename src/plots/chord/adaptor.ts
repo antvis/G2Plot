@@ -6,13 +6,19 @@ import { chordLayout } from '../../utils/transform/chord';
 import { transformDataToNodeLinkData } from '../../utils/data';
 import { ChordOptions } from './types';
 import { X_FIELD, Y_FIELD, NODE_COLOR_FIELD, EDGE_COLOR_FIELD } from './constant';
+
 function transformData(params: Params<ChordOptions>): Params<ChordOptions> {
+  // 将弦图数据放到ext中，nodeGeometry edgeGeometry使用
+
   const { options } = params;
   const { data, sourceField, targetField, weightField, nodePaddingRatio, nodeWidthRatio } = options;
+
+  // 将数据转换为node link格式
   const chordLayoutInputData = transformDataToNodeLinkData(data, sourceField, targetField, weightField);
-  // 将弦图数据放到ext中，nodeGeometry edgeGeometry使用
+
   const { nodes, links } = chordLayout({ weight: true, nodePaddingRatio, nodeWidthRatio }, chordLayoutInputData);
-  // 1. 生成绘图使用数据
+
+  // 1. 生成绘制node使用数据
   const nodesData = nodes.map((node) => {
     return {
       id: node.id,
@@ -22,6 +28,8 @@ function transformData(params: Params<ChordOptions>): Params<ChordOptions> {
       // value: node.value,
     };
   });
+
+  // 2. 生成edge使用数据
   // TODO: 对于边的数据暂时只支持两端一致
   const edgesData = links.map((link) => {
     return {
@@ -32,6 +40,7 @@ function transformData(params: Params<ChordOptions>): Params<ChordOptions> {
       value: link.value,
     };
   });
+
   return {
     ...params,
     ext: {
@@ -41,6 +50,7 @@ function transformData(params: Params<ChordOptions>): Params<ChordOptions> {
     },
   };
 }
+
 /**
  * scale配置
  * @param params 参数
@@ -55,6 +65,7 @@ function scale(params: Params<ChordOptions>): Params<ChordOptions> {
   });
   return params;
 }
+
 /**
  * axis配置
  * @param params 参数
@@ -64,6 +75,7 @@ function axis(params: Params<ChordOptions>): Params<ChordOptions> {
   chart.axis(false);
   return params;
 }
+
 /**
  * legend配置
  * @param params 参数
@@ -73,6 +85,7 @@ function legend(params: Params<ChordOptions>): Params<ChordOptions> {
   chart.legend(false);
   return params;
 }
+
 /**
  * tooltip配置
  * @param params 参数
@@ -85,6 +98,7 @@ function tooltip(params: Params<ChordOptions>): Params<ChordOptions> {
   });
   return params;
 }
+
 /**
  * coordinate配置
  * @param params 参数
@@ -94,6 +108,7 @@ function coordinate(params: Params<ChordOptions>): Params<ChordOptions> {
   chart.coordinate('polar').reflect('y');
   return params;
 }
+
 /**
  * nodeGeometry配置
  * @param params 参数
@@ -103,9 +118,11 @@ function nodeGeometry(params: Params<ChordOptions>): Params<ChordOptions> {
   const { chart, options } = params;
   const { nodesData } = params.ext.chordData;
   const { nodeStyle, label } = options;
+
   const nodeView = chart.createView();
-  // nodeView.coordinate('polar').reflect('y');
   nodeView.data(nodesData);
+
+  // 面
   polygon({
     chart: nodeView,
     options: {
@@ -121,6 +138,7 @@ function nodeGeometry(params: Params<ChordOptions>): Params<ChordOptions> {
   });
   return params;
 }
+
 /**
  * edgeGeometry配置
  * @param params 参数
@@ -129,8 +147,11 @@ function edgeGeometry(params: Params<ChordOptions>): Params<ChordOptions> {
   const { chart, options } = params;
   const { edgesData } = params.ext.chordData;
   const { edgeStyle, tooltip } = options;
+
   const edgeView = chart.createView();
   edgeView.data(edgesData);
+
+  // edge
   const edgeOptions = {
     xField: X_FIELD,
     yField: Y_FIELD,
@@ -147,6 +168,7 @@ function edgeGeometry(params: Params<ChordOptions>): Params<ChordOptions> {
   });
   return params;
 }
+
 /**
  * interaction配置
  * @param params 参数
@@ -156,6 +178,7 @@ function defaultInteraction(params: Params<ChordOptions>): Params<ChordOptions> 
   chart.interaction('element-active');
   return params;
 }
+
 /**
  * 弦图适配器
  * @param chart

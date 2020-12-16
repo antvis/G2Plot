@@ -9,8 +9,7 @@ describe('chord', () => {
       data: populationMovementData,
       sourceField: 'source',
       targetField: 'target',
-      sourceWeightField: 'sourceWeight',
-      targetWeightField: 'targetWeight',
+      weightField: 'value',
     });
 
     chord.render();
@@ -23,48 +22,41 @@ describe('chord', () => {
     });
     expect(chord.options.edgeStyle).toEqual({
       opacity: 0.5,
-      lineWidth: 0,
+      lineWidth: 2,
     });
 
-    expect(chord.options.weight).toBe(true);
-    expect(chord.options.marginRatio).toBe(0.1);
+    expect(chord.options.nodePaddingRatio).toBe(0.1);
 
-    expect(chord.options.thickness).toEqual(0.05);
+    expect(chord.options.nodeWidthRatio).toEqual(0.05);
 
     // edge
     expect(chord.chart.views[0].geometries[0].type).toBe('edge');
-    expect(chord.chart.views[0].geometries[0].data.length).toBe(11);
+    expect(chord.chart.views[0].geometries[0].data.length).toBe(13);
     expect(chord.chart.views[0].geometries[0].data[0]).toEqual({
-      sourceName: '北京',
-      targetName: '天津',
-      source: 0,
-      target: 1,
-      sourceWeight: 30,
-      targetWeight: 30,
-      x: [0.0071428571428571435, 0.031913499344692, 0.2633551769331585, 0.28812581913499336],
+      source: '北京',
+      target: '天津',
+      value: 30,
+      x: [0.00625, 0.028712562396006655, 0.2620944259567387, 0.28455698835274534],
       y: [0, 0, 0, 0],
     });
     // node
     expect(chord.chart.views[1].geometries[0].type).toBe('polygon');
-    expect(chord.chart.views[1].geometries[0].data.length).toBe(7);
+    expect(chord.chart.views[1].geometries[0].data.length).toBe(8);
     expect(chord.chart.views[1].geometries[0].data[0]).toEqual({
       id: 0,
       name: '北京',
-      x: [0.0071428571428571435, 0.24906946264744428, 0.24906946264744428, 0.0071428571428571435],
+      x: [0.00625, 0.24959442595673875, 0.24959442595673875, 0.00625],
       y: [-0.025, -0.025, 0.025, 0.025],
     });
 
-    // label
-    expect(chord.chart.views[1].geometries[0].labelsContainer.getChildren().length).toBe(7);
+    // edge label
+    expect(chord.chart.views[0].geometries[0].labelsContainer.getChildren().length).toBe(0);
+
+    // node label
+    expect(chord.chart.views[1].geometries[0].labelsContainer.getChildren().length).toBe(8);
     expect(chord.chart.views[1].geometries[0].labelsContainer.getChildByIndex(0).cfg.children[0].attr('text')).toBe(
       '北京'
     );
-    expect(chord.chart.views[0].geometries[0].labelsContainer.getChildren().length).toBe(0);
-
-    // // tooltip
-    // chord.chart.showTooltip({ x: 100, y: 100 });
-    // expect(document.querySelector('.g2-tooltip-name').textContent).toBe('Oil imports -> Oil');
-    // expect(document.querySelector('.g2-tooltip-value').textContent).toBe('504.287');
 
     chord.destroy();
   });
@@ -75,8 +67,7 @@ describe('chord', () => {
       data: populationMovementData,
       sourceField: 'source',
       targetField: 'target',
-      sourceWeightField: 'sourceWeight',
-      targetWeightField: 'targetWeight',
+      weightField: 'value',
       nodeStyle: (datum: Datum) => {
         d = datum;
         return {
@@ -96,13 +87,13 @@ describe('chord', () => {
       fill: '#ccc',
       fillOpacity: 0.5,
       opacity: 0.5,
-      lineWidth: 0,
+      lineWidth: 2,
     });
     // @ts-ignore
-    expect(chord.chart.views[1].geometries[0].styleOption.fields).toEqual(['x', 'y', 'id']);
+    expect(chord.chart.views[1].geometries[0].styleOption.fields).toEqual(['x', 'y', 'name']);
     expect(d).toEqual({
-      id: 6,
-      x: [0.9771690694626474, 0.9928571428571428, 0.9928571428571428, 0.9771690694626474],
+      name: '内蒙古',
+      x: [0.9518198835274543, 0.99375, 0.99375, 0.9518198835274543],
       y: [-0.025, -0.025, 0.025, 0.025],
     });
 

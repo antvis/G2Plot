@@ -22,6 +22,8 @@ export type PickOptions = Pick<
   | 'limitInPlot'
 >;
 
+const SOURCE_ATTRIBUTE_NAME = 'data-_source-type';
+
 /**
  * 所有 plot 的基类
  */
@@ -77,6 +79,9 @@ export abstract class Plot<O extends PickOptions> extends EE {
       supportCSSTransform,
       limitInPlot,
     });
+
+    // 给容器增加标识，知道图表的来源区别于 G2
+    this.container.setAttribute(SOURCE_ATTRIBUTE_NAME, 'G2Plot');
   }
 
   /**
@@ -229,6 +234,8 @@ export abstract class Plot<O extends PickOptions> extends EE {
     this.chart.destroy();
     // 清空已经绑定的事件
     this.off();
+
+    this.container.removeAttribute(SOURCE_ATTRIBUTE_NAME);
   }
 
   /**

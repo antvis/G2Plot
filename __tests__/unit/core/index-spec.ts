@@ -203,4 +203,20 @@ describe('core', () => {
     expect(line.chart.limitInPlot).toBe(true);
     line.destroy();
   });
+
+  it('plot dataset sourceType', () => {
+    const container = createDiv('');
+    const line = new Line(container, {
+      data: partySupport.filter((o) => o.type === 'FF'),
+      xField: 'date',
+      yField: 'value',
+    });
+
+    line.render();
+
+    expect(container.dataset._sourceType).toBe('G2Plot');
+    line.destroy();
+
+    expect(container.dataset._sourceType).toBe(undefined);
+  });
 });

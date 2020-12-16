@@ -24,18 +24,6 @@ export class Chord extends Plot<ChordOptions> {
         opacity: 0.5,
         lineWidth: 2,
       },
-      color: [
-        '#FF4500',
-        '#1AAF8B',
-        '#406C85',
-        '#F6BD16',
-        '#B40F0F',
-        '#2FB8FC',
-        '#4435FF',
-        '#FF5CA2',
-        '#BBE800',
-        '#FE8A26',
-      ],
       label: {
         fields: ['x', 'name'],
         callback: (x: number[], name: string) => {

@@ -1,5 +1,6 @@
 import { get, isNumber } from '@antv/util';
-import { Data, Datum, Meta, NodeLinkData } from '../types';
+import { Data, Datum, Meta } from '../types';
+import { NodeLinkData } from '../types/relation-data';
 
 /**
  * 查看数据是否是全负数、或者全正数

@@ -8,10 +8,10 @@ import { ChordOptions } from './types';
 import { X_FIELD, Y_FIELD, NODE_COLOR_FIELD, EDGE_COLOR_FIELD } from './constant';
 function transformData(params: Params<ChordOptions>): Params<ChordOptions> {
   const { options } = params;
-  const { data, sourceField, targetField, weightField, weight, nodePaddingRatio, nodeWidthRatio } = options;
+  const { data, sourceField, targetField, weightField, nodePaddingRatio, nodeWidthRatio } = options;
   const chordLayoutInputData = transformDataToNodeLinkData(data, sourceField, targetField, weightField);
   // 将弦图数据放到ext中，nodeGeometry edgeGeometry使用
-  const { nodes, links } = chordLayout({ weight, nodePaddingRatio, nodeWidthRatio }, chordLayoutInputData);
+  const { nodes, links } = chordLayout({ weight: true, nodePaddingRatio, nodeWidthRatio }, chordLayoutInputData);
   // 1. 生成绘图使用数据
   const nodesData = nodes.map((node) => {
     return {
@@ -102,7 +102,7 @@ function nodeGeometry(params: Params<ChordOptions>): Params<ChordOptions> {
   // node view
   const { chart, options } = params;
   const { nodesData } = params.ext.chordData;
-  const { color, nodeStyle, label } = options;
+  const { nodeStyle, label } = options;
   const nodeView = chart.createView();
   // nodeView.coordinate('polar').reflect('y');
   nodeView.data(nodesData);
@@ -113,7 +113,6 @@ function nodeGeometry(params: Params<ChordOptions>): Params<ChordOptions> {
       yField: Y_FIELD,
       seriesField: NODE_COLOR_FIELD,
       polygon: {
-        color,
         style: nodeStyle,
       },
       label,
@@ -129,7 +128,7 @@ function nodeGeometry(params: Params<ChordOptions>): Params<ChordOptions> {
 function edgeGeometry(params: Params<ChordOptions>): Params<ChordOptions> {
   const { chart, options } = params;
   const { edgesData } = params.ext.chordData;
-  const { color, edgeStyle, tooltip } = options;
+  const { edgeStyle, tooltip } = options;
   const edgeView = chart.createView();
   edgeView.data(edgesData);
   const edgeOptions = {
@@ -137,7 +136,6 @@ function edgeGeometry(params: Params<ChordOptions>): Params<ChordOptions> {
     yField: Y_FIELD,
     seriesField: EDGE_COLOR_FIELD,
     edge: {
-      color,
       style: edgeStyle,
       shape: 'arc',
     },

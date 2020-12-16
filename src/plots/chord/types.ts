@@ -27,10 +27,6 @@ export interface ChordOptions extends Omit<Options, 'xField' | 'yField' | 'xAxis
    */
   readonly nodeWidthRatio?: number;
   /**
-   * 是否考虑节点权重值
-   */
-  readonly weight?: boolean;
-  /**
    * 节点排序方式，默认为空
    */
   readonly nodeSort?: (a: Datum, b: Datum) => number;

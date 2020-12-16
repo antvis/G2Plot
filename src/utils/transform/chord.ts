@@ -3,7 +3,7 @@
  * graph data required (nodes, edges)
  */
 import { assign, forIn, isFunction } from '@antv/util';
-import { NodeLinkData } from '../../types';
+import { NodeLinkData } from '../../types/relation-data';
 
 const DEFAULT_OPTIONS: ChordLayoutOptions = {
   y: 0,

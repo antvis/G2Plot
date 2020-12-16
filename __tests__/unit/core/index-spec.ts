@@ -214,9 +214,9 @@ describe('core', () => {
 
     line.render();
 
-    expect(container.dataset._sourceType).toBe('G2Plot');
+    expect(container.dataset.chartSourceType).toBe('G2Plot');
     line.destroy();
 
-    expect(container.dataset._sourceType).toBe(undefined);
+    expect(container.dataset.chartSourceType).toBe(undefined);
   });
 });

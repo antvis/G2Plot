@@ -22,7 +22,7 @@ export type PickOptions = Pick<
   | 'limitInPlot'
 >;
 
-const SOURCE_ATTRIBUTE_NAME = 'data-_source-type';
+const SOURCE_ATTRIBUTE_NAME = 'data-chart-source-type';
 
 /**
  * 所有 plot 的基类

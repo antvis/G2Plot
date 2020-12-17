@@ -8,7 +8,7 @@ redirect_from:
 G2Plot is an interactive and responsive charting library based on the grammar of graphics, which enables users to generate high quality statistical charts through a few lines of code easily. G2 in "G2Plot" means the grammar of graphics and pays homage to ggplot2.
 
 [![Version](https://badgen.net/npm/v/@antv/g2plot)](https://www.npmjs.com/@antv/g2plot)
-[![NPM downloads](http://img.shields.io/npm/dm/@antv/g2plot.svg)](http://npmjs.com/@antv/g2plot)
+[![NPM downloads](https://img.shields.io/npm/dm/@antv/g2plot.svg)](https://npmjs.com/@antv/g2plot)
 ![Latest commit](https://badgen.net/github/last-commit/antvis/G2Plot)
 [![build Status](https://github.com/antvis/G2Plot/workflows/build/badge.svg?branch=master)](https://github.com/antvis/G2Plot/actions?query=workflow%3Abuild)
 [![coverage](https://img.shields.io/coveralls/antvis/G2Plot/master.svg)](https://coveralls.io/github/antvis/G2Plot)

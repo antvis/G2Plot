@@ -36,7 +36,12 @@ describe('histogram', () => {
     expect(histogram.chart.options.axes.range).toEqual({
       nice: true,
       label: {
-        autoHide: true,
+        autoHide: {
+          type: 'equidistance',
+          cfg: {
+            minGap: 6,
+          },
+        },
         autoRotate: false,
       },
     });

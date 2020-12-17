@@ -30,6 +30,7 @@ describe('data', () => {
           { source: '北京', target: '天津', value: 30 },
           { source: '北京', target: '上海', value: 80 },
           { source: '上海', target: '黑龙江', value: 16 },
+          { source: '天津', target: '黑龙江', value: 26 },
         ],
         'source',
         'target',
@@ -46,6 +47,7 @@ describe('data', () => {
         { source: 0, target: 1, value: 30 },
         { source: 0, target: 2, value: 80 },
         { source: 2, target: 3, value: 16 },
+        { source: 1, target: 3, value: 26 },
       ],
     });
   });

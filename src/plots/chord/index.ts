@@ -7,7 +7,7 @@ import { adaptor } from './adaptor';
 export { ChordOptions };
 
 /**
- *  桑基图 Sankey
+ *  弦图 Chord
  */
 export class Chord extends Plot<ChordOptions> {
   /** 图表类型 */
@@ -28,7 +28,6 @@ export class Chord extends Plot<ChordOptions> {
         fields: ['x', 'name'],
         callback: (x: number[], name: string) => {
           const centerX = (x[0] + x[1]) / 2;
-          // TODO: 暂时偏移固定值
           const offsetX = centerX > 0.5 ? -4 : 4;
           return {
             labelEmit: true,

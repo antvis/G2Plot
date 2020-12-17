@@ -14,19 +14,23 @@ describe('chord', () => {
 
     chord.render();
 
-    // 默认值
+    // nodeStyle 默认值
     expect(chord.options.nodeStyle).toEqual({
       opacity: 1,
       fillOpacity: 1,
       lineWidth: 1,
     });
+
+    // edgeStyle 默认值
     expect(chord.options.edgeStyle).toEqual({
       opacity: 0.5,
       lineWidth: 2,
     });
 
+    // nodePaddingRatio 默认值
     expect(chord.options.nodePaddingRatio).toBe(0.1);
 
+    // nodeWidthRatio 默认值
     expect(chord.options.nodeWidthRatio).toEqual(0.05);
 
     // edge
@@ -39,6 +43,7 @@ describe('chord', () => {
       x: [0.00625, 0.028712562396006655, 0.2620944259567387, 0.28455698835274534],
       y: [0, 0, 0, 0],
     });
+
     // node
     expect(chord.chart.views[1].geometries[0].type).toBe('polygon');
     expect(chord.chart.views[1].geometries[0].data.length).toBe(8);
@@ -57,6 +62,11 @@ describe('chord', () => {
     expect(chord.chart.views[1].geometries[0].labelsContainer.getChildByIndex(0).cfg.children[0].attr('text')).toBe(
       '北京'
     );
+
+    // tooltip
+    chord.chart.showTooltip({ x: 500, y: 100 });
+    expect(document.querySelector('.g2-tooltip-name').textContent).toBe('北京 -> 天津');
+    expect(document.querySelector('.g2-tooltip-value').textContent).toBe('30');
 
     chord.destroy();
   });
@@ -81,6 +91,7 @@ describe('chord', () => {
     });
 
     chord.render();
+
     // edge
     // @ts-ignore
     expect(chord.chart.views[0].geometries[0].styleOption.cfg).toEqual({

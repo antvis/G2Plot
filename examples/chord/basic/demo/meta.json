@@ -1,0 +1,17 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "chord-population.ts",
+      "title": {
+        "zh": "人口流动弦图",
+        "en": "chord"
+      },
+
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*LjN9Sqfo6nsAAAAAAAAAAAAAARQnAQ"
+    }     
+  ]
+}

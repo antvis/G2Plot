@@ -201,7 +201,7 @@ function locatingEdges(nodeById, edges, options): OutputLink[] {
   }
   return edges;
 }
-function getDefaultOptions(options: ChordLayoutOptions): ChordLayoutOptions {
+export function getDefaultOptions(options: ChordLayoutOptions): ChordLayoutOptions {
   return assign({}, DEFAULT_OPTIONS, options);
 }
 export function chordLayout(

@@ -49,6 +49,11 @@ export class Chord extends Plot<ChordOptions> {
           };
         },
       },
+      interactions: [
+        {
+          type: 'element-active',
+        },
+      ],
       weight: true,
       nodePaddingRatio: 0.1,
       nodeWidthRatio: 0.05,

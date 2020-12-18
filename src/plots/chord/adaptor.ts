@@ -170,16 +170,6 @@ function edgeGeometry(params: Params<ChordOptions>): Params<ChordOptions> {
 }
 
 /**
- * interaction配置
- * @param params 参数
- */
-function defaultInteraction(params: Params<ChordOptions>): Params<ChordOptions> {
-  const { chart } = params;
-  chart.interaction('element-active');
-  return params;
-}
-
-/**
  * 弦图适配器
  * @param chart
  * @param options
@@ -195,10 +185,8 @@ export function adaptor(params: Params<ChordOptions>) {
     tooltip,
     edgeGeometry,
     nodeGeometry,
-    defaultInteraction,
     interaction,
     animation,
     theme
-    // ... 其他的 adaptor flow
   )(params);
 }

@@ -73,3 +73,12 @@ order: 28
 ### Plot Theme
 
 `markdown:docs/common/theme.zh.md`
+
+### Plot Interactions
+#### 默认交互
+
+```plain
+interactions: [{ type: 'element-active' }]
+```
+
+`markdown:docs/common/interactions.zh.md`

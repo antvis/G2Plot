@@ -1,5 +1,5 @@
 import { View } from '@antv/g2';
-import { groupBy } from '@antv/util';
+import { get, groupBy } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import {
   tooltip,
@@ -84,7 +84,7 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
       .rotate(Math.PI * 0); // 旋转
   }
 
-  firstView.data(groupData[0]);
+  firstView.data(get(groupData, [0], []));
   const left = deepAssign({}, params, {
     chart: firstView,
     options: {
@@ -100,7 +100,7 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
   });
   interval(left);
 
-  secondView.data(groupData[1]);
+  secondView.data(get(groupData, [1], []));
   const right = deepAssign({}, params, {
     chart: secondView,
     options: {

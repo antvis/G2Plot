@@ -1,5 +1,6 @@
 import { get, isNumber } from '@antv/util';
 import { Data, Datum, Meta } from '../types';
+import { NodeLinkData } from '../types/relation-data';
 
 /**
  * 查看数据是否是全负数、或者全正数
@@ -24,4 +25,62 @@ export function adjustYMetaByZero(data: Data, field: string): Meta {
     return { max: 0 };
   }
   return {};
+}
+/**
+ * 转换数据格式为带有节点与边的数据格式
+ * @param data
+ * @param sourceField
+ * @param targetField
+ * @param weightField
+ */
+export function transformDataToNodeLinkData(
+  data: Data,
+  sourceField: string,
+  targetField: string,
+  weightField: string
+): NodeLinkData {
+  if (!Array.isArray(data)) {
+    return {
+      nodes: [],
+      links: [],
+    };
+  }
+
+  //   const nodes = [];
+  const links = [];
+  // 先使用对象方式存储
+  const nodesMap = {};
+  let nodesIndex = -1;
+  // 数组变换成 chord layout 的数据结构
+  data.forEach((datum: Datum) => {
+    const source = datum[sourceField];
+    const target = datum[targetField];
+    const weight = datum[weightField];
+
+    // source node
+    if (!nodesMap[source]) {
+      nodesMap[source] = {
+        id: ++nodesIndex,
+        name: source,
+      };
+    }
+    if (!nodesMap[target]) {
+      nodesMap[target] = {
+        id: ++nodesIndex,
+        name: target,
+      };
+    }
+    // links
+    links.push({
+      source: nodesMap[source].id,
+      target: nodesMap[target].id,
+      // sourceName: source,
+      // targetName: target,
+      value: weight,
+    });
+  });
+  return {
+    nodes: Object.values(nodesMap),
+    links,
+  };
 }

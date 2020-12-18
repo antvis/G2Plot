@@ -261,6 +261,14 @@ module.exports = {
         },
       },
       {
+        slug: 'chord',
+        icon: 'chord',
+        title: {
+          zh: '弦图',
+          en: 'Chord',
+        },
+      },
+      {
         slug: 'bidirectional-bar',
         icon: 'bi-directional-bar',
         title: {

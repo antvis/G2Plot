@@ -3,8 +3,8 @@ import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { sankeyLayout } from '../../utils/transform/sankey';
 import { polygon, edge } from '../../adaptor/geometries';
+import { transformDataToNodeLinkData } from '../../utils/data';
 import { SankeyOptions } from './types';
-import { transformDataToSankey } from './util/data';
 import { X_FIELD, Y_FIELD, COLOR_FIELD } from './constant';
 
 /**
@@ -35,7 +35,7 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
   chart.axis(false);
 
   // 2. 转换出 layout 前数据
-  const sankeyLayoutInputData = transformDataToSankey(data, sourceField, targetField, weightField);
+  const sankeyLayoutInputData = transformDataToNodeLinkData(data, sourceField, targetField, weightField);
 
   // 3. layout 之后的数据
   const { nodes, links } = sankeyLayout(

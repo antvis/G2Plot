@@ -51,7 +51,7 @@ order: 3
 
 <description>**optional** _boolean_</description>
 
-是否百分百条形图，isPercent 为 true 时，isStack 也需要为 true。
+是否百分比条形图，isPercent 为 true 时，isStack 也需要为 true。
 
 `markdown:docs/common/meta.zh.md`
 

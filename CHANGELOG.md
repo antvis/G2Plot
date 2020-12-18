@@ -1,3 +1,27 @@
+#### 2.3.3 (2020-12-18)
+
+##### Documentation Changes
+
+*  fix image url is http ([#2115](https://github.com/antvis/g2plot/pull/2115)) ([48547f85](https://github.com/antvis/g2plot/commit/48547f85fed89708b4133f89bfa94b47ad292ba7))
+*  修复文档 404 ([#2112](https://github.com/antvis/g2plot/pull/2112)) ([6f858076](https://github.com/antvis/g2plot/commit/6f8580769f6ffae3ad3b6a09ed3eecd47e7c9d2f))
+*  日常走查 ([#2103](https://github.com/antvis/g2plot/pull/2103)) ([1c5e1e99](https://github.com/antvis/g2plot/commit/1c5e1e994a30df618268a94d74544098fbe6d7ff))
+
+##### New Features
+
+*  add chart type source in container ([#2108](https://github.com/antvis/g2plot/pull/2108)) ([c26eb37a](https://github.com/antvis/g2plot/commit/c26eb37aae691247bd8c42f78b86158b9ead1566))
+* **liquid:**  add outline, wave options for customize ([#2099](https://github.com/antvis/g2plot/pull/2099)) ([e6647efc](https://github.com/antvis/g2plot/commit/e6647efc2530f9025a667e50b6fca88eb7a3913f))
+
+##### Bug Fixes
+
+* **2105:**  fix percent column/bar yAxis lable > 1 ([#2107](https://github.com/antvis/g2plot/pull/2107)) ([5d749670](https://github.com/antvis/g2plot/commit/5d7496708504f0716e9d403b6f1603f3b4b9a916))
+*  修复网站 demo 错误 ([#2120](https://github.com/antvis/g2plot/pull/2120)) ([a03e97ba](https://github.com/antvis/g2plot/commit/a03e97ba79ed61b50547ce14908c14e15c9f663d))
+* **#2116:**  percent transform should keep data order ([#2118](https://github.com/antvis/g2plot/pull/2118)) ([bbda837a](https://github.com/antvis/g2plot/commit/bbda837a4ad2791b475a2c3b963316c4f6aac9ff))
+* **#2111:**  appendPadding not update ([#2113](https://github.com/antvis/g2plot/pull/2113)) ([13694ac5](https://github.com/antvis/g2plot/commit/13694ac5da7415234f48f55093f9d0bb876c7ae4))
+
+##### Refactors
+
+* **demo:**  诺贝尔奖可视化 demo 优化 ([#2106](https://github.com/antvis/g2plot/pull/2106)) ([66c63338](https://github.com/antvis/g2plot/commit/66c63338f1ea679ec74161e958202bafbd49a00b))
+
 #### 2.3.2 (2020-12-11)
 
 ##### Chores

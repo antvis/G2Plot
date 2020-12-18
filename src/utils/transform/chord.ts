@@ -28,7 +28,7 @@ export type ChordLayoutOptions = {
   target?(edge: any): any;
   sourceWeight?(edge: any): number;
   targetWeight?(edge: any): number;
-  sortBy?: 'id' | 'weigth' | 'frequency' | null | ((a: any, b: any) => number);
+  sortBy?: 'id' | 'weight' | 'frequency' | null | ((a: any, b: any) => number);
 };
 
 type OutputNode = {

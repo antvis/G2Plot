@@ -25,6 +25,7 @@ describe('chordLayout', () => {
         value: link.value,
       };
     });
+
     expect(nodesData[0]).toEqual({
       id: 0,
       name: '北京',
@@ -67,6 +68,7 @@ describe('chordLayout', () => {
         value: link.value,
       };
     });
+
     expect(nodesData[0]).toEqual({
       id: 0,
       name: '北京',
@@ -91,5 +93,63 @@ describe('chordLayout', () => {
     expect(getDefaultOptions({}).y).toBe(0);
     expect(getDefaultOptions({}).nodePaddingRatio).toBe(0.1);
     expect(getDefaultOptions({}).nodeWidthRatio).toBe(0.05);
+  });
+
+  it('sortBy-id', () => {
+    const chordLayoutData = chordLayout(
+      { weight: true, sortBy: 'id' },
+      transformDataToNodeLinkData(populationMovementData, 'source', 'target', 'value')
+    );
+    expect(chordLayoutData.nodes[0].name).toBe('北京');
+  });
+
+  it('sortBy-weight', () => {
+    const chordLayoutData = chordLayout(
+      { weight: true, sortBy: 'weight' },
+      transformDataToNodeLinkData(populationMovementData, 'source', 'target', 'value')
+    );
+    expect(chordLayoutData.nodes[0].name).toBe('北京');
+  });
+
+  it('sortBy-frequency', () => {
+    const chordLayoutData = chordLayout(
+      { weight: true, sortBy: 'frequency' },
+      transformDataToNodeLinkData(populationMovementData, 'source', 'target', 'value')
+    );
+    expect(chordLayoutData.nodes[0].name).toBe('北京');
+  });
+
+  it('sortBy-function', () => {
+    const sortBy = function (a, b) {
+      return a.value - b.value;
+    };
+    const chordLayoutData = chordLayout(
+      { weight: true, sortBy },
+      transformDataToNodeLinkData(populationMovementData, 'source', 'target', 'value')
+    );
+    expect(chordLayoutData.nodes[0].name).toBe('吉林');
+  });
+
+  it('chordLayout-Error', () => {
+    // nodes 不能为空
+    function chordLayoutNonNodes() {
+      const nodeLinkData = transformDataToNodeLinkData([], 'source', 'target', 'value');
+      chordLayout({}, nodeLinkData);
+    }
+    expect(chordLayoutNonNodes).toThrow(TypeError);
+
+    // nodePaddingRatio 取值[0, 1)
+    function chordLayoutPaddingRatio() {
+      const nodeLinkData = transformDataToNodeLinkData(populationMovementData, 'source', 'target', 'value');
+      chordLayout({ weight: true, nodePaddingRatio: 1 }, nodeLinkData);
+    }
+    expect(chordLayoutPaddingRatio).toThrow(TypeError);
+
+    // nodeWidthRatio 取值(0, 1)
+    function chordLayoutnodeWidthRatio() {
+      const nodeLinkData = transformDataToNodeLinkData(populationMovementData, 'source', 'target', 'value');
+      chordLayout({ weight: true, nodeWidthRatio: 0 }, nodeLinkData);
+    }
+    expect(chordLayoutnodeWidthRatio).toThrow(TypeError);
   });
 });

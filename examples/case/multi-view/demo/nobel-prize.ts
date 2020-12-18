@@ -278,8 +278,8 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/NHer2zyRYE/nobel-prize-data.jso
 
     labChart.render();
 
-    const view1 = labChart.chart.views[1];
-    const view2 = labChart.chart.views[2];
+    const view1 = labChart.chart.views[0];
+    const view2 = labChart.chart.views[1];
     const view3 = labChart.chart.views[2];
     // 根据 view3 中创建的顺序，可知 滑块对应的第 2 个几何标记对象 geometry
     const sliderBlock = view3.geometries[1];

@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/sunburst.zh.md`
+`markdown:docs/api/plots/sunburst.zh.md`

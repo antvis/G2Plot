@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/progress.zh.md`
+`markdown:docs/api/plots/progress.zh.md`

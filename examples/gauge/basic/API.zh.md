@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/gauge.zh.md`
+`markdown:docs/api/plots/gauge.zh.md`

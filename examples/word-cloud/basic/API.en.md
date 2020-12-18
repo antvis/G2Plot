@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/word-cloud.en.md`
+`markdown:docs/api/plots/word-cloud.en.md`

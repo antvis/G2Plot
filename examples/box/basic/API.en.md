@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/box.en.md`
+`markdown:docs/api/plots/box.en.md`

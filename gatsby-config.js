@@ -28,8 +28,16 @@ module.exports = {
       {
         slug: 'docs/manual',
         title: {
-          zh: '使用文档',
+          zh: '教程',
           en: 'Manual',
+        },
+        order: 2,
+      },
+      {
+        slug: 'docs/api',
+        title: {
+          zh: 'API',
+          en: 'API',
         },
         order: 1,
       },
@@ -51,9 +59,17 @@ module.exports = {
     ],
     docs: [
       {
-        slug: 'manual/plots',
+        slug: 'api/components',
         title: {
-          zh: '图表',
+          zh: '图表组件',
+          en: 'Components',
+        },
+        order: 2,
+      },
+      {
+        slug: 'api/plots',
+        title: {
+          zh: '基础图表',
           en: 'Plots',
         },
         order: 3,

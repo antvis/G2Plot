@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/ring-progress.en.md`
+`markdown:docs/api/plots/ring-progress.en.md`

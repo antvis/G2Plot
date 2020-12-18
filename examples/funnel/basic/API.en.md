@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/funnel.en.md`
+`markdown:docs/api/plots/funnel.en.md`

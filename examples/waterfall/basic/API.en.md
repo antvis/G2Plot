@@ -1,2 +1,2 @@
-`markdown:docs/manual/plots/waterfall.en.md`
+`markdown:docs/api/plots/waterfall.en.md`
 

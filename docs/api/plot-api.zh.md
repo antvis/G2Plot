@@ -1,6 +1,8 @@
 ---
 title: 通用 API
-order: 2
+order: 0
+redirect_from:
+  - /zh/docs/api
 ---
 
 

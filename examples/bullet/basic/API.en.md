@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/bullet.en.md`
+`markdown:docs/api/plots/bullet.en.md`

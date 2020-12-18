@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/radial-bar.en.md`
+`markdown:docs/api/plots/radial-bar.en.md`

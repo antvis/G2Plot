@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/liquid.zh.md`
+`markdown:docs/api/plots/liquid.zh.md`

@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/radar.en.md`
+`markdown:docs/api/plots/radar.en.md`

@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/radar.zh.md`
+`markdown:docs/api/plots/radar.zh.md`

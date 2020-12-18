@@ -1,6 +1,8 @@
 ---
 title: Common API
-order: 2
+order: 0
+redirect_from:
+  - /en/docs/api
 ---
 
 

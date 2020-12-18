@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/sankey.zh.md`
+`markdown:docs/api/plots/sankey.zh.md`

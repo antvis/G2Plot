@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/column.zh.md`
+`markdown:docs/api/plots/column.zh.md`

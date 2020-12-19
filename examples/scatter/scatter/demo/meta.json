@@ -1,0 +1,40 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "color-mapping.ts",
+      "title": {
+        "zh": "散点图颜色映射",
+        "en": "The color mapping of scatter plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/kRFIJ2OlFs/FE726B54-2352-47F5-AAF9-B17D281CE513.png"
+    },
+    {
+      "filename": "label.ts",
+      "title": {
+        "zh": "散点图图形标签",
+        "en": "Scatter plot label"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*XlOeS4YAHbYAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "line.ts",
+      "title": {
+        "zh": "散点图-回归线",
+        "en": "Scatter plot regression line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JWiDQIYm09AAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "custom-shape.ts",
+      "title": {
+        "zh": "散点图-自定义图形",
+        "en": "Scatter plot custom shape"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*zfwOTZE7KwcAAAAAAAAAAAAAARQnAQ"
+    }
+  ]
+}

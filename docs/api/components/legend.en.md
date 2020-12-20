@@ -3,4 +3,4 @@ title: Legend
 order: 3
 ---
 
-`markdown:docs/common/legend.en.md`
+`markdown:docs/api/components/legend.zh.md`

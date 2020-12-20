@@ -177,7 +177,7 @@ module.exports = {
         icon: 'heatmap',
         title: {
           zh: '热力图',
-          en: 'heatmap',
+          en: 'Heatmap',
         },
       },
       {

@@ -25,7 +25,7 @@ legend: {
 }
 ```
 <a name="7a2DF"></a>
-### 配置项（_LegendCfg_）
+#### 配置项（_LegendCfg_）
 
 | 属性 | 类型 | 默认值 | 描述 | 适用于 |
 | --- | --- | --- | --- | --- |
@@ -59,7 +59,7 @@ legend: {
 | items | _object[]_ | - | 用户自己配置图例项的内容。详见 [items 配置](#items) |  |
 
 <a name="fDpx7"></a>
-### 配置项详解
+#### 配置项详解
 
 `markdown:docs/common/legend-cfg.zh.md`
 

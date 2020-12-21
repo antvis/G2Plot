@@ -1,7 +1,7 @@
 import { Types } from '@antv/g2';
 import { Options, ColorAttr, SizeAttr, StyleAttr, Datum } from '../../types';
 
-type GeometryLabelAttr = Types.GeometryLabelCfg | ((datum: Datum) => GeometryLabelCfg);
+type GeometryLabelAttr = Types.GeometryLabelCfg | ((datum: Datum) => Types.GeometryLabelCfg);
 
 type BulletAttr<T> = {
   measure?: T;

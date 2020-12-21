@@ -1,4 +1,4 @@
-import { registerComponentController, getTooltipItems, TooltipController, Action } from '@antv/g2';
+import { registerComponentController, Util, TooltipController, Action } from '@antv/g2';
 import { isNil } from '@antv/util';
 import { Point } from '../../../types';
 
@@ -18,7 +18,7 @@ export class RadarTooltipController extends TooltipController {
       const result = [];
       dataArray.forEach((mappingData) => {
         mappingData.forEach((d) => {
-          const items = getTooltipItems(d, geometry);
+          const items = Util.getTooltipItems(d, geometry);
           const item = items[0];
           if (!shared && item && item.name === title) {
             const displayTitle = isNil(cfgTitle) ? title : cfgTitle;

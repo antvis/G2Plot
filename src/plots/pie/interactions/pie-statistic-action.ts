@@ -1,4 +1,4 @@
-import { View, Action, getDelegationObject } from '@antv/g2';
+import { View, Action, Util } from '@antv/g2';
 import { Types } from '@antv/g2';
 import { each, get, isFunction, isString } from '@antv/util';
 import { adapteStyle, setStatisticContainerStyle } from '../../../utils/statistic';
@@ -37,7 +37,7 @@ export class StatisticAction extends Action {
 
     let { data } = event?.data || {};
     if (event.type.match('legend-item')) {
-      const delegateObject = getDelegationObject(this.context);
+      const delegateObject = Util.getDelegationObject(this.context);
       // @ts-ignore
       const colorField = view.getGroupedFields()[0];
       if (delegateObject && colorField) {

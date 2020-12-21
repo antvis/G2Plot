@@ -1,7 +1,5 @@
-import { View } from '@antv/g2';
-import { Action } from '@antv/g2/lib/interaction';
-import { ComponentOption } from '@antv/g2/lib/interface';
-import { getDelegationObject } from '@antv/g2/lib/interaction/action/util';
+import { View, Action, getDelegationObject } from '@antv/g2';
+import { Types } from '@antv/g2';
 import { each, get, isFunction, isString } from '@antv/util';
 import { adapteStyle, setStatisticContainerStyle } from '../../../utils/statistic';
 /**
@@ -16,7 +14,7 @@ export class StatisticAction extends Action {
     return view.getController('annotation').option;
   }
 
-  private getInitialAnnotation(): ComponentOption[] | null {
+  private getInitialAnnotation(): Types.ComponentOption[] | null {
     return this.initialAnnotation;
   }
 

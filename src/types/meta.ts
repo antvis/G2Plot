@@ -1,4 +1,4 @@
-import { ScaleConfig } from '@antv/g2/lib/dependents';
+import { ScaleConfig } from '@antv/g2';
 
 /** scale 元信息，取名为 meta */
 export type Meta = ScaleConfig & {

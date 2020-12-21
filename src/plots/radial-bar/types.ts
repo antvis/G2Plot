@@ -1,4 +1,4 @@
-import { ShapeAttrs } from '@antv/g-base/lib/types';
+import { ShapeAttrs } from '@antv/g-base';
 import { Options } from '../../types';
 
 /** 配置类型定义 */

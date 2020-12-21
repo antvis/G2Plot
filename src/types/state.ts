@@ -1,8 +1,7 @@
-import { StateOption, Datum, Data } from '@antv/g2/lib/interface';
-import Element from '@antv/g2/lib/geometry/element';
-import { Geometry } from '@antv/g2';
+import { Types, Element, Geometry } from '@antv/g2';
+import { Datum, Data } from './common';
 
-export type State = StateOption;
+export type State = Types.StateOption;
 
 /** 状态名称，G2 Element 开放 'active' | 'inactive' | 'selected' 三种状态 */
 export type StateName = 'active' | 'inactive' | 'selected';

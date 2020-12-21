@@ -1,5 +1,4 @@
-import { Chart, Geometry, View } from '@antv/g2';
-import Element from '@antv/g2/lib/geometry/element';
+import { Chart, Geometry, View, Element } from '@antv/g2';
 import { reduce } from '@antv/util';
 
 /**

@@ -1,4 +1,4 @@
-import { LineOption } from '@antv/g2/lib/interface';
+import { Types } from '@antv/g2';
 import { isFunction, map, isNumber, maxBy } from '@antv/util';
 import { Datum, Data } from '../../../types/common';
 import { FUNNEL_PERCENT, FUNNEL_CONVERSATION, FUNNEL_MAPPING_VALUE } from '../constant';
@@ -39,7 +39,12 @@ export function transformData(
  * @param getLineCoordinate 用于获取特定的 line 的位置及配置
  */
 export function conversionTagComponent(
-  getLineCoordinate: (datum: Datum, datumIndex: number, data: Data, initLineOption: Record<string, any>) => LineOption
+  getLineCoordinate: (
+    datum: Datum,
+    datumIndex: number,
+    data: Data,
+    initLineOption: Record<string, any>
+  ) => Types.LineOption
 ) {
   return function (params: Params<FunnelOptions>): Params<FunnelOptions> {
     const { chart, options } = params;

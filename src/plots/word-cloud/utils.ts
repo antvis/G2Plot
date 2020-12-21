@@ -1,5 +1,5 @@
 import { Chart } from '@antv/g2';
-import { ViewAppendPadding, ViewPadding } from '@antv/g2/lib/interface';
+import { Types } from '@antv/g2';
 import { isArray, isFunction, isNumber, isString } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { Datum } from '../../types';
@@ -108,8 +108,8 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
 export function getSize(options: {
   width: number;
   height: number;
-  padding: ViewPadding;
-  appendPadding: ViewAppendPadding;
+  padding: Types.ViewPadding;
+  appendPadding: Types.ViewAppendPadding;
   autoFit: boolean;
   container: HTMLElement;
 }): [number, number] {
@@ -140,7 +140,7 @@ export function getSize(options: {
  * 根据图表的 padding 和 appendPadding 计算出图表的最终 padding
  * @param chart
  */
-function resolvePadding(options: { padding: ViewPadding; appendPadding: ViewAppendPadding }) {
+function resolvePadding(options: { padding: Types.ViewPadding; appendPadding: Types.ViewAppendPadding }) {
   const padding = normalPadding(options.padding);
   const appendPadding = normalPadding(options.appendPadding);
   const top = padding[0] + appendPadding[0];

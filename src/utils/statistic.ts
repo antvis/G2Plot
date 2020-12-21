@@ -1,5 +1,4 @@
-import { View } from '@antv/g2';
-import { IGroup } from '@antv/g2/lib/dependents';
+import { View, IGroup } from '@antv/g2';
 import { each, get, isNumber, isFunction, isString } from '@antv/util';
 import { Datum, ShapeStyle, Statistic, StatisticText } from '../types';
 import { pick, kebabCase } from '.';

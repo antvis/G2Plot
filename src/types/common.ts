@@ -1,4 +1,4 @@
-import { AnnotationPosition, RegionPositionBaseOption, SyncViewPaddingFn, TextOption } from '@antv/g2/lib/interface';
+import { Types } from '@antv/g2';
 import { Axis } from './axis';
 import { Label } from './label';
 import { Tooltip } from './tooltip';
@@ -13,7 +13,9 @@ import { ColorAttr } from './attr';
 import { Meta } from './meta';
 
 /** annotation position */
-export { AnnotationPosition, RegionPositionBaseOption, TextOption };
+export type AnnotationPosition = Types.AnnotationPosition;
+export type RegionPositionBaseOption = Types.RegionPositionBaseOption;
+export type TextOption = Types.TextOption;
 
 /** 一条数据记录 */
 export type Datum = Record<string, any>;
@@ -26,6 +28,9 @@ export type Point = {
   readonly x: number;
   readonly y: number;
 };
+
+/** 描述一个点 x y 位置 */
+export type Position = [number, number];
 
 /** 一个区域描述 */
 export type Region = {
@@ -78,7 +83,7 @@ export type Options = {
   /** 额外怎加的 padding 值 */
   readonly appendPadding?: number[] | number;
   /** 是否同步子 view 的 padding */
-  readonly syncViewPadding?: boolean | SyncViewPaddingFn;
+  readonly syncViewPadding?: boolean | Types.SyncViewPaddingFn;
 
   // G 相关
   /** 渲染引擎 */

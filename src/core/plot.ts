@@ -1,5 +1,4 @@
-import { Chart, Event } from '@antv/g2';
-import Element from '@antv/g2/lib/geometry/element';
+import { Chart, Event, Element } from '@antv/g2';
 import { each } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';

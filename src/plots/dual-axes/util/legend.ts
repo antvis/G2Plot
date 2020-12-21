@@ -1,6 +1,5 @@
 import { reduce, get } from '@antv/util';
-import { View } from '@antv/g2';
-import { getLegendItems } from '@antv/g2/lib/util/legend';
+import { View, Util } from '@antv/g2';
 import { findGeometry } from '../../../utils';
 import { GeometryOption } from '../types';
 import { Legend } from '../../../types/legend';
@@ -61,7 +60,7 @@ export function getViewLegendItems(params: {
   return reduce(
     attributes,
     (items, attr) => {
-      const attrItems = getLegendItems(view, geometry, attr, view.getTheme(), userMarker);
+      const attrItems = Util.getLegendItems(view, geometry, attr, view.getTheme(), userMarker);
       return items.concat(attrItems);
     },
     []

@@ -1,4 +1,4 @@
-import { TooltipCfg } from '@antv/g2/lib/interface';
+import { Types } from '@antv/g2';
 import { TooltipAttr } from '../types/attr';
 
 export type TooltipMapping = {
@@ -8,6 +8,6 @@ export type TooltipMapping = {
   readonly formatter?: TooltipAttr;
 };
 
-export type TooltipOptions = TooltipCfg & TooltipMapping;
+export type TooltipOptions = Types.TooltipCfg & TooltipMapping;
 
 export type Tooltip = false | TooltipOptions;

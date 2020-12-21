@@ -1,24 +1,13 @@
-import {
-  ArcOption,
-  RegionFilterOption,
-  ImageOption,
-  LineOption,
-  TextOption,
-  RegionOption,
-  DataMarkerOption,
-  DataRegionOption,
-  ShapeAnnotationOption,
-  HtmlAnnotationOption,
-} from '@antv/g2/lib/interface';
+import { Types } from '@antv/g2';
 
 export type Annotation =
-  | ArcOption
-  | ImageOption
-  | LineOption
-  | TextOption
-  | RegionOption
-  | RegionFilterOption
-  | DataMarkerOption
-  | DataRegionOption
-  | ShapeAnnotationOption
-  | HtmlAnnotationOption;
+  | Types.ArcOption
+  | Types.ImageOption
+  | Types.LineOption
+  | Types.TextOption
+  | Types.RegionOption
+  | Types.RegionFilterOption
+  | Types.DataMarkerOption
+  | Types.DataRegionOption
+  | Types.ShapeAnnotationOption
+  | Types.HtmlAnnotationOption;

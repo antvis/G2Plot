@@ -1,5 +1,5 @@
 import { map, reduce, maxBy, isArray } from '@antv/util';
-import { LineOption } from '@antv/g2/lib/interface';
+import { Types } from '@antv/g2';
 import { flow } from '../../../utils';
 import { Params } from '../../../core/adaptor';
 import { FUNNEL_PERCENT, FUNNEL_CONVERSATION, FUNNEL_TOTAL_PERCENT, PLOYGON_X, PLOYGON_Y } from '../constant';
@@ -131,7 +131,7 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
     datumIndex: number,
     data: Data,
     initLineOption: Record<string, any>
-  ): LineOption => {
+  ): Types.LineOption => {
     return {
       ...initLineOption,
       start: [datum[PLOYGON_X][1], datum[PLOYGON_Y][1]],

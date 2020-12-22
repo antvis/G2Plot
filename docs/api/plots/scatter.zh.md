@@ -76,7 +76,7 @@ scatterPlot.render();
 
 <description>**optional** \_number | [number, number] | Function\_</description>
 
-[**DEMO1**](../../scatter/basic#color-mapping)
+<playground path="scatter/scatter/demo/color-mapping.ts" rid="rect"></playground>
 
 指定点的大小。如没有配置 sizeField，指定一个即可。对 sizeFiled 进行了配置的情况下，可以指定大小数组 `[minSize, maxSize]`， 也可以通过回调函数的方法根据对应数值进行设置。
 
@@ -110,7 +110,7 @@ scatterPlot.render();
 
 <description>**optional** \_string | string[] | Function\_</description>
 
-[**DEMO2**](../../scatter/basic#shape-mapping)
+<playground path="scatter/bubble/demo/quadrant.ts" rid="rect-quadrant"></playground>
 
 指定点的形状。如没有配置 shapeField ，指定一个即可。对 shapeField 进行了配置的情况下，可以指定形状数组 `['cicle', 'square']`， 也可以通过回调函数的方法根据对应数值进行设置。
 
@@ -142,8 +142,6 @@ scatterPlot.render();
 #### pointStyle
 
 <description>**optional** _object_</description>
-
-[**DEMO**](../../scatter/basic#color-mapping)
 
 设置折线样式。pointStyle 中的`fill`会覆盖 `color` 的配置。pointStyle 可以直接指定，也可以通过 callback 的方式，根据数据指定单独的样式。
 
@@ -194,7 +192,7 @@ scatterPlot.render();
 
 #### quadrant
 
-[**DEMO**](../../scatter/basic#quadrant)
+[**DEMO**](../../../examples/scatter/bubble#quadrant)
 
 <description>**optional** _object_</description>
 
@@ -210,7 +208,7 @@ scatterPlot.render();
 
 #### regressionLine
 
-[**DEMO**](../../scatter/basic#line)
+[**DEMO**](../../../examples/scatter/scatter#line)
 
 <description>**optional** _object_</description>
 

@@ -1,3 +1,4 @@
+import { get } from '@antv/util';
 import { Funnel } from '../../../../src';
 import { PV_DATA } from '../../../data/conversion';
 import { createDiv } from '../../../utils/dom';
@@ -65,7 +66,7 @@ describe('basic funnel', () => {
       data.forEach((item, index) => {
         expect(item[FUNNEL_PERCENT]).toEqual(item.pv / data[0].pv);
         expect(item[FUNNEL_MAPPING_VALUE]).toEqual((item.pv / data[0].pv) * 0.5 + 0.3);
-        expect(item[FUNNEL_CONVERSATION]).toEqual(index === 0 ? 1 : item.pv / data[index - 1].pv);
+        expect(item[FUNNEL_CONVERSATION]).toEqual([get(data, [index - 1, 'pv']), item.pv]);
       });
     });
   });

@@ -1,25 +1,25 @@
-import { conversionTagformatter } from '../../../src/utils/conversion';
+import { conversionTagFormatter } from '../../../src/utils/conversion';
 
-describe('conversionTagformatter', () => {
-  it('conversionTagformatter', () => {
-    expect(conversionTagformatter(0, 0)).toBe('0.00%');
-    expect(conversionTagformatter(0, 1)).toBe('∞');
-    expect(conversionTagformatter(1, 0)).toBe('-∞');
-    expect(conversionTagformatter(10, 20)).toBe('200.00%');
-    expect(conversionTagformatter(40, 20)).toBe('50.00%');
+describe('conversionTagFormatter', () => {
+  it('conversionTagFormatter', () => {
+    expect(conversionTagFormatter(0, 0)).toBe('0.00%');
+    expect(conversionTagFormatter(0, 1)).toBe('∞');
+    expect(conversionTagFormatter(1, 0)).toBe('-∞');
+    expect(conversionTagFormatter(10, 20)).toBe('200.00%');
+    expect(conversionTagFormatter(40, 20)).toBe('50.00%');
 
-    expect(conversionTagformatter(null, 20)).toBe('-');
-    expect(conversionTagformatter(20, null)).toBe('-');
-    expect(conversionTagformatter(null, null)).toBe('-');
-    expect(conversionTagformatter(undefined, 20)).toBe('-');
-    expect(conversionTagformatter(20, undefined)).toBe('-');
-    expect(conversionTagformatter(undefined, undefined)).toBe('-');
+    expect(conversionTagFormatter(null, 20)).toBe('-');
+    expect(conversionTagFormatter(20, null)).toBe('-');
+    expect(conversionTagFormatter(null, null)).toBe('-');
+    expect(conversionTagFormatter(undefined, 20)).toBe('-');
+    expect(conversionTagFormatter(20, undefined)).toBe('-');
+    expect(conversionTagFormatter(undefined, undefined)).toBe('-');
 
     // @ts-ignore
-    expect(conversionTagformatter(false, 20)).toBe('-');
+    expect(conversionTagFormatter(false, 20)).toBe('-');
     // @ts-ignore
-    expect(conversionTagformatter(20, 'wef')).toBe('-');
+    expect(conversionTagFormatter(20, 'wef')).toBe('-');
     // @ts-ignore
-    expect(conversionTagformatter(30, {})).toBe('-');
+    expect(conversionTagFormatter(30, {})).toBe('-');
   });
 });

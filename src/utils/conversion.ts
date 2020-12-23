@@ -4,7 +4,7 @@ import { isNumber } from '@antv/util';
  * @param prev
  * @param next
  */
-export function conversionTagformatter(prev: number, next: number): string {
+export function conversionTagFormatter(prev: number, next: number): string {
   if (!isNumber(prev) || !isNumber(next)) {
     return '-';
   }

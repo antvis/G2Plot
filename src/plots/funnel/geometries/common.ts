@@ -1,5 +1,5 @@
 import { Types } from '@antv/g2';
-import { isFunction, map, isNumber, maxBy } from '@antv/util';
+import { isFunction, map, isNumber, maxBy, get } from '@antv/util';
 import { Datum, Data } from '../../../types/common';
 import { FUNNEL_PERCENT, FUNNEL_CONVERSATION, FUNNEL_MAPPING_VALUE } from '../constant';
 import { Params } from '../../../core/adaptor';
@@ -26,7 +26,8 @@ export function transformData(
       const percent = row[yField] / maxYFieldValue;
       row[FUNNEL_PERCENT] = percent;
       row[FUNNEL_MAPPING_VALUE] = (max - min) * percent + min;
-      row[FUNNEL_CONVERSATION] = index === 0 ? 1 : row[yField] / data[index - 1][yField];
+      // 转化率数据存储前后数据
+      row[FUNNEL_CONVERSATION] = [get(data, [index - 1, yField]), row[yField]];
     }
     return row;
   });

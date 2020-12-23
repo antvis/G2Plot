@@ -1,4 +1,4 @@
-import { map, reduce, maxBy, isArray } from '@antv/util';
+import { map, reduce, maxBy, isArray, get } from '@antv/util';
 import { Types } from '@antv/g2';
 import { flow } from '../../../utils';
 import { Params } from '../../../core/adaptor';
@@ -70,7 +70,7 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
     row[PLOYGON_X] = x;
     row[PLOYGON_Y] = y;
     row[FUNNEL_PERCENT] = row[yField] / max;
-    row[FUNNEL_CONVERSATION] = index === 0 ? 1 : row[yField] / data[index - 1][yField];
+    row[FUNNEL_CONVERSATION] = [get(data, [index - 1, yField]), row[yField]];
     return row;
   });
 

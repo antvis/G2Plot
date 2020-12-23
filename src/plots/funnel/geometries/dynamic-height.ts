@@ -71,7 +71,6 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
     row[PLOYGON_Y] = y;
     row[FUNNEL_PERCENT] = row[yField] / max;
     row[FUNNEL_CONVERSATION] = [get(data, [index - 1, yField]), row[yField]];
-    data;
     return row;
   });
 

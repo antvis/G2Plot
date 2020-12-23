@@ -13,10 +13,18 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*DRzUQ4UkxjMAAAAAAAAAAAAAARQnAQ"
     },
     {
+      "filename": "spline.ts",
+      "title": {
+        "zh": "基础曲线图",
+        "en": "Basic spline plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*DRzUQ4UkxjMAAAAAAAAAAAAAARQnAQ"
+    },
+    {
       "filename": "line-point-style.ts",
       "title": {
         "zh": "配置折线数据点样式",
-        "en": "Line plot data point style"
+        "en": "Set style of line plot point"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*VN5SQYsPOaIAAAAAAAAAAAAAARQnAQ"
     },
@@ -29,10 +37,18 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*r8MPQ4n9CIQAAAAAAAAAAAAAARQnAQ"
     },
     {
+      "filename": "line-with-data-marker",
+      "title": {
+        "zh": "带标注点的折线图",
+        "en": "Line plot with dataMarker"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/HUfUqARs9x/de2a0680-0276-499a-88f3-6bf75a9e197b.png"
+    },
+    {
       "filename": "line-annotation.ts",
       "title": {
-        "zh": "折线图带图表标注",
-        "en": "Line plot with guide line"
+        "zh": "条件样式折线图",
+        "en": "Line plot with regionFilter"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*7V6nSpj64uYAAAAAAAAAAAAAARQnAQ"
     }

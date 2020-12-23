@@ -1,4 +1,4 @@
-import { AdjustOption, CoordinateOption } from '@antv/g2/lib/interface';
+import { Types } from '@antv/g2';
 import { Data, Meta, Options, Region, Tooltip } from '../../types';
 import { Axis } from '../../types/axis';
 import { Legend } from '../../types/legend';
@@ -9,7 +9,7 @@ import { Annotation } from '../../types/annotation';
  * geometry 映射信息
  */
 export type IGeometry = Geometry & {
-  adjust?: AdjustOption;
+  adjust?: Types.AdjustOption;
 };
 
 /**
@@ -34,7 +34,7 @@ export type IView = {
   /**
    * 坐标系的配置，每一个 view 具有相同的坐标系
    */
-  readonly coordinate?: CoordinateOption;
+  readonly coordinate?: Types.CoordinateOption;
 
   /**
    * 图形 geometry 及映射配置

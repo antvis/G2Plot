@@ -1,5 +1,5 @@
-import { Data } from '@antv/g2/lib/interface';
 import { each, isString } from '@antv/util';
+import { Data } from '../../../types';
 
 /**
  * 获取总计值

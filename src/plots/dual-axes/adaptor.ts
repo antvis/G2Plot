@@ -1,6 +1,5 @@
 import { each, findIndex, get, find, isObject, every } from '@antv/util';
-import { Scale } from '@antv/g2/lib/dependents';
-import { LegendItem } from '@antv/g2/lib/interface';
+import { Scale, Types } from '@antv/g2';
 import {
   theme,
   animation as commonAnimation,
@@ -386,7 +385,10 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
             each(groupScale, (scale: Scale) => {
               if (scale.values && scale.values.indexOf(field) > -1) {
                 view.filter(scale.field, (value) => {
-                  const curLegendItem: LegendItem = find(legendItem, (item: LegendItem) => item.value === value);
+                  const curLegendItem: Types.LegendItem = find(
+                    legendItem,
+                    (item: Types.LegendItem) => item.value === value
+                  );
                   // 使用 legend 中的 unchecked 来判断，使得支持关闭多个图例
                   return !curLegendItem.unchecked;
                 });

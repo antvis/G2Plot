@@ -1,10 +1,10 @@
 import { registerShape } from '@antv/g2';
-import { ShapeInfo } from '@antv/g2/lib/interface';
+import { Types } from '@antv/g2';
 import { Indicator } from '../types';
 
 // 自定义Shape 部分
 registerShape('point', 'gauge-indicator', {
-  draw(cfg: ShapeInfo, container) {
+  draw(cfg: Types.ShapeInfo, container) {
     // 使用 customInfo 传递参数
     const { indicator, defaultColor } = cfg.customInfo;
     const { pointer, pin } = indicator as Indicator;

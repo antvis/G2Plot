@@ -1,7 +1,5 @@
 import { map, find, each, isObject } from '@antv/util';
-import { Coordinate, IGroup, ShapeAttrs } from '@antv/g2/lib/dependents';
-import { Geometry, View, getTheme } from '@antv/g2';
-import Element from '@antv/g2/lib/geometry/element';
+import { Coordinate, IGroup, ShapeAttrs, Element, Geometry, View, getTheme } from '@antv/g2';
 import { Params } from '../core/adaptor';
 import { deepAssign } from '../utils';
 import { conversionTagformatter } from '../utils/conversion';

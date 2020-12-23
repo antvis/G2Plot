@@ -1,4 +1,4 @@
-import { LineOption, IntervalGeometryLabelPosition } from '@antv/g2/lib/interface';
+import { Types } from '@antv/g2';
 import { isArray } from '@antv/util';
 import { flow, deepAssign } from '../../../utils';
 import { Params } from '../../../core/adaptor';
@@ -64,11 +64,11 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
       const defaultFacetLabel = isTransposed
         ? {
             offset: index === 0 ? 10 : -23,
-            position: (index === 0 ? 'bottom' : 'top') as IntervalGeometryLabelPosition,
+            position: (index === 0 ? 'bottom' : 'top') as Types.IntervalGeometryLabelPosition,
           }
         : {
             offset: 10,
-            position: 'left' as IntervalGeometryLabelPosition,
+            position: 'left' as Types.IntervalGeometryLabelPosition,
             style: {
               textAlign: index === 0 ? 'end' : 'start',
             },
@@ -115,7 +115,7 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
         datumIndex: number,
         data: Data,
         initLineOption: Record<string, any>
-      ): LineOption => {
+      ): Types.LineOption => {
         const ratio = viewIndex === 0 ? -1 : 1;
         return deepAssign({}, initLineOption, {
           start: [datumIndex - 0.5, datum[FUNNEL_MAPPING_VALUE]],

@@ -1,4 +1,4 @@
-import { LineOption } from '@antv/g2/lib/interface';
+import { Types } from '@antv/g2';
 import { isArray } from '@antv/util';
 import { flow, findGeometry } from '../../../utils';
 import { getTooltipMapping } from '../../../utils/tooltip';
@@ -87,7 +87,7 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
     datumIndex: number,
     data: Data,
     initLineOption: Record<string, any>
-  ): LineOption => {
+  ): Types.LineOption => {
     const percent = maxSize - (maxSize - datum[FUNNEL_MAPPING_VALUE]) / 2;
     return {
       ...initLineOption,

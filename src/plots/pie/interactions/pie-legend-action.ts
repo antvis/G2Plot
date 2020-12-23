@@ -1,8 +1,5 @@
 import { IElement, IGroup } from '@antv/g-base';
-import { Util } from '@antv/g2';
-import Element from '@antv/g2/lib/geometry/element';
-import { Action } from '@antv/g2/lib/interaction';
-import { getDelegationObject } from '@antv/g2/lib/interaction/action/util';
+import { Util, Element, Action } from '@antv/g2';
 import { isEqual } from '@antv/util';
 import { transform } from '../../../utils/matrix';
 
@@ -14,7 +11,7 @@ export class PieLegendAction extends Action {
    * 获取激活的图形元素
    */
   private getActiveElements(): Element[] {
-    const delegateObject = getDelegationObject(this.context);
+    const delegateObject = Util.getDelegationObject(this.context);
     if (delegateObject) {
       const view = this.context.view;
       const { component, item } = delegateObject;

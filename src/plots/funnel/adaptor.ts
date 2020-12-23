@@ -1,7 +1,7 @@
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme, scale, annotation, tooltip } from '../../adaptor/common';
 import { flow, deepAssign } from '../../utils';
-import { conversionTagformatter } from '../../utils/conversion';
+import { conversionTagFormatter } from '../../utils/conversion';
 import { FunnelOptions } from './types';
 import { basicFunnel } from './geometries/basic';
 import { compareFunnel } from './geometries/compare';
@@ -68,7 +68,7 @@ function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
       offsetY: 0,
       style: {},
       // conversionTag 的计算和显示逻辑统一保持一致
-      formatter: (datum) => `转化率: ${conversionTagformatter(...(datum[FUNNEL_CONVERSATION] as [number, number]))}`,
+      formatter: (datum) => `转化率: ${conversionTagFormatter(...(datum[FUNNEL_CONVERSATION] as [number, number]))}`,
     },
   };
 

@@ -37,6 +37,14 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*r8MPQ4n9CIQAAAAAAAAAAAAAARQnAQ"
     },
     {
+      "filename": "dynamic-line.ts",
+      "title": {
+        "zh": "动态更新折线图",
+        "en": "Line plot updated dynamic"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*7V6nSpj64uYAAAAAAAAAAAAAARQnAQ"
+    },
+    {
       "filename": "line-with-data-marker",
       "title": {
         "zh": "带标注点的折线图",

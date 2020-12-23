@@ -77,7 +77,7 @@ plot.destroy();
 plot.on(event: string, callback: Function);
 ```
 
-多次监听某一个图表事件，并触发一个回调函数。事件机制是直接透传 G2 的事件能力，具体所有事件列表以及回调函数参数可以见 [G2 事件机制](https://g2.antv.vision/zh/docs/manual/event)。
+多次监听某一个图表事件，并触发一个回调函数。事件机制是直接透传 G2 的事件能力，具体所有事件列表以及回调函数参数可以见 [G2 事件机制](https://g2.antv.vision/zh/docs/api/general/event)。
 
 ### 8. once
 

@@ -27,6 +27,6 @@ plot.chart.removeInteraction('legend-filter');
 
 #### 更多
 
-更多关于交互的使用说明，见 [G2 文档](https://g2.antv.vision/zh/docs/api/general/interaction#element-active)
+更多关于交互的使用说明，见 [G2 文档](https://g2.antv.vision/zh/docs/api/general/interaction)
 
 后续会补充内置支持的交互列表以及与具体 plot 绑定的交互，敬请期待。

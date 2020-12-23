@@ -1,4 +1,4 @@
-import { maxBy } from '@antv/util';
+import { get, maxBy } from '@antv/util';
 import { Funnel } from '../../../../src';
 import { PV_DATA_COMPARE } from '../../../data/conversion';
 import { createDiv } from '../../../utils/dom';
@@ -77,7 +77,7 @@ describe('compare funnel', () => {
           const percent = item.pv / max;
           expect(item[FUNNEL_PERCENT]).toEqual(percent);
           expect(item[FUNNEL_MAPPING_VALUE]).toEqual(0.5 * percent + 0.3);
-          expect(item[FUNNEL_CONVERSATION]).toEqual(originIndex === 0 ? 1 : item.pv / originData[originIndex - 1].pv);
+          expect(item[FUNNEL_CONVERSATION]).toEqual([get(originData, [originIndex - 1, 'pv']), item.pv]);
         });
       });
     });

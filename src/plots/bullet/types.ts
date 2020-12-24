@@ -22,7 +22,7 @@ export interface BulletOptions extends Omit<Options, 'color' | 'label' | 'style'
   readonly targetField: string;
 
   /** label 包含了 measure,target,range */
-  readonly label?: BulletAttr<GeometryLabelAttr>;
+  readonly label?: BulletAttr<GeometryLabelAttr | false>;
 
   /** size 包含了 measure,target,range */
   readonly size?: BulletAttr<SizeAttr>;

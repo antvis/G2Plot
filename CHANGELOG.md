@@ -1,3 +1,19 @@
+#### 2.3.4 (2020-12-24)
+
+##### Documentation Changes
+
+* improve docs of legend ([#2128](https://github.com/antvis/g2plot/pull/2128))([19e7e1c](https://github.com/antvis/G2Plot/commit/19e7e1c18280a484e25f9966392ec4983099d461))
+* fix 404 links ([#2132](https://github.com/antvis/g2plot/pull/2132)) ([7394274](https://github.com/antvis/G2Plot/commit/739427420d796e201310403edff27b1a56edc701))
+
+##### New Features
+
+* **donut:** can enable statistic and tooltip meanwhile([#2127](https://github.com/antvis/g2plot/pull/2127)) ([5a8c85d](https://github.com/antvis/G2Plot/commit/5a8c85dc2315398c1c5b27f635170636a346fa79))
+
+##### Bug Fixes
+
+* **funnel:** fix funnel crash when data contains null, 0([#2138](https://github.com/antvis/G2Plot/pull/2138)) ([a318310](https://github.com/antvis/G2Plot/commit/a318310fbd5d87097e9b30a19798640a186dfa43))
+* remove all the lib import([#2131](https://github.com/antvis/G2Plot/pull/2131)) ([1753089](https://github.com/antvis/G2Plot/commit/1753089385a69667b7346e73856ec5f7c840f6f7))
+
 #### 2.3.3 (2020-12-18)
 
 ##### Documentation Changes

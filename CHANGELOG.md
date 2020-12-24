@@ -8,6 +8,8 @@
 ##### New Features
 
 * **donut:** can enable statistic and tooltip meanwhile([#2127](https://github.com/antvis/g2plot/pull/2127)) ([5a8c85d](https://github.com/antvis/G2Plot/commit/5a8c85dc2315398c1c5b27f635170636a346fa79))
+* **bullet:** add default label layout([#2141](https://github.com/antvis/G2Plot/pull/2141)) ([5378162](https://github.com/antvis/G2Plot/commit/53781623e4f4c04b1ee9af1c8cd4def7ee52c8b7))
+
 
 ##### Bug Fixes
 

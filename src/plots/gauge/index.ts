@@ -2,7 +2,8 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { GaugeOptions } from './types';
 import { adaptor } from './adaptor';
-import { RANGE_VALUE, PERCENT } from './constant';
+import { RANGE_VALUE, PERCENT, INDICATEOR_VIEW_ID, RANGE_VIEW_ID } from './constant';
+import { getIndicatorViewData, getRangeViewData } from './utils';
 // 注册 shape
 import './shapes/gauge';
 
@@ -81,9 +82,17 @@ export class Gauge extends Plot<GaugeOptions> {
    * @param percent
    */
   public changeData(percent: number) {
-    this.update({
-      percent,
-    });
+    this.updateOptions({ percent });
+
+    const indicatorView = this.chart.views.find((v) => v.id === INDICATEOR_VIEW_ID);
+    if (indicatorView) {
+      indicatorView.changeData(getIndicatorViewData(percent));
+    }
+
+    const rangeView = this.chart.views.find((v) => v.id === RANGE_VIEW_ID);
+    if (rangeView) {
+      rangeView.changeData(getRangeViewData(percent, this.options.range));
+    }
   }
 
   /**

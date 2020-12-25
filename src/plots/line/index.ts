@@ -17,8 +17,7 @@ export class Line extends Plot<LineOptions> {
    * @param data
    */
   public changeData(data: LineOptions['data']) {
-    // @ts-ignore
-    this.updateOptions({ data });
+    this.updateOption({ data });
     this.chart.changeData(data);
   }
 

@@ -6,7 +6,7 @@ import { Data } from '../../types';
 import { deepAssign, flow, pick, renderGaugeStatistic } from '../../utils';
 import { RANGE_TYPE, RANGE_VALUE, PERCENT, DEFAULT_COLOR, INDICATEOR_VIEW_ID, RANGE_VIEW_ID } from './constant';
 import { GaugeOptions } from './types';
-import { getIndicatorViewData, getRangeViewData } from './utils';
+import { getIndicatorData, getRangeData } from './utils';
 
 /**
  * geometry 处理
@@ -20,7 +20,7 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
   // 指标 & 指针
   // 如果开启在应用
   if (indicator) {
-    const indicatorData = getIndicatorViewData(percent);
+    const indicatorData = getIndicatorData(percent);
 
     const v1 = chart.createView({ id: INDICATEOR_VIEW_ID });
     v1.data(indicatorData);
@@ -47,7 +47,7 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
 
   // 辅助 range
   // [{ range: 1, type: '0' }]
-  const rangeData: Data = getRangeViewData(percent, options.range);
+  const rangeData: Data = getRangeData(percent, options.range);
   const v2 = chart.createView({ id: RANGE_VIEW_ID });
   v2.data(rangeData);
 
@@ -87,10 +87,12 @@ function meta(params: Params<GaugeOptions>): Params<GaugeOptions> {
  * 统计指标文档
  * @param params
  */
-function statistic(params: Params<GaugeOptions>): Params<GaugeOptions> {
+function statistic(params: Params<GaugeOptions>, updated?: boolean): Params<GaugeOptions> {
   const { chart, options } = params;
   const { statistic, percent } = options;
 
+  // 先清空标注，再重新渲染
+  chart.getController('annotation').clear(true);
   if (statistic) {
     const { content } = statistic;
     let transformContent;
@@ -114,6 +116,10 @@ function statistic(params: Params<GaugeOptions>): Params<GaugeOptions> {
     renderGaugeStatistic(chart, { statistic: { ...statistic, content: transformContent } }, { percent });
   }
 
+  if (updated) {
+    chart.render(true);
+  }
+
   return params;
 }
 
@@ -129,6 +135,11 @@ function other(params: Params<GaugeOptions>): Params<GaugeOptions> {
 
   return params;
 }
+
+/**
+ * 对外暴露的 adaptor
+ */
+export { statistic };
 
 /**
  * 图适配器

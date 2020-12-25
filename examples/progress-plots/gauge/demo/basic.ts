@@ -49,9 +49,8 @@ const interval = setInterval(() => {
   if (data >= 0.85) {
     clearInterval(interval);
   } else {
-    data += 0.005;
+    data += 0.001;
     gauge.changeData(data);
     // range color 需要提供回调的方式
-    gauge.update({ range: { color: getColor(data) } });
   }
-}, 500);
+}, 100);

@@ -165,7 +165,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * @param options
    */
   public update(options: Partial<O>) {
-    this.updateOptions(options);
+    this.updateOption(options);
     this.render();
   }
 
@@ -173,7 +173,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 更新配置
    * @param options
    */
-  public updateOptions(options: Partial<O>) {
+  protected updateOption(options: Partial<O>) {
     this.options = deepAssign({}, this.options, options);
   }
 

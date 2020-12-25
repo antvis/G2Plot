@@ -24,11 +24,16 @@ export function processRangeData(range: number[]): Data {
  * 获取 仪表盘 指针数据
  * @param percent
  */
-export function getIndicatorViewData(percent: GaugeOptions['percent']): Data {
+export function getIndicatorData(percent: GaugeOptions['percent']): Data {
   return [{ [PERCENT]: clamp(percent, 0, 1) }];
 }
 
-export function getRangeViewData(percent: GaugeOptions['percent'], range: GaugeOptions['range']): Data {
+/**
+ * 获取仪表盘 表盘弧形数据
+ * @param percent
+ * @param range
+ */
+export function getRangeData(percent: GaugeOptions['percent'], range: GaugeOptions['range']): Data {
   const ticks = get(range, ['ticks'], []);
 
   const clampTicks = size(ticks) ? ticks : [0, clamp(percent, 0, 1), 1];

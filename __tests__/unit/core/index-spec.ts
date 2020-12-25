@@ -190,4 +190,82 @@ describe('core', () => {
     expect(line.chart.height).toBe(400);
     line.destroy();
   });
+
+  it('limit in Plot', () => {
+    const line = new Line(createDiv(''), {
+      data: partySupport.filter((o) => o.type === 'FF'),
+      xField: 'date',
+      yField: 'value',
+      limitInPlot: true,
+    });
+
+    line.render();
+    expect(line.chart.limitInPlot).toBe(true);
+    line.destroy();
+  });
+
+  it('plot dataset sourceType', () => {
+    const container = createDiv('');
+    const line = new Line(container, {
+      data: partySupport.filter((o) => o.type === 'FF'),
+      xField: 'date',
+      yField: 'value',
+    });
+    expect(container.dataset.chartSourceType).toBe('G2Plot');
+    line.destroy();
+
+    expect(container.dataset.chartSourceType).toBe(undefined);
+  });
+
+  it('default autoHide', () => {
+    const line = new Line(createDiv(''), {
+      data: partySupport.filter((o) => o.type === 'FF'),
+      xField: 'date',
+      yField: 'value',
+    });
+
+    line.render();
+
+    expect(line.chart.getOptions().axes['date'].label.autoRotate).toBe(false);
+    expect(line.chart.getOptions().axes['date'].label.autoHide).toEqual({
+      type: 'equidistance',
+      cfg: {
+        minGap: 6,
+      },
+    });
+
+    line.update({
+      xAxis: {
+        label: {
+          autoHide: {
+            type: 'equidistance',
+            cfg: {
+              minGap: 12,
+            },
+          },
+        },
+      },
+    });
+    line.render();
+    expect(line.chart.getOptions().axes['date'].label.autoRotate).toBe(false);
+    expect(line.chart.getOptions().axes['date'].label.autoHide).toEqual({
+      type: 'equidistance',
+      cfg: {
+        minGap: 12,
+      },
+    });
+
+    line.update({
+      xAxis: {
+        label: {
+          autoHide: false,
+        },
+      },
+    });
+    line.render();
+    expect(line.chart.getOptions().axes['date'].label.autoRotate).toBe(false);
+    expect(line.chart.getOptions().axes['date'].label.autoHide).toBe(false);
+
+    line.destroy();
+  });
 });

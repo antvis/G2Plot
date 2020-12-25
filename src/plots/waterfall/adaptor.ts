@@ -1,6 +1,6 @@
 import { Geometry } from '@antv/g2';
 import { get } from '@antv/util';
-import { Datum } from '@antv/g2/lib/interface';
+import { Datum } from '../../types';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme, state, scale, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
@@ -206,6 +206,8 @@ export function tooltip(params: Params<WaterfallOptions>): Params<WaterfallOptio
       fields: [yField],
       ...tooltip,
     });
+  } else {
+    chart.tooltip(false);
   }
 
   return params;

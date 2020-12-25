@@ -3,8 +3,8 @@ import { bulletData } from '../../../data/bullet';
 import { createDiv } from '../../../utils/dom';
 
 describe('bullet*label', () => {
-  it('lable', () => {
-    const bullet = new Bullet(createDiv('lable bullet'), {
+  it('label', () => {
+    const bullet = new Bullet(createDiv('label bullet'), {
       width: 400,
       height: 100,
       data: bulletData,
@@ -68,7 +68,7 @@ describe('bullet*label', () => {
     bullet.destroy();
   });
 
-  it('lable*measure*null', () => {
+  it('label*measure*null', () => {
     const bullet = new Bullet(createDiv('lable*measure*null'), {
       width: 400,
       height: 100,
@@ -93,14 +93,14 @@ describe('bullet*label', () => {
     const chart = bullet.chart;
     const [rangeGeometry, measureGeometry, targetGeometry] = chart.geometries;
 
-    expect(rangeGeometry.labelOption).toEqual(undefined);
+    expect(rangeGeometry.labelOption).toEqual(false);
     expect(measureGeometry.getAdjust('stack')).toMatchObject({
       xField: 'title',
       yField: 'measures',
     });
 
     // @ts-ignore
-    expect(measureGeometry.labelOption).toEqual(undefined);
+    expect(measureGeometry.labelOption).toEqual(false);
     // @ts-ignore
     expect(targetGeometry.labelOption.fields[0]).toEqual('target');
     // @ts-ignore
@@ -109,5 +109,50 @@ describe('bullet*label', () => {
     expect(targetGeometry.labelOption.cfg.style.fill).toEqual('#fff');
 
     bullet.destroy();
+  });
+
+  it('label default layout', () => {
+    const bullet = new Bullet(createDiv('label bullet'), {
+      width: 400,
+      height: 100,
+      data: bulletData,
+      measureField: 'measures',
+      rangeField: 'ranges',
+      targetField: 'target',
+      xField: 'title',
+      label: {
+        range: {},
+        measure: {},
+        target: {},
+      },
+    });
+
+    bullet.render();
+
+    const chart = bullet.chart;
+    let [rangeGeometry, measureGeometry, targetGeometry] = chart.geometries;
+
+    // @ts-ignore
+    expect(rangeGeometry.labelOption.cfg.layout).toEqual([{ type: 'limit-in-plot' }]);
+    // @ts-ignore
+    expect(measureGeometry.labelOption.cfg.layout).toEqual([{ type: 'limit-in-plot' }]);
+    // @ts-ignore
+    expect(targetGeometry.labelOption.cfg.layout).toEqual([{ type: 'limit-in-plot' }]);
+
+    bullet.update({
+      label: {
+        range: {},
+        measure: {},
+        target: false,
+      },
+    });
+    bullet.render();
+    [rangeGeometry, measureGeometry, targetGeometry] = chart.geometries;
+
+    // @ts-ignore
+    expect(rangeGeometry.labelOption.cfg.layout).toEqual([{ type: 'limit-in-plot' }]);
+    // @ts-ignore
+    expect(measureGeometry.labelOption.cfg.layout).toEqual([{ type: 'limit-in-plot' }]);
+    expect(targetGeometry.labelOption).toBe(false);
   });
 });

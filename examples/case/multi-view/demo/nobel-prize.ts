@@ -1,15 +1,37 @@
+// @ts-nocheck
 import { DataView } from '@antv/data-set';
 import { Lab } from '@antv/g2plot';
+import { keys, groupBy } from '@antv/util';
 
-fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c2e0a.json')
+function generateYearData() {
+  const r = [];
+  for (let i = 1900; i <= 2016; i++) {
+    r.push({ year: i });
+  }
+  return r;
+}
+
+fetch('https://gw.alipayobjects.com/os/antfincdn/NHer2zyRYE/nobel-prize-data.json')
   .then((data) => data.json())
-  .then((data) => {
-    const COLORS = ['#ff93a7', '#ff9300', '#bb82f3', '#6349ec', '#0074ff'];
+  .then((originalData) => {
+    const data = [...originalData.main, { year: 2016, number: 0, age: 0 }];
     let currentYear = 1901;
+    const types = keys(groupBy(data, (d) => d.type));
+
     /** 散点图数据（各国诺贝尔奖获奖者的年龄分布） */
     const getPointViewData = (year) => {
-      return data.map((d) => (d.year <= year ? d : { ...d, age: null }));
+      const r = data.map((d) => (d.year <= year ? d : { ...d, ageGroup: null })).filter((d) => d.age !== 0);
+      const ds = new DataView().source(r);
+      ds.transform({
+        type: 'summary', // 别名 summary
+        fields: ['number'], // 统计字段集
+        operations: ['sum'], // 统计操作集
+        as: ['number'], // 存储字段集
+        groupBy: ['country', 'ageGroup', 'type'], // 分组字段集
+      });
+      return ds.rows;
     };
+
     /** 占比环图数据（各领域诺贝尔奖获奖分布） */
     const getIntervalViewData = (year) => {
       const ds = new DataView().source(data.map((d) => (d.year <= year ? d : { ...d, number: 0 })));
@@ -21,37 +43,51 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c
         as: ['counts'], // 存储字段集
         groupBy: ['type'], // 分组字段集
       });
-      return [...ds.rows, { type: 'other', counts: othersCnt }];
-    };
-    const getDataGroupByField = (field) => {
-      const transformData = [...data];
-      for (let i = 1901; i < 2016; i++) {
-        if (!data.find((d) => d.year === i)) {
-          transformData.push({
-            year: i,
-            number: 0,
-            name: '',
-            nickName: '',
-            age: 0,
-            country: '',
-            about: '',
-            type: '',
-            avatar: '',
-          });
-        }
-      }
-      return new DataView()
-        .source(transformData)
-        .transform({ type: 'group', groupBy: [field] })
-        .rows.map((d) => ({ [field]: d[0][field] }));
+      return [...ds.rows, { type: '其它', counts: othersCnt }];
     };
 
+    const yearData = generateYearData();
     const labChart = new Lab.MultiView('container', {
       height: 500,
       padding: 'auto',
       appendPadding: [20, 0, 20, 0],
       legend: {
         type: { position: 'bottom' },
+        number: false,
+      },
+      tooltip: {
+        fields: ['country', 'age', 'number', 'ageGroup'],
+        showMarkers: false,
+        domStyles: {
+          'g2-tooltip': {
+            minWidth: '200px',
+          },
+          'g2-tooltip-list-item': {
+            display: 'flex',
+            justifyContent: 'space-between',
+          },
+        },
+        customContent: (title, items) => {
+          const datum = items[0]?.data || {};
+          const fixed = (v) => v.toFixed(0);
+          const tooltipItems = [
+            { name: '年龄段：', value: `${fixed(Math.max(datum.ageGroup - 10, 0))}~${fixed(datum.ageGroup + 10)}` },
+            { name: '奖项学科：', value: datum.type },
+            { name: '获奖人数：', value: datum.number },
+          ];
+          let tooltipItemsStr = '';
+          tooltipItems.forEach((item) => {
+            tooltipItemsStr += `<li class="g2-tooltip-list-item">
+               <span class="g2-tooltip-name">${item.name}</span>
+               <span class="g2-tooltip-value">${item.value}</span>
+             </li>`;
+          });
+          return `
+             <div class="g2-tooltip-title">${title}</div>
+             <ul class="g2-tooltip-list">${tooltipItemsStr}
+             </ul>
+          `;
+        },
       },
       views: [
         {
@@ -59,18 +95,33 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c
           region: { start: { x: 0, y: 0.35 }, end: { x: 1, y: 0.65 } },
           coordinate: {
             type: 'theta',
-            cfg: { innerRadius: 0.78, radius: 0.96 },
+            cfg: { innerRadius: 0.84, radius: 0.96 },
           },
           geometries: [
             {
               type: 'interval',
-              xField: '1',
               yField: 'counts',
               colorField: 'type',
               mapping: {
-                color: [...COLORS, '#D9D9D9'],
+                color: ({ type }) => {
+                  const idx = types.indexOf(type);
+                  const { colors10 = [] } = labChart.chart.getTheme();
+                  return colors10[idx] || '#D9D9D9';
+                },
               },
               adjust: { type: 'stack' },
+            },
+          ],
+          annotations: [
+            {
+              type: 'text',
+              content: 'G2Plot',
+              position: ['50%', '50%'],
+              style: {
+                textAlign: 'center',
+                fontWeight: 400,
+                fontSize: 28,
+              },
             },
           ],
         },
@@ -89,15 +140,24 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c
               tickLine: null,
               label: null,
             },
-            age: {
+            ageGroup: {
+              tickLine: null,
               min: 20,
               max: 100,
               tickInterval: 20,
-              alias: '获奖\n年龄',
+              title: {
+                text: '获奖\n年龄',
+                autoRotate: false,
+                offset: 12,
+                style: { fontSize: 10, textBaseline: 'bottom' },
+              },
               label: {
+                offset: -4,
                 style: {
+                  textBaseline: 'bottom',
                   fontSize: 10,
                 },
+                formatter: (v) => (v === '100' ? '' : v),
               },
               grid: {
                 line: {
@@ -112,32 +172,29 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c
             {
               type: 'point',
               xField: 'country',
-              yField: 'age',
+              yField: 'ageGroup',
               colorField: 'type',
+              sizeField: 'number',
+              adjust: {
+                type: 'dodge',
+              },
               mapping: {
-                size: 3,
+                size: [2, 8],
                 shape: 'circle',
                 style: {
+                  fillOpacity: 0.65,
                   lineWidth: 0,
                 },
-                color: COLORS,
               },
             },
-          ],
-        },
-        {
-          // 国家展示
-          data: getDataGroupByField('country'),
-          region: { start: { x: 0.18, y: 0.18 }, end: { x: 0.82, y: 0.82 } },
-          coordinate: { type: 'polar', cfg: { innerRadius: 0.99, radius: 1 } },
-          geometries: [
             {
+              // 国家标签
               type: 'interval',
               xField: 'country',
-              yField: '1',
               label: {
                 labelEmit: true,
                 fields: ['country'],
+                offset: 50,
                 style: {
                   fontSize: 10,
                 },
@@ -150,7 +207,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c
         },
         {
           // 年度 label 展示
-          data: getDataGroupByField('year'),
+          data: yearData,
           region: {
             start: { x: 0.05, y: 0.05 },
             end: { x: 0.95, y: 0.95 },
@@ -171,55 +228,40 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c
             {
               type: 'line',
               xField: 'year',
-              yField: '0.9',
               label: {
                 labelEmit: true,
                 content: ({ year }) => {
-                  return year === 1901 || Number(year) % 10 === 0 ? year : year === 2015 ? '' : '-';
+                  if (year === 1900) {
+                    return '';
+                  }
+                  if (year === 2016) {
+                    return ' ALL ';
+                  }
+                  return Number(year) % 10 === 0 ? year : '-';
                 },
               },
               mapping: {
                 color: 'transparent',
               },
             },
-          ],
-        },
-        {
-          // 滑块
-          data: getDataGroupByField('year'),
-          region: {
-            start: { x: 0.05, y: 0.05 },
-            end: { x: 0.95, y: 0.95 },
-          },
-          coordinate: { type: 'polar', cfg: { innerRadius: 0.99, radius: 1 } },
-          axes: {
-            1: null,
-            year: {
-              // todo fix G2 tickCount 为 0，会死循环
-              // tickCount: 0,
-              label: null,
-            },
-          },
-          geometries: [
             {
               type: 'interval',
               xField: 'year',
-              yField: '1',
               label: {
                 labelEmit: true,
                 fields: ['year'],
                 callback: (year) => {
+                  const { defaultColor } = labChart.chart.getTheme();
                   return {
                     style: {
                       fill: year === currentYear ? 'rgba(255,255,255,0.85)' : 'transparent',
                     },
-                    content: () => `${currentYear}`,
+                    content: () => `${currentYear === 2016 ? ' ALL ' : currentYear}`,
                     background: {
                       padding: 2,
-                      // @ts-ignore
-                      radius: 2,
                       style: {
-                        fill: year === currentYear ? 'pink' : 'transparent',
+                        radius: 1,
+                        fill: year === currentYear ? defaultColor : 'transparent',
                       },
                     },
                   };
@@ -235,45 +277,42 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c
     });
 
     labChart.render();
-    // @ts-ignore
-    window.chart = labChart;
-    const dymaticView = labChart.chart.views[4];
-    dymaticView.on('element:click', (evt) => {
-      const data = evt.data?.data;
-      if (data) {
-        if (typeof data?.year === 'number') {
-          currentYear = data.year;
-          rerender(currentYear);
-        }
-      }
-    });
 
-    function rerender(y) {
-      labChart.chart.views[0].changeData(getIntervalViewData(y));
-      labChart.chart.views[1].changeData(getPointViewData(y));
-      dymaticView.geometries[0].label('year', (year) => ({
-        labelEmit: true,
-        style: {
-          fill: year === y ? 'rgba(255,255,255,0.85)' : 'transparent',
-        },
-        content: () => `${y}`,
-        background: {
-          padding: 2,
-          // @ts-ignore
-          radius: 2,
+    const view1 = labChart.chart.views[0];
+    const view2 = labChart.chart.views[1];
+    const view3 = labChart.chart.views[2];
+    // 根据 view3 中创建的顺序，可知 滑块对应的第 2 个几何标记对象 geometry
+    const sliderBlock = view3.geometries[1];
+    function rerender(specYear) {
+      view1.changeData(getIntervalViewData(specYear));
+      view2.changeData(getPointViewData(specYear));
+      sliderBlock.label('year', (year) => {
+        const { defaultColor } = labChart.chart.getTheme();
+        return {
+          labelEmit: true,
           style: {
-            fill: year === y ? 'pink' : 'transparent',
+            fill: year === specYear ? 'rgba(255,255,255,0.85)' : 'transparent',
           },
-        },
-      }));
-      dymaticView.render(true);
+          content: () => `${specYear === 2016 ? ' ALL ' : specYear}`,
+          background: {
+            padding: 2,
+            style: {
+              radius: 1,
+              // 非当前年份，进行透明展示
+              fill: year === specYear ? defaultColor : 'transparent',
+            },
+          },
+        };
+      });
+      // 传入参数 true，重新绘制，不重新触发更新流程。
+      view3.render(true);
     }
 
     let interval;
     function start() {
+      clearInterval(interval);
       interval = setInterval(() => {
-        if (currentYear < 2016) {
-          currentYear += 1;
+        if (currentYear++ < 2016) {
           rerender(currentYear);
         } else {
           end();
@@ -285,15 +324,25 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/738147f2-2cef-4591-8e0d-4fd5268c
       interval = null;
     }
 
-    start();
-    // 延迟绑定事件
-    setTimeout(() => {
-      document.querySelector('#btn').addEventListener('click', () => {
-        if (!interval) {
-          start();
-        } else {
-          end();
+    function handldSlideBlockClick(evt) {
+      const data = evt.data?.data;
+      if (data) {
+        if (typeof data?.year === 'number') {
+          currentYear = data.year;
+          rerender(currentYear);
         }
-      });
-    }, 500);
+      }
+    }
+    // 监听 element click 事件，指定当前年份，并且启动轮播
+    view3.on('element:click', (evt) => {
+      handldSlideBlockClick(evt);
+      start();
+    });
+    // 监听 element click 事件，指定当前年份，并且暂停轮播
+    view3.on('element:dblclick', (evt) => {
+      handldSlideBlockClick(evt);
+      end();
+    });
+
+    start();
   });

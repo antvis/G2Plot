@@ -1,9 +1,7 @@
-import { registerShape, Util } from '@antv/g2';
-import { ShapeInfo } from '@antv/g2/lib/interface';
-import { IGroup, ShapeAttrs } from '@antv/g2/lib/dependents';
+import { registerShape, Util, Types, IGroup, ShapeAttrs } from '@antv/g2';
 import { Tag } from '../types';
 
-type Config = ShapeInfo & { data: Tag };
+type Config = Types.ShapeInfo & { data: Tag };
 
 registerShape('point', 'word-cloud', {
   draw(cfg: Config, group: IGroup) {

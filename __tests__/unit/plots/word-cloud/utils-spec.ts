@@ -1,8 +1,15 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../../../src/core/adaptor';
 import { WordCloudOptions } from '../../../../src/plots/word-cloud';
-import { processImageMask, transform } from '../../../../src/plots/word-cloud/utils';
+import {
+  getFontSizeMapping,
+  getSingleKeyValues,
+  getSize,
+  processImageMask,
+  transform,
+} from '../../../../src/plots/word-cloud/utils';
 import { CountryEconomy } from '../../../data/country-economy';
+import { createDiv } from '../../../utils/dom';
 
 describe('word-cloud utils', () => {
   const params: Params<WordCloudOptions> = {
@@ -60,19 +67,68 @@ describe('word-cloud utils', () => {
     expect(transform(p).length).toBe(0);
   });
 
-  it('utils: getSize', () => {
-    const p = deepMix({}, params, {
-      chart: {
-        padding: 0,
-        appendPadding: 0,
-      },
-      options: {
-        autoFit: true,
-      },
+  it('utils: getSize & autoFit is true', () => {
+    const container = createDiv();
+    container.setAttribute('style', 'display: inline-block; width: 100px; height: 100px');
+
+    const size = getSize({
+      autoFit: true,
+      width: 200,
+      height: 200,
+      padding: 0,
+      appendPadding: 0,
+      container,
     });
 
-    const result = transform(p).filter((v) => v.hasText);
-    expect(result.length).toBe(0);
+    expect(size).toEqual([100, 100]);
+  });
+
+  it('utils: getSize & autoFit is false', () => {
+    const container = createDiv();
+    container.setAttribute('style', 'display: inline-block; width: 100px; height: 100px');
+
+    const size = getSize({
+      autoFit: false,
+      width: 200,
+      height: 200,
+      padding: 0,
+      appendPadding: 0,
+      container,
+    });
+
+    expect(size).toEqual([200, 200]);
+  });
+
+  it('utils: getSize & width and height both 0', () => {
+    const container = createDiv();
+    container.setAttribute('style', 'display: inline-block; width: 100px; height: 100px');
+
+    const size = getSize({
+      autoFit: false,
+      width: 0,
+      height: 0,
+      padding: 0,
+      appendPadding: 0,
+      container,
+    });
+
+    expect(size).toEqual([400, 400]);
+  });
+
+  it('utils: getSize & padding and appendPadding', () => {
+    const container = createDiv();
+    container.setAttribute('style', 'display: inline-block; width: 100px; height: 100px');
+
+    const size = getSize({
+      autoFit: false,
+      width: 200,
+      height: 200,
+      padding: 10,
+      appendPadding: 10,
+      container,
+    });
+
+    expect(size).toEqual([160, 160]);
   });
 
   it('utils: padding is Array', () => {
@@ -266,5 +322,52 @@ describe('word-cloud utils', () => {
       expect(item.x).toBe(100);
       expect(item.y).toBe(100);
     });
+  });
+
+  it('getFontSizeMapping', () => {
+    const f1: any = getFontSizeMapping(10);
+    expect(f1()).toBe(10);
+
+    const foo = () => 10;
+    const f2 = getFontSizeMapping(foo);
+    expect(f2).toBe(foo);
+
+    const data = [{ value: 1 }, { value: 2 }, { value: 3 }, { value: 4 }, { value: 5 }];
+    // 数据中字体权重都相同时，返回字体大小的中间值
+    const f3: any = getFontSizeMapping([10, 20], [10, 10]);
+    data.forEach((v) => {
+      expect(f3(v)).toBe(15);
+    });
+
+    // 没有提供字体权重范围的话，返回字体大小的中间值
+    const f4: any = getFontSizeMapping([10, 20]);
+    data.forEach((v) => {
+      expect(f4(v)).toBe(15);
+    });
+
+    const f5: any = getFontSizeMapping([10, 20], [1, 5]);
+    data.forEach((v) => {
+      expect(f5(v) >= 10 && f5(v) <= 20).toBe(true);
+    });
+  });
+
+  it('getSingleKeyValues', () => {
+    const data = [
+      { value: 0 },
+      { value: 1 },
+      { value: '4' },
+      { value: null },
+      { value: undefined },
+      { value: '' },
+      { value: NaN },
+      { value: false },
+      { value: true },
+      { value: Symbol('') },
+      { value: {} },
+      { value: () => 10 },
+    ];
+
+    // 只保留数字
+    expect(getSingleKeyValues(data, 'value')).toEqual([0, 1]);
   });
 });

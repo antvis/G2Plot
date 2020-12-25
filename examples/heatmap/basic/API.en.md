@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/heatmap.en.md`
+`markdown:docs/api/plots/heatmap.en.md`

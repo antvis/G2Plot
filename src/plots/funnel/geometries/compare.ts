@@ -1,13 +1,13 @@
-import { map } from '@antv/util';
-import { LineOption } from '@antv/g2/lib/interface';
-import { flow, findGeometry, deepAssign } from '../../../utils';
+import { Types } from '@antv/g2';
+import { isArray } from '@antv/util';
+import { flow, deepAssign } from '../../../utils';
 import { Params } from '../../../core/adaptor';
 import { Datum, Data } from '../../../types/common';
 import { getTooltipMapping } from '../../../utils/tooltip';
 import { geometry as baseGeometry } from '../../../adaptor/geometries/base';
 import { FunnelOptions } from '../types';
-import { FUNNEL_PERCENT, FUNNEL_CONVERSATION } from '../constant';
-import { geometryLabel, conversionTagComponent } from './common';
+import { FUNNEL_PERCENT, FUNNEL_CONVERSATION, FUNNEL_MAPPING_VALUE } from '../constant';
+import { conversionTagComponent, transformData } from './common';
 
 /**
  * 处理字段数据
@@ -15,27 +15,10 @@ import { geometryLabel, conversionTagComponent } from './common';
  */
 function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { data = [], yField, compareField } = options;
-  // 处理数据
-  let formatData = [];
-  if (data[0][yField]) {
-    // format 数据
-    const depRecord = {};
-    formatData = map(data, (row) => {
-      if (row[yField] !== undefined && row[compareField]) {
-        if (!depRecord[row[compareField]]) depRecord[row[compareField]] = row[yField];
-        if (!depRecord[`last_${row[compareField]}`]) depRecord[`last_${row[compareField]}`] = row[yField];
-        row[FUNNEL_PERCENT] = row[yField] / depRecord[row[compareField]];
-        row[FUNNEL_CONVERSATION] = row[yField] / depRecord[`last_${row[compareField]}`];
-        // 更新 lastVersion
-        depRecord[`last_${row[compareField]}`] = row[yField];
-      }
-      return row;
-    });
-  }
+  const { data = [], yField } = options;
 
   // 绘制漏斗图
-  chart.data(formatData);
+  chart.data(data);
   chart.scale({
     [yField]: {
       sync: true,
@@ -50,7 +33,7 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { xField, yField, color, compareField, isTransposed, tooltip } = options;
+  const { data, xField, yField, color, compareField, isTransposed, tooltip, maxSize, minSize, label } = options;
 
   chart.facet('mirror', {
     fields: [compareField],
@@ -58,23 +41,47 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
     transpose: !isTransposed,
     padding: isTransposed ? 0 : [32, 0, 0, 0],
     eachView(view, facet) {
+      const index = isTransposed ? facet.rowIndex : facet.columnIndex;
+
       if (!isTransposed) {
         view.coordinate({
           type: 'rect',
-          actions: [['transpose'], ['scale', facet.columnIndex === 0 ? -1 : 1, -1]],
+          actions: [['transpose'], ['scale', index === 0 ? -1 : 1, -1]],
         });
       }
+
+      const formatterData = transformData(facet.data, data, {
+        yField,
+        maxSize,
+        minSize,
+      });
+
+      view.data(formatterData);
+
       // 绘制图形
-      const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, FUNNEL_PERCENT, FUNNEL_CONVERSATION]);
+      const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, compareField]);
+
+      const defaultFacetLabel = isTransposed
+        ? {
+            offset: index === 0 ? 10 : -23,
+            position: (index === 0 ? 'bottom' : 'top') as Types.IntervalGeometryLabelPosition,
+          }
+        : {
+            offset: 10,
+            position: 'left' as Types.IntervalGeometryLabelPosition,
+            style: {
+              textAlign: index === 0 ? 'end' : 'start',
+            },
+          };
 
       baseGeometry({
         chart: view,
         options: {
           type: 'interval',
           xField: xField,
-          yField: yField,
+          yField: FUNNEL_MAPPING_VALUE,
           colorField: xField,
-          tooltipFields: fields,
+          tooltipFields: isArray(fields) && fields.concat([FUNNEL_PERCENT, FUNNEL_CONVERSATION]),
           mapping: {
             shape: 'funnel',
             tooltip: formatter,
@@ -84,6 +91,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
               stroke: '#fff',
             },
           },
+          label: label === false ? false : deepAssign({}, defaultFacetLabel, label),
         },
       });
     },
@@ -93,49 +101,12 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
 }
 
 /**
- * label 处理
- * @param params
- */
-function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
-  const { chart, options } = params;
-  const { label, isTransposed } = options;
-
-  chart.once('beforepaint', () => {
-    chart.views.forEach((view, index) => {
-      const geometry = findGeometry(view, 'interval');
-      geometryLabel(geometry)(
-        label
-          ? deepAssign({}, params, {
-              chart: view,
-              options: {
-                label: isTransposed
-                  ? {
-                      offset: index === 0 ? 10 : -23,
-                      position: index === 0 ? 'bottom' : 'top',
-                    }
-                  : {
-                      offset: 10,
-                      position: 'left',
-                      style: {
-                        textAlign: index === 0 ? 'end' : 'start',
-                      },
-                    },
-              },
-            })
-          : params
-      );
-    });
-  });
-  return params;
-}
-
-/**
  * 转化率组件
  * @param params
  */
 function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { yField, conversionTag, isTransposed } = options;
+  const { conversionTag, isTransposed } = options;
 
   chart.once('beforepaint', () => {
     chart.views.forEach((view, viewIndex) => {
@@ -144,11 +115,11 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
         datumIndex: number,
         data: Data,
         initLineOption: Record<string, any>
-      ): LineOption => {
+      ): Types.LineOption => {
         const ratio = viewIndex === 0 ? -1 : 1;
         return deepAssign({}, initLineOption, {
-          start: [datumIndex - 0.5, data[0][yField] * datum[FUNNEL_PERCENT]],
-          end: [datumIndex - 0.5, data[0][yField] * (datum[FUNNEL_PERCENT] + 0.05)],
+          start: [datumIndex - 0.5, datum[FUNNEL_MAPPING_VALUE]],
+          end: [datumIndex - 0.5, datum[FUNNEL_MAPPING_VALUE] + 0.05],
           text: isTransposed
             ? {
                 style: {
@@ -184,5 +155,5 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
  * @param options
  */
 export function compareFunnel(params: Params<FunnelOptions>) {
-  return flow(field, geometry, label, conversionTag)(params);
+  return flow(field, geometry, conversionTag)(params);
 }

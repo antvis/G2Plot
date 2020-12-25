@@ -1,18 +1,27 @@
 import { registerShape } from '@antv/g2';
-import { IGroup } from '@antv/g-base';
+import { IGroup, IShape } from '@antv/g-base';
 import { reduce, isNumber, mix } from '@antv/util';
 import { transform } from '../../../utils/matrix';
-import { Point } from '../../../types';
+import { Point, ShapeStyle } from '../../../types';
+import { LiquidOptions } from '..';
 
-function lerp(a: number, b: number, factor: number) {
-  return (1 - factor) * a + factor * b;
+const DURATION = 5000;
+
+/**
+ * 一个线性映射的函数
+ * @param min
+ * @param max
+ * @param factor
+ */
+function lerp(min: number, max: number, factor: number) {
+  return min + (max - min) * factor;
 }
 
 /**
  * 波浪的 attrs
  * @param cfg
  */
-function getFillAttrs(cfg) {
+function getFillAttrs(cfg: ShapeStyle) {
   const attrs = { opacity: 1, ...cfg.style };
 
   if (cfg.color && !attrs.fill) {
@@ -26,11 +35,11 @@ function getFillAttrs(cfg) {
  * 圆圈的 attrs
  * @param cfg
  */
-function getLineAttrs(cfg) {
+function getLineAttrs(cfg: ShapeStyle) {
   const defaultAttrs = {
     fill: '#fff',
     fillOpacity: 0,
-    lineWidth: 2,
+    lineWidth: 4,
   };
   const attrs = mix({}, defaultAttrs, cfg.style);
 
@@ -113,7 +122,7 @@ function getWaterWavePath(
   cx: number,
   cy: number
 ) {
-  const curves = Math.ceil(((2 * radius) / waveLength) * 4) * 2;
+  const curves = Math.ceil(((2 * radius) / waveLength) * 4) * 4;
   const path = [];
   let _phase = phase;
 
@@ -192,36 +201,57 @@ function getWaterWavePath(
  * @param group       图组
  * @param clip        用于剪切的图形
  * @param radius      绘制图形的高度
+ * @param waveLength  波的长度
  */
-function addWaterWave(x, y, level, waveCount, waveAttrs, group, clip, radius) {
+function addWaterWave(
+  x: number,
+  y: number,
+  level: number,
+  waveCount: number,
+  waveAttrs: ShapeStyle,
+  group: IGroup,
+  clip: IShape,
+  radius: number,
+  waveLength: number
+) {
   const { fill, opacity } = waveAttrs;
   const bbox = clip.getBBox();
   const width = bbox.maxX - bbox.minX;
   const height = bbox.maxY - bbox.minY;
-  const duration = 5000;
-  for (let i = 0; i < waveCount; i++) {
-    const factor = waveCount <= 1 ? 0 : i / (waveCount - 1);
+
+  for (let idx = 0; idx < waveCount; idx++) {
+    const factor = waveCount <= 1 ? 0 : idx / (waveCount - 1);
     const wave = group.addShape('path', {
-      name: `wave-path-${i}`,
+      name: `waterwave-path`,
       attrs: {
-        path: getWaterWavePath(radius, bbox.minY + height * level, width / 4, 0, width / lerp(56, 64, factor), x, y),
+        path: getWaterWavePath(
+          radius,
+          bbox.minY + height * level,
+          waveLength,
+          0,
+          width / 32, // 波幅高度
+          x,
+          y
+        ),
         fill,
-        opacity: lerp(0.6, 0.3, factor) * opacity,
+        opacity: lerp(0.2, 0.9, factor) * opacity,
       },
     });
 
     try {
-      const matrix = transform([['t', width / 2, 0]]);
+      const matrix = transform([['t', waveLength, 0]]);
+
+      wave.stopAnimate();
       wave.animate(
         { matrix },
         {
-          duration: lerp(duration, 0.7 * duration, factor),
+          duration: lerp(0.5 * DURATION, DURATION, factor),
           repeat: true,
         }
       );
     } catch (e) {
       // TODO off-screen canvas 中动画会找不到 canvas
-      console.error('off-screen group animate error!');
+      console.warn('off-screen group animate error!');
     }
   }
 }
@@ -231,8 +261,12 @@ registerShape('interval', 'liquid-fill-gauge', {
     const cx = 0.5;
     const cy = 0.5;
 
-    // 需要更好的传参方式
-    const radio = isNumber(cfg.customInfo.radius) ? cfg.customInfo.radius : 0.9;
+    const { customInfo } = cfg;
+    const { radius: radio } = customInfo;
+    const outline: LiquidOptions['outline'] = customInfo.outline;
+    const wave: LiquidOptions['wave'] = customInfo.wave;
+    const { border, distance } = outline;
+    const { count: waveCount, length: waveLength } = wave;
 
     // 获取最小 minX
     const minX = reduce(
@@ -250,40 +284,47 @@ registerShape('interval', 'liquid-fill-gauge', {
     // 保证半径是 画布宽高最小值的 radius 值
     const radius = Math.min(halfWidth, minXPoint.y * radio);
     const waveAttrs = getFillAttrs(cfg);
+    const circleAttrs = getLineAttrs(cfg);
 
-    const waves = container.addGroup({
-      name: 'waves',
-    });
-
-    waves.setClip({
-      type: 'circle',
-      attrs: {
-        x: center.x,
-        y: center.y,
-        r: radius,
-      },
-    });
-    const clipCircle = waves.get('clipShape');
-    addWaterWave(
-      center.x,
-      center.y,
-      1 - (cfg.points[1] as Point).y, // cfg.y / (2 * cp.y),
-      3,
-      waveAttrs,
-      waves,
-      clipCircle,
-      radius * 4
-    );
-
+    // 1. 首先绘制一个外圆
     container.addShape('circle', {
       name: 'wrap',
-      attrs: mix(getLineAttrs(cfg), {
+      attrs: mix(circleAttrs, {
         x: center.x,
         y: center.y,
         r: radius,
         fill: 'transparent',
+        lineWidth: border,
       }),
     });
+
+    // 2. 绘制波的 group
+    const waves = container.addGroup({
+      name: 'waves',
+    });
+
+    // 3. 波对应的 clip 裁剪形状
+    const clipCircle = waves.setClip({
+      type: 'circle',
+      attrs: {
+        x: center.x,
+        y: center.y,
+        r: radius - distance,
+      },
+    });
+
+    // 4. 绘制波形
+    addWaterWave(
+      center.x,
+      center.y,
+      1 - (cfg.points[1] as Point).y,
+      waveCount,
+      waveAttrs,
+      waves,
+      clipCircle,
+      radius * 2,
+      waveLength
+    );
 
     return container;
   },

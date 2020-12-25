@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/tiny-column.zh.md`
+`markdown:docs/api/plots/tiny-column.zh.md`

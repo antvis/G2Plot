@@ -4,8 +4,28 @@ import { flow, deepAssign } from '../../utils';
 import { point } from '../../adaptor/geometries';
 import { interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { findGeometry, transformLabel } from '../../utils';
-import { getQuadrantDefaultConfig, getPath } from './util';
+import { getQuadrantDefaultConfig, getPath, getMeta } from './util';
 import { ScatterOptions } from './types';
+
+/**
+ * 散点图 data.length === 1 时居中显示，
+ * @param params
+ * @returns params
+ */
+export function transformOptions(params: Params<ScatterOptions>): Params<ScatterOptions> {
+  const { options } = params;
+  const { data = [] } = options;
+  // 仅对 data.length === 1 的情况进行处理
+  if (data.length === 1) {
+    return deepAssign({}, params, {
+      options: {
+        ...options,
+        meta: getMeta(options),
+      },
+    });
+  }
+  return params;
+}
 
 /**
  * 字段
@@ -13,8 +33,16 @@ import { ScatterOptions } from './types';
  */
 function geometry(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { data, type, color, shape, size, pointStyle, colorField } = options;
+  const { data, type, color, shape, size, pointStyle, shapeField, colorField, xField, yField, sizeField } = options;
 
+  let { tooltip } = options;
+
+  if (tooltip && !tooltip.fields) {
+    tooltip = {
+      ...tooltip,
+      fields: [xField, yField, colorField, sizeField, shapeField],
+    };
+  }
   // 数据
   chart.data(data);
 
@@ -29,6 +57,7 @@ function geometry(params: Params<ScatterOptions>): Params<ScatterOptions> {
           size,
           style: pointStyle,
         },
+        tooltip,
       },
     })
   );
@@ -178,13 +207,14 @@ function regressionLine(params: Params<ScatterOptions>): Params<ScatterOptions> 
   const { options, chart } = params;
   const { regressionLine } = options;
   if (regressionLine) {
-    const { style } = regressionLine;
+    const { style, top = false } = regressionLine;
     const defaultStyle = {
       stroke: '#9ba29a',
       lineWidth: 2,
       opacity: 0.5,
     };
     chart.annotation().shape({
+      top,
       render: (container, view) => {
         const group = container.addGroup({
           id: `${chart.id}-regression-line`,
@@ -215,13 +245,12 @@ function regressionLine(params: Params<ScatterOptions>): Params<ScatterOptions> 
  */
 export function tooltip(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { tooltip, shapeField, colorField, xField, yField, sizeField } = options;
+  const { tooltip } = options;
 
   if (tooltip) {
-    chart.tooltip({
-      fields: [xField, yField, colorField, sizeField, shapeField],
-      ...tooltip,
-    });
+    chart.tooltip(tooltip);
+  } else if (tooltip === false) {
+    chart.tooltip(false);
   }
 
   return params;
@@ -235,6 +264,7 @@ export function tooltip(params: Params<ScatterOptions>): Params<ScatterOptions> 
 export function adaptor(params: Params<ScatterOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
+    transformOptions,
     geometry,
     meta,
     axis,

@@ -1,3 +1,3 @@
-import { LegendCfg } from '@antv/g2/lib/interface';
+import { Types } from '@antv/g2';
 
-export type Legend = false | LegendCfg;
+export type Legend = false | Types.LegendCfg;

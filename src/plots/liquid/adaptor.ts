@@ -14,7 +14,7 @@ const CAT_VALUE = 'liquid';
  */
 function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
   const { chart, options } = params;
-  const { percent, color, liquidStyle, radius } = options;
+  const { percent, color, liquidStyle, radius, outline, wave } = options;
 
   const data = [{ percent, type: CAT_VALUE }];
 
@@ -47,6 +47,8 @@ function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
   // 将 radius 传入到自定义 shape 中
   geometry.customInfo({
     radius,
+    outline,
+    wave,
   });
 
   // 关闭组件

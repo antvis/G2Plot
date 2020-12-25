@@ -64,7 +64,7 @@ function multiView(params: Params<MultiViewOptions>): Params<MultiViewOptions> {
       }
     });
 
-    // 7. annotations
+    // 8. annotations
     each(annotations, (annotation) => {
       viewOfG2.annotation()[annotation.type]({
         ...annotation,

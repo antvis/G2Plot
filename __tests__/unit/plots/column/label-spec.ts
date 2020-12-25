@@ -207,4 +207,88 @@ describe('column label', () => {
 
     column.destroy();
   });
+
+  it('default layout, off', () => {
+    const plot = new Column(createDiv('default layout, off'), {
+      width: 400,
+      height: 300,
+      data: salesByArea,
+      xField: 'area',
+      yField: 'sales',
+      meta: {
+        sales: {
+          nice: true,
+          formatter: (v) => `${Math.floor(v / 10000)}万`,
+        },
+      },
+    });
+
+    plot.render();
+
+    expect(plot.chart.geometries[0].labelOption).toBeFalsy();
+
+    plot.destroy();
+  });
+
+  it('default layout, on', () => {
+    const plot = new Column(createDiv('default layout, on'), {
+      width: 400,
+      height: 300,
+      data: salesByArea,
+      xField: 'area',
+      yField: 'sales',
+      meta: {
+        sales: {
+          nice: true,
+          formatter: (v) => `${Math.floor(v / 10000)}万`,
+        },
+      },
+      label: {},
+    });
+
+    plot.render();
+
+    // @ts-ignore
+    expect(plot.chart.geometries[0].labelOption.cfg).toEqual({
+      layout: [
+        { type: 'interval-adjust-position' },
+        { type: 'interval-hide-overlap' },
+        { type: 'adjust-color' },
+        { type: 'limit-in-plot', cfg: { action: 'hide' } },
+      ],
+    });
+
+    plot.destroy();
+  });
+
+  it('default layout, custom', () => {
+    const plot = new Column(createDiv('default layout, custom'), {
+      width: 400,
+      height: 300,
+      data: salesByArea,
+      xField: 'area',
+      yField: 'sales',
+      meta: {
+        sales: {
+          nice: true,
+          formatter: (v) => `${Math.floor(v / 10000)}万`,
+        },
+      },
+      label: {
+        layout: [
+          {
+            type: 'adjust-color',
+          },
+        ],
+      },
+    });
+
+    plot.render();
+    // @ts-ignore
+    expect(plot.chart.geometries[0].labelOption.cfg).toEqual({
+      layout: [{ type: 'adjust-color' }],
+    });
+
+    plot.destroy();
+  });
 });

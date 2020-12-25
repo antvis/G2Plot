@@ -11,6 +11,8 @@ export const AXIS_META_CONFIG_KEYS = [
   'nice',
   'minLimit',
   'maxLimit',
+  // 坐标轴的范围
+  'range',
   'tickMethod',
   // type: 'log' 的底
   'base',

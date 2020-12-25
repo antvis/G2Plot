@@ -1,7 +1,7 @@
 import { Geometry } from '@antv/g2';
 import { each } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip, slider, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
+import { tooltip, slider, interaction, animation, theme, scale, annotation, limitInPlot } from '../../adaptor/common';
 import { findGeometry, transformLabel, deepAssign } from '../../utils';
 import { point, line } from '../../adaptor/geometries';
 import { flow } from '../../utils';
@@ -14,17 +14,18 @@ import { LineOptions } from './types';
  */
 function geometry(params: Params<LineOptions>): Params<LineOptions> {
   const { chart, options } = params;
-  const { data, color, lineStyle, point: pointMapping, seriesField } = options;
+  const { data, color, lineStyle, lineShape, point: pointMapping, seriesField } = options;
 
   chart.data(data);
 
   // line geometry 处理
-  const p = deepAssign({}, params, {
+  const primary = deepAssign({}, params, {
     options: {
       shapeField: seriesField,
       line: {
         color,
         style: lineStyle,
+        shape: lineShape,
       },
       // 颜色保持一致，因为如果颜色不一致，会导致 tooltip 中元素重复。
       // 如果存在，才设置，否则为空
@@ -33,11 +34,15 @@ function geometry(params: Params<LineOptions>): Params<LineOptions> {
         shape: 'circle',
         ...pointMapping,
       },
+      // label 不传递给各个 geometry adaptor，由 label adaptor 处理
+      label: undefined,
     },
   });
+  const second = deepAssign({}, primary, { options: { tooltip: false } });
 
-  line(p);
-  point(p);
+  line(primary);
+  point(second);
+
   return params;
 }
 
@@ -58,7 +63,6 @@ export function meta(params: Params<LineOptions>): Params<LineOptions> {
       {
         [xField]: {
           type: 'cat',
-          range: [0, 1],
         },
         [yField]: adjustYMetaByZero(data, yField),
       }
@@ -125,7 +129,15 @@ function label(params: Params<LineOptions>): Params<LineOptions> {
     lineGeometry.label({
       fields: [yField],
       callback,
-      cfg: transformLabel(cfg),
+      cfg: {
+        layout: [
+          { type: 'limit-in-plot' },
+          { type: 'path-adjust-position' },
+          { type: 'point-adjust-position' },
+          { type: 'limit-in-plot', cfg: { action: 'hide' } },
+        ],
+        ...transformLabel(cfg),
+      },
     });
   }
 
@@ -168,6 +180,7 @@ export function adaptor(params: Params<LineOptions>) {
     slider,
     interaction,
     animation,
-    annotation()
+    annotation(),
+    limitInPlot
   )(params);
 }

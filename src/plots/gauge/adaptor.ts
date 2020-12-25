@@ -1,8 +1,9 @@
 import { isString, clamp, size } from '@antv/util';
 import { interaction, animation, theme, scale } from '../../adaptor/common';
+import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { Params } from '../../core/adaptor';
 import { Data } from '../../types';
-import { deepAssign, flow, renderGaugeStatistic } from '../../utils';
+import { deepAssign, flow, pick, renderGaugeStatistic } from '../../utils';
 import { RANGE_TYPE, RANGE_VALUE, PERCENT, DEFAULT_COLOR } from './constant';
 import { GaugeOptions } from './types';
 import { processRangeData } from './utils';
@@ -41,6 +42,8 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
     });
 
     v1.axis(PERCENT, axis);
+    // 一部分应用到 scale 中
+    v1.scale(PERCENT, pick(axis, AXIS_META_CONFIG_KEYS));
   }
 
   // 辅助 range

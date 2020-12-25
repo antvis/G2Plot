@@ -1,5 +1,5 @@
 import { Geometry } from '@antv/g2';
-import { each } from '@antv/util';
+import { each, isNil, isObject } from '@antv/util';
 import { Params } from '../core/adaptor';
 import { Options } from '../types';
 import { Interaction } from '../types/interaction';
@@ -182,4 +182,27 @@ export function annotation(annotationOptions?: Options['annotations']) {
 
     return params;
   };
+}
+
+/**
+ * 自动设置 limitInPlot
+ * @param params
+ */
+export function limitInPlot(params: Params<Options>): Params<Options> {
+  const { chart, options } = params;
+  const { yAxis, limitInPlot } = options;
+
+  let value = limitInPlot;
+
+  // 用户没有设置 limitInPlot，则自动根据 yAxis 是否有 min/max 来设置 limitInPlot
+  if (isObject(yAxis) && isNil(limitInPlot)) {
+    if (Object.values(pick(yAxis, ['min', 'max', 'minLimit', 'maxLimit'])).some((value) => !isNil(value))) {
+      value = true;
+    } else {
+      value = false;
+    }
+  }
+  chart.limitInPlot = value;
+
+  return params;
 }

@@ -21,6 +21,11 @@ const dualAxes = new DualAxes('container', {
       geometry: 'line',
       smooth: false,
       color: '#5B8FF9',
+      label: {
+        formatter: (datum) => {
+          return `${datum.value}个`;
+        },
+      },
       lineStyle: {
         lineWidth: 3,
         lineDash: [5, 5],
@@ -34,7 +39,11 @@ const dualAxes = new DualAxes('container', {
         lineWidth: 4,
         opacity: 0.5,
       },
-      label: {},
+      label: {
+        formatter: (datum) => {
+          return `${datum.count}个`;
+        },
+      },
       point: {
         shape: 'circle',
         size: 4,

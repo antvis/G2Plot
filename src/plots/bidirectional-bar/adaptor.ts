@@ -1,11 +1,12 @@
 import { View } from '@antv/g2';
-import { groupBy } from '@antv/util';
+import { get, groupBy } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import {
   tooltip,
   interaction as commonInteraction,
   animation as commonAnimation,
   theme as commonTheme,
+  limitInPlot as commonLimitInPlot,
   scale,
 } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
@@ -83,7 +84,7 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
       .rotate(Math.PI * 0); // 旋转
   }
 
-  firstView.data(groupData[0]);
+  firstView.data(get(groupData, [0], []));
   const left = deepAssign({}, params, {
     chart: firstView,
     options: {
@@ -99,7 +100,7 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
   });
   interval(left);
 
-  secondView.data(groupData[1]);
+  secondView.data(get(groupData, [1], []));
   const right = deepAssign({}, params, {
     chart: secondView,
     options: {
@@ -198,6 +199,35 @@ export function interaction(params: Params<BidirectionalBarOptions>): Params<Bid
 }
 
 /**
+ * limitInPlot
+ * @param params
+ */
+export function limitInPlot(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarOptions> {
+  const { chart, options } = params;
+  const { yField, yAxis } = options;
+
+  commonLimitInPlot(
+    deepAssign({}, params, {
+      chart: findViewById(chart, FIRST_AXES_VIEW),
+      options: {
+        yAxis: yAxis[yField[0]],
+      },
+    })
+  );
+
+  commonLimitInPlot(
+    deepAssign({}, params, {
+      chart: findViewById(chart, SECOND_AXES_VIEW),
+      options: {
+        yAxis: yAxis[yField[1]],
+      },
+    })
+  );
+
+  return params;
+}
+
+/**
  * theme
  * @param params
  */
@@ -263,5 +293,5 @@ function label(params: Params<BidirectionalBarOptions>): Params<BidirectionalBar
  */
 export function adaptor(params: Params<BidirectionalBarOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(geometry, meta, axis, theme, label, tooltip, interaction, animation)(params);
+  return flow(geometry, meta, axis, limitInPlot, theme, label, tooltip, interaction, animation)(params);
 }

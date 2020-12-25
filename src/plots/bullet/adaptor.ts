@@ -172,13 +172,28 @@ function label(params: Params<BulletOptions>): Params<BulletOptions> {
   const [rangeGeometry, measureGeometry, targetGeometry] = chart.geometries;
 
   if (get(label, 'range')) {
-    rangeGeometry.label(`${rangeField}`, transformLabel(label.range));
+    rangeGeometry.label(`${rangeField}`, {
+      layout: [{ type: 'limit-in-plot' }],
+      ...transformLabel(label.range),
+    });
+  } else {
+    rangeGeometry.label(false);
   }
   if (get(label, 'measure')) {
-    measureGeometry.label(`${measureField}`, transformLabel(label.measure));
+    measureGeometry.label(`${measureField}`, {
+      layout: [{ type: 'limit-in-plot' }],
+      ...transformLabel(label.measure),
+    });
+  } else {
+    measureGeometry.label(false);
   }
   if (get(label, 'target')) {
-    targetGeometry.label(`${targetField}`, transformLabel(label.target));
+    targetGeometry.label(`${targetField}`, {
+      layout: [{ type: 'limit-in-plot' }],
+      ...transformLabel(label.target),
+    });
+  } else {
+    targetGeometry.label(false);
   }
 
   return params;

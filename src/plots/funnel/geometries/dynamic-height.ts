@@ -1,13 +1,13 @@
-import { map, reduce } from '@antv/util';
-import { LineOption } from '@antv/g2/lib/interface';
-import { flow, findGeometry } from '../../../utils';
+import { map, reduce, maxBy, isArray, get } from '@antv/util';
+import { Types } from '@antv/g2';
+import { flow } from '../../../utils';
 import { Params } from '../../../core/adaptor';
 import { FUNNEL_PERCENT, FUNNEL_CONVERSATION, FUNNEL_TOTAL_PERCENT, PLOYGON_X, PLOYGON_Y } from '../constant';
 import { geometry as baseGeometry } from '../../../adaptor/geometries/base';
 import { getTooltipMapping } from '../../../utils/tooltip';
 import { Datum, Data } from '../../../types/common';
 import { FunnelOptions } from '../types';
-import { geometryLabel, conversionTagComponent } from './common';
+import { conversionTagComponent } from './common';
 
 /**
  * 动态高度漏斗图
@@ -35,6 +35,8 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
     },
     0
   );
+
+  const max = maxBy(data, yField)[yField];
 
   const formatData = map(data, (row, index) => {
     // 储存四个点 x，y 坐标，方向为顺时针，即 [左上, 右上，右下，左下]
@@ -67,8 +69,8 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
     // 赋值
     row[PLOYGON_X] = x;
     row[PLOYGON_Y] = y;
-    row[FUNNEL_PERCENT] = row[yField] / data[0][yField];
-    row[FUNNEL_CONVERSATION] = index === 0 ? 1 : row[yField] / data[index - 1][yField];
+    row[FUNNEL_PERCENT] = row[yField] / max;
+    row[FUNNEL_CONVERSATION] = [get(data, [index - 1, yField]), row[yField]];
     return row;
   });
 
@@ -83,9 +85,9 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { xField, yField, color, tooltip } = options;
+  const { xField, yField, color, tooltip, label } = options;
 
-  const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, FUNNEL_PERCENT, FUNNEL_CONVERSATION]);
+  const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField]);
   // 绘制漏斗图
   baseGeometry({
     chart,
@@ -94,7 +96,8 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
       xField: PLOYGON_X,
       yField: PLOYGON_Y,
       colorField: xField,
-      tooltipFields: fields,
+      tooltipFields: isArray(fields) && fields.concat([FUNNEL_PERCENT, FUNNEL_CONVERSATION]),
+      label,
       mapping: {
         tooltip: formatter,
         color,
@@ -119,18 +122,6 @@ function transpose(params: Params<FunnelOptions>): Params<FunnelOptions> {
 }
 
 /**
- * label 处理
- * @param params
- */
-function label(params: Params<FunnelOptions>): Params<FunnelOptions> {
-  const { chart } = params;
-
-  geometryLabel(findGeometry(chart, 'polygon'))(params);
-
-  return params;
-}
-
-/**
  * 转化率组件
  * @param params
  */
@@ -140,7 +131,7 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
     datumIndex: number,
     data: Data,
     initLineOption: Record<string, any>
-  ): LineOption => {
+  ): Types.LineOption => {
     return {
       ...initLineOption,
       start: [datum[PLOYGON_X][1], datum[PLOYGON_Y][1]],
@@ -159,5 +150,5 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
  * @param options
  */
 export function dynamicHeightFunnel(params: Params<FunnelOptions>) {
-  return flow(field, geometry, transpose, label, conversionTag)(params);
+  return flow(field, geometry, transpose, conversionTag)(params);
 }

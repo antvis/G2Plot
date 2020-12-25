@@ -1,5 +1,4 @@
-import { Chart, Event } from '@antv/g2';
-import Element from '@antv/g2/lib/geometry/element';
+import { Chart, Event, Element } from '@antv/g2';
 import { each } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
@@ -19,7 +18,10 @@ export type PickOptions = Pick<
   | 'autoFit'
   | 'syncViewPadding'
   | 'supportCSSTransform'
+  | 'limitInPlot'
 >;
+
+const SOURCE_ATTRIBUTE_NAME = 'data-chart-source-type';
 
 /**
  * 所有 plot 的基类
@@ -60,6 +62,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
       pixelRatio,
       syncViewPadding,
       supportCSSTransform,
+      limitInPlot,
     } = this.options;
 
     this.chart = new Chart({
@@ -73,9 +76,11 @@ export abstract class Plot<O extends PickOptions> extends EE {
       localRefresh: false, // 默认关闭，目前 G 还有一些位置问题，难以排查！
       syncViewPadding,
       supportCSSTransform,
-      /** 图形不超出画布 */
-      limitInPlot: false,
+      limitInPlot,
     });
+
+    // 给容器增加标识，知道图表的来源区别于 G2
+    this.container.setAttribute(SOURCE_ATTRIBUTE_NAME, 'G2Plot');
   }
 
   /**
@@ -111,8 +116,8 @@ export abstract class Plot<O extends PickOptions> extends EE {
       xAxis: {
         nice: true,
         label: {
-          autoRotate: true,
-          autoHide: true,
+          autoRotate: false,
+          autoHide: { type: 'equidistance', cfg: { minGap: 6 } },
         },
       },
       yAxis: {
@@ -228,6 +233,8 @@ export abstract class Plot<O extends PickOptions> extends EE {
     this.chart.destroy();
     // 清空已经绑定的事件
     this.off();
+
+    this.container.removeAttribute(SOURCE_ATTRIBUTE_NAME);
   }
 
   /**
@@ -236,9 +243,11 @@ export abstract class Plot<O extends PickOptions> extends EE {
   protected execAdaptor() {
     const adaptor = this.getSchemaAdaptor();
 
-    const { padding } = this.options;
+    const { padding, appendPadding } = this.options;
     // 更新 padding
     this.chart.padding = padding;
+    // 更新 appendPadding
+    this.chart.appendPadding = appendPadding;
 
     // 转化成 G2 API
     adaptor({

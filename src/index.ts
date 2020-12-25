@@ -1,4 +1,4 @@
-export const version = '2.2.11';
+export const version = '2.3.4';
 
 // G2 自定义能力透出
 import * as G2 from '@antv/g2';
@@ -96,6 +96,12 @@ export { BidirectionalBar, BidirectionalBarOptions } from './plots/bidirectional
 
 // 矩形树图
 export { Treemap, TreemapOptions } from './plots/treemap';
+
+// 桑基图及类型定义 | author by [hustcc](https://github.com/hustcc)
+export { Sankey, SankeyOptions } from './plots/sankey';
+
+// 弦图及类型定义 | author by [MrSmallLiu](https://github.com/MrSmallLiu)
+export { Chord, ChordOptions } from './plots/chord';
 
 // 以下开放自定义图表开发的能力（目前仅仅是孵化中）
 /** 所有开放图表都使用 G2Plot.P 作为入口开发，理论上官方的所有图表都可以走 G2Plot.P 的入口（暂时不处理） */

@@ -1,10 +1,21 @@
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../utils';
-import { tooltip, slider, interaction, animation, theme, scale, annotation, scrollbar } from '../../adaptor/common';
+import {
+  tooltip,
+  slider,
+  interaction,
+  animation,
+  theme,
+  scale,
+  annotation,
+  scrollbar,
+  limitInPlot,
+} from '../../adaptor/common';
 import { conversionTag } from '../../adaptor/conversion-tag';
 import { connectedArea } from '../../adaptor/connected-area';
 import { interval } from '../../adaptor/geometries';
 import { flow, transformLabel, deepAssign } from '../../utils';
+import { adjustYMetaByZero } from '../../utils/data';
 import { percent } from '../../utils/transform/percent';
 import { Datum } from '../../types';
 import { ColumnOptions } from './types';
@@ -78,7 +89,9 @@ function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
  */
 function meta(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { options } = params;
-  const { xAxis, yAxis, xField, yField } = options;
+  const { xAxis, yAxis, xField, yField, data, isPercent } = options;
+
+  const percentYMeta = isPercent ? { max: 1, min: 0, minLimit: 0, maxLimit: 1 } : {};
 
   return flow(
     scale(
@@ -89,6 +102,10 @@ function meta(params: Params<ColumnOptions>): Params<ColumnOptions> {
       {
         [xField]: {
           type: 'cat',
+        },
+        [yField]: {
+          ...adjustYMetaByZero(data, yField),
+          ...percentYMeta,
         },
       }
     )
@@ -153,16 +170,27 @@ function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
     geometry.label({
       fields: [yField],
       callback,
-      cfg: transformLabel(
-        isRange
-          ? {
-              content: (item: object) => {
-                return item[yField]?.join('-');
-              },
-              ...cfg,
-            }
-          : cfg
-      ),
+      cfg: {
+        // 配置默认的 label layout： 如果用户没有指定 layout 和 position， 则自动配置 layout
+        layout: cfg?.position
+          ? undefined
+          : [
+              { type: 'interval-adjust-position' },
+              { type: 'interval-hide-overlap' },
+              { type: 'adjust-color' },
+              { type: 'limit-in-plot', cfg: { action: 'hide' } },
+            ],
+        ...transformLabel(
+          isRange
+            ? {
+                content: (item: object) => {
+                  return item[yField]?.join('-');
+                },
+                ...cfg,
+              }
+            : cfg
+        ),
+      },
     });
   }
 
@@ -191,6 +219,7 @@ export function adaptor(params: Params<ColumnOptions>, isBar = false) {
     animation,
     annotation(),
     conversionTag<ColumnOptions>(options.yField, !isBar, !!seriesField), // 有拆分的时候禁用转化率
-    connectedArea<ColumnOptions>(!options.isStack)
+    connectedArea<ColumnOptions>(!options.isStack),
+    limitInPlot
   )(params);
 }

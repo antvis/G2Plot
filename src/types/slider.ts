@@ -1,1 +1,3 @@
-export { SliderOption as Slider } from '@antv/g2/lib/interface';
+import { Types } from '@antv/g2';
+
+export type Slider = Types.SliderOption;

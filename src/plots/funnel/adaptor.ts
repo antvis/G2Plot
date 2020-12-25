@@ -1,11 +1,13 @@
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme, scale, annotation, tooltip } from '../../adaptor/common';
 import { flow, deepAssign } from '../../utils';
+import { conversionTagFormatter } from '../../utils/conversion';
 import { FunnelOptions } from './types';
 import { basicFunnel } from './geometries/basic';
 import { compareFunnel } from './geometries/compare';
+import { facetFunnel } from './geometries/facet';
 import { dynamicHeightFunnel } from './geometries/dynamic-height';
-import { FUNNEL_CONVERSATION } from './constant';
+import { FUNNEL_CONVERSATION, FUNNEL_MAPPING_VALUE, FUNNEL_PERCENT } from './constant';
 
 /**
  *
@@ -13,6 +15,7 @@ import { FUNNEL_CONVERSATION } from './constant';
  * 1. 普通漏斗图：interval.shape('funnel')
  * 2. 对比漏斗图：分面
  * 3. 动态高度漏斗图：polypon
+ * 4. 分面漏斗图：普通 + list 分面
 * /
 
 /**
@@ -23,15 +26,34 @@ function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { options } = params;
   const { compareField, xField, yField } = options;
   const defaultOption = {
-    label: {
-      offset: 0,
-      position: 'middle',
-      style: {
-        fill: '#fff',
-        fontSize: 12,
+    minSize: 0,
+    maxSize: 1,
+    meta: {
+      [FUNNEL_MAPPING_VALUE]: {
+        min: 0,
+        max: 1,
+        nice: false,
       },
-      formatter: compareField ? (datum) => `${datum[yField]}` : (datum) => `${datum[xField]} ${datum[yField]}`,
     },
+    label: compareField
+      ? {
+          fields: [xField, yField, compareField, FUNNEL_PERCENT, FUNNEL_CONVERSATION],
+          style: {
+            fill: '#fff',
+            fontSize: 12,
+          },
+          formatter: (datum) => `${datum[yField]}`,
+        }
+      : {
+          fields: [xField, yField, FUNNEL_PERCENT, FUNNEL_CONVERSATION],
+          offset: 0,
+          position: 'middle',
+          style: {
+            fill: '#fff',
+            fontSize: 12,
+          },
+          formatter: (datum) => `${datum[xField]} ${datum[yField]}`,
+        },
     tooltip: {
       showTitle: false,
       showMarkers: false,
@@ -45,7 +67,8 @@ function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
       offsetX: 10,
       offsetY: 0,
       style: {},
-      formatter: (datum) => `转化率${(datum[FUNNEL_CONVERSATION] * 100).toFixed(2)}%`,
+      // conversionTag 的计算和显示逻辑统一保持一致
+      formatter: (datum) => `转化率: ${conversionTagFormatter(...(datum[FUNNEL_CONVERSATION] as [number, number]))}`,
     },
   };
 
@@ -63,7 +86,10 @@ function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { options } = params;
-  const { compareField, dynamicHeight } = options;
+  const { compareField, dynamicHeight, seriesField } = options;
+  if (seriesField) {
+    return facetFunnel(params);
+  }
   if (compareField) {
     return compareFunnel(params);
   }

@@ -1,0 +1,72 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "基础漏斗图",
+        "en": "Basic funnel plot"
+      },
+      "screenshot": "https://gw.alicdn.com/tfs/TB158FxuAT2gK0jSZPcXXcKkpXa-646-500.png"
+    },
+    {
+      "filename": "dynamic-height.ts",
+      "title": {
+        "zh": "动态高度漏斗图",
+        "en": "Dynamic height funnel plot"
+      },
+      "screenshot": "https://gw.alicdn.com/tfs/TB1Tgtyurj1gK0jSZFOXXc7GpXa-786-503.png"
+    },
+    {
+      "filename": "compare.ts",
+      "title": {
+        "zh": "对比漏斗图",
+        "en": "Compare funnel plot"
+      },
+      "screenshot": "https://gw.alicdn.com/tfs/TB1Y7dtuAL0gK0jSZFtXXXQCXXa-709-495.png"
+    },
+    {
+      "filename": "facet.ts",
+      "title": {
+        "zh": "分面漏斗图",
+        "en": "Facet funnel plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Zk1rRJvD8zwAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "basic-transpose.ts",
+      "title": {
+        "zh": "基础漏斗图-转置",
+        "en": "Funnel plot-transpose"
+      },
+      "screenshot": "https://gw.alicdn.com/tfs/TB1EgtsuuT2gK0jSZFvXXXnFXXa-958-591.png"
+    },
+    {
+      "filename": "dynamic-height-transpose.ts",
+      "title": {
+        "zh": "动态高度漏斗图-转置",
+        "en": "Dynamic height funnel plot"
+      },
+      "screenshot": "https://gw.alicdn.com/tfs/TB1OzRyuq61gK0jSZFlXXXDKFXa-1108-556.png"
+    },
+    { 
+      "filename": "compare-transpose.ts",
+      "title": {
+        "zh": "对比漏斗图-转置",
+        "en": "Compare funnel plot"
+      },
+      "screenshot": "https://gw.alicdn.com/tfs/TB1Hkluurr1gK0jSZR0XXbP8XXa-1095-565.png"
+    },
+    { 
+      "filename": "facet-transpose.ts",
+      "title": {
+        "zh": "分面漏斗图-转置",
+        "en": "Facet funnel plot-transpose"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*lbtdRJjZ4qsAAAAAAAAAAAAAARQnAQ"
+    }
+  ]
+}

@@ -28,8 +28,16 @@ module.exports = {
       {
         slug: 'docs/manual',
         title: {
-          zh: '使用文档',
+          zh: '教程',
           en: 'Manual',
+        },
+        order: 2,
+      },
+      {
+        slug: 'docs/api',
+        title: {
+          zh: 'API',
+          en: 'API',
         },
         order: 1,
       },
@@ -51,9 +59,17 @@ module.exports = {
     ],
     docs: [
       {
-        slug: 'manual/plots',
+        slug: 'api/components',
         title: {
-          zh: '图表',
+          zh: '图表组件',
+          en: 'Components',
+        },
+        order: 2,
+      },
+      {
+        slug: 'api/plots',
+        title: {
+          zh: '基础图表',
           en: 'Plots',
         },
         order: 3,
@@ -101,22 +117,6 @@ module.exports = {
         },
       },
       {
-        slug: 'pie',
-        icon: 'pie',
-        title: {
-          zh: '饼图',
-          en: 'Pie',
-        },
-      },
-      {
-        slug: 'gauge',
-        icon: 'gauge',
-        title: {
-          zh: '仪表盘',
-          en: 'Gauge',
-        },
-      },
-      {
         slug: 'bar',
         icon: 'bar',
         title: {
@@ -125,19 +125,27 @@ module.exports = {
         },
       },
       {
-        slug: 'waterfall',
-        icon: 'column',
+        slug: 'pie',
+        icon: 'pie',
         title: {
-          zh: '瀑布图',
-          en: 'Waterfall Charts',
+          zh: '饼图',
+          en: 'Pie',
+        },
+      },
+      {
+        slug: 'progress-plots',
+        icon: 'gauge',
+        title: {
+          zh: '进度图',
+          en: 'Progress Plots',
         },
       },
       {
         slug: 'scatter',
         icon: 'point',
         title: {
-          zh: '散点图',
-          en: 'Scatter',
+          zh: '散点气泡图',
+          en: 'Scatter and Bubble',
         },
       },
       {
@@ -149,54 +157,6 @@ module.exports = {
         },
       },
       {
-        slug: 'radar',
-        icon: 'radar',
-        title: {
-          zh: '雷达图',
-          en: 'Radar',
-        },
-      },
-      {
-        slug: 'liquid',
-        icon: 'other',
-        title: {
-          zh: '水波图',
-          en: 'Liquid',
-        },
-      },
-      {
-        slug: 'word-cloud',
-        icon: 'word-cloud',
-        title: {
-          zh: '词云图',
-          en: 'Word Cloud',
-        },
-      },
-      {
-        slug: 'funnel',
-        icon: 'funnel',
-        title: {
-          zh: '漏斗图',
-          en: 'Funnel',
-        },
-      },
-      {
-        slug: 'bullet',
-        icon: 'bullet',
-        title: {
-          zh: '子弹图',
-          en: 'Bullet',
-        },
-      },
-      {
-        slug: 'histogram',
-        icon: 'histogram',
-        title: {
-          zh: '直方图',
-          en: 'Histogram',
-        },
-      },
-      {
         slug: 'rose',
         icon: 'rose',
         title: {
@@ -205,19 +165,11 @@ module.exports = {
         },
       },
       {
-        slug: 'tiny',
-        icon: 'other',
+        slug: 'relation-plots',
+        icon: 'sankey',
         title: {
-          zh: '迷你图',
-          en: 'Tiny Charts',
-        },
-      },
-      {
-        slug: 'box',
-        icon: 'box',
-        title: {
-          zh: '箱型图',
-          en: 'Box',
+          zh: '关系图',
+          en: 'Relation Plots',
         },
       },
       {
@@ -225,39 +177,23 @@ module.exports = {
         icon: 'heatmap',
         title: {
           zh: '热力图',
-          en: 'heatmap',
+          en: 'Heatmap',
         },
       },
       {
-        slug: 'stock',
-        icon: 'candlestick',
-        title: {
-          zh: '股票图',
-          en: 'Stock',
-        },
-      },
-      {
-        slug: 'sunburst',
+        slug: 'tiny',
         icon: 'other',
         title: {
-          zh: '旭日图',
-          en: 'Sunburst',
+          zh: '迷你图',
+          en: 'Tiny Plots',
         },
       },
       {
-        slug: 'radial-bar',
-        icon: 'radial-bar',
+        slug: 'more-plots',
+        icon: 'other',
         title: {
-          zh: '玉珏图',
-          en: 'Radial Bar',
-        },
-      },
-      {
-        slug: 'bidirectional-bar',
-        icon: 'bi-directional-bar',
-        title: {
-          zh: '对称条形图',
-          en: 'Bidirectional Bar',
+          zh: '更多图表',
+          en: 'More Plots',
         },
       },
       {

@@ -119,6 +119,30 @@ describe('tiny-line', () => {
     tinyLine.destroy();
   });
 
+  it('second geometry tooltip', () => {
+    const tinyLine = new TinyLine(createDiv(), {
+      width: 80,
+      height: 40,
+      point: {},
+      data: partySupport
+        .filter((o) => o.type === 'FF')
+        .map((item) => {
+          return item.value;
+        }),
+      autoFit: true,
+    });
+
+    tinyLine.render();
+    const chart = tinyLine.chart;
+    const lineGeometry = chart.geometries.find((geom) => geom.type === 'line');
+    const pointGeometry = chart.geometries.find((geom) => geom.type === 'point');
+
+    expect(lineGeometry.tooltipOption).toBeUndefined();
+    expect(pointGeometry.tooltipOption).toBe(false);
+
+    tinyLine.destroy();
+  });
+
   it('data with custom tooltip', () => {
     const tinyLine = new TinyLine(createDiv(), {
       width: 80,

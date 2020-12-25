@@ -1,12 +1,12 @@
 import { each, findIndex, get, find, isObject, every } from '@antv/util';
-import { Scale } from '@antv/g2/lib/dependents';
-import { LegendItem } from '@antv/g2/lib/interface';
+import { Scale, Types } from '@antv/g2';
 import {
   theme,
   animation as commonAnimation,
   scale,
   interaction as commonInteraction,
   annotation as commonAnnotation,
+  limitInPlot as commonLimitInPlot,
 } from '../../adaptor/common';
 import { percent } from '../../utils/transform/percent';
 import { Params } from '../../core/adaptor';
@@ -288,6 +288,35 @@ export function animation(params: Params<DualAxesOptions>): Params<DualAxesOptio
 }
 
 /**
+ * 双轴图 limitInPlot
+ * @param params
+ */
+export function limitInPlot(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
+  const { chart, options } = params;
+  const { yField, yAxis } = options;
+
+  commonLimitInPlot(
+    deepAssign({}, params, {
+      chart: findViewById(chart, LEFT_AXES_VIEW),
+      options: {
+        yAxis: yAxis[yField[0]],
+      },
+    })
+  );
+
+  commonLimitInPlot(
+    deepAssign({}, params, {
+      chart: findViewById(chart, RIGHT_AXES_VIEW),
+      options: {
+        yAxis: yAxis[yField[1]],
+      },
+    })
+  );
+
+  return params;
+}
+
+/**
  * legend 配置
  * 使用 custom，便于和类似于分组柱状图-单折线图的逻辑统一
  * @param params
@@ -356,7 +385,10 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
             each(groupScale, (scale: Scale) => {
               if (scale.values && scale.values.indexOf(field) > -1) {
                 view.filter(scale.field, (value) => {
-                  const curLegendItem: LegendItem = find(legendItem, (item: LegendItem) => item.value === value);
+                  const curLegendItem: Types.LegendItem = find(
+                    legendItem,
+                    (item: Types.LegendItem) => item.value === value
+                  );
                   // 使用 legend 中的 unchecked 来判断，使得支持关闭多个图例
                   return !curLegendItem.unchecked;
                 });
@@ -384,6 +416,7 @@ export function adaptor(params: Params<DualAxesOptions>): Params<DualAxesOptions
     geometry,
     meta,
     axis,
+    limitInPlot,
     tooltip,
     interaction,
     annotation,

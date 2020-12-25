@@ -1,1 +1,0 @@
-`markdown:docs/manual/plots/bullet.en.md`

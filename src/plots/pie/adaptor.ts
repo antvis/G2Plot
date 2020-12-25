@@ -1,4 +1,4 @@
-import { every, filter, isFunction, isString, isNil, get } from '@antv/util';
+import { every, filter, isFunction, isString, isNil, get, isArray, isNumber } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
@@ -135,7 +135,7 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
               value,
               name,
               // percentage (string), default keep 2
-              percentage: percent ? `${(percent * 100).toFixed(2)}%` : null,
+              percentage: isNumber(percent) && !isNil(value) ? `${(percent * 100).toFixed(2)}%` : null,
             })
           : content;
       };
@@ -146,8 +146,9 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
       outer: 'pie-outer',
       spider: 'pie-spider',
     };
-    const labelLayoutType = LABEL_LAYOUT_TYPE_MAP[labelCfg.type] || 'pie-outer';
-    labelCfg.layout = deepAssign({}, labelCfg.layout, { type: labelLayoutType });
+    const labelLayoutType = labelCfg.type ? LABEL_LAYOUT_TYPE_MAP[labelCfg.type] : 'pie-outer';
+    const labelLayoutCfg = labelCfg.layout ? (!isArray(labelCfg.layout) ? [labelCfg.layout] : labelCfg.layout) : [];
+    labelCfg.layout = (labelLayoutType ? [{ type: labelLayoutType }] : []).concat(labelLayoutCfg);
 
     geometry.label({
       // fix: could not create scale, when field is undefined（attributes 中的 fields 定义都会被用来创建 scale）
@@ -173,20 +174,24 @@ function statistic(params: Params<PieOptions>): Params<PieOptions> {
 
   /** 中心文本 指标卡 */
   if (innerRadius && statistic) {
-    const { title, content } = statistic;
-    if (title !== false && !get(title, 'formatter')) {
-      // @ts-ignore
-      title.formatter = (datum) => (datum ? datum[colorField] : '总计');
+    let { title, content } = statistic;
+    if (title !== false) {
+      title = deepAssign({}, { formatter: (datum) => (datum ? datum[colorField] : '总计') }, title);
     }
-    if (content !== false && !get(content, 'formatter')) {
-      // @ts-ignore
-      content.formatter = (datum, data) => {
-        const metaFormatter = get(meta, [angleField, 'formatter']);
-        const dataValue = datum ? datum[angleField] : getTotalValue(data, angleField);
-        return metaFormatter ? metaFormatter(dataValue) : dataValue;
-      };
+    if (content !== false) {
+      content = deepAssign(
+        {},
+        {
+          formatter: (datum, data) => {
+            const metaFormatter = get(meta, [angleField, 'formatter']);
+            const dataValue = datum ? datum[angleField] : getTotalValue(data, angleField);
+            return metaFormatter ? metaFormatter(dataValue) : dataValue;
+          },
+        },
+        content
+      );
     }
-    renderStatistic(chart, { statistic, plotType: 'pie' });
+    renderStatistic(chart, { statistic: { title, content }, plotType: 'pie' });
   }
 
   return params;

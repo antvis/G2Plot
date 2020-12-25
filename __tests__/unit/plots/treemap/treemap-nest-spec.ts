@@ -47,5 +47,7 @@ describe('treemap', () => {
     expect(treemapPlot.chart.getController('axis').option).toBeFalsy();
     // @ts-ignore
     expect(geometry.labelOption.cfg.layout.type).toBe('limit-in-shape');
+
+    treemapPlot.destroy();
   });
 });

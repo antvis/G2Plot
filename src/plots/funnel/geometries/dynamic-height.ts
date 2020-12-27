@@ -31,7 +31,7 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const sum = reduce(
     data,
     (total, item) => {
-      return total + item[yField];
+      return total + (item[yField] || 0);
     },
     0
   );
@@ -43,7 +43,7 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
     const x = [];
     const y = [];
 
-    row[FUNNEL_TOTAL_PERCENT] = row[yField] / sum;
+    row[FUNNEL_TOTAL_PERCENT] = (row[yField] || 0) / sum;
 
     // 获取左上角，右上角坐标
     if (index) {
@@ -69,7 +69,7 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
     // 赋值
     row[PLOYGON_X] = x;
     row[PLOYGON_Y] = y;
-    row[FUNNEL_PERCENT] = row[yField] / max;
+    row[FUNNEL_PERCENT] = (row[yField] || 0) / max;
     row[FUNNEL_CONVERSATION] = [get(data, [index - 1, yField]), row[yField]];
     return row;
   });

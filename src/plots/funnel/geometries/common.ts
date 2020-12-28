@@ -22,13 +22,11 @@ export function transformData(
 
   // format 数据
   formatData = map(data, (row, index) => {
-    if (row[yField] !== undefined) {
-      const percent = row[yField] / maxYFieldValue;
-      row[FUNNEL_PERCENT] = percent;
-      row[FUNNEL_MAPPING_VALUE] = (max - min) * percent + min;
-      // 转化率数据存储前后数据
-      row[FUNNEL_CONVERSATION] = [get(data, [index - 1, yField]), row[yField]];
-    }
+    const percent = (row[yField] || 0) / maxYFieldValue;
+    row[FUNNEL_PERCENT] = percent;
+    row[FUNNEL_MAPPING_VALUE] = (max - min) * percent + min;
+    // 转化率数据存储前后数据
+    row[FUNNEL_CONVERSATION] = [get(data, [index - 1, yField]), row[yField]];
     return row;
   });
 

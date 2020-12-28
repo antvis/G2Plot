@@ -8,6 +8,7 @@ const DATA1 = [
   { stage: '录取人数', number: 87 },
   { stage: '入职人数', number: null },
   { stage: '离职人数', number: 10 },
+  { stage: '回流人数' },
 ];
 
 const DATA2 = [
@@ -17,16 +18,18 @@ const DATA2 = [
   { stage: '录取人数', number: 87, company: 'A公司' },
   { stage: '入职人数', number: null, company: 'A公司' },
   { stage: '离职人数', number: 10, company: 'A公司' },
+  { stage: '回流人数', company: 'A公司' },
   { stage: '简历筛选', number: 303, company: 'B公司' },
   { stage: '初试人数', number: 0, company: 'B公司' },
   { stage: '复试人数', number: 153, company: 'B公司' },
   { stage: '录取人数', number: 117, company: 'B公司' },
   { stage: '入职人数', number: 79, company: 'B公司' },
   { stage: '离职人数', number: 15, company: 'B公司' },
+  { stage: '回流人数', company: 'B公司' },
 ];
 
 describe('#2124', () => {
-  it('Funnel 数据为 null, 0 不能报错', async () => {
+  it('Funnel 数据为 null, 0, undefined 不能报错', async () => {
     const plot = new Funnel(createDiv(), {
       data: DATA1,
       xField: 'stage',
@@ -42,7 +45,7 @@ describe('#2124', () => {
         .getController('annotation')
         .getComponents()
         .map((co) => co.component.cfg.text.content)
-    ).toEqual(['转化率: 59.68%', '转化率: -∞', '转化率: ∞', '转化率: -', '转化率: -']);
+    ).toEqual(['转化率: 59.68%', '转化率: -∞', '转化率: ∞', '转化率: -', '转化率: -', '转化率: -']);
 
     plot.destroy();
   });
@@ -80,7 +83,7 @@ describe('#2124', () => {
         .getComponents()
         .filter((co) => co.component.cfg.type === 'line')
         .map((co) => co.component.cfg.text.content)
-    ).toEqual(['转化率: 59.68%', '转化率: -∞', '转化率: ∞', '转化率: -', '转化率: -']);
+    ).toEqual(['转化率: 59.68%', '转化率: -∞', '转化率: ∞', '转化率: -', '转化率: -', '转化率: -']);
 
     expect(
       plot.chart.views[1]
@@ -88,7 +91,29 @@ describe('#2124', () => {
         .getComponents()
         .filter((co) => co.component.cfg.type === 'line')
         .map((co) => co.component.cfg.text.content)
-    ).toEqual(['转化率: -∞', '转化率: ∞', '转化率: 76.47%', '转化率: 67.52%', '转化率: 18.99%']);
+    ).toEqual(['转化率: -∞', '转化率: ∞', '转化率: 76.47%', '转化率: 67.52%', '转化率: 18.99%', '转化率: -']);
+
+    plot.destroy();
+  });
+
+  it('动态高度漏斗图', async () => {
+    const plot = new Funnel(createDiv(), {
+      data: DATA1,
+      xField: 'stage',
+      yField: 'number',
+      dynamicHeight: true,
+      legend: false,
+      minSize: 0.1,
+    });
+
+    plot.render();
+
+    expect(
+      plot.chart
+        .getController('annotation')
+        .getComponents()
+        .map((co) => co.component.cfg.text.content)
+    ).toEqual(['转化率: 59.68%', '转化率: -∞', '转化率: ∞', '转化率: -', '转化率: -', '转化率: -']);
 
     plot.destroy();
   });

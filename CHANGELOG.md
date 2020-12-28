@@ -1,3 +1,9 @@
+#### 2.3.5 (2020-12-28)
+
+##### Bug Fixes
+
+*  funnel undefined render ([#2150](https://github.com/antvis/g2plot/pull/2150)) ([b443dbdf](https://github.com/antvis/g2plot/commit/b443dbdf8f870c770a83d7e63ebcf4ac7945c610))
+
 #### 2.3.4 (2020-12-24)
 
 ##### Documentation Changes

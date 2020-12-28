@@ -13,6 +13,15 @@ export class Line extends Plot<LineOptions> {
   public type: string = 'line';
 
   /**
+   * @override
+   * @param data
+   */
+  public changeData(data: LineOptions['data']) {
+    this.updateOption({ data });
+    this.chart.changeData(data);
+  }
+
+  /**
    * 获取 折线图 默认配置
    */
   protected getDefaultOptions() {

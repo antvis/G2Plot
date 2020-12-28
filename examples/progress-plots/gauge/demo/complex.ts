@@ -56,6 +56,6 @@ const interval = setInterval(() => {
   if (data >= 1) {
     clearInterval(interval);
   }
-  data += 0.1;
+  data += 0.01;
   gauge.changeData(data);
-}, 1000);
+}, 400);

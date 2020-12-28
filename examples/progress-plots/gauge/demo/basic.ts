@@ -49,7 +49,8 @@ const interval = setInterval(() => {
   if (data >= 0.85) {
     clearInterval(interval);
   } else {
-    data += 0.095;
-    gauge.update({ percent: data, range: { color: getColor(data) } });
+    data += 0.001;
+    gauge.changeData(data);
+    gauge.update({ range: { color: getColor(data) } });
   }
-}, 500);
+}, 100);

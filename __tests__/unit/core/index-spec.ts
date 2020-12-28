@@ -40,6 +40,40 @@ describe('core', () => {
     line.destroy();
   });
 
+  it('updateOption without render', () => {
+    const options = {
+      width: 400,
+      height: 300,
+      data: [
+        { date: '12-01', value: 1, type: 'bb' },
+        { date: '12-02', value: 12, type: 'bb' },
+      ],
+      xField: 'date',
+      yField: 'value',
+      seriesField: 'type',
+    };
+    const line = new Line(createDiv(), options);
+
+    line.render();
+
+    // @ts-ignore
+    line.updateOption({
+      data: [...line.options.data, { date: '12-01', value: 4, type: 'cc' }, { date: '12-02', value: 19, type: 'cc' }],
+    });
+
+    expect(line.chart.geometries[0].elements.length).toBe(1);
+
+    line.render();
+    expect(line.chart.geometries[0].elements.length).toBe(2);
+
+    line.update({
+      data: [...line.options.data, { date: '12-01', value: 4, type: 'dd' }, { date: '12-02', value: 19, type: 'dd' }],
+    });
+    expect(line.chart.geometries[0].elements.length).toBe(3);
+
+    line.destroy();
+  });
+
   it('update mix with default options', () => {
     const options = {
       width: 400,
@@ -53,9 +87,7 @@ describe('core', () => {
     line.render();
     const curOptions = clone(line.options);
 
-    line.update({ ...options, width: 500 });
-
-    line.render();
+    line.update({ width: 500 });
 
     expect(isEqual(line.options, deepMix(curOptions, { ...options, width: 500 }))).toBeTruthy();
 

@@ -15,4 +15,15 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38cc
     });
 
     line.render();
+
+    let year = 2017;
+    let month = 2;
+    const interval = setInterval(() => {
+      if (year > 2211) {
+        clearInterval(interval);
+      }
+      month = (month + 1) % 12;
+      year += Math.ceil(month / 12);
+      line.changeData([...line.options.data, { Date: `${year}-${month}`, scales: 1300 * Math.random() + 500 }]);
+    }, 500);
   });

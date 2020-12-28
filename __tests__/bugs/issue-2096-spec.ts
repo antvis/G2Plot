@@ -34,4 +34,8 @@ describe('#2096', () => {
     });
     expect(pie.chart.interactions.tooltip).toBeDefined();
   });
+
+  afterAll(() => {
+    pie.destroy();
+  });
 });

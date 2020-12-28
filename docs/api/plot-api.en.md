@@ -6,7 +6,7 @@ redirect_from:
 ---
 
 
-The core technology architecture of G2plot is very simple. All plots are inherited from a base class. The base class provides a common API method for all plots, and each specific visualization plot only processes its own configuration items. So all plots basically share the common API, except for some plots (such as Gauge and Liquid) that have subtle differences in the changedata API.
+The core technology architecture of G2Plot is very simple. All plots are inherited from a base class. The base class provides a common API method for all plots, and each specific visualization plot only processes its own configuration items. So all plots basically share the common API, except for some plots (such as Gauge and Liquid) that have subtle differences in the changedata API.
 
 
 ### 1. create a plot instance

@@ -10,7 +10,7 @@
         "zh": "基础折线图",
         "en": "Basic line plot"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*DRzUQ4UkxjMAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/aiERL4ey%24U/08d95f7b-46cb-4bfd-89b2-be36343d44a1.png"
     },
     {
       "filename": "spline.ts",
@@ -42,15 +42,15 @@
         "zh": "动态更新折线图",
         "en": "Line plot updated dynamic"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*7V6nSpj64uYAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/vOmMGBA1k6/dongtaigengxinzhexiantushuju2.gif"
     },
     {
-      "filename": "line-with-data-marker",
+      "filename": "line-with-data-marker.ts",
       "title": {
         "zh": "带标注点的折线图",
         "en": "Line plot with dataMarker"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/HUfUqARs9x/de2a0680-0276-499a-88f3-6bf75a9e197b.png"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/7jMv8M%26Dlh/dongtaigengxinzhexiantushuju.gif"
     },
     {
       "filename": "line-annotation.ts",

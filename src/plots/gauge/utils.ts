@@ -33,7 +33,7 @@ export function getIndicatorData(percent: GaugeOptions['percent']): Data {
  * @param percent
  * @param range
  */
-export function getRangeData(percent: GaugeOptions['percent'], range: GaugeOptions['range']): Data {
+export function getRangeData(percent: GaugeOptions['percent'], range?: GaugeOptions['range']): Data {
   const ticks = get(range, ['ticks'], []);
 
   const clampTicks = size(ticks) ? ticks : [0, clamp(percent, 0, 1), 1];

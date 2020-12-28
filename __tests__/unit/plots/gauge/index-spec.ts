@@ -1,4 +1,5 @@
 import { Gauge } from '../../../../src';
+import { INDICATEOR_VIEW_ID, RANGE_VIEW_ID } from '../../../../src/plots/gauge/constant';
 import { pick } from '../../../../src/utils';
 import { createDiv } from '../../../utils/dom';
 
@@ -114,6 +115,8 @@ describe('gauge', () => {
     });
 
     gauge.render();
+    expect(gauge.chart.views[0].id).toEqual(INDICATEOR_VIEW_ID);
+    expect(gauge.chart.views[1].id).toEqual(RANGE_VIEW_ID);
     // @ts-ignore
     expect(gauge.chart.views[1].getYScales()[0].ticks).toEqual([0, 0.25, 0.5, 0.75, 1]);
     expect(gauge.chart.views.length).toBe(2);
@@ -141,6 +144,7 @@ describe('gauge', () => {
 
     gauge.render();
 
+    expect(gauge.chart.views[0].id).toEqual(RANGE_VIEW_ID);
     expect(gauge.chart.views.length).toBe(1);
     expect(gauge.chart.views[0].geometries[0].type).toBe('interval');
 

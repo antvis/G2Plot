@@ -55,7 +55,6 @@ describe('core', () => {
     const line = new Line(createDiv(), options);
 
     line.render();
-    const curOptions = clone(line.options);
 
     // @ts-ignore
     line.updateOption({

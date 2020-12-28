@@ -3,6 +3,7 @@ import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { AreaOptions } from './types';
 import { adaptor } from './adaptor';
+import { getAreaData } from './utils';
 
 export { AreaOptions };
 
@@ -38,7 +39,7 @@ export class Area extends Plot<AreaOptions> {
    */
   public changeData(data: AreaOptions['data']) {
     this.updateOption({ data });
-    this.chart.changeData(data);
+    this.chart.changeData(getAreaData(this.options));
   }
 
   /**

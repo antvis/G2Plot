@@ -33,6 +33,15 @@ export class Area extends Plot<AreaOptions> {
   }
 
   /**
+   * @override
+   * @param data
+   */
+  public changeData(data: AreaOptions['data']) {
+    this.updateOption({ data });
+    this.chart.changeData(data);
+  }
+
+  /**
    * 获取 面积图 的适配器
    */
   protected getSchemaAdaptor(): Adaptor<AreaOptions> {

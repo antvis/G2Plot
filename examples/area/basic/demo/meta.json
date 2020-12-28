@@ -23,8 +23,8 @@
     {
       "filename": "basic-slider.ts",
       "title": {
-        "zh": "缩略轴面积图",
-        "en": "Slider area plot"
+        "zh": "带缩略轴面积图",
+        "en": "Area plot with slider"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*xXtxRLa2CHoAAAAAAAAAAAAAARQnAQ"
     },

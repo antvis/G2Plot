@@ -65,6 +65,18 @@ order: 2
 
 柱状图宽度占比 [0-1]。
 
+#### minColumnWidth
+
+<description>**optional** _number_</description>
+
+柱状图最小宽度设置，像素值。
+
+#### maxColumnWidth
+
+<description>**optional** _number_</description>
+
+柱状图最大宽度设置，像素值。
+
 #### marginRatio
 
 <description>**optional** _number_</description>

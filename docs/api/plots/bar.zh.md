@@ -63,6 +63,17 @@ order: 3
 
 条形图宽度占比 [0-1]。
 
+#### minBarWidth
+
+<description>**optional** _number_</description>
+
+条形图最小宽度设置，像素值。
+
+#### maxBarWidth
+
+<description>**optional** _number_</description>
+
+条形图最大宽度设置，像素值。
 #### marginRatio
 
 <description>**optional** _number_</description>

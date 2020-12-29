@@ -1,4 +1,4 @@
-import { Column } from '@antv/g2plot';
+import { Bar } from '@antv/g2plot';
 
 const data = [
   {
@@ -35,16 +35,11 @@ const data = [
   },
 ];
 
-const columnPlot = new Column('container', {
+const barPlot = new Bar('container', {
   data,
-  xField: 'type',
-  yField: 'sales',
-  xAxis: {
-    label: {
-      autoHide: true,
-      autoRotate: false,
-    },
-  },
+  xField: 'sales',
+  yField: 'type',
+  barWidthRatio: 0.8,
   meta: {
     type: {
       alias: '类别',
@@ -53,8 +48,6 @@ const columnPlot = new Column('container', {
       alias: '销售额',
     },
   },
-  minColumnWidth: 20,
-  maxColumnWidth: 20,
 });
 
-columnPlot.render();
+barPlot.render();

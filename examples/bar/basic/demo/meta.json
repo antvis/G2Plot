@@ -15,23 +15,31 @@
     {
       "filename": "color.ts",
       "title": {
-        "zh": "基础条形图 - 自定义颜色",
+        "zh": "自定义条形图颜色",
         "en": "Bar plot color"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*U-D1S4w5HNsAAAAAAAAAAAAAARQnAQ"
     },
     {
-      "filename": "width.ts",
+      "filename": "width-ratio.ts",
       "title": {
-        "zh": "基础条形图 - 柱子宽度",
-        "en": "Bar plot bar width"
+        "zh": "指定条形图宽度比例",
+        "en": "Bar plot column width"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*uqtcQJ-N-qUAAAAAAAAAAAAAARQnAQ"
     },
     {
+      "filename": "width.ts",
+      "title": {
+        "zh": "指定条形图最小最大宽度",
+        "en": "Bar plot with customize width"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/E6pUfKKBCh/bef42127-d21a-43c6-8a89-89bb3ba41a9f.png"
+    },
+    {
       "filename": "scrollbar.ts",
       "title": {
-        "zh": "基础条形图 - 滚动条",
+        "zh": "带缩略轴条形图",
         "en": "Bar chart with scrollbar"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*01-mRqASP78AAAAAAAAAAAAAARQnAQ"
@@ -39,7 +47,7 @@
     {
       "filename": "conversion-tag.ts",
       "title": {
-        "zh": "基础条形图 - 转化率",
+        "zh": "带转化率条形图",
         "en": "Bar plot conversion tag"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*QPt7QbZ726QAAAAAAAAAAAAAARQnAQ"

@@ -63,6 +63,18 @@ order: 2
 
 柱状图宽度占比 [0-1]。
 
+#### minColumnWidth
+
+<description>**optional** _number_</description>
+
+The min width of column, pixel value。
+
+#### maxColumnWidth
+
+<description>**optional** _number_</description>
+
+The max width of column, pixel value。
+
 #### marginRatio
 
 <description>**optional** _number_</description>

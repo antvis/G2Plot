@@ -1,5 +1,3 @@
-#### conversionTag
-
 适用于基础柱形图和基础条形图，转化率组件可以让用户关注到数据的变化比例。
 
 <description>**optional** _object_ | _false_</description>

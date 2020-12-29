@@ -1,29 +1,25 @@
 import { Area } from '@antv/g2plot';
 
-fetch('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38ccf184.json')
+fetch('https://gw.alipayobjects.com/os/bmw-prod/360c3eae-0c73-46f0-a982-4746a6095010.json')
   .then((res) => res.json())
-  .then((data) => {
+  .then((originalData) => {
+    let cnt = 2;
     const area = new Area('container', {
-      data,
-      xField: 'Date',
-      yField: 'scales',
+      data: originalData.slice(0, cnt),
+      xField: 'timePeriod',
+      yField: 'value',
       xAxis: {
-        type: 'timeCat',
         range: [0, 1],
-        tickCount: 5,
       },
-      smooth: true,
     });
     area.render();
 
-    let year = 2017;
-    let month = 2;
     const interval = setInterval(() => {
-      if (year > 2100) {
+      if (cnt === originalData.length) {
         clearInterval(interval);
+      } else {
+        cnt += 1;
+        area.changeData(originalData.slice(0, cnt));
       }
-      month = (month + 1) % 12;
-      year += Math.ceil(month / 12);
-      area.changeData([...area.options.data, { Date: `${year}-${month}`, scales: 1300 * Math.random() + 500 }]);
-    }, 500);
+    }, 400);
   });

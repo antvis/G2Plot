@@ -25,10 +25,6 @@ export interface ColumnOptions extends Options, OptionWithConversionTag, OptionW
   readonly minColumnWidth?: number;
   /** 柱状图最大宽度（像素） */
   readonly maxColumnWidth?: number;
-  /** 组间间隔 */
-  readonly intervalPadding?: number;
-  /** 组内间隔 */
-  readonly dodgePadding?: number;
   /** 柱子样式配置，可选 */
   readonly columnStyle?: StyleAttr;
   /** 分组字段，优先级高于 seriesField , isGroup: true 时会根据 groupField 进行分组。*/

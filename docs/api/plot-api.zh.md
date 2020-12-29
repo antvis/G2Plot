@@ -55,6 +55,8 @@ plot.changeData(data: object[] | number);
  - 仪表盘、水波图 等指标类的，直接传入更新的 percent 数值
  - 双轴图等复合类图表，直接传入自己的 data 数据结构
 
+ <playground path="dynamic-plots/basic/demo/dynamic-spline.ts" rid="rect"></playground>
+
 ### 5. changeSize
 
 ```sign

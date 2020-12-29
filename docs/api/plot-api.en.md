@@ -6,7 +6,7 @@ redirect_from:
 ---
 
 
-The core technology architecture of G2plot is very simple. All plots are inherited from a base class. The base class provides a common API method for all plots, and each specific visualization plot only processes its own configuration items. So all plots basically share the common API, except for some plots (such as Gauge and Liquid) that have subtle differences in the changedata API.
+The core technology architecture of G2Plot is very simple. All plots are inherited from a base class. The base class provides a common API method for all plots, and each specific visualization plot only processes its own configuration items. So all plots basically share the common API, except for some plots (such as Gauge and Liquid) that have subtle differences in the changedata API.
 
 
 ### 1. create a plot instance
@@ -54,6 +54,8 @@ Through this method, you can modify the data of the plot and re-render the plot 
 
  - Gauge、Liquid, which accept the updated percent value
  - Dual Axes, which has its own data structure
+
+<playground path="dynamic-plots/basic/demo/dynamic-spline.ts" rid="rect"></playground>
 
 ### 5. changeSize
 

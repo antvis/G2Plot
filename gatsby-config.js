@@ -206,6 +206,14 @@ module.exports = {
         },
       },
       {
+        slug: 'dynamic-plots',
+        icon: 'other',
+        title: {
+          zh: '动态交互图',
+          en: 'Dynamic Plots',
+        },
+      },
+      {
         slug: 'plugin',
         icon: 'other',
         title: {

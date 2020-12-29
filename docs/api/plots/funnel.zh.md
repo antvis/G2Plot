@@ -100,7 +100,27 @@ order: 9
 `markdown:docs/common/chart-methods.zh.md`
 
 
-
 ### 图表主题
 
 `markdown:docs/common/theme.zh.md`
+
+
+### 静态变量
+
+漏斗图提供静态变量，以方便用户在实际项目中的使用，包括
+
+
+#### FUNNEL_CONVERSATION
+
+FUNNEL_CONVERSATION 为数组，存储漏斗当前和上一项值，例如 [263, 151], 用户可由此计算转化率，例如:
+
+```javascript
+{
+  conversionTag: {
+    formatter: (datum) => {
+      return (datum[FUNNEL_CONVERSATION][1] / datum[FUNNEL_CONVERSATION][0]).toFixed(2);
+    },
+  },
+}
+```
+

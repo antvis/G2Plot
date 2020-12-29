@@ -102,3 +102,23 @@ Defalut: `{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$
 ### Plot Theme
 
 `markdown:docs/common/theme.en.md`
+
+
+### 静态变量
+
+Funnel plot provides static variables, such as:
+
+
+#### FUNNEL_CONVERSATION
+
+FUNNEL_CONVERSATION is an array, stores the current and previous values of the funnel, for example, [263, 151], from which the user can calculate the conversion rate, for example:
+
+```javascript
+{
+  conversionTag: {
+    formatter: (datum) => {
+      return (datum[FUNNEL_CONVERSATION][1] / datum[FUNNEL_CONVERSATION][0]).toFixed(2);
+    },
+  },
+}
+```

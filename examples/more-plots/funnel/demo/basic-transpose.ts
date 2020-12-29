@@ -1,4 +1,6 @@
-import { Funnel } from '../../../relation/sankey/demo/node_modules/@antv/g2plot';
+import { Funnel } from '@antv/g2plot';
+
+const { FUNNEL_CONVERSATION } = Funnel;
 
 const data = [
   { stage: '简历筛选', number: 253 },
@@ -23,8 +25,7 @@ const funnelPlot = new Funnel('container', {
   },
   conversionTag: {
     formatter: (datum) => {
-      // 提供占比$$percentage$$，转化率$$conversion$$两种格式
-      return datum.$$conversion$$.toFixed(2);
+      return (datum[FUNNEL_CONVERSATION][1] / datum[FUNNEL_CONVERSATION][0]).toFixed(2);
     },
   },
   tooltip: {

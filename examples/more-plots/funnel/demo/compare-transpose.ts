@@ -1,5 +1,7 @@
 import { Funnel } from '@antv/g2plot';
 
+const { FUNNEL_CONVERSATION } = Funnel;
+
 const data = [
   { stage: '简历筛选', number: 253, company: 'A公司' },
   { stage: '初试人数', number: 151, company: 'A公司' },
@@ -25,7 +27,6 @@ const funnelPlot = new Funnel('container', {
       fill: '#666',
       fontSize: 12,
     },
-    formatter: (data) => `占比${(data.$$percentage$$ * 100).toFixed(2)}%`,
   },
   legend: false,
 });

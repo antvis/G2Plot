@@ -68,7 +68,8 @@ describe('area', () => {
     expect(area.chart.geometries[0].elements.length).toBe(2);
     expect(area.chart.geometries[1].elements.length).toBe(2);
     expect(area.options.data).toEqual(partySupport.filter((o) => ['FF', 'Lab'].includes(o.type)));
-    expect(area.chart.getData()).toEqual(getAreaData(area.options));
+    const { data, isPercent, xField, yField } = area.options;
+    expect(area.chart.getData()).toEqual(getAreaData(data, yField, xField, yField, isPercent));
 
     area.destroy();
   });

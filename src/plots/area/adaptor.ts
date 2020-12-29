@@ -28,7 +28,7 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
     tooltip,
     seriesField,
   } = options;
-  const chartData = getAreaData(options);
+  const chartData = getAreaData(data, yField, xField, yField, isPercent);
   chart.data(chartData);
   // 百分比堆积图，默认会给一个 % 格式化逻辑, 用户可自定义
   const tooltipOptions = isPercent

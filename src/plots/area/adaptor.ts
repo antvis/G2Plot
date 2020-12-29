@@ -5,10 +5,10 @@ import { findGeometry } from '../../utils';
 import { Params } from '../../core/adaptor';
 import { area, point, line } from '../../adaptor/geometries';
 import { flow, transformLabel, deepAssign } from '../../utils';
-import { percent } from '../../utils/transform/percent';
 import { Datum } from '../../types';
 import { meta, legend, axis } from '../line/adaptor';
 import { AreaOptions } from './types';
+import { getAreaData } from './utils';
 
 /**
  * geometry 处理
@@ -28,7 +28,7 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
     tooltip,
     seriesField,
   } = options;
-  const chartData = !isPercent ? data : percent(data, yField, xField, yField);
+  const chartData = getAreaData(data, yField, xField, yField, isPercent);
   chart.data(chartData);
   // 百分比堆积图，默认会给一个 % 格式化逻辑, 用户可自定义
   const tooltipOptions = isPercent

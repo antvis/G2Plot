@@ -1,7 +1,5 @@
 import { Funnel } from '@antv/g2plot';
 
-const { FUNNEL_CONVERSATION } = Funnel;
-
 const data = [
   { stage: '简历筛选', number: 253, company: 'A公司' },
   { stage: '初试人数', number: 151, company: 'A公司' },

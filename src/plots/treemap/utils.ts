@@ -2,13 +2,13 @@ import { treemap } from '../../utils/hierarchy/treemap';
 import { TreemapOptions } from './types';
 
 export function transformData(options: TreemapOptions) {
-  const { data, seriesField, colorField } = options;
+  const { data, colorField } = options;
 
   const nodes = treemap(data, {
     // @ts-ignore
     type: 'hierarchy.treemap',
     tile: 'treemapResquarify',
-    field: seriesField,
+    field: 'value',
     as: ['x', 'y'],
   });
 

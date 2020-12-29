@@ -55,7 +55,6 @@ describe('treemap', () => {
     const treemapPlot = new Treemap(createDiv(), {
       data,
       colorField: 'name',
-      seriesField: 'value',
       color,
     });
 

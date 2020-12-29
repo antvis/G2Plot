@@ -19,7 +19,6 @@ fetch('https://gw.alipayobjects.com/os/basement_prod/be471bfc-b37f-407e-833b-0f4
     const treemapPlot = new Treemap('container', {
       data: mobileData,
       colorField: 'brand',
-      seriesField: 'value',
     });
     treemapPlot.render();
   });

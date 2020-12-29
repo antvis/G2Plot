@@ -22,7 +22,6 @@ describe('treemap', () => {
     const treemapPlot = new Treemap(createDiv(), {
       data: TREEMAP_CHILDREN,
       colorField: 'brand',
-      seriesField: 'value',
       color,
       label: {
         fields: ['name'],

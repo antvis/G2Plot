@@ -26,18 +26,17 @@ const data = {
 
 ```
 
+其中，每一层级的数据都需要具备三个属性
+
+- name
+- value (叶子节点)
+- children (非叶子节点)
+
 #### colorField
 
 <description>**optional** _string_</description>
 
 颜色映射字段名。
-
-
-#### seriesField
-
-<description>**optional** _string_</description>
-
-分组字段，即要映射的数值字段。
 
 
 

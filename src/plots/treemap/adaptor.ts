@@ -11,14 +11,13 @@ import { TreemapOptions } from './types';
  */
 function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> {
   const { options } = params;
-  const { colorField, seriesField } = options;
+  const { colorField } = options;
 
   return deepAssign(
     {
       options: {
-        seriesField: 'value',
         label: {
-          fields: [colorField],
+          fields: ['name'],
           layout: {
             type: 'limit-in-shape',
           },
@@ -28,11 +27,11 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
           showMarkers: false,
           offset: 20,
           showTitle: false,
-          fields: [colorField, seriesField],
+          fields: ['name', 'value', colorField],
           formatter: (data) => {
             return {
-              name: data[colorField],
-              value: data[seriesField],
+              name: data.name,
+              value: data.value,
             };
           },
         },

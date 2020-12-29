@@ -29,7 +29,6 @@ const data = {
 const treemapPlot = new Treemap('container', {
   data,
   colorField: 'name',
-  seriesField: 'value',
 });
 
 treemapPlot.render();

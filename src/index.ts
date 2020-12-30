@@ -71,7 +71,7 @@ export { Box, BoxOptions } from './plots/box';
 export { Stock, StockOptions } from './plots/stock';
 
 // 漏斗图及类型定义
-export { Funnel, FunnelOptions } from './plots/funnel';
+export { Funnel, FunnelOptions, FUNNEL_CONVERSATION_FIELD } from './plots/funnel';
 
 // 水波图及类型定义 | author by [CarisL](https://github.com/CarisL), [hustcc](https://github.com/hustcc)
 export { Liquid, LiquidOptions } from './plots/liquid';

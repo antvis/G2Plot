@@ -2,13 +2,13 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { FunnelOptions } from './types';
 import { adaptor } from './adaptor';
-import { FUNNEL_CONVERSATION } from './constant';
+import { FUNNEL_CONVERSATION as FUNNEL_CONVERSATION_FIELD } from './constant';
 
 export { FunnelOptions };
 
-export class Funnel extends Plot<FunnelOptions> {
-  public static FUNNEL_CONVERSATION: string = FUNNEL_CONVERSATION;
+export { FUNNEL_CONVERSATION_FIELD };
 
+export class Funnel extends Plot<FunnelOptions> {
   /** 图表类型 */
   public type: string = 'funnel';
 

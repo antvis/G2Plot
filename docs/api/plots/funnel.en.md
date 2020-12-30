@@ -109,16 +109,22 @@ Defalut: `{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$
 Funnel plot provides static variables, such as:
 
 
-#### FUNNEL_CONVERSATION
+#### FUNNEL_CONVERSATION_FIELD
 
-FUNNEL_CONVERSATION is an array, stores the current and previous values of the funnel, for example, [263, 151], from which the user can calculate the conversion rate, for example:
+FUNNEL_CONVERSATION_FIELD is an array, stores the current and previous values of the funnel, for example, [263, 151], from which the user can calculate the conversion rate, for example:
 
 ```javascript
+// 引用
+import { FUNNEL_CONVERSATION_FIELD } from '@antv/g2plot';
+
+
+// 使用
 {
   conversionTag: {
     formatter: (datum) => {
-      return (datum[FUNNEL_CONVERSATION][1] / datum[FUNNEL_CONVERSATION][0]).toFixed(2);
+      return (datum[FUNNEL_CONVERSATION_FIELD][1] / datum[FUNNEL_CONVERSATION_FIELD][0]).toFixed(2);
     },
   },
 }
 ```
+

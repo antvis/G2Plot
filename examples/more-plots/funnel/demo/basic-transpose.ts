@@ -1,6 +1,4 @@
-import { Funnel } from '@antv/g2plot';
-
-const { FUNNEL_CONVERSATION } = Funnel;
+import { Funnel, FUNNEL_CONVERSATION_FIELD } from '@antv/g2plot';
 
 const data = [
   { stage: '简历筛选', number: 253 },
@@ -25,7 +23,7 @@ const funnelPlot = new Funnel('container', {
   },
   conversionTag: {
     formatter: (datum) => {
-      return (datum[FUNNEL_CONVERSATION][1] / datum[FUNNEL_CONVERSATION][0]).toFixed(2);
+      return (datum[FUNNEL_CONVERSATION_FIELD][1] / datum[FUNNEL_CONVERSATION_FIELD][0]).toFixed(2);
     },
   },
   tooltip: {

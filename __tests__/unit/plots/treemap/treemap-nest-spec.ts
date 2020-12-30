@@ -17,7 +17,7 @@ const color = [
   '#D3EEF9',
 ];
 
-describe('treemap', () => {
+describe('treemap nest', () => {
   it('basic treemap', () => {
     const treemapPlot = new Treemap(createDiv(), {
       data: TREEMAP_CHILDREN,
@@ -46,6 +46,8 @@ describe('treemap', () => {
     expect(treemapPlot.chart.getController('axis').option).toBeFalsy();
     // @ts-ignore
     expect(geometry.labelOption.cfg.layout.type).toBe('limit-in-shape');
+    // @ts-ignore
+    expect(geometry.labelOption.fields).toEqual(['name']);
 
     treemapPlot.destroy();
   });

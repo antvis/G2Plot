@@ -23,9 +23,7 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
           },
         },
         tooltip: {
-          shared: true,
           showMarkers: false,
-          offset: 20,
           showTitle: false,
           fields: ['name', 'value', colorField],
           formatter: (data) => {

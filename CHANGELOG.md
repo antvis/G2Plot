@@ -1,3 +1,21 @@
+#### 2.3.6 (2020-12-30)
+
+##### Documentation Changes
+
+* 增加动态交互图表 & 文档 typo 修整 ([#2154](https://github.com/antvis/g2plot/pull/2154)) ([72bbfa4b](https://github.com/antvis/g2plot/commit/72bbfa4b4c9b76885a1365dc3a00532d8b977c46))
+
+##### New Features
+
+* new plot treemap ([#2023](https://github.com/antvis/g2plot/pull/2023)) ([45808e3e](https://github.com/antvis/g2plot/commit/45808e3e424a44fa77534cdb4d38b54c386f2062))
+* column and bar plot support pixel width setting ([#2156](https://github.com/antvis/g2plot/pull/2156)) ([db09fa41](https://github.com/antvis/g2plot/commit/db09fa4177390c16650e70bcefaf52569fa6f3c1))
+* area support changeData ([#2153](https://github.com/antvis/g2plot/pull/2153)) ([4a8ef9fb](https://github.com/antvis/g2plot/commit/4a8ef9fba92c88486e73ae930be7b2b8fcc1bac8))
+* changedata API ([#2142](https://github.com/antvis/g2plot/pull/2142)) ([ac172352](https://github.com/antvis/g2plot/commit/ac1723523d52d62f7e95b5188809d4806770aabe))
+
+##### Bug Fixes
+
+* **funnel:**  funnel conversion value ([#2159](https://github.com/antvis/g2plot/pull/2159)) ([08cf891b](hhttps://github.com/antvis/G2Plot/commit/222af2f4bf880b208d3b4939eaa6ce4e08cf891b))
+* **conversion:**  conversion calculate error ([#2160](https://github.com/antvis/g2plot/pull/2160)) ([1aefd258](https://github.com/antvis/g2plot/commit/1aefd258c22255e39abbe039b81228f034e1cdf0))
+
 #### 2.3.5 (2020-12-28)
 
 ##### Bug Fixes

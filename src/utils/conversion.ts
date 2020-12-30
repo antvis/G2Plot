@@ -10,7 +10,7 @@ export function conversionTagFormatter(prev: number, next: number): string {
   }
 
   if (prev === next) {
-    return `${(0).toFixed(2)}%`;
+    return '100%';
   }
   if (prev === 0) {
     return '∞';

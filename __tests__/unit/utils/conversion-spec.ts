@@ -7,6 +7,7 @@ describe('conversionTagFormatter', () => {
     expect(conversionTagFormatter(1, 0)).toBe('-∞');
     expect(conversionTagFormatter(10, 20)).toBe('200.00%');
     expect(conversionTagFormatter(40, 20)).toBe('50.00%');
+    expect(conversionTagFormatter(40, 40)).toBe('100%');
 
     expect(conversionTagFormatter(null, 20)).toBe('-');
     expect(conversionTagFormatter(20, null)).toBe('-');

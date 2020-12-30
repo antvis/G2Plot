@@ -104,7 +104,7 @@ Defalut: `{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$
 `markdown:docs/common/theme.en.md`
 
 
-### 静态变量
+### Static Variables
 
 Funnel plot provides static variables, such as:
 

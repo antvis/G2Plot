@@ -1,6 +1,6 @@
+import { partition } from '../../utils/hierarchy/partition';
+import { treemap } from '../../utils/hierarchy/treemap';
 import { SunburstOptions } from './types';
-import { partition } from './hierarchy/partition';
-import { treemap } from './hierarchy/treemap';
 
 /**
  * sunburst 处理数据

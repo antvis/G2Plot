@@ -1,4 +1,4 @@
-import { partition } from '../../../../../src/plots/sunburst/hierarchy/partition';
+import { partition } from '../../../../src/utils/hierarchy/partition';
 
 describe('hierarchy/partition', () => {
   it('partition', () => {

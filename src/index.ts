@@ -94,6 +94,9 @@ export { RadialBar, RadialBarOptions } from './plots/radial-bar';
 // 对称条形图及类型定义 | author by [arcsin1](https://github.com/arcsin1)
 export { BidirectionalBar, BidirectionalBarOptions } from './plots/bidirectional-bar';
 
+// 矩形树图
+export { Treemap, TreemapOptions } from './plots/treemap';
+
 // 桑基图及类型定义 | author by [hustcc](https://github.com/hustcc)
 export { Sankey, SankeyOptions } from './plots/sankey';
 

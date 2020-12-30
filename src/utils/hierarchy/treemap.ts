@@ -1,6 +1,6 @@
 import * as d3Hierarchy from 'd3-hierarchy';
 import { assign, isArray } from '@antv/util';
-import { HierarchyOption } from '../types';
+import { HierarchyOption } from './types';
 import { getField, getAllNodes } from './util';
 
 const DEFAULT_OPTIONS: HierarchyOption = {

@@ -2,7 +2,7 @@ import { conversionTagFormatter } from '../../../src/utils/conversion';
 
 describe('conversionTagFormatter', () => {
   it('conversionTagFormatter', () => {
-    expect(conversionTagFormatter(0, 0)).toBe('0.00%');
+    expect(conversionTagFormatter(0, 0)).toBe('100%');
     expect(conversionTagFormatter(0, 1)).toBe('∞');
     expect(conversionTagFormatter(1, 0)).toBe('-∞');
     expect(conversionTagFormatter(10, 20)).toBe('200.00%');

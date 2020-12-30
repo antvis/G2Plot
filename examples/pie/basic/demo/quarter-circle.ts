@@ -14,13 +14,20 @@ const piePlot = new Pie('container', {
   data,
   angleField: 'value',
   colorField: 'type',
-  radius: 0.75,
+  radius: 1,
+  // 设置圆弧起始角度
+  startAngle: Math.PI,
+  endAngle: Math.PI * 1.5,
   label: {
-    type: 'spider',
-    labelHeight: 28,
-    content: '{name}\n{percentage}',
+    type: 'inner',
+    offset: '-8%',
+    content: '{name}',
+    style: { fontSize: 18 },
   },
-  interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
+  interactions: [{ type: 'element-active' }],
+  pieStyle: {
+    lineWidth: 0,
+  },
 });
 
 piePlot.render();

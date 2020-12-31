@@ -21,14 +21,6 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZztJQa4RLwoAAAAAAAAAAABkARQnAQ"
     },
     {
-      "filename": "outer-label.ts",
-      "title": {
-        "zh": "饼图-外部图形标签",
-        "en": "Pie plot - outer label"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZztJQa4RLwoAAAAAAAAAAABkARQnAQ"
-    },
-    {
       "filename": "spider-label.ts",
       "title": {
         "zh": "饼图-蜘蛛布局标签",
@@ -37,18 +29,18 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*QyXPRK-URmUAAAAAAAAAAAAAARQnAQ"
     },
     {
-      "filename": "pie-state.ts",
+      "filename": "quarter-circle.ts",
       "title": {
-        "zh": "饼图-设置条件状态",
-        "en": "Pie plot - set condition state"
+        "zh": "四分之一圆",
+        "en": "Quarter circle pie"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*y8zjS5DZib8AAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/bzXrKEyk6T/f334d3fa-4494-41b7-9260-c469588555a6.png"
     },
     {
       "filename": "legend-interaction.ts",
       "title": {
         "zh": "饼图-图例交互",
-        "en": "Pie interaction - with legend action"
+        "en": "Pie interaction with legend action"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*xZtSQocP4kYAAAAAAAAAAAAAARQnAQ"
     },
@@ -56,7 +48,7 @@
       "filename": "pie-texture.ts",
       "title": {
         "en": "Pie plot fill with texture",
-        "zh": "饼图-带纹理"
+        "zh": "带纹理的饼图"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/SUQSZupP5X/c2076423-44ca-41d2-b8fa-a221b6a8fcf2.png"
     }

@@ -67,6 +67,25 @@ piePlot.render();
 
 饼图的半径，原点为画布中心。配置值域为 (0,1]，1 代表饼图撑满绘图区域。
 
+#### innerRadius 
+
+<description>**optional** _number_</description>
+
+饼图的内半径，原点为画布中心。配置值域为 (0,1]
+#### startAngle 
+
+<description>**optional** _number_</description>
+
+配置坐标系的起始角度。
+
+#### endAngle 
+
+<description>**optional** _number_</description>
+
+配置坐标系的结束角度。
+
+<playground rid="quarter-circle" path="pie/basic/demo/quarter-circle.ts"></playground>
+
 `markdown:docs/common/color.zh.md`
 
 #### statistic ✨

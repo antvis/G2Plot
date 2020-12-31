@@ -89,13 +89,15 @@ function meta(params: Params<PieOptions>): Params<PieOptions> {
  */
 function coordinate(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
-  const { radius, innerRadius } = options;
+  const { radius, innerRadius, startAngle, endAngle } = options;
 
   chart.coordinate({
     type: 'theta',
     cfg: {
       radius,
       innerRadius,
+      startAngle,
+      endAngle,
     },
   });
 

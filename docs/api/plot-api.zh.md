@@ -18,13 +18,13 @@ import { Line } from '@antv/g2plot';
 
 const line = new Line(container', options);
 // 1. `container`： 图表渲染的 DOM 容器 id 或者 HTMLElement 实例
-// 2. `options`： 图表配置数据，不同的图表功能请参考[各图表配置项](../api/plots/line)
+// 2. `options`： 图表配置数据，不同的图表功能请参考[基础图表 API]
 ```
 
 创建好的图表实例，都具有两个公开属性：
 
- - container: HTMLElement： 图表渲染的 DOM 容器。
- - options: PlotOptions： 图表当前的所有全量配置项 options，是有用户传入，以及图表内置的默认配置项合并之后结果。
+ - container `HTMLElement`: 图表渲染的 DOM 容器。
+ - options `PlotOptions`: 图表当前的所有全量配置项 options，是有用户传入，以及图表内置的默认配置项合并之后结果。
 
 对于 API，分别罗列图表实例的所有 API 方法。如果按照功能分类，主要可以分成为：生命周期函数、事件、状态量 等 API
 
@@ -42,7 +42,7 @@ plot.render();
 plot.update(options: Partial<PlotOptions>);
 ```
 
-通过这个方法，可以增量的更新图表配置，方法会自动将传入的增量配置合并到当前的配置项中，并自动掉调用 `render` 方法，无需手动调用。
+通过这个方法，可以增量的更新图表配置，方法会自动将传入的增量配置合并到当前的配置项中，并自动调用 `render` 方法，无需手动调用。
 
 ### 4. changeData
 

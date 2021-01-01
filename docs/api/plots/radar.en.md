@@ -116,8 +116,8 @@ radarPlot.render();
 | 细分配置 | 类型      | 功能描述   |
 | -------- | --------- | ---------- |
 | smooth   | _boolean_ | 是否平滑   |
-| color    | `_string  | string[]   | Function_` | 填充面积颜色，也可以支持回调的方式设置，回调参数为 `color: (x, y, series) => string` |
-| style    | `\_object  | Function\_` | 填充面积样式，也可以支持回调的方式设置，回调参数为 `style: (x, y, series) => object` |
+| color    | _string \| string[] \| Function_ | 填充面积颜色，也可以支持回调的方式设置，回调参数为 `color: (x, y, series) => string` |
+| style    | _object \| Function_ | 填充面积样式，也可以支持回调的方式设置，回调参数为 `style: (x, y, series) => object` |
 
 使用示例：
 

@@ -92,7 +92,7 @@ true 表示合并当前点对应的所有数据并展示，false 表示只展示
 
 | 细分配置项名称 | 类型               | 功能描述           |
 | -------------- | ------------------ | ------------------ |
-| padding        | number \| number[] | 文本背景周围的留白 |
+| padding        | _number \| number[]_ | 文本背景周围的留白 |
 | style          | _shapeStyle_       | 线的配置项         |
 
 **_shapeStyle_**

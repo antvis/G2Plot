@@ -18,7 +18,7 @@ import { Line } from '@antv/g2plot';
 
 const line = new Line(container', options);
 // 1. `container`： 图表渲染的 DOM 容器 id 或者 HTMLElement 实例
-// 2. `options`： 图表配置数据，不同的图表功能请参考[各图表配置项](./plots/line)
+// 2. `options`： 图表配置数据，不同的图表功能请参考[各图表配置项](../api/plots/line)
 ```
 
 创建好的图表实例，都具有两个公开属性：

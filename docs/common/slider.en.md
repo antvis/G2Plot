@@ -1,4 +1,4 @@
-object 类型的请参考[ShapeAttrs](/en/docs/api/shape/shape-attrs)
+object 类型的请参考[ShapeAttrs](/en/docs/api/graphic-style)
 
 | 配置项          | 类型     | 功能描述           |
 | --------------- | -------- | ------------------ |

@@ -1,4 +1,4 @@
-object 类型的请参考[绘图属性](/zh/docs/api/shape/shape-attrs)
+object 类型的请参考[绘图属性](/zh/docs/api/graphic-style)
 
 | 配置项          | 类型     | 功能描述           |
 | --------------- | -------- | ------------------ |

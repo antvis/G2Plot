@@ -49,7 +49,7 @@
 | 参数名 | 类型 | 默认值 | 描述 |
 | --- | --- | --- | --- |
 | size | _number_ | - | 滑块的大小 |
-| style | _object_ | - | 滑块的样式设置，参考 [绘图属性](/zh/docs/api/shape/shape-attrs) |
+| style | _object_ | - | 滑块的样式设置，参考 [绘图属性](/zh/docs/api/graphic-style) |
 
 ##### itemHeight
 
@@ -71,7 +71,7 @@
 
 | 参数名 | 类型 | 默认值 | 描述 |
 | --- | --- | --- | --- |
-| style | _object_ | - | 文本样式配置项，参考 [绘图属性](/zh/docs/api/shape/shape-attrs) |
+| style | _object_ | - | 文本样式配置项，参考 [绘图属性](/zh/docs/api/graphic-style) |
 | spacing | _number_ | `false` | 图例项 marker 同后面 name 的间距 |
 | formatter | _function_ | - | 格式化函数, `(text: string, item: ListItem, index: number) => any;` |
 
@@ -89,7 +89,7 @@
 
 | 参数名 | 类型 | 默认值 | 描述 |
 | --- | --- | --- | --- |
-| style | _object_ | - | 文本样式配置项，详见 [绘图属性](/zh/docs/api/shape/shape-attrs) |
+| style | _object_ | - | 文本样式配置项，详见 [绘图属性](/zh/docs/api/graphic-style) |
 | alignRight | _boolean_ | `false` | 是否右对齐，默认为 false，仅当设置图例项宽度时生效 |
 | formatter | _function_ | - | 格式化函数, `(text: string, item: ListItem, index: number) => any;` |
 
@@ -116,7 +116,7 @@
 | 参数名 | 类型 | 默认值 | 描述 |
 | --- | --- | --- | --- |
 | align | _string_ | - | 文本同滑轨的对齐方式 <br/> - rail ： 同滑轨对齐，在滑轨的两端 <br/> - top, bottom: 图例水平布局时有效 <br/> - left, right: 图例垂直布局时有效 |
-| style | _object_ | - | 文本样式配置项，详见 [绘图属性](/zh/docs/api/shape/shape-attrs) |
+| style | _object_ | - | 文本样式配置项，详见 [绘图属性](/zh/docs/api/graphic-style) |
 | spacing | _number_ | - | 文本同滑轨的距离 |
 
 ##### marker
@@ -173,7 +173,7 @@
 | type | _string_ | - | rail 的类型，color, size |
 | size | _number_ | - | 滑轨的宽度 |
 | defaultLength | _number_ | - | 滑轨的默认长度，，当限制了 maxWidth,maxHeight 时，不会使用这个属性会自动计算长度 |
-| style | _object_ | - | 滑轨的样式，参考 [绘图属性](/zh/docs/api/shape/shape-attrs) |
+| style | _object_ | - | 滑轨的样式，参考 [绘图属性](/zh/docs/api/graphic-style) |
 ##### reversed
 
 <description>**optional** _boolean_ </description>
@@ -193,7 +193,7 @@
 | 参数名 | 类型 | 默认值 | 描述 |
 | --- | --- | --- | --- |
 | spacing | _number_ | - | 标题同图例项的间距 |
-| style | _object_ | - | 文本样式配置项，参考 [绘图属性](/zh/docs/api/shape/shape-attrs) |
+| style | _object_ | - | 文本样式配置项，参考 [绘图属性](/zh/docs/api/graphic-style) |
 
 ##### track
 
@@ -202,7 +202,7 @@
 
 | 参数名 | 类型 | 默认值 | 描述 |
 | --- | --- | --- | --- |
-| style | _object_ | - | 选定范围的样式，参考 [绘图属性](/zh/docs/api/shape/shape-attrs) |
+| style | _object_ | - | 选定范围的样式，参考 [绘图属性](/zh/docs/api/graphic-style) |
 
 ##### values
 

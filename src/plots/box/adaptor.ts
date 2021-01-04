@@ -41,7 +41,7 @@ function field(params: Params<BoxOptions>): Params<BoxOptions> {
 
 function outliersPoint(params: Params<BoxOptions>): Params<BoxOptions> {
   const { chart, options } = params;
-  const { xField, data, outliersField, outliersStyle, padding } = options;
+  const { xField, data, outliersField, outliersStyle, groupField, padding, color } = options;
 
   if (!outliersField) return params;
 
@@ -49,6 +49,11 @@ function outliersPoint(params: Params<BoxOptions>): Params<BoxOptions> {
   outliersView.data(data);
   outliersView.axis(false);
   const geometry = outliersView.point().position(`${xField}*${outliersField}`).shape('circle');
+
+  // set group field as color channel
+  if (groupField) {
+    geometry.color(groupField, color).adjust('dodge');
+  }
 
   /**
    * style 的几种情况

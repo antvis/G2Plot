@@ -25,4 +25,4 @@ TextCfg 配置如下
 | style     | object                               | 否       | -      | 箭头样式         |
 | formatter | (prev:number, next:number) => string | 否       | -      | 自定义转化率计算 |
 
-样式配置类型请参考[绘图属性](../../manual/graphic-style)
+样式配置类型请参考[ShapeAttrs](/en/docs/api/shape/shape-attrs)

@@ -1,10 +1,11 @@
+import { isArray, map } from '@antv/util';
 import { deepAssign } from '../../utils';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { StockOptions } from './types';
 import { adaptor } from './adaptor';
 
-import { DEFAULT_TOOLTIP_OPTIONS } from './constant';
+import { DEFAULT_TOOLTIP_OPTIONS, TREND_FIELD, TREND_DOWN, TREND_UP, Y_FIELD } from './constant';
 
 export { StockOptions };
 
@@ -32,5 +33,24 @@ export class Stock extends Plot<StockOptions> {
    */
   protected getSchemaAdaptor(): Adaptor<StockOptions> {
     return adaptor;
+  }
+
+  /**
+   * @override
+   * @param data
+   */
+  public changeData(data: StockOptions['data']) {
+    this.updateOption({ data });
+    const { yField } = this.options;
+    const newData = map(data, (obj) => {
+      if (isArray(yField)) {
+        const [open, close, high, low] = yField;
+        obj[TREND_FIELD] = obj[open] <= obj[close] ? TREND_UP : TREND_DOWN;
+        obj[Y_FIELD] = [obj[open], obj[close], obj[high], obj[low]];
+      }
+      return obj;
+    });
+
+    this.chart.changeData(newData);
   }
 }

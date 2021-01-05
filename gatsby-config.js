@@ -133,6 +133,14 @@ module.exports = {
         },
       },
       {
+        slug: 'dual-axes',
+        icon: 'line',
+        title: {
+          zh: '双轴图',
+          en: 'Dual Axes',
+        },
+      },
+      {
         slug: 'progress-plots',
         icon: 'gauge',
         title: {
@@ -146,14 +154,6 @@ module.exports = {
         title: {
           zh: '散点气泡图',
           en: 'Scatter and Bubble',
-        },
-      },
-      {
-        slug: 'dual-axes',
-        icon: 'line',
-        title: {
-          zh: '双轴图',
-          en: 'Dual Axes',
         },
       },
       {

@@ -1,4 +1,5 @@
 import { DualAxes } from '../../src';
+import { findViewById } from '../../src/utils';
 import { createDiv } from '../utils/dom';
 
 const uv = [
@@ -65,8 +66,10 @@ describe('dual-axes same y fields', () => {
 
     dualAxes.render();
 
-    expect(dualAxes.chart.views[0].getController('axis').getComponents()[0].component.get('title').text).toBe('y1');
-    expect(dualAxes.chart.views[1].getController('axis').getComponents()[0].component.get('title').text).toBe('y2');
+    const left = findViewById(dualAxes.chart, 'left-axes-view');
+    const right = findViewById(dualAxes.chart, 'right-axes-view');
+    expect(left.getController('axis').getComponents()[1].component.get('title').text).toBe('y1');
+    expect(right.getController('axis').getComponents()[0].component.get('title').text).toBe('y2');
 
     dualAxes.destroy();
   });

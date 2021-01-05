@@ -1,3 +1,4 @@
+import { map } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { TinyLineOptions } from './types';
@@ -24,5 +25,17 @@ export class TinyLine extends Plot<TinyLineOptions> {
    */
   protected getSchemaAdaptor(): Adaptor<TinyLineOptions> {
     return adaptor;
+  }
+
+  /**
+   * @override
+   * @param data
+   */
+  public changeData(data: TinyLineOptions['data']) {
+    this.updateOption({ data });
+    const newData = map(data, (y: number, x: number) => {
+      return { x, y };
+    });
+    this.chart.changeData(newData);
   }
 }

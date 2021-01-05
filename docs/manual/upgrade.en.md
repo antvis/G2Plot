@@ -40,7 +40,7 @@ G2Plot 2.0 is compatible with most of the chart functions and configuration item
 | description | 不再支持                                                                | -                                                                                                              |
 | forceFit    | 不再支持，改用 autoFit                                                  | -                                                                                                              |
 | responsive  | 不再支持，内置                                                          | -                                                                                                              |
-| guideLine   | 不再支持，改用 [anniotations](../../examples/general/annotation) 实现。 | -                                                                                                              |
+| guideLine   | 不再支持，改用 [annotations](../../examples/general/annotation) 实现。 | -                                                                                                              |
 | label       | label.type 会有兼容性问题，如果报错修改 type 配置或者去掉               | -                                                                                                              |
 | slider      | 写法变更                                                                | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IZmLQaZ8ANMAAAAAAAAAAAAAARQnAQ" alt="示例" /> |
 | scrollbar   | 写法变更                                                                | <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Zq3NSpae7NEAAAAAAAAAAAAAARQnAQ" alt="示例" /> |

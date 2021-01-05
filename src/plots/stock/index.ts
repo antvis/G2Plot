@@ -3,6 +3,7 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { StockOptions } from './types';
 import { adaptor } from './adaptor';
+import { getStockData } from './utils';
 
 import { DEFAULT_TOOLTIP_OPTIONS } from './constant';
 
@@ -32,5 +33,15 @@ export class Stock extends Plot<StockOptions> {
    */
   protected getSchemaAdaptor(): Adaptor<StockOptions> {
     return adaptor;
+  }
+
+  /**
+   * @override
+   * @param data
+   */
+  public changeData(data: StockOptions['data']) {
+    this.updateOption({ data });
+    const { yField } = this.options;
+    this.chart.changeData(getStockData(data, yField));
   }
 }

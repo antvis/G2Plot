@@ -56,24 +56,24 @@ export function getGeometryOption(xField: string, yField: string, geometryOption
 
 /**
  * 兼容一些属性 为 arr 和 obj 的两种情况， 如 yAxis，annotations
+ * 为了防止左右 yField 相同，导致变成 object 之后被覆盖，所以都转变成数组的形式
  * @param yField
- * @param options['some attribute']
+ * @param transformAttribute
  */
-export function transArrayToObject(
+export function transformObjectToArray(
   yField: DualAxesOptions['yField'],
-  transAttribute: Record<string, any> | any[],
-  arrayTip: string
-): Record<string, any> {
+  transformAttribute: Record<string, any> | any[]
+): any[] {
   const [y1, y2] = yField;
-  if (isArray(transAttribute)) {
-    if (arrayTip) {
-      console.warn('yAxis should be object.');
-    }
-    return { [y1]: transAttribute[0], [y2]: transAttribute[1] };
-  }
 
-  // 追加默认值
-  return deepAssign({ [y1]: undefined, [y2]: undefined }, transAttribute);
+  if (isArray(transformAttribute)) {
+    // 将数组补齐为两个
+    const [a1, a2] = transformAttribute;
+    return [a1, a2];
+  }
+  const a1 = get(transformAttribute, y1);
+  const a2 = get(transformAttribute, y2);
+  return [a1, a2];
 }
 
 /**

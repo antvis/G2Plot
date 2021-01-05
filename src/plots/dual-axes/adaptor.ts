@@ -13,7 +13,7 @@ import { Params } from '../../core/adaptor';
 import { Datum } from '../../types';
 import { flow, deepAssign } from '../../utils';
 import { findViewById } from '../../utils/view';
-import { isColumn, getYAxisWithDefault, getGeometryOption, transArrayToObject } from './util/option';
+import { isColumn, getYAxisWithDefault, getGeometryOption, transformObjectToArray } from './util/option';
 import { getViewLegendItems } from './util/legend';
 import { drawSingleGeometry } from './util/geometry';
 import { DualAxesOptions, AxisType, DualAxesGeometry } from './types';
@@ -72,14 +72,14 @@ export function transformOptions(params: Params<DualAxesOptions>): Params<DualAx
     {
       options: {
         // yAxis
-        yAxis: transArrayToObject(yField, options.yAxis, 'yAxis should be object.'),
+        yAxis: transformObjectToArray(yField, options.yAxis),
         // geometryOptions
         geometryOptions: [
           getGeometryOption(xField, yField[0], geometryOptions[0]),
           getGeometryOption(xField, yField[1], geometryOptions[1]),
         ],
         // annotations
-        annotations: transArrayToObject(yField, options.annotations, 'annotations should be object.'),
+        annotations: transformObjectToArray(yField, options.annotations),
       },
     }
   );
@@ -180,12 +180,12 @@ export function meta(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
 
   scale({
     [xField]: xAxis,
-    [yField[0]]: yAxis[yField[0]],
+    [yField[0]]: yAxis[0],
   })(deepAssign({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
 
   scale({
     [xField]: xAxis,
-    [yField[1]]: yAxis[yField[1]],
+    [yField[1]]: yAxis[1],
   })(deepAssign({}, params, { chart: findViewById(chart, RIGHT_AXES_VIEW) }));
 
   return params;
@@ -207,11 +207,11 @@ export function axis(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
 
   // 左 View
   leftView.axis(xField, xAxis);
-  leftView.axis(yField[0], getYAxisWithDefault(yAxis[yField[0]], AxisType.Left));
+  leftView.axis(yField[0], getYAxisWithDefault(yAxis[0], AxisType.Left));
 
   // 右 Y 轴
   rightView.axis(xField, false);
-  rightView.axis(yField[1], getYAxisWithDefault(yAxis[yField[1]], AxisType.Right));
+  rightView.axis(yField[1], getYAxisWithDefault(yAxis[1], AxisType.Right));
 
   return params;
 }
@@ -257,21 +257,24 @@ export function interaction(params: Params<DualAxesOptions>): Params<DualAxesOpt
  */
 export function annotation(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart, options } = params;
-  const { yField, annotations } = options;
+  const { annotations } = options;
 
-  commonAnnotation(get(annotations, [yField[0]]))(
+  const a1 = get(annotations, [0]);
+  const a2 = get(annotations, [1]);
+
+  commonAnnotation(a1)(
     deepAssign({}, params, {
       chart: findViewById(chart, LEFT_AXES_VIEW),
       options: {
-        annotations: get(annotations, [yField[0]]),
+        annotations: a1,
       },
     })
   );
-  commonAnnotation(get(annotations, [yField[1]]))(
+  commonAnnotation(a2)(
     deepAssign({}, params, {
       chart: findViewById(chart, RIGHT_AXES_VIEW),
       options: {
-        annotations: get(annotations, [yField[1]]),
+        annotations: a2,
       },
     })
   );
@@ -299,7 +302,7 @@ export function limitInPlot(params: Params<DualAxesOptions>): Params<DualAxesOpt
     deepAssign({}, params, {
       chart: findViewById(chart, LEFT_AXES_VIEW),
       options: {
-        yAxis: yAxis[yField[0]],
+        yAxis: yAxis[0],
       },
     })
   );
@@ -308,7 +311,7 @@ export function limitInPlot(params: Params<DualAxesOptions>): Params<DualAxesOpt
     deepAssign({}, params, {
       chart: findViewById(chart, RIGHT_AXES_VIEW),
       options: {
-        yAxis: yAxis[yField[1]],
+        yAxis: yAxis[1],
       },
     })
   );

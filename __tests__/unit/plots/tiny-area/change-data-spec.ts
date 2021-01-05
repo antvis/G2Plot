@@ -18,8 +18,7 @@ describe('tiny-area', () => {
     });
 
     tinyArea.render();
-    console.log(tinyArea.chart, data.length);
-    expect(tinyArea.chart.geometries[0].elements.length).toEqual(data.length);
+    expect(tinyArea.options.data).toEqual(data);
 
     tinyArea.changeData(
       partySupport
@@ -28,12 +27,12 @@ describe('tiny-area', () => {
           return item.value;
         })
     );
-    expect(tinyArea.chart.geometries[0].elements.length).toEqual(
+    expect(tinyArea.options.data).toEqual(
       partySupport
         .filter((o) => ['FF', 'SF'].includes(o.type))
         .map((item) => {
           return item.value;
-        }).length
+        })
     );
 
     tinyArea.destroy();
@@ -54,10 +53,11 @@ describe('tiny-area', () => {
     });
 
     tinyArea.render();
-    expect(tinyArea.chart.geometries[0].elements.length).toEqual(data.length);
+    expect(tinyArea.options.data).toEqual(data);
 
-    tinyArea.changeData([...data, 999, 1500]);
-    expect(tinyArea.chart.geometries[0].elements.length).toEqual(data.length + 2);
+    const newData = [...data, 999, 1500];
+    tinyArea.changeData(newData);
+    expect(tinyArea.options.data).toEqual(newData);
 
     tinyArea.destroy();
   });

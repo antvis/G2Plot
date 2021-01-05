@@ -36,4 +36,4 @@ Example：
 }
 ```
 
-More documents about `ShapeStyle`, see [Graphic Style](../graphic-style).
+More documents about `ShapeStyle`, see [Graphic Style](/en/docs/api/graphic-style).

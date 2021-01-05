@@ -50,7 +50,7 @@ order: 22
 | 配置项 | 类型     | 描述                                 |
 | ------ | -------- | ------------------------------------ |
 | ticks  | _number[]_ | 辅助圆弧显示数字数组                 |
-| color  | _string/|string[]_ | 辅助圆弧的颜色色板，按照色板顺序取值; 当设置 ticks 时，color 无法使用回调的方式 |
+| color  | _string \|string[]_ | 辅助圆弧的颜色色板，按照色板顺序取值; 当设置 ticks 时，color 无法使用回调的方式 |
 
 <playground rid="gauge" path="progress-plots/gauge/demo/basic.ts"></playground>
 

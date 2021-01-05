@@ -36,4 +36,4 @@
 }
 ```
 
-关于 ShapeStyle 更加详细的文档参考 [绘图属性](../graphic-style)。
+关于 ShapeStyle 更加详细的文档参考 [绘图属性](/zh/docs/api/graphic-style)。

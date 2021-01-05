@@ -1,3 +1,4 @@
+import { pick } from '@antv/util';
 import { Stock } from '../../../../src';
 import { kdata, SH000001 } from '../../../data/stock';
 import { createDiv } from '../../../utils/dom';
@@ -21,15 +22,16 @@ describe('stock', () => {
 
     expect(stock.chart.geometries[0].elements.length).toEqual(kdata.length);
 
-    stock.changeData([
+    const newData = [
       ...kdata,
       { date: '2015-10-25', start: 8, max: 8.54, min: 4.99, end: 4.99, volumn: 2769.31, money: 19337.44 },
-    ]);
+    ];
+    stock.changeData(newData);
     expect(stock.chart.geometries[0].elements.length).toEqual(kdata.length + 1);
     // 添加的数据
     const addData = stock.chart.geometries[0].elements[kdata.length].getData();
     expect(addData.date).toEqual('2015-10-25');
-
+    expect(stock.options.data).toEqual(newData);
     stock.destroy();
   });
 });

@@ -71,6 +71,18 @@ describe('sankey ', () => {
       { source: 'd', target: 'c' },
     ]);
 
+    // 节点多个父
+    data = [
+      { source: 'a', target: 'c' },
+      { source: 'b', target: 'c' },
+      { source: 'c', target: 'a' },
+    ];
+
+    expect(cutoffCircle(data, 'source', 'target')).toEqual([
+      { source: 'a', target: 'c' },
+      { source: 'b', target: 'c' },
+    ]);
+
     // 稍微正式一点的数据
     expect(cutoffCircle(ENERGY_RELATIONS, 'source', 'target')).toEqual(ENERGY_RELATIONS);
     expect(cutoffCircle(ENERGY_RELATIONS, 'source', 'target')).not.toBe(ENERGY_RELATIONS);

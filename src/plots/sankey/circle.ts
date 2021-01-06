@@ -1,4 +1,4 @@
-import { each } from '@antv/util';
+import { each, size } from '@antv/util';
 import { Data, Datum } from '../../types';
 
 /**
@@ -7,14 +7,14 @@ import { Data, Datum } from '../../types';
  * @param source
  * @param target
  */
-function hasCircle(circleCache: Map<string, string>, source: string, target: string): boolean {
-  let pid = source;
+function hasCircle(circleCache: Map<string, string[]>, source: string[], target: string): boolean {
+  // 父元素为空，则表示已经到头了！
+  if (size(source) === 0) return false;
+  // target 在父元素路径上，所以形成环
+  if (source.includes(target)) return true;
 
-  do {
-    if (pid === target) return true;
-  } while ((pid = circleCache.get(pid))); // 如果到了根节点，那么就直接停止
-
-  return false;
+  // 递归
+  return source.some((s: string) => hasCircle(circleCache, circleCache.get(s), target));
 }
 
 /**
@@ -27,19 +27,22 @@ export function cutoffCircle(data: Data, sourceField: string, targetField: strin
   const dataWithoutCircle = [];
   const removedData = [];
 
-  /** 存储父子关系的链表关系，具体是 子 -> 父 */
-  const circleCache = new Map<string, string>();
+  /** 存储父子关系的链表关系，具体是 子 -> 父 数组 */
+  const circleCache = new Map<string, string[]>();
 
   each(data, (d: Datum) => {
-    const source = d[sourceField];
-    const target = d[targetField];
+    const source = d[sourceField] as string;
+    const target = d[targetField] as string;
 
     // 当前数据，不成环
-    if (!hasCircle(circleCache, source, target)) {
+    if (!hasCircle(circleCache, [source], target)) {
       // 保留数据
       dataWithoutCircle.push(d);
       // 存储关系链表
-      circleCache.set(target, source);
+      if (!circleCache.has(target)) {
+        circleCache.set(target, []);
+      }
+      circleCache.get(target).push(source);
     } else {
       // 保存起来用于打印 log
       removedData.push(d);

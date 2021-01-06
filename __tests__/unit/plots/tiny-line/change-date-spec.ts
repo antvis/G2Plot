@@ -58,7 +58,6 @@ describe('tiny-line', () => {
     });
 
     tinyLine.render();
-    console.log('tinyLine.chart', tinyLine.chart);
     expect(tinyLine.options.data).toEqual(data);
 
     const newData = [...data, 1900, 2000, 2200];

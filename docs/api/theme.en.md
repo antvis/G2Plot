@@ -1,6 +1,6 @@
 ---
 title: Theme
-order: 5
+order: 8
 ---
 
 `markdown:docs/common/theme.en.md`

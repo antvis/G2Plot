@@ -5,14 +5,14 @@ order: 1
 
 通过 `meta` 可以全局化配置图表数据元信息，以字段为单位进行配置。在 `meta` 上的配置将同时影响所有组件的文本信息。
 
-### 配置方式
+## 配置方式
 
 传入以字段名为 key，_MetaOption_ 为 value 的配置，同时设置多个字段的元信息。
 
 ```sign
 {
   meta: {
-    [field: string]: Record<string, MetaOption>)
+    [field: string]: MetaOption
   }
 }
 ```
@@ -30,7 +30,7 @@ Example:
 }
 ```
 
-### 细分配置项
+## 细分配置项
 
 _MetaOption_ 配置如下：
 

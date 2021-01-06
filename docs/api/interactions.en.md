@@ -1,6 +1,6 @@
 ---
 title: Interactions
-order: 4
+order: 7
 ---
 
 `markdown:docs/common/interactions.en.md`

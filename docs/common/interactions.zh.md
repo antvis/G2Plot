@@ -5,7 +5,7 @@
 在 G2Plot 中，透传了 G2 的交互语法，同时也内置了一些与具体 plot 绑定的交互。
 
 使用方式：
-```plain
+```ts
 // 开启「鼠标移入图表元素（柱状图的柱子、点图的点等）时触发 active」的交互
 interactions: [{ type: 'element-active' }]
 
@@ -15,12 +15,12 @@ interactions: [{ type: 'element-active' }, { type: 'brush' }]
 
 #### 移除交互
 
-```plain
+```ts
 plot.chart.removeInteraction('interaction-type');
 ```
 
 使用示例：
-```plain
+```ts
 // 移除 图例筛选 交互
 plot.chart.removeInteraction('legend-filter');
 ```

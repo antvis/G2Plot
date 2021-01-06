@@ -34,4 +34,14 @@ export class TinyArea extends Plot<TinyAreaOptions> {
   protected getSchemaAdaptor(): Adaptor<TinyAreaOptions> {
     return adaptor;
   }
+
+  /**
+   * @override
+   * @param data
+   */
+  public changeData(data: TinyAreaOptions['data']) {
+    this.updateOption({ data });
+    const newData = data.map((y: number, x: number) => ({ x, y }));
+    return this.chart.changeData(newData);
+  }
 }

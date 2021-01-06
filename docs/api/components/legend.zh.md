@@ -38,8 +38,8 @@ legend: {
 | flipPage | _boolean_ | false | 当图例项过多时是否进行分页。 | <tag color="green" text="分类图例">分类图例</tag> |
 | itemWidth | _number\|null_ | null | 图例项的宽度, 默认为 null（自动计算）。 | <tag color="green" text="分类图例">分类图例</tag> |
 | itemHeight | _number\|null_ | null | 图例的高度, 默认为 null。 | <tag color="green" text="分类图例">分类图例</tag> |
-| itemName | _object_ | - | 图例项 name 文本的配置。详见 [itemName 配置](#itemName) | <tag color="green" text="分类图例">分类图例</tag> |
-| itemValue | _object_ | - | 图例项 value 附加值的配置项。详见 [itemValue 配置](#itemValue)。 | <tag color="green" text="分类图例">分类图例</tag> |
+| itemName | _object_ | - | 图例项 name 文本的配置。详见 [itemName 配置](#itemname) | <tag color="green" text="分类图例">分类图例</tag> |
+| itemValue | _object_ | - | 图例项 value 附加值的配置项。详见 [itemValue 配置](#itemvalue)。 | <tag color="green" text="分类图例">分类图例</tag> |
 | itemSpacing | _number_ | - | 控制图例项水平方向的间距 | <tag color="green" text="分类图例">分类图例</tag> |
 | animate | _boolean_ | - | 是否开启动画开关。 |  |
 | animateOption | _object_ | - | 动画参数配置，当且仅当 animate 属性为 true，即动画开启时生效，详见 [animateOption 配置](#animateOption) |  |

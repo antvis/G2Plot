@@ -1,4 +1,4 @@
-import { isArray, isObject, map } from '@antv/util';
+import { isObject } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme } from '../../adaptor/common';
 import { findGeometry, flow, pick, deepAssign } from '../../utils';
@@ -6,6 +6,7 @@ import { AXIS_META_CONFIG_KEYS } from '../../constant';
 
 import { StockOptions } from './types';
 import { Y_FIELD, TREND_FIELD, TREND_UP, TREND_DOWN, TREND_COLOR } from './constant';
+import { getStockData } from './utils';
 
 /**
  * 图表配置处理
@@ -15,19 +16,9 @@ function field(params: Params<StockOptions>): Params<StockOptions> {
   const { chart, options } = params;
   const { xField, yField } = options;
 
-  let data = options.data;
+  const data = options.data;
 
-  // 加工处理源数据
-  data = map(data, (obj) => {
-    if (isArray(yField)) {
-      const [open, close, high, low] = yField;
-      obj[TREND_FIELD] = obj[open] <= obj[close] ? TREND_UP : TREND_DOWN;
-      obj[Y_FIELD] = [obj[open], obj[close], obj[high], obj[low]];
-    }
-    return obj;
-  });
-
-  chart.data(data);
+  chart.data(getStockData(data, yField));
 
   const geometry = chart.schema().position(`${xField}*${Y_FIELD}`).shape('candle');
 

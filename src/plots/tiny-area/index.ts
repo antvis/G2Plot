@@ -1,6 +1,7 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { DEFAULT_TOOLTIP_OPTIONS } from '../tiny-line/constants';
+import { getTinyData } from '../tiny-line/utils';
 import { TinyAreaOptions } from './types';
 import { adaptor } from './adaptor';
 
@@ -41,7 +42,6 @@ export class TinyArea extends Plot<TinyAreaOptions> {
    */
   public changeData(data: TinyAreaOptions['data']) {
     this.updateOption({ data });
-    const newData = data.map((y: number, x: number) => ({ x, y }));
-    return this.chart.changeData(newData);
+    return this.chart.changeData(getTinyData(data));
   }
 }

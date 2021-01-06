@@ -3,6 +3,7 @@ import { Adaptor } from '../../core/adaptor';
 import { TinyLineOptions } from './types';
 import { adaptor } from './adaptor';
 import { DEFAULT_TOOLTIP_OPTIONS } from './constants';
+import { getTinyData } from './utils';
 
 export { TinyLineOptions };
 
@@ -24,5 +25,14 @@ export class TinyLine extends Plot<TinyLineOptions> {
    */
   protected getSchemaAdaptor(): Adaptor<TinyLineOptions> {
     return adaptor;
+  }
+
+  /**
+   * @override
+   * @param data
+   */
+  public changeData(data: TinyLineOptions['data']) {
+    this.updateOption({ data });
+    this.chart.changeData(getTinyData(data));
   }
 }

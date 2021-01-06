@@ -1,8 +1,10 @@
-import { Plot } from '../../core/plot';
+import { map } from '@antv/util';
 import { Adaptor } from '../../core/adaptor';
+import { Plot } from '../../core/plot';
+import { getTinyData } from '../tiny-line/utils';
+import { adaptor } from './adaptor';
 import { DEFAULT_TOOLTIP_OPTIONS } from './constants';
 import { TinyColumnOptions } from './types';
-import { adaptor } from './adaptor';
 
 export { TinyColumnOptions };
 
@@ -24,5 +26,14 @@ export class TinyColumn extends Plot<TinyColumnOptions> {
    */
   protected getSchemaAdaptor(): Adaptor<TinyColumnOptions> {
     return adaptor;
+  }
+
+  /**
+   * @override
+   * @param data
+   */
+  public changeData(data: TinyColumnOptions['data']) {
+    this.updateOption({ data });
+    this.chart.changeData(getTinyData(data));
   }
 }

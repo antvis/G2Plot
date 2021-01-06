@@ -3,6 +3,7 @@ import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
 import { area, line, point } from '../../adaptor/geometries';
 import { X_FIELD, Y_FIELD } from '../tiny-line/constants';
+import { getTinyData } from '../tiny-line/utils';
 import { adjustYMetaByZero } from '../../utils/data';
 import { TinyAreaOptions } from './types';
 
@@ -14,9 +15,7 @@ function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   const { chart, options } = params;
   const { data, xAxis, yAxis, color, areaStyle, point: pointOptions, line: lineOptions } = options;
 
-  const seriesData = data.map((y: number, x: number) => {
-    return { x, y };
-  });
+  const seriesData = getTinyData(data);
 
   chart.data(seriesData);
 

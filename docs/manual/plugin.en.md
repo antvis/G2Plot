@@ -55,7 +55,7 @@ The main process is divided into the following steps:
 |---|---|---|---|
 | [G2Plot-QRCode](https://github.com/hustcc/G2Plot-QRCode) | [Go](https://git.hust.cc/G2Plot-QRCode) | Draw a QRCode with G2Plot. | [![npm](https://img.shields.io/npm/v/g2plot-qrcode.svg)](https://www.npmjs.com/package/g2plot-qrcode) |
 | [G2Plot-Column](https://github.com/yujs/G2Plot-Column) | [Go](https://yujs.github.io/G2Plot-Column/) | Customize Column with G2Plot. | [![npm](https://img.shields.io/npm/v/g2plot-column.svg)](https://www.npmjs.com/package/g2plot-column) | 
-
+| [G2Plot-Lollipop](https://github.com/MrSmallLiu/G2Plot-Lollipop) | [Go](https://mrsmallliu.github.io/G2Plot-Lollipop/) | Welcome to G2Plot-Lollipop 👋 | [![npm](https://img.shields.io/npm/v/g2plot-lollipop.svg)](https://www.npmjs.com/package/g2plot-lollipop) |
 
 ## Technology stack packages
 

@@ -3,9 +3,9 @@ import { flow, deepAssign } from '../../utils';
 import { scale, theme, animation, annotation, tooltip } from '../../adaptor/common';
 import { line, point } from '../../adaptor/geometries';
 import { adjustYMetaByZero } from '../../utils/data';
+import { getTinyData } from '../../utils/getTinyData';
 import { TinyLineOptions } from './types';
 import { X_FIELD, Y_FIELD } from './constants';
-import { getTinyLineData } from './utils';
 
 /**
  * 字段
@@ -15,7 +15,7 @@ function geometry(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
   const { chart, options } = params;
   const { data, xAxis, yAxis, color, lineStyle, point: pointMapping } = options;
 
-  const seriesData = getTinyLineData(data);
+  const seriesData = getTinyData(data);
 
   chart.data(seriesData);
 

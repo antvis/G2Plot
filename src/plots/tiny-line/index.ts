@@ -1,9 +1,9 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
+import { getTinyData } from '../../utils/getTinyData';
 import { TinyLineOptions } from './types';
 import { adaptor } from './adaptor';
 import { DEFAULT_TOOLTIP_OPTIONS } from './constants';
-import { getTinyLineData } from './utils';
 
 export { TinyLineOptions };
 
@@ -33,6 +33,6 @@ export class TinyLine extends Plot<TinyLineOptions> {
    */
   public changeData(data: TinyLineOptions['data']) {
     this.updateOption({ data });
-    this.chart.changeData(getTinyLineData(data));
+    this.chart.changeData(getTinyData(data));
   }
 }

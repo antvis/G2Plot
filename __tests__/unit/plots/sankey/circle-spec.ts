@@ -74,5 +74,9 @@ describe('sankey ', () => {
     // 稍微正式一点的数据
     expect(cutoffCircle(ENERGY_RELATIONS, 'source', 'target')).toEqual(ENERGY_RELATIONS);
     expect(cutoffCircle(ENERGY_RELATIONS, 'source', 'target')).not.toBe(ENERGY_RELATIONS);
+
+    // 空数据
+    expect(cutoffCircle(null, 'source', 'target')).toEqual([]);
+    expect(cutoffCircle(undefined, 'source', 'target')).toEqual([]);
   });
 });

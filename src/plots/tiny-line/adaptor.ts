@@ -5,6 +5,7 @@ import { line, point } from '../../adaptor/geometries';
 import { adjustYMetaByZero } from '../../utils/data';
 import { TinyLineOptions } from './types';
 import { X_FIELD, Y_FIELD } from './constants';
+import { getTinyLineData } from './utils';
 
 /**
  * 字段
@@ -14,9 +15,7 @@ function geometry(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
   const { chart, options } = params;
   const { data, xAxis, yAxis, color, lineStyle, point: pointMapping } = options;
 
-  const seriesData = data.map((y: number, x: number) => {
-    return { x, y };
-  });
+  const seriesData = getTinyLineData(data);
 
   chart.data(seriesData);
 

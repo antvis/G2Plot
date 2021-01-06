@@ -1,9 +1,9 @@
-import { map } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { TinyLineOptions } from './types';
 import { adaptor } from './adaptor';
 import { DEFAULT_TOOLTIP_OPTIONS } from './constants';
+import { getTinyLineData } from './utils';
 
 export { TinyLineOptions };
 
@@ -33,9 +33,6 @@ export class TinyLine extends Plot<TinyLineOptions> {
    */
   public changeData(data: TinyLineOptions['data']) {
     this.updateOption({ data });
-    const newData = map(data, (y: number, x: number) => {
-      return { x, y };
-    });
-    this.chart.changeData(newData);
+    this.chart.changeData(getTinyLineData(data));
   }
 }

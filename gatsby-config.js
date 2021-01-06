@@ -59,12 +59,20 @@ module.exports = {
     ],
     docs: [
       {
+        slug: 'api/options',
+        title: {
+          zh: '通用配置项',
+          en: 'Common Configuration',
+        },
+        order: 2,
+      },
+      {
         slug: 'api/components',
         title: {
           zh: '图表组件',
           en: 'Components',
         },
-        order: 2,
+        order: 3,
       },
       {
         slug: 'api/plots',
@@ -72,7 +80,7 @@ module.exports = {
           zh: '基础图表',
           en: 'Plots',
         },
-        order: 3,
+        order: 4,
       },
     ],
     examples: [

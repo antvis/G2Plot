@@ -1,9 +1,9 @@
-import { getTinyLineData } from '../../../../src/plots/tiny-line/utils';
+import { getTinyData } from '../../../src/utils/getTinyData';
 
-describe('tineLine-data', () => {
+describe('tiny-data', () => {
   it('normal data', () => {
     const originalData = [100, 200, 0, -100, -200];
-    const data = getTinyLineData(originalData);
+    const data = getTinyData(originalData);
 
     expect(data.length).toEqual(originalData.length);
     expect(data).toEqual([
@@ -17,7 +17,7 @@ describe('tineLine-data', () => {
 
   it('contain Nil element', () => {
     const originalData = [100, undefined, 0, null, -200];
-    const data = getTinyLineData(originalData);
+    const data = getTinyData(originalData);
 
     expect(data.length).toEqual(originalData.length);
     expect(data).toEqual([
@@ -31,16 +31,16 @@ describe('tineLine-data', () => {
 
   it('empty data', () => {
     const originalData = [];
-    const data = getTinyLineData(originalData);
+    const data = getTinyData(originalData);
 
     expect(data.length).toEqual(0);
   });
 
   it('invalid data', () => {
-    const inValidData_1 = getTinyLineData(undefined);
+    const inValidData_1 = getTinyData(undefined);
     expect(inValidData_1).toEqual([]);
 
-    const inValidData_2 = getTinyLineData(null);
+    const inValidData_2 = getTinyData(null);
     expect(inValidData_2).toEqual([]);
   });
 });

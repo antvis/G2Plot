@@ -44,12 +44,30 @@ _MetaOption_ 配置如下：
 | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 分类度量 | - cat: 分类度量 <br /> - timeCat: 时间分类度量                                                                                                                                                                      |
 | 连续度量 | - linear: 线性度量 <br /> - time：连续的时间度量 <br /> - log: log 度量 <br /> - pow: pow 度量 <br /> - quantize：分段度量，用户可以指定不均匀的分段 <br /> - quantile: 等分度量，根据数据的分布自动计算分段 <br /> |
-| 常量度量 | - identity: 常量度量                                                                                                                                                                                                |
-### MetaOption.showLast
+| 常量度量 | - identity: 常量度量                                                                                                                                          
+### MetaOption.alias
 
-<description> _boolean_ **optional**</description>
+<description> _string_ **optional**</description>
 
-只对 type: 'time' 的 scale 生效，强制显示最后的日期 tick。
+数据字段的显示别名，scale 内部不感知，外部注入。
+
+### MetaOption.values
+
+<description> _any[]_ **optional**</description>
+
+输入域、定义域。
+
+### MetaOption.formatter
+
+<description> _(v: any, k?: number) => any_ **optional**</description>
+
+tick 格式化函数，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。
+
+### MetaOption.range
+
+<description> _[number, number]_ **optional** _default:_ `[0, 1]`</description>
+
+输出域、值域，表示在绘图范围内可用于绘制的范围。
 
 ### MetaOption.sync
 
@@ -69,18 +87,6 @@ _MetaOption_ 配置如下：
 ```
 
 同步 scale。sync: `boolean` 即为 sync: \[key\]，如上例中 `x: { sync: true }` 等同于 `x: { sync: 'x' }`，`y: { sync: true }` 等同于 `y: { sync: 'y' }`，所以，通过以上配置，会分别对 x 和 y 两个字段，x1 和 x2 两个字段进行同步度量操作。
-
-### MetaOption.values
-
-<description> _any[]_ **optional**</description>
-
-输入域、定义域。
-
-### MetaOption.range
-
-<description> _[number, number]_ **optional** _default:_ `[0, 1]`</description>
-
-输出域、值域，表示在绘图范围内可用于绘制的范围。
 
 ### MetaOption.min
 
@@ -105,12 +111,6 @@ _MetaOption_ 配置如下：
 <description> _any_ **optional**</description>
 
 严格模式下的定义域最大值，设置后会强制 ticks 以最大值结束。
-
-### MetaOption.alias
-
-<description> _string_ **optional**</description>
-
-数据字段的显示别名，scale 内部不感知，外部注入。
 
 ### MetaOption.base
 
@@ -160,17 +160,17 @@ tick 个数。
 
 ticks 最大值。
 
-### MetaOption.formatter
-
-<description> _(v: any, k?: number) => any_ **optional**</description>
-
-tick 格式化函数，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。
-
 ### MetaOption.tickMethod
 
 <description> _string | TickMethod_ **optional**</description>
 
 计算 ticks 的算法。
+
+### MetaOption.showLast
+
+<description> _boolean_ **optional**</description>
+
+只对 type: 'time' 的 scale 生效，强制显示最后的日期 tick。
 
 ### MetaOption.mask
 

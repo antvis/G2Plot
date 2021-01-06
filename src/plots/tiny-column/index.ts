@@ -1,6 +1,7 @@
 import { map } from '@antv/util';
 import { Adaptor } from '../../core/adaptor';
 import { Plot } from '../../core/plot';
+import { getTinyData } from '../tiny-line/utils';
 import { adaptor } from './adaptor';
 import { DEFAULT_TOOLTIP_OPTIONS } from './constants';
 import { TinyColumnOptions } from './types';
@@ -33,9 +34,6 @@ export class TinyColumn extends Plot<TinyColumnOptions> {
    */
   public changeData(data: TinyColumnOptions['data']) {
     this.updateOption({ data });
-    const newData = map(data, (y: number, x: number) => {
-      return { x: `${x}`, y };
-    });
-    this.chart.changeData(newData);
+    this.chart.changeData(getTinyData(data));
   }
 }

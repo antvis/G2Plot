@@ -1,4 +1,4 @@
-import { getTinyData } from '../../../src/utils/getTinyData';
+import { getTinyData } from '../../../../src/plots/tiny-line/utils';
 
 describe('tiny-data', () => {
   it('normal data', () => {
@@ -7,11 +7,11 @@ describe('tiny-data', () => {
 
     expect(data.length).toEqual(originalData.length);
     expect(data).toEqual([
-      { x: 0, y: 100 },
-      { x: 1, y: 200 },
-      { x: 2, y: 0 },
-      { x: 3, y: -100 },
-      { x: 4, y: -200 },
+      { x: '0', y: 100 },
+      { x: '1', y: 200 },
+      { x: '2', y: 0 },
+      { x: '3', y: -100 },
+      { x: '4', y: -200 },
     ]);
   });
 
@@ -21,11 +21,11 @@ describe('tiny-data', () => {
 
     expect(data.length).toEqual(originalData.length);
     expect(data).toEqual([
-      { x: 0, y: 100 },
-      { x: 1, y: undefined },
-      { x: 2, y: 0 },
-      { x: 3, y: null },
-      { x: 4, y: -200 },
+      { x: '0', y: 100 },
+      { x: '1', y: undefined },
+      { x: '2', y: 0 },
+      { x: '3', y: null },
+      { x: '4', y: -200 },
     ]);
   });
 

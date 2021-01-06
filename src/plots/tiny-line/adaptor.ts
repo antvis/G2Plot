@@ -3,7 +3,7 @@ import { flow, deepAssign } from '../../utils';
 import { scale, theme, animation, annotation, tooltip } from '../../adaptor/common';
 import { line, point } from '../../adaptor/geometries';
 import { adjustYMetaByZero } from '../../utils/data';
-import { getTinyData } from '../../utils/getTinyData';
+import { getTinyData } from './utils';
 import { TinyLineOptions } from './types';
 import { X_FIELD, Y_FIELD } from './constants';
 

@@ -1,9 +1,9 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { getTinyData } from '../../utils/getTinyData';
 import { TinyLineOptions } from './types';
 import { adaptor } from './adaptor';
 import { DEFAULT_TOOLTIP_OPTIONS } from './constants';
+import { getTinyData } from './utils';
 
 export { TinyLineOptions };
 

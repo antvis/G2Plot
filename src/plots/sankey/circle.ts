@@ -25,6 +25,7 @@ function hasCircle(circleCache: Map<string, string>, source: string, target: str
  */
 export function cutoffCircle(data: Data, sourceField: string, targetField: string): Data {
   const dataWithoutCircle = [];
+  const removedData = [];
 
   /** 存储父子关系的链表关系，具体是 子 -> 父 */
   const circleCache = new Map<string, string>();
@@ -39,8 +40,15 @@ export function cutoffCircle(data: Data, sourceField: string, targetField: strin
       dataWithoutCircle.push(d);
       // 存储关系链表
       circleCache.set(target, source);
+    } else {
+      // 保存起来用于打印 log
+      removedData.push(d);
     }
   });
+
+  if (removedData.length !== 0) {
+    console.warn(`sankey data contains circle, ${removedData.length} records removed.`, removedData);
+  }
 
   return dataWithoutCircle;
 }

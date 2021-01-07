@@ -20,3 +20,21 @@ meta: {
   }
 }
 ```
+
+### How to share a Y axis in DaulAxes plot
+
+You can use `scale.sync` and hide one of the y-axis.
+
+```ts
+// 适用于 DualAxes plot
+{
+  yFields: ['y1', 'y2'],
+  meta: {
+    y1: { sync: 'y2' },
+    y2: { sync: true },
+  },
+  yAxis: {
+    y2: false
+  }
+}
+```

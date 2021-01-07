@@ -123,4 +123,27 @@ describe('sankey', () => {
 
     sankey.destroy();
   });
+
+  it('sankey circle', () => {
+    const DATA = [
+      { source: 'a', target: 'b', value: 160 },
+      { source: 'b', target: 'c', value: 40 },
+      { source: 'c', target: 'd', value: 10 },
+      { source: 'd', target: 'a', value: 10 },
+    ];
+
+    const sankey = new Sankey(createDiv(), {
+      data: DATA,
+      sourceField: 'source',
+      targetField: 'target',
+      weightField: 'value',
+    });
+
+    sankey.render();
+
+    // 被去掉环
+    expect(sankey.chart.views[1].getOptions().data.length).toBe(3);
+
+    sankey.destroy();
+  });
 });

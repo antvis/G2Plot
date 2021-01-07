@@ -1,20 +1,10 @@
 import { Radar } from '@antv/g2plot';
-import { DataSet } from '@antv/data-set';
 
-fetch('https://gw.alipayobjects.com/os/bmw-prod/bda695a8-cd9f-4b78-a423-3d6d547c10c3.json')
+fetch('https://gw.alipayobjects.com/os/antfincdn/svFjSfJkYy/radar.json')
   .then((data) => data.json())
   .then((data) => {
-    const { DataView } = DataSet;
-    const dv = new DataView().source(data);
-    dv.transform({
-      type: 'fold',
-      fields: ['a', 'b'], // 展开字段集
-      key: 'user', // key字段
-      value: 'score', // value字段
-    });
-
     const radarPlot = new Radar('container', {
-      data: dv.rows,
+      data,
       xField: 'item',
       yField: 'score',
       seriesField: 'user',

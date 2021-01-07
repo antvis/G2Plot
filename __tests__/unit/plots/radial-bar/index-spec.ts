@@ -84,4 +84,23 @@ describe('radial-bar', () => {
     expect(bar.chart.getController('annotation').getComponents()[0].component.get('content')).toBe('Music');
     bar.destroy();
   });
+
+  it('展示形式为 line，自动带 point 且颜色可以对应上', () => {
+    const bar = new RadialBar(createDiv(), {
+      width: 400,
+      height: 300,
+      data: antvStar,
+      xField,
+      yField,
+      type: 'line',
+      color: (datum) => (datum[yField] < 800 ? 'red' : 'green'),
+    });
+    bar.render();
+    const line = bar.chart.geometries[0];
+    const point = bar.chart.geometries[1];
+    expect(line.attributes.shape.values[0]).toBe('line');
+    expect(point.type).toBe('point');
+    line.elements.forEach((ele, idx) => expect(ele.shape.attr('color')).toBe(point.elements[idx].shape.attr('color')));
+    bar.destroy();
+  });
 });

@@ -1,7 +1,7 @@
 import { interaction, animation, theme, scale, tooltip, legend, annotation } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
-import { interval } from '../../adaptor/geometries';
+import { interval, point } from '../../adaptor/geometries';
 import { RadialBarOptions } from './types';
 import { getScaleMax } from './utils';
 
@@ -26,7 +26,10 @@ function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   });
   interval(p);
   if (type === 'line') {
-    chart.point().position(`${xField}*${yField}`).shape('circle');
+    point({
+      chart,
+      options: { xField, yField, seriesField: colorField, point: { shape: 'circle', color } },
+    });
   }
   return params;
 }

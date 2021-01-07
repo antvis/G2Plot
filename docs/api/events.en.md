@@ -1,6 +1,6 @@
 ---
 title: Events
-order: 4
+order: 6
 ---
 
 `markdown:docs/common/events.en.md`

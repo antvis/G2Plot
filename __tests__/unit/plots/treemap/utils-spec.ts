@@ -6,6 +6,7 @@ const data1 = {
     {
       name: '分类 1',
       value: 100,
+      ext: '自定义数据',
     },
     {
       name: '分类 2',
@@ -40,6 +41,7 @@ const data2 = {
         {
           name: '小米1',
           value: 10,
+          ext: '自定义数据',
         },
         {
           name: '小米2',
@@ -66,6 +68,8 @@ describe('treemap transformData', () => {
     expect(data.length).toBe(3);
     expect(areaArr[1] / areaArr[0]).toEqual(data1.children[1].value / data1.children[0].value);
     expect(areaArr[2] / areaArr[1]).toEqual(data1.children[2].value / data1.children[1].value);
+
+    expect(data[0].ext).toBe('自定义数据');
   });
 
   it('transformData, nest treemap', () => {
@@ -90,5 +94,7 @@ describe('treemap transformData', () => {
     expect((areaArr[3] / areaArr[1]).toFixed(1)).toEqual(
       (data2.children[1].children[1].value / data2.children[0].children[1].value).toFixed(1)
     );
+
+    expect(data[2].ext).toBe('自定义数据');
   });
 });

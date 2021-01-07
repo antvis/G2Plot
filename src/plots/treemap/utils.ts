@@ -15,13 +15,12 @@ export function transformData(options: TreemapOptions) {
   const result = [];
   nodes.forEach((node) => {
     if (!node.children) {
-      const eachNode: any = {
-        name: node.data.name,
+      const eachNode = Object.assign({}, node.data, {
         x: node.x,
         y: node.y,
         depth: node.depth,
         value: node.value,
-      };
+      });
       if (!node.data[colorField] && node.parent) {
         eachNode[colorField] = node.parent.data[colorField];
       } else {

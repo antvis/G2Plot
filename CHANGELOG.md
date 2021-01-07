@@ -5,7 +5,7 @@
 * **plugin-plot:**  收录 g2plot-lollipop 自定义图表 ([#2181](https://github.com/antvis/g2plot/pull/2181)) ([383d8f71](https://github.com/antvis/g2plot/commit/383d8f713ffaeb28f900ad06c5e6686f4b9a009e))
 *  增加 meta options 的配置说明文档 & radar demo 移除数据处理逻辑 ([#2182](https://github.com/antvis/g2plot/pull/2182)) ([d7c09ca1](https://github.com/antvis/g2plot/commit/d7c09ca185220ea783d3346f485acbee7d7757b8))
 *  迁移和弦图文档地址 & 文档样式优化 & 修复 绘图属性文档链接 404 ([#2172](https://github.com/antvis/g2plot/pull/2172)) ([79dc60ba](https://github.com/antvis/g2plot/commit/79dc60ba9cd5045a1a07051b1e93dadeee74d54c))
-*  修复教程页的 404 链接 & 优化 api 文档的字体间距等样式' ([#2167](https://github.com/antvis/g2plot/pull/2167)) ([2f401dc6](https://github.com/antvis/g2plot/commit/2f401dc6ec3c9652c7bd5538f603b60ac3aa8106))
+*  修复教程页的 404 链接 & 优化 api 文档的字体间距等样式 ([#2167](https://github.com/antvis/g2plot/pull/2167)) ([2f401dc6](https://github.com/antvis/g2plot/commit/2f401dc6ec3c9652c7bd5538f603b60ac3aa8106))
 
 ##### New Features
 

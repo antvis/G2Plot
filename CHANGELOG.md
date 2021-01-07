@@ -1,3 +1,25 @@
+#### 2.3.7 (2021-01-07)
+
+##### Documentation Changes
+
+* **plugin-plot:**  收录 g2plot-lollipop 自定义图表 ([#2181](https://github.com/antvis/g2plot/pull/2181)) ([383d8f71](https://github.com/antvis/g2plot/commit/383d8f713ffaeb28f900ad06c5e6686f4b9a009e))
+*  增加 meta options 的配置说明文档 & radar demo 移除数据处理逻辑 ([#2182](https://github.com/antvis/g2plot/pull/2182)) ([d7c09ca1](https://github.com/antvis/g2plot/commit/d7c09ca185220ea783d3346f485acbee7d7757b8))
+*  迁移和弦图文档地址 & 文档样式优化 & 修复 绘图属性文档链接 404 ([#2172](https://github.com/antvis/g2plot/pull/2172)) ([79dc60ba](https://github.com/antvis/g2plot/commit/79dc60ba9cd5045a1a07051b1e93dadeee74d54c))
+*  修复教程页的 404 链接 & 优化 api 文档的字体间距等样式' ([#2167](https://github.com/antvis/g2plot/pull/2167)) ([2f401dc6](https://github.com/antvis/g2plot/commit/2f401dc6ec3c9652c7bd5538f603b60ac3aa8106))
+
+##### New Features
+
+* **sankey:**  remove the circle data in sankey ([#2178](https://github.com/antvis/g2plot/pull/2178)) ([e248c8e3](https://github.com/antvis/g2plot/commit/e248c8e314bb0ca1d4c409bd81ce65ecc8dcdd36))
+*  迷你折线图和迷你柱形图重写 changeData && 添加单测 ([#2177](https://github.com/antvis/g2plot/pull/2177)) ([921deb67](https://github.com/antvis/g2plot/commit/921deb67622a735882560f67c299e68685752f3a))
+*  饼图支持配置坐标系 startAngle 和 endAngle ([#2164](https://github.com/antvis/g2plot/pull/2164)) ([24681490](https://github.com/antvis/g2plot/commit/24681490201632a252b210fca7f4b5726aef428f))
+* **open-ability:**  开放通用的 adaptors 给自定义扩展图表使用 ([#2166](https://github.com/antvis/g2plot/pull/2166)) ([223473de](https://github.com/antvis/g2plot/commit/223473de1aaf49bec610b24c65f598f342bee6dd))
+
+##### Bug Fixes
+
+* **dual-axes:**  双轴图的 y 字段相同的时候,导致 yaxis 配置被覆盖 ([#2176](https://github.com/antvis/g2plot/pull/2176)) ([b46e6b37](https://github.com/antvis/g2plot/commit/b46e6b37f4bc2af18c6846413c93f64fc21edfe9))
+*  stock 股票图重写 changeData 方法 ([#2170](https://github.com/antvis/g2plot/pull/2170)) ([ed081070](https://github.com/antvis/g2plot/commit/ed081070acf4b83330288946c9750062497fc9df))
+* **issue-2161:**  修复数据项存在非法 undefined 时，获取数据 max 为 NaN，导致玉珏图渲染页面崩溃 ([#2168](https://github.com/antvis/g2plot/pull/2168)) ([536adf90](https://github.com/antvis/g2plot/commit/536adf90ebff40ab57320377400a505a00f076e8))
+
 #### 2.3.6 (2020-12-30)
 
 ##### Documentation Changes

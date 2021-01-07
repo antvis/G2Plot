@@ -39,6 +39,11 @@ export class Sankey extends Plot<SankeyOptions> {
             content: name,
           };
         },
+        layout: [
+          {
+            type: 'hide-overlap',
+          },
+        ],
       },
       tooltip: {
         showTitle: false,

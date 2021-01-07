@@ -1,8 +1,9 @@
 import { ShapeAttrs } from '@antv/g-base';
 import { Options } from '../../types';
+import { BarOptions } from '../bar';
 
 /** 配置类型定义 */
-export interface RadialBarOptions extends Options {
+export interface RadialBarOptions extends Options, Pick<BarOptions, 'barBackground' | 'minBarWidth' | 'maxBarWidth'> {
   /** x 轴字段 */
   readonly xField?: string;
   /** y 轴字段 */

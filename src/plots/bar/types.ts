@@ -9,4 +9,6 @@ export interface BarOptions
   readonly minBarWidth?: ColumnOptions['minColumnWidth'];
   /** 条形图最大宽度（像素） */
   readonly maxBarWidth?: ColumnOptions['maxColumnWidth'];
+  /** 条形图柱子的背景 */
+  readonly barBackground?: ColumnOptions['columnBackground'];
 }

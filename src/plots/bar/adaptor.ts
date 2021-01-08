@@ -86,6 +86,7 @@ export function adaptor(params: Params<BarOptions>) {
         columnWidthRatio: barWidthRatio,
         minColumnWidth: minBarWidth,
         maxColumnWidth: maxBarWidth,
+        columnBackground: options.barBackground,
         // bar 调整数据顺序
         data: data ? data.slice().reverse() : data,
       },

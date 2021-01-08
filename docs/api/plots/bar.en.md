@@ -57,39 +57,21 @@ Whether the plot is Percent Bar. When isPercent is `true`, isStack must be `true
 
 ### Graphic Style
 
+`markdown:docs/common/color.zh.md`
+
+`markdown:docs/common/bar-style.en.md`
+
 #### barWidthRatio
 
 <description>**optional** _number_</description>
 
 The ratio of bar width( Range:[0-1] ).
 
-#### minBarWidth
-
-<description>**optional** _number_</description>
-
-The min width of bar, pixel value。
-
-#### maxBarWidth
-
-<description>**optional** _number_</description>
-
-The max width of bar, pixel value。
-
 #### marginRatio
 
 <description>**optional** _number_</description>
 
 The ratio of spacing between columns in groups( Range:[0-1] ), only for Grouped Bar.
-
-#### barStyle
-
-<description>**optional** _StyleAttr | Function_</description>
-
-Bar graphic Style.
-
-`markdown:docs/common/shape-style.en.md`
-
-`markdown:docs/common/color.en.md`
 
 ### Plot Components
 

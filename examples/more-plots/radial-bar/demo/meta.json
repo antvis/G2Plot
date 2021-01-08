@@ -8,25 +8,49 @@
       "filename": "basic.ts",
       "title": {
         "zh": "玉珏图",
-        "en": "basic Radial-Bar chart"
+        "en": "Radial-Bar plot"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*GTDCRYkg6V4AAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/b0lq5uRNpn/cb262279-a0ec-48de-9afc-267b9c5fda09.png"
+    },
+    {
+      "filename": "round-corner.ts",
+      "title": {
+        "zh": "带圆角的玉珏图",
+        "en": "Radial-Bar plot with rounded corner"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/dGBD84g0sY/743e388d-f1e6-4d6b-ab8d-28101f35a609.png"
     },
     {
       "filename": "color.ts",
       "title": {
-        "zh": "玉珏图 - 自定义颜色",
-        "en": "basic Radial-Bar chart"
+        "zh": "带自定义颜色的玉珏图",
+        "en": "Radial-Bar plot with custom color"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*GTDCRYkg6V4AAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/l6uP5%26MiT7/385e3f80-52ec-49e9-9dfe-bd447e63203f.png"
+    },
+    {
+      "filename": "background.ts",
+      "title": {
+        "zh": "带柱子背景的玉珏图",
+        "en": "Radial-Bar plot with background"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/A2Ik7iu%26YW/519113a4-f42e-48b2-a75d-1021add83c30.png"
     },
     {
       "filename": "line.ts",
       "title": {
         "zh": "线形玉珏图",
-        "en": "Radial-line chart"
+        "en": "Radial-line plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*GC6wT4GQ-oMAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "apple-watch-activity.ts",
+      "title": {
+        "zh": "健身: 活动记录",
+        "en": "Fitness: Activity record"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/6YIirgSj4E/4fb2dd39-0dfd-4130-a17a-bd3dc602573c.png"
     }
   ]
 }

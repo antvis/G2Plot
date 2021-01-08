@@ -57,38 +57,21 @@ order: 3
 
 ### 图形样式
 
+`markdown:docs/common/color.zh.md`
+
+`markdown:docs/common/bar-style.en.md`
+
 #### barWidthRatio
 
 <description>**optional** _number_</description>
 
 条形图宽度占比 [0-1]。
 
-#### minBarWidth
-
-<description>**optional** _number_</description>
-
-条形图最小宽度设置，像素值。
-
-#### maxBarWidth
-
-<description>**optional** _number_</description>
-
-条形图最大宽度设置，像素值。
 #### marginRatio
 
 <description>**optional** _number_</description>
 
 分组中柱子之间的间距 [0-1]，仅对分组条形图适用。
-
-#### barStyle
-
-<description>**optional** _StyleAttr | Function_</description>
-
-柱子样式配置。
-
-`markdown:docs/common/shape-style.zh.md`
-
-`markdown:docs/common/color.zh.md`
 
 ### 图表组件
 

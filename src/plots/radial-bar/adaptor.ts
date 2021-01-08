@@ -22,6 +22,10 @@ function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
         color,
         shape: type === 'line' ? 'line' : 'intervel',
       },
+      // 柱子的一些样式设置：柱子最小宽度、柱子最大宽度、柱子背景
+      minColumnWidth: options.minBarWidth,
+      maxColumnWidth: options.maxBarWidth,
+      columnBackground: options.barBackground,
     },
   });
   interval(p);

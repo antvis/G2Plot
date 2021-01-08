@@ -29,6 +29,8 @@ export class RadialBar extends Plot<RadialBarOptions> {
         line: null,
       },
       maxAngle: 240,
+      // 默认先关闭动画
+      animation: false,
     });
   }
 

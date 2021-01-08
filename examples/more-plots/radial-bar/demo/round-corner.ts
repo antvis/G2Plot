@@ -20,19 +20,9 @@ const bar = new RadialBar('container', {
   maxAngle: 270, //最大旋转角度,
   radius: 0.8,
   innerRadius: 0.2,
-  tooltip: {
-    formatter: (datum) => {
-      return { name: 'star数', value: datum.star };
-    },
-  },
-  colorField: 'star',
-  color: ({ star }) => {
-    if (star > 10000) {
-      return '#36c361';
-    } else if (star > 1000) {
-      return '#2194ff';
-    }
-    return '#ff4d4f';
+  barStyle: {
+    lineCap: 'round',
   },
 });
+
 bar.render();

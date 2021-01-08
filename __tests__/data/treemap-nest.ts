@@ -8,6 +8,7 @@ export const TREEMAP_CHILDREN = {
         {
           name: '其他',
           value: 25.0965,
+          ext: '自定义数据',
         },
       ],
     },

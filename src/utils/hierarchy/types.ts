@@ -12,6 +12,8 @@ export interface HierarchyOption {
     | 'treemapResquarify';
   size?: [number, number];
   round?: boolean;
+  // 是否在计算总值时，忽略父节点的值
+  ignoreParentValue?: boolean;
   ratio?: number;
   padding?: number;
   paddingInner?: number;

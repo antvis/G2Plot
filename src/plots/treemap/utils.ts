@@ -22,7 +22,8 @@ export function transformData(options: TreemapOptions) {
         value: node.value,
       });
       if (!node.data[colorField] && node.parent) {
-        eachNode[colorField] = node.parent.data[colorField];
+        const ancestorNode = node.ancestors().find((n) => n.data[colorField]);
+        eachNode[colorField] = ancestorNode?.data[colorField];
       } else {
         eachNode[colorField] = node.data[colorField];
       }

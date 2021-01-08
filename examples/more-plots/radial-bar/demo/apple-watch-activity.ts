@@ -48,6 +48,7 @@ const bar = new RadialBar('container', {
       <img
         style="width:11px;height:11px;display: block;"
         src="${d.icon}"
+        alt=""
       />
     </div>`,
   })),

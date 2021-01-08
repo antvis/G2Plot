@@ -46,7 +46,7 @@ const bar = new RadialBar('container', {
         return `<div style="transform:translate(-50%,-46%)">
           <img width="${
             (w / 203) * 231
-          }" height="${w}" src="https://gw.alipayobjects.com/zos/antfincdn/zrh%24J08soH/AntV%252520LOGO%2525202.png">
+          }" height="${w}" alt="" src="https://gw.alipayobjects.com/zos/antfincdn/zrh%24J08soH/AntV%252520LOGO%2525202.png">
         </div>`;
       },
     },

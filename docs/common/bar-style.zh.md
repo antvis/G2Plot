@@ -24,7 +24,7 @@
 
 <description>**可选** _StyleAttr_</description>
 
-功能描述：柱子的背景样式配置 。
+功能描述：柱子的背景样式配置 。 **注意**: 当玉珏图 `type="line"` 时，柱子背景设置不起作用。
 
 Example:
 

@@ -104,14 +104,13 @@ describe('radial-bar', () => {
     bar.destroy();
   });
 
-  it('bar background', () => {
+  it('bar background and does not work when type="line"', () => {
     const bar = new RadialBar(createDiv(), {
       width: 400,
       height: 300,
       data: antvStar,
       xField,
       yField,
-      type: 'line',
       color: (datum) => (datum[yField] < 800 ? 'red' : 'green'),
     });
     bar.render();
@@ -123,6 +122,10 @@ describe('radial-bar', () => {
     expect(bar.chart.geometries[0].elements[0].shape.isGroup()).toBe(true);
     //@ts-ignore
     expect(bar.chart.geometries[0].elements[0].shape.getChildren()[0].attr('fill')).toBe('red');
+
+    bar.update({ type: 'line' });
+    expect(bar.options.barBackground).toBeDefined();
+    expect(bar.chart.geometries[0].elements[0].shape.isGroup()).toBe(false);
 
     bar.destroy();
   });

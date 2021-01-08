@@ -24,7 +24,7 @@ Bar graphic Style.
 
 <description>**optional** _StyleAttr_</description>
 
-Background style of bar graphic
+Background style of bar graphic. **Attention**: It doesn't work when `type="line"` in Radial-bar plot.
 
 Example:
 

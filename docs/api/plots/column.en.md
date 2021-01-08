@@ -57,39 +57,21 @@ order: 2
 
 ### Geometry Style
 
+`markdown:docs/common/color.en.md`
+
+`markdown:docs/common/column-style.en.md`
+
 #### columnWidthRatio
 
 <description>**optional** _number_</description>
 
 柱状图宽度占比 [0-1]。
 
-#### minColumnWidth
-
-<description>**optional** _number_</description>
-
-The min width of column, pixel value。
-
-#### maxColumnWidth
-
-<description>**optional** _number_</description>
-
-The max width of column, pixel value。
-
 #### marginRatio
 
 <description>**optional** _number_</description>
 
 分组中柱子之间的间距 [0-1]，仅对分组柱状图适用。
-
-#### columnStyle
-
-<description>**optional** _StyleAttr | Function_</description>
-
-柱子样式配置。
-
-`markdown:docs/common/shape-style.en.md`
-
-`markdown:docs/common/color.en.md`
 
 ### Plot Components
 

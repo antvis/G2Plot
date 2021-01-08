@@ -17,7 +17,7 @@ const bar = new RadialBar('container', {
   data,
   xField: 'name',
   yField: 'star',
-  maxAngle: 270, //最大旋转角度,
+  maxAngle: 350, //最大旋转角度,
   radius: 0.8,
   innerRadius: 0.2,
   tooltip: {
@@ -28,11 +28,28 @@ const bar = new RadialBar('container', {
   colorField: 'star',
   color: ({ star }) => {
     if (star > 10000) {
-      return '#36c361';
+      return '#6349ec';
     } else if (star > 1000) {
-      return '#2194ff';
+      return '#ff9300';
     }
-    return '#ff4d4f';
+    return '#ff93a7';
   },
+  barBackground: {},
+  barStyle: { lineCap: 'round' },
+  annotations: [
+    {
+      type: 'html',
+      position: ['50%', '50%'],
+      html: (container, view) => {
+        const coord = view.getCoordinate();
+        const w = coord.polarRadius * coord.innerRadius * 1.15;
+        return `<div style="transform:translate(-50%,-46%)">
+          <img width="${
+            (w / 203) * 231
+          }" height="${w}" src="https://gw.alipayobjects.com/zos/antfincdn/zrh%24J08soH/AntV%252520LOGO%2525202.png">
+        </div>`;
+      },
+    },
+  ],
 });
 bar.render();

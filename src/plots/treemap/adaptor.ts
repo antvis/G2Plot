@@ -16,6 +16,8 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
   return deepAssign(
     {
       options: {
+        // 默认按照 name 字段对颜色进行分类
+        colorField: 'name',
         label: {
           fields: ['name'],
           layout: {

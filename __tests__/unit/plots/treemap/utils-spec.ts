@@ -1,4 +1,7 @@
 import { transformData } from '../../../../src/plots/treemap/utils';
+import { Treemap } from '../../../../src';
+import { createDiv } from '../../../utils/dom';
+import { treemap } from '../../../../src/utils/hierarchy/treemap';
 
 const data1 = {
   name: 'root',
@@ -52,6 +55,60 @@ const data2 = {
   ],
 };
 
+// 自己有分类，父类有分类
+// 没有，父类有
+// 自己有，父类没有，
+// 自己没有，父类没有
+
+const data3 = {
+  name: 'root',
+  children: [
+    {
+      name: '分类1',
+      category: 'A',
+      children: [
+        {
+          name: '分类1.1',
+          children: [
+            {
+              name: '分类1.1.1',
+              children: [
+                {
+                  name: '分类1.1.1.1',
+                  category: 'A.A',
+                  expectCategory: 'A.A',
+                  value: 50,
+                },
+                {
+                  name: '分类1.1.1.2',
+                  expectCategory: 'A',
+                  value: 50,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: '分类2',
+      children: [
+        {
+          name: '分类2.1',
+          value: 10,
+          category: 'B.B',
+          expectCategory: 'B.B',
+        },
+        {
+          name: '分类2.1',
+          value: 10,
+          expectCategory: undefined,
+        },
+      ],
+    },
+  ],
+};
+
 describe('treemap transformData', () => {
   it('transformData, basic treemap', () => {
     const data = transformData({
@@ -96,5 +153,15 @@ describe('treemap transformData', () => {
     );
 
     expect(data[2].ext).toBe('自定义数据');
+  });
+
+  it('transformData, nest treemap, colorField', () => {
+    const data = transformData({
+      data: data3,
+      colorField: 'category',
+    });
+    data.forEach((d) => {
+      expect(d.category).toEqual(d.expectCategory);
+    });
   });
 });

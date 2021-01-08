@@ -8,6 +8,7 @@ const DEFAULT_OPTIONS: HierarchyOption = {
   tile: 'treemapSquarify', // treemapBinary, treemapDice, treemapSlice, treemapSliceDice, treemapSquarify, treemapResquarify
   size: [1, 1], // width, height
   round: false,
+  ignoreParentValue: true,
   padding: 0,
   paddingInner: 0,
   paddingOuter: 0,
@@ -44,7 +45,9 @@ export function treemap(data: any, options: HierarchyOption): any[] {
       .paddingTop(options.paddingTop)
       .paddingRight(options.paddingRight)
       .paddingBottom(options.paddingBottom)
-      .paddingLeft(options.paddingLeft)(d3Hierarchy.hierarchy(data).sum((d) => d[field]));
+      .paddingLeft(options.paddingLeft)(
+      d3Hierarchy.hierarchy(data).sum((d) => (options.ignoreParentValue && d.children ? 0 : d[field]))
+    );
   const root = partition(data);
 
   /*

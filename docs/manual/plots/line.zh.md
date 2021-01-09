@@ -11,28 +11,39 @@ order: 0
 
 # 快速上手
 
-<playground path='line/basic/demo/line.ts' rid='rect1'></playground>
+<div class="sign">
 
-查看更多<a href="/zh/examples/line/basic" target='blank'>示例</a>.
+```ts
+import { Line } from '@antv/g2plot';
 
-## 配置项
+fetch('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38ccf184.json')
+  .then((res) => res.json())
+  .then((data) => {
+    const line = new Line('container', {
+      data,
+      xField: 'Date',
+      yField: 'scales',
+    });
 
-折线图相关的配置参考 [API 文档](/zh/docs/api/plots/line)。
+    line.render();
+  });
+```
+
+</div>
+
+📊 查看更多<a href="/zh/examples/line/basic" target='blank'>示例</a>.
+
+🎨 折线图详细的配置参考 [API 文档](/zh/docs/api/plots/line)。
 
 # 折线图特性
 
 ## 曲线图
 
-曲线图是用曲线将一系列的数据点连接的图表。
+曲线图是用曲线将一系列的数据点连接的图表, 对应的只需要配置 `smooth: true` 属性即可。
 
 <playground path='line/basic/demo/spline.ts' rid='rect2'></playground>
 
-对应的只需要配置 `smooth: true` 属性即可。
-
-
 ## 阶梯型直线图
-
-<playground path='line/step/demo/line.ts' rid='rect3'></playground>
 
 对应的只需要配置 `stepType` 属性即可。
 
@@ -41,5 +52,7 @@ options: {
   stepType: 'vh' // 可选项：hv | vh | hvh | vhv
 }
 ```
+
+<playground path='line/step/demo/line.ts' rid='rect3'></playground>
 
 </div>

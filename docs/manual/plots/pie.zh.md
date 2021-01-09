@@ -13,11 +13,9 @@ order: 6
 
 <playground path='pie/basic/demo/basic.ts' rid='rect1'></playground>
 
-查看更多<a href="/zh/examples/pie/basic" target='blank'>示例</a>.
+📊 查看更多<a href="/zh/examples/pie/basic" target='blank'>示例</a>.
 
-## 配置项
-
-饼图相关的配置参考 [API 文档](/zh/docs/api/plots/pie)。
+🎨 饼图详细的配置参考 [API 文档](/zh/docs/api/plots/pie)。
 
 # 饼图特性
 

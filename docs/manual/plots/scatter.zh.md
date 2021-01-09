@@ -8,13 +8,13 @@ order: 20
  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
     <table class="lake-table" style="width: 100%; outline: none; border-collapse: collapse;">
       <colgroup>
-        <col width="395" span="1">
+        <col width="425" span="1">
         <col width="340" span="1">
       </colgroup>
       <tbody>
         <tr style="height: 33px;">
           <td colspan="1" rowspan="4" style="background:#fff">
-            <img data-role="image" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*A9l6TqZB2v4AAAAAAAAAAABkARQnAQ" alt="屏幕快照 2020-03-05 下午7.26.23.png" style="border: none; box-shadow: none; width: 372px; height: 402px; visibility: visible;">
+            <playground path='scatter/scatter/demo/color-mapping.ts' rid='rect1'></playground>
           </td>
           <td class="style1">
           <p><strong>定义</strong></p>
@@ -46,19 +46,38 @@ order: 20
 
 # 快速上手
 
-<playground path='scatter/scatter/demo/color-mapping.ts' rid='rect1'></playground>
+<div class='sign'>
 
-查看更多<a href="/zh/examples/scatter/scatter" target='blank'>示例</a>.
+```ts
+import { Scatter } from '@antv/g2plot';
 
-## 配置项
+fetch('https://gw.alipayobjects.com/os/antfincdn/j5ADHaMsZx/scatter.json')
+  .then(data => data.json())
+  .then(data => {
+    const scatterPlot = new Scatter('container', {
+      data,
+      xField: 'x',
+      yField: 'y',
+      size: 5,
+      pointStyle: {
+        fill: '#5B8FF9',
+      },
+    });
+    scatterPlot.render();
+  });
+```
 
-散点图相关的配置参考 [API 文档](/zh/docs/api/plots/scatter).
+</div>
+
+📊 查看更多<a href="/zh/examples/scatter/scatter" target='blank'>示例</a>.
+
+🎨 散点图详细的配置参考 [API 文档](/zh/docs/api/plots/scatter).
 
 # 散点图特性
 
 ## 回归线
 
-<playground path='scatter/scatter/scatter/demo/line.ts' rid='rect2'></playground>
+<playground path='scatter/scatter/demo/line.ts' rid='rect2'></playground>
 
 ## 气泡图
 

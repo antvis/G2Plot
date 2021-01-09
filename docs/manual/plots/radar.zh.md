@@ -7,13 +7,13 @@ order: 19
  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
     <table class="lake-table" style="width: 100%; outline: none; border-collapse: collapse;">
       <colgroup>
-        <col width="395" span="1">
+        <col width="425" span="1">
         <col width="340" span="1">
       </colgroup>
       <tbody>
         <tr style="height: 33px;">
           <td colspan="1" rowspan="4" style="background:#fff">
-            <img data-role="image" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*kZEHSIdPsUsAAAAAAAAAAABkARQnAQ" alt="屏幕快照 2020-03-05 下午7.26.23.png" style="border: none; box-shadow: none; width: 372px; height: 402px; visibility: visible;">
+            <playground path='more-plots/radar/demo/basic.ts' rid='rect1'></playground>
           </td>
           <td class="style1">
           <p><strong>定义</strong></p>
@@ -46,12 +46,40 @@ order: 19
 
 # 快速上手
 
-<playground path='radar/basic/demo/basic.ts'></playground>
+<div class='sign'>
 
-查看更多<a href="/zh/examples/radar/basic" target='blank'>示例</a>.
+```ts
+import { Radar } from '@antv/g2plot';
 
-## 配置项
+// 数据更新于 2021.01.09
+const data = [
+  { name: 'G2', star: 10371 },
+  { name: 'G6', star: 7380 },
+  { name: 'F2', star: 7414 },
+  { name: 'L7', star: 2140 },
+  { name: 'X6', star: 660 },
+  { name: 'AVA', star: 885 },
+  { name: 'G2Plot', star: 1626 },
+];
+const radarPlot = new Radar('container', {
+  data: data.map((d) => ({ ...d, star: Math.sqrt(d.star) })),
+  xField: 'name',
+  yField: 'star',
+  meta: {
+    star: {
+      min: 0,
+      nice: true,
+    },
+  },
+  area: {},
+});
+radarPlot.render();
+```
 
-雷达图相关的配置参考 [API 文档](/zh/docs/api/plots/radar)。
+</div>
+
+📊 查看更多<a href="/zh/examples/more-plots/radar" target='blank'>示例</a>.
+
+🎨 雷达图详细的配置参考 [API 文档](/zh/docs/api/plots/radar)。
 
 </div>

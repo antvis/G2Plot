@@ -13,10 +13,8 @@ order: 1
 
 <playground path='column/basic/demo/basic.ts'></playground>
 
-See more <a href="/en/examples/column/basic" target='blank'>examples</a>.
+📊 See more <a href="/en/examples/column/basic" target='blank'>examples</a>.
 
-## Configuration
-
-For an overview of the column plot options see the [API reference](/en/docs/api/plots/column).
+🎨 For an overview of the column plot options see the [API reference](/en/docs/api/plots/column).
 
 </div>

@@ -8,13 +8,13 @@ order: 20
  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
     <table class="lake-table" style="width: 100%; outline: none; border-collapse: collapse;">
       <colgroup>
-        <col width="395" span="1">
+        <col width="425" span="1">
         <col width="340" span="1">
       </colgroup>
       <tbody>
         <tr style="height: 33px;">
           <td colspan="1" rowspan="4" style="background:#fff">
-            <img data-role="image" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*A9l6TqZB2v4AAAAAAAAAAABkARQnAQ" alt="屏幕快照 2020-03-05 下午7.26.23.png" style="border: none; box-shadow: none; width: 372px; height: 402px; visibility: visible;">
+            <playground path='scatter/scatter/demo/color-mapping.ts' rid='rect1'></playground>
           </td>
           <td class="style1">
           <p><strong>定义</strong></p>
@@ -46,19 +46,38 @@ order: 20
 
 # Quick start
 
-<playground path='scatter/scatter/demo/color-mapping.ts' rid='rect1'></playground>
+<div class='sign'>
 
-See more <a href="/en/examples/scatter/scatter" target='blank'>examples</a>.
+```ts
+import { Scatter } from '@antv/g2plot';
 
-## Configuration
+fetch('https://gw.alipayobjects.com/os/antfincdn/j5ADHaMsZx/scatter.json')
+  .then(data => data.json())
+  .then(data => {
+    const scatterPlot = new Scatter('container', {
+      data,
+      xField: 'x',
+      yField: 'y',
+      size: 5,
+      pointStyle: {
+        fill: '#5B8FF9',
+      },
+    });
+    scatterPlot.render();
+  });
+```
 
-For an overview of the scatter plot options see the [API reference](/en/docs/api/plots/scatter).
+</div>
+
+📊 See more <a href="/en/examples/scatter/scatter" target='blank'>examples</a>.
+
+🎨 For an overview of the scatter plot options see the [API reference](/en/docs/api/plots/scatter).
 
 # Scatter plot features
 
 ## RegressionLine
 
-<playground path='scatter/scatter/scatter/demo/line.ts' rid='rect2'></playground>
+<playground path='scatter/scatter/demo/line.ts' rid='rect2'></playground>
 
 ## Bubble
 

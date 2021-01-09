@@ -8,13 +8,13 @@ order: 8
  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
     <table class="lake-table" style="width: 100%; outline: none; border-collapse: collapse;">
       <colgroup>
-        <col width="395" span="1">
+        <col width="425" span="1">
         <col width="340" span="1">
       </colgroup>
       <tbody>
         <tr style="height: 33px;">
-          <td colspan="1" rowspan="4" style="background:#fff">
-            <img data-role="image" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*p4SPRYI3UfIAAAAAAAAAAABkARQnAQ" class="image lake-drag-image" alt="屏幕快照 2020-03-05 下午7.26.23.png" style="border: none; box-shadow: none; width: 372px; height: 402px; visibility: visible;">
+          <td colspan="1" rowspan="4" style="background:#fff;padding:0;">
+            <playground path='more-plots/histogram/demo/basic.ts'></playground>
           </td>
           <td class="style1">
             <p><strong>定义</strong></p>
@@ -47,12 +47,28 @@ order: 8
 
 # 快速上手
 
-<playground path='more-plots/histogram/demo/basic.ts'></playground>
+<div class="sign">
 
-查看更多<a href="/zh/examples/more-plots/histogram" target='blank'>示例</a>.
+```ts
+import { Histogram } from '@antv/g2plot';
 
-## 配置项
+fetch('https://gw.alipayobjects.com/os/antfincdn/RoliHq%2453S/histogram.json')
+  .then((data) => data.json())
+  .then((data) => {
+    const histogramPlot = new Histogram('container', {
+      data,
+      binField: 'value',
+      binWidth: 2,
+    });
 
-直方图相关的配置参考 [API 文档](/zh/docs/api/plots/Histogram)。
+    histogramPlot.render();
+  });
+```
+
+</div>
+
+📊 查看更多<a href="/zh/examples/more-plots/histogram" target='blank'>示例</a>.
+
+🎨 直方图详细的配置参考 [API 文档](/zh/docs/api/plots/Histogram)。
 
 </div>

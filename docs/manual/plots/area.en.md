@@ -13,10 +13,8 @@ order: 5
 
 <playground path='area/basic/demo/basic.ts'></playground>
 
-See more <a href="/en/examples/area/basic" target='blank'>examples</a>.
+📊 See more <a href="/en/examples/area/basic" target='blank'>examples</a>.
 
-## Configuration
-
-For an overview of the area plot options see the [API reference](/en/docs/api/plots/area)。
+🎨 For an overview of the area plot options see the [API reference](/en/docs/api/plots/area)。
 
 </div>

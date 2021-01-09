@@ -80,7 +80,7 @@ leader: { lineWidth: 1, stroke: '#8c8c8c', lineDash: [4, 2] }
 
 <description>**optional** _number_ _default:_ `#30bf78`</description>
 
-上涨色配置。
+下降色配置。
 
 #### columnWidthRatio
 

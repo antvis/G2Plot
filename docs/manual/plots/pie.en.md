@@ -13,11 +13,9 @@ order: 6
 
 <playground path='pie/basic/demo/basic.ts' rid='rect1'></playground>
 
-See more <a href="/en/examples/pie/basic" target='blank'>examples</a>.
+📊 See more <a href="/en/examples/pie/basic" target='blank'>examples</a>.
 
-## Configuration
-
-For an overview of the pie plot options see the [API reference](/en/docs/api/plots/pie).
+🎨 For an overview of the pie plot options see the [API reference](/en/docs/api/plots/pie).
 
 # Pie plot features
 

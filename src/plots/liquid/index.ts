@@ -25,6 +25,7 @@ export class Liquid extends Plot<LiquidOptions> {
           style: {
             opacity: 0.75,
             fontSize: '30px',
+            lineHeight: '30px',
             textAlign: 'center',
           },
         },

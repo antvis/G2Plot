@@ -13,10 +13,8 @@ order: 1
 
 <playground path='column/basic/demo/basic.ts'></playground>
 
-查看更多<a href="/zh/examples/column/basic" target='blank'>示例</a>.
+📊 查看更多<a href="/zh/examples/column/basic" target='blank'>示例</a>.
 
-## 配置项
-
-柱状图相关的配置参考 [API 文档](/zh/docs/api/plots/column)。
+🎨 柱状图详细的配置参考 [API 文档](/zh/docs/api/plots/column)。
 
 </div>

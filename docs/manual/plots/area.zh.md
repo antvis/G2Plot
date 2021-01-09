@@ -13,10 +13,8 @@ order: 5
 
 <playground path='area/basic/demo/basic.ts'></playground>
 
-查看更多<a href="/zh/examples/area/basic" target='blank'>示例</a>.
+📊 查看更多<a href="/zh/examples/area/basic" target='blank'>示例</a>.
 
-## 配置项
-
-面积图相关的配置参考 [API 文档](/zh/docs/api/plots/area)。
+🎨 面积图详细的配置参考 [API 文档](/zh/docs/api/plots/area)。
 
 </div>

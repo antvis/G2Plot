@@ -7,13 +7,13 @@ order: 9
  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
     <table class="lake-table" style="width: 100%; outline: none; border-collapse: collapse;">
       <colgroup>
-        <col width="395" span="1">
+        <col width="425" span="1">
         <col width="340" span="1">
       </colgroup>
       <tbody>
         <tr style="height: 33px;">
           <td colspan="1" rowspan="4" style="background:#fff">
-            <img data-role="image" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*D8OkQYz3BMAAAAAAAAAAAABkARQnAQ" alt="屏幕快照 2020-03-05 下午7.26.23.png" style="border: none; box-shadow: none; width: 372px; height: 402px; visibility: visible;">
+           <playground path='more-plots/waterfall/demo/basic.ts'></playground>
           </td>
           <td class="style1">
           <p><strong>定义</strong></p>
@@ -45,12 +45,54 @@ order: 9
 
 # Quick start
 
-<playground path='more-plots/waterfall/demo/basic.ts'></playground>
+<div class="sign">
 
-See more <a href="/en/examples/more-plots/waterfall" target='blank'>examples</a>.
+```ts
+import { Waterfall } from '@antv/g2plot';
 
-## Configuration
+const data = [
+  { type: '日用品', money: 120 },
+  { type: '伙食费', money: 900 },
+  { type: '交通费', money: 200 },
+  { type: '水电费', money: 300 },
+  { type: '房租', money: 1200 },
+  { type: '商场消费', money: 1000 },
+  { type: '红包收入', money: -2000 },
+];
 
-For an overview of the waterfall plot options see the [API reference](/en/docs/api/plots/waterfall)。
+const waterfallPlot = new Waterfall('container', {
+  data,
+  xField: 'type',
+  yField: 'money',
+});
+
+waterfallPlot.render();
+```
+
+</div>
+
+📊 See more <a href="/en/examples/more-plots/waterfall" target='blank'>examples</a>.
+
+🎨 For an overview of the waterfall plot options see the [API reference](/en/docs/api/plots/waterfall)。
+
+# Waterfall features
+
+## Color (Fill)
+
+通过 `risingFill` 和 `fallingFill` 可以指定普通柱形颜色和正值柱形颜色，对于汇总值可以通过 `total.style.fill` 指定颜色。
+
+Example：
+
+```ts
+{
+  risingFill: 'red',
+  fallingFill: 'green',
+  total: {
+    style: {
+      fill: '#96a6a6',
+    },
+  },
+}
+```
 
 </div>

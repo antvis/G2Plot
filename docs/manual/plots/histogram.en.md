@@ -8,7 +8,7 @@ order: 8
  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
     <table class="lake-table" style="width: 100%; outline: none; border-collapse: collapse;">
       <colgroup>
-        <col width="395" span="1">
+        <col width="425" span="1">
         <col width="340" span="1">
       </colgroup>
       <tbody>
@@ -47,12 +47,28 @@ order: 8
 
 # Quick start
 
-<playground path='more-plots/histogram/demo/basic.ts'></playground>
+<div class="sign">
 
-See more <a href="/en/examples/more-plots/histogram" target='blank'>examples</a>.
+```ts
+import { Histogram } from '@antv/g2plot';
 
-## Configuration
+fetch('https://gw.alipayobjects.com/os/antfincdn/RoliHq%2453S/histogram.json')
+  .then((data) => data.json())
+  .then((data) => {
+    const histogramPlot = new Histogram('container', {
+      data,
+      binField: 'value',
+      binWidth: 2,
+    });
 
-For an overview of the histogram plot options see the [API reference](/en/docs/api/plots/histogram).
+    histogramPlot.render();
+  });
+```
+
+</div>
+
+📊 See more <a href="/en/examples/more-plots/histogram" target='blank'>examples</a>.
+
+🎨 For an overview of the histogram plot options see the [API reference](/en/docs/api/plots/histogram).
 
 </div>

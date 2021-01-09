@@ -8,13 +8,13 @@ order: 10
  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
     <table class="lake-table" style="width: 100%; outline: none; border-collapse: collapse;">
       <colgroup>
-        <col width="395" span="1">
+        <col width="425" span="1">
         <col width="340" span="1">
       </colgroup>
       <tbody>
         <tr style="height: 33px;">
           <td colspan="1" rowspan="4" style="background:#fff">
-            <img data-role="image" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*eTfPSq2eCSIAAAAAAAAAAABkARQnAQ" alt="屏幕快照 2020-03-05 下午7.26.23.png" style="border: none; box-shadow: none; width: 372px; height: 448px; visibility: visible;">
+            <playground path='progress-plots/liquid/demo/basic.ts'></playground>
           </td>
           <td class="style1">
           <p><strong>定义</strong></p>
@@ -46,12 +46,21 @@ order: 10
 
 # 快速上手
 
-<playground path='progress-plots/liquid/demo/basic.ts'></playground>
+<div class='sign'>
 
-查看更多<a href="/zh/examples/progress-plots/liquid" target='blank'>示例</a>.
+```ts
+import { Liquid } from '@antv/g2plot';
 
-## 配置项
+const liquidPlot = new Liquid('container', {
+  percent: 0.25,
+});
+liquidPlot.render();
+```
 
-水波图相关的配置参考 [API 文档](/zh/docs/api/plots/liquid).
+</div>
+
+📊 查看更多<a href="/zh/examples/progress-plots/liquid" target='blank'>示例</a>.
+
+🎨 水波图详细的配置参考 [API 文档](/zh/docs/api/plots/liquid).
 
 </div>

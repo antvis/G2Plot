@@ -13,10 +13,8 @@ order: 3
 
 <playground path='bar/basic/demo/basic.ts'></playground>
 
-See more <a href="/en/examples/bar/basic" target='blank'>examples</a>.
+📊 See more <a href="/en/examples/bar/basic" target='blank'>examples</a>.
 
-## Configuration
-
-For an overview of the bar plot options see the [API reference](/en/docs/api/plots/bar).
+🎨 For an overview of the bar plot options see the [API reference](/en/docs/api/plots/bar).
 
 </div>

@@ -30,7 +30,8 @@ pre[class*='language-'] {
 }
 
 code.language-sign,
-pre.language-sign {
+pre.language-sign,
+.sign .language-ts {
   background: #e6f7ff !important;
 }
 
@@ -64,8 +65,12 @@ code.language-text {
 /** 教程文档 自定义样式 **/
 
 // 自定义 playground 样式
-.manual-docs .SplitPane .Pane:first-child {
-  width: 50% !important;
+.manual-docs .lake-table td [class*='MdPlayGround-module--playground'] {
+  border: none;
+}
+
+.manual-docs .lake-table .SplitPane .Pane:first-child {
+  width: 100% !important;
 }
 
 .lake-table img.lake-drag-image {
@@ -118,6 +123,32 @@ code.language-text {
   color: rgb(38, 38, 38);
   line-height: 1.74;
   letter-spacing: 0.05em;
+}
+
+[class*='markdown-module--markdown'] .manual-docs h1 {
+  margin: 40px 0 20px;
+}
+
+.manual-docs h2 {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+a.ant-anchor-link-title[href='#快速上手'],
+a.ant-anchor-link-title[href='#quick-start'] {
+  transform: translateX(-10px);
+}
+
+a.ant-anchor-link-title[href='#快速上手']::before,
+a.ant-anchor-link-title[href='#quick-start']::before  {
+  content: ' ';
+  display: inline-flex;
+  width: 10px;
+  height: 10px;
+  transform: translateY(-4.5px);
+  border: 5px solid rgb(140, 140, 140);
+  border-right-color: transparent;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
 }
 
 /** 教程文档 自定义样式 END **/

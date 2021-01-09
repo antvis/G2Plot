@@ -18,7 +18,16 @@
         "zh": "堆叠分组柱状图",
         "en": "Stacked grouped column plot"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*x6zHR4G3ydsAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/9ExrwrpVrA/908eff62-1132-4dbb-8c3c-9cbe8183c6d8.png"
+    }
+    ,
+    {
+      "filename": "stacked2.ts",
+      "title": {
+        "zh": "堆叠分组柱状图",
+        "en": "Stacked grouped column plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/mp10Ax%24Mvx/4c6f19b4-2549-4023-8756-bce61bf6c50e.png"
     }
   ]
 }

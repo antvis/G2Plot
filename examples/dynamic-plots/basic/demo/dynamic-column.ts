@@ -17,29 +17,17 @@ const columnPlot = new Column('container', {
   data,
   xField: 'type',
   yField: 'value',
-  seriesField: '',
-  color: ({ type }) => {
-    if (type === '10-30分' || type === '30+分') {
+  seriesField: 'value',
+  color: ({ value }) => {
+    if (value < 0.05) {
       return paletteSemanticRed;
     }
     return brandColor;
   },
-  label: {
-    content: (originData) => {
-      const val = parseFloat(originData.value);
-      if (val < 0.05) {
-        return (val * 100).toFixed(1) + '%';
-      }
-    },
-    offset: 10,
-  },
   legend: false,
-  xAxis: {
-    label: {
-      autoHide: true,
-      autoRotate: false,
-    },
-  },
 });
 
 columnPlot.render();
+setInterval(() => {
+  columnPlot.changeData(data.map((d) => ({ ...d, value: d.value * Math.random() })));
+}, 1200);

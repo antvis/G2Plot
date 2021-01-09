@@ -15,7 +15,7 @@ order: 3
         </colgroup>
         <tbody>
           <tr style="height: 33px">
-            <td colspan="1" rowspan="4" style="background: #fff">
+            <td colspan="1" rowspan="5" style="background: #fff">
               <playground path="bar/basic/demo/basic.ts"></playground>
             </td>
             <td class="style1">
@@ -30,11 +30,12 @@ order: 3
                 <span class="lake-fontsize-12">
                条状图</span>
               </p>
-              <p>
-                <strong>何时使用: </strong>
-                <span class="lake-fontsize-12">
-               条形图通过水平柱子长短对比数值大小，它与柱状图类似，只是交换了 X 轴与 Y 轴位置。均适用于对比一组或者多组分类数据。</span>
-              </p>
+            </td>
+          </tr>
+               <tr style="height: 33px">
+            <td class="style1">
+              <p><strong>何时使用</strong></p>
+              <p><span class="lake-fontsize-12">条形图通过水平柱子长短对比数值大小，它与柱状图类似，只是交换了 X 轴与 Y 轴位置。均适用于对比一组或者多组分类数据。</span></p>
             </td>
           </tr>
           <tr style="height: 33px">

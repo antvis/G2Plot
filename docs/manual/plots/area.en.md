@@ -15,7 +15,7 @@ order: 5
         </colgroup>
         <tbody>
           <tr style="height: 33px">
-            <td colspan="1" rowspan="4" style="background: #fff">
+            <td colspan="1" rowspan="5" style="background: #fff">
               <playground path="area/basic/demo/basic.ts"></playground>
             </td>
             <td class="style1">
@@ -25,11 +25,13 @@ order: 5
                   >使用带填充区域的线段显示数据在一个具有顺序性的维度上的变化。</span
                 >
               </p>
-              <p>
-                <strong>何时使用: </strong>
-                <span class="lake-fontsize-12">面积图可用来展示连续性数据，可很好地表示趋势、累积、减少以及变化。
-               堆叠面积图更擅于展示部分和整体之间的关系或趋势，而不是传达特定的值。</span>
-              </p>
+            </td>
+          </tr>
+            <tr style="height: 33px">
+            <td class="style1">
+              <p><strong>何时使用</strong></p>
+              <p><span class="lake-fontsize-12">面积图可用来展示连续性数据，可很好地表示趋势、累积、减少以及变化。
+               堆叠面积图更擅于展示部分和整体之间的关系或趋势，而不是传达特定的值。</span></p>
             </td>
           </tr>
           <tr style="height: 33px">

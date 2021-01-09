@@ -15,7 +15,7 @@ order: 6
       </colgroup>
       <tbody>
         <tr style="height: 33px">
-          <td colspan="1" rowspan="4" style="background: #fff">
+          <td colspan="1" rowspan="5" style="background: #fff">
             <playground path="pie/basic/demo/basic.ts"></playground>
           </td>
           <td class="style1">
@@ -25,10 +25,12 @@ order: 6
                 >通过扇形区块的颜色和弧长（角度、面积）来展现数据的分类和占比情况。</span
               >
             </p>
-            <p>
-              <strong>何时使用: </strong>
-              <span class="lake-fontsize-12">饼图通过扇形区块的面积，弧度和颜色等视觉标记，展现数据的分类和占比情况。它的特点是展现部分与部分之间，以及部分与整体的关系。部分相加之和等于整体的 100%，用整圆表示。</span>
-            </p>
+          </td>
+        </tr>
+        <tr style="height: 33px">
+          <td class="style1">
+            <p><strong>何时使用</strong></p>
+            <p><span class="lake-fontsize-12">饼图通过扇形区块的面积，弧度和颜色等视觉标记，展现数据的分类和占比情况。它的特点是展现部分与部分之间，以及部分与整体的关系。部分相加之和等于整体的 100%，用整圆表示。</span></p>
           </td>
         </tr>
         <tr style="height: 33px">

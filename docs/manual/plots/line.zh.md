@@ -16,7 +16,7 @@ order: 0
         </colgroup>
         <tbody>
           <tr style="height: 33px">
-            <td colspan="1" rowspan="4" style="background: #fff">
+            <td colspan="1" rowspan="5" style="background: #fff">
               <playground path="line/basic/demo/line.ts"></playground>
             </td>
             <td class="style1">
@@ -30,10 +30,12 @@ order: 0
                 <strong>别名: </strong>
                 <span class="lake-fontsize-12">折线图、线图、基础折线图</span>
               </p>
-              <p>
-                <strong>何时使用: </strong>
-                <span class="lake-fontsize-12">折线图用于显示数据在一个连续的时间间隔或者时间跨度上的变化，它的特点是反映事物随时间或有序类别而变化的趋势。</span>
-              </p>
+            </td>
+          </tr>
+             <tr style="height: 33px">
+            <td class="style1">
+              <p><strong>何时使用</strong></p>
+              <p><span class="lake-fontsize-12">折线图用于显示数据在一个连续的时间间隔或者时间跨度上的变化，它的特点是反映事物随时间或有序类别而变化的趋势。</span></p>
             </td>
           </tr>
           <tr style="height: 33px">

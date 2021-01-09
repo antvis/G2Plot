@@ -15,7 +15,7 @@ order: 1
         </colgroup>
         <tbody>
           <tr style="height: 33px">
-            <td colspan="1" rowspan="4" style="background: #fff">
+            <td colspan="1" rowspan="5" style="background: #fff">
               <playground path="column/basic/demo/basic.ts"></playground>
             </td>
             <td class="style1">
@@ -30,11 +30,12 @@ order: 1
                 <span class="lake-fontsize-12">
                柱形图</span>
               </p>
-              <p>
-                <strong>何时使用: </strong>
-                <span class="lake-fontsize-12">
-               柱状图通过垂直柱子长短对比数值大小，适用于对比一组或者多组分类数据。</span>
-              </p>
+          </td>
+          </tr>
+          <tr style="height: 33px">
+            <td class="style1">
+              <p><strong>何时使用</strong></p>
+              <p><span class="lake-fontsize-12">柱状图通过垂直柱子长短对比数值大小，适用于对比一组或者多组分类数据。</span></p>
             </td>
           </tr>
           <tr style="height: 33px">

@@ -44,7 +44,7 @@ order: 10
     </table>
   </div>
 
-# 快速上手
+## 快速上手
 
 <div class='sign'>
 

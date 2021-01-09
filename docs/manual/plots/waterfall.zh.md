@@ -43,7 +43,7 @@ order: 9
     </table>
   </div>
 
-# 快速上手
+## 快速上手
 
 
 <div class="sign">
@@ -76,11 +76,11 @@ waterfallPlot.render();
 
 📊 查看更多<a href="/zh/examples/more-plots/waterfall" target='blank'>示例</a>.
 
-瀑布图详细的配置参考 [API 文档](/zh/docs/api/plots/waterfall)。
+🎨 瀑布图详细的配置参考 [API 文档](/zh/docs/api/plots/waterfall)。
 
-# 瀑布图特性
+## 瀑布图特性
 
-## 颜色
+### 颜色
 
 通过 `risingFill` 和 `fallingFill` 可以指定普通柱形颜色和正值柱形颜色，对于汇总值可以通过 `total.style.fill` 指定颜色。
 

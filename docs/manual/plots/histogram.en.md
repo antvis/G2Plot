@@ -14,7 +14,7 @@ order: 8
       <tbody>
         <tr style="height: 33px;">
           <td colspan="1" rowspan="4" style="background:#fff">
-            <img data-role="image" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*p4SPRYI3UfIAAAAAAAAAAABkARQnAQ" class="image lake-drag-image" alt="屏幕快照 2020-03-05 下午7.26.23.png" style="border: none; box-shadow: none; width: 372px; height: 402px; visibility: visible;">
+            <playground path='more-plots/histogram/demo/basic.ts'></playground>
           </td>
           <td class="style1">
             <p><strong>定义</strong></p>
@@ -45,7 +45,7 @@ order: 8
     </table>
   </div>
 
-# Quick start
+## Quick start
 
 <div class="sign">
 

@@ -43,7 +43,7 @@ order: 9
     </table>
   </div>
 
-# Quick start
+## Quick start
 
 <div class="sign">
 
@@ -75,9 +75,9 @@ waterfallPlot.render();
 
 🎨 For an overview of the waterfall plot options see the [API reference](/en/docs/api/plots/waterfall)。
 
-# Waterfall features
+## Waterfall features
 
-## Color (Fill)
+### Color (Fill)
 
 通过 `risingFill` 和 `fallingFill` 可以指定普通柱形颜色和正值柱形颜色，对于汇总值可以通过 `total.style.fill` 指定颜色。
 

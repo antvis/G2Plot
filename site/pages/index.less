@@ -81,7 +81,12 @@ code.language-text {
   width: auto;
 }
 
-.manual-docs img[alt='design'],
+.manual-docs img[alt='design'] {
+  max-width: 100%;
+  max-height: unset;
+  display: block;
+}
+
 .manual-docs table img[data-role='image'] {
   max-width: 100%;
   max-height: unset;
@@ -112,7 +117,8 @@ code.language-text {
   cursor: default;
 }
 
-.manual-docs .lake-table .lake-fontsize-12 {
+.design-guide-list li,
+.manual-docs .lake-fontsize-12 {
   color: rgba(0, 0, 0, 0.65);
   font-size: 12px;
   font-weight: 400;
@@ -129,17 +135,13 @@ code.language-text {
   margin: 40px 0 20px;
 }
 
-.manual-docs h2 {
-  border-bottom: 1px solid #f0f0f0;
-}
-
 a.ant-anchor-link-title[href='#快速上手'],
 a.ant-anchor-link-title[href='#quick-start'] {
   transform: translateX(-10px);
 }
 
 a.ant-anchor-link-title[href='#快速上手']::before,
-a.ant-anchor-link-title[href='#quick-start']::before  {
+a.ant-anchor-link-title[href='#quick-start']::before {
   content: ' ';
   display: inline-flex;
   width: 10px;

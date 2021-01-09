@@ -44,7 +44,7 @@ order: 20
     </table>
   </div>
 
-# 快速上手
+## 快速上手
 
 <div class='sign'>
 
@@ -73,13 +73,13 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/j5ADHaMsZx/scatter.json')
 
 🎨 散点图详细的配置参考 [API 文档](/zh/docs/api/plots/scatter).
 
-# 散点图特性
+## 散点图特性
 
-## 回归线
+### 回归线
 
 <playground path='scatter/scatter/demo/line.ts' rid='rect2'></playground>
 
-## 气泡图
+### 气泡图
 
 气泡图是一种多变量的统计图表，由笛卡尔坐标系（直角坐标系）和大小不一、颜色不同的圆组成，可以看作是散点图的变形。
 

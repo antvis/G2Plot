@@ -43,7 +43,7 @@ order: 10
     </table>
   </div>
 
-# Quick start
+## Quick start
 
 <div class='sign'>
 

@@ -23,9 +23,9 @@ For an overview of the pie plot options see the [API reference](/en/docs/api/plo
 
 ## Donut (Ring) pie
 
-<playground path='pie/donut/demo/basic.ts' rid='rect2'></playground>
-
 With G2Plot, you can set the `innerRadius` to create concentric ring.
+
+<playground path='pie/donut/demo/basic.ts' rid='rect2'></playground>
 
 ## Fan chart
 

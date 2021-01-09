@@ -23,9 +23,9 @@ order: 6
 
 ## 环图
 
-<playground path='pie/donut/demo/basic.ts' rid='rect2'></playground>
-
 在 G2Plot 中，只需要指定 `innerRadius` 就可以创建环形饼图
+
+<playground path='pie/donut/demo/basic.ts' rid='rect2'></playground>
 
 ## 扇形图
 

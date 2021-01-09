@@ -61,7 +61,9 @@ code.language-text {
   line-height: 36px;
 }
 
-// 教程文档 自定义 playground 样式
+/** 教程文档 自定义样式 **/
+
+// 自定义 playground 样式
 .manual-docs .SplitPane .Pane:first-child {
   width: 50% !important;
 }
@@ -74,8 +76,48 @@ code.language-text {
   width: auto;
 }
 
-.manual-docs img[alt='design'] {
+.manual-docs img[alt='design'],
+.manual-docs table img[data-role='image'] {
   max-width: 100%;
+  max-height: unset;
   margin: 0 auto;
   display: block;
 }
+
+.manual-docs .lake-table td[colspan='1'] {
+  vertical-align: top;
+  background-color: rgb(255, 255, 255);
+  color: rgb(38, 38, 38);
+  min-width: 90px;
+  font-size: 14px;
+  white-space: normal;
+  overflow-wrap: break-word;
+  border: 1px solid rgb(217, 217, 217);
+  padding: 4px 8px;
+  cursor: default;
+}
+
+.manual-docs .lake-table td.style1 {
+  min-width: 90px;
+  font-size: 14px;
+  white-space: normal;
+  overflow-wrap: break-word;
+  border: 1px solid rgb(217, 217, 217);
+  padding: 4px 8px;
+  cursor: default;
+}
+
+.manual-docs .lake-table .lake-fontsize-12 {
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.manual-docs .lake-table strong {
+  font-size: 12px;
+  color: rgb(38, 38, 38);
+  line-height: 1.74;
+  letter-spacing: 0.05em;
+}
+
+/** 教程文档 自定义样式 END **/

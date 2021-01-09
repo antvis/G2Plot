@@ -15,8 +15,8 @@ import { conversionTag } from '../../adaptor/conversion-tag';
 import { connectedArea } from '../../adaptor/connected-area';
 import { interval } from '../../adaptor/geometries';
 import { flow, transformLabel, deepAssign } from '../../utils';
+import { getDataWhetherPecentage } from '../../utils/transform/percent';
 import { adjustYMetaByZero } from '../../utils/data';
-import { percent } from '../../utils/transform/percent';
 import { Datum } from '../../types';
 import { ColumnOptions } from './types';
 
@@ -53,9 +53,8 @@ function defaultOptions(params: Params<ColumnOptions>): Params<ColumnOptions> {
 function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
   const { data, columnStyle, color, columnWidthRatio, isPercent, xField, yField, seriesField, tooltip } = options;
-  const chartData = isPercent ? percent(data, yField, xField, yField) : data;
 
-  chart.data(chartData);
+  chart.data(getDataWhetherPecentage(data, yField, xField, yField, isPercent));
 
   // 百分比堆积图，默认会给一个 % 格式化逻辑, 用户可自定义
   const tooltipOptions = isPercent

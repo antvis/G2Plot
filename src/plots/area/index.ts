@@ -1,9 +1,9 @@
 import { Plot } from '../../core/plot';
 import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
+import { getDataWhetherPecentage } from '../../utils/transform/percent';
 import { AreaOptions } from './types';
 import { adaptor } from './adaptor';
-import { getAreaData } from './utils';
 
 export { AreaOptions };
 
@@ -40,7 +40,7 @@ export class Area extends Plot<AreaOptions> {
   public changeData(data: AreaOptions['data']) {
     this.updateOption({ data });
     const { isPercent, xField, yField } = this.options;
-    this.chart.changeData(getAreaData(data, yField, xField, yField, isPercent));
+    this.chart.changeData(getDataWhetherPecentage(data, yField, xField, yField, isPercent));
   }
 
   /**

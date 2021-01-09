@@ -3,6 +3,7 @@ import { Adaptor } from '../../core/adaptor';
 import { ProgressOptions } from './types';
 import { adaptor } from './adaptor';
 import { DEFAULT_COLOR } from './constant';
+import { getProgressData } from './utils';
 
 export { ProgressOptions };
 
@@ -14,6 +15,7 @@ export class Progress extends Plot<ProgressOptions> {
     return {
       percent: 0.2,
       color: DEFAULT_COLOR,
+      animation: true,
     };
   }
 
@@ -22,9 +24,8 @@ export class Progress extends Plot<ProgressOptions> {
    * @param percent
    */
   public changeData(percent: number) {
-    this.update({
-      percent,
-    });
+    this.updateOption({ percent });
+    this.chart.changeData(getProgressData(percent));
   }
 
   /**

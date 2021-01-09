@@ -1,7 +1,8 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
+import { getProgressData } from '../progress/utils';
 import { RingProgressOptions } from './types';
-import { adaptor } from './adaptor';
+import { adaptor, statistic } from './adaptor';
 
 export { RingProgressOptions };
 
@@ -28,6 +29,7 @@ export class RingProgress extends Plot<RingProgressOptions> {
           formatter: ({ percent }) => `${(percent * 100).toFixed(2)}%`,
         },
       },
+      animation: true,
     };
   }
 
@@ -36,9 +38,11 @@ export class RingProgress extends Plot<RingProgressOptions> {
    * @param percent
    */
   public changeData(percent: number) {
-    this.update({
-      percent,
-    });
+    this.updateOption({ percent });
+
+    this.chart.data(getProgressData(percent));
+    // todo 后续让 G2 层在 afterrender 之后，来重绘 annotations
+    statistic({ chart: this.chart, options: this.options }, true);
   }
 
   /**

@@ -61,8 +61,8 @@ module.exports = {
       {
         slug: 'manual/plots',
         title: {
-          zh: '图表类型',
-          en: 'Plots',
+          zh: '图表指引',
+          en: 'Plot Guide',
         },
         order: 3,
       },

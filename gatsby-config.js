@@ -59,6 +59,14 @@ module.exports = {
     ],
     docs: [
       {
+        slug: 'manual/plots',
+        title: {
+          zh: '图表类型',
+          en: 'Plots',
+        },
+        order: 3,
+      },
+      {
         slug: 'api/options',
         title: {
           zh: '通用配置项',

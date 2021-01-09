@@ -10,20 +10,20 @@ div[class^='PlayGround-module--exampleContainerWrapper'] {
 
 @media (max-width: 480px) {
   .teaser-img img {
-    margin-left: 0!important;
-    margin-top: 60px!important;
+    margin-left: 0 !important;
+    margin-top: 60px !important;
   }
 }
 
 @media (max-width: 900px) {
   .teaser-img img {
-    margin-left: 0!important;
-    margin-top: 0!important;
+    margin-left: 0 !important;
+    margin-top: 0 !important;
   }
 }
 
 // 自定义 G2Plot 官网样式
-pre[class*="language-"]{
+pre[class*='language-'] {
   margin: 0.6em 0 0.8em;
   padding: 0.6em 1em;
   font-size: 90%;
@@ -34,7 +34,7 @@ pre.language-sign {
   background: #e6f7ff !important;
 }
 
-description code.language-text  {
+description code.language-text {
   color: #3c43d1;
 }
 
@@ -47,16 +47,35 @@ code.language-text {
   border-radius: 4px;
 }
 
-:not(pre) > code[class*="language-"] {
+:not(pre) > code[class*='language-'] {
   padding: 1px 4px;
 }
 
-[class*="markdown-module--markdown--"] table {
+[class*='markdown-module--markdown--'] table {
   margin: 0.5em 0 24px 0 !important;
 }
 
 // 复写 H 边距
-[class*=markdown-module--markdown] h3 {
+[class*='markdown-module--markdown'] h3 {
   margin: 1em 0 0.6em;
   line-height: 36px;
+}
+
+// 教程文档 自定义 playground 样式
+.manual-docs .SplitPane .Pane:first-child {
+  width: 50% !important;
+}
+
+.lake-table img.lake-drag-image {
+  max-height: unset;
+}
+
+.lake-table [class*='markdown-module--markdown'] table td:first-child {
+  width: auto;
+}
+
+.manual-docs img[alt='design'] {
+  max-width: 100%;
+  margin: 0 auto;
+  display: block;
 }

@@ -1,7 +1,8 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { LiquidOptions } from './types';
-import { adaptor } from './adaptor';
+import { adaptor, statistic } from './adaptor';
+import { getLiquidData } from './utils';
 // register liquid shape
 import './shapes/liquid';
 
@@ -38,6 +39,7 @@ export class Liquid extends Plot<LiquidOptions> {
         count: 3,
         length: 192,
       },
+      animation: {},
     };
   }
 
@@ -46,9 +48,10 @@ export class Liquid extends Plot<LiquidOptions> {
    * @param percent
    */
   public changeData(percent: number) {
-    this.update({
-      percent,
-    });
+    this.updateOption({ percent });
+
+    this.chart.data(getLiquidData(percent));
+    statistic({ chart: this.chart, options: this.options }, true);
   }
 
   /**

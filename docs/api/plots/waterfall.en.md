@@ -65,7 +65,7 @@ label 数据模式，可选值: `absolute`(数据的绝对值)，`difference`(�
 
 <description>**optional** _number_ _default:_ `#30bf78`</description>
 
-上涨色配置。
+下降色配置。
 
 #### columnWidthRatio
 

@@ -12,12 +12,22 @@ export class TinyColumn extends Plot<TinyColumnOptions> {
   /** 图表类型 */
   public type: string = 'tiny-column';
 
+  /**
+   * @override
+   * @param data
+   */
+  public changeData(data: TinyColumnOptions['data']) {
+    this.updateOption({ data });
+    this.chart.changeData(getTinyData(data));
+  }
+
   protected getDefaultOptions() {
     return {
       appendPadding: 2,
       tooltip: {
         ...DEFAULT_TOOLTIP_OPTIONS,
       },
+      animation: true,
     };
   }
 
@@ -26,14 +36,5 @@ export class TinyColumn extends Plot<TinyColumnOptions> {
    */
   protected getSchemaAdaptor(): Adaptor<TinyColumnOptions> {
     return adaptor;
-  }
-
-  /**
-   * @override
-   * @param data
-   */
-  public changeData(data: TinyColumnOptions['data']) {
-    this.updateOption({ data });
-    this.chart.changeData(getTinyData(data));
   }
 }

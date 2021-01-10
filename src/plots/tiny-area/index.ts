@@ -11,6 +11,15 @@ export class TinyArea extends Plot<TinyAreaOptions> {
   /** 图表类型 */
   public type: string = 'tiny-area';
 
+  /**
+   * @override
+   * @param data
+   */
+  public changeData(data: TinyAreaOptions['data']) {
+    this.updateOption({ data });
+    this.chart.changeData(getTinyData(data));
+  }
+
   protected getDefaultOptions() {
     return {
       appendPadding: 2,
@@ -26,6 +35,7 @@ export class TinyArea extends Plot<TinyAreaOptions> {
         size: 1,
         color: '#5B8FF9',
       },
+      animation: true,
     };
   }
 
@@ -34,14 +44,5 @@ export class TinyArea extends Plot<TinyAreaOptions> {
    */
   protected getSchemaAdaptor(): Adaptor<TinyAreaOptions> {
     return adaptor;
-  }
-
-  /**
-   * @override
-   * @param data
-   */
-  public changeData(data: TinyAreaOptions['data']) {
-    this.updateOption({ data });
-    return this.chart.changeData(getTinyData(data));
   }
 }

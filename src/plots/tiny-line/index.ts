@@ -11,12 +11,22 @@ export class TinyLine extends Plot<TinyLineOptions> {
   /** 图表类型 */
   public type: string = 'tiny-line';
 
+  /**
+   * @override
+   * @param data
+   */
+  public changeData(data: TinyLineOptions['data']) {
+    this.updateOption({ data });
+    this.chart.changeData(getTinyData(data));
+  }
+
   protected getDefaultOptions() {
     return {
       appendPadding: 2,
       tooltip: {
         ...DEFAULT_TOOLTIP_OPTIONS,
       },
+      animation: true,
     };
   }
 
@@ -25,14 +35,5 @@ export class TinyLine extends Plot<TinyLineOptions> {
    */
   protected getSchemaAdaptor(): Adaptor<TinyLineOptions> {
     return adaptor;
-  }
-
-  /**
-   * @override
-   * @param data
-   */
-  public changeData(data: TinyLineOptions['data']) {
-    this.updateOption({ data });
-    this.chart.changeData(getTinyData(data));
   }
 }

@@ -39,3 +39,17 @@ export function percent(data: Data, measure: string, groupField: string, as: str
     };
   });
 }
+
+/**
+ * 获取数据，如果是百分比，进行数据转换 (适用于面积图、柱状图、条形图)
+ * @param isPercent 是否百分比
+ */
+export function getDataWhetherPecentage(
+  data: Record<string, any>[],
+  yField: string,
+  groupField: string,
+  asField: string,
+  isPercent?: boolean
+) {
+  return !isPercent ? data : percent(data, yField, groupField, asField);
+}

@@ -24,7 +24,7 @@
       "filename": "width-ratio.ts",
       "title": {
         "zh": "指定柱状图宽度比例",
-        "en": "Column plot column width"
+        "en": "Specify column plot widthRatio"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*92VnSrkQLeAAAAAAAAAAAABkARQnAQ"
     },
@@ -40,7 +40,7 @@
       "filename": "slider.ts",
       "title": {
         "zh": "带缩略轴柱状图",
-        "en": "Column plot slider"
+        "en": "Column plot with slider"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*QhoHQ4QIts0AAAAAAAAAAAAAARQnAQ"
     },
@@ -48,7 +48,7 @@
       "filename": "scrollbar.ts",
       "title": {
         "zh": "带滚动条柱状图",
-        "en": "Column plot scroll bar"
+        "en": "Column plot with scrollbar"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IkdWTaXf4vAAAAAAAAAAAABkARQnAQ"
     },
@@ -56,7 +56,7 @@
       "filename": "conversion-tag.ts",
       "title": {
         "zh": "带转化率柱状图",
-        "en": "Column plot conversion tag"
+        "en": "Column plot with conversion tag"
       },
       "screenshot": "https://gw.alicdn.com/tfs/TB1u3.cvUY1gK0jSZFMXXaWcVXa-1638-1228.png"
     },
@@ -66,7 +66,7 @@
         "zh": "带辅助框标注的基础柱状图",
         "en": "Basic column plot with region annotation"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*FOmATLFeuxkAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/ceFSs9FuNn/2922d5e4-df5f-4512-8f8f-6f2ec258c7b8.png"
     }
   ]
 }

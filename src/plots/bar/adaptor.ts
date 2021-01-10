@@ -1,4 +1,3 @@
-import {} from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { adaptor as columnAdaptor } from '../column/adaptor';
 import { BarOptions } from './types';

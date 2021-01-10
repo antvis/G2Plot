@@ -1,10 +1,11 @@
-import { isString, clamp } from '@antv/util';
+import { isString } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
 import { scale, animation, theme, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { ProgressOptions } from './types';
 import { DEFAULT_COLOR } from './constant';
+import { getProgressData } from './utils';
 
 /**
  * 字段
@@ -14,19 +15,7 @@ export function geometry(params: Params<ProgressOptions>): Params<ProgressOption
   const { chart, options } = params;
   const { percent, progressStyle, color, barWidthRatio } = options;
 
-  const clampPercent = clamp(percent, 0, 1);
-  const data = [
-    {
-      type: 'current',
-      percent: clampPercent,
-    },
-    {
-      type: 'target',
-      percent: 1 - clampPercent,
-    },
-  ];
-
-  chart.data(data);
+  chart.data(getProgressData(percent));
 
   const p = deepAssign({}, params, {
     options: {

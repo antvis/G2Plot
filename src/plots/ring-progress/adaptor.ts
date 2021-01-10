@@ -27,9 +27,12 @@ function coordinate(params: Params<RingProgressOptions>): Params<RingProgressOpt
  * statistic 配置
  * @param params
  */
-function statistic(params: Params<RingProgressOptions>): Params<RingProgressOptions> {
+export function statistic(params: Params<RingProgressOptions>, updated?: boolean): Params<RingProgressOptions> {
   const { chart, options } = params;
   const { innerRadius, statistic, percent, meta } = options;
+
+  // 先清空标注，再重新渲染
+  chart.getController('annotation').clear(true);
 
   /** 中心文本 指标卡 */
   if (innerRadius && statistic) {
@@ -49,6 +52,10 @@ function statistic(params: Params<RingProgressOptions>): Params<RingProgressOpti
       { statistic: { ...statistic, content: transformContent }, plotType: 'ring-progress' },
       { percent }
     );
+  }
+
+  if (updated) {
+    chart.render(true);
   }
 
   return params;

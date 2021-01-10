@@ -14,8 +14,6 @@ const data = [
 ];
 
 const bar = new RadialBar('container', {
-  width: 400,
-  height: 300,
   data,
   xField: 'term',
   yField: 'count',

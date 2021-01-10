@@ -39,7 +39,6 @@ export class Liquid extends Plot<LiquidOptions> {
         count: 3,
         length: 192,
       },
-      animation: {},
     };
   }
 

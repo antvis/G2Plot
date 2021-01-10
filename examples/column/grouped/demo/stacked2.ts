@@ -3,7 +3,7 @@ import { Column } from '@antv/g2plot';
 fetch('https://gw.alipayobjects.com/os/antfincdn/cK%24sTxSsah/stack-group-column.json')
   .then((data) => data.json())
   .then((data) => {
-    const dualAxes = new Column('container', {
+    const column = new Column('container', {
       data,
       xField: 'month',
       yField: 'value',
@@ -13,5 +13,5 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/cK%24sTxSsah/stack-group-column
       groupField: 'name',
     });
 
-    dualAxes.render();
+    column.render();
   });

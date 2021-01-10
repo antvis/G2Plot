@@ -22,6 +22,8 @@ describe('Histogram: change data', () => {
     expect(histogram.chart.options.tooltip.title).toBe('hello wold!');
     histogram.changeData(histogramData);
     expect(histogram.chart.getData().length).toBe(12);
+    expect(histogram.options.data).toEqual(histogramData);
+    expect(histogram.chart.geometries[0].elements.length).toBe(histogramData.length);
 
     histogram.destroy();
   });

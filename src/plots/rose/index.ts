@@ -44,4 +44,13 @@ export class Rose extends Plot<RoseOptions> {
   protected getSchemaAdaptor(): Adaptor<RoseOptions> {
     return adaptor;
   }
+
+  /**
+   * @override
+   * @param data
+   */
+  public changeData(data) {
+    this.updateOption({ data });
+    this.chart.changeData(data);
+  }
 }

@@ -32,6 +32,7 @@ const data = {
 - value (叶子节点)
 - children (非叶子节点)
 
+嵌套矩形树图中，布局由叶子节点的 value 值决定。
 #### colorField
 
 <description>**optional** _string_</description>

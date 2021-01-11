@@ -8,6 +8,7 @@ const DEFAULT_OPTIONS: HierarchyOption = {
   tile: 'treemapSquarify', // treemapBinary, treemapDice, treemapSlice, treemapSliceDice, treemapSquarify, treemapResquarify
   size: [1, 1], // width, height
   round: false,
+  ignoreParentValue: true,
   padding: 0,
   paddingInner: 0,
   paddingOuter: 0,
@@ -44,7 +45,18 @@ export function treemap(data: any, options: HierarchyOption): any[] {
       .paddingTop(options.paddingTop)
       .paddingRight(options.paddingRight)
       .paddingBottom(options.paddingBottom)
-      .paddingLeft(options.paddingLeft)(d3Hierarchy.hierarchy(data).sum((d) => d[field]));
+      .paddingLeft(options.paddingLeft)(
+      /**
+       * d3Hierarchy 布局中需指定 sum 函数计算 node 值，规则是：从当前 node 开始以 post-order traversal 的次序为当前节点以及每个后代节点调用指定的 value 函数，并返回当前 node。
+       * for example:
+       * { node: 'parent', value: 10, children: [{node: 'child1', value: 5}, {node: 'child2', value: 5}, ]}
+       * parent 所得的计算值是 sum(node(parent)) + sum(node(child1)) + sum(node(child2))
+       * ignoreParentValue 为 true(默认) 时，父元素的值由子元素累加而来，该值为 0 + 5 + 5 = 10
+       * ignoreParentValue 为 false 时，父元素的值由当前节点 及子元素累加而来，该值为 10 + 5 + 5 = 20
+       * sum 函数中，d 为用户传入的 data, children 为保留字段
+       */
+      d3Hierarchy.hierarchy(data).sum((d) => (options.ignoreParentValue && d.children ? 0 : d[field]))
+    );
   const root = partition(data);
 
   /*

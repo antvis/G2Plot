@@ -16,7 +16,7 @@ order: 1
         <tbody>
           <tr style="height: 33px">
             <td colspan="1" rowspan="5" style="background: #fff">
-              <playground path="column/basic/demo/basic.ts"></playground>
+              <playground path="column/basic/demo/basic.ts" rid="rect1"></playground>
             </td>
             <td class="style1">
               <p><strong>定义</strong></p>
@@ -113,3 +113,29 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/K0kfOzo4j%24/column.json')
 🎨 For an overview of the column plot options see the [API reference](/en/docs/api/plots/column).
 
 </div>
+
+## Column plot features
+
+### Stacked Column
+
+使用颜色不同的堆叠的柱形来显示各维度的数值。横轴标示出第一个分类维度，颜色标示出第二个分类维度，纵轴显示相应的值。
+
+通过指定 `seriesField` 且设置 `isStack: true` 就可以创建堆叠柱状图。
+
+<playground path="column/stacked/demo/basic.ts" rid="rect2"></playground>
+
+### Grouped Column
+
+使用颜色不同的柱形并排组成小组来显示各维度的数值。横轴标示出分组，颜色标示出分类，纵轴显示相应的值。
+
+通过指定 `seriesField` 且设置 `isGroup: true` 就可以创建分组柱状图。
+
+<playground path="column/grouped/demo/basic.ts" rid="group-column"></playground>
+
+### Specify minWidth and maxColumnWidth of column
+
+通过设置 `maxColumnWidth` 可以指定柱子的最大宽度，设置 `minColumnWidth` 可以指定柱子的最小宽度。
+
+通过组合指定柱子最大宽度、最小宽度可以达到指定柱子宽度的效果。
+
+<playground path="column/basic/demo/width.ts" rid="specify-column-width"></playground>

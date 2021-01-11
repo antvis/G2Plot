@@ -141,7 +141,7 @@ piePlot.render();
 
 ### 扇形图
 
-通过设置饼图的 `startAngle`(开始角度) 和 `endAngle`(结束角度)，我们可以将饼图变成扇形图
+通过设置饼图的 `startAngle` (开始角度) 和 `endAngle` (结束角度)，我们可以将饼图变成扇形图
 
 <playground path='pie/basic/demo/quarter-circle.ts' rid='rect3'></playground>
 

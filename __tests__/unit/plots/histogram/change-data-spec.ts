@@ -23,7 +23,7 @@ describe('Histogram: change data', () => {
     histogram.changeData(histogramData);
     expect(histogram.chart.getData().length).toBe(12);
     expect(histogram.options.data).toEqual(histogramData);
-    expect(histogram.chart.geometries[0].elements.length).toBe(histogramData.length);
+    expect(histogram.chart.geometries[0].elements.length).toBe(12);
 
     histogram.destroy();
   });

@@ -13,23 +13,40 @@ export const data = [
   { country: '美国', '2016年耕地总面积': 165.2, '2016年转基因种植面积': 72.9 },
 ];
 
-const transDS = transformData('country', ['2016年耕地总面积', '2016年转基因种植面积'], data);
-
 describe('#2180', () => {
-  it('基础水平方对称条形图设置title时左侧的title是反转的 ', () => {
+  it('横向基础水平方对称条形图设置title时左侧的title是反转的 ', () => {
     const bidirectional = new BidirectionalBar(createDiv('#2180'), {
       width: 400,
       height: 400,
       data,
+      layout: 'horizontal',
       xField: 'country',
       yField: ['2016年耕地总面积', '2016年转基因种植面积'],
     });
     bidirectional.render();
     const firstView = bidirectional.chart.views[0];
     const elements = firstView.geometries[0].elements;
-    // 因为反转了轴，即 transDS 数组反转后 length = 0 与 elements 的 length = 0 的 country 相等
+    const transDS = transformData('country', ['2016年耕地总面积', '2016年转基因种植面积'], data);
+    // 因为横向反转了轴，即 transDS 数组反转后 length = 0 与 elements 的 length = 0 的 country 相等
     // @ts-ignore
     expect(transDS.reverse()[0].country).toEqual(elements[0].data.country);
     bidirectional.destroy();
+  });
+  it('垂直', () => {
+    const bidirectional = new BidirectionalBar(createDiv('#2180'), {
+      width: 400,
+      height: 400,
+      data,
+      layout: 'vertical',
+      xField: 'country',
+      yField: ['2016年耕地总面积', '2016年转基因种植面积'],
+    });
+    bidirectional.render();
+    const firstView = bidirectional.chart.views[0];
+    const elements = firstView.geometries[0].elements;
+    const transDS = transformData('country', ['2016年耕地总面积', '2016年转基因种植面积'], data);
+    // @ts-ignore 不需要反转
+    expect(transDS[0].country).toEqual(elements[0].data.country);
+    // bidirectional.destroy();
   });
 });

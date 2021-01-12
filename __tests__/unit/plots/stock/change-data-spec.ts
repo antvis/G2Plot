@@ -1,5 +1,6 @@
+import { pick } from '@antv/util';
 import { Stock } from '../../../../src';
-import { kdata } from '../../../data/stock';
+import { kdata, SH000001 } from '../../../data/stock';
 import { createDiv } from '../../../utils/dom';
 
 describe('stock', () => {

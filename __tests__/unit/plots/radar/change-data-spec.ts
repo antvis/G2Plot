@@ -1,5 +1,5 @@
 import { Radar } from '../../../../src';
-import { SINGLE_DATA } from '../../../data/radar';
+import { SINGLE_DATA, SERIES_DATA } from '../../../data/radar';
 import { createDiv } from '../../../utils/dom';
 
 describe('radar changeData', () => {

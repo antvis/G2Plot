@@ -100,11 +100,7 @@ To disable event listening, you can unbind a listening function, or you can disa
 ### 10. setState
 
 ```sign
-plot.setState(
-  state?: 'active' | 'inactive' | 'selected',
-  condition?: Function,
-  status: boolean = true
-);
+plot.setState(state?: 'active' | 'inactive' | 'selected', condition?: Function, status: boolean = true);
 ```
 
 The status is a mechanism provided by G2. An element in G2 has three states:

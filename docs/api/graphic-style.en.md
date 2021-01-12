@@ -133,8 +133,7 @@ G2Plot provides support for linear gradients and circular gradients by default.
 > Note: `l` indicates the use of linear gradient, the green font is variable, filled by the user, separated by a blank.
 
 ```ts
-// Use gradient color stroke, gradient angle is 0, gradient starting point color #ffffff,
-// midpoint gradient color #7ec2f3, ending gradient color #1890ff
+// Use gradient color stroke, gradient angle is 0, gradient starting point color #ffffff, midpoint gradient color #7ec2f3, ending gradient color #1890ff
 stroke: 'l(0) 0:#ffffff 0.5:#7ec2f3 1:#1890ff';
 ```
 
@@ -170,11 +169,7 @@ Result:
 
 ```ts
 // example
-// Use gradient color to fill, the center coordinate of the starting circle of the gradient is
-// the center point of the bounding box of the filled object, the radius is 0.1 times (the
-// diagonal length of the bounding box / 2), the color of the starting point of the gradient
-// #ffffff , The gradient color at the midpoint is #7ec2f3, and the gradient color at the end
-// is #1890ff
+// Use gradient color to fill, the center coordinate of the starting circle of the gradient is the center point of the bounding box of the filled object, the radius is 0.1 times (the diagonal length of the bounding box / 2), the color of the starting point of the gradient #ffffff , The gradient color at the midpoint is #7ec2f3, and the gradient color at the end is #1890ff
 fill: 'r(0.5, 0.5, 0.1) 0:#ffffff 1:#1890ff';
 ```
 

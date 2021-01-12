@@ -1,3 +1,4 @@
+import { kdata } from '../../../data/stock';
 import { getStockData } from '../../../../src/plots/stock/utils';
 import { TREND_FIELD, TREND_UP, TREND_DOWN, Y_FIELD } from '../../../../src/plots/stock/constant';
 

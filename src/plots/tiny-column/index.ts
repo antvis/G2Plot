@@ -1,3 +1,4 @@
+import { map } from '@antv/util';
 import { Adaptor } from '../../core/adaptor';
 import { Plot } from '../../core/plot';
 import { getTinyData } from '../tiny-line/utils';

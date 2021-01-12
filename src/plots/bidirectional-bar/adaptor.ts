@@ -41,6 +41,8 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
   // 创建 view
   let firstView: View;
   let secondView: View;
+  const firstViewData = get(groupData, [0], []);
+  const secondViewData = get(groupData, [1], []);
 
   // 横向
   if (isHorizontal(layout)) {
@@ -62,6 +64,10 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
       id: SECOND_AXES_VIEW,
     });
     secondView.coordinate().transpose();
+
+    // @说明: 测试发现，横向因为轴的反转，需要数据也反转，不然会图形渲染是反的
+    firstView.data(firstViewData.reverse());
+    secondView.data(secondViewData.reverse());
   } else {
     // 纵向
     firstView = chart.createView({
@@ -82,9 +88,10 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
       .coordinate()
       .reflect('y')
       .rotate(Math.PI * 0); // 旋转
-  }
 
-  firstView.data(get(groupData, [0], []));
+    firstView.data(firstViewData);
+    secondView.data(secondViewData);
+  }
   const left = deepAssign({}, params, {
     chart: firstView,
     options: {
@@ -100,7 +107,6 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
   });
   interval(left);
 
-  secondView.data(get(groupData, [1], []));
   const right = deepAssign({}, params, {
     chart: secondView,
     options: {
@@ -116,6 +122,7 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
   });
 
   interval(right);
+
   return params;
 }
 

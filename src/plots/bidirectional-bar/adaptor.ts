@@ -83,8 +83,8 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
       .reflect('y')
       .rotate(Math.PI * 0); // 旋转
   }
-
-  firstView.data(get(groupData, [0], []));
+  // @说明: test 测试发现，因为轴的反转，需要反转一下数据，不然会图形反的
+  firstView.data(get(groupData, [0], []).reverse());
   const left = deepAssign({}, params, {
     chart: firstView,
     options: {
@@ -99,8 +99,7 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
     },
   });
   interval(left);
-
-  secondView.data(get(groupData, [1], []));
+  secondView.data(get(groupData, [1], []).reverse());
   const right = deepAssign({}, params, {
     chart: secondView,
     options: {

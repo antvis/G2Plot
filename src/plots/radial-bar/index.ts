@@ -14,6 +14,15 @@ export class RadialBar extends Plot<RadialBarOptions> {
   public type: string = 'radial-bar';
 
   /**
+   * @override
+   * @param data
+   */
+  public changeData(data) {
+    this.updateOption({ data });
+    this.chart.changeData(data);
+  }
+
+  /**
    * 获取默认配置
    */
   protected getDefaultOptions(): Partial<RadialBarOptions> {

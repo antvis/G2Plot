@@ -100,7 +100,11 @@ plot.off(event?: string, callback?: Function);
 ### 10. setState
 
 ```sign
-plot.setState(state?: 'active' | 'inactive' | 'selected', condition?: Function, status: boolean = true);
+plot.setState(
+  state?: 'active' | 'inactive' | 'selected',
+  condition?: Function,
+  status: boolean = true
+);
 ```
 
 状态量是 G2 提供的机制，G2 中设定一个元素具备有三种状态：

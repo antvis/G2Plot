@@ -11,7 +11,10 @@ You can import by CDN in browser or you can import local source.
 
 ```html
 <!-- import CDN source -->
-<script type="text/javascript" src="https://unpkg.com/@antv/g2plot@latest/dist/g2plot.min.js"></script>
+<script
+  type="text/javascript"
+  src="https://unpkg.com/@antv/g2plot@latest/dist/g2plot.min.js"
+></script>
 <script>
   const { Line } = G2Plot;
 </script>

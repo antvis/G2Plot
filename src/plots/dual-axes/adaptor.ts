@@ -296,7 +296,7 @@ export function animation(params: Params<DualAxesOptions>): Params<DualAxesOptio
  */
 export function limitInPlot(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart, options } = params;
-  const { yField, yAxis } = options;
+  const { yAxis } = options;
 
   commonLimitInPlot(
     deepAssign({}, params, {

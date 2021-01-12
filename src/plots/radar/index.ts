@@ -12,6 +12,15 @@ export class Radar extends Plot<RadarOptions> {
   public type: string = 'radar';
 
   /**
+   * @override
+   * @param data
+   */
+  public changeData(data) {
+    this.updateOption({ data });
+    this.chart.changeData(data);
+  }
+
+  /**
    * 获取 雷达图 默认配置
    */
   protected getDefaultOptions(): Partial<RadarOptions> {

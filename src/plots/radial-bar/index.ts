@@ -2,8 +2,7 @@ import { Plot } from '../../core/plot';
 import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { RadialBarOptions } from './types';
-import { adaptor } from './adaptor';
-import { getScaleMax } from './utils';
+import { adaptor, meta } from './adaptor';
 
 export { RadialBarOptions };
 
@@ -21,13 +20,7 @@ export class RadialBar extends Plot<RadialBarOptions> {
   public changeData(data) {
     this.updateOption({ data });
     // 更新玉珏图的scale
-    const { yField, maxAngle } = this.options;
-    this.chart.scale({
-      [yField]: {
-        min: 0,
-        max: getScaleMax(maxAngle, yField, data),
-      },
-    });
+    meta({ chart: this.chart, options: this.options });
     this.chart.changeData(data);
   }
 

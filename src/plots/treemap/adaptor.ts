@@ -35,6 +35,8 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
             };
           },
         },
+        interactions: [{ type: 'view-zoom' }, { type: 'treemap-element-zoom' }],
+        // interactions: [{ type: 'drag-move' }],
       },
     },
     params

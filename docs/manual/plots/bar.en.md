@@ -118,3 +118,14 @@ bar.render();
 🎨 For an overview of the bar plot options see the [API reference](/en/docs/api/plots/bar).
 
 </div>
+
+## Bar plot features
+
+### Set corner-radius of column
+
+通过设置 `barStyle.radius` 可以指定柱子的圆角，数据类型可以是 `number` 也可以是 `number[]`。
+
+当柱子数值为正值时，`const [r1, r2, r3, r4] = radius` 依次代表柱子左上角、右上角、右下角、左下角的 `radius`。
+当柱子数值为负值时，`const [r1, r2, r3, r4] = radius` 依次代表柱子左下角、右下角、右上角、左上角的 `radius`。
+
+<playground path="bar/grouped/demo/corner-radius.ts" rid="corner-radius"></playground>

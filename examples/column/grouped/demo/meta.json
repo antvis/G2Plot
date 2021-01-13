@@ -13,6 +13,14 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*cE7xSYYgqCcAAAAAAAAAAAAAARQnAQ"
     },
     {
+      "filename": "corner-radius.ts",
+      "title": {
+        "zh": "圆角柱状图",
+        "en": "Column plot with corner-radius"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*cE7xSYYgqCcAAAAAAAAAAAAAARQnAQ"
+    },
+    {
       "filename": "stacked2.ts",
       "title": {
         "zh": "堆叠分组柱状图",

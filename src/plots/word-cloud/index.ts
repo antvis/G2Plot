@@ -20,6 +20,7 @@ export class WordCloud extends Plot<WordCloudOptions> {
   protected getDefaultOptions(): Partial<WordCloudOptions> {
     return deepAssign({}, super.getDefaultOptions(), {
       timeInterval: 2000,
+      legend: false,
       tooltip: {
         showTitle: false,
         showMarkers: false,

@@ -154,3 +154,15 @@ a.ant-anchor-link-title[href='#quick-start']::before {
 }
 
 /** 教程文档 自定义样式 END **/
+
+/** 图表示例 API 文档样式 START */
+[class*='markdown-module--exampleContent'] [class*='APIDoc-module--docContent'] {
+  h5::before {
+    content: '👉 ';
+    display: inline-block;
+    width: 14px;
+    height: 18px;
+    margin-right: 8px;
+  }
+}
+/** 图表示例 API 文档样式 END */

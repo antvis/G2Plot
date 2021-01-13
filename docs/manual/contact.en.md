@@ -14,3 +14,7 @@ If you have any questions, suggestions, feedback or willingness to communicate, 
 - Zhihu：https://zhuanlan.zhihu.com/aiux-antv
 
 - Contribution Guide：https://www.yuque.com/antv/g2plot/apubgw
+
+- DingTalk Group Number: 30233731
+
+<img src="https://gw.alipayobjects.com/zos/antfincdn/9sHnl5k%26u4/dingdingqun.png" width="200" height="266" />

@@ -14,3 +14,7 @@ order: 9
 - 知乎专栏：https://zhuanlan.zhihu.com/aiux-antv
 
 - 共建指南：https://www.yuque.com/antv/g2plot/apubgw
+
+- 钉钉群组号码: 30233731
+
+<img src="https://gw.alipayobjects.com/zos/antfincdn/9sHnl5k%26u4/dingdingqun.png" width="200" height="266" />

@@ -1,10 +1,11 @@
 import { clamp } from '@antv/util';
+import { isRealNumber } from '../../utils/number';
 
 /**
  * 获取进度条数据
  */
 export function getProgressData(percent: number) {
-  const clampPercent = clamp(percent, 0, 1);
+  const clampPercent = clamp(isRealNumber(percent) ? percent : 0, 0, 1);
   return [
     {
       type: 'current',

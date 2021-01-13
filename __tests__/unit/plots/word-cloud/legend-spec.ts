@@ -1,3 +1,4 @@
+import { groupBy, keys } from '@antv/util';
 import { WordCloud } from '../../../../src';
 import { CountryEconomy } from '../../../data/country-economy';
 import { createDiv } from '../../../utils/dom';
@@ -10,14 +11,38 @@ describe('word-cloud', () => {
       data: CountryEconomy,
       wordField: 'Country',
       weightField: 'GDP',
+      colorField: 'continent',
     });
 
     cloud.render();
 
     const options = cloud.chart.getOptions();
 
-    // 不显示 legend 信息
+    // 默认不显示 legend 信息
     expect(options.legends).toBe(false);
+
+    cloud.destroy();
+  });
+
+  it('开启 legend', () => {
+    const cloud = new WordCloud(createDiv('x*y'), {
+      width: 400,
+      height: 300,
+      data: CountryEconomy,
+      wordField: 'Country',
+      weightField: 'GDP',
+      colorField: 'continent',
+      legend: {},
+    });
+
+    cloud.render();
+
+    const options = cloud.chart.getOptions();
+
+    expect(options.legends).not.toBe(false);
+    const legendController = cloud.chart.getController('legend');
+    const legendComponent = legendController.getComponents()[0].component;
+    expect(legendComponent.get('items').length).toBe(keys(groupBy(CountryEconomy, 'continent')).length);
 
     cloud.destroy();
   });

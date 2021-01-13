@@ -45,6 +45,14 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CDgnRaN9iXkAAAAAAAAAAAAAARQnAQ"
     },
     {
+      "filename": "douban-2020-movie.ts",
+      "title": {
+        "zh": "豆瓣 2020 电影 (部分)",
+        "en": "Movie of 2020 in DouBan (partial)"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/x0MczjNEWG/298b11e6-731c-458b-97c8-f96c77ebb7c1.png"
+    },
+    {
       "filename": "placement-strategy.ts",
       "title": {
         "zh": "词云图-自定义每个词语位置",

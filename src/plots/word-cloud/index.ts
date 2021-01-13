@@ -4,7 +4,7 @@ import { Datum } from '../../types';
 import { deepAssign } from '../../utils';
 import { WordCloudOptions } from './types';
 import { adaptor } from './adaptor';
-import { processImageMask } from './utils';
+import { processImageMask, transform } from './utils';
 // 注册的shape
 import './shapes/word-cloud';
 
@@ -13,6 +13,15 @@ export { WordCloudOptions };
 export class WordCloud extends Plot<WordCloudOptions> {
   /** 词云图 */
   public type: string = 'word-cloud';
+
+  /**
+   * @override
+   * @param data
+   */
+  public changeData(data) {
+    this.updateOption({ data });
+    this.chart.changeData(transform({ chart: this.chart, options: this.options }));
+  }
 
   /**
    * 获取默认的 options 配置项

@@ -11,6 +11,14 @@
         "en": "Grouped bar plot"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/dfnmnp5KDb/4c47dfc9-534c-42b5-b25b-12219c854e0f.png"
+    },
+    {
+      "filename": "corner-radius.ts",
+      "title": {
+        "zh": "圆角条形图",
+        "en": "Bar plot with corner-radius"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/vFQNz1dCaD/21d77486-a9a3-4287-bc49-24fc40ad4800.png"
     }
   ]
 }

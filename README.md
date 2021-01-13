@@ -89,7 +89,7 @@ To become a contributor, please follow our [contributing guide](https://github.c
 
 钉钉群组号码: 30233731
 
-<img src="https://gw.alipayobjects.com/zos/antfincdn/PqL2W2Ni%26V/18866fcb-ca2f-4186-8288-88166a798dd6.png" width="200" height="266" />
+<img src="https://gw.alipayobjects.com/zos/antfincdn/9sHnl5k%26u4/dingdingqun.png" width="200" height="266" />
 
 ## Links
 

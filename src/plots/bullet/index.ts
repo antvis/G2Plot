@@ -3,12 +3,27 @@ import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { BulletOptions } from './types';
 import { adaptor } from './adaptor';
+import { transformData } from './utils';
 
 export { BulletOptions };
 
 export class Bullet extends Plot<BulletOptions> {
   /** 图表类型 */
   public type: string = 'bullet';
+
+  public changeData(data) {
+    this.updateOption({ data });
+    const { min, max, ds } = transformData(this.options);
+    const { measureField } = this.options;
+    // 处理scale
+    this.chart.scale({
+      [measureField]: {
+        min,
+        max,
+      },
+    });
+    this.chart.changeData(ds);
+  }
 
   /**
    * 获取子弹图的适配器

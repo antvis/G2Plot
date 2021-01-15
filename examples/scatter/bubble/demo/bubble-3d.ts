@@ -1,24 +1,26 @@
 import { Scatter } from '@antv/g2plot';
 
-fetch('https://gw.alipayobjects.com/os/bmw-prod/3e4db10a-9da1-4b44-80d8-c128f42764a8.json')
+fetch('https://gw.alipayobjects.com/os/antfincdn/t81X1wXdoj/scatter-data.json')
   .then((res) => res.json())
   .then((data) => {
     const scatterPlot = new Scatter('container', {
       appendPadding: 30,
       data,
-      xField: 'xG conceded',
-      yField: 'Shot conceded',
-      colorField: 'Result',
-      size: 5,
+      xField: 'x',
+      yField: 'y',
+      colorField: 'genre',
+      color: [
+        'r(0.4, 0.3, 0.7) 0:rgba(255,255,255,0.5) 1:#5B8FF9',
+        'r(0.4, 0.4, 0.7) 0:rgba(255,255,255,0.5) 1:#61DDAA',
+      ],
+      sizeField: 'size',
+      size: [5, 20],
       shape: 'circle',
-      pointStyle: {
-        fillOpacity: 1,
-      },
       yAxis: {
         nice: true,
         line: {
           style: {
-            stroke: '#aaa',
+            stroke: '#eee',
           },
         },
       },
@@ -32,11 +34,10 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/3e4db10a-9da1-4b44-80d8-c128f427
         },
         line: {
           style: {
-            stroke: '#aaa',
+            stroke: '#eee',
           },
         },
       },
-      label: {},
     });
     scatterPlot.render();
   });

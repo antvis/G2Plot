@@ -12,19 +12,15 @@ import { ScatterOptions } from './types';
  * @param params
  * @returns params
  */
-export function transformOptions(params: Params<ScatterOptions>): Params<ScatterOptions> {
-  const { options } = params;
+export function transformOptions(options: ScatterOptions): ScatterOptions {
   const { data = [] } = options;
   // 仅对 data.length === 1 的情况进行处理
   if (data.length === 1) {
-    return deepAssign({}, params, {
-      options: {
-        ...options,
-        meta: getMeta(options),
-      },
+    return deepAssign({}, options, {
+      meta: getMeta(options),
     });
   }
-  return params;
+  return options;
 }
 
 /**
@@ -76,16 +72,22 @@ function geometry(params: Params<ScatterOptions>): Params<ScatterOptions> {
  * meta 配置
  * @param params
  */
-function meta(params: Params<ScatterOptions>): Params<ScatterOptions> {
+export function meta(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { options } = params;
-  const { xAxis, yAxis, xField, yField } = options;
+  const { data, xAxis, yAxis, xField, yField } = options;
+
+  let newOptions = options;
+  // 仅对 data.length === 1 的情况进行处理
+  if (data.length === 1) {
+    newOptions = transformOptions(deepAssign({}, this.options, { meta: getMeta(options) }));
+  }
 
   return flow(
     scale({
       [xField]: xAxis,
       [yField]: yAxis,
     })
-  )(params);
+  )(deepAssign({}, params, { options: newOptions }));
 }
 
 /**
@@ -264,7 +266,6 @@ export function tooltip(params: Params<ScatterOptions>): Params<ScatterOptions> 
 export function adaptor(params: Params<ScatterOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
-    transformOptions,
     geometry,
     meta,
     axis,

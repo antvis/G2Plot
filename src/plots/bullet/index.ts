@@ -27,6 +27,7 @@ export class Bullet extends Plot<BulletOptions> {
       },
       xAxis: {
         tickLine: false,
+        line: null,
       },
       bulletStyle: {
         range: {

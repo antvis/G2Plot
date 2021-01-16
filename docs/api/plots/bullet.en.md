@@ -17,36 +17,15 @@ order: 10
 
 `markdown:docs/common/meta.en.md`
 
-```ts
-const data = [
-  {
-    title: '满意度',
-    ranges: [100],
-    measures: [80],
-    target: 85,
-  },
-];
-
-const bulletPlot = new Bullet('container', {
-  data,
-  measureField: 'measures',
-  rangeField: 'ranges',
-  targetField: 'target',
-  xField: 'title',
-});
-
-bulletPlot.render();
-```
-
 #### measureField 
 
-<description>**required** _string[]_</description>
+<description>**required** _string_</description>
 
 使用数据条的长度，实际数值的设置字段，表示实际数值。
 
 #### rangeField 
 
-<description>**required** _string[]_</description>
+<description>**required** _string_</description>
 
 使用背景色条的长度的设置字段，表示区间范围。
 
@@ -55,6 +34,12 @@ bulletPlot.render();
 <description>**required** _string_</description>
 
 使用测量标记的刻度轴位置的设置字段，表示目标值。
+
+#### xField 
+
+<description>**optional** _string_</description>
+
+用于区分不同的类型，适用于分组子弹图。
 
 ### Geometry Style
 

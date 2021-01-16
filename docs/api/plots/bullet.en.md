@@ -40,21 +40,23 @@ bulletPlot.render();
 
 #### measureField 
 
-<description>**required** _number[]_</description>
+<description>**required** _string[]_</description>
 
 使用数据条的长度，实际数值的设置字段，表示实际数值。
 
 #### rangeField 
 
-<description>**required** _number[]_</description>
+<description>**required** _string[]_</description>
 
 使用背景色条的长度的设置字段，表示区间范围。
 
 #### targetField 
 
-<description>**required** _number_</description>
+<description>**required** _string_</description>
 
 使用测量标记的刻度轴位置的设置字段，表示目标值。
+
+### Geometry Style
 
 #### layout
 
@@ -62,23 +64,7 @@ bulletPlot.render();
 
 表示子弹图方向。
 
-### Geometry Style
-
-#### bulletStyle 
-
-<description>**optional** _object_</description>
-
-设置子弹图各图形 style 属性。
-
-| 细分配置 | 类型        | 功能描述     | 默认配置             |
-| -------- | ----------- | ------------ | -------------------- |
-| range    | _StyleAttr_ | 区间背景样式 | { fillOpacity: 0.5 } |
-| measure  | _StyleAttr_ | 实际值样式   | 无                   |
-| target   | _StyleAttr_ | 目标值样式   | 无                   |
-
-`markdown:docs/common/shape-style.en.md`
-
-### color 
+#### color 
 
 <description>**optional** _object_</description>
 
@@ -86,13 +72,11 @@ bulletPlot.render();
 
 | 细分配置 | 类型        | 功能描述     | 默认配置 |
 | -------- | ----------- | ------------ | -------- |
-| range    | _colorAttr_ | 区间背景颜色 | 无       |
-| measure  | _colorAttr_ | 实际值颜色   | 无       |
-| target   | _colorAttr_ | 目标值颜色   | 无       |
+| range    | _string\|string[]_ | 区间背景颜色 | 无       |
+| measure  | _string\|string[]_ | 实际值颜色   | 无       |
+| target   | _string\|string[]_ | 目标值颜色   | 无       |
 
-`markdown:docs/common/color.en.md`
-
-### size 
+#### size 
 
 <description>**optional** _object_</description>
 
@@ -108,7 +92,29 @@ bulletPlot.render();
 type SizeAttr = number | [number, number] | ((datum: Datum) => number);
 ```
 
-### label 
+#### bulletStyle 
+
+<description>**optional** _object_</description>
+
+设置子弹图各图形 style 属性。
+
+| 细分配置 | 类型        | 功能描述     | 默认配置             |
+| -------- | ----------- | ------------ | -------------------- |
+| range    | _StyleAttr_ | 区间背景样式 | { fillOpacity: 0.5 } |
+| measure  | _StyleAttr_ | 实际值样式   | 无                   |
+| target   | _StyleAttr_ | 目标值样式   | 无                   |
+
+```plain
+type StyleAttr = ShapeStyle | ((datum: object) => ShapeStyle);
+```
+
+`ShapeStyle` 结构可以参考：
+
+`markdown:docs/common/shape-style.en.md`
+
+### Plot Components
+
+#### label 
 
 <description>**optional** _object_</description>
 
@@ -122,10 +128,19 @@ type SizeAttr = number | [number, number] | ((datum: Datum) => number);
 
 `markdown:docs/common/label.en.md`
 
-### Plot Components
+#### tooltip
 
-`markdown:docs/common/component.en.md`
+`markdown:docs/common/tooltip.en.md`
 
+#### axis
+
+Same for xAxis and yAxis.
+
+`markdown:docs/common/axis.en.md`
+
+#### legend
+
+`markdown:docs/common/legend.en.md`
 ### Event
 
 `markdown:docs/common/events.en.md`

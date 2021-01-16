@@ -1,4 +1,4 @@
-import { Liquid, measureTextWidth } from '../../../relation/sankey/demo/node_modules/@antv/g2plot';
+import { Liquid, measureTextWidth } from '@antv/g2plot';
 
 const liquidPlot = new Liquid(document.getElementById('container'), {
   percent: 0.26,

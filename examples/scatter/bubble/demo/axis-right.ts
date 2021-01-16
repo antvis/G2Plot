@@ -1,4 +1,4 @@
-import { Scatter } from '../../../relation/sankey/demo/node_modules/@antv/g2plot';
+import { Scatter } from '@antv/g2plot';
 
 fetch('https://gw.alipayobjects.com/os/bmw-prod/f950b2f1-038b-47c2-afcc-63001bc8d07c.json')
   .then((res) => res.json())

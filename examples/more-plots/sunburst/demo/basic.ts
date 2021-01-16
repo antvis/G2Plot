@@ -1,4 +1,4 @@
-import { Sunburst } from '../../../relation/sankey/demo/node_modules/@antv/g2plot';
+import { Sunburst } from '@antv/g2plot';
 
 fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json')
   .then((res) => res.json())

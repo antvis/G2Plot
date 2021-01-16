@@ -1,4 +1,4 @@
-import { Waterfall } from '../../../relation/sankey/demo/node_modules/@antv/g2plot';
+import { Waterfall } from '@antv/g2plot';
 
 const data = [
   { month: '一月', value: 6200000 },

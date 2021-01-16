@@ -1,4 +1,4 @@
-import { Bullet } from '../../../relation/sankey/demo/node_modules/@antv/g2plot';
+import { Bullet } from '@antv/g2plot';
 
 const data = [
   {

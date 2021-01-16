@@ -64,7 +64,7 @@ const bulletPlot = new Bullet('container', {
       {
         value: '第二季度',
         name: '第二季度',
-        marker: { symbol: 'square', style: { fill: ' #5B8FF9', r: 5 } },
+        marker: { symbol: 'square', style: { fill: ' #61DDAA', r: 5 } },
       },
       {
         value: '目标值',

@@ -16,9 +16,14 @@ describe('bullet', () => {
 
     bullet.render();
 
+    expect(bullet.type).toBe('bullet');
+
     const chart = bullet.chart;
 
     expect(chart.getController('legend').getComponents().length).toEqual(0);
+    // 默认关闭 showMarkers
+    // @ts-ignore
+    expect(chart.getController('tooltip').getTooltipCfg().showMarkers).toEqual(false);
     // @ts-ignore
     expect(chart.options.axes.ranges).toEqual(false);
     // @ts-ignore

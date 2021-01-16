@@ -59,11 +59,54 @@ order: 18
 
 例如: `['open', 'close', 'high', 'low']`
 
+#### trendField
+
+<description>**optional**  _string_ _default:_ `trend`</description>
+
+趋势字段，用于展示阴阳线
+
+#### trend
+
+<description>**optional**  _Function_</description>
+
+计算趋势的方式
+```ts
+// Function
+{
+  trend: (item, index) => {
+    const openVal = item[open], closeVal = item[close];
+    if (openVal < closeVal) return 'up';
+    else if (openVal > closeVal) return 'down';
+    else return 'normal';
+  }
+}
+```
+
+返回值一般为三个值：
+- up
+- down
+- normal
+
 `markdown:docs/common/meta.zh.md`
 
 ### 图形样式
 
-`markdown:docs/common/color.zh.md`
+#### color
+
+<description>**optional** _string[]_</description>
+
+指定阴阳线的颜色。
+默认的颜色值为  ['#ef5350', '#26a69a', '#666']
+
+```ts
+// 设置
+{
+ //color:[ 阳线颜色，  阴线颜色，  普通颜色]
+  color: ['#ef5350', '#26a69a', '#666'],
+}
+
+```
+
 
 ### 图表组件
 

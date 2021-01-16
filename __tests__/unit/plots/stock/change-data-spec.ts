@@ -28,7 +28,7 @@ describe('stock', () => {
     stock.changeData(newData);
     expect(stock.chart.geometries[0].elements.length).toEqual(kdata.length + 1);
     // 添加的数据
-    const addData = stock.chart.geometries[0].elements[kdata.length].getData();
+    const addData = stock.chart.geometries[0].data[newData.length - 1];
     expect(addData.date).toEqual('2015-10-25');
     expect(stock.options.data).toEqual(newData);
     stock.destroy();

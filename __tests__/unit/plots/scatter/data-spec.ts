@@ -35,7 +35,10 @@ describe('scatter', () => {
     expect(yScale.nice).toBe(false);
     expect(yScale.min).toBe(0);
     expect(yScale.max).toBe(data[0].height * 2);
+
+    scatter.destroy();
   });
+
   it('transformOptions & axis min max', () => {
     const scatter = new Scatter(createDiv(), {
       width: 400,
@@ -65,6 +68,7 @@ describe('scatter', () => {
     expect(yScale.max).toBe(100);
     scatter.destroy();
   });
+
   it('transformOptions & meta min max', () => {
     const scatter = new Scatter(createDiv(), {
       width: 400,

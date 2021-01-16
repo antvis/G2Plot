@@ -38,6 +38,10 @@ export class Bullet extends Plot<BulletOptions> {
           position: 'right',
         },
       },
+      tooltip: {
+        // 默认关闭
+        showMarkers: false,
+      },
     });
   }
 }

@@ -22,9 +22,7 @@ export class Stock extends Plot<StockOptions> {
       // 设置默认图表 tooltips
       tooltip: DEFAULT_TOOLTIP_OPTIONS,
       interactions: [{ type: 'tooltip' }],
-      legend: {
-        position: 'top-left',
-      },
+      legend: false
     });
   }
 
@@ -41,7 +39,7 @@ export class Stock extends Plot<StockOptions> {
    */
   public changeData(data: StockOptions['data']) {
     this.updateOption({ data });
-    const { yField } = this.options;
-    this.chart.changeData(getStockData(data, yField));
+    const options = this.options;
+    this.chart.changeData(getStockData(data, options));
   }
 }

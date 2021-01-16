@@ -15,6 +15,9 @@ describe('Stock Legend', () => {
           mask: 'YYYY',
         },
       },
+      legend: {
+        position: 'top-left',
+      },
     });
 
     k.render();

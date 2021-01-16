@@ -296,4 +296,30 @@ describe('bullet', () => {
 
     bullet.destroy();
   });
+
+  it('meta', () => {
+    const bullet = new Bullet(createDiv(), {
+      width: 400,
+      height: 100,
+      data: [{ title: '数学', ranges: [30, 50, 100], measures: [120], target: 85 }],
+      measureField: 'measures',
+      rangeField: 'ranges',
+      targetField: 'target',
+      xField: 'title',
+      meta: {
+        measures: { max: 100 },
+      },
+    });
+
+    bullet.render();
+    expect(bullet.chart.getScaleByField('measures').max).toBe(100);
+
+    bullet.update({
+      meta: {
+        measures: { max: 90, maxLimit: 120 },
+      },
+    });
+    expect(bullet.chart.getScaleByField('measures').max).toBe(120);
+    expect(bullet.chart.getScaleByField('measures').maxLimit).toBe(120);
+  });
 });

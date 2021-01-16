@@ -4,7 +4,6 @@ import { createDiv } from '../../../utils/dom';
 
 describe('axis bullet', () => {
   it('axis without meta', () => {
-    const rangeColors = ['#FFB1AC', '#FFDBA2', '#B4EBBF'];
     const bullet = new Bullet(createDiv('axis*meta bullet'), {
       width: 400,
       height: 100,

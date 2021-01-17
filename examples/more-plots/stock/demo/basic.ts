@@ -1,4 +1,4 @@
-import { Stock } from '../../../relation/sankey/demo/node_modules/@antv/g2plot';
+import { Stock } from '@antv/g2plot';
 
 const data = [
   {

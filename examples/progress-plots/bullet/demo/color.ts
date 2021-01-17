@@ -1,4 +1,4 @@
-import { Bullet } from '../../../relation/sankey/demo/node_modules/@antv/g2plot';
+import { Bullet } from '@antv/g2plot';
 
 const data = [
   {
@@ -17,7 +17,7 @@ const bulletPlot = new Bullet('container', {
   xField: 'title',
   color: {
     range: ['#FFbcb8', '#FFe0b0', '#bfeec8'],
-    measure: '#1890ff',
+    measure: '#5B8FF9',
     target: '#39a3f4',
   },
   xAxis: {
@@ -50,7 +50,7 @@ const bulletPlot = new Bullet('container', {
       {
         value: '实际值',
         name: '实际值',
-        marker: { symbol: 'square', style: { fill: '#1890ff', r: 5 } },
+        marker: { symbol: 'square', style: { fill: '#5B8FF9', r: 5 } },
       },
       {
         value: '目标值',

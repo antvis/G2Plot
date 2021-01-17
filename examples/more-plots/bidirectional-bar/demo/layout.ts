@@ -1,4 +1,4 @@
-import { BidirectionalBar } from '../../../relation/sankey/demo/node_modules/@antv/g2plot';
+import { BidirectionalBar } from '@antv/g2plot';
 
 export const data = [
   { country: '乌拉圭', '2016年耕地总面积': 13.4, '2016年转基因种植面积': 12.3 },

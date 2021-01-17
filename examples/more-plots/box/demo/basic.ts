@@ -1,4 +1,4 @@
-import { Box } from '../../../relation/sankey/demo/node_modules/@antv/g2plot';
+import { Box } from '@antv/g2plot';
 
 const data = [
   { x: 'Oceania', low: 1, q1: 9, median: 16, q3: 22, high: 24 },

@@ -18,6 +18,13 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
       options: {
         // 默认按照 name 字段对颜色进行分类
         colorField: 'name',
+        rectStyle: {
+          lineWidth: 1,
+          stroke: '#fff',
+        },
+        hierarchyConfig: {
+          tile: 'treemapResquarify',
+        },
         label: {
           fields: ['name'],
           layout: {
@@ -47,7 +54,7 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
  */
 function geometry(params: Params<TreemapOptions>): Params<TreemapOptions> {
   const { chart, options } = params;
-  const { color, colorField } = options;
+  const { color, colorField, rectStyle } = options;
   const data = transformData(options);
   chart.data(data);
 
@@ -58,12 +65,10 @@ function geometry(params: Params<TreemapOptions>): Params<TreemapOptions> {
         xField: 'x',
         yField: 'y',
         seriesField: colorField,
+        rawFields: ['value'],
         polygon: {
           color,
-          style: {
-            lineWidth: 1,
-            stroke: '#fff',
-          },
+          style: rectStyle,
         },
       },
     })

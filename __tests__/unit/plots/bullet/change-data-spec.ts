@@ -54,14 +54,6 @@ describe('Bullet changeData', () => {
       targetField: 'target',
       xField: 'title',
     });
-
-    const { min, max, ds } = transformData({
-      data: [],
-      measureField: 'measures',
-      rangeField: 'ranges',
-      targetField: 'target',
-      xField: 'title',
-    });
     bullet.render();
 
     expect(bullet.chart.geometries[0].scales.measures.max).toEqual(0);

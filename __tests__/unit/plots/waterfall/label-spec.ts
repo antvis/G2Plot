@@ -95,4 +95,38 @@ describe('waterfall label', () => {
 
     waterfall.destroy();
   });
+
+  it('callback', () => {
+    const waterfall = new Waterfall(createDiv('position top'), {
+      width: 400,
+      height: 300,
+      data: salesByArea,
+      xField: 'area',
+      yField: 'sales',
+      meta: {
+        sales: {
+          nice: true,
+          formatter: (v) => `${Math.floor(v / 10000)}万`,
+        },
+      },
+      label: {
+        callback: (value, area) => {
+          return {
+            style: {
+              fill: area === salesByArea[0].area ? 'red' : 'green',
+            },
+          };
+        },
+      },
+    });
+
+    waterfall.render();
+    const labels = waterfall.chart.geometries[0].labelsContainer.getChildren();
+    // @ts-ignore
+    expect(labels[0].getChildByIndex(0).attr('fill')).toBe('red');
+    // @ts-ignore
+    expect(labels[1].getChildByIndex(0).attr('fill')).toBe('green');
+
+    waterfall.destroy();
+  });
 });

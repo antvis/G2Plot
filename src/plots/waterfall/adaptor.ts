@@ -171,7 +171,7 @@ function legend(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
  */
 function label(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
   const { chart, options } = params;
-  const { label, labelMode } = options;
+  const { label, labelMode, xField } = options;
 
   const geometry = findGeometry(chart, 'interval');
 
@@ -180,7 +180,7 @@ function label(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
   } else {
     const { callback, ...cfg } = label;
     geometry.label({
-      fields: labelMode === 'absolute' ? [ABSOLUTE_FIELD] : [DIFF_FIELD],
+      fields: labelMode === 'absolute' ? [ABSOLUTE_FIELD, xField] : [DIFF_FIELD, xField],
       callback,
       cfg: transformLabel(cfg),
     });

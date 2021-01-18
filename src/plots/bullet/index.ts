@@ -2,13 +2,22 @@ import { Plot } from '../../core/plot';
 import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { BulletOptions } from './types';
-import { adaptor } from './adaptor';
+import { adaptor, meta } from './adaptor';
+import { transformData } from './utils';
 
 export { BulletOptions };
 
 export class Bullet extends Plot<BulletOptions> {
   /** 图表类型 */
   public type: string = 'bullet';
+
+  public changeData(data) {
+    this.updateOption({ data });
+    const { min, max, ds } = transformData(this.options);
+    // 处理scale
+    meta({ options: this.options, ext: { data: { min, max } }, chart: this.chart });
+    this.chart.changeData(ds);
+  }
 
   /**
    * 获取子弹图的适配器

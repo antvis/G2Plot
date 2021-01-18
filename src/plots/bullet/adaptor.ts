@@ -82,7 +82,7 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
  * meta 配置
  * @param params
  */
-function meta(params: Params<BulletOptions>): Params<BulletOptions> {
+export function meta(params: Params<BulletOptions>): Params<BulletOptions> {
   const { options, ext } = params;
   const { xAxis, yAxis, targetField, rangeField, measureField, xField } = options;
 

@@ -28,7 +28,7 @@ describe('Bullet changeData', () => {
     expect(bullet.chart.geometries[0].scales.measures.min).toEqual(min);
     expect(bullet.chart.geometries[0].data).toEqual(ds);
 
-    const newData = [{ title: '数学', ranges: [-10, 50, 100], measures: [120], target: 85 }];
+    const newData = [{ title: '数学', ranges: [0, 50, 100], measures: [120], target: 85 }];
     bullet.changeData(newData);
     const { min: newMin, max: newMax, ds: newDs } = transformData({
       data: newData,

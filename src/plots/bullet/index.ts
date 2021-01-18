@@ -42,6 +42,7 @@ export class Bullet extends Plot<BulletOptions> {
       },
       xAxis: {
         tickLine: false,
+        line: null,
       },
       bulletStyle: {
         range: {
@@ -52,6 +53,10 @@ export class Bullet extends Plot<BulletOptions> {
         measure: {
           position: 'right',
         },
+      },
+      tooltip: {
+        // 默认关闭
+        showMarkers: false,
       },
     });
   }

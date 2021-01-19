@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "range-area.ts",
+      "title": {
+        "zh": "区间面积图",
+        "en": "Range area Plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/LSyrzQnPWL/ad65dd9d-ced8-42ca-a756-8fe4593157e6.png"
+    }
+  ]
+}

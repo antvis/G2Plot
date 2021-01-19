@@ -1,4 +1,4 @@
 ---
-title: Multi-View Charts(beta)
+title: Multi-View Charts
 order: 1
 ---

@@ -222,14 +222,6 @@ module.exports = {
       },
       // OTHERS
       {
-        slug: 'general',
-        icon: 'other',
-        title: {
-          zh: '图表通用配置',
-          en: 'General Configuration',
-        },
-      },
-      {
         slug: 'dynamic-plots',
         icon: 'other',
         title: {
@@ -241,10 +233,18 @@ module.exports = {
         slug: 'plugin',
         icon: 'other',
         title: {
-          zh: '自定义扩展图表',
-          en: 'Custom Plots',
+          zh: '高级图表',
+          en: 'Advanced Plots',
         },
       },
+      {
+        slug: 'general',
+        icon: 'other',
+        title: {
+          zh: '图表通用配置',
+          en: 'General Configuration',
+        },
+      }
     ],
     docsearchOptions: {
       apiKey: '0d19588d7661a81faa8b75f6ade80321',

@@ -1,4 +1,4 @@
-import { isBoolean } from '@antv/util';
+import { isBoolean, isArray } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
 import { point } from '../../adaptor/geometries';
@@ -29,9 +29,14 @@ export function transformOptions(options: ScatterOptions): ScatterOptions {
  */
 function geometry(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { data, type, color, shape, size, pointStyle, shapeField, colorField, xField, yField, sizeField } = options;
+  const { data, type, color, shape, pointStyle, shapeField, colorField, xField, yField, sizeField } = options;
+  let { size } = options;
 
   let { tooltip } = options;
+
+  if (sizeField && !isArray(size)) {
+    size = [2, 8];
+  }
 
   if (tooltip && !tooltip.fields) {
     tooltip = {

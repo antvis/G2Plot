@@ -97,4 +97,33 @@ describe('scatter', () => {
 
     scatter.destroy();
   });
+
+  it('size: default', () => {
+    const scatter = new Scatter(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data,
+      xField: 'weight',
+      yField: 'height',
+      sizeField: 'weight',
+    });
+
+    scatter.render();
+
+    const geometry = scatter.chart.geometries[0];
+    const elements = geometry.elements;
+    const sizeArr = [];
+    elements.forEach((ele) => {
+      sizeArr.push(ele.getModel().size);
+    });
+    sizeArr.sort((a, b) => a - b);
+
+    // @ts-ignore
+    expect(elements.length).toBe(507);
+    expect(sizeArr[0] > 0).toBeTruthy();
+    expect(sizeArr[0]).not.toEqual(sizeArr[sizeArr.length - 1]);
+
+    scatter.destroy();
+  });
 });

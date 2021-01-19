@@ -13,7 +13,7 @@ order: 18
 
 <description>**required** _array object_</description>
 
-设置图表数据源。数据源为对象集合，例如：
+Configure the data source. The data source is a collection of objects. For example:
 
 ```ts
 [

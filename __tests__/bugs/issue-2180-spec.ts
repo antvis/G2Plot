@@ -26,7 +26,7 @@ describe('#2180', () => {
     bidirectional.render();
     const firstView = bidirectional.chart.views[0];
     const elements = firstView.geometries[0].elements;
-    const transDS = transformData('country', ['2016年耕地总面积', '2016年转基因种植面积'], data);
+    const transDS = transformData('country', ['2016年耕地总面积', '2016年转基因种植面积'], 'type', data);
     // 因为横向反转了轴，即 transDS 数组反转后 length = 0 与 elements 的 length = 0 的 country 相等
     // @ts-ignore
     expect(transDS.reverse()[0].country).toEqual(elements[0].data.country);
@@ -44,7 +44,7 @@ describe('#2180', () => {
     bidirectional.render();
     const firstView = bidirectional.chart.views[0];
     const elements = firstView.geometries[0].elements;
-    const transDS = transformData('country', ['2016年耕地总面积', '2016年转基因种植面积'], data);
+    const transDS = transformData('country', ['2016年耕地总面积', '2016年转基因种植面积'], 'type', data);
     // @ts-ignore 不需要反转
     expect(transDS[0].country).toEqual(elements[0].data.country);
     // bidirectional.destroy();

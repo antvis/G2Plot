@@ -1,5 +1,5 @@
 import { View } from '@antv/g2';
-import { get, groupBy } from '@antv/util';
+import { get, groupBy, keys } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import {
   tooltip,
@@ -12,7 +12,7 @@ import {
 import { interval } from '../../adaptor/geometries';
 import { flow, findViewById, findGeometry, transformLabel, deepAssign } from '../../utils';
 import { BidirectionalBarOptions } from './types';
-import { FIRST_AXES_VIEW, SECOND_AXES_VIEW } from './constant';
+import { FIRST_AXES_VIEW, SECOND_AXES_VIEW, SERIES_FIELD_KEY } from './constant';
 import { isHorizontal, transformData } from './utils';
 
 /**
@@ -24,17 +24,12 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
   const { data, xField, yField, color, barStyle, widthRatio, legend, layout } = options;
 
   // 处理数据
-  const ds = transformData(xField, yField, data);
-  // 再次处理数据，通过 type 字段分成左右数据
-  const groupData: any[] = Object.values(groupBy(ds, 'type'));
-  chart.scale({
-    type: {
-      sync: true,
-    },
-  });
+  const ds = transformData(xField, yField, SERIES_FIELD_KEY, data);
+  // 再次处理数据，通过 SERIES_FIELD_KEY 字段分成左右数据
+  const groupData: any[] = Object.values(groupBy(ds, SERIES_FIELD_KEY));
   // 在创建子 view 执行后不行，需要在前面处理 legend
   if (legend) {
-    chart.legend('type', legend);
+    chart.legend(SERIES_FIELD_KEY, legend);
   } else if (legend === false) {
     chart.legend(false);
   }
@@ -98,7 +93,7 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
       widthRatio,
       xField,
       yField: yField[0],
-      seriesField: 'type',
+      seriesField: SERIES_FIELD_KEY,
       interval: {
         color,
         style: barStyle,
@@ -112,7 +107,7 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
     options: {
       xField,
       yField: yField[1],
-      seriesField: 'type',
+      seriesField: SERIES_FIELD_KEY,
       widthRatio,
       interval: {
         color,
@@ -128,6 +123,7 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
 
 /**
  * meta 配置
+ * - 对称条形图对数据进行了处理，通过 SERIES_FIELD_KEY 来对两条 yField 数据进行分类
  * @param params
  */
 function meta(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarOptions> {
@@ -135,6 +131,23 @@ function meta(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarO
   const { xAxis, yAxis, xField, yField } = options;
   const firstView = findViewById(chart, FIRST_AXES_VIEW);
   const secondView = findViewById(chart, SECOND_AXES_VIEW);
+
+  const aliasMap = {};
+  keys(options?.meta || {}).map((metaKey) => {
+    if (get(options?.meta, [metaKey, 'alias'])) {
+      aliasMap[metaKey] = options.meta[metaKey].alias;
+    }
+  });
+
+  chart.scale({
+    [SERIES_FIELD_KEY]: {
+      sync: true,
+      formatter: (v) => {
+        return get(aliasMap, v, v);
+      },
+    },
+  });
+
   scale({
     [xField]: xAxis,
     [yField[0]]: yAxis[yField[0]],

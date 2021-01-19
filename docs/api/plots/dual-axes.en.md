@@ -152,11 +152,11 @@ xAxis、yAxis 配置相同，由于 DualAxes 是双轴， annotations 类型是�
 
 `markdown:docs/common/theme.en.md`
 
-### 事件
+### Events
 
 `markdown:docs/common/events.en.md`
 
-### 图表方法
+### Plot Methods
 
 `markdown:docs/common/chart-methods.en.md`
 

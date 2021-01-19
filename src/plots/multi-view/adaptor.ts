@@ -6,6 +6,7 @@ import { deepAssign, flow, pick } from '../../utils';
 import { Axis } from '../../types/axis';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { Legend } from '../../types/legend';
+import { Interaction } from '../../types/interaction';
 import { MultiViewOptions, IView, IGeometry } from './types';
 
 /**
@@ -17,7 +18,7 @@ function multiView(params: Params<MultiViewOptions>): Params<MultiViewOptions> {
   const { views, legend, tooltip } = options;
 
   each(views, (v: IView) => {
-    const { region, data, meta, axes, coordinate, annotations, geometries } = v;
+    const { region, data, meta, axes, coordinate, interactions, annotations, geometries } = v;
 
     // 1. 创建 view
     const viewOfG2 = chart.createView({
@@ -61,6 +62,15 @@ function multiView(params: Params<MultiViewOptions>): Params<MultiViewOptions> {
       const { adjust } = geometry;
       if (adjust) {
         ext.geometry.adjust(adjust);
+      }
+    });
+
+    // 7. interactions
+    each(interactions, (interaction: Interaction) => {
+      if (interaction.enable === false) {
+        viewOfG2.removeInteraction(interaction.type);
+      } else {
+        viewOfG2.interaction(interaction.type, interaction.cfg);
       }
     });
 

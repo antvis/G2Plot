@@ -4,6 +4,7 @@ import { Axis } from '../../types/axis';
 import { Legend } from '../../types/legend';
 import { Geometry } from '../../adaptor/geometries/base';
 import { Annotation } from '../../types/annotation';
+import { Interaction } from '../../types/interaction';
 
 /**
  * geometry 映射信息
@@ -45,6 +46,11 @@ export type IView = {
    * x,y  轴配置
    */
   readonly axes?: false | Record<string, Axis>;
+
+  /**
+   * interactions 配置
+   */
+  readonly interactions?: Interaction[];
 
   /**
    * annotation 配置

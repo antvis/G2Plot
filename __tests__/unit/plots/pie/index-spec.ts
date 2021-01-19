@@ -148,4 +148,23 @@ describe('pie', () => {
 
     pie.destroy();
   });
+
+  it('tooltip, enforce shared to false', () => {
+    const pie = new Pie(createDiv(), {
+      width: 400,
+      height: 300,
+      data,
+      angleField: 'value',
+      colorField: 'type',
+      tooltip: { shared: true },
+    });
+    pie.render();
+    // @ts-ignore
+    expect(pie.options.tooltip.shared).toBe(true);
+
+    // @ts-ignore
+    expect(pie.chart.getController('tooltip').getTooltipCfg().shared).toBe(false);
+
+    pie.destroy();
+  });
 });

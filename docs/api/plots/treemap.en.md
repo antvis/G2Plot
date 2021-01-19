@@ -44,7 +44,7 @@ const data = {
 
 
 
-### 图形样式
+### Geometry Style
 
 `markdown:docs/common/color.zh.md`
 
@@ -95,7 +95,7 @@ const data = {
 层级布局配置，例如 `tile`等，详细配置参考[d3-hierarchy](https://github.com/d3/d3-hierarchy#treemap)。
 默认为 `{tile: 'treemapResquarify'}`
 
-### 图表组件
+### Plot Components
 
 `markdown:docs/common/component-polygon.zh.md`
 
@@ -103,11 +103,11 @@ const data = {
 
 `markdown:docs/common/events.zh.md`
 
-### 图表方法
+### Plot Methods
 
 `markdown:docs/common/chart-methods.zh.md`
 
-### 图表主题
+### Plot Theme
 
 `markdown:docs/common/theme.zh.md`
 

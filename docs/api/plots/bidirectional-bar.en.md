@@ -1,26 +1,25 @@
 ---
-title: 对称条形图
+title: Bidirectional Bar
 order: 26
 ---
 
-### 图表容器
+### Plot Container
 
-`markdown:docs/common/chart-options.zh.md`
+`markdown:docs/common/chart-options.en.md`
 
-### 数据映射
+### Data Mapping
 
 #### data
 
 <description>**required** _array object_</description>
 
-设置图表数据源。数据源为对象集合，例如：
+Configure the data source. The data source is a collection of objects. For example:
 
 ```js
 [
   { country: '乌拉圭', '2016年耕地总面积': 13.4, '2016年转基因种植面积': 12.3 },
-  { country: '巴拉圭', '2016年耕地总面积': 14.4, '2016年转基因种植面积': 6.3 }
-]
-
+  { country: '巴拉圭', '2016年耕地总面积': 14.4, '2016年转基因种植面积': 6.3 },
+];
 ```
 
 #### xField
@@ -35,44 +34,63 @@ order: 26
 
 设置 y 轴映射字段。
 
-#### yAxis
+<!-- Meta options START -->
 
-<description>**optional** object</description>
+`markdown:docs/common/meta.en.md`
 
- yAxis 为多个 key 为 yField 里面的 2 个字段。
+Example:
 
- #### layout
+```ts
+{
+  meta: {
+    '2016年耕地总面积': { alias: '耕地总面积' }
+  }
+}
+```
+
+<!-- Meta options END -->
+
+### Geometry Style
+
+#### layout
 
 <description>**optional** _'horizontal' | 'vertical'_ _default:_ 'horizontal'</description>
 
-表示对称条形图方向。
+Layout modes, whose optional values are:
 
-`markdown:docs/common/meta.zh.md`
-
-### 图形样式
+- `horizontal`: horizontally layout all bars.
+- `vertical`: vertically layout all bars (as columns).
 
 #### barStyle
 
 <description>**optional** _StyleAttr | Function_</description>
 
-柱子样式配置。
+Configurations of the style of bars.
 
-`markdown:docs/common/shape-style.zh.md`
+`markdown:docs/common/shape-style.en.md`
 
-### 图表组件
+#### xAxis
 
-`markdown:docs/common/component.zh.md`
+See the configuration of [axis](#axis).
 
-### 事件
+#### yAxis
 
-`markdown:docs/common/events.zh.md`
+<description>**optional** object</description>
 
-### 图表方法
+`yAxis` is a object. Keys are the fields defined in `yField`, values is the configuration of [axis](#axis).
 
-`markdown:docs/common/chart-methods.zh.md`
+### Plot Components
 
+`markdown:docs/common/component.en.md`
 
+### Events
 
-### 图表主题
+`markdown:docs/common/events.en.md`
 
-`markdown:docs/common/theme.zh.md`
+### Plot Methods
+
+`markdown:docs/common/chart-methods.en.md`
+
+### Plot Theme
+
+`markdown:docs/common/theme.en.md`

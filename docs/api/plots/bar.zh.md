@@ -53,6 +53,8 @@ order: 3
 
 是否百分比条形图，isPercent 为 true 时，isStack 也需要为 true。
 
+#### meta
+
 `markdown:docs/common/meta.zh.md`
 
 ### 图形样式

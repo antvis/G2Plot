@@ -15,6 +15,8 @@ order: 10
 
 设置图表数据源。数据源为对象集合，例如：`[{title: '满意度', ranges: [50,100], measures: [80], target: 85}]`。
 
+#### meta
+
 `markdown:docs/common/meta.zh.md`
 
 #### measureField 

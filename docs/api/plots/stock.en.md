@@ -59,6 +59,8 @@ Configure the data source. The data source is a collection of objects. For examp
 
 例如: `['open', 'close', 'high', 'low']`
 
+#### meta
+
 `markdown:docs/common/meta.en.md`
 
 ### Geometry Style

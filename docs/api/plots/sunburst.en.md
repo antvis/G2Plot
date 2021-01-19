@@ -15,6 +15,8 @@ order: 17
 
 Set up the chart data source.
 
+#### meta
+
 `markdown:docs/common/meta.en.md`
 
 #### type

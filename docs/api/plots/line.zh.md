@@ -30,6 +30,8 @@ const data = [
 
 分组字段。用于同时看一个维度中不同情况的指标需求。比如：我们看不同大区最近 30 天的销售额趋势情况，那么这里的大区字段就是 seriesField。
 
+#### meta
+
 `markdown:docs/common/meta.zh.md`
 
 ### 图形样式

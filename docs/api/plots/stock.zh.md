@@ -59,6 +59,8 @@ order: 18
 
 例如: `['open', 'close', 'high', 'low']`
 
+#### meta
+
 `markdown:docs/common/meta.zh.md`
 
 ### 图形样式

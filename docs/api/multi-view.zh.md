@@ -6,21 +6,21 @@ order: 8
 
 `markdown:docs/common/chart-options.zh.md`
 
+### 图层
+
+#### views
+
+<description>**required** _IView[]_</description>
+
+每一个图层的配置，每个图层都包含自己的：数据、图形、图形映射。具体见 [图层配置](#图层配置)
+
 #### syncViewPadding ✨
 
 <description>**optional** _boolean_</description>
 
 是否同步子 view 的 padding 配置。传入 boolean 值，含义是：是否需要将子 View 的 padding 同步，如果设置同步，那么可以保证子 View 在 auto padding 的情况下，所有子 View 的图形能够完全重合，避免显示上的错位。
 
-### View 配置
-
-#### views
-
-<description>**required** _IView[]_</description>
-
-每一个图层的配置，每个图层都包含自己的：数据、图形、图形映射。
-
-下面介绍子 view 具体的配置项。
+### 图层配置
 
 #### IView.region
 

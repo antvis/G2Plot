@@ -67,7 +67,7 @@ export interface MultiViewOptions
    */
   readonly syncViewPadding?: boolean;
   /**
-   * 没一个图层的配置。
+   * 每一个图层的配置。
    * 每个图层包括有自己的：数据、图形、图形映射。
    */
   readonly views: IView[];

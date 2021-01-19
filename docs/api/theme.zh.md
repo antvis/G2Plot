@@ -1,6 +1,6 @@
 ---
 title: 图表主题
-order: 8
+order: 9
 ---
 
 `markdown:docs/common/theme.zh.md`

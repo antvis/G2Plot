@@ -1,6 +1,6 @@
 ---
 title: Multi-View
-order: 11
+order: 8
 ---
 
 `markdown:docs/api/multi-view.zh.md`

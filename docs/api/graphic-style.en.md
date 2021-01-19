@@ -1,6 +1,6 @@
 ---
 title: Graphic Style
-order: 9
+order: 11
 ---
 
 G2Plot uses [G](https://github.com/antvis/g) as the drawing engine. Some graphic styles, such as the `lineStyle` of Line, the `columnStyle` of Column, and the style configuration of some components, such as `label.style`, `axis.line.style`, are all transmitted transparently through the drawing properties of G.

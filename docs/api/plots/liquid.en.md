@@ -42,7 +42,7 @@ The ouline configure for liquid plot, includes:
 | Attr         | Type           | Desc                                                  |
 | ------------ | -------------- | ----------------------------------------------------- |
 | border       | number         | border width of ouline, default 2px                   |
-| disatance    | number         | disatance between ouline and wave, default 0px        |
+| distance     | number         | distance between ouline and wave, default 0px        |
 
 #### wave
 

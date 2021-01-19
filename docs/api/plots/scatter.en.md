@@ -13,7 +13,7 @@ order: 5
 
 <description>**required** _array object_</description>
 
-Set up the chart data source. The data source is a collection of objects, for example：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+Configure the data source. The data source is a collection of objects. For example:`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
 `markdown:docs/common/xy-field.en.md`
 

@@ -1,7 +1,7 @@
 import { Axis } from '../../types/axis';
 import { Options, StyleAttr } from '../../types';
 
-export interface BidirectionalBarOptions extends Omit<Options, 'yAxis' | 'yField' | 'meta'> {
+export interface BidirectionalBarOptions extends Omit<Options, 'yAxis' | 'yField'> {
   /** x 轴字段 */
   readonly xField: string;
   /** y 轴映射字段 */

@@ -22,7 +22,7 @@ export type IView = {
   readonly region?: Region;
 
   /**
-   * view 的中数据
+   * view 中的数据
    */
   readonly data: Data;
 

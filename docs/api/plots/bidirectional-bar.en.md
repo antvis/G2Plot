@@ -1,19 +1,19 @@
 ---
-title: BidirectionalBar
+title: Bidirectional Bar
 order: 26
 ---
 
-### Plot container
+### Plot Container
 
 `markdown:docs/common/chart-options.en.md`
 
-### Data mapping
+### Data Mapping
 
 #### data
 
 <description>**required** _array object_</description>
 
-Set up the chart data source. The data source is a collection of objects, such as:
+Configure the data source. The data source is a collection of objects. For example:
 
 ```js
 [
@@ -34,42 +34,63 @@ Set the X-axis field.
 
 Set the Y-axis mapping field.
 
-#### yAxis
+<!-- Meta options START -->
 
-<description>**optional** object</description>
+`markdown:docs/common/meta.en.md`
 
-The yAxis is multiple keys and the two fields inside the yField.
+Example:
+
+```ts
+{
+  meta: {
+    '2016年耕地总面积': { alias: '耕地总面积' }
+  }
+}
+```
+
+<!-- Meta options END -->
+
+### Geometry Style
 
 #### layout
 
 <description>**optional** _'horizontal' | 'vertical'_ _default:_ 'horizontal'</description>
 
-BidirectionalBar direction.
+Layout modes, whose optional values are:
 
-`markdown:docs/common/meta.en.md`
-
-### Graphic style
+- `horizontal`: horizontally layout all bars.
+- `vertical`: vertically layout all bars (as columns).
 
 #### barStyle
 
 <description>**optional** _StyleAttr | Function_</description>
 
-Column style configuration.
+Configurations of the style of bars.
 
 `markdown:docs/common/shape-style.en.md`
 
-### Plot components
+#### xAxis
+
+See the configuration of [axis](#axis).
+
+#### yAxis
+
+<description>**optional** object</description>
+
+`yAxis` is a object. Keys are the fields defined in `yField`, values is the configuration of [axis](#axis).
+
+### Plot Components
 
 `markdown:docs/common/component.en.md`
 
-### Plot Event
+### Events
 
 `markdown:docs/common/events.en.md`
 
-### Plot Method
+### Plot Methods
 
 `markdown:docs/common/chart-methods.en.md`
 
-### Plot
+### Plot Theme
 
 `markdown:docs/common/theme.en.md`

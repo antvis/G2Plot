@@ -199,6 +199,12 @@ function statistic(params: Params<PieOptions>): Params<PieOptions> {
   return params;
 }
 
+function adaptorTooltipOptions(params: Params<PieOptions>): Params<PieOptions> {
+  return get(params, ['options', 'tooltip']) !== false
+    ? deepAssign({}, params, { options: { tooltip: { shared: false } } })
+    : params;
+}
+
 /**
  * 饼图适配器
  * @param chart
@@ -206,13 +212,13 @@ function statistic(params: Params<PieOptions>): Params<PieOptions> {
  */
 export function adaptor(params: Params<PieOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(
+  return flow<Params<PieOptions>>(
     geometry,
     meta,
     theme,
     coordinate,
     legend,
-    tooltip,
+    (args) => tooltip(adaptorTooltipOptions(args)),
     label,
     state,
     annotation(),

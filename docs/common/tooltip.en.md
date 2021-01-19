@@ -2,7 +2,7 @@
 
 <description>**optional** _string[]_</description>
 
-指定 tooltip 中显示的字段，默认不同图表有不同的默认字段列表。配合 `formatter` 配置一起使用，效果更加。
+Specifies the fields to be displayed in the Tooltip. By default, different charts have different default field lists. Use with the 'formatter' configuration for more effect.
 
 ```ts
 tooltip: {
@@ -14,7 +14,7 @@ tooltip: {
 
 <description>**optional** _Function_</description>
 
-格式化 tooltip item 内容。
+Formats the contents of the Tooltip Item.
 
 ```ts
 tooltip: {
@@ -28,57 +28,57 @@ tooltip: {
 
 <description>**optional** _boolean_ _default:_ `true`</description>
 
-设置 tooltip 内容框是否跟随鼠标移动。
+Sets whether the Tooltip content box follows the mouse.
 
 ##### enterable
 
 <description>**optional** _boolean_ _default:_ `false`</description>
 
-tooltip 是否允许鼠标滑入。
+Whether the tooltip allows mouse to slide in.
 
 ##### showTitle
 
 <description>**optional** _boolean_ _default:_ `false`</description>
 
-是否展示 tooltip 标题。
+Whether show tooltip title.
 
 ##### title
 
 <description>**optional** _string_</description>
 
-设置 tooltip 的标题内容：如果值为数据字段名，则会展示数据中对应该字段的数值，如果数据中不存在该字段，则直接展示 title 值。
+Set the title content of the Tooltip: If the value is the name of the data field, the value for the field in the data is displayed, and if the field does not exist in the data, the title value is displayed directly.
 
 ##### position
 
 <description>**optional** _`top` | `bottom` | `left` | `right`_</description>
 
-设置 tooltip 的固定展示位置，相对于数据点。
+Sets the fixed display location of the Tooltip relative to the data point.
 
 ##### shared
 
 <description>**optional** _boolean_</description>
 
-true 表示合并当前点对应的所有数据并展示，false 表示只展示离当前点最逼近的数据内容。
+True means that all data corresponding to the current point is merged and displayed, while false means that only the data content closest to the current point is displayed.
 
 ##### showCrosshairs
 
 <description>**optional** _boolean_ _default:_ `false`</description>
 
-是否展示 crosshairs。
+Whether show crosshairs。
 
 ##### crosshairs
 
 <description>**optional** _object_</description>
 
-配置 tooltip 的 crosshairs，当且仅当 `showCrosshairs` 为 true 时生效。
+Configure tooltip crosshairs to work if and only if 'showCrosshairs' is true.
 
-| 细分配置项名称 | 类型                   | 功能描述                                                            |
-| -------------- | ---------------------- | ------------------------------------------------------------------- |
-| type           | \_`x` \| `y` \| `xy`\_ | crosshairs 的类型: `x` 表示 x 轴上的辅助线，`y` 表示 y 轴上的辅助项 |
-| line           | _lineStyle_            | 线的配置项                                                          |
-| text           | _textStyle_            | 辅助线文本配置，支持回调                                            |
-| textBackground | _textBackgroundStyle_  | 辅助线文本背景配置                                                  |
-| follow         | _boolean_              | 辅助线是否跟随鼠标移动，默认为 false，即定位到数据点                |
+| Attributes     | Type                   | Description                                                                                   |
+| -------------- | ---------------------- | --------------------------------------------------------------------------------------------- |
+| type           | \_`x` \| `y` \| `xy`\_ | Crosshairs Type: 'X' represents the auxiliary line on the X axis, 'Y' on the Y axis           |
+| line           | _lineStyle_            | The configuration item for line                                                               |
+| text           | _textStyle_            | Guideline text configuration, support callback                                                |
+| textBackground | _textBackgroundStyle_  | Guideline text background configuration                                                       |
+| follow         | _boolean_              | Whether the guide line follows the mouse. Default is false, that is, to locate the data point |
 
 **_lineStyle_**
 
@@ -90,10 +90,10 @@ true 表示合并当前点对应的所有数据并展示，false 表示只展示
 
 **_textBackgroundStyle_**
 
-| 细分配置项名称 | 类型               | 功能描述           |
-| -------------- | ------------------ | ------------------ |
-| padding        | _number \| number[]_ | 文本背景周围的留白 |
-| style          | _shapeStyle_       | 线的配置项         |
+| Attributes | Type                 | Description                                 |
+| ---------- | -------------------- | ------------------------------------------- |
+| padding    | _number \| number[]_ | White space around the background of a text |
+| style      | _shapeStyle_         | The configuration item for line             |
 
 **_shapeStyle_**
 
@@ -103,46 +103,46 @@ true 表示合并当前点对应的所有数据并展示，false 表示只展示
 
 <description>**optional** _boolean_ _default:_ `true`</description>
 
-是否渲染 tooltipMarkers。
+Whether to render TooltipMarkers.
 
 ##### marker
 
 <description>**optional** _object_</description>
 
-tooltipMarker 的样式配置。
+TooltipMarker style configuration.
 
 ##### showContent
 
 <description>**optional** _boolean_ _default:_ `false`</description>
 
-是否展示 tooltip 内容框。
+Whether to display the Tooltip content box.
 
 ##### container
 
 <description>**optional** _string|HTMLElement_</description>
 
-自定义 tooltip 的容器。
+Custom tooltip container.
 
 ##### containerTpl
 
 <description>**optional** _string_</description>
 
-用于指定图例容器的模板，自定义模板时必须包含各个 dom 节点的 class。
+Templates used to specify the legend container must include the classes of each DOM node when customizing the template
 
 ##### itemTpl
 
 <description>**optional** _string_</description>
 
-每项记录的默认模板，自定义模板时必须包含各个 dom 节点的 class。
+The default template for each record, which must include the classes of each DOM node when customizing the template.
 
 ##### domStyles
 
 <description>**optional** _TooltipDomStyles_</description>
 
-传入各个 dom 的样式。
+The styles for each DOM.
 
 ```ts
-/** Tooltip 内容框的 css 样式定义 */
+/** Tooltip content box css style */
 {
   domStyles: {
     'g2-tooltip'?: object;
@@ -160,13 +160,13 @@ tooltipMarker 的样式配置。
 
 <description>**optional** _number_</description>
 
-tooltip 偏移量。
+Tooltip offset.
 
 ##### customContent
 
 <description>**optional** _Function_</description>
 
-支持自定义模板。
+Support for custom templates.
 
 ```ts
 {

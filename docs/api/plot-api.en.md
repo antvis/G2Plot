@@ -5,9 +5,7 @@ redirect_from:
   - /en/docs/api
 ---
 
-
 The core technology architecture of G2Plot is very simple. All plots are inherited from a base class. The base class provides a common API method for all plots, and each specific visualization plot only processes its own configuration items. So all plots basically share the common API, except for some plots (such as Gauge and Liquid) that have subtle differences in the changedata API.
-
 
 ### 1. create a plot instance
 
@@ -23,8 +21,8 @@ const line = new Line(container', options);
 
 The created plot instance has two public properties:
 
- - container: HTMLElement
- - options: PlotOptions
+- container: HTMLElement
+- options: PlotOptions
 
 For the API, list all the API methods of the diagram instance separately. If classified by function, it can be divided into: life cycle function, event, status and so on.
 
@@ -52,8 +50,8 @@ plot.changeData(data: object[] | number);
 
 Through this method, you can modify the data of the plot and re-render the plot automatically. Most of the plot data is a two-dimensional array, and some plots may have different data structures, such as:
 
- - Gauge、Liquid, which accept the updated percent value
- - Dual Axes, which has its own data structure
+- Gauge、Liquid, which accept the updated percent value
+- Dual Axes, which has its own data structure
 
 <playground path="dynamic-plots/basic/demo/dynamic-spline.ts" rid="rect"></playground>
 
@@ -105,9 +103,9 @@ plot.setState(state?: 'active' | 'inactive' | 'selected', condition?: Function, 
 
 The status is a mechanism provided by G2. An element in G2 has three states:
 
- - 'active'
- - 'inactive'
- - 'selected'
+- 'active'
+- 'inactive'
+- 'selected'
 
 Through this API, you can filter elements based on `condition` and set the current state of these elements.
 

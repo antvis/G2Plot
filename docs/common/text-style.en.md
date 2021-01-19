@@ -1,26 +1,26 @@
 <!--文本样式-->
 
-| 属性名        | 类型            | 介绍                                                                                                         |
+| Attributes    | Type            | Description                                                                                                  |
 | ------------- | --------------- | ------------------------------------------------------------------------------------------------------------ |
-| fontSize      | _number_          | 文字大小                                                                                                     |
-| fontFamily    | _string_          | 文字字体                                                                                                     |
-| fontWeight    | _number_          | 字体粗细                                                                                                     |
-| lineHeight    | _number_          | 文字的行高                                                                                                   |
-| textAlign     | _string_          | 设置文本内容的当前对齐方式, 支持的属性：`center` \| `end` \| `left` \| `right` \| `start`，默认值为`start`   |
-| fill          | _string_          | 文字的填充色                                                                                                 |
-| fillOpacity   | _number_          | 文字的填充透明度                                                                                             |
-| stroke        | _string_          | 文字的描边                                                                                                   |
-| lineWidth     | _number_          | 文字描边的宽度                                                                                               |
-| lineDash      | [number,number] | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 |
-| lineOpacity   | _number_          | 描边透明度                                                                                                   |
-| opacity       | _number_          | 文字的整体透明度                                                                                             |
-| shadowColor   | _string_          | 文字阴影颜色                                                                                                 |
-| shadowBlur    | _number_          | 文字阴影的高斯模糊系数                                                                                       |
-| shadowOffsetX | _number_          | 设置阴影距文字的水平距离                                                                                     |
-| shadowOffsetY | _number_          | 设置阴影距文字的垂直距离                                                                                     |
-| cursor        | _string_          | 鼠标样式。同 css 的鼠标样式,默认 'default'。                                                                 |
+| fontSize      | _number_        | Font size                                                                                                    |
+| fontFamily    | _string_        | Font family                                                                                                  |
+| fontWeight    | _number_        | Font weight                                                                                                  |
+| lineHeight    | _number_        | Line height                                                                                                  |
+| textAlign     | _string_        | Text align, supported `center` \| `end` \| `left` \| `right` \| `start`, default `start`   |
+| fill          | _string_        | Fill color for text                                                                                          |
+| fillOpacity   | _number_        | Fill transparency for text                                                                                   |
+| stroke        | _string_        | Stroke text                                                                                                  |
+| lineWidth     | _number_        | The width of the text stroke                                                                                 |
+| lineDash      | [number,number] | For the dashed line configuration of the stroke, the first value is the length of each segment of the dashed line, and the second value is the distance between segments. LineDash sets [0,0] to no stroke. |
+| lineOpacity   | _number_        | Stroke transparency                                                                                          |
+| opacity       | _number_        | Overall transparency of the text                                                                             |
+| shadowColor   | _string_        | Shadow color                                                                                                 |
+| shadowBlur    | _number_        | Shadow blur                                                                                                  |
+| shadowOffsetX | _number_        | Sets the horizontal distance between the shadow and the text                                                 |
+| shadowOffsetY | _number_        | Sets the vertical distance between the shadow and the text                                                   |
+| cursor        | _string_        | Mouse style. With CSS mouse styles, default 'default'.                                                       |
 
-示例代码，以 label.style 配置为例：
+Example code, using label.style configuration:
 
 ```ts
 {

@@ -1,5 +1,5 @@
 ---
-title: Multi-View
+title: Multi View Plot
 order: 8
 ---
 

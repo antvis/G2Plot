@@ -16,6 +16,10 @@ interactions: [{ type: 'element-active' }, { type: 'brush' }]
 #### 移除交互
 
 ```ts
+// 方式1: 关闭 tooltip 交互
+interactions: [{ type: 'tooltip', enable: false }]
+
+// 方式2:
 plot.chart.removeInteraction('interaction-type');
 ```
 

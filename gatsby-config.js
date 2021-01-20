@@ -67,10 +67,10 @@ module.exports = {
         order: 3,
       },
       {
-        slug: 'api/options',
+        slug: 'api/plots',
         title: {
-          zh: '通用配置项',
-          en: 'Common Configuration',
+          zh: '基础图表',
+          en: 'Plots',
         },
         order: 2,
       },
@@ -83,13 +83,13 @@ module.exports = {
         order: 3,
       },
       {
-        slug: 'api/plots',
+        slug: 'api/options',
         title: {
-          zh: '基础图表',
-          en: 'Plots',
+          zh: '通用配置项',
+          en: 'Common Configuration',
         },
         order: 4,
-      },
+      }
     ],
     examples: [
       {

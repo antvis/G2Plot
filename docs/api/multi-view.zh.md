@@ -92,15 +92,15 @@ view 上的图形坐标轴配置，key 值对应 `xField` 和 `yField`， value 
 
 #### IView.annotations
 
-<description>**optional** _object[]</description>
+<description>**optional** _object[]_ </description>
 
 view 上的几何图形的图形标注配置。具体见：[Annotations API](https://g2plot.antv.vision/zh/docs/api/components/annotations)
 
 #### IView.interactions
 
-<description>**optional** _object[]</description>
+<description>**optional** _object[]_ </description>
 
-view 上的交互配置。具体见：[Interactions API]https://g2plot.antv.vision/zh/docs/api/interactions)
+view 上的交互配置。具体见：[Interactions API](https://g2plot.antv.vision/zh/docs/api/options/interactions)
 
 ### 图形映射
 

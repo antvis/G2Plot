@@ -12,7 +12,7 @@ order: 8
 
 <description>**required** _IView[]_</description>
 
-每一个图层的配置，每个图层都包含自己的：数据、图形、图形映射。具体见 [图层配置](#图层配置)
+每一个图层的配置，每个图层都包含自己的：数据、图形、图形配置。具体见 [图层配置](#图层配置)
 
 #### syncViewPadding ✨
 
@@ -48,13 +48,15 @@ region: {
 
 #### IView.coordinate
 
-坐标系的配置，每一个 view 具有相同的坐标系。
+坐标系的配置，每一个 view 具有自己的坐标系。同一个 view 下的 geometries 共用一个坐标系。
 
 | 参数名  | 类型            | 可选值 ｜                                                |
 | ------- | --------------- | -------------------------------------------------------- |
 | type    | _string_        | `'polar' \| 'theta' \| 'rect' \| 'cartesian' \| 'helix'` |
 | cfg     | _CoordinateCfg_ |   CoordinateCfg 坐标系配置项，目前常用于极坐标    |
 | actions | _array object_  | 坐标系的变换配置，具体可以见 G2 坐标系[文档](https://g2.antv.vision/zh/docs/api/general/coordinate)
+
+<div class="sign">
 
 ```ts
 type CoordinateCfg = {
@@ -69,20 +71,21 @@ type CoordinateCfg = {
 };
 ```
 
+</div>
+
 #### IView.geometries
 
 <description>**optional** _array object_</description>
 
-view 上的图形 geometry 及映射配置，具体见[图形映射](#图形映射)
-
-
-
+view 上的图形 geometry 及映射配置，具体见[图形配置](#图形配置)
 
 #### IView.axes
 
 <description>**optional** _object | false_</description>
 
-view 上的图形坐标轴配置，key 值对应 `xField` 和 `yField`， value 具体配置见：[Axis API](https://g2plot.antv.vision/zh/docs/api/components/axis)
+view 上的图形坐标轴配置，key 值对应 `xField` 和 `yField`， value 具体配置见：[Axis API](/zh/docs/api/components/axis)
+
+<div class="sign">
 
 ```ts
 {
@@ -90,19 +93,21 @@ view 上的图形坐标轴配置，key 值对应 `xField` 和 `yField`， value 
 }
 ```
 
+</div>
+
 #### IView.annotations
 
 <description>**optional** _object[]_ </description>
 
-view 上的几何图形的图形标注配置。具体见：[Annotations API](https://g2plot.antv.vision/zh/docs/api/components/annotations)
+view 上的几何图形的图形标注配置。具体见：[Annotations API](/zh/docs/api/components/annotations)
 
 #### IView.interactions
 
 <description>**optional** _object[]_ </description>
 
-view 上的交互配置。具体见：[Interactions API](https://g2plot.antv.vision/zh/docs/api/options/interactions)
+view 上的交互配置。具体见：[Interactions API](/zh/docs/api/options/interactions)
 
-### 图形映射
+### 图形配置
 
 #### IGeometry.type
 
@@ -114,7 +119,38 @@ view 上的交互配置。具体见：[Interactions API](https://g2plot.antv.vis
 
 <description>**required** _object_</description>
 
-图形映射规则
+图形配置规则。
+在图形语法中，数据可以通过 `color`, `shape`, `size` 等视觉属性映射到图形上，另外 G2/G2Plot 还提供了 `style` 和 `tooltip`，让图形展示更多的信息。具体类型定义见下：（其中：ShapeStyle 具体见[绘图属性](/zh/docs/api/graphic-style))
+
+<div class="sign">
+
+```ts
+type MappingOptions = {
+  /** color 映射 */
+  readonly color?: ColorAttr;
+  /** shape 映射 */
+  readonly shape?: ShapeAttr;
+  /** 大小映射, 提供回调的方式 */
+  readonly size?: SizeAttr;
+  /** 样式映射 */
+  readonly style?: StyleAttr;
+  /** tooltip 映射 */
+  readonly tooltip?: TooltipAttr;
+}
+
+/** 颜色映射 */
+type ColorAttr = string | string[] | ((datum: Datum) => string);
+/** 尺寸大小映射 */
+type SizeAttr = number | [number, number] | ((datum: Datum) => number);
+/** 图形 shape 映射 */
+type ShapeAttr = string | string[] | ((datum: Datum) => string);
+/** 图形样式 style 映射 */
+type StyleAttr = ShapeStyle | ((datum: Datum) => ShapeStyle);
+/** tooltip 的回调 */
+type TooltipAttr = (datum: Datum) => { name: string; value: string | number };
+```
+
+</div>
 
 #### IGeometry.xField
 
@@ -162,14 +198,24 @@ tooltip 映射字段。
 
 <description>**optional** _object_</description>
 
-label 映射通道，具体见 [Label API](httpa://g2plot.antv.vision/zh/docs/api/components/label)
+label 映射通道，具体见 [Label API](/zh/docs/api/components/label)
+
+#### IGeometry.adjust
+
+数据调整配置项。
+调整数据的目的是为了使得图形不互相遮挡，对数据的认识更加清晰，但是必须保证对数据的正确理解，更多信息可以查看 [数据调整 | G2](https://g2.antv.vision/zh/docs/manual/concepts/adjust)
+
+
+| 参数名       | 类型       | 描述            |
+| ------------ | ----------- | -------- |
+| type         | 'stack' \| 'dodge' \| 'jitter' \| 'symmetric' | 数据调整类型    |
+| marginRatio  | number                                        | 只对 'dodge' 生效，取 0 到 1 范围的值（相对于每个柱子宽度），用于控制一个分组中柱子之间的间距 |
+| dodgeBy      | string                                        | 只对 'dodge' 生效，声明以哪个数据字段为分组依据                                               |
+| reverseOrder | boolean                                       | 只对 'stack' 生效，用于控制是否对数据进行反序操作                                             |
+
 
 #### IGeometry.state
 
 <description>**optional** _object_</description>
 
 不同状态的样式
-
-#### IGeometry.adjust
-
-数据调整配置项，TODO 补充说明

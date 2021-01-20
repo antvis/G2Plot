@@ -101,6 +101,14 @@ module.exports = {
         },
       },
       {
+        slug: 'plugin',
+        icon: 'other',
+        title: {
+          zh: '高级图表',
+          en: 'Advanced Plots',
+        },
+      },
+      {
         slug: 'case',
         icon: 'gallery',
         title: {
@@ -227,14 +235,6 @@ module.exports = {
         title: {
           zh: '动态交互图',
           en: 'Dynamic Plots',
-        },
-      },
-      {
-        slug: 'plugin',
-        icon: 'other',
-        title: {
-          zh: '高级图表',
-          en: 'Advanced Plots',
         },
       },
       {

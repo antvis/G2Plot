@@ -15,6 +15,8 @@ order: 17
 
 设置图表数据源。
 
+#### meta
+
 `markdown:docs/common/meta.zh.md`
 
 #### type

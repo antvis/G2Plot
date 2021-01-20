@@ -23,6 +23,8 @@ Configure the data source. The data source is a collection of objects. For examp
 
 Grouping field. For example, when we need to analyze the transaction volume trend of different provinces, the `province` field is the grouping field.
 
+#### meta
+
 `markdown:docs/common/meta.en.md`
 
 ### Graphic Style

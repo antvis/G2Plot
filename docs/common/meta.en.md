@@ -1,5 +1,3 @@
-#### meta
-
 <description>**optional** _object_</description>
 
 Configure the meta of each data field of the chart in global, to define the type and presentation of data. Configuration of the meta will affect the text content of all components.

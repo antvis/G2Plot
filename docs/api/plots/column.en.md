@@ -53,6 +53,8 @@ Configure the data source. The data source is a collection of objects. For examp
 
 是否百分比柱状图，isPercent 为 true 时，isStack 也需要为 true。
 
+#### meta
+
 `markdown:docs/common/meta.en.md`
 
 ### Geometry Style

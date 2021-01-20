@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { DataView } from '@antv/data-set';
-import { Lab } from '@antv/g2plot';
+import { MultiView } from '@antv/g2plot';
 import { keys, groupBy } from '@antv/util';
 
 function generateYearData() {
@@ -47,7 +47,7 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/NHer2zyRYE/nobel-prize-data.jso
     };
 
     const yearData = generateYearData();
-    const labChart = new Lab.MultiView('container', {
+    const plot = new MultiView('container', {
       height: 500,
       padding: 'auto',
       appendPadding: [20, 0, 20, 0],
@@ -105,7 +105,7 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/NHer2zyRYE/nobel-prize-data.jso
               mapping: {
                 color: ({ type }) => {
                   const idx = types.indexOf(type);
-                  const { colors10 = [] } = labChart.chart.getTheme();
+                  const { colors10 = [] } = plot.chart.getTheme();
                   return colors10[idx] || '#D9D9D9';
                 },
               },
@@ -251,7 +251,7 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/NHer2zyRYE/nobel-prize-data.jso
                 labelEmit: true,
                 fields: ['year'],
                 callback: (year) => {
-                  const { defaultColor } = labChart.chart.getTheme();
+                  const { defaultColor } = plot.chart.getTheme();
                   return {
                     style: {
                       fill: year === currentYear ? 'rgba(255,255,255,0.85)' : 'transparent',
@@ -276,18 +276,18 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/NHer2zyRYE/nobel-prize-data.jso
       ],
     });
 
-    labChart.render();
+    plot.render();
 
-    const view1 = labChart.chart.views[0];
-    const view2 = labChart.chart.views[1];
-    const view3 = labChart.chart.views[2];
+    const view1 = plot.chart.views[0];
+    const view2 = plot.chart.views[1];
+    const view3 = plot.chart.views[2];
     // 根据 view3 中创建的顺序，可知 滑块对应的第 2 个几何标记对象 geometry
     const sliderBlock = view3.geometries[1];
     function rerender(specYear) {
       view1.changeData(getIntervalViewData(specYear));
       view2.changeData(getPointViewData(specYear));
       sliderBlock.label('year', (year) => {
-        const { defaultColor } = labChart.chart.getTheme();
+        const { defaultColor } = plot.chart.getTheme();
         return {
           labelEmit: true,
           style: {

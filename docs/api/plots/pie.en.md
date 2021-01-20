@@ -15,6 +15,8 @@ order: 4
 
 Configure the data source. The data source is a collection of objects. For example:`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
+#### meta
+
 `markdown:docs/common/meta.en.md`
 
 ```ts

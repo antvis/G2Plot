@@ -15,6 +15,8 @@ order: 10
 
 Configure the data source. The data source is a collection of objects. For example:`[{title: '满意度', ranges: [50,100], measures: [80], target: 85}]`。
 
+#### meta
+
 `markdown:docs/common/meta.en.md`
 
 #### measureField 

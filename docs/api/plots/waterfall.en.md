@@ -17,6 +17,8 @@ Configure the data source. The data source is a collection of objects. For examp
 
 `markdown:docs/common/xy-field.en.md`
 
+#### meta
+
 `markdown:docs/common/meta.en.md`
 
 ### Higher Configuration

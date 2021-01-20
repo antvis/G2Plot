@@ -52,7 +52,7 @@ region: {
 
 | 参数名  | 类型            | 可选值 ｜                                                |
 | ------- | --------------- | -------------------------------------------------------- |
-| type    | _string_        | `'polar' \| 'theta' \| 'rect' \| 'cartesian' \| 'helix'` |
+| type    | _string_        | `'polar' | 'theta' | 'rect' | 'cartesian' | 'helix'` |
 | cfg     | _CoordinateCfg_ |   CoordinateCfg 坐标系配置项，目前常用于极坐标    |
 | actions | _array object_  | 坐标系的变换配置，具体可以见 G2 坐标系[文档](https://g2.antv.vision/zh/docs/api/general/coordinate)
 

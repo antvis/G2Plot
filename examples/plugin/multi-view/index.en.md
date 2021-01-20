@@ -1,4 +1,4 @@
 ---
-title: Multi View Plot 🔥(new)
+title: Multi View Plot 🔥
 order: 2
 ---

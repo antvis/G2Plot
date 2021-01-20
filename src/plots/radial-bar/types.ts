@@ -16,6 +16,10 @@ export interface RadialBarOptions extends Options, Pick<BarOptions, 'barBackgrou
   readonly radius?: number;
   /** 圆内半径 */
   readonly innerRadius?: number;
+  /** 圆环的开始角度 */
+  readonly startAngle?: number;
+  /** 圆环的结束角度 */
+  readonly endAngle?: number;
   /** 颜色字段 */
   readonly colorField?: string;
   /** 类型 */

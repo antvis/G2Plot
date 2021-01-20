@@ -51,6 +51,14 @@
         "en": "Line plot with regionFilter"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*7V6nSpj64uYAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "line-coordinate.ts",
+      "title": {
+        "zh": "倒立的折线图",
+        "en": "Line plot with coordinate"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/%242LKFJ4KKC/zhexiantulizi.png"
     }
   ]
 }

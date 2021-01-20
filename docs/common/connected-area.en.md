@@ -2,6 +2,6 @@ Applicable to stacked bar charts and stacked bar charts, the link area component
 
 <description>**optional** _object_ | _false_</description>
 
-| Attr    | Type             | Required     | Default ｜ Description |
-| ------- | ---------------- | ------------ | ---------------------- |
-| trigger | 'hover'、'click' | No ｜'hover' | Trigger method         |
+| Properties | Type             | Required     | Default ｜ Description |
+| ---------- | ---------------- | ------------ | ---------------------- |
+| trigger    | 'hover'、'click' | No ｜'hover' | Trigger method         |

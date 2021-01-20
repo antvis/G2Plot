@@ -72,7 +72,7 @@ Whether show crosshairs。
 
 Configure tooltip crosshairs to work if and only if 'showCrosshairs' is true.
 
-| Attributes     | Type                   | Description                                                                                   |
+| Properties     | Type                   | Description                                                                                   |
 | -------------- | ---------------------- | --------------------------------------------------------------------------------------------- |
 | type           | \_`x` \| `y` \| `xy`\_ | Crosshairs Type: 'X' represents the auxiliary line on the X axis, 'Y' on the Y axis           |
 | line           | _lineStyle_            | The configuration item for line                                                               |
@@ -90,7 +90,7 @@ Configure tooltip crosshairs to work if and only if 'showCrosshairs' is true.
 
 **_textBackgroundStyle_**
 
-| Attributes | Type                 | Description                                 |
+| Properties | Type                 | Description                                 |
 | ---------- | -------------------- | ------------------------------------------- |
 | padding    | _number \| number[]_ | White space around the background of a text |
 | style      | _shapeStyle_         | The configuration item for line             |

@@ -14,7 +14,7 @@ In addition to using the built-in 'default' and 'dark' themes, you can also modi
 
 The following table lists the specific properties on the configuration items that make up the topic:
 
-| Attributes            | Type       | Description                                                                                                   |
+| Properties            | Type       | Description                                                                                                   |
 | --------------------- | ---------- | ------------------------------------------------------------------------------------------------------------- |
 | defaultColor          | _string_   | Theme color                                                                                                   |
 | padding               | _number_   | number[]                                                                                                      |

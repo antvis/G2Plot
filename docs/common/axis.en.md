@@ -82,7 +82,7 @@ A configuration item for a coordinate subscale. NULL indicates that it is not di
 
 A configuration item for the title, NULL means not to be displayed.
 
-| Attr       | Type         | Description                                                        |
+| Properties | Type         | Description                                                        |
 | ---------- | ------------ | ------------------------------------------------------------------ |
 | offset     | _number_     | The distance of the title from the coordinate axis                 |
 | spacing    | _lineStyle_  | The distance between the title and the text on the coordinate axis |
@@ -107,7 +107,7 @@ A configuration item for the text label. NULL indicates that it is not displayed
 
 Axis grid line configuration item. NULL means not shown.
 
-| Attr           | Type               | Description                                                        |
+| Properties     | Type               | Description                                                        |
 | -------------- | ------------------ | ------------------------------------------------------------------ |
 | line           | _lineStyle_        | The style of the line                                              |
 | alternateColor | _string\|string[]_ | The fill color between two grid lines                              |
@@ -132,11 +132,11 @@ Animation parameter configuration.
 
 ```ts
 interface ComponentAnimateCfg {
-  /** Animation execution time */
+  /** Duration of the first animation */
   readonly duration?: number;
-  /** Animation easing function */
+  /** Easing method used for the first animation. */
   readonly easing?: string;
-  /** Animation delay time */
+  /** Delay before updating the animation */
   readonly delay?: number;
 }
 // Configure the reference

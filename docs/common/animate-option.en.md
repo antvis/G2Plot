@@ -11,9 +11,9 @@ interface ComponentAnimateOption {
 }
 
 interface ComponentAnimateCfg {
-  duration?: number; // Animation execution time
-  easing?: string; // Animation easing function
-  delay?: number; // Animation delay time
+  duration?: number; // Duration of the first animation
+  easing?: string; // Easing method used for the first animation.
+  delay?: number; // Delay before updating the animation
 }
 ```
 

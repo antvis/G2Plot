@@ -1,4 +1,4 @@
-| Attributes | Type                         | Default | Description                                                   |
+| Properties | Type                         | Default | Description                                                   |
 | ---------- | ---------------------------- | ------- | ------------------------------------------------------------- |
 | symbol     | _Marker_ \| _MarkerCallback_ | -       | The symbol shape of a legend marker is configured             |
 | style      | ShapeAttrs                   | -       | The configuration item of legend item Marker                  |

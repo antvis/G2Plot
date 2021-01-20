@@ -1,11 +1,11 @@
-| Attributes | Type                   | Description |
+| Properties | Type                   | Description |
 | ---------- | ---------------------- | ----------- |
 | title      | false \| StatisticText | title       |
 | content    | false \| StatisticText | content     |
 
 StatisticText
 
-| Attributes | Type     | Description                       |
+| Properties | Type     | Description                       |
 | ---------- | -------- | --------------------------------- |
 | style      | object   | Styles for statistical text       |
 | formatter  | Function | The formatted content of the text |

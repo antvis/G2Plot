@@ -5,7 +5,7 @@ order: 3
 
 `markdown:docs/styles/legend.md`
 
-Legend is an auxiliary element of a chart, which uses color, size and shape to distinguish different data types and is used to filter the data in the chart.
+Legend is an auxiliary component of a plot, which uses color, size, and shape mapping, to show the symbol, color, and name of different series. You can click legends to toggle displaying series in the plot.
 
 <b>There are two ways to configure legends:</b>
 
@@ -28,7 +28,7 @@ legend: {
 
 #### Configuration item（_LegendCfg_）
 
-| Attr          | Type           | Default    | Description                                                                                                                                                                                   | Apply to                                                                    |
+| Properties    | Type           | Default    | Description                                                                                                                                                                                   | Apply to                                                                    |
 | ------------- | -------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
 | layout        | _string_       | horizontal | The layout of the legend is optional:_horizontal \| vertical_                                                                                                                                 |                                                                             |
 | title         | _object_       | -          | Legend title configuration is not displayed by default, reference [title configuration](#title)                                                                                               |                                                                             |

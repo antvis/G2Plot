@@ -54,7 +54,8 @@ scatterPlot.render();
 
 <description>**optional** _jitter | stack | symmetric | dodge_ _default:_ `jitter`</description>
 
-Adjust the type. Modification is not recommended.
+Adjust the data.
+Adjust types provided by G2Plot includes 'stack', 'dodge' 'jitter', 'symmetric'. Not recommended to modify.
 
 #### colorField
 
@@ -78,14 +79,14 @@ The name of the data field corresponding to the point size map.
 
 <playground path="scatter/scatter/demo/color-mapping.ts" rid="rect"></playground>
 
-指定点的大小。如没有配置 sizeField，指定一个即可。对 sizeFiled 进行了配置的情况下，可以指定大小数组 `[minSize, maxSize]`， 也可以通过回调函数的方法根据对应数值进行设置。
+Specifies the size of the point. If no sizeField is configured, specify one. When the Sizefiled is configured, the size array '[minSize, maxSize]' can be specified, or the corresponding value can be set through the callback function method.
 
 ```ts
-// 设置单一大小
+// Set a single size
 {
   size: 10
 }
-// 大小区间
+// size range
 {
   sizeField: 'weight',
   size: [2, 10],
@@ -147,7 +148,7 @@ Set polyline styles. The 'fill' in pointStyle overrides the configuration of 'co
 
 Default configuration:
 
-| Attr          | Type   | Description           |
+| Properties    | Type   | Description           |
 | ------------- | ------ | --------------------- |
 | fill          | string | Fill color            |
 | stroke        | string | Stroke color          |
@@ -198,7 +199,7 @@ Default configuration:
 
 Quadrant components.
 
-| Attr        | Type     | Description                                                                                         |
+| Properties  | Type     | Description                                                                                         |
 | ----------- | -------- | --------------------------------------------------------------------------------------------------- |
 | xBaseline   | number   | The quadrant dividing baseline in the x direction, which defaults to 0                              |
 | yBaseline   | number   | The Y direction of the quadrant division base line, the default is 0                                |
@@ -214,12 +215,12 @@ Quadrant components.
 
 Regression line.
 
-| Attr      | Type                                                                | Description                                                                                 |
-| --------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| type      | string                                                              | The type of regression line, exp \| linear \| loess \| log \| poly \| pow \| quad           |
-| style     | object                                                              | Configure the regression line style. Configure the reference drawing properties for details |
-| algorithm | Array<[number, number]> \| ((data: any) => Array<[number, number]>) | Custom algorithm with a higher priority than type                                           |
-| top       | boolean                                                             | Whether top level display                                                                   |
+| Properties | Type                                                                | Description                                                                                 |
+| ---------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| type       | string                                                              | The type of regression line, exp \| linear \| loess \| log \| poly \| pow \| quad           |
+| style      | object                                                              | Configure the regression line style. Configure the reference drawing properties for details |
+| algorithm  | Array<[number, number]> \| ((data: any) => Array<[number, number]>) | Custom algorithm with a higher priority than type                                           |
+| top        | boolean                                                             | Whether top level display                                                                   |
 
 ```ts
 regressionLine: {

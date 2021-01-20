@@ -9,7 +9,7 @@ order: 12
 
 ### Data Mapping
 
-#### percent 
+#### percent
 
 <description>**required** _number_</description>
 
@@ -39,10 +39,10 @@ Liguid graphic style.
 
 The ouline configure for liquid plot, includes:
 
-| Attr         | Type           | Desc                                                  |
-| ------------ | -------------- | ----------------------------------------------------- |
-| border       | number         | border width of ouline, default 2px                   |
-| distance     | number         | distance between ouline and wave, default 0px        |
+| Properties | Type   | Desc                                          |
+| ---------- | ------ | --------------------------------------------- |
+| border     | number | border width of ouline, default 2px           |
+| distance   | number | distance between ouline and wave, default 0px |
 
 #### wave
 
@@ -50,10 +50,10 @@ The ouline configure for liquid plot, includes:
 
 The wave configure for liquid plot, includes:
 
-| Attr         | Type           | Desc                                                  |
-| ------------ | -------------- | ----------------------------------------------------- |
-| count        | number         | wave count, default 3                                 |
-| length       | number         | wave length, default is 192px                         |
+| Properties | Type   | Desc                          |
+| ---------- | ------ | ----------------------------- |
+| count      | number | wave count, default 3         |
+| length     | number | wave length, default is 192px |
 
 ### Plot Components
 

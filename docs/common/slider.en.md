@@ -1,6 +1,6 @@
 Object type refer to [ShapeAttrs](/en/docs/ API /graphic-style)
 
-| Attributes      | Type       | Description                             |
+| Properties      | Type       | Description                             |
 | --------------- | ---------- | --------------------------------------- |
 | start           | _number_   | Default starting position               |
 | end             | _number_   | Default ending position                 |
@@ -16,7 +16,7 @@ Object type refer to [ShapeAttrs](/en/docs/ API /graphic-style)
 
 trendCfg
 
-| Attributes      | Type       | Description                    |
+| Properties      | Type       | Description                    |
 | --------------- | ---------- | ------------------------------ |
 | data            | _number[]_ | Trend data                     |
 | smooth          | _boolean_  | Whether smooth                 |

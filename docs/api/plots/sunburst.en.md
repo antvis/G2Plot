@@ -71,7 +71,7 @@ Sunburst graphic style. The 'fill' in pointStyle overrides the configuration of 
 
 Default configuration:
 
-| Attr          | Type   | Description           |
+| Properties    | Type   | Description           |
 | ------------- | ------ | --------------------- |
 | fill          | string | Fill color            |
 | stroke        | string | Stroke color          |

@@ -1,4 +1,4 @@
-| Attributes | Type                             | Description                                                                                   |
+| Properties | Type                             | Description                                                                                   |
 | ---------- | -------------------------------- | --------------------------------------------------------------------------------------------- |
 | color      | _string \| string[] \| Function_ | The color of the data point, support callback way, example: `color: (x, y, series) => string` |
 | shape      | \_string \| Function\_           | The shape of the data point, support callback way, example: `shape: (x, y, series) => string` |

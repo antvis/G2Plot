@@ -17,13 +17,13 @@ annotations: [
 
 <description>**required** _string_ </description>
 
-Annotation type, text | line | image | region | dataMarker | dataRegion | regionFilter | shape | html.
+Type of annotation, text | line | image | region | dataMarker | dataRegion | regionFilter | shape | html.
 
 ##### position
 
 <description>**required** _object_ </description>
 
-Annotation the position.
+The position of annotation.
 
 - In the first case, object uses the raw data corresponding to graphs x and y. For example: { time: '2010-01-01', value: 200 };
 - The second way is to configure the position [x, y] in an array. Based on the presence of the values in the array, the following forms are used:
@@ -43,7 +43,7 @@ If it is drawn at the top of the canvas, the default is false, meaning it is dra
 
 <description>**optional** _boolean_ </description>
 
-Whether to animate.
+Whether to enable animation.
 
 ##### offsetX
 
@@ -131,10 +131,10 @@ The display position of the text in a two-dimensional coordinate system, whether
 
 Text wrap box style Settings.
 
-| Attr    | Type                 | Default | Description                                                                 |
-| ------- | -------------------- | ------- | --------------------------------------------------------------------------- |
-| style   | _object_             | -       | Text background style, reference[Graphic Style](/en/docs/api/graphic-style) |
-| padding | _number \| number[]_ | -       | White space around the background of a text                                 |
+| Properties | Type                 | Default | Description                                                                 |
+| ---------- | -------------------- | ------- | --------------------------------------------------------------------------- |
+| style      | _object_             | -       | Text background style, reference[Graphic Style](/en/docs/api/graphic-style) |
+| padding    | _number \| number[]_ | -       | White space around the background of a text                                 |
 
 ##### color
 
@@ -158,13 +158,13 @@ Whether to automatically adjust text orientation when text exceeds the drawn are
 
 <description>**optional** _upward | downward_ </description>
 
-朝向。
+Orientation.
 
 ##### lineLength
 
 <description>**optional** _number_ </description>
 
-line 长度，用于 dataRegion。
+Line length for dataRegion.
 
 ##### render
 

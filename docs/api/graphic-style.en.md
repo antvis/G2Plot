@@ -9,7 +9,7 @@ In order to make it convenient for users, the common drawing attributes of G2Plo
 
 ## Configure graphic styles
 
-| Attributes    | Type            | Description                                                                                                                                                                                                 |
+| Properties    | Type            | Description                                                                                                                                                                                                 |
 | ------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | fill          | string          | The fill color of the shape                                                                                                                                                                                 |
 | fillOpacity   | number          | The fill transparency of the shape                                                                                                                                                                          |
@@ -48,7 +48,7 @@ Result:
 
 ## Configure line styles
 
-| Attributes    | Type            | Description                                                                                                                                                                                |
+| Properties    | Type            | Description                                                                                                                                                                                |
 | ------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | stroke        | string          | The color of the line                                                                                                                                                                      |
 | lineWidth     | number          | Line width                                                                                                                                                                                 |
@@ -82,7 +82,7 @@ Result:
 
 ## Configure text styles
 
-| Attributes    | Type            | Description                                                                                                                                                                                                 |
+| Properties    | Type            | Description                                                                                                                                                                                                 |
 | ------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | fontSize      | number          | Font size                                                                                                                                                                                                   |
 | fontFamily    | string          | Font family                                                                                                                                                                                                 |

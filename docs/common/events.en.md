@@ -1,4 +1,4 @@
-在 Plot 上通过 on 绑定事件、off 移除绑定事件。
+On Plot, binding events are removed by ON and OFF.
 
 ```ts
 // Bind event

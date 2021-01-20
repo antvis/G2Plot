@@ -1,11 +1,12 @@
-配置图例有两种方式
-第一种，传入 `boolean` 设置是否显示图例。
+There are two ways to configure legends
+
+Method 1, pass in 'Boolean' to set whether to display a legend.
 
 ```ts
-legend: false; // 关闭图例
+legend: false; // close legend
 ```
 
-第二种，传入 _LegendCfg_ 对图例进行整体配置。
+Method 2, pass in _LegendCfg_ to configure the legend as a whole.
 
 ```ts
 legend: {

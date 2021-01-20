@@ -54,13 +54,14 @@ scatterPlot.render();
 
 <description>**optional** _jitter | stack | symmetric | dodge_ _default:_ `jitter`</description>
 
-数据调整类型，不建议修改。
+Adjust the data.
+Adjust types provided by G2Plot includes 'stack', 'dodge' 'jitter', 'symmetric'. Not recommended to modify.
 
 #### colorField
 
 <description>**optional** _string_</description>
 
-点颜色映射对应的数据字段名。
+The name of the data field corresponding to the dot color map.
 
 ### Geometry Style
 
@@ -70,7 +71,7 @@ scatterPlot.render();
 
 <description>**optional** _string_</description>
 
-点大小映射对应的数据字段名。
+The name of the data field corresponding to the point size map.
 
 #### size
 
@@ -78,14 +79,14 @@ scatterPlot.render();
 
 <playground path="scatter/scatter/demo/color-mapping.ts" rid="rect"></playground>
 
-指定点的大小。如没有配置 sizeField，指定一个即可。对 sizeFiled 进行了配置的情况下，可以指定大小数组 `[minSize, maxSize]`， 也可以通过回调函数的方法根据对应数值进行设置。
+Specifies the size of the point. If no sizeField is configured, specify one. When the Sizefiled is configured, the size array '[minSize, maxSize]' can be specified, or the corresponding value can be set through the callback function method.
 
 ```ts
-// 设置单一大小
+// Set a single size
 {
   size: 10
 }
-// 大小区间
+// size range
 {
   sizeField: 'weight',
   size: [2, 10],
@@ -104,7 +105,7 @@ scatterPlot.render();
 
 <description>**optional** _string_</description>
 
-点形状映射对应的数据字段名。
+The name of the data field corresponding to the dot shape map.
 
 #### shape
 
@@ -112,16 +113,16 @@ scatterPlot.render();
 
 <playground path="scatter/bubble/demo/quadrant.ts" rid="rect-quadrant"></playground>
 
-指定点的形状。如没有配置 shapeField ，指定一个即可。对 shapeField 进行了配置的情况下，可以指定形状数组 `['cicle', 'square']`， 也可以通过回调函数的方法根据对应数值进行设置。
+Specifies the size of the point. If no sizeField is configured, specify one. When the Sizefiled is configured, the size array '[minSize, maxSize]' can be specified, or the corresponding value can be set through the callback function method.
 
-内置图形：circle, square, bowtie, diamond, hexagon, triangle,triangle-down, hollow-circle, hollow-square, hollow-bowtie,hollow-diamond, hollow-hexagon, hollow-triangle, hollow-triangle-down, cross, tick, plus, hyphen, line.
+Built-in shape: circle, square, bowtie, diamond, hexagon, triangle,triangle-down, hollow-circle, hollow-square, hollow-bowtie,hollow-diamond, hollow-hexagon, hollow-triangle, hollow-triangle-down, cross, tick, plus, hyphen, line.
 
 ```ts
-// 设置单一大小
+// Set a single size
 {
   shape: 'square'
 }
-// 大小区间
+// The size of the range
 {
   shapeField: 'gender',
   shape: ['circle', 'square'],
@@ -143,22 +144,22 @@ scatterPlot.render();
 
 <description>**optional** _object_</description>
 
-设置折线样式。pointStyle 中的`fill`会覆盖 `color` 的配置。pointStyle 可以直接指定，也可以通过 callback 的方式，根据数据指定单独的样式。
+Set polyline styles. The 'fill' in pointStyle overrides the configuration of 'color'. PointStyle can be specified either directly or via a callback to specify a separate style based on the data.
 
-默认配置：
+Default configuration:
 
-| 细分配置      | 类型   | 功能描述   |
-| ------------- | ------ | ---------- |
-| fill          | string | 填充颜色   |
-| stroke        | string | 描边颜色   |
-| lineWidth     | number | 线宽       |
-| lineDash      | number | 虚线显示   |
-| opacity       | number | 透明度     |
-| fillOpacity   | number | 填充透明度 |
-| strokeOpacity | number | 描边透明度 |
+| Properties    | Type   | Description           |
+| ------------- | ------ | --------------------- |
+| fill          | string | Fill color            |
+| stroke        | string | Stroke color          |
+| lineWidth     | number | Line width            |
+| lineDash      | number | The dotted lines show |
+| opacity       | number | Transparency          |
+| fillOpacity   | number | Fill transparency     |
+| strokeOpacity | number | Stroke transparency   |
 
 ```ts
-// 直接指定
+// Specified directly
 {
   pointStyle: {
     fill: 'red',
@@ -196,15 +197,15 @@ scatterPlot.render();
 
 <description>**optional** _object_</description>
 
-四象限组件。
+Quadrant components.
 
-| 细分配置    | 类型     | 功能描述                                   |
-| ----------- | -------- | ------------------------------------------ |
-| xBaseline   | number   | x 方向上的象限分割基准线，默认为 0         |
-| yBaseline   | number   | y 方向上的象限分割基准线，默认为 0         |
-| lineStyle   | object   | 配置象限分割线的样式，详细配置参考绘图属性 |
-| regionStyle | object[] | 象限样式，详细配置参考绘图属性             |
-| labels      | object[] | 象限文本配置，详细配置参考绘图属性         |
+| Properties  | Type     | Description                                                                                         |
+| ----------- | -------- | --------------------------------------------------------------------------------------------------- |
+| xBaseline   | number   | The quadrant dividing baseline in the x direction, which defaults to 0                              |
+| yBaseline   | number   | The Y direction of the quadrant division base line, the default is 0                                |
+| lineStyle   | object   | Configure the style of the quadrant divider. Configure the reference drawing properties for details |
+| regionStyle | object[] | Quadrant style with detailed configuration of reference drawing properties                          |
+| labels      | object[] | Quadrant text configuration, detailed configuration reference drawing properties                    |
 
 #### regressionLine
 
@@ -212,14 +213,14 @@ scatterPlot.render();
 
 <description>**optional** _object_</description>
 
-回归线。
+Regression line.
 
-| 细分配置  | 类型                                                                | 功能描述                                                         |
-| --------- | ------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| type      | string                                                              | 回归线类型, exp \| linear \| loess \| log \| poly \| pow \| quad |
-| style     | object                                                              | 配置回归线样式，详细配置参考绘图属性                             |
-| algorithm | Array<[number, number]> \| ((data: any) => Array<[number, number]>) | 自定义算法，优先级高于 type                                      |
-| top       | boolean                                                             | 是否顶层显示                                                     |
+| Properties | Type                                                                | Description                                                                                 |
+| ---------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| type       | string                                                              | The type of regression line, exp \| linear \| loess \| log \| poly \| pow \| quad           |
+| style      | object                                                              | Configure the regression line style. Configure the reference drawing properties for details |
+| algorithm  | Array<[number, number]> \| ((data: any) => Array<[number, number]>) | Custom algorithm with a higher priority than type                                           |
+| top        | boolean                                                             | Whether top level display                                                                   |
 
 ```ts
 regressionLine: {

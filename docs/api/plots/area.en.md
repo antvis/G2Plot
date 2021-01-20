@@ -59,11 +59,11 @@ Area graphic style.
 
 Line graphic style in the Area.
 
-| Attr | Type                                      | Description |
-| -------------- | ---------------------------------------- | -------- |
-| color          | _string \| string[] \| Function_         | Line color |
-| style          | _ShapeStyle \| Function_                 | Line graphic style |
-| size           | _number \| [number, number] \| Function_ | Line width |
+| Properties | Type                                     | Description        |
+| ---------- | ---------------------------------------- | ------------------ |
+| color      | _string \| string[] \| Function_         | Line color         |
+| style      | _ShapeStyle \| Function_                 | Line graphic style |
+| size       | _number \| [number, number] \| Function_ | Line width         |
 
 #### point
 

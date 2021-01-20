@@ -26,13 +26,13 @@ Configure the data source. The data source is a collection of objects. For examp
 
 <description>**required** _string_</description>
 
-设置 x 轴字段。
+Set the X-axis field.
 
 #### yField
 
 <description>**required** _[string,string]_</description>
 
-设置 y 轴映射字段。
+Set the Y-axis mapping field.
 
 <!-- Meta options START -->
 

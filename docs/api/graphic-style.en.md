@@ -9,20 +9,20 @@ In order to make it convenient for users, the common drawing attributes of G2Plo
 
 ## Configure graphic styles
 
-| Attributes        | Type            | Description                                                                                                         |
-| ------------- | --------------- | ------------------------------------------------------------------------------------------------------------ |
-| fill          | string          | 图形的填充色                                                                                                 |
-| fillOpacity   | number          | 图形的填充透明度                                                                                             |
-| stroke        | string          | 图形的描边                                                                                                   |
-| lineWidth     | number          | 图形描边的宽度                                                                                               |
-| lineDash      | [number,number] | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 |
-| lineOpacity   | number          | 描边透明度                                                                                                   |
-| opacity       | number          | 图形的整体透明度                                                                                             |
-| shadowColor   | string          | 图形阴影颜色                                                                                                 |
-| shadowBlur    | number          | 图形阴影的高斯模糊系数                                                                                       |
-| shadowOffsetX | number          | 设置阴影距图形的水平距离                                                                                     |
-| shadowOffsetY | number          | 设置阴影距图形的垂直距离                                                                                     |
-| cursor        | string          | 鼠标样式。同 css 的鼠标样式，默认 'default'。                                                                |
+| Properties    | Type            | Description                                                                                                                                                                                                 |
+| ------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| fill          | string          | The fill color of the shape                                                                                                                                                                                 |
+| fillOpacity   | number          | The fill transparency of the shape                                                                                                                                                                          |
+| stroke        | string          | Stroke of the shape                                                                                                                                                                                         |
+| lineWidth     | number          | The width of the shape stroke                                                                                                                                                                               |
+| lineDash      | [number,number] | For the dashed line configuration of the stroke, the first value is the length of each segment of the dashed line, and the second value is the distance between segments. LineDash sets [0,0] to no stroke. |
+| lineOpacity   | number          | Stroke transparency                                                                                                                                                                                         |
+| opacity       | number          | The overall transparency of the shape                                                                                                                                                                       |
+| shadowColor   | string          | Shape shadow color                                                                                                                                                                                          |
+| shadowBlur    | number          | The Gaussian blur factor of the shadow of the shape                                                                                                                                                         |
+| shadowOffsetX | number          | Sets the horizontal distance between the shadow and the shape                                                                                                                                               |
+| shadowOffsetY | number          | Sets the vertical distance of the shadow from the shape                                                                                                                                                     |
+| cursor        | string          | Mouse style. With CSS mouse styles, default 'default'.                                                                                                                                                      |
 
 Use the full graphic style `columnStyle` to configure the Column graphic style. Example:
 
@@ -44,21 +44,21 @@ Use the full graphic style `columnStyle` to configure the Column graphic style. 
 
 Result:
 
-<img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*PKH0QoRSb0QAAAAAAAAAAAAAARQnAQ" width="400">
+<img alt="Load failed" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*PKH0QoRSb0QAAAAAAAAAAAAAARQnAQ" width="400">
 
 ## Configure line styles
 
-| Attributes        | Type            | Description                                                                                                   |
-| ------------- | --------------- | ------------------------------------------------------------------------------------------------------ |
-| stroke        | string          | 线的颜色                                                                                               |
-| lineWidth     | number          | 线宽                                                                                                   |
-| lineDash      | [number,number] | 虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 |
-| opacity       | number          | 透明度                                                                                                 |
-| shadowColor   | string          | 阴影颜色                                                                                               |
-| shadowBlur    | number          | 高斯模糊系数                                                                                           |
-| shadowOffsetX | number          | 设置阴影距图形的水平距离                                                                               |
-| shadowOffsetY | number          | 设置阴影距图形的垂直距离                                                                               |
-| cursor        | string          | 鼠标样式。同 css 的鼠标样式,默认 'default'。                                                           |
+| Properties    | Type            | Description                                                                                                                                                                                |
+| ------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| stroke        | string          | The color of the line                                                                                                                                                                      |
+| lineWidth     | number          | Line width                                                                                                                                                                                 |
+| lineDash      | [number,number] | With dotted line configuration, the first value is the length of each segment of the dotted line, and the second value is the distance between segments. LineDash sets [0,0] to no stroke. |
+| opacity       | number          | Transparency                                                                                                                                                                               |
+| shadowColor   | string          | Shadow color                                                                                                                                                                               |
+| shadowBlur    | number          | Gaussian blur coefficient                                                                                                                                                                  |
+| shadowOffsetX | number          | Sets the horizontal distance between the shadow and the shape                                                                                                                              |
+| shadowOffsetY | number          | Sets the vertical distance of the shadow from the shape                                                                                                                                    |
+| cursor        | string          | Mouse style. Mouse styles with CSS, default 'default'。                                                                                                                                    |
 
 Use the full graphic style `lineStyle` to configure the Line graphic style. Example:
 
@@ -78,30 +78,30 @@ lineStyle: {
 
 Result:
 
-<img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*X8fHTagDDOIAAAAAAAAAAABkARQnAQ" width="400">
+<img alt="Load failed" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*X8fHTagDDOIAAAAAAAAAAABkARQnAQ" width="400">
 
 ## Configure text styles
 
-| Attributes        | Type            | Description                                                                                                         |
-| ------------- | --------------- | ------------------------------------------------------------------------------------------------------------ |
-| fontSize      | number          | 文字大小                                                                                                     |
-| fontFamily    | string          | 文字字体                                                                                                     |
-| fontWeight    | number          | 字体粗细                                                                                                     |
-| lineHeight    | number          | 文字的行高                                                                                                   |
-| textAlign     | string          | 设置文本内容的当前对齐方式, 支持的属性：`center`                                                             | `end` | `left` | `right` | `start`，默认值为`start` |
-| textBaseline  | string          | 设置在绘制文本时使用的当前文本基线, 支持的属性:`top`                                                         | `middle` | `bottom` | `alphabetic` | `hanging`。默认值为`bottom` |
-| fill          | string          | 文字的填充色                                                                                                 |
-| fillOpacity   | number          | 文字的填充透明度                                                                                             |
-| stroke        | string          | 文字的描边                                                                                                   |
-| lineWidth     | number          | 文字描边的宽度                                                                                               |
-| lineDash      | [number,number] | 描边的虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 |
-| lineOpacity   | number          | 描边透明度                                                                                                   |
-| opacity       | number          | 文字的整体透明度                                                                                             |
-| shadowColor   | string          | 文字阴影颜色                                                                                                 |
-| shadowBlur    | number          | 文字阴影的高斯模糊系数                                                                                       |
-| shadowOffsetX | number          | 设置阴影距文字的水平距离                                                                                     |
-| shadowOffsetY | number          | 设置阴影距文字的垂直距离                                                                                     |
-| cursor        | string          | 鼠标样式。同 css 的鼠标样式,默认 'default'。                                                                 |
+| Properties    | Type            | Description                                                                                                                                                                                                 |
+| ------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| fontSize      | number          | Font size                                                                                                                                                                                                   |
+| fontFamily    | string          | Font family                                                                                                                                                                                                 |
+| fontWeight    | number          | Font weight                                                                                                                                                                                                 |
+| lineHeight    | number          | Line height                                                                                                                                                                                                 |
+| textAlign     | string          | Sets the current alignment of text content. Supported property: 'center' \| `end` \| `left` \| `right` \| `start`，默认值为`start`                                                                          |
+| textBaseline  | string          | Sets the current text baseline to be used when drawing text. Supported property: 'top' \| `middle` \| `bottom` \| `alphabetic` \| `hanging`。默认值为`bottom`                                               |
+| fill          | string          | Fill color for text                                                                                                                                                                                         |
+| fillOpacity   | number          | Fill transparency of text                                                                                                                                                                                   |
+| stroke        | string          | Stroke of text                                                                                                                                                                                              |
+| lineWidth     | number          | The width of the text stroke                                                                                                                                                                                |
+| lineDash      | [number,number] | For the dashed line configuration of the stroke, the first value is the length of each segment of the dashed line, and the second value is the distance between segments. LineDash sets [0,0] to no stroke. |
+| lineOpacity   | number          | Stroke transparency                                                                                                                                                                                         |
+| opacity       | number          | Overall transparency of the text                                                                                                                                                                            |
+| shadowColor   | string          | Text shadow color                                                                                                                                                                                           |
+| shadowBlur    | number          | The Gaussian blur coefficient of the text shadow                                                                                                                                                            |
+| shadowOffsetX | number          | Sets the horizontal distance between the shadow and the text                                                                                                                                                |
+| shadowOffsetY | number          | Sets the vertical distance between the shadow and the text                                                                                                                                                  |
+| cursor        | string          | Mouse style. Mouse styles with CSS, default 'default'。                                                                                                                                                     |
 
 Take the `statistic.style` of Liquid for example:
 
@@ -120,7 +120,7 @@ statistic: {
 
 Result:
 
-<img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gjR3Q6aIFSMAAAAAAAAAAABkARQnAQ" width ="300">
+<img alt="Load failed" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gjR3Q6aIFSMAAAAAAAAAAABkARQnAQ" width ="300">
 
 ## Gradient
 
@@ -128,7 +128,7 @@ G2Plot provides support for linear gradients and circular gradients by default.
 
 ### Linear gradient
 
-<img alt="加载失败" src="https://gw.alipayobjects.com/zos/rmsportal/ieWkhtoHOijxweuNFWdz.png" width="600">
+<img alt="Load failed" src="https://gw.alipayobjects.com/zos/rmsportal/ieWkhtoHOijxweuNFWdz.png" width="600">
 
 > Note: `l` indicates the use of linear gradient, the green font is variable, filled by the user, separated by a blank.
 
@@ -147,7 +147,7 @@ areaStyle: {
 
 Result:
 
-<img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*f0EOS5Ay8noAAAAAAAAAAAAAARQnAQ" width="400">
+<img alt="Load failed" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*f0EOS5Ay8noAAAAAAAAAAAAAARQnAQ" width="400">
 
 Example (2): Use `barStyle` of Bar to configure the Bar with gradient color.
 
@@ -159,11 +159,11 @@ barStyle: {
 
 Result:
 
-<img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*MexsR7O4GPwAAAAAAAAAAAAAARQnAQ" width="400">
+<img alt="Load failed" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*MexsR7O4GPwAAAAAAAAAAAAAARQnAQ" width="400">
 
 ### Circular gradient
 
-<img alt="加载失败" src="https://gw.alipayobjects.com/zos/rmsportal/qnvmbtSBGxQlcuVOWkdu.png" width="600">
+<img alt="Load failed" src="https://gw.alipayobjects.com/zos/rmsportal/qnvmbtSBGxQlcuVOWkdu.png" width="600">
 
 > Note: `r` indicates the use of a radial gradient, the green font is variable, which is filled in by the user. The xyr values ​​of the starting circle are all relative values, ranging from 0 to 1.
 
@@ -177,7 +177,7 @@ fill: 'r(0.5, 0.5, 0.1) 0:#ffffff 1:#1890ff';
 
 Fill the shape with a specific texture. Texture can be images or data URLs.
 
-<img alt="加载失败" src="https://gw.alipayobjects.com/zos/rmsportal/NjtjUimlJtmvXljsETAJ.png" width="600">
+<img alt="Load failed" src="https://gw.alipayobjects.com/zos/rmsportal/NjtjUimlJtmvXljsETAJ.png" width="600">
 
 > Note: `p` indicates the use of texture. The green font is variable, filled by the user.
 
@@ -196,4 +196,4 @@ columnStyle: {
 
 Result:
 
-<img alt="加载失败" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CKQ7R4F8ClEAAAAAAAAAAAAAARQnAQ" width="400">
+<img alt="Load failed" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CKQ7R4F8ClEAAAAAAAAAAAAAARQnAQ" width="400">

@@ -1,3 +1,25 @@
+##### position
+
+<description>**optional** _`top` | `bottom` | `left` | `right`_</description>
+
+适用于直角坐标系，设置坐标轴的位置。
+
+### label
+
+<description> _AxisLabelCfg | null_ **optional** </description>
+
+文本标签的配置项，null 表示不展示。_AxisLabelCfg_ 配置如下：
+
+| 参数名       | 类型                                                   | 是否必选 | 默认值  | 描述                     |
+| ------------ | ------------------------------------------------------ | -------- | ------- | ------------------------ |
+| style        | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)                                    |          | -       | 坐标轴刻度线的样式配置项 |
+| offset       | number                                                 |          | -       | label 的偏移量           |
+| rotate       | number                                                 |          | -       | 文本旋转角度             |
+| autoRotate   | boolean                                                |          | `true`  | 是否自动旋转             |
+| autoHide     | boolean                                                |          | `false` | 是否自动隐藏             |
+| autoEllipsis | boolean                                                |          | `false` | 是否自动省略             |
+| formatter    | `(text: string, item: ListItem, index: number) => any` |          | `false` | 格式化函数               |
+
 ##### nice
 
 <description>**optional** _boolean_ _default:_ `true`</description>
@@ -45,12 +67,6 @@
 <description>**optional** _string | Function_ _default:_ `false`</description>
 
 指定 tick 计算方法，或自定义计算 tick 的方法，内置 tick 计算方法包括 `cat`、`time-cat`、 `wilkinson-extended`、`r-pretty`、`time`、`time-pretty`、`log`、`pow`、`quantile`、`d3-linear`。
-
-##### position
-
-<description>**optional** _`top` | `bottom` | `left` | `right`_</description>
-
-适用于直角坐标系，设置坐标轴的位置。
 
 ##### line
 

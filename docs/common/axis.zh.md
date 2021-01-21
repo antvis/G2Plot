@@ -4,7 +4,7 @@
 
 适用于直角坐标系，设置坐标轴的位置。
 
-### label
+#### label
 
 <description> _AxisLabelCfg | null_ **optional** </description>
 

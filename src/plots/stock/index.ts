@@ -5,7 +5,7 @@ import { StockOptions } from './types';
 import { adaptor } from './adaptor';
 import { getStockData } from './utils';
 
-import { DEFAULT_TOOLTIP_OPTIONS } from './constant';
+import { DEFAULT_TOOLTIP_OPTIONS, TREND_FIELD } from './constant';
 
 export { StockOptions };
 
@@ -22,6 +22,7 @@ export class Stock extends Plot<StockOptions> {
       // 设置默认图表 tooltips
       tooltip: DEFAULT_TOOLTIP_OPTIONS,
       interactions: [{ type: 'tooltip' }],
+      trendField: TREND_FIELD,
       legend: false,
     });
   }

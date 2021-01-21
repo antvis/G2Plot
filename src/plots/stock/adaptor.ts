@@ -15,13 +15,12 @@ import { getStockData } from './utils';
 function field(params: Params<StockOptions>): Params<StockOptions> {
   const { chart, options } = params;
   const { xField, data, color, trendField } = options;
-  const _trendField = trendField || TREND_FIELD;
 
   chart.data(getStockData(data, options));
 
   const geometry = chart.schema().position(`${xField}*${Y_FIELD}`).shape('candle');
 
-  geometry.color(_trendField, color || DEFAULT_TREND_COLOR);
+  geometry.color(trendField, color || DEFAULT_TREND_COLOR);
 
   return params;
 }
@@ -33,14 +32,13 @@ function field(params: Params<StockOptions>): Params<StockOptions> {
 export function meta(params: Params<StockOptions>): Params<StockOptions> {
   const { chart, options } = params;
   const { meta, xAxis, yAxis, xField, trendField } = options;
-  const _trendField = trendField || TREND_FIELD;
 
   const baseMeta = {
     [xField]: {
       type: 'timeCat',
       tickCount: 6,
     },
-    [_trendField]: {
+    [trendField]: {
       values: [TREND_UP, TREND_DOWN, TREND_NORMAL],
     },
   };
@@ -148,10 +146,9 @@ export function tooltip(params: Params<StockOptions>): Params<StockOptions> {
 export function legend(params: Params<StockOptions>): Params<StockOptions> {
   const { chart, options } = params;
   const { legend, trendField } = options;
-  const _trendField = trendField || TREND_FIELD;
 
   if (legend) {
-    chart.legend(_trendField, legend);
+    chart.legend(trendField, legend);
   } else if (legend === false) {
     chart.legend(false);
   }

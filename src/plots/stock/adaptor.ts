@@ -14,7 +14,7 @@ import { getStockData } from './utils';
  */
 function field(params: Params<StockOptions>): Params<StockOptions> {
   const { chart, options } = params;
-  const { xField, data, color, trendField} = options;
+  const { xField, data, color, trendField } = options;
   const _trendField = trendField || TREND_FIELD;
 
   chart.data(getStockData(data, options));

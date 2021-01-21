@@ -33,7 +33,6 @@ describe('Stock Color', () => {
     k.destroy();
   });
 
-
   it('trend field', () => {
     const k = new Stock(createDiv(), {
       width: 400,
@@ -47,7 +46,7 @@ describe('Stock Color', () => {
         },
       },
       color: ['yellow', 'blue', 'black'],
-      trendField: 'trendField'
+      trendField: 'trendField',
     });
 
     k.render();
@@ -79,7 +78,7 @@ describe('Stock Color', () => {
       color: ['yellow', 'blue', 'black'],
       trend: () => {
         return 'normal';
-      }
+      },
     });
 
     k.render();
@@ -87,14 +86,11 @@ describe('Stock Color', () => {
     const geometry = k.chart.geometries[0];
     const elements = geometry.elements;
 
-    elements.forEach(item => {
+    elements.forEach((item) => {
       // @ts-ignore
       expect(item.getModel().color).toBe('black');
-    })
+    });
 
     k.destroy();
   });
-
-
-
 });

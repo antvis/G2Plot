@@ -8,8 +8,7 @@ export interface StockOptions extends Options {
   readonly yField: [string, string, string, string];
 
   /** 趋势字段，用于展示阴阳线 默认为 'trend' */
-  readonly trendField ?: string;
+  readonly trendField?: string;
   /** 计算趋势的方式, 返回：  up-上涨  down-下跌 normal-持平 */
-  readonly trend ?: (item: any, index: number) => string
-
+  readonly trend?: (item: any, index: number) => string;
 }

@@ -3,14 +3,13 @@ import { TREND_FIELD, TREND_UP, TREND_DOWN, Y_FIELD, TREND_NORMAL } from '../../
 
 describe('stock data', () => {
   it('stock data', () => {
-
     const yField = ['start', 'end', 'max', 'min'];
     const originalData = [
       { date: '2015-11-19', start: 8.18, max: 8.33, min: 7.98, end: 8.32, volumn: 1810, money: 14723.56 },
       { date: '2015-11-18', start: 8.37, max: 8.6, min: 8.03, end: 8.09, volumn: 2790.37, money: 23309.19 },
       { date: '2015-11-17', start: 8.7, max: 8.78, min: 8.32, end: 8.37, volumn: 3729.04, money: 31709.71 },
     ];
-    const options = { yField }
+    const options = { yField };
     const data = getStockData(originalData, options);
     expect(data.length).toEqual(originalData.length);
     expect(data).toEqual([
@@ -55,7 +54,7 @@ describe('stock data', () => {
     const originalData = [
       { date: '2015-11-19', start: 8.18, max: 8.33, min: 7.98, end: 8.18, volumn: 1810, money: 14723.56 },
     ];
-    const options = { yField }
+    const options = { yField };
     const data = getStockData(originalData, options);
     expect(data).toEqual([
       {
@@ -77,7 +76,7 @@ describe('stock data', () => {
     const originalData = [
       { date: '2015-11-19', start: undefined, max: 8.33, min: 7.98, end: null, volumn: 1810, money: 14723.56 },
     ];
-    const options = { yField }
+    const options = { yField };
     const data = getStockData(originalData, options);
     expect(data).toEqual([
       {

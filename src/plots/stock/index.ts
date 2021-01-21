@@ -22,7 +22,7 @@ export class Stock extends Plot<StockOptions> {
       // 设置默认图表 tooltips
       tooltip: DEFAULT_TOOLTIP_OPTIONS,
       interactions: [{ type: 'tooltip' }],
-      legend: false
+      legend: false,
     });
   }
 

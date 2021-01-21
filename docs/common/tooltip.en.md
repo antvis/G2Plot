@@ -145,13 +145,13 @@ The styles for each DOM.
 /** Tooltip content box css style */
 {
   domStyles: {
-    'g2-tooltip'?: object;
-    'g2-tooltip-title'?: object;
-    'g2-tooltip-list'?: object;
-    'g2-tooltip-list-item'?: object;
-    'g2-tooltip-marker'?: object;
-    'g2-tooltip-value'?: object;
-    'g2-tooltip-name'?: object;
+    'g2-tooltip'?: CSSProperties;
+    'g2-tooltip-title'?: CSSProperties;
+    'g2-tooltip-list'?: CSSProperties;
+    'g2-tooltip-list-item'?: CSSProperties;
+    'g2-tooltip-marker'?: CSSProperties;
+    'g2-tooltip-value'?: CSSProperties;
+    'g2-tooltip-name'?: CSSProperties;
   }
 }
 ```

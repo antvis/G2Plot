@@ -72,13 +72,13 @@ true 表示合并当前点对应的所有数据并展示，false 表示只展示
 
 配置 tooltip 的 crosshairs，当且仅当 `showCrosshairs` 为 true 时生效。
 
-| 细分配置项名称 | 类型                   | 功能描述                                                            |
-| -------------- | ---------------------- | ------------------------------------------------------------------- |
-| type           | _`x` \| `y` \| `xy`_ | crosshairs 的类型: `x` 表示 x 轴上的辅助线，`y` 表示 y 轴上的辅助项 |
-| line           | _lineStyle_            | 线的配置项                                                          |
-| text           | _textStyle_            | 辅助线文本配置，支持回调                                            |
-| textBackground | _textBackgroundStyle_  | 辅助线文本背景配置                                                  |
-| follow         | _boolean_              | 辅助线是否跟随鼠标移动，默认为 false，即定位到数据点                |
+| 细分配置项名称 | 类型                  | 功能描述                                                            |
+| -------------- | --------------------- | ------------------------------------------------------------------- |
+| type           | _`x` \| `y` \| `xy`_  | crosshairs 的类型: `x` 表示 x 轴上的辅助线，`y` 表示 y 轴上的辅助项 |
+| line           | _lineStyle_           | 线的配置项                                                          |
+| text           | _textStyle_           | 辅助线文本配置，支持回调                                            |
+| textBackground | _textBackgroundStyle_ | 辅助线文本背景配置                                                  |
+| follow         | _boolean_             | 辅助线是否跟随鼠标移动，默认为 false，即定位到数据点                |
 
 **_lineStyle_**
 
@@ -90,10 +90,10 @@ true 表示合并当前点对应的所有数据并展示，false 表示只展示
 
 **_textBackgroundStyle_**
 
-| 细分配置项名称 | 类型               | 功能描述           |
-| -------------- | ------------------ | ------------------ |
+| 细分配置项名称 | 类型                 | 功能描述           |
+| -------------- | -------------------- | ------------------ |
 | padding        | _number \| number[]_ | 文本背景周围的留白 |
-| style          | _shapeStyle_       | 线的配置项         |
+| style          | _shapeStyle_         | 线的配置项         |
 
 **_shapeStyle_**
 
@@ -145,13 +145,13 @@ tooltipMarker 的样式配置。
 /** Tooltip 内容框的 css 样式定义 */
 {
   domStyles: {
-    'g2-tooltip'?: object;
-    'g2-tooltip-title'?: object;
-    'g2-tooltip-list'?: object;
-    'g2-tooltip-list-item'?: object;
-    'g2-tooltip-marker'?: object;
-    'g2-tooltip-value'?: object;
-    'g2-tooltip-name'?: object;
+    'g2-tooltip'?: CSSProperties;
+    'g2-tooltip-title'?: CSSProperties;
+    'g2-tooltip-list'?: CSSProperties;
+    'g2-tooltip-list-item'?: CSSProperties;
+    'g2-tooltip-marker'?: CSSProperties;
+    'g2-tooltip-value'?: CSSProperties;
+    'g2-tooltip-name'?: CSSProperties;
   }
 }
 ```

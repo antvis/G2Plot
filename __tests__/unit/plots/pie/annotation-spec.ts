@@ -18,7 +18,6 @@ describe('annotation', () => {
     expect(pie.chart.getController('annotation').getComponents().length).toBe(2);
 
     pie.update({
-      ...pie.options,
       annotations: [
         {
           type: 'text',
@@ -34,7 +33,6 @@ describe('annotation', () => {
 
   it('text annotation and line annotation', () => {
     pie.update({
-      ...pie.options,
       statistic: null,
       annotations: [
         {
@@ -52,6 +50,20 @@ describe('annotation', () => {
     expect(pie.chart.getController('annotation').getComponents().length).toBe(2);
     expect(pie.chart.getController('annotation').getComponents()[0].component.get('content')).toBe('辅助文本');
     expect(pie.chart.getController('annotation').getComponents()[1].component.get('type')).toBe('line');
+  });
+
+  it('先更新为 false，再更新出现', () => {
+    pie.update({ statistic: {} });
+    expect(pie.chart.getController('annotation').getComponents().length).toBe(4);
+
+    pie.update({ statistic: { title: false, content: false } });
+    expect(pie.chart.getController('annotation').getComponents().length).toBe(2);
+
+    pie.update({ statistic: { title: {}, content: {} } });
+    const annotations = pie.chart.getController('annotation').getComponents();
+    expect(annotations.length).toBe(4);
+    // @ts-ignore
+    expect(pie.chart.ele.querySelector('.g2-html-annotation').innerText).toBe('总计');
   });
 
   afterAll(() => {

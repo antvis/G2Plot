@@ -51,11 +51,11 @@ const gauge = new Gauge('container', {
 });
 
 gauge.render();
-let data = 0;
+let data = 0.7;
 const interval = setInterval(() => {
-  if (data >= 1) {
+  if (data >= 1.5) {
     clearInterval(interval);
   }
-  data += 0.01;
-  gauge.changeData(data);
-}, 400);
+  data += 0.005;
+  gauge.changeData(data > 1 ? data - 1 : data);
+}, 100);

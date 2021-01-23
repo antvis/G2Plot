@@ -125,7 +125,7 @@ describe('饼图 异常数据', () => {
 });
 
 describe('数据存在 NaN', () => {
-  const createPie = (data) => {
+  const createPie = (data): Pie => {
     const pie = new Pie(createDiv(), {
       angleField: 'value',
       colorField: 'type',
@@ -143,6 +143,8 @@ describe('数据存在 NaN', () => {
     ]);
     expect(pie.chart).toBeDefined();
     expect(pie.chart.getData()).toEqual([{ type: '2', value: 10 }]);
+
+    pie.destroy();
   });
 
   it('从正常数据 change 到存在 NaN', () => {
@@ -151,6 +153,7 @@ describe('数据存在 NaN', () => {
     expect(pie.chart).toBeDefined();
     expect(pie.options.data).toEqual([{ type: '1', value: NaN }]);
     expect(pie.chart.getData()).toEqual([]);
+    pie.destroy();
   });
 
   it('从 [] change 到存在 NaN', () => {
@@ -159,6 +162,7 @@ describe('数据存在 NaN', () => {
     expect(pie.chart).toBeDefined();
     expect(pie.options.data).toEqual([{ type: '1', value: NaN }]);
     expect(pie.chart.getData()).toEqual([]);
+    pie.destroy();
   });
 
   it('从存在数据 0 change 到存在 NaN', () => {
@@ -178,11 +182,12 @@ describe('数据存在 NaN', () => {
     ]);
     expect(pie.chart.getData()[0]).toMatchObject({ type: '2', value: 0 });
     expect(pie.chart.geometries[0].elements.length).toEqual(1);
+    pie.destroy();
   });
 });
 
 describe('环图 changeData', () => {
-  const createDonut = (data) => {
+  const createDonut = (data): Pie => {
     const donut = new Pie(createDiv(), {
       angleField: 'value',
       colorField: 'type',
@@ -204,6 +209,8 @@ describe('环图 changeData', () => {
       { type: '2', value: 3 },
     ]);
     expect(donut.chart.getController('annotation').getComponents().length).toBe(3);
+
+    donut.destroy();
   });
 
   it('从数据全 0 到正常', () => {
@@ -218,5 +225,7 @@ describe('环图 changeData', () => {
       { type: '2', value: 3 },
     ]);
     expect(donut.chart.getController('annotation').getComponents().length).toBe(3);
+
+    donut.destroy();
   });
 });

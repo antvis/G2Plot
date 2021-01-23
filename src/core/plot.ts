@@ -27,6 +27,31 @@ const SOURCE_ATTRIBUTE_NAME = 'data-chart-source-type';
  * 所有 plot 的基类
  */
 export abstract class Plot<O extends PickOptions> extends EE {
+  /**
+   * 获取默认的 options 配置项
+   * 每个组件都可以复写
+   */
+  static getDefaultOptions(): any {
+    return {
+      renderer: 'canvas',
+      xAxis: {
+        nice: true,
+        label: {
+          autoRotate: false,
+          autoHide: { type: 'equidistance', cfg: { minGap: 6 } },
+        },
+      },
+      yAxis: {
+        nice: true,
+        label: {
+          autoHide: true,
+          autoRotate: false,
+        },
+      },
+      animation: true,
+    };
+  }
+
   /** plot 类型名称 */
   public abstract readonly type: string = 'base';
   /** plot 的 schema 配置 */
@@ -111,24 +136,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 每个组件都可以复写
    */
   protected getDefaultOptions(): any {
-    return {
-      renderer: 'canvas',
-      xAxis: {
-        nice: true,
-        label: {
-          autoRotate: false,
-          autoHide: { type: 'equidistance', cfg: { minGap: 6 } },
-        },
-      },
-      yAxis: {
-        nice: true,
-        label: {
-          autoHide: true,
-          autoRotate: false,
-        },
-      },
-      animation: true,
-    };
+    return Plot.getDefaultOptions();
   }
 
   /**

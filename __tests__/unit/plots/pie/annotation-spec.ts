@@ -16,6 +16,9 @@ describe('annotation', () => {
 
   it('text annotation', () => {
     expect(pie.chart.getController('annotation').getComponents().length).toBe(2);
+    const annotation1: HTMLDivElement = pie.chart.ele.querySelector('.g2-html-annotation');
+    // @ts-ignore
+    expect(annotation1.style.fontWeight).toBe(`${Pie.getDefaultOptions().statistic.title.style.fontWeight}`);
 
     pie.update({
       annotations: [
@@ -52,18 +55,33 @@ describe('annotation', () => {
     expect(pie.chart.getController('annotation').getComponents()[1].component.get('type')).toBe('line');
   });
 
-  it('先更新为 false，再更新出现', () => {
-    pie.update({ statistic: {} });
-    expect(pie.chart.getController('annotation').getComponents().length).toBe(4);
+  it('先更新为 false，再更新出现, 且样式不变', () => {
+    const pie1 = new Pie(createDiv(), {
+      width: 300,
+      height: 400,
+      data: salesByArea,
+      colorField: 'sales',
+      angleField: 'area',
+      innerRadius: 0.64,
+    });
 
-    pie.update({ statistic: { title: false, content: false } });
-    expect(pie.chart.getController('annotation').getComponents().length).toBe(2);
+    pie1.render();
+    let annotation1: HTMLDivElement = pie1.chart.ele.querySelector('.g2-html-annotation');
+    const style = annotation1.style;
 
-    pie.update({ statistic: { title: {}, content: {} } });
-    const annotations = pie.chart.getController('annotation').getComponents();
-    expect(annotations.length).toBe(4);
+    pie1.update({ statistic: { title: false, content: false } });
+    expect(pie1.chart.getController('annotation').getComponents().length).toBe(0);
+
+    pie1.update({ statistic: { title: {}, content: {} } });
+    expect(pie1.chart.getController('annotation').getComponents().length).toBe(2);
+    annotation1 = pie1.chart.ele.querySelector('.g2-html-annotation');
     // @ts-ignore
-    expect(pie.chart.ele.querySelector('.g2-html-annotation').innerText).toBe('总计');
+    expect(annotation1.innerText).toBe('总计');
+    // 样式依然是默认样式
+    // @ts-ignore
+    expect(annotation1.style).toEqual(style);
+
+    pie1.destroy();
   });
 
   afterAll(() => {

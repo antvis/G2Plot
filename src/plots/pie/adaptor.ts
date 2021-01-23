@@ -3,6 +3,7 @@ import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { flow, template, transformLabel, deepAssign, renderStatistic } from '../../utils';
+import { DEFAULT_OPTIONS } from './contants';
 import { adaptOffset, getTotalValue, processIllegalData, isAllZero } from './utils';
 import { PieOptions } from './types';
 
@@ -177,7 +178,7 @@ export function pieAnnotation(params: Params<PieOptions>): Params<PieOptions> {
 
   /** 中心文本 指标卡 */
   if (innerRadius && statistic) {
-    let { title, content } = statistic;
+    let { title, content } = deepAssign({}, DEFAULT_OPTIONS.statistic, statistic);
     if (title !== false) {
       title = deepAssign({}, { formatter: (datum) => (datum ? datum[colorField] : '总计') }, title);
     }

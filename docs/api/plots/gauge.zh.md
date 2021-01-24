@@ -52,13 +52,17 @@ order: 22
 | ticks  | _number[]_ | 辅助圆弧显示数字数组                 |
 | color  | _string \|string[]_ | 辅助圆弧的颜色色板，按照色板顺序取值; 当设置 ticks 时，color 无法使用回调的方式 |
 
-<playground rid="gauge" path="progress-plots/gauge/demo/basic.ts"></playground>
+<playground rid="gauge" path="progress-plots/gauge/demo/custom-color.ts"></playground>
+
+### 图表组件
 
 #### axis
 
 <description>**optional** _object_</description>
 
 指标辅助轴样式。
+- 💡 在仪表盘中，axis 组件可以使用的配置有：`label`, `tickLine`, `subTickLine`, 其他配置项不建议在仪表盘中使用。
+- 💡 关于 `tick` 的设置, 可以直接在 `range.ticks` 中进行配置。
 
 `markdown:docs/common/axis.zh.md`
 
@@ -66,10 +70,10 @@ order: 22
 
 <description>**optional** _object_</description>
 
-仪表盘指示器样式配置。按照组件分成为：
+仪表盘**指示器**样式配置。按照组件分成为：
 
-- `pointer`：指示器中的指针样式配置
-- `pin`：指示器中的圆盘样式配置
+- `pointer`：指示器中的**指针**样式配置
+- `pin`：指示器中的**圆盘**样式配置
 
 他们都有以下配置项：
 

@@ -27,6 +27,14 @@
         "en": "Area updating with dynamic"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/ld0NQtdLO0/mianjitugengxinshuju-after.gif"
+    },
+    {
+      "filename": "dynamic-gauge.ts",
+      "title": {
+        "zh": "动态更新的仪表盘",
+        "en": "Gauge updating with dynamic"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*O2aDSImbWDgAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

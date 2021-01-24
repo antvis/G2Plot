@@ -3,6 +3,7 @@
 | Properties    | Type            | Description                                                                                                                                                                              |
 | ------------- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | fill          | _string_        | Fill color of the shape                                                                                                                                                                  |
+| r          | _number_         | used in `point`, means the radius of geometry |
 | fillOpacity   | _number_        | Fill opacity of the shape                                                                                                                                                                |
 | stroke        | _string_        | Stroke color of the shape                                                                                                                                                                |
 | lineWidth     | _number_        | The width of the stroke of the shape                                                                                                                                                     |

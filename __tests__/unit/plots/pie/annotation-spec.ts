@@ -55,6 +55,26 @@ describe('annotation', () => {
     expect(pie.chart.getController('annotation').getComponents()[1].component.get('type')).toBe('line');
   });
 
+  it('annotation with change data', () => {
+    pie.update({ data: [], statistic: {} });
+    expect(pie.chart.getController('annotation').getComponents().length).toBe(4);
+    expect(pie.chart.getController('annotation').getComponents()[0].component.get('content')).toBe('辅助文本');
+    // @ts-ignore
+    let annotations = pie.chart.ele.querySelectorAll('.g2-html-annotation') as HTMLDivElement[];
+    expect(annotations[0].innerText).toBe('总计');
+    expect(annotations[1].innerText).toBe('');
+
+    pie.changeData(salesByArea);
+    setTimeout(() => {
+      expect(pie.chart.getController('annotation').getComponents().length).toBe(4);
+      expect(pie.chart.getController('annotation').getComponents()[0].component.get('content')).toBe('辅助文本');
+      // @ts-ignore
+      annotations = pie.chart.ele.querySelectorAll('.g2-html-annotation') as HTMLDivElement[];
+      expect(annotations[0].innerText).toBe('总计');
+      expect(annotations[1].innerText).toBe(salesByArea.reduce((a, b) => a + b.sales, 0));
+    }, 0);
+  });
+
   it('先更新为 false，再更新出现, 且样式不变', () => {
     const pie1 = new Pie(createDiv(), {
       width: 300,

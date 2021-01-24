@@ -1,5 +1,6 @@
 import { Chart } from '@antv/g2';
 import { Pie, PieOptions } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/pie/contants';
 import { POSITIVE_NEGATIVE_DATA } from '../../../data/common';
 import { delay } from '../../../utils/delay';
 import { createDiv } from '../../../utils/dom';
@@ -299,6 +300,22 @@ describe('中心文本 - 指标卡', () => {
     // @ts-ignore
     expect(htmlAnnotations[0].style.width).toEqual('500px');
     expect(htmlAnnotations[0].getBoundingClientRect().width).toEqual(600);
+  });
+
+  it('statistic 默认继承 defaultOptions', () => {
+    pie.update({ statistic: null });
+    expect(pie.chart.ele.querySelectorAll('.g2-html-annotation').length).toBe(0);
+
+    pie.update({ statistic: {} });
+    expect(pie.chart.ele.querySelectorAll('.g2-html-annotation').length).toBe(2);
+    expect(pie.options.statistic).toEqual({});
+    setTimeout(() => {
+      // @ts-ignore
+      const annotations = pie.chart.ele.querySelectorAll('.g2-html-annotation') as HTMLDivElement[];
+      expect(annotations[0].style.fontSize).toEqual(DEFAULT_OPTIONS.statistic.title.fontSize);
+      expect(annotations[1].style.color).toEqual(DEFAULT_OPTIONS.statistic.content.color);
+      expect(annotations[1].style).toMatchObject(DEFAULT_OPTIONS.statistic.content);
+    }, 0);
   });
 
   afterEach(() => {

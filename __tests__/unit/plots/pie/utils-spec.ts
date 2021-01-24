@@ -1,4 +1,4 @@
-import { adaptOffset, getTotalValue } from '../../../../../src/plots/pie/utils';
+import { adaptOffset, getTotalValue, isAllZero, processIllegalData } from '../../../../src/plots/pie/utils';
 
 describe('utils of pie plot', () => {
   const data = [
@@ -57,5 +57,29 @@ describe('utils of pie plot', () => {
     expect(parseFloat(adaptOffset('outer', '-30%') as string)).not.toBeLessThan(0);
     expect(adaptOffset('spider', '30%')).toBe('30%');
     expect(adaptOffset('spider', NaN)).toBe(NaN);
+  });
+
+  it('过滤非法数据', () => {
+    const data = [{ type: '1', value: 0 }];
+    expect(processIllegalData(data, 'value')).toEqual(data);
+    data.push({ type: '2', value: 1 });
+    expect(processIllegalData(data, 'value')).toEqual(data);
+    data.push({ type: '3', value: null });
+    expect(processIllegalData(data, 'value')).toEqual(data);
+    data.push({ type: '4', value: undefined });
+    expect(processIllegalData(data, 'value')).toEqual(data.slice(0, 3));
+    data.push({ type: '5', value: NaN });
+    expect(processIllegalData(data, 'value')).toEqual(data.slice(0, 3));
+  });
+
+  it('判断是否全 0', () => {
+    const data = [{ type: '1', value: 0 }];
+    expect(isAllZero(data, 'value')).toBe(true);
+    data.push({ type: '2', value: 0 });
+    expect(isAllZero(data, 'value')).toBe(true);
+    data.push({ type: '3', value: null });
+    expect(isAllZero(data, 'value')).toBe(false);
+    data.push({ type: '4', value: undefined });
+    expect(isAllZero(data, 'value')).toBe(false);
   });
 });

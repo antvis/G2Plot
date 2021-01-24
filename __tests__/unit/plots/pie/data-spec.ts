@@ -4,7 +4,7 @@ import { Pie } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
 
-describe('饼图 数据全空', () => {
+describe('饼图 异常数据', () => {
   const data = [];
   for (let i = 0; i < 5; i++) {
     data.push({ type: `类型 ${i}`, value: 0 });
@@ -99,10 +99,7 @@ describe('饼图 数据全空', () => {
     expect(elements.length).toBe(0);
 
     await delay(500);
-    pie.update({
-      ...pie.options,
-      data,
-    });
+    pie.changeData(data);
 
     elements = pie.chart.geometries[0].elements;
     expect(every(elements, (ele) => ele.getBBox().width > 0)).toBe(true);
@@ -124,5 +121,111 @@ describe('饼图 数据全空', () => {
     expect(tooltipItems[0].value).toBe('1');
 
     pie.destroy();
+  });
+});
+
+describe('数据存在 NaN', () => {
+  const createPie = (data): Pie => {
+    const pie = new Pie(createDiv(), {
+      angleField: 'value',
+      colorField: 'type',
+      data,
+    });
+
+    pie.render();
+    return pie;
+  };
+
+  it('初始化存在 NaN', () => {
+    const pie = createPie([
+      { type: '1', value: NaN },
+      { type: '2', value: 10 },
+    ]);
+    expect(pie.chart).toBeDefined();
+    expect(pie.chart.getData()).toEqual([{ type: '2', value: 10 }]);
+
+    pie.destroy();
+  });
+
+  it('从正常数据 change 到存在 NaN', () => {
+    const pie = createPie([{ type: '2', value: 10 }]);
+    pie.changeData([{ type: '1', value: NaN }]);
+    expect(pie.chart).toBeDefined();
+    expect(pie.options.data).toEqual([{ type: '1', value: NaN }]);
+    expect(pie.chart.getData()).toEqual([]);
+    pie.destroy();
+  });
+
+  it('从 [] change 到存在 NaN', () => {
+    const pie = createPie([]);
+    pie.changeData([{ type: '1', value: NaN }]);
+    expect(pie.chart).toBeDefined();
+    expect(pie.options.data).toEqual([{ type: '1', value: NaN }]);
+    expect(pie.chart.getData()).toEqual([]);
+    pie.destroy();
+  });
+
+  it('从存在数据 0 change 到存在 NaN', () => {
+    const pie = createPie([
+      { type: '1', value: 0 },
+      { type: '1', value: 0 },
+    ]);
+    expect(pie.chart.getData().length).toBe(2);
+    pie.changeData([{ type: '1', value: NaN }]);
+    expect(pie.chart).toBeDefined();
+    expect(pie.options.data).toEqual([{ type: '1', value: NaN }]);
+    expect(pie.chart.getData()).toEqual([]);
+
+    pie.changeData([
+      { type: '1', value: NaN },
+      { type: '2', value: 0 },
+    ]);
+    expect(pie.chart.getData()[0]).toMatchObject({ type: '2', value: 0 });
+    expect(pie.chart.geometries[0].elements.length).toEqual(1);
+    pie.destroy();
+  });
+});
+
+describe('环图 changeData', () => {
+  const createDonut = (data): Pie => {
+    const donut = new Pie(createDiv(), {
+      angleField: 'value',
+      colorField: 'type',
+      data,
+      innerRadius: 0.6,
+      annotations: [{ type: 'text', content: 'xx', position: ['min', 'max'] }],
+    });
+
+    donut.render();
+    return donut;
+  };
+
+  it('normal', () => {
+    const donut = createDonut([]);
+    expect(donut.chart.getController('annotation').getComponents().length).toBe(3);
+
+    donut.changeData([
+      { type: '1', value: 1 },
+      { type: '2', value: 3 },
+    ]);
+    expect(donut.chart.getController('annotation').getComponents().length).toBe(3);
+
+    donut.destroy();
+  });
+
+  it('从数据全 0 到正常', () => {
+    const donut = createDonut([
+      { type: '1', value: 0 },
+      { type: '2', value: 0 },
+    ]);
+    expect(donut.chart.getController('annotation').getComponents().length).toBe(3);
+
+    donut.changeData([
+      { type: '1', value: 1 },
+      { type: '2', value: 3 },
+    ]);
+    expect(donut.chart.getController('annotation').getComponents().length).toBe(3);
+
+    donut.destroy();
   });
 });

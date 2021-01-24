@@ -1,4 +1,5 @@
 import { Pie } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/pie/contants';
 import { POSITIVE_NEGATIVE_DATA } from '../../../data/common';
 import { createDiv } from '../../../utils/dom';
 
@@ -19,6 +20,9 @@ describe('pie', () => {
     });
 
     pie.render();
+    expect(pie.type).toBe('pie');
+    // @ts-ignore
+    expect(pie.getDefaultOptions()).toBe(Pie.getDefaultOptions());
 
     const geometry = pie.chart.geometries[0];
     const elements = geometry.elements;
@@ -166,5 +170,9 @@ describe('pie', () => {
     expect(pie.chart.getController('tooltip').getTooltipCfg().shared).toBe(false);
 
     pie.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(Pie.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

@@ -1,9 +1,10 @@
-import { every, filter, isFunction, isString, isNil, get, isArray, isNumber } from '@antv/util';
+import { isFunction, isString, isNil, get, isArray, isNumber } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
-import { flow, LEVEL, log, template, transformLabel, deepAssign, renderStatistic } from '../../utils';
-import { adaptOffset, getTotalValue } from './utils';
+import { flow, template, transformLabel, deepAssign, renderStatistic } from '../../utils';
+import { DEFAULT_OPTIONS } from './contants';
+import { adaptOffset, getTotalValue, processIllegalData, isAllZero } from './utils';
 import { PieOptions } from './types';
 
 /**
@@ -15,13 +16,9 @@ function geometry(params: Params<PieOptions>): Params<PieOptions> {
   const { data, angleField, colorField, color, pieStyle } = options;
 
   // 处理不合法的数据
-  let processData = filter(data, (d) => typeof d[angleField] === 'number' || isNil(d[angleField]));
+  let processData = processIllegalData(data, angleField);
 
-  // 打印异常数据情况
-  log(LEVEL.WARN, processData.length === data.length, 'illegal data existed in chart data.');
-
-  const allZero = every(processData, (d) => d[angleField] === 0);
-  if (allZero) {
+  if (isAllZero(processData, angleField)) {
     // 数据全 0 处理，调整 position 映射
     const percentageField = '$$percentage$$';
     processData = processData.map((d) => ({ ...d, [percentageField]: 1 / processData.length }));
@@ -170,13 +167,18 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
  * statistic 中心文本配置
  * @param params
  */
-function statistic(params: Params<PieOptions>): Params<PieOptions> {
+export function pieAnnotation(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
   const { innerRadius, statistic, angleField, colorField, meta } = options;
+  // 先清空标注，再重新渲染
+  chart.getController('annotation').clear(true);
+
+  // 先进行其他 annotations，再去渲染统计文本
+  flow(annotation())(params);
 
   /** 中心文本 指标卡 */
   if (innerRadius && statistic) {
-    let { title, content } = statistic;
+    let { title, content } = deepAssign({}, DEFAULT_OPTIONS.statistic, statistic);
     if (title !== false) {
       title = deepAssign({}, { formatter: (datum) => (datum ? datum[colorField] : '总计') }, title);
     }
@@ -221,9 +223,8 @@ export function adaptor(params: Params<PieOptions>) {
     (args) => tooltip(adaptorTooltipOptions(args)),
     label,
     state,
-    annotation(),
     /** 指标卡中心文本 放在下层 */
-    statistic,
+    pieAnnotation,
     interaction,
     animation
   )(params);

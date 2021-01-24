@@ -1,4 +1,3 @@
-
 #### minColumnWidth
 
 <description>**optional**, _number_</description>
@@ -17,8 +16,7 @@ Specify the max width of column, pixel value. Auto adapt by default.
 
 Column graphic Style.
 
-`markdown:docs/common/shape-style.zh.md`
-
+`markdown:docs/common/shape-style.en.md`
 
 #### columnBackground.style
 

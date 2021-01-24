@@ -13,7 +13,7 @@ order: 17
 
 <description>**required** _object_</description>
 
-Set up the chart data source.
+Configure the chart data source.
 
 #### meta
 

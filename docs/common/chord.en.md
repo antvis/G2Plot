@@ -13,7 +13,7 @@ order: 28
 
 <description>**required** _array object_</description>
 
-Set up the chart data source. The data source is a collection of objects, for example：`[{ source: '北京', target: '天津', value: 30 }, ...]`。
+Configure the chart data source. The data source is a collection of objects, for example：`[{ source: '北京', target: '天津', value: 30 }, ...]`。
 
 #### sourceField
 

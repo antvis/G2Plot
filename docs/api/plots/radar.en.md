@@ -46,49 +46,49 @@ const radarPlot = new Radar('container', {
 radarPlot.render();
 ```
 
-#### xField 
+#### xField
 
 <description>**required** _string_</description>
 
-雷达图映射到圆周角度所对应的字段，一般为一个分类字段。
+The radar map maps to the field corresponding to the circumference Angle, which is generally a classification field.
 
-#### yField 
-
-<description>**required** _string_</description>
-
-雷达图映射到半径所对应的字段，一般为一个连续字段。
-
-#### seriesField 
+#### yField
 
 <description>**required** _string_</description>
 
-对雷达图进行分组的字段，一般对应一个分类字段。通过该字段的值，雷达图将会被分为多个组，通过颜色进行区分，并上下重叠。
+The radar map maps to the field corresponding to the radius, typically a continuous field.
+
+#### seriesField
+
+<description>**required** _string_</description>
+
+A field that groups a radar map, usually corresponding to a classification field. By the value of this field, the radar map will be divided into groups, separated by color, and overlaid.
 
 ### Geometry Style
 
-#### radius 
+#### radius
 
 <description>**optional** _number_</description>
 
-雷达图的半径，原点为绘图区域中心（不包含图表组件区域）。配置值域为 (0,1]，1 代表撑满绘图区域。
+The radius of the radar map, starting at the center of the drawing area (not including the chart component area). The configuration range is (0,1), where 1 means to fill the drawing area.
 
 `markdown:docs/common/color.en.md`
 
-#### smooth 
+#### smooth
 
 <description>**optional** _boolean_ _default:_ `false`</description>
 
-是否以曲线的形态绘制 (spline)。
+Whether to draw as a curve (spline).
 
-#### lineStyle 
+#### lineStyle
 
 <description>**optional** _object ｜ Function_</description>
 
-配置雷达图上的折线样式，也可以通过回调函数的方法根据对应的数据进行设置，返回参数是通用的 ShapeStyle 对象
+Configure the polyline style on the radar chart, which can also be set according to the corresponding data through the method of the callback function. The return parameter is a generic ShapeStyle object
 
 `markdown:docs/common/shape-style.en.md`
 
-使用示例：
+Examples of use:
 
 ```ts
 {
@@ -101,27 +101,27 @@ radarPlot.render();
 }
 ```
 
-#### point 
+#### point
 
 <description>**optional** _object_</description>
 
-配置雷达图上的点
+Configure the points on the radar chart
 
 `markdown:docs/common/point-style.en.md`
 
-#### area 
+#### area
 
 <description>**optional** _object_</description>
 
-配置雷达图上的面积填充
+Configure the area fill on the radar chart
 
-| 细分配置 | 类型      | 功能描述   |
-| -------- | --------- | ---------- |
-| smooth   | _boolean_ | 是否平滑   |
-| color    | _string \| string[] \| Function_ | 填充面积颜色，也可以支持回调的方式设置，回调参数为 `color: (x, y, series) => string` |
-| style    | _object \| Function_ | 填充面积样式，也可以支持回调的方式设置，回调参数为 `style: (x, y, series) => object` |
+| Properties | Type                             | Description                                                                                                         |
+| ---------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| smooth     | _boolean_                        | Whether smooth                                                                                                      |
+| color      | _string \| string[] \| Function_ | Fill area color, can also support the way callback set, callback parameter is `color: (x, y, series) => string`     |
+| style      | _object \| Function_             | Fill area style, can also support the callback way set, the callback parameter is `style: (x, y, series) => object` |
 
-使用示例：
+Examples of use:
 
 ```ts
 {
@@ -137,7 +137,7 @@ radarPlot.render();
 
 ### Plot Components
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*KnguSICzqXEAAAAAAAAAAAAAARQnAQ" alt="雷达图 图表组件" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*KnguSICzqXEAAAAAAAAAAAAAARQnAQ" alt="Load failed" width="600">
 
 `markdown:docs/common/component.en.md`
 

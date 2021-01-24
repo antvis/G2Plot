@@ -21,37 +21,37 @@ Configure the data source. The data source is a collection of objects. For examp
 
 <description>**optional** _string_</description>
 
-拆分字段，在分组柱状图下同 groupField、colorField，在堆积柱状图下同 stackField、colorField。
+Split fields, same as GroupField and ColorField under the grouping bar chart, same as StackField and ColorField under the stacking bar chart.
 
 #### groupField
 
 <description>**optional** _string_</description>
 
-拆分字段，用于堆叠分组柱状图，拆分优先级高于 seriesField，isGroup: true 时会根据 groupField 进行分组。
+Split field used to stack grouping columns. Split field has a higher priority than SeriesField. IsGroup: true will group by GroupField.
 
 #### isGroup
 
 <description>**optional** _boolean_</description>
 
-是否分组柱形图。
+Whether to group bar charts.
 
 #### isStack
 
 <description>**optional** _boolean_</description>
 
-是否堆积柱状图。
+Whether to stack columns.
 
 #### isRange
 
 <description>**optional** _boolean_</description>
 
-是否区间柱状图。
+Whether to range columns.
 
 #### isPercent
 
 <description>**optional** _boolean_</description>
 
-是否百分比柱状图，isPercent 为 true 时，isStack 也需要为 true。
+Whether to percent columns, if isPercent is true, isStack also needs to be true.
 
 #### meta
 
@@ -67,13 +67,13 @@ Configure the data source. The data source is a collection of objects. For examp
 
 <description>**optional** _number_</description>
 
-柱状图宽度占比 [0-1]。
+Width ratio of column [0-1].
 
 #### marginRatio
 
 <description>**optional** _number_</description>
 
-分组中柱子之间的间距 [0-1]，仅对分组柱状图适用。
+The spacing between columns in a grouping [0-1] applies only to grouping columns.
 
 ### Plot Components
 

@@ -1,19 +1,19 @@
 ---
-title: 矩阵树图
+title: Treemap
 order: 29
 ---
 
-### 图表容器
+### Plot Container
 
-`markdown:docs/common/chart-options.zh.md`
+`markdown:docs/common/chart-options.en.md`
 
-### 数据映射
+### Data Mapping
 
 #### data
 
 <description>**required** _Record<string: array | string>_</description>
 
-设置图表数据源。矩阵树图数据源为一个树状结构的对象，如下
+Configure the chart data source. The data source of the matrix tree graph is an object with a tree structure, as follows
 
 ```javascript
 const data = {
@@ -23,51 +23,46 @@ const data = {
     { name: '分类 2', value: 500 },
   ],
 };
-
 ```
 
-其中，每一层级的数据都需要具备三个属性
+Each level of data needs to have three attributes
 
 - name
-- value (叶子节点)
-- children (非叶子节点)
+- value (A leaf node)
+- children (Non-leaf node)
 
-嵌套矩形树图中，布局由叶子节点的 value 值决定。
+In the nested rectangular tree diagram, the layout is determined by the value value of the leaf node.
 
 #### colorField
 
 <description>**optional** _string_</description>
 
-颜色映射字段名。
-
-
-
-
+Color mapping field name.
 
 ### Geometry Style
 
-`markdown:docs/common/color.zh.md`
+`markdown:docs/common/color.en.md`
 
 #### rectStyle
- 
+
 <description>**optional** _object_</description>
 
-矩形图形样式。rectStyle 中的`fill`会覆盖 `color` 的配置。rectStyle 可以直接指定，也可以通过 callback 的方式，根据数据指定单独的样式。
+Rectangular graphic styles. The 'fill' in rectStyle overrides the 'color' configuration. RectStyle can be specified either directly or via a callback to specify a separate style based on the data.
 
-默认配置：
+Default configuration:
 
-| 细分配置      | 类型   | 功能描述   |
-| ------------- | ------ | ---------- |
-| fill          | string | 填充颜色   |
-| stroke        | string | 描边颜色   |
-| lineWidth     | number | 线宽       |
-| lineDash      | number | 虚线显示   |
-| opacity       | number | 透明度     |
-| fillOpacity   | number | 填充透明度 |
-| strokeOpacity | number | 描边透明度 |
+| Properties    | Type   | Description           |
+| ------------- | ------ | --------------------- |
+| fill          | string | Fill color            |
+| stroke        | string | Stroke color          |
+| lineWidth     | number | Line width            |
+| lineDash      | number | The dotted lines show |
+| opacity       | number | Transparency          |
+| fillOpacity   | number | Fill transparency     |
+| strokeOpacity | number | Stroke transparency   |
 
 ```ts
-// 直接指定
+// Config
 {
   rectStyle: {
     fill: 'red',
@@ -92,25 +87,25 @@ const data = {
 
 <description>**optional** _object_</description>
 
-层级布局配置，例如 `tile`等，详细配置参考[d3-hierarchy](https://github.com/d3/d3-hierarchy#treemap)。
-默认为 `{tile: 'treemapResquarify'}`
+Hierarchical layout configuration, such as' tile ', etc., refer to detailed configuration [d3-hierarchy](https://github.com/d3/d3-hierarchy#treemap)。
+The default is `{tile: 'treemapResquarify'}`
 
 ### Plot Components
 
-`markdown:docs/common/component-polygon.zh.md`
+`markdown:docs/common/component-polygon.en.md`
 
-### 图表事件
+### Plot Events
 
-`markdown:docs/common/events.zh.md`
+`markdown:docs/common/events.en.md`
 
 ### Plot Methods
 
-`markdown:docs/common/chart-methods.zh.md`
+`markdown:docs/common/chart-methods.en.md`
 
 ### Plot Theme
 
-`markdown:docs/common/theme.zh.md`
+`markdown:docs/common/theme.en.md`
 
-### 图表交互
+### Interactions
 
-`markdown:docs/common/interactions.zh.md`
+`markdown:docs/common/interactions.en.md`

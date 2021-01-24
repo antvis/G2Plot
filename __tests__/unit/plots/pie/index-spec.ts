@@ -20,6 +20,9 @@ describe('pie', () => {
     });
 
     pie.render();
+    expect(pie.type).toBe('pie');
+    // @ts-ignore
+    expect(pie.getDefaultOptions()).toBe(Pie.getDefaultOptions());
 
     const geometry = pie.chart.geometries[0];
     const elements = geometry.elements;

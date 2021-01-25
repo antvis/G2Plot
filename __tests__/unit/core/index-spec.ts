@@ -306,7 +306,9 @@ describe('core', () => {
     class CustomPlot extends Plot<CustomPlotOptions> {
       type: 'custom';
       getSchemaAdaptor() {
-        return () => {};
+        return () => {
+          // do somethings
+        };
       }
     }
     const plot = new CustomPlot(createDiv(), {});

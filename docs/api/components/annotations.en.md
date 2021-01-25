@@ -1,5 +1,5 @@
 ---
-title: Annotations
+title: Annotation
 order: 4
 ---
 
@@ -28,7 +28,7 @@ annotations: [
 ];
 ```
 
-#### 图表标注类型
+#### Types of annotations
 
 G2Plot 提供了以下图形标注类型：
 

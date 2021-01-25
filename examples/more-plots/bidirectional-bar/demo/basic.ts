@@ -14,8 +14,6 @@ export const data = [
 
 const BidirectionalBarPlot = new BidirectionalBar('container', {
   data,
-  width: 400,
-  height: 400,
   xField: 'country',
   xAxis: {
     position: 'bottom',

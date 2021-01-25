@@ -14,8 +14,6 @@ export const data = [
 
 const BidirectionalBarPlot = new BidirectionalBar('container', {
   data,
-  width: 400,
-  height: 400,
   layout: 'vertical',
   xField: 'country',
   yField: ['2016年耕地总面积', '2016年转基因种植面积'],

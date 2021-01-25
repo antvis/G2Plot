@@ -1,18 +1,3 @@
-标注是数组类型，可以设置多个。
-
-```ts
-annotations: [
-  {
-    type: 'text',
-    position: ['median', 'median'],
-    content: '辅助文本',
-    style: {
-      fill: 'red',
-    },
-  },
-];
-```
-
 ##### type
 
 <description>**required** _string_ </description>

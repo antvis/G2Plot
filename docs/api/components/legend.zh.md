@@ -1,11 +1,15 @@
 ---
 title: 图例
-order: 3
+order: 2
 ---
 
-`markdown:docs/styles/legend.md`
+`markdown:docs/styles/component.md`
 
 图例（legend）是图表的辅助元素，使用颜色、大小、形状区分不同的数据类型，用于图表中数据的筛选。
+
+前往墨者学院 [AntV 设计 | 图例 Legend](https://www.yuque.com/mo-college/vis-design/hcs9p2) 查看**设计指引**。 
+
+#### 使用方式
 
 <b>配置图例有两种方式：</b>
 
@@ -24,7 +28,7 @@ legend: {
   position: 'right'
 }
 ```
-<a name="7a2DF"></a>
+
 #### 配置项（_LegendCfg_）
 
 | 属性 | 类型 | 默认值 | 描述 | 适用于 |
@@ -36,8 +40,8 @@ legend: {
 | offsetY | _number_ | - | 图例 y 方向的偏移。 |  |
 | background | _object_ | - | 背景框配置项。详见 [background 配置](#background) |  |
 | flipPage | _boolean_ | false | 当图例项过多时是否进行分页。 | <tag color="green" text="分类图例">分类图例</tag> |
-| itemWidth | _number\|null_ | null | 图例项的宽度, 默认为 null（自动计算）。 | <tag color="green" text="分类图例">分类图例</tag> |
-| itemHeight | _number\|null_ | null | 图例的高度, 默认为 null。 | <tag color="green" text="分类图例">分类图例</tag> |
+| itemWidth | _number \| null_ | null | 图例项的宽度, 默认为 null（自动计算）。 | <tag color="green" text="分类图例">分类图例</tag> |
+| itemHeight | _number \| null_ | null | 图例的高度, 默认为 null。 | <tag color="green" text="分类图例">分类图例</tag> |
 | itemName | _object_ | - | 图例项 name 文本的配置。详见 [itemName 配置](#itemname) | <tag color="green" text="分类图例">分类图例</tag> |
 | itemValue | _object_ | - | 图例项 value 附加值的配置项。详见 [itemValue 配置](#itemvalue)。 | <tag color="green" text="分类图例">分类图例</tag> |
 | itemSpacing | _number_ | - | 控制图例项水平方向的间距 | <tag color="green" text="分类图例">分类图例</tag> |
@@ -59,6 +63,7 @@ legend: {
 | items | _object[]_ | - | 用户自己配置图例项的内容。详见 [items 配置](#items) |  |
 
 <a name="fDpx7"></a>
+
 #### 配置项详解
 
 `markdown:docs/common/legend-cfg.zh.md`

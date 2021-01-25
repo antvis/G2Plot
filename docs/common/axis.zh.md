@@ -10,15 +10,28 @@
 
 文本标签的配置项，null 表示不展示。_AxisLabelCfg_ 配置如下：
 
-| 参数名       | 类型                                                   | 是否必选 | 默认值  | 描述                     |
-| ------------ | ------------------------------------------------------ | -------- | ------- | ------------------------ |
-| style        | [ShapeAttrs](/zh/docs/api/shape/shape-attrs)                                    |          | -       | 坐标轴刻度线的样式配置项 |
-| offset       | number                                                 |          | -       | label 的偏移量           |
-| rotate       | number                                                 |          | -       | 文本旋转角度             |
-| autoRotate   | boolean                                                |          | `true`  | 是否自动旋转             |
-| autoHide     | boolean                                                |          | `false` | 是否自动隐藏             |
-| autoEllipsis | boolean                                                |          | `false` | 是否自动省略             |
-| formatter    | `(text: string, item: ListItem, index: number) => any` |          | `false` | 格式化函数               |
+| 参数名       | 类型                                                   | 默认值  | 描述                     |
+| ------------ | -----------------------------------------------------| ------- | ------------------------ |
+| style        | _[ShapeAttrs](/zh/docs/api/shape/shape-attrs)_        | -       | 坐标轴刻度线的样式配置项 |
+| offset       | _number_                                                | -       | label 的偏移量           |
+| rotate       | _number_                                                | -       | 文本旋转角度             |
+| autoRotate   | _boolean_                                               | `true`  | 是否自动旋转             |
+| autoHide     | _boolean_                                                | `false` | 是否自动隐藏             |
+| autoEllipsis | _boolean_                                                | `false` | 是否自动省略             |
+| formatter    | _`(text: string, item: ListItem, index: number) => any`_ | `false` | 格式化函数               |
+
+
+##### verticalFactor
+
+<description>**optional** _number_</description>
+
+标记坐标轴 label 的方向，左侧为 1，右侧为 -1（仅适用于垂直方向的坐标轴）
+
+##### verticalLimitLength
+
+<description>**optional** _number_</description>
+
+配置坐标轴垂直方向的最大限制长度，对文本自适应有很大影响。
 
 ##### nice
 
@@ -100,6 +113,7 @@
 
 | 细分配置项名称 | 类型         | 功能描述                 |
 | -------------- | ------------ | ------------------------ |
+| title         | _string_     | 坐标轴标题     |
 | offset         | _number_     | 标题距离坐标轴的距离     |
 | spacing        | _lineStyle_  | 标题距离坐标轴文本的距离 |
 | style          | _shapeStyle_ | 标题文本配置项           |
@@ -165,15 +179,3 @@ interface ComponentAnimateCfg {
   }
 }
 ```
-
-##### verticalFactor
-
-<description>**optional** _number_</description>
-
-标记坐标轴 label 的方向，左侧为 1，右侧为 -1。
-
-##### verticalLimitLength
-
-<description>**optional** _number_</description>
-
-配置坐标轴垂直方向的最大限制长度，对文本自适应有很大影响。

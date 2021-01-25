@@ -34,8 +34,13 @@ function geometry(params: Params<ScatterOptions>): Params<ScatterOptions> {
 
   let { tooltip } = options;
 
-  if (sizeField && (!size || isNumber(size))) {
-    size = [(size as number) || 2, (size as number) || 8];
+  if (sizeField) {
+    if (!size) {
+      size = [2, 8];
+    }
+    if (isNumber(size)) {
+      size = [size, size];
+    }
   }
 
   if (tooltip && !tooltip.fields) {

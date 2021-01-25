@@ -2,7 +2,7 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { TreemapOptions } from './types';
 import { adaptor } from './adaptor';
-import './interactions/treemap-element-zoom';
+import './interactions/treemap-drill-down';
 
 export { TreemapOptions };
 

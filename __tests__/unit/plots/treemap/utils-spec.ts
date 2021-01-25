@@ -1,4 +1,4 @@
-import { transformData } from '../../../../src/plots/treemap/utils';
+import { transformData, isDrillDown } from '../../../../src/plots/treemap/utils';
 
 const data1 = {
   name: 'root',
@@ -107,10 +107,18 @@ const data3 = {
 };
 
 describe('treemap transformData', () => {
+  it('isDrillDown', () => {
+    expect(isDrillDown(undefined)).toBeFalsy();
+    expect(isDrillDown([])).toBeFalsy();
+    expect(isDrillDown([{ type: 'asas' }])).toBeFalsy();
+    expect(isDrillDown([{ type: 'treemap-drill-down' }])).toBeTruthy();
+  });
+
   it('transformData, basic treemap', () => {
     const data = transformData({
       data: data1,
       colorField: 'name',
+      openDrillDown: false,
     });
 
     const areaArr = data.map((dt) => {
@@ -130,6 +138,7 @@ describe('treemap transformData', () => {
     const data = transformData({
       data: data2,
       colorField: 'name',
+      openDrillDown: false,
     });
 
     const areaArr = data.map((dt) => {
@@ -156,9 +165,19 @@ describe('treemap transformData', () => {
     const data = transformData({
       data: data3,
       colorField: 'category',
+      openDrillDown: false,
     });
     data.forEach((d) => {
       expect(d.category).toEqual(d.expectCategory);
     });
+  });
+
+  it('transformData, nest treemap, openDrillDown', () => {
+    const data = transformData({
+      data: data3,
+      colorField: 'category',
+      openDrillDown: true,
+    });
+    expect(data.length).toEqual(2);
   });
 });

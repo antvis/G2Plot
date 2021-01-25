@@ -3,7 +3,6 @@ import { Adaptor } from '../../core/adaptor';
 import { deepAssign } from '../../utils';
 import { ScatterOptions } from './types';
 import { adaptor } from './adaptor';
-import './interaction';
 
 export { ScatterOptions };
 

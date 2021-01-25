@@ -1,6 +1,6 @@
 ---
 title: 滚动条
-order: 5
+order: 6
 ---
 
 `markdown:docs/styles/component.md`

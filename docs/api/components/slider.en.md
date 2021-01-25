@@ -1,6 +1,6 @@
 ---
 title: Slider
-order: 5
+order: 6
 ---
 
 `markdown:docs/styles/component.md`

@@ -1,6 +1,6 @@
 ---
 title: 缩略轴
-order: 6
+order: 5
 ---
 
 `markdown:docs/styles/component.md`

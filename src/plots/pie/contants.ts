@@ -1,6 +1,9 @@
 import { Plot } from '../../core/plot';
 import { deepAssign } from '../../utils';
 
+/**
+ * 饼图默认配置项
+ */
 export const DEFAULT_OPTIONS = deepAssign({}, Plot.getDefaultOptions(), {
   legend: {
     position: 'right',

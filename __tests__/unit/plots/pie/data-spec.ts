@@ -32,12 +32,14 @@ describe('饼图 异常数据', () => {
 
     pie.render();
 
-    const elements = pie.chart.geometries[0].elements;
+    const geometry = pie.chart.geometries[0];
+    const elements = geometry.elements;
     expect(elements.length).toBe(5);
     expect(every(elements, (ele) => ele.getBBox().width > 0)).toBe(true);
-    const labels = pie.chart.geometries[0].labelsContainer.getChildren();
+    const labels = geometry.labelsContainer.getChildren();
     expect(every(labels, (label) => (label as IGroup).getChildren()[0].attr('text') === 0)).toBe(true);
-
+    // @ts-ignore
+    expect(geometry.zIndexReversed).toBe(true);
     pie.destroy();
   });
 

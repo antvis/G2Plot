@@ -31,6 +31,8 @@ describe('pie', () => {
     // 绘图数据
     expect(elements[0].getModel().style?.fill || elements[0].getModel().color).toBe('blue');
     expect(elements[1].getModel().style?.fill || elements[1].getModel().color).toBe('red');
+    // @ts-ignore
+    expect(geometry.zIndexReversed).toBe(true);
 
     pie.destroy();
   });

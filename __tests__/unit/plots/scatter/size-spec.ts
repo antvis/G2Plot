@@ -121,8 +121,8 @@ describe('scatter', () => {
 
     // @ts-ignore
     expect(elements.length).toBe(507);
-    expect(sizeArr[0] > 0).toBeTruthy();
-    expect(sizeArr[0]).not.toEqual(sizeArr[sizeArr.length - 1]);
+    expect(sizeArr[0]).toBe(4); // 默认值
+    expect(sizeArr[sizeArr.length - 1]).toBe(4);
 
     scatter.destroy();
   });
@@ -162,8 +162,8 @@ describe('scatter', () => {
     scatter.render();
     const geometry = scatter.chart.geometries[0];
     const elements = geometry.elements;
-    // size 内置为 [2, 8] > 1
-    expect(elements[0].getModel().size > 1).toBeTruthy();
+    expect(elements[0].getModel().size).toBe(1);
+    expect(elements[500].getModel().size).toBe(1);
     scatter.destroy();
   });
 });

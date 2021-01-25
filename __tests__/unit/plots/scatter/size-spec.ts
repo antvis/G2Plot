@@ -126,4 +126,44 @@ describe('scatter', () => {
 
     scatter.destroy();
   });
+  it('size: callback', () => {
+    const scatter = new Scatter(createDiv(), {
+      width: 400,
+      height: 300,
+      data,
+      xField: 'weight',
+      yField: 'height',
+      sizeField: 'weight',
+      size: () => {
+        return 20;
+      },
+    });
+
+    scatter.render();
+
+    const geometry = scatter.chart.geometries[0];
+    const elements = geometry.elements;
+    const sizeArr = elements.map((ele) => ele.getModel().size);
+    expect(sizeArr[0]).toBe(20);
+    expect(sizeArr[sizeArr.length - 1]).toBe(20);
+    scatter.destroy();
+  });
+  it('size: number', () => {
+    const scatter = new Scatter(createDiv(), {
+      width: 400,
+      height: 300,
+      data,
+      xField: 'weight',
+      yField: 'height',
+      sizeField: 'weight',
+      size: 1,
+    });
+
+    scatter.render();
+    const geometry = scatter.chart.geometries[0];
+    const elements = geometry.elements;
+    // size 内置为 [2, 8] > 1
+    expect(elements[0].getModel().size > 1).toBeTruthy();
+    scatter.destroy();
+  });
 });

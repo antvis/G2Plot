@@ -202,7 +202,7 @@ export function tooltip(params: Params<WaterfallOptions>): Params<WaterfallOptio
       shared: true,
       // tooltip 默认展示 y 字段值
       fields: [yField],
-      ...(tooltip || {}),
+      ...tooltip,
     });
     // 瀑布图默认以 yField 作为 tooltip 内容
     const geometry = chart.geometries[0];

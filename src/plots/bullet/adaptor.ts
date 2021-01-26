@@ -1,8 +1,7 @@
 import { get } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { interaction, animation, theme, tooltip } from '../../adaptor/common';
-import { flow, pick, transformLabel, deepAssign } from '../../utils';
-import { AXIS_META_CONFIG_KEYS } from '../../constant';
+import { interaction, animation, theme, tooltip, scale } from '../../adaptor/common';
+import { flow, transformLabel, deepAssign } from '../../utils';
 import { interval, point } from '../../adaptor/geometries';
 import { BulletOptions } from './types';
 import { transformData } from './utils';
@@ -16,23 +15,7 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
   const { bulletStyle, targetField, rangeField, measureField, xField, color, layout, size, label } = options;
   // 处理数据
   const { min, max, ds } = transformData(options);
-
-  // 需要统一比列尺
-  chart.scale({
-    [measureField]: {
-      min,
-      max,
-    },
-    [rangeField]: {
-      sync: `${measureField}`,
-    },
-    [targetField]: {
-      sync: `${measureField}`,
-    },
-  });
   chart.data(ds);
-  chart.axis(`${rangeField}`, false);
-  chart.axis(`${targetField}`, false);
 
   // rangeGeometry
   const r = deepAssign({}, params, {
@@ -92,40 +75,48 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
     chart.coordinate().transpose();
   }
 
-  return params;
+  return { ...params, ext: { data: { min, max } } };
 }
 
 /**
  * meta 配置
  * @param params
  */
-function meta(params: Params<BulletOptions>): Params<BulletOptions> {
-  const { chart, options } = params;
-  const { xAxis, yAxis, meta, targetField, rangeField, measureField, xField } = options;
+export function meta(params: Params<BulletOptions>): Params<BulletOptions> {
+  const { options, ext } = params;
+  const { xAxis, yAxis, targetField, rangeField, measureField, xField } = options;
 
-  if (meta) {
-    const scales = deepAssign({}, meta, {
-      [xField]: pick(xAxis, AXIS_META_CONFIG_KEYS),
-      [measureField]: pick(yAxis, AXIS_META_CONFIG_KEYS),
-      [targetField]: {
-        sync: `${measureField}`,
+  const extData = ext.data;
+  return flow(
+    scale(
+      {
+        [xField]: xAxis,
+        [measureField]: yAxis,
       },
-      [rangeField]: {
-        sync: `${measureField}`,
-      },
-    });
-    chart.scale(scales);
-  }
-
-  return params;
+      // 额外的 meta
+      {
+        [measureField]: { min: extData?.min, max: extData?.max },
+        [targetField]: {
+          sync: `${measureField}`,
+        },
+        [rangeField]: {
+          sync: `${measureField}`,
+        },
+      }
+    )
+  )(params);
 }
+
 /**
  * axis 配置
  * @param params
  */
 function axis(params: Params<BulletOptions>): Params<BulletOptions> {
   const { chart, options } = params;
-  const { xAxis, yAxis, xField, measureField } = options;
+  const { xAxis, yAxis, xField, measureField, rangeField, targetField } = options;
+
+  chart.axis(`${rangeField}`, false);
+  chart.axis(`${targetField}`, false);
 
   // 为 false 则是不显示轴
   if (xAxis === false) {

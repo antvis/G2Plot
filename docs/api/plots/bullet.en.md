@@ -13,118 +13,121 @@ order: 10
 
 <description>**required** _array object_</description>
 
-设置图表数据源。数据源为对象集合，例如：`[{title: '满意度', ranges: [50,100], measures: [80], target: 85}]`。
+Configure the data source. The data source is a collection of objects. For example:`[{title: '满意度', ranges: [50,100], measures: [80], target: 85}]`。
+
+#### meta
 
 `markdown:docs/common/meta.en.md`
 
-```ts
-const data = [
-  {
-    title: '满意度',
-    ranges: [100],
-    measures: [80],
-    target: 85,
-  },
-];
+#### measureField
 
-const bulletPlot = new Bullet('container', {
-  data,
-  measureField: 'measures',
-  rangeField: 'ranges',
-  targetField: 'target',
-  xField: 'title',
-});
+<description>**required** _string_</description>
 
-bulletPlot.render();
-```
+Use the length of the data bar, the setting field for the actual value, to represent the actual value.
 
-#### measureField 
+#### rangeField
 
-<description>**required** _number[]_</description>
+<description>**required** _string_</description>
 
-使用数据条的长度，实际数值的设置字段，表示实际数值。
+Use the setting field for the length of the background bar to represent the range.
 
-#### rangeField 
+#### targetField
 
-<description>**required** _number[]_</description>
+<description>**required** _string_</description>
 
-使用背景色条的长度的设置字段，表示区间范围。
+Use a setting field for the position of the scale axis of the measurement mark to represent the target value.
 
-#### targetField 
+#### xField
 
-<description>**required** _number_</description>
+<description>**optional** _string_</description>
 
-使用测量标记的刻度轴位置的设置字段，表示目标值。
+Used to distinguish different types, suitable for grouping bullet diagrams.
+
+### Geometry Style
 
 #### layout
 
 <description>**optional** _'horizontal' | 'vertical'_ _default:_ 'horizontal'</description>
 
-表示子弹图方向。
+Represents the direction of the bullet diagram.
 
-### Geometry Style
-
-#### bulletStyle 
+#### color
 
 <description>**optional** _object_</description>
 
-设置子弹图各图形 style 属性。
+Set color property of each graph of bullet map.
 
-| 细分配置 | 类型        | 功能描述     | 默认配置             |
-| -------- | ----------- | ------------ | -------------------- |
-| range    | _StyleAttr_ | 区间背景样式 | { fillOpacity: 0.5 } |
-| measure  | _StyleAttr_ | 实际值样式   | 无                   |
-| target   | _StyleAttr_ | 目标值样式   | 无                   |
+| Properties | Type               | Description               | Default |
+| ---------- | ------------------ | ------------------------- | ------- |
+| range      | _string\|string[]_ | Interval background color | -       |
+| measure    | _string\|string[]_ | Actual value color        | -       |
+| target     | _string\|string[]_ | Target value color        | -       |
 
-`markdown:docs/common/shape-style.en.md`
-
-### color 
+#### size
 
 <description>**optional** _object_</description>
 
-设置子弹图各图形 color 属性。
+Set the size property of each graph of bullet map.
 
-| 细分配置 | 类型        | 功能描述     | 默认配置 |
-| -------- | ----------- | ------------ | -------- |
-| range    | _colorAttr_ | 区间背景颜色 | 无       |
-| measure  | _colorAttr_ | 实际值颜色   | 无       |
-| target   | _colorAttr_ | 目标值颜色   | 无       |
-
-`markdown:docs/common/color.en.md`
-
-### size 
-
-<description>**optional** _object_</description>
-
-设置子弹图各图形 size 属性。
-
-| 细分配置 | 类型       | 功能描述     | 默认配置 |
-| -------- | ---------- | ------------ | -------- |
-| range    | _SizeAttr_ | 区间背景样式 | 30       |
-| measure  | _SizeAttr_ | 实际值样式   | 20       |
-| target   | _SizeAttr_ | 目标值样式   | 20       |
+| Properties | Type       | Description               | Default |
+| ---------- | ---------- | ------------------------- | ------- |
+| range      | _SizeAttr_ | Interval Background Style | 30      |
+| measure    | _SizeAttr_ | Actual value style        | 20      |
+| target     | _SizeAttr_ | Target value styles       | 20      |
 
 ```plain
 type SizeAttr = number | [number, number] | ((datum: Datum) => number);
 ```
 
-### label 
+#### bulletStyle
 
 <description>**optional** _object_</description>
 
-设置子弹图各图形 label 属性。
+Set the style properties of each bullet map.
 
-| 细分配置 | 类型                | 功能描述            | 默认配置 |
-| -------- | ------------------- | ------------------- | -------- |
-| range    | _GeometryLabelAttr_ | 区间的 label 属性   | 无       |
-| measure  | _GeometryLabelAttr_ | 实际值的 label 属性 | true     |
-| target   | _GeometryLabelAttr_ | 目标值的 label 属性 | 无       |
+| Properties | Type        | Description               | Default              |
+| ---------- | ----------- | ------------------------- | -------------------- |
+| range      | _StyleAttr_ | Interval Background Style | { fillOpacity: 0.5 } |
+| measure    | _StyleAttr_ | Actual value style        | -                    |
+| target     | _StyleAttr_ | Target value styles       | -                    |
 
-`markdown:docs/common/label.en.md`
+```plain
+type StyleAttr = ShapeStyle | ((datum: object) => ShapeStyle);
+```
+
+`ShapeStyle` The structure can be referred to:
+
+`markdown:docs/common/shape-style.en.md`
 
 ### Plot Components
 
-`markdown:docs/common/component.en.md`
+#### label
+
+<description>**optional** _object_</description>
+
+Set the label attribute of each graph of the bullet map.
+
+| Properties | Type                | Description                             | Default |
+| ---------- | ------------------- | --------------------------------------- | ------- |
+| range      | _GeometryLabelAttr_ | The label attribute of the range        | -       |
+| measure    | _GeometryLabelAttr_ | The label attribute of the actual value | true    |
+| target     | _GeometryLabelAttr_ | The label attribute of the target value | -       |
+
+`markdown:docs/common/label.en.md`
+
+#### tooltip
+
+`markdown:docs/common/tooltip.en.md`
+
+#### axis
+
+Same for xAxis and yAxis.
+
+`markdown:docs/common/axis.en.md`
+
+#### legend
+
+`markdown:docs/common/legend.en.md`
 
 ### Event
 

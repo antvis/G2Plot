@@ -1,4 +1,4 @@
-import { Lab } from '@antv/g2plot';
+import { MultiView } from '@antv/g2plot';
 
 // Step 1: 声明数据源
 // G2Plot 对数据源格式的要求，仅仅是 JSON 数组，数组的每个元素是一个标准 JSON 对象。
@@ -13,17 +13,17 @@ const defaultGrey = '#BFBFBF';
 
 // Step 2: 创建图表
 
-const labPlot = new Lab.MultiView('container', {
+const plot = new MultiView('container', {
   appendPadding: 8,
   tooltip: { showMarkers: false },
   views: [],
 });
 
-labPlot.chart.theme({
+plot.chart.theme({
   defaultColor: '#30BF78' /** 语义绿 */,
 });
 
-labPlot.update({
+plot.update({
   views: [
     {
       region: { start: { x: 0, y: 0 }, end: { x: 1 / 2, y: 2 / 5 } },
@@ -43,7 +43,7 @@ labPlot.update({
           mapping: {
             color: ({ area }) => {
               const value = data.find((d) => d.area === area).value;
-              return value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey;
+              return value > 0.3 ? plot.chart.getTheme().defaultColor : defaultGrey;
             },
             style: { lineWidth: 1 },
           },
@@ -74,13 +74,13 @@ labPlot.update({
           mapping: {
             color: ({ area }) => {
               const value = data.find((d) => d.area === area).value;
-              return value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey;
+              return value > 0.3 ? plot.chart.getTheme().defaultColor : defaultGrey;
             },
             style: ({ value }) => {
               return {
                 lineWidth: 1,
                 fillOpacity: 0,
-                stroke: value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey,
+                stroke: value > 0.3 ? plot.chart.getTheme().defaultColor : defaultGrey,
               };
             },
           },
@@ -111,13 +111,13 @@ labPlot.update({
           mapping: {
             color: ({ area }) => {
               const value = data.find((d) => d.area === area).value;
-              return value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey;
+              return value > 0.3 ? plot.chart.getTheme().defaultColor : defaultGrey;
             },
             style: ({ value }) => {
               return {
                 r: 4,
                 strokeOpacity: 0,
-                fill: value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey,
+                fill: value > 0.3 ? plot.chart.getTheme().defaultColor : defaultGrey,
               };
             },
           },
@@ -187,7 +187,7 @@ labPlot.update({
           mapping: {
             color: ({ area }) => {
               const value = data.find((d) => d.area === area).value;
-              return value > 0.3 ? labPlot.chart.getTheme().defaultColor : defaultGrey;
+              return value > 0.3 ? plot.chart.getTheme().defaultColor : defaultGrey;
             },
           },
         },
@@ -207,4 +207,4 @@ labPlot.update({
   ],
 });
 // Step 3: 渲染图表
-labPlot.render();
+plot.render();

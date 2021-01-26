@@ -1,6 +1,6 @@
 ---
 title: 绘图属性
-order: 9
+order: 11
 ---
 
 G2Plot 使用 [G](https://github.com/antvis/g) 作为绘图引擎，一些图形的样式配置，如折线图的`lineStyle`，柱状图的`columnStyle`等，还有部分组件的样式配置，如`label.style`， `axis.line.style`等，都是直接透传 G 的绘图属性。

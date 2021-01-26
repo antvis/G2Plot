@@ -16,9 +16,14 @@ describe('bullet', () => {
 
     bullet.render();
 
+    expect(bullet.type).toBe('bullet');
+
     const chart = bullet.chart;
 
     expect(chart.getController('legend').getComponents().length).toEqual(0);
+    // 默认关闭 showMarkers
+    // @ts-ignore
+    expect(chart.getController('tooltip').getTooltipCfg().showMarkers).toEqual(false);
     // @ts-ignore
     expect(chart.options.axes.ranges).toEqual(false);
     // @ts-ignore
@@ -290,5 +295,31 @@ describe('bullet', () => {
     expect(targetGeometry.getAttribute('size').values[0]).toEqual(25 / 2);
 
     bullet.destroy();
+  });
+
+  it('meta', () => {
+    const bullet = new Bullet(createDiv(), {
+      width: 400,
+      height: 100,
+      data: [{ title: '数学', ranges: [30, 50, 100], measures: [120], target: 85 }],
+      measureField: 'measures',
+      rangeField: 'ranges',
+      targetField: 'target',
+      xField: 'title',
+      meta: {
+        measures: { max: 100 },
+      },
+    });
+
+    bullet.render();
+    expect(bullet.chart.getScaleByField('measures').max).toBe(100);
+
+    bullet.update({
+      meta: {
+        measures: { max: 90, maxLimit: 120 },
+      },
+    });
+    expect(bullet.chart.getScaleByField('measures').max).toBe(120);
+    expect(bullet.chart.getScaleByField('measures').maxLimit).toBe(120);
   });
 });

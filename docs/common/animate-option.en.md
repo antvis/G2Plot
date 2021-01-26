@@ -1,23 +1,23 @@
 <div class='custom-api-docs'>
 
-_ComponentAnimateOption_ 为组件各个动画类型配置。其中 `easing` 传入动画函数名称，内置默认动画函数如下表，同时也可以通过 `registerAnimation` 自定义动画函数。
+_ComponentAnimateOption_ is configured for each component animation type. Where 'easing' passes in the name of the animation function, the built-in default animation function is shown in the table below, and you can also customize the animation function through 'registerAnimation'.
 
 ```ts
 interface ComponentAnimateOption {
-  appear?: ComponentAnimateCfg; // 图表第一次加载时的入场动画
-  enter?: ComponentAnimateCfg; // 图表绘制完成，发生更新后，产生的新图形的进场动画
-  update?: ComponentAnimateCfg; // 图表绘制完成，数据发生变更后，有状态变更的图形的更新动画
-  leave?: ComponentAnimateCfg; // 图表绘制完成，数据发生变更后，被销毁图形的销毁动画
+  appear?: ComponentAnimateCfg; // The entry animation when the chart first loads
+  enter?: ComponentAnimateCfg; // After the chart is drawn and updated, the incoming animation of the new graph is generated
+  update?: ComponentAnimateCfg; // After the chart is drawn and the data has changed, the updated animation of the graph with the state changed
+  leave?: ComponentAnimateCfg; // After the chart is drawn and the data is changed, the destruction animation of the graph is destroyed
 }
 
 interface ComponentAnimateCfg {
-  duration?: number; // 动画执行时间
-  easing?: string; // 动画缓动函数
-  delay?: number; // 动画延迟时间
+  duration?: number; // Duration of the first animation
+  easing?: string; // Easing method used for the first animation.
+  delay?: number; // Delay before updating the animation
 }
 ```
 
-| animation         | 效果                                                                                                                                                                                                           | 说明                                                             |
+| Animation         | Effect                                                                                                                                                                                                         | Description                                                      |
 | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
 | 'fade-in'         | ![fade-in.gif](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*LTRRRL8JwfQAAAAAAAAAAABkARQnAQ)                                                                                                          | 渐现动画。                                                       |
 | 'fade-out'        | ![fade-out.gif](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*s4Y4S5JJ6WEAAAAAAAAAAABkARQnAQ)                                                                                                         | 渐隐动画。                                                       |

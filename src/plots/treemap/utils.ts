@@ -15,12 +15,12 @@ interface TransformDataOptions {
 }
 
 export function transformData(options: TransformDataOptions) {
-  const { data, colorField, openDrillDown } = options;
+  const { data, colorField, openDrillDown, hierarchyConfig = {} } = options;
 
   const nodes = treemap(data, {
+    ...hierarchyConfig,
     // @ts-ignore
     type: 'hierarchy.treemap',
-    tile: 'treemapResquarify',
     field: 'value',
     as: ['x', 'y'],
   });

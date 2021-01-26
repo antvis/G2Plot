@@ -25,7 +25,7 @@ export const hopedata = [
 describe('bullet*data*transfrom', () => {
   it('data*transfrom', () => {
     // 校验数据转换
-    const transDS = transformData('country', ['2016年耕地总面积', '2016年转基因种植面积'], data);
+    const transDS = transformData('country', ['2016年耕地总面积', '2016年转基因种植面积'], 'type', data);
     expect(transDS).toEqual(hopedata);
   });
 });

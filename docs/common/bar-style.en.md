@@ -1,4 +1,3 @@
-
 #### minBarWidth
 
 <description>**optional**, _number_</description>
@@ -17,8 +16,7 @@ Specify the max width of bar, pixel value. Auto adapt by default.
 
 Bar graphic Style.
 
-`markdown:docs/common/shape-style.zh.md`
-
+`markdown:docs/common/shape-style.en.md`
 
 #### barBackground.style
 

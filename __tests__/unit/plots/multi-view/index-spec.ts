@@ -101,4 +101,50 @@ describe('multi-view', () => {
 
     line.destroy();
   });
+
+  it('add interactions', () => {
+    const data = partySupport.filter((o) => ['FF', 'Lab'].includes(o.type));
+    const line = new Lab.MultiView(createDiv(), {
+      width: 400,
+      height: 300,
+      views: [
+        {
+          data,
+          interactions: [{ type: 'tooltip' }, { type: 'element-highlight-by-color' }],
+          geometries: [
+            {
+              type: 'line',
+              xField: 'date',
+              yField: 'value',
+              colorField: 'type',
+              mapping: {},
+            },
+          ],
+        },
+        {
+          data,
+          interactions: [{ type: 'tooltip', enable: false }],
+          geometries: [
+            {
+              type: 'line',
+              xField: 'date',
+              yField: 'value',
+              colorField: 'type',
+              mapping: {},
+            },
+          ],
+        },
+      ],
+      legend: {
+        type: {},
+      },
+    });
+
+    line.render();
+
+    expect(line.chart.views[0].interactions['element-highlight-by-color']).toBeDefined();
+    expect(line.chart.views[0].interactions['tooltip']).toBeDefined();
+    // `enable: false` 移除交互
+    expect(line.chart.views[1].interactions['tooltip']).not.toBeDefined();
+  });
 });

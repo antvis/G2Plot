@@ -13,7 +13,9 @@ order: 4
 
 <description>**required** _array object_</description>
 
-设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+Configure the data source. The data source is a collection of objects. For example:`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+
+#### meta
 
 `markdown:docs/common/meta.en.md`
 
@@ -47,59 +49,59 @@ const piePlot = new Pie('container', {
 piePlot.render();
 ```
 
-#### angleField 
+#### angleField
 
 <description>**required** _string_</description>
 
-扇形切片大小（弧度）所对应的数据字段名。
+The data field name corresponding to the sector slice size (radians).
 
-#### colorField 
+#### colorField
 
 <description>**required** _string_</description>
 
-扇形颜色映射对应的数据字段名。
+The data field name corresponding to the sector color map.
 
 ### Geometry Style
 
-#### radius 
+#### radius
 
 <description>**optional** _number_</description>
 
-饼图的半径，原点为画布中心。配置值域为 (0,1]，1 代表饼图撑满绘图区域。
+The radius of the pie chart, the origin is the center of the canvas. The configuration range is (0,1), where 1 represents a pie chart that fills the drawing area.
 
-#### innerRadius 
-
-<description>**optional** _number_</description>
-
-饼图的内半径，原点为画布中心。配置值域为 (0,1]
-
-#### startAngle 
+#### innerRadius
 
 <description>**optional** _number_</description>
 
-配置坐标系的起始角度。
+The inner radius of the pie chart, starting at the center of the canvas. Configure the range (0,1)
 
-#### endAngle 
+#### startAngle
 
 <description>**optional** _number_</description>
 
-配置坐标系的结束角度。
+Configure the starting Angle of the coordinate system.
+
+#### endAngle
+
+<description>**optional** _number_</description>
+
+Configure the end Angle of the coordinate system.
 
 <playground rid="quarter-circle" path="pie/basic/demo/quarter-circle.ts"></playground>
 
 `markdown:docs/common/color.en.md`
 
-#### pieStyle 
+#### pieStyle
 
 <description>**optional** _object_</description>
 
-设置扇形样式。pieStyle 中的`fill`会覆盖 `color` 的配置。pieStyle 可以直接指定，也可以通过 callback 的方式，根据数据为每个扇形切片指定单独的样式。
+Set the sector style. The 'fill' in the pieStyle will override the 'color' configuration. The pieStyle can be specified either directly or via callback to specify a separate style for each sector slice based on the data.
 
 `markdown:docs/common/shape-style.en.md`
 
 ### Plot Components
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*TBHtTY6RmHIAAAAAAAAAAAAAARQnAQ" alt="加载失败" width="600">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*TBHtTY6RmHIAAAAAAAAAAAAAARQnAQ" alt="Load failed" width="600">
 
 `markdown:docs/common/component-no-axis.en.md`
 
@@ -107,11 +109,11 @@ piePlot.render();
 
 <description>**optional** _object_</description>
 
-统计内容组件。当内半径(`innerRadius`) 大于 0 时才生效，默认展示汇总值，可以通过 `formatter` 格式化展示内容，也可以通过 `customHtml` 自定义更多的内容。
+Statistical content components. When the innerRadius (' innerRadius') is greater than 0, the default is to display the summary value. You can use 'formatter' to format the content, or you can use 'customHtml' to customize more content.
 
 ![image](https://gw.alipayobjects.com/zos/bmw-prod/860bbf6e-cf20-4bdf-88bd-e8d685d12e9a.svg)
 
-`markdown:docs/common/statistic.zh.md`
+`markdown:docs/common/statistic.en.md`
 
 ### Event
 

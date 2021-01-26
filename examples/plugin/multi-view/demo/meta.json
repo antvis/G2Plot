@@ -5,6 +5,22 @@
   },
   "demos": [
     {
+      "filename": "range-area.ts",
+      "title": {
+        "zh": "区间面积图",
+        "en": "Range area Plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/LSyrzQnPWL/ad65dd9d-ced8-42ca-a756-8fe4593157e6.png"
+    },
+    {
+      "filename": "brush-filter-record.ts",
+      "title": {
+        "zh": "刷选联动",
+        "en": "Brush filter record"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*19AdR6-BjRgAAAAAAAAAAABkARQnAQ"
+    },
+    {
       "filename": "nobel-prize.ts",
       "title": {
         "zh": "星空诺贝尔奖",

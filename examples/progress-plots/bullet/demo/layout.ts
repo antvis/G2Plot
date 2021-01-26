@@ -17,9 +17,9 @@ const bulletPlot = new Bullet('container', {
   targetField: 'target',
   xField: 'title',
   color: {
-    range: '#f0fbff',
-    measure: '#1890ff',
-    target: '#43a5ff',
+    range: '#f0efff',
+    measure: '#5B8FF9',
+    target: '#3D76DD',
   },
   xAxis: {
     line: null,
@@ -42,12 +42,12 @@ const bulletPlot = new Bullet('container', {
       {
         value: '实际值',
         name: '实际值',
-        marker: { symbol: 'square', style: { fill: '#1890ff', r: 5 } },
+        marker: { symbol: 'square', style: { fill: '#5B8FF9', r: 5 } },
       },
       {
         value: '目标值',
         name: '目标值',
-        marker: { symbol: 'line', style: { stroke: '#43a5ff', r: 5 } },
+        marker: { symbol: 'line', style: { stroke: '#3D76DD', r: 5 } },
       },
     ],
   },

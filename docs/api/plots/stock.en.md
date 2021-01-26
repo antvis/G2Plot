@@ -13,7 +13,7 @@ order: 18
 
 <description>**required** _array object_</description>
 
-设置图表数据源。数据源为对象集合，例如：
+Configure the data source. The data source is a collection of objects. For example:
 
 ```ts
 [
@@ -58,6 +58,8 @@ order: 18
 该项为二维数组, 对应的是`[开盘价,收盘价,最高价,最低价]`字段的数组。
 
 例如: `['open', 'close', 'high', 'low']`
+
+#### meta
 
 `markdown:docs/common/meta.en.md`
 

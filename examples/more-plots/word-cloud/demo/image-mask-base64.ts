@@ -1,4 +1,4 @@
-import { WordCloud } from '../../../relation/sankey/demo/node_modules/@antv/g2plot';
+import { WordCloud } from '@antv/g2plot';
 
 fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/antv-keywords.json')
   .then((res) => res.json())

@@ -8,23 +8,23 @@
       "filename": "basic.ts",
       "title": {
         "zh": "仪表盘",
-        "en": "Gauge plot"
+        "en": "Basic gauge plot"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*O2aDSImbWDgAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/xDdGhZK84X/9746c5d8-4341-4c04-9528-87bcab55eedb.png"
     },
     {
       "filename": "single-gradient.ts",
       "title": {
         "zh": "仪表盘(单色渐变)",
-        "en": "Gradient Gauge plot"
+        "en": "Gradient gauge plot"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*GpkSQJ2OqrEAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/pe4K9%26vl6Y/f79762f9-7ff4-4e6d-a11d-bf79be45d83f.png"
     },
     {
       "filename": "custom-color.ts",
       "title": {
         "zh": "仪表盘(多色)",
-        "en": "Gauge plot - custom color"
+        "en": "Gauge plot with custom color"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*2pQHSJvYqwwAAAAAAAAAAAAAARQnAQ"
     },
@@ -32,7 +32,7 @@
       "filename": "complex.ts",
       "title": {
         "zh": "自定义配置的仪表盘",
-        "en": "Animated Gauge plot"
+        "en": "Animated gauge plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*LVeFSYBPDBAAAAAAAAAAAAAAARQnAQ"
     }

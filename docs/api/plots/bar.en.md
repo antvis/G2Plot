@@ -53,11 +53,13 @@ Whether the plot is Range Bar.
 
 Whether the plot is Percent Bar. When isPercent is `true`, isStack must be `true`.
 
+#### meta
+
 `markdown:docs/common/meta.en.md`
 
 ### Graphic Style
 
-`markdown:docs/common/color.zh.md`
+`markdown:docs/common/color.en.md`
 
 `markdown:docs/common/bar-style.en.md`
 

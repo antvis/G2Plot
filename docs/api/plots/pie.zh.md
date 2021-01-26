@@ -15,6 +15,8 @@ order: 4
 
 设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
+#### meta
+
 `markdown:docs/common/meta.zh.md`
 
 ```ts

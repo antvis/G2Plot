@@ -172,6 +172,25 @@ describe('treemap transformData', () => {
     });
   });
 
+  it('transformData, hierarchyConfig', () => {
+    const data = transformData({
+      data: data1,
+      colorField: 'name',
+      hierarchyConfig: {
+        tile: 'treemapDice',
+      },
+    });
+
+    const lineArr = data.map((dt) => {
+      const w = dt.x[1] - dt.x[0];
+      return Number(w.toFixed(3));
+    });
+
+    expect(data.length).toBe(3);
+    expect(lineArr[1] / lineArr[0]).toEqual(data1.children[1].value / data1.children[0].value);
+    expect(lineArr[2] / lineArr[1]).toEqual(data1.children[2].value / data1.children[1].value);
+  });
+
   it('transformData, nest treemap, openDrillDown', () => {
     const data = transformData({
       data: data3,

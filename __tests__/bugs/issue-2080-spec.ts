@@ -53,14 +53,14 @@ describe('donut plot', () => {
 
     let annotations = getAnnotations(donutPlot.chart);
     expect(annotations.length).toBeGreaterThan(0);
-    let htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    let htmlAnnotations = donutPlot.container.querySelectorAll('.g2-html-annotation');
     expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('总计' /** 中心文本指标卡，默认title */);
 
     donutPlot.update({ statistic: { title: { formatter: () => 'test' }, content: false } });
 
     annotations = getAnnotations(donutPlot.chart);
     expect(annotations.length).toBe(1);
-    htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    htmlAnnotations = donutPlot.container.querySelectorAll('.g2-html-annotation');
     expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('test' /** 中心文本指标卡，默认title */);
 
     donutPlot.destroy();

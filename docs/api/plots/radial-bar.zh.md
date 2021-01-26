@@ -19,6 +19,8 @@ order: 25
 
 `markdown:docs/common/xy-field.zh.md`
 
+#### meta
+
 `markdown:docs/common/meta.zh.md`
 
 ### 图形样式
@@ -33,6 +35,20 @@ order: 25
 <description>**可选** _number_</description>
 
 功能描述： 内径，0 ~ 1。
+
+#### startAngle 
+
+<description>**optional** _number_ _default:_ `-Math.PI / 2`</description>
+
+配置坐标系的起始角度。
+
+#### endAngle 
+
+<description>**optional** _number_ _default:_ `Math.PI / 2 * 3`</description>
+
+配置坐标系的结束角度。
+
+<playground path="more-plots/radial-bar/demo/line.ts" rid="startAngle-endAngle"></playground>
 
 #### maxAngle
 

@@ -1,5 +1,5 @@
 import { DataView } from '@antv/data-set';
-import { Lab } from '@antv/g2plot';
+import { MultiView } from '@antv/g2plot';
 
 const data = [
   ['Cosmopolitan', 51, 45, 6],
@@ -19,7 +19,7 @@ const yearData = [
   ['2015', 89, 286, 41, 48],
 ];
 
-const labChart = new Lab.MultiView('container', {
+const plot = new MultiView('container', {
   height: 500,
   padding: 'auto',
   tooltip: { showMarkers: false },
@@ -116,4 +116,4 @@ const labChart = new Lab.MultiView('container', {
   ],
 });
 
-labChart.render();
+plot.render();

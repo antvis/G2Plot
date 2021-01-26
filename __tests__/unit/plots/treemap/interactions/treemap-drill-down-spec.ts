@@ -72,6 +72,9 @@ describe('drill-down intera', () => {
     const treemapPlot = new Treemap(createDiv(), {
       data,
       colorField: 'name',
+      hierarchyConfig: {
+        tile: 'treemapDice',
+      },
       interactions: [
         {
           type: 'treemap-drill-down',
@@ -99,6 +102,8 @@ describe('drill-down intera', () => {
     expect(nowData.length).toBe(2);
     expect(nowData[0].name).toBe('东欧');
     expect(nowData[1].name).toBe('西欧');
+    expect(nowData[0].y).toEqual([1, 1, 0, 0]);
+    expect(nowData[1].y).toEqual([1, 1, 0, 0]);
 
     await delay(1000);
 
@@ -109,5 +114,8 @@ describe('drill-down intera', () => {
     expect(nowData1.length).toBe(2);
     expect(nowData1[0].name).toBe('欧洲');
     expect(nowData1[1].name).toBe('亚洲');
+
+
+    treemapPlot.destroy();
   });
 });

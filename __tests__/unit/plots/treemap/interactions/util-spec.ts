@@ -1,4 +1,4 @@
-import { noHistoryDrill, isTopParentNode } from '../../../../../src/plots/treemap/interactions/util';
+import { hasHistoryDrill, isTopParentNode } from '../../../../../src/plots/treemap/interactions/util';
 
 describe('treemap interactions utl', () => {
   it('isTopParentNode', () => {
@@ -54,12 +54,12 @@ describe('treemap interactions utl', () => {
     ).toBeTruthy();
   });
 
-  it('noHistoryDrill', () => {
-    expect(noHistoryDrill(undefined)).toBeFalsy();
-    expect(noHistoryDrill({})).toBeFalsy();
+  it('hasHistoryDrill', () => {
+    expect(hasHistoryDrill(undefined)).toBeFalsy();
+    expect(hasHistoryDrill({})).toBeFalsy();
 
     expect(
-      noHistoryDrill({
+      hasHistoryDrill({
         getAction: () => {
           return {
             name: 'treemap-element-drill-action',
@@ -71,10 +71,10 @@ describe('treemap interactions utl', () => {
           };
         },
       })
-    ).toBeFalsy();
+    ).toBeTruthy();
 
     expect(
-      noHistoryDrill({
+      hasHistoryDrill({
         getAction: () => {
           return {
             name: 'treemap-element-drill-action',
@@ -82,6 +82,6 @@ describe('treemap interactions utl', () => {
           };
         },
       })
-    ).toBeTruthy();
+    ).toBeFalsy();
   });
 });

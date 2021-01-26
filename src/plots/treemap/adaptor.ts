@@ -1,8 +1,8 @@
 import { polygon as basePolygon } from '../../adaptor/geometries/polygon';
 import { Params } from '../../core/adaptor';
-import { interaction, animation, theme, legend, annotation, tooltip } from '../../adaptor/common';
+import { interaction as commonInteraction, animation, theme, legend, annotation, tooltip } from '../../adaptor/common';
 import { flow, deepAssign } from '../../utils';
-import { transformData, isDrillDown } from './utils';
+import { transformData, isDrillDown, getFommatInteractions } from './utils';
 import { TreemapOptions } from './types';
 
 /**
@@ -91,6 +91,24 @@ function geometry(params: Params<TreemapOptions>): Params<TreemapOptions> {
 function axis(params: Params<TreemapOptions>): Params<TreemapOptions> {
   const { chart } = params;
   chart.axis(false);
+  return params;
+}
+
+/**
+ * Interaction 配置
+ * @param params
+ */
+export function interaction(params: Params<TreemapOptions>): Params<TreemapOptions> {
+  const { chart, options } = params;
+  const { interactions, hierarchyConfig } = options;
+
+  commonInteraction({
+    chart,
+    options: {
+      interactions: getFommatInteractions(interactions, hierarchyConfig),
+    }
+  })
+
   return params;
 }
 

@@ -1,3 +1,38 @@
+
+##### position
+
+<description>**optional** _`top` | `bottom` | `left` | `right`_</description>
+
+For Cartesian coordinates, set the position of the coordinate axes.
+
+##### label
+
+<description> _AxisLabelCfg | null_ **optional** </description>
+
+Configurations related to axis label. Set this to `null` to prevent the axis label from appearing. The details of _ AxisLabelCfg_ are as follows:
+
+| Properties | Type                          |    |
+| ------------ | -----------------------------------------------------| ------- | ------------------------ |
+| style        | _[ShapeAttrs](/zh/docs/api/shape/shape-attrs)_        | -       |  Axis label text graphic property style      |
+| offset       | _number_                                                | -       | Axis label offset  
+| rotate       | _number_                                                | -       |  Axis label text rotation Angle              |
+| autoRotate   | _boolean_                                               | `true`  | Whether to rotate automatically, default true         |
+| autoHide     | _boolean_                                                | `false` | Whether to hide it automatically, default to false              |
+| autoEllipsis | _boolean_                                                | `false` | Whether to ellipsis label when overflow, default to false              |
+| formatter    | _`(text: string, item: ListItem, index: number) => any`_ | `false` | Format function               |
+
+##### verticalFactor
+
+<description>**optional** _number_</description>
+
+Mark the direction of the label on the axis, with 1 to the left and -1 to the right (Only works in vertical axis).
+
+##### verticalLimitLength
+
+<description>**optional** _number_</description>
+
+Configuring the maximum limit length in the vertical direction of the coordinate axis has a significant impact on text adaptation.
+
 ##### nice
 
 <description>**optional** _boolean_ _default:_ `true`</description>
@@ -46,12 +81,6 @@ Interval of axes.
 
 Specify a tick calculation method, or customize a tick calculation method. Built-in tick calculations include `cat`、`time-cat`、 `wilkinson-extended`、`r-pretty`、`time`、`time-pretty`、`log`、`pow`、`quantile`、`d3-linear`。
 
-##### position
-
-<description>**optional** _`top` | `bottom` | `left` | `right`_</description>
-
-For Cartesian coordinates, set the position of the coordinate axes.
-
 ##### line
 
 <description>**optional** _object_</description>
@@ -84,6 +113,7 @@ A configuration item for the title, NULL means not to be displayed.
 
 | Properties | Type         | Description                                                        |
 | ---------- | ------------ | ------------------------------------------------------------------ |
+| title         | _string_     | The title of axis     |
 | offset     | _number_     | The distance of the title from the coordinate axis                 |
 | spacing    | _lineStyle_  | The distance between the title and the text on the coordinate axis |
 | style      | _shapeStyle_ | Title text configuration items                                     |
@@ -149,15 +179,3 @@ interface ComponentAnimateCfg {
   }
 }
 ```
-
-##### verticalFactor
-
-<description>**optional** _number_</description>
-
-Mark the direction of the label on the axis, with 1 to the left and -1 to the right.
-
-##### verticalLimitLength
-
-<description>**optional** _number_</description>
-
-Configuring the maximum limit length in the vertical direction of the coordinate axis has a significant impact on text adaptation.

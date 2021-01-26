@@ -1,11 +1,16 @@
 ---
 title: Legend
-order: 3
+order: 2
 ---
 
-`markdown:docs/styles/legend.md`
+`markdown:docs/styles/component.md`
+
 
 Legend is an auxiliary component of a plot, which uses color, size, and shape mapping, to show the symbol, color, and name of different series. You can click legends to toggle displaying series in the plot.
+
+Go to [AntV Design | 图例 Legend](https://www.yuque.com/mo-college/vis-design/hcs9p2) of 墨者学院 to learn more about **Design guide**
+
+#### Usage
 
 <b>There are two ways to configure legends:</b>
 
@@ -37,8 +42,8 @@ legend: {
 | offsetY       | _number_       | -          | Legends offset in the y direction.                                                                                                                                                            |                                                                             |
 | background    | _object_       | -          | Background box configuration item.reference  [background configuration](#background)                                                                                                          |                                                                             |
 | flipPage      | _boolean_      | false      | Whether to page when there are too many legend items.                                                                                                                                         | <tag color="green" text="Classification legend">Classification legend</tag> |
-| itemWidth     | _number\|null_ | null       | The width of the legend item, default to null (automatically computed).                                                                                                                       | <tag color="green" text="Classification legend">Classification legend</tag> |
-| itemHeight    | _number\|null_ | null       | The height of the legend, default to null.                                                                                                                                                    | <tag color="green" text="Classification legend">Classification legend</tag> |
+| itemWidth     | _number \| null_ | null       | The width of the legend item, default to null (automatically computed).                                                                                                                       | <tag color="green" text="Classification legend">Classification legend</tag> |
+| itemHeight    | _number \| null_ | null       | The height of the legend, default to null.                                                                                                                                                    | <tag color="green" text="Classification legend">Classification legend</tag> |
 | itemName      | _object_       | -          | Configure the legend item name text.reference  [itemName configuration](#itemname)                                                                                                            | <tag color="green" text="Classification legend">Classification legend</tag> |
 | itemValue     | _object_       | -          | Configuration item of legend item Value added value.reference  [itemValue configuration](#itemvalue)。                                                                                        | <tag color="green" text="Classification legend">Classification legend</tag> |
 | itemSpacing   | _number_       | -          | Controls the horizontal spacing of legend items                                                                                                                                               | <tag color="green" text="Classification legend">Classification legend</tag> |

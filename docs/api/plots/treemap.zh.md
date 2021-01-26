@@ -109,4 +109,49 @@ const data = {
 
 ### 图表交互
 
+矩形树图内置了一些交互，列表如下
+
+#### treemap-drill-down
+
+treemap-drill-down 用于下钻交互，配置该交互后，矩形树图默认显示深度为 1 的节点，点击后下钻。
+
+示例
+
+```
+interactions: [
+  {
+    type: 'treemap-drill-down',
+  },
+],
+```
+
+#### view-zoom
+
+view-zoom 用于放大 view，配置该交互后，canavs 自动识别 zoom 手势，放大或缩小矩形树图
+
+示例
+
+```
+interactions: [
+  {
+    type: 'view-zoom',
+  },
+],
+```
+
+#### drag-move
+
+drag-move 用于拖拽 view，可和 view-zoom 配套使用，查看矩形树图细节
+
+示例
+
+```
+interactions: [
+  {
+    type: 'drag-move',
+  },
+],
+```
+
+
 `markdown:docs/common/interactions.zh.md`

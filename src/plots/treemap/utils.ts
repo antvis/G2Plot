@@ -1,6 +1,6 @@
-import { get, isArray } from '@antv/util';
+import { isArray } from '@antv/util';
 import { treemap } from '../../utils/hierarchy/treemap';
-
+import { deepAssign } from '../../utils';
 import { TreemapOptions } from './types';
 
 export function isDrillDown(interactions: TreemapOptions['interactions']) {
@@ -8,10 +8,31 @@ export function isDrillDown(interactions: TreemapOptions['interactions']) {
   return interactions.findIndex((i) => i.type === 'treemap-drill-down') > -1;
 }
 
+export function getFommatInteractions(
+  interactions: TreemapOptions['interactions'],
+  hierarchyConfig: TreemapOptions['hierarchyConfig']
+): TreemapOptions['interactions'] {
+  const openDrillDown = isDrillDown(interactions);
+  if (openDrillDown) {
+    return interactions.map((i) => {
+      if (i.type === 'treemap-drill-down') {
+        return deepAssign({}, i, {
+          cfg: {
+            hierarchyConfig,
+          },
+        });
+      }
+      return i;
+    });
+  }
+  return interactions;
+}
+
 interface TransformDataOptions {
   data: TreemapOptions['data'];
   colorField: TreemapOptions['colorField'];
   openDrillDown: boolean;
+  hierarchyConfig?: TreemapOptions['hierarchyConfig'];
 }
 
 export function transformData(options: TransformDataOptions) {

@@ -11,12 +11,14 @@ export class TreemapDrillDownAction extends Action {
     const { view } = this.context;
     const currentData = view.getData();
     const groupScales = view.getGroupScales();
+    const hierarchyConfig = get(view, ['interactions', 'treemap-drill-down', 'cfg', 'hierarchyConfig'], {});
 
     // 重新 update 数据
     const drillData = transformData({
       data,
       colorField: get(groupScales, [0, 'field']),
       openDrillDown: true,
+      hierarchyConfig,
     });
 
     view.changeData(drillData);

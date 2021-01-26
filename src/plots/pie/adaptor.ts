@@ -34,6 +34,9 @@ function geometry(params: Params<PieOptions>): Params<PieOptions> {
           color,
           style: pieStyle,
         },
+        args: {
+          zIndexReversed: true,
+        },
       },
     });
 
@@ -53,6 +56,9 @@ function geometry(params: Params<PieOptions>): Params<PieOptions> {
         interval: {
           color,
           style: pieStyle,
+        },
+        args: {
+          zIndexReversed: true,
         },
       },
     });
@@ -201,6 +207,10 @@ export function pieAnnotation(params: Params<PieOptions>): Params<PieOptions> {
   return params;
 }
 
+/**
+ * 饼图 tooltip 配置适配，强制 tooltip.shared 为 false
+ * @param params
+ */
 function adaptorTooltipOptions(params: Params<PieOptions>): Params<PieOptions> {
   return get(params, ['options', 'tooltip']) !== false
     ? deepAssign({}, params, { options: { tooltip: { shared: false } } })

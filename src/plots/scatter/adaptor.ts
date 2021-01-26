@@ -1,4 +1,4 @@
-import { isBoolean, isArray } from '@antv/util';
+import { isBoolean, isNumber } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
 import { point } from '../../adaptor/geometries';
@@ -34,8 +34,13 @@ function geometry(params: Params<ScatterOptions>): Params<ScatterOptions> {
 
   let { tooltip } = options;
 
-  if (sizeField && !isArray(size)) {
-    size = [2, 8];
+  if (sizeField) {
+    if (!size) {
+      size = [2, 8];
+    }
+    if (isNumber(size)) {
+      size = [size, size];
+    }
   }
 
   if (tooltip && !tooltip.fields) {

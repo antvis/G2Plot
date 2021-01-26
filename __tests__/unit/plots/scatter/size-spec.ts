@@ -121,9 +121,49 @@ describe('scatter', () => {
 
     // @ts-ignore
     expect(elements.length).toBe(507);
-    expect(sizeArr[0] > 0).toBeTruthy();
-    expect(sizeArr[0]).not.toEqual(sizeArr[sizeArr.length - 1]);
+    expect(sizeArr[0]).toBe(4); // 默认值
+    expect(sizeArr[sizeArr.length - 1]).toBe(4);
 
+    scatter.destroy();
+  });
+  it('size: callback', () => {
+    const scatter = new Scatter(createDiv(), {
+      width: 400,
+      height: 300,
+      data,
+      xField: 'weight',
+      yField: 'height',
+      sizeField: 'weight',
+      size: () => {
+        return 20;
+      },
+    });
+
+    scatter.render();
+
+    const geometry = scatter.chart.geometries[0];
+    const elements = geometry.elements;
+    const sizeArr = elements.map((ele) => ele.getModel().size);
+    expect(sizeArr[0]).toBe(20);
+    expect(sizeArr[sizeArr.length - 1]).toBe(20);
+    scatter.destroy();
+  });
+  it('size: number', () => {
+    const scatter = new Scatter(createDiv(), {
+      width: 400,
+      height: 300,
+      data,
+      xField: 'weight',
+      yField: 'height',
+      sizeField: 'weight',
+      size: 1,
+    });
+
+    scatter.render();
+    const geometry = scatter.chart.geometries[0];
+    const elements = geometry.elements;
+    expect(elements[0].getModel().size).toBe(1);
+    expect(elements[500].getModel().size).toBe(1);
     scatter.destroy();
   });
 });

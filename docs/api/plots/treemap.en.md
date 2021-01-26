@@ -114,7 +114,7 @@ treemap-drill-down 用于下钻交互，配置该交互后，矩形树图默认�
 
 示例
 
-```
+```plain
 interactions: [
   {
     type: 'treemap-drill-down',
@@ -128,7 +128,7 @@ view-zoom 用于放大 view，配置该交互后，canavs 自动识别 zoom 手�
 
 示例
 
-```
+```plain
 interactions: [
   {
     type: 'view-zoom',
@@ -142,7 +142,7 @@ drag-move 用于拖拽 view，可和 view-zoom 配套使用，查看矩形树图
 
 示例
 
-```
+```plain
 interactions: [
   {
     type: 'drag-move',

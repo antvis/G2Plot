@@ -1,4 +1,4 @@
-import { transformData, isDrillDown, getFommatInteractions} from '../../../../src/plots/treemap/utils';
+import { transformData, isDrillDown, getFommatInteractions } from '../../../../src/plots/treemap/utils';
 
 const data1 = {
   name: 'root',
@@ -110,12 +110,20 @@ describe('treemap transformData', () => {
   it('isDrillDown', () => {
     expect(isDrillDown(undefined)).toBeFalsy();
     expect(isDrillDown([])).toBeFalsy();
-    expect(isDrillDown([{
-      type: 'asas'
-    }])).toBeFalsy();
-    expect(isDrillDown([{
-      type: 'treemap-drill-down'
-    }])).toBeTruthy();
+    expect(
+      isDrillDown([
+        {
+          type: 'asas',
+        },
+      ])
+    ).toBeFalsy();
+    expect(
+      isDrillDown([
+        {
+          type: 'treemap-drill-down',
+        },
+      ])
+    ).toBeTruthy();
   });
 
   it('transformData, basic treemap', () => {
@@ -207,58 +215,82 @@ describe('treemap transformData', () => {
 
   it('getFommatInteractions', () => {
     expect(getFommatInteractions(undefined, undefined)).toEqual(undefined);
-    expect(getFommatInteractions(undefined, {
-      tile: 'treemapSlice'
-    })).toEqual(undefined);
-    expect(getFommatInteractions([], {
-      tile: 'treemapSlice'
-    })).toEqual([]);
-    expect(getFommatInteractions([{
-        type: 'treemap'
-      }], {
-        tile: 'treemapSlice'
-      }))
-      .toEqual([{
-        type: 'treemap'
-      }]);
-    expect(getFommatInteractions(
-        [{
-            type: 'treemap'
+    expect(
+      getFommatInteractions(undefined, {
+        tile: 'treemapSlice',
+      })
+    ).toEqual(undefined);
+    expect(
+      getFommatInteractions([], {
+        tile: 'treemapSlice',
+      })
+    ).toEqual([]);
+    expect(
+      getFommatInteractions(
+        [
+          {
+            type: 'treemap',
+          },
+        ],
+        {
+          tile: 'treemapSlice',
+        }
+      )
+    ).toEqual([
+      {
+        type: 'treemap',
+      },
+    ]);
+    expect(
+      getFommatInteractions(
+        [
+          {
+            type: 'treemap',
           },
           {
-            type: 'treemap-drill-down'
-          }
-        ], {
-          tile: 'treemapSlice'
-        }))
-      .toEqual([{
-        type: 'treemap'
+            type: 'treemap-drill-down',
+          },
+        ],
+        {
+          tile: 'treemapSlice',
+        }
+      )
+    ).toEqual([
+      {
+        type: 'treemap',
       },
       {
         type: 'treemap-drill-down',
         cfg: {
           hierarchyConfig: {
-            tile: 'treemapSlice'
-          }
-        }
-      }]);
+            tile: 'treemapSlice',
+          },
+        },
+      },
+    ]);
 
-      expect(getFommatInteractions(
-        [{
-            type: 'treemap'
+    expect(
+      getFommatInteractions(
+        [
+          {
+            type: 'treemap',
           },
           {
-            type: 'treemap-drill-down'
-          }
-        ], undefined))
-      .toEqual([{
-        type: 'treemap'
+            type: 'treemap-drill-down',
+          },
+        ],
+        undefined
+      )
+    ).toEqual([
+      {
+        type: 'treemap',
       },
       {
         type: 'treemap-drill-down',
         cfg: {
-          hierarchyConfig: undefined
-        }
-      }]);
+          hierarchyConfig: undefined,
+        },
+      },
+    ]);
   });
 });

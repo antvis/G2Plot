@@ -106,8 +106,8 @@ export function interaction(params: Params<TreemapOptions>): Params<TreemapOptio
     chart,
     options: {
       interactions: getFommatInteractions(interactions, hierarchyConfig),
-    }
-  })
+    },
+  });
 
   return params;
 }

@@ -8,18 +8,21 @@ export function isDrillDown(interactions: TreemapOptions['interactions']) {
   return interactions.findIndex((i) => i.type === 'treemap-drill-down') > -1;
 }
 
-export function getFommatInteractions(interactions: TreemapOptions['interactions'], hierarchyConfig: TreemapOptions['hierarchyConfig']) : TreemapOptions['interactions'] {
+export function getFommatInteractions(
+  interactions: TreemapOptions['interactions'],
+  hierarchyConfig: TreemapOptions['hierarchyConfig']
+): TreemapOptions['interactions'] {
   const openDrillDown = isDrillDown(interactions);
   if (openDrillDown) {
-    return interactions.map(i => {
+    return interactions.map((i) => {
       if (i.type === 'treemap-drill-down') {
         return deepAssign({}, i, {
           cfg: {
             hierarchyConfig,
-          }
-        })
+          },
+        });
       }
-      return i
+      return i;
     });
   }
   return interactions;

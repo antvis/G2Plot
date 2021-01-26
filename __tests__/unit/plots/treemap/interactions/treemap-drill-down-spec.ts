@@ -1,10 +1,8 @@
-import { getInteraction, getActionClass } from '@antv/g2';
+import { getInteraction } from '@antv/g2';
 import InteractionContext from '@antv/g2/lib/interaction/context';
-import { deepMix } from '@antv/util';
 import { delay } from '../../../../utils/delay';
 import { createDiv } from '../../../../utils/dom';
 import { Treemap } from '../../../../../src';
-import { TREEMAP_CHILDREN } from '../../../../data/treemap-nest';
 import { TreemapDrillDownAction } from '../../../../../src/plots/treemap/interactions/actions/treemap-drill-down-action';
 
 const data = {
@@ -114,7 +112,6 @@ describe('drill-down intera', () => {
     expect(nowData1.length).toBe(2);
     expect(nowData1[0].name).toBe('欧洲');
     expect(nowData1[1].name).toBe('亚洲');
-
 
     treemapPlot.destroy();
   });

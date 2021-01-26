@@ -13,7 +13,7 @@ export function isTopParentNode(context) {
  */
 export function hasHistoryDrill(context) {
   if (!context || !context.getAction) return false;
-  
+
   const treemapElementDrillAction = context.getAction('treemap-drill-down-action');
 
   if (!treemapElementDrillAction) return false;
@@ -21,5 +21,5 @@ export function hasHistoryDrill(context) {
   // @ts-ignore
   const { cacheDataStack } = treemapElementDrillAction;
 
-  return isArray(cacheDataStack) && cacheDataStack.length > 0
+  return isArray(cacheDataStack) && cacheDataStack.length > 0;
 }

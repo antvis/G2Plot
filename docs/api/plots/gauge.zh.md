@@ -54,6 +54,24 @@ order: 22
 
 <playground rid="gauge" path="progress-plots/gauge/demo/custom-color.ts"></playground>
 
+#### type ✨
+
+<description>**optional** _string_ _default_: `undefined`</description>
+
+仪表盘的展示类型。可选项为：`meter`，默认为空
+#### meter ✨
+
+<description>**optional** _object_</description>
+
+当 `type = 'meter'` 时生效，具体配置属性如下。
+
+| 配置项 | 类型     | 描述          | 默认值 |
+| ------ | -------- | ----------------- | ---------|
+| steps  | _number_ | 总步数        |  50 |
+| stepRatio  | _number_ | [0, 1] 范围。代表着 step 和 gap 的比例关系，当 `stepRatio` 为 1 时，gap 为 0 | 0.5，即默认 step 等于 gap 宽度 |
+
+<img src="https://gw.alipayobjects.com/zos/antfincdn/WBhwhNUzkg/image.png" width="400" align="center" style="display:flex;margin:0 auto;">
+
 ### 图表组件
 
 #### axis

@@ -4,7 +4,15 @@ import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { Params } from '../../core/adaptor';
 import { Data } from '../../types';
 import { deepAssign, flow, pick, renderGaugeStatistic } from '../../utils';
-import { RANGE_TYPE, RANGE_VALUE, PERCENT, DEFAULT_COLOR, INDICATEOR_VIEW_ID, RANGE_VIEW_ID } from './constant';
+import {
+  RANGE_TYPE,
+  RANGE_VALUE,
+  PERCENT,
+  DEFAULT_COLOR,
+  INDICATEOR_VIEW_ID,
+  RANGE_VIEW_ID,
+  MASK_VIEW_ID,
+} from './constant';
 import { GaugeOptions } from './types';
 import { getIndicatorData, getRangeData } from './utils';
 
@@ -61,6 +69,38 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
     startAngle,
     endAngle,
   }).transpose();
+
+  return params;
+}
+
+/**
+ * meter 类型的仪表盘 有一层 mask
+ * @param params
+ */
+function meterView(params: Params<GaugeOptions>): Params<GaugeOptions> {
+  const { chart, options } = params;
+
+  const { type, meter } = options;
+  if (type === 'meter') {
+    const { innerRadius, radius, startAngle, endAngle } = options;
+
+    const { background } = chart.getTheme();
+
+    let color = background;
+    if (!color || color === 'transparent') {
+      color = '#fff';
+    }
+
+    const v3 = chart.createView({ id: MASK_VIEW_ID });
+    v3.data([{ [RANGE_TYPE]: '1', [RANGE_VALUE]: 1 }]);
+    v3.interval()
+      .position(`1*${RANGE_VALUE}`)
+      .color(color)
+      .adjust('stack')
+      .shape('meter-gauge')
+      .customInfo(meter || {});
+    v3.coordinate('polar', { innerRadius, radius, startAngle, endAngle }).transpose();
+  }
 
   return params;
 }
@@ -156,6 +196,8 @@ export function adaptor(params: Params<GaugeOptions>) {
     statistic,
     interaction,
     theme,
+    // meterView 需要放到主题之后
+    meterView,
     other
     // ... 其他的 adaptor flow
   )(params);

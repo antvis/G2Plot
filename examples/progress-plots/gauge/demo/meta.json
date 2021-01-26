@@ -26,15 +26,31 @@
         "zh": "仪表盘(多色)",
         "en": "Gauge plot with custom color"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*2pQHSJvYqwwAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/Uev7Dpt5C5/4a829ac9-2fb3-4ac8-8a5d-f17ad4483518.png"
     },
     {
       "filename": "complex.ts",
       "title": {
-        "zh": "自定义配置的仪表盘",
-        "en": "Animated gauge plot"
+        "zh": "仪表盘(渐变色)",
+        "en": "Multiple gradient gauge plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*LVeFSYBPDBAAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "meter-gauge.ts",
+      "title": {
+        "zh": "米轨仪表盘",
+        "en": "Meter gauge plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/hJeVJVaTpf/6aea13fd-6a5a-4a2b-b612-5c3ceb8a280b.png"
+    },
+    {
+      "filename": "custom-meter-step.ts",
+      "title": {
+        "zh": "米轨仪表盘(自定义步数和大小)",
+        "en": "Meter gauge plot (custom steps and stepRatio)"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/wqWYdQwQlc/demo1.gif"
     }
   ]
 }

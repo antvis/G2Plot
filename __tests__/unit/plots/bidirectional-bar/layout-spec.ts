@@ -26,8 +26,13 @@ describe('Bidirectional layout', () => {
     //@ts-ignore
     expect(firstView.getCoordinate().isReflectX).toBe(true);
 
+    // 期望数据是反序的（从下至上计算）
+    expect(firstView.geometries[0].elements[0].getData().country).toBe('美国');
+    expect(firstView.geometries[0].elements[data.length - 1].getData().country).toBe('乌拉圭');
+
     bidirectional.destroy();
   });
+
   it('layout*default*vertical', () => {
     const bidirectional = new BidirectionalBar(createDiv('x*y*vertical'), {
       width: 400,
@@ -57,6 +62,7 @@ describe('Bidirectional layout', () => {
 
     bidirectional.destroy();
   });
+
   it('layout*default*vertical*xAxis*top', () => {
     const bidirectional = new BidirectionalBar(createDiv('x*y*vertical'), {
       width: 400,

@@ -1,5 +1,5 @@
 import { View } from '@antv/g2';
-import { get, groupBy, keys } from '@antv/util';
+import { get, keys } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import {
   tooltip,
@@ -24,9 +24,7 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
   const { data, xField, yField, color, barStyle, widthRatio, legend, layout } = options;
 
   // 处理数据
-  const ds = transformData(xField, yField, SERIES_FIELD_KEY, data);
-  // 再次处理数据，通过 SERIES_FIELD_KEY 字段分成左右数据
-  const groupData: any[] = Object.values(groupBy(ds, SERIES_FIELD_KEY));
+  const groupData: any[] = transformData(xField, yField, SERIES_FIELD_KEY, data, isHorizontal(layout));
   // 在创建子 view 执行后不行，需要在前面处理 legend
   if (legend) {
     chart.legend(SERIES_FIELD_KEY, legend);
@@ -36,8 +34,7 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
   // 创建 view
   let firstView: View;
   let secondView: View;
-  const firstViewData = get(groupData, [0], []);
-  const secondViewData = get(groupData, [1], []);
+  const [firstViewData, secondViewData] = groupData;
 
   // 横向
   if (isHorizontal(layout)) {
@@ -60,9 +57,9 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
     });
     secondView.coordinate().transpose();
 
-    // @说明: 测试发现，横向因为轴的反转，需要数据也反转，不然会图形渲染是反的
-    firstView.data(firstViewData.reverse());
-    secondView.data(secondViewData.reverse());
+    // @说明: 测试发现，横向因为轴的反转，需要数据也反转，不然会图形渲染是反的(翻转操作进入到 transform 中处理)
+    firstView.data(firstViewData);
+    secondView.data(secondViewData);
   } else {
     // 纵向
     firstView = chart.createView({

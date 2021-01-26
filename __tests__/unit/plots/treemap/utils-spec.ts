@@ -1,4 +1,4 @@
-import { transformData } from '../../../../src/plots/treemap/utils';
+import { transformData, isDrillDown, getFommatInteractions } from '../../../../src/plots/treemap/utils';
 
 const data1 = {
   name: 'root',
@@ -52,10 +52,10 @@ const data2 = {
   ],
 };
 
-// 自己有分类，父类有分类
-// 没有，父类有
-// 自己有，父类没有，
-// 自己没有，父类没有
+// 叶节点有分类，父节点有分类
+// 叶节点没有，父节点有
+// 叶节点有，父节点没有，
+// 叶节点没有，父节点没有
 
 const data3 = {
   name: 'root',
@@ -107,10 +107,30 @@ const data3 = {
 };
 
 describe('treemap transformData', () => {
+  it('isDrillDown', () => {
+    expect(isDrillDown(undefined)).toBeFalsy();
+    expect(isDrillDown([])).toBeFalsy();
+    expect(
+      isDrillDown([
+        {
+          type: 'asas',
+        },
+      ])
+    ).toBeFalsy();
+    expect(
+      isDrillDown([
+        {
+          type: 'treemap-drill-down',
+        },
+      ])
+    ).toBeTruthy();
+  });
+
   it('transformData, basic treemap', () => {
     const data = transformData({
       data: data1,
       colorField: 'name',
+      openDrillDown: false,
     });
 
     const areaArr = data.map((dt) => {
@@ -130,6 +150,7 @@ describe('treemap transformData', () => {
     const data = transformData({
       data: data2,
       colorField: 'name',
+      openDrillDown: false,
     });
 
     const areaArr = data.map((dt) => {
@@ -156,6 +177,7 @@ describe('treemap transformData', () => {
     const data = transformData({
       data: data3,
       colorField: 'category',
+      openDrillDown: false,
     });
     data.forEach((d) => {
       expect(d.category).toEqual(d.expectCategory);
@@ -166,6 +188,7 @@ describe('treemap transformData', () => {
     const data = transformData({
       data: data1,
       colorField: 'name',
+      openDrillDown: false,
       hierarchyConfig: {
         tile: 'treemapDice',
       },
@@ -179,5 +202,95 @@ describe('treemap transformData', () => {
     expect(data.length).toBe(3);
     expect(lineArr[1] / lineArr[0]).toEqual(data1.children[1].value / data1.children[0].value);
     expect(lineArr[2] / lineArr[1]).toEqual(data1.children[2].value / data1.children[1].value);
+  });
+
+  it('transformData, nest treemap, openDrillDown', () => {
+    const data = transformData({
+      data: data3,
+      colorField: 'category',
+      openDrillDown: true,
+    });
+    expect(data.length).toEqual(2);
+  });
+
+  it('getFommatInteractions', () => {
+    expect(getFommatInteractions(undefined, undefined)).toEqual(undefined);
+    expect(
+      getFommatInteractions(undefined, {
+        tile: 'treemapSlice',
+      })
+    ).toEqual(undefined);
+    expect(
+      getFommatInteractions([], {
+        tile: 'treemapSlice',
+      })
+    ).toEqual([]);
+    expect(
+      getFommatInteractions(
+        [
+          {
+            type: 'treemap',
+          },
+        ],
+        {
+          tile: 'treemapSlice',
+        }
+      )
+    ).toEqual([
+      {
+        type: 'treemap',
+      },
+    ]);
+    expect(
+      getFommatInteractions(
+        [
+          {
+            type: 'treemap',
+          },
+          {
+            type: 'treemap-drill-down',
+          },
+        ],
+        {
+          tile: 'treemapSlice',
+        }
+      )
+    ).toEqual([
+      {
+        type: 'treemap',
+      },
+      {
+        type: 'treemap-drill-down',
+        cfg: {
+          hierarchyConfig: {
+            tile: 'treemapSlice',
+          },
+        },
+      },
+    ]);
+
+    expect(
+      getFommatInteractions(
+        [
+          {
+            type: 'treemap',
+          },
+          {
+            type: 'treemap-drill-down',
+          },
+        ],
+        undefined
+      )
+    ).toEqual([
+      {
+        type: 'treemap',
+      },
+      {
+        type: 'treemap-drill-down',
+        cfg: {
+          hierarchyConfig: undefined,
+        },
+      },
+    ]);
   });
 });

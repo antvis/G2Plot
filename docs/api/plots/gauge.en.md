@@ -71,7 +71,7 @@ It works when `type = 'meter'`. Properties are as followed:
 | steps  | _number_ | The total step count  |  50         |
 | stepRatio  | _number_ | 0 ~ 1. Represent the ratio between `step` and `gap`. `gap` is zero when `stepRatio` is setting to `1` | 0.5 |
 
-<img src="https://gw.alipayobjects.com/zos/antfincdn/WBhwhNUzkg/image.png" width="400" align="center" style="display:flex;margin:0 auto;">
+<img src="https://gw.alipayobjects.com/zos/antfincdn/WBhwhNUzkg/image.png" width="400" align="center" style="display:flex;margin:0 auto;" alt="gauge">
 
 #### axis
 

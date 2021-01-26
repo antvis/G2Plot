@@ -26,11 +26,14 @@ describe('#2180', () => {
     });
     bidirectional.render();
     const firstView = bidirectional.chart.views[0];
+    const secondView = bidirectional.chart.views[0];
     const elements = firstView.geometries[0].elements;
     const transDS = transformData('country', ['2016年耕地总面积', '2016年转基因种植面积'], 'type', data, true);
     // 横向反转了轴，elements 的索引从上至下，其实数据顺序并没有变化
     // @ts-ignore
     expect(transDS[0][0].country).toEqual(elements[0].data.country);
+    // @ts-ignore
+    expect(transDS[1][0].country).toEqual(secondView.geometries[0].elements[0].data.country);
     bidirectional.destroy();
   });
 
@@ -45,10 +48,13 @@ describe('#2180', () => {
     });
     bidirectional.render();
     const firstView = bidirectional.chart.views[0];
+    const secondView = bidirectional.chart.views[0];
     const elements = firstView.geometries[0].elements;
     const transDS = transformData('country', ['2016年耕地总面积', '2016年转基因种植面积'], 'type', data);
     // @ts-ignore 不需要反转
     expect(transDS[0][0].country).toEqual(elements[0].data.country);
+    // @ts-ignore
+    expect(transDS[1][0].country).toEqual(secondView.geometries[0].elements[0].data.country);
     bidirectional.destroy();
   });
 });

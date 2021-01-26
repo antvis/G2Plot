@@ -33,7 +33,7 @@ export function transformData(
   });
   const groupData = Object.values(groupBy(hopeData, seriesField));
   const [data1 = [], data2 = []] = groupData;
-  return reverse ? [data1.reverse(), data2] : [data1, data2];
+  return reverse ? [data1.reverse(), data2.reverse()] : [data1, data2];
 }
 
 /**

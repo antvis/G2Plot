@@ -61,8 +61,6 @@ function geometry(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
 
   // 将 waterfall leaderLineCfg 传入到自定义 shape 中
   geometry.customInfo({ leaderLine });
-  // 瀑布图默认以 yField 作为 tooltip 内容
-  geometry.tooltip(yField);
 
   return params;
 }
@@ -195,7 +193,7 @@ function label(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
  */
 export function tooltip(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
   const { chart, options } = params;
-  const { tooltip, yField } = options;
+  const { tooltip, xField, yField } = options;
 
   if (tooltip !== false) {
     chart.tooltip({
@@ -206,6 +204,9 @@ export function tooltip(params: Params<WaterfallOptions>): Params<WaterfallOptio
       fields: [yField],
       ...tooltip,
     });
+    // 瀑布图默认以 yField 作为 tooltip 内容
+    const geometry = chart.geometries[0];
+    tooltip?.formatter ? geometry.tooltip(`${xField}*${yField}`, tooltip.formatter) : geometry.tooltip(yField);
   } else {
     chart.tooltip(false);
   }

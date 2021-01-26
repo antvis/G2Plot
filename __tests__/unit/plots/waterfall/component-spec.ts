@@ -47,16 +47,25 @@ describe('waterfall components', () => {
     });
     // @ts-ignore
     expect(tooltipController.getTooltipCfg().showMarkers).toBe(true);
-    // @ts-ignore
-    expect(waterfall.chart.geometries[0].tooltipOption.fields[0]).toBe(
-      'sales'
-    ) /** 默认使用用户定义 yField 展示 tooltip */;
+    // @ts-ignore 默认使用用户定义 yField 展示 tooltip
+    expect(waterfall.chart.geometries[0].tooltipOption.fields[0]).toBe('sales');
     // @ts-ignore
     expect(waterfall.chart.options.tooltip.title).toBe('hello world');
-    waterfall.update({
-      ...waterfall.options,
-      tooltip: false,
-    });
+  });
+
+  it('tooltip: items', () => {
+    const tooltipController = waterfall.chart.getController('tooltip');
+    const box = waterfall.chart.geometries[0].elements[0].shape.getBBox();
+    // @ts-ignore
+    const items = tooltipController.getTooltipItems({ x: box.x + box.width / 2, y: box.y + box.height / 2 });
+    // @ts-ignore
+    expect(items[0].name).toBe('sales');
+    // @ts-ignore
+    expect(items[0].value).toBe(`${salesByArea[0].sales}`);
+  });
+
+  it('tooltip: not visible', () => {
+    waterfall.update({ tooltip: false });
     // @ts-ignore
     expect(waterfall.chart.options.tooltip).toBe(false);
     expect(waterfall.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);

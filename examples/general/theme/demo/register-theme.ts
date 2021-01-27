@@ -53,7 +53,6 @@ const piePlot = new Pie('container', {
   data,
   angleField: 'value',
   colorField: 'type',
-  legend: { offsetX: -90 },
   radius: 0.8,
   label: {
     type: 'inner',

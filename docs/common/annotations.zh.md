@@ -164,7 +164,7 @@ line 长度，用于 dataRegion。
 
 自定义 HTML 图形标记的容器元素，用于 html
 
-##### container
+##### html
 
 <description>**optional** _string | HTMLElement_ </description>
 

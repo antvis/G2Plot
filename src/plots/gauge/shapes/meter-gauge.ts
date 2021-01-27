@@ -12,10 +12,11 @@ registerShape('interval', 'meter-gauge', {
     let gap = 0;
 
     /**
+     * stepRatio 取值范围: (0, 1]
      * 1: interval : gap = stepRatio : (1 - stepRatio)
      * 2: interval * STEP + stepRatio * (STEP - 1) = total
      */
-    if (stepRatio >= 0 && stepRatio < 1) {
+    if (stepRatio > 0 && stepRatio <= 1) {
       interval = total / (((1 - stepRatio) / stepRatio) * (STEP - 1) + STEP);
       gap = (interval * (1 - stepRatio)) / stepRatio;
     }
@@ -26,8 +27,9 @@ registerShape('interval', 'meter-gauge', {
       const center = this.coordinate.getCenter();
       const radius = this.coordinate.getRadius();
       const { startAngle, endAngle } = Util.getAngle(cfg, this.coordinate);
-      for (let i = startAngle, j = 0; i < endAngle; j++) {
-        if (j % 2) {
+      for (let i = startAngle, j = 0; i < endAngle && j < 2 * STEP - 1; j++) {
+        const drawn = j % 2;
+        if (drawn) {
           const path = getSectorPath(
             center.x,
             center.y,
@@ -47,11 +49,8 @@ registerShape('interval', 'meter-gauge', {
             // mask 不需要捕捉事件
             capture: false,
           });
-
-          i += gap;
-        } else {
-          i += interval;
         }
+        i += drawn ? gap : interval;
       }
     }
 

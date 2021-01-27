@@ -7,7 +7,6 @@ Built-in defaults: 'default' and 'dark'
   theme: 'default', // 'dark',
 }
 ```
-
 #### Theme attributes
 
 In addition to using the built-in 'default' and 'dark' themes, you can also modify some of the theme content by setting the theme properties.
@@ -69,57 +68,6 @@ plot.update({ theme: { defaultColor: '#FF6B3B' } });
 
 In addition, G2 provides a custom topic mechanism to define a new topic structure, allowing users to switch and define chart topics.
 
-```ts
-import { Pie, G2 } from '@antv/g2plot';
+<playground path="general/theme/demo/register-theme.ts" rid="rect-register-theme"></playground>
 
-// Step 1: Registered theme
-G2.registerTheme('new-theme', {
-  defaultColor: '#FF6B3B',
-  colors10: [
-    '#FF6B3B',
-    '#626681',
-    '#FFC100',
-    '#9FB40F',
-    '#76523B',
-    '#DAD5B5',
-    '#0E8E89',
-    '#E19348',
-    '#F383A2',
-    '#247FEA',
-  ],
-  colors20: [
-    '#FF6B3B',
-    '#626681',
-    '#FFC100',
-    '#9FB40F',
-    '#76523B',
-    '#DAD5B5',
-    '#0E8E89',
-    '#E19348',
-    '#F383A2',
-    '#247FEA',
-    '#2BCB95',
-    '#B1ABF4',
-    '#1D42C2',
-    '#1D9ED1',
-    '#D64BC0',
-    '#255634',
-    '#8C8C47',
-    '#8CDAE5',
-    '#8E283B',
-    '#791DC9',
-  ],
-});
-
-// Step 2: Usage
-const piePlot = new Pie('container', {
-  appendPadding: 10,
-  data,
-  angleField: 'value',
-  colorField: 'type',
-  radius: 0.8,
-  theme: 'new-theme',
-});
-
-piePlot.render();
-```
+Go [DEMO](/en/examples/general/theme#register-theme)

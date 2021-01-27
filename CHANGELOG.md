@@ -1,3 +1,25 @@
+#### 2.3.10 (2021-01-27)
+#### New Features
+
+*  feat(gauge): 支持配置米轨仪表盘 ([#2271](https://github.com/antvis/G2Plot/pull/2271)) ([53ebbfa](https://github.com/antvis/G2Plot/commit/53ebbfa9ac63163f2ae726514eb84c353f6c2094))
+*  feat(treemap): 矩形树图增加下钻交互 ([#2219](https://github.com/antvis/G2Plot/pull/2219)) ([9f206e3](https://github.com/antvis/G2Plot/commit/9f206e33bcefd35b4268f3bf89497dd1167498af))
+*  feat(pie): 饼图 geometry 默认对 elemenent 的 zIndex 进行反序 ([#2266](https://github.com/antvis/G2Plot/pull/2266)) ([a5971b6](https://github.com/antvis/G2Plot/commit/a5971b612ed5bd4712ac2ee0956eba99b4677856))
+*  feat(pie): 饼图支持动态更新数据，支持通过 Pie.getDefauletOptions() 获取默认配置项 ([#2257](https://github.com/antvis/G2Plot/pull/2257)) ([47fa687](https://github.com/antvis/G2Plot/commit/47fa687c89a6d2a2305e7f4fda377b47dc00a47b))
+
+##### Bug Fixes
+
+*  **issue-2264** 修复瀑布图 formatter 不生效 ([#2270](https://github.com/antvis/G2Plot/pull/2270)) ([6787c8b](https://github.com/antvis/G2Plot/commit/6787c8b890c4d03956deb2a9a14d09d78d5470c5))
+*  fix: 修复散点图 size 回调不生效 ([#2263](https://github.com/antvis/G2Plot/pull/2263)) ([510c1b5](https://github.com/antvis/G2Plot/pull/2263))
+*  fix: 饼图数据存在 NaN 时，浏览器崩溃 && 修复中心统计文本更新为 false，再更新为显示，样式丢失 ([#2257](https://github.com/antvis/G2Plot/pull/2257)) ([47fa687](https://github.com/antvis/G2Plot/commit/47fa687c89a6d2a2305e7f4fda377b47dc00a47b))
+
+##### Documentation Changes
+
+*  图表案例导航顺序调整 & 主题文档修整 ([#2272](https://github.com/antvis/G2Plot/pull/2272)) ([b5fc660](https://github.com/antvis/G2Plot/commit/b5fc66000136116247304255aca2661c97f899e3))
+*  完善图表组件文档 ([#2268](https://github.com/antvis/G2Plot/pull/2268)) ([5a35039](https://github.com/antvis/G2Plot/commit/5a3503907739851af9f67c8f949d2b681233f3d2))
+*  docs: 补充图表英文文档 ([#2262](https://github.com/antvis/G2Plot/pull/2262)) ([f1d44c3](https://github.com/antvis/G2Plot/pull/2262))
+*  docs: 补充仪表盘文档 ([#2261](https://github.com/antvis/G2Plot/pull/2261)) ([25e1b42](https://github.com/antvis/G2Plot/commit/25e1b4269ba2aca3c10d634aaa5dec0f3940b163))
+*  docs: 文档层级错误 & 修改 tooltip domStyles 类型定义 ([#2254](https://github.com/antvis/G2Plot/pull/2254)) ([81809a2](https://github.com/antvis/G2Plot/commit/81809a24ff5ec6729fc3801814579ea2ff12a238))
+
 #### 2.3.9 (2021-01-20)
 
 ##### Documentation Changes

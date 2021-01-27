@@ -1,5 +1,4 @@
-import { registerShape } from '@antv/g2';
-import { Types } from '@antv/g2';
+import { registerShape, Types } from '@antv/g2';
 import { Indicator } from '../types';
 
 // 自定义Shape 部分

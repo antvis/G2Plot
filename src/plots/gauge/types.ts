@@ -41,4 +41,15 @@ export interface GaugeOptions
   readonly indicator?: false | Indicator;
   /** 统计文本 */
   readonly statistic?: Statistic;
+
+  // meter gauge 相关配置
+  /** 仪表盘类型, 可选项: 'meter', default 为空 */
+  readonly type?: string;
+  /** 当仪表盘类型 = 'meter' 生效 */
+  readonly meter?: {
+    /** 仪表盘总步数, default: 50 */
+    readonly steps?: number;
+    /** step 与 gap 的宽度占比, default: 0.5 */
+    readonly stepRatio?: number;
+  };
 }

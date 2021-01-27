@@ -95,3 +95,10 @@ Example:
 ```
 
 <playground path="progress-plots/gauge/demo/custom-color.ts" rid="rect2"></playground>
+
+### 设置仪表盘展示类型
+
+通过设置 `type: 'meter'`, 可以实现一个展示形态为**米轨**的仪表盘。
+同时还支持对 `steps` 以及 `stepRatio` 的设置，其中 `stepRatio` 代表着 step 和 gap 的比例关系，默认为：0.5，即默认 step 等于 gap 宽度，当 `stepRatio` 为 1 时，gap 为 0。
+
+<playground path="progress-plots/gauge/demo/custom-meter-step.ts" rid="rect3"></playground>

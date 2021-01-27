@@ -113,7 +113,7 @@ A configuration item for the title, NULL means not to be displayed.
 
 | Properties | Type         | Description                                                        |
 | ---------- | ------------ | ------------------------------------------------------------------ |
-| title         | _string_     | The title of axis     |
+| text         | _string_     | The title of axis     |
 | offset     | _number_     | The distance of the title from the coordinate axis                 |
 | spacing    | _lineStyle_  | The distance between the title and the text on the coordinate axis |
 | style      | _shapeStyle_ | Title text configuration items                                     |

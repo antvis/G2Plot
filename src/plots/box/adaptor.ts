@@ -1,4 +1,4 @@
-import { isFunction, map, isObject } from '@antv/util';
+import { isFunction, isObject } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme } from '../../adaptor/common';
 import { findGeometry } from '../../utils';

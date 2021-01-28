@@ -5,7 +5,8 @@ import { findGeometry } from '../../utils';
 import { flow, pick, deepAssign } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { BoxOptions } from './types';
-import { BOX_RANGE, BOX_SYNC_NAME } from './constant';
+import { BOX_RANGE, BOX_SYNC_NAME, OUTLIERS_VIEW_ID } from './constant';
+import { transformData } from './utils';
 
 /**
  * 字段
@@ -24,17 +25,7 @@ function field(params: Params<BoxOptions>): Params<BoxOptions> {
     geometry.color(groupField, color).adjust('dodge');
   }
 
-  // formate data when `yField` is Array
-  let data = options.data;
-  if (Array.isArray(yField)) {
-    const [low, q1, median, q3, high] = yField;
-    data = map(data, (obj) => {
-      obj[BOX_RANGE] = [obj[low], obj[q1], obj[median], obj[q3], obj[high]];
-      return obj;
-    });
-  }
-
-  chart.data(data);
+  chart.data(transformData(options.data, yField));
 
   return params;
 }
@@ -45,7 +36,7 @@ function outliersPoint(params: Params<BoxOptions>): Params<BoxOptions> {
 
   if (!outliersField) return params;
 
-  const outliersView = chart.createView({ padding });
+  const outliersView = chart.createView({ padding, id: OUTLIERS_VIEW_ID });
   outliersView.data(data);
   outliersView.axis(false);
   const geometry = outliersView.point().position(`${xField}*${outliersField}`).shape('circle');
@@ -84,8 +75,8 @@ function meta(params: Params<BoxOptions>): Params<BoxOptions> {
   if (outliersField) {
     const syncName = BOX_SYNC_NAME;
     baseMeta = {
-      [outliersField]: { sync: syncName },
-      [yFieldName]: { sync: syncName },
+      [outliersField]: { sync: syncName, nice: true },
+      [yFieldName]: { sync: syncName, nice: true },
     };
   }
 

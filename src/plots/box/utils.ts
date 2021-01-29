@@ -1,7 +1,7 @@
 import { map } from '@antv/util';
 import { BOX_RANGE } from './constant';
 
-export const transformData = (data, yField) => {
+export const transformData = (data: object[], yField: string[] | string) => {
   let newData = data;
   // formate data when `yField` is Array
   if (Array.isArray(yField)) {

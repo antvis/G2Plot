@@ -5,9 +5,13 @@ order: 0
 
 `markdown:docs/styles/component.md`
 
-Coordinate axis refers to the axis of statistical chart in two-dimensional space, which is used to define the mapping relationship between **direction** and **value of data** in coordinate system.
+🏷️  Coordinate axis refers to the axis of statistical chart in two-dimensional space, which is used to define the mapping relationship between **direction** and **value of data** in coordinate system.
 
-Go to [AntV Design | 坐标轴 Axis](https://www.yuque.com/mo-college/vis-design/twx9oi) of 墨者学院 to learn more about **Design guide**.
+🎨  Go to [AntV Design | 坐标轴 Axis](https://www.yuque.com/mo-college/vis-design/twx9oi) of 墨者学院 to learn more about **Design guide**.
+
+#### Axes
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*o64XRZfivrEAAAAAAAAAAABkARQnAQ" style="max-width:640px;">
 
 #### Usage
 

@@ -17,7 +17,6 @@
 | animate    | _boolean \| AnimateOption_                                   | Animation configuration.                                                                                                                                         |
 | formatter  | _Function_                                                   | Format function                                                                                                                                                  |
 | autoHide   | _boolean_                                                    | Whether to hide it automatically, default to false                                                                                                               |
-|            |
 
 Example code:
 

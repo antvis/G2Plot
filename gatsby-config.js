@@ -21,6 +21,7 @@ module.exports = {
       'latest v2': 'https://g2plot.antv.vision',
       '1.x': 'https://g2plot-v1.antv.vision',
     },
+    galleryMenuCloseAll: true,
     showChartResize: true, // 是否在demo页展示图表视图切换
     showAPIDoc: true, // 是否在demo页展示API文档
     themeSwitcher: 'g2plot',

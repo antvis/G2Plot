@@ -1,4 +1,4 @@
-import { each, findIndex, get, find, isObject, every } from '@antv/util';
+import { each, findIndex, get, find, isObject, every, isEqual, isBoolean } from '@antv/util';
 import { Scale, Types } from '@antv/g2';
 import {
   theme,
@@ -16,6 +16,7 @@ import { findViewById } from '../../utils/view';
 import { isColumn, getYAxisWithDefault, getGeometryOption, transformObjectToArray } from './util/option';
 import { getViewLegendItems } from './util/legend';
 import { drawSingleGeometry } from './util/geometry';
+import { renderWithSlider } from './util/renderWithSlider';
 import { DualAxesOptions, AxisType, DualAxesGeometry } from './types';
 import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
 
@@ -408,6 +409,41 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
 }
 
 /**
+ * slider 配置
+ * @param params
+ */
+export function slider(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
+  const { chart, options } = params;
+  const { slider } = options;
+  const leftView = findViewById(chart, LEFT_AXES_VIEW);
+  const rightView = findViewById(chart, RIGHT_AXES_VIEW);
+  if (slider) {
+    // 左 View
+    leftView.option('slider', slider);
+    leftView.on('slider:valuechanged', (evt) => {
+      const {
+        event: { value, originValue },
+      } = evt;
+      if (isEqual(value, originValue)) {
+        return;
+      }
+      renderWithSlider(rightView, value);
+    });
+  }
+  chart.once('afterpaint', () => {
+    // 初始化数据
+    if (!isBoolean(slider)) {
+      const { start, end } = slider;
+      if (start || end) {
+        renderWithSlider(rightView, [start, end]);
+      }
+    }
+  });
+
+  return params;
+}
+
+/**
  * 双折线图适配器
  * @param chart
  * @param options
@@ -426,6 +462,7 @@ export function adaptor(params: Params<DualAxesOptions>): Params<DualAxesOptions
     theme,
     animation,
     color,
-    legend
+    legend,
+    slider
   )(params);
 }

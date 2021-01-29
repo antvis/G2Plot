@@ -20,6 +20,8 @@ export const AXIS_META_CONFIG_KEYS = [
   'exponent',
   // time 类型的格式化
   'mask',
+  // 是否同步
+  'sync',
 ];
 
 /**

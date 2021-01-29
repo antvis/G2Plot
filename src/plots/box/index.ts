@@ -21,7 +21,7 @@ export class Box extends Plot<BoxOptions> {
 
     const outliersView = this.chart.views.find((v) => v.id === OUTLIERS_VIEW_ID);
     if (outliersView) {
-      outliersView.changeData(data);
+      outliersView.data(data);
     }
 
     this.chart.changeData(transformData(data, yField));

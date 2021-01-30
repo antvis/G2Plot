@@ -58,7 +58,7 @@ For example, corresponding to the above scenarios, the event name is:
 
 <!-- 截图来自于 https://riddle.alibaba-inc.com/riddles/e899cd72 -->
 
-![](https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZFbySLuhjPsAAAAAAAAAAAAAARQnAQ)
+![event](https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZFbySLuhjPsAAAAAAAAAAAAAARQnAQ)
 
 It can be roughly divided into:
 

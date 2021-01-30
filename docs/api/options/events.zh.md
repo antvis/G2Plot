@@ -58,7 +58,7 @@ ${componentName}:${eventName}
 
 <!-- 截图来自于 https://riddle.alibaba-inc.com/riddles/e899cd72 -->
 
-![](https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZFbySLuhjPsAAAAAAAAAAAAAARQnAQ)
+![event](https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ZFbySLuhjPsAAAAAAAAAAAAAARQnAQ)
 
 也就是大致可以分成为：
 

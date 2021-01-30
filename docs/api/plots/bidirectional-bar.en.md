@@ -69,16 +69,6 @@ Configurations of the style of bars.
 
 `markdown:docs/common/shape-style.en.md`
 
-#### xAxis
-
-See the configuration of [axis](#axis).
-
-#### yAxis
-
-<description>**optional** object</description>
-
-`yAxis` is a object. Keys are the fields defined in `yField`, values is the configuration of [axis](#axis).
-
 ### Plot Components
 
 `markdown:docs/common/component.en.md`

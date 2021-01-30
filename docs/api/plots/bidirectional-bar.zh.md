@@ -67,12 +67,6 @@ Example:
 
 `markdown:docs/common/shape-style.zh.md`
 
-#### yAxis
-
-<description>**optional** object</description>
-
- yAxis 为多个 key 为 yField 里面的 2 个字段。
-
 ### 图表组件
 
 `markdown:docs/common/component.zh.md`

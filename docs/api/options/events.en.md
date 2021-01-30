@@ -82,6 +82,6 @@ It can be roughly divided into:
 
 Then combine these component names and basic event names into a permutation and composite, that is, G2Plot(G2) built-in events.
 
-### Usage
+### Event Listener
 
 `markdown:docs/common/events.en.md`

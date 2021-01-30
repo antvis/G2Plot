@@ -9,8 +9,6 @@ plot.once('eventName', callback);
 plot.off('eventName', callback);
 ```
 
-#### 事件名(_eventName_)
-
 组合方式: `${componentName}:${eventName}`
 
 ```ts

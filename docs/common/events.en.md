@@ -9,8 +9,6 @@ plot.once('eventName', callback);
 plot.off('eventName', callback);
 ```
 
-#### eventName
-
 Composition: `${componentName}:${eventName}`
 
 Element refers to the type of element to bind to, for example `element`、`legend-item`、`axis-label`、`mask`、`plot`、`legend-item-name`、`reset-button` etc.

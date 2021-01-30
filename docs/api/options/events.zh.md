@@ -82,6 +82,6 @@ ${componentName}:${eventName}
 
 然后将这些组件名称和基础事件名进行一个排列组合，即为 G2Plot(G2) 内置的事件。
 
-### 使用示例
+### 事件监听
 
 `markdown:docs/common/events.zh.md`

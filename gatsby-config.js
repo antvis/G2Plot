@@ -25,6 +25,7 @@ module.exports = {
     showChartResize: true, // 是否在demo页展示图表视图切换
     showAPIDoc: true, // 是否在demo页展示API文档
     themeSwitcher: 'g2plot',
+    playground: {},
     navs: [
       {
         slug: 'docs/manual',
@@ -86,7 +87,7 @@ module.exports = {
       {
         slug: 'api/options',
         title: {
-          zh: '通用配置项',
+          zh: '通用配置',
           en: 'Common Configuration',
         },
         order: 4,

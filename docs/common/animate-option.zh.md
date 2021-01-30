@@ -1,6 +1,8 @@
 <div class='custom-api-docs'>
 
-_ComponentAnimateOption_ 为组件各个动画类型配置。其中 `easing` 传入动画函数名称，内置默认动画函数如下表，同时也可以通过 `registerAnimation` 自定义动画函数。
+_ComponentAnimateOption_ 为组件各个动画类型配置。
+
+其中 `easing` 传入动画函数名称，内置默认动画函数如下表，同时也可以通过 `registerAnimation` 自定义动画函数。
 
 ```ts
 interface ComponentAnimateOption {
@@ -11,13 +13,16 @@ interface ComponentAnimateOption {
 }
 
 interface ComponentAnimateCfg {
+  animation?: string; // 动画效果，内置的动画效果见下表，也可以通过自定义动画的方式实现自定义效果
   duration?: number; // 动画执行时间
   easing?: string; // 动画缓动函数
   delay?: number; // 动画延迟时间
 }
 ```
 
-| animation         | 效果                                                                                                                                                                                                           | 说明                                                             |
+**动画效果**
+
+| animation         | 效果           | 说明                         |
 | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
 | 'fade-in'         | ![fade-in.gif](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*LTRRRL8JwfQAAAAAAAAAAABkARQnAQ)                                                                                                          | 渐现动画。                                                       |
 | 'fade-out'        | ![fade-out.gif](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*s4Y4S5JJ6WEAAAAAAAAAAABkARQnAQ)                                                                                                         | 渐隐动画。                                                       |

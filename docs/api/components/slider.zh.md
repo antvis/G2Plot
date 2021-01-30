@@ -9,7 +9,7 @@ order: 6
 
 #### 缩略轴组成
 
-<img src="https://gw.alipayobjects.com/zos/antfincdn/A3UeXLPhhU/slider-intro.jpg" class="component-img" />
+<img src="https://gw.alipayobjects.com/zos/antfincdn/A3UeXLPhhU/slider-intro.jpg" class="component-img" alt="slider" />
 
 #### 配置项 (_SliderCfg_)
 

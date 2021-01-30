@@ -73,7 +73,7 @@ Configurations of the style of bars.
 
 `markdown:docs/common/component.en.md`
 
-### Events
+### Plot Events
 
 `markdown:docs/common/events.en.md`
 

@@ -55,7 +55,7 @@ order: 21
 
 `markdown:docs/common/component.zh.md`
 
-### 事件
+### 图表事件
 
 `markdown:docs/common/events.zh.md`
 
@@ -63,8 +63,10 @@ order: 21
 
 `markdown:docs/common/chart-methods.zh.md`
 
-
-
 ### 图表主题
 
 `markdown:docs/common/theme.zh.md`
+
+### 图表交互
+
+`markdown:docs/common/interactions.zh.md`

@@ -9,7 +9,7 @@ order: 6
 
 #### Slider
 
-<img src="https://gw.alipayobjects.com/zos/antfincdn/A3UeXLPhhU/slider-intro.jpg" class="component-img" />
+<img src="https://gw.alipayobjects.com/zos/antfincdn/A3UeXLPhhU/slider-intro.jpg" class="component-img" alt="slider" />
 
 #### Configurations (_SliderCfg_)
 

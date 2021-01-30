@@ -135,7 +135,7 @@ tooltipMarker 的样式配置。
 
 传入各个 dom 的样式。
 
-<img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/46109/1611914675215-61dcff96-4982-424e-9843-b0750660c6cf.png" width="max-width:400px;">
+<img src="https://gw.alipayobjects.com/zos/antfincdn/pKDA06iIeQ/tooltip.png" class="img-400" alt="dom-styles" />
 
 ```ts
 /** Tooltip 内容框的 css 样式定义 */

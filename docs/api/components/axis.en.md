@@ -11,7 +11,7 @@ order: 0
 
 #### Axes
 
-<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*o64XRZfivrEAAAAAAAAAAABkARQnAQ" style="max-width:640px;">
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*o64XRZfivrEAAAAAAAAAAABkARQnAQ" alt="axis" class="component-img" />
 
 #### Usage
 

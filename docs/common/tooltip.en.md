@@ -135,8 +135,7 @@ The default template for each record, which must include the classes of each DOM
 
 The styles for each DOM.
 
-<img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/46109/1611914675215-61dcff96-4982-424e-9843-b0750660c6cf.png" width="max-width:400px;">
-
+<img src="https://gw.alipayobjects.com/zos/antfincdn/pKDA06iIeQ/tooltip.png" class="img-400" alt="dom-styles" />
 
 ```ts
 /** Tooltip content box css style */

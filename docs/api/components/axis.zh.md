@@ -11,7 +11,7 @@ order: 0
 
 #### 坐标轴组成
 
-<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*o64XRZfivrEAAAAAAAAAAABkARQnAQ" style="max-width:640px;">
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*o64XRZfivrEAAAAAAAAAAABkARQnAQ" alt="axis" class="component-img" />
 
 #### 使用方式
 

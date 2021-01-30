@@ -12,7 +12,7 @@ order: 4
 
 #### 图表标注类型
 
-<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*B0q9R7s1v3sAAAAAAAAAAABkARQnAQ" style="max-width:640px;display: block;margin: 0 auto;">
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*B0q9R7s1v3sAAAAAAAAAAABkARQnAQ" class="component-img" alt="annotation" />
 
 G2Plot 提供了以下图形标注类型：
 

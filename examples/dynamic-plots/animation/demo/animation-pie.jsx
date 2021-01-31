@@ -47,14 +47,14 @@ class PiePlot extends React.Component {
       <section>
         <div>
           <span className="select-label">切换动画</span>
-          <Select defaultValue="wave-in" onChange={this.handleAnimationChange} size="small">
+          <Select aria-label="select" defaultValue="wave-in" onChange={this.handleAnimationChange} size="small">
             {/* 'grow-in-x', 'grow-in-y', 不可用 */}
             {['wave-in', 'grow-in-xy', 'zoom-in', 'fade-in', '无'].map((opt) => {
               return <Select.Option value={opt}>{opt}</Select.Option>;
             })}
           </Select>
           <span className="select-label">动画持续时间</span>
-          <Input className="custom-input" placeholder="500ms" size="small" onChange={this.handleDurationChange} />
+          <Input aria-label="input" className="custom-input" placeholder="500ms" size="small" onChange={this.handleDurationChange} />
         </div>
         <div className={'chart-wrapper'} ref={this.chartNodeRef} />
       </section>

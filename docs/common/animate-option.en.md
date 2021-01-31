@@ -19,7 +19,7 @@ interface ComponentAnimateCfg {
 
 Where 'animation' passes in the name of the animation function, the built-in default animation function is shown in the table below, and you can also customize the animation function through 'registerAnimation'.
 
-**Effects of animation**
+**Effects of animation**, go to see [Examples](/en/examples/dynamic-plots/animation) for more information
 
 | Animation         | Effect                                                                                                                                                                                                         | Description                                                      |
 | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |

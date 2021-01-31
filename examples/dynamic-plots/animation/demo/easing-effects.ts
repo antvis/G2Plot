@@ -64,7 +64,8 @@ for (let i = 0; i < ROWS; i++) {
     if (i * ROWS + j >= effects.length) {
       break;
     }
-    const effect = effects[i * ROWS + j];
+    const idx = i * ROWS + j;
+    const effect = effects[idx];
     views.push({
       data,
       region: {
@@ -86,11 +87,11 @@ for (let i = 0; i < ROWS; i++) {
       },
       geometries: [
         {
-          type: 'line',
+          type: idx % 2 ? 'interval' : 'line',
           xField: 'x',
           yField: 'y',
           mapping: {
-            color: colors[i * COLS + j],
+            color: colors[idx],
           },
         },
       ],

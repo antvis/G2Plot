@@ -78,7 +78,7 @@ for (let i = 0; i < ROWS; i++) {
       tooltip: { title: effect },
       animation: {
         appear: {
-          animation: 'wave-in',
+          // animation: 'wave-in', 默认：line 为 ‘wave-in’，可更改
           easing: effect,
           duration: 5000,
           delay: 0,

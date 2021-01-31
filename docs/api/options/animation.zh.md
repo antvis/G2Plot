@@ -20,7 +20,7 @@ animation: false; // 关闭动画
 animation: {
   // 配置图表第一次加载时的入场动画
   appear: {
-    animation: 'path-in', // 动画效果
+    animation: 'wave-in', // 动画效果
     duration: 5000,  // 动画执行时间
   },
 }
@@ -29,3 +29,11 @@ animation: {
 #### 配置项（_AnimateOption_）
 
 `markdown:docs/common/animate-option.zh.md`
+
+#### 缓动效果 (_Easing Effects_)
+
+`easing` 用来控制动画中的缓动效果，更多的缓动效果可以参见 [d3-ease](https://github.com/d3/d3-ease)。
+
+<playground path="dynamic-plots/animation/demo/easing-effects.ts" rid="easing-effect"></playground>
+
+

@@ -2,8 +2,6 @@
 
 _ComponentAnimateOption_ 为组件各个动画类型配置。
 
-其中 `easing` 传入动画函数名称，内置默认动画函数如下表，同时也可以通过 `registerAnimation` 自定义动画函数。
-
 ```ts
 interface ComponentAnimateOption {
   appear?: ComponentAnimateCfg; // 图表第一次加载时的入场动画
@@ -19,6 +17,8 @@ interface ComponentAnimateCfg {
   delay?: number; // 动画延迟时间
 }
 ```
+
+其中 `animation` 传入动画函数名称，内置默认动画函数如下表，同时也可以通过 `registerAnimation` 自定义动画函数。
 
 **动画效果**
 

@@ -31,7 +31,7 @@ class ColumnPlot extends React.Component {
   handleAnimationChange = (v) => {
     const column = this.chartRef.current;
     if (column) {
-      column.update({ animation: { appear: { animation: v } } });
+      column.update({ animation: v === '无' ? false : { appear: { animation: v } } });
     }
   };
 
@@ -50,7 +50,7 @@ class ColumnPlot extends React.Component {
           <span className="select-label">切换动画</span>
           <Select defaultValue="scale-in-y" onChange={this.handleAnimationChange} size="small">
             {/* 'grow-in-x', 'grow-in-y' 不可用*/}
-            {['scale-in-x', 'scale-in-y', 'zoom-in', 'zoom-out', 'fade-in'].map((opt) => {
+            {['scale-in-x', 'scale-in-y', 'zoom-in', 'zoom-out', 'fade-in', '无'].map((opt) => {
               return <Select.Option value={opt}>{opt}</Select.Option>;
             })}
           </Select>

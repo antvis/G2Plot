@@ -30,7 +30,7 @@ class PiePlot extends React.Component {
   handleAnimationChange = (v) => {
     const pie = this.chartRef.current;
     if (pie) {
-      pie.update({ animation: { appear: { animation: v } } });
+      pie.update({ animation: v === '无' ? false : { appear: { animation: v } } });
     }
   };
 
@@ -49,7 +49,7 @@ class PiePlot extends React.Component {
           <span className="select-label">切换动画</span>
           <Select defaultValue="wave-in" onChange={this.handleAnimationChange} size="small">
             {/* 'grow-in-x', 'grow-in-y', 不可用 */}
-            {['wave-in','grow-in-xy', 'zoom-in', 'fade-in'].map((opt) => {
+            {['wave-in', 'grow-in-xy', 'zoom-in', 'fade-in', '无'].map((opt) => {
               return <Select.Option value={opt}>{opt}</Select.Option>;
             })}
           </Select>

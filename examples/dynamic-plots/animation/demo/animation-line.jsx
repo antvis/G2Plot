@@ -29,7 +29,7 @@ class LinePlot extends React.Component {
   handleAnimationChange = (v) => {
     const line = this.chartRef.current;
     if (line) {
-      line.update({ animation: { appear: { animation: v } } });
+      line.update({ animation: v === '无' ? false : { appear: { animation: v } } });
     }
   };
 
@@ -47,7 +47,7 @@ class LinePlot extends React.Component {
         <div>
           <span className="select-label">切换动画</span>
           <Select defaultValue="wave-in" onChange={this.handleAnimationChange} size="small">
-            {['wave-in', 'zoom-in', 'fade-in'].map((opt) => {
+            {['wave-in', 'zoom-in', 'fade-in', '无'].map((opt) => {
               return <Select.Option value={opt}>{opt}</Select.Option>;
             })}
           </Select>

@@ -12,7 +12,6 @@ import { Interaction } from '../../types/interaction';
  */
 export type IGeometry = Geometry & {
   adjust?: Types.AdjustOption;
-  animation?: Animation;
 };
 
 /**

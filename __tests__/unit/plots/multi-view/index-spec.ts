@@ -1,4 +1,4 @@
-import { Lab } from '../../../../src';
+import { Lab, MultiView } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { partySupport } from '../../../data/party-support';
 
@@ -146,5 +146,42 @@ describe('multi-view', () => {
     expect(line.chart.views[0].interactions['tooltip']).toBeDefined();
     // `enable: false` 移除交互
     expect(line.chart.views[1].interactions['tooltip']).not.toBeDefined();
+  });
+
+  it('animation for each view', () => {
+    const data = new Array(30).fill(1).map((d, idx) => ({ x: `${idx}`, y: idx + Math.random() * 10 }));
+    const plot = new MultiView(createDiv(), {
+      animation: false,
+      views: [
+        {
+          data,
+          region: { start: { x: 0, y: 0 }, end: { x: 0.5, y: 1 } },
+          geometries: [{ type: 'line', xField: 'x', yField: 'y', mapping: {} }],
+        },
+        {
+          data,
+          region: { start: { x: 0.5, y: 0 }, end: { x: 1, y: 1 } },
+          geometries: [{ type: 'line', xField: 'x', yField: 'y', mapping: {} }],
+        },
+      ],
+    });
+    plot.render();
+    // @ts-ignore
+    expect(plot.chart.options.animate).toBe(false);
+
+    plot.update({ animation: { appear: { animation: 'fade-in' } } });
+    // @ts-ignore
+    expect(plot.chart.options.animate).toBe(true);
+    // @ts-ignore chart 上的设置不可生效, todo 是否要作用到每个 view 上
+    expect(plot.chart.views[0].geometries[0].animateOption).not.toBeDefined();
+
+    const views = plot.options.views;
+    // @ts-ignore
+    views[0].animation = { appear: { animation: 'fade-in' } };
+    plot.update({ animation: false, views });
+    // @ts-ignore
+    expect(plot.chart.views[0].options.animate).toBe(true);
+    // @ts-ignore
+    expect(plot.chart.views[0].geometries[0].animateOption.appear.animation).toBe('fade-in');
   });
 });

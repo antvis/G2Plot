@@ -43,6 +43,14 @@
         "en": "Other column line"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*_-QESLpPhPcAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "demo-more-2.ts",
+      "title": {
+        "zh": "柱线混合图表-滑块",
+        "en": "Slider with column line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/fxukGXuXfg/89ea37e5-e00d-4424-b75e-1aba3ff8b633.png"
     }
   ]
 }

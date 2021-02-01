@@ -1,35 +1,26 @@
 import { View } from '@antv/g2';
 import { size, valuesOfKey } from '@antv/util';
+import { isBetween } from '../../../utils';
 
 /**
- * @ignore
- * Determines whether between is
- * @param value
- * @param start
- * @param end
- * @returns true if between
+ * 生成右侧 View 的 slider
+ * 由于双轴图是多 View , 需要监听左侧 Slider 的 change 事件来同步右侧 View
+ * @param { View } view 右侧视图
+ * @param { number[] } sliderValue 滑块当前值
+ * @returns void
  */
-export function isBetween(value: number, start: number, end: number): boolean {
-  const min = Math.min(start, end);
-  const max = Math.max(start, end);
-
-  return value >= min && value <= max;
-}
-
-export const renderWithSlider = (view: View, sliderValue: [number, number]) => {
+export const renderSlider = (view: View, sliderValue: [number, number]) => {
   const [min, max] = sliderValue;
   const data = view.getOptions().data;
   const xScale = view.getXScale();
-  const isHorizontal = true;
-  const values = valuesOfKey(data, xScale.field);
-  const xValues = isHorizontal ? values : values.reverse();
   const dataSize = size(data);
-
   if (!xScale || !dataSize) {
     return;
   }
+  const isHorizontal = true;
+  const values = valuesOfKey(data, xScale.field);
+  const xValues = isHorizontal ? values : values.reverse();
   const xTickCount = size(xValues);
-
   const minIndex = Math.floor(min * (xTickCount - 1));
   const maxIndex = Math.floor(max * (xTickCount - 1));
 

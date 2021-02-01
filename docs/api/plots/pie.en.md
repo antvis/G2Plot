@@ -115,7 +115,7 @@ Statistical content components. When the innerRadius (' innerRadius') is greater
 
 `markdown:docs/common/statistic.en.md`
 
-### Event
+### Plot Event
 
 `markdown:docs/common/events.en.md`
 

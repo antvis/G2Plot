@@ -91,7 +91,7 @@ The spacing between columns in a grouping [0-1] applies only to grouping columns
 
 `markdown:docs/common/connected-area.en.md`
 
-### Event
+### Plot Event
 
 `markdown:docs/common/events.en.md`
 

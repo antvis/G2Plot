@@ -93,7 +93,7 @@ Defalut: `{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$
 `markdown:docs/common/annotations.en.md`
 
 
-### Event
+### Plot Event
 
 `markdown:docs/common/events.en.md`
 

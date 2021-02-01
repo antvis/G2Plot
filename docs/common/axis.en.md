@@ -144,7 +144,7 @@ Axis grid line configuration item. NULL means not shown.
 | closed         | _boolean_          | Whether to close the grid for circle                               |
 | alignTick      | _boolean_          | If the value is false, it will be displayed between the two scales |
 
-**_lineStyle_**
+The configurations of **_lineStyle_** are as follows:
 
 `markdown:docs/common/line-style.en.md`
 

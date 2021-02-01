@@ -91,7 +91,7 @@ order: 3
 
 `markdown:docs/common/connected-area.zh.md`
 
-### 事件
+### 图表事件
 
 `markdown:docs/common/events.zh.md`
 
@@ -99,8 +99,9 @@ order: 3
 
 `markdown:docs/common/chart-methods.zh.md`
 
-
-
 ### 图表主题
 
 `markdown:docs/common/theme.zh.md`
+
+### 图表交互
+

@@ -86,6 +86,18 @@ Polyline data point graph style.
 
 `markdown:docs/common/slider.en.md`
 
+### Plot Event
+
+`markdown:docs/common/events.en.md`
+
+### Plot Method
+
+`markdown:docs/common/chart-methods.en.md`
+
 ### Plot Theme
 
 `markdown:docs/common/theme.en.md`
+
+### Plot Interactions
+
+`markdown:docs/common/interactions.en.md`

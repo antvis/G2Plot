@@ -1,19 +1,15 @@
-在 Plot 上通过 on 绑定事件、off 移除绑定事件。
+在 Plot 上通过 `on` 绑定事件、`off` 移除绑定事件。
 
-```ts
+```sign
 // 绑定事件
 plot.on('eventName', callback);
+// 绑定事件，只触发一次
+plot.once('eventName', callback);
 // 移除事件
 plot.off('eventName', callback);
 ```
 
-#### eventName
-
-组成方式：element + ':' + events。
-
-element 指要绑定的元素类型，例如 `element`、`legend-item`、`axis-label`、`mask`、`plot`、`legend-item-name`、`reset-button` 等。
-
-events 对应 DOM 常见事件，例如 `click`、`mousedown`、`mouseup`、`dblclick`、`mouseenter`、`mouseout`、`mouseover`、`mousemove`、`mouseleave`、`contextmenu` 等，同时支持几个移动端事件：`touchstart`、`touchmove`、`touchend`
+组合方式: `${componentName}:${eventName}`
 
 ```ts
 // plot 添加点击事件,整个图表区域
@@ -33,6 +29,19 @@ plot.on('legend-item:click', (...args) => {
 
 // 图例名称添加点击事件
 plot.on('legend-item-name:click', (...args) => {
+  console.log(...args);
+});
+
+// 给 tooltip 添加点击事件
+plot.on('tooltip:show', (...args) => {
+  console.log(...args);
+});
+
+plot.on('tooltip:hide', (...args) => {
+  console.log(...args);
+});
+
+plot.on('tooltip:change', (...args) => {
   console.log(...args);
 });
 

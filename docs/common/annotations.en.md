@@ -178,7 +178,7 @@ Render function of custom marking, other container is the parent container of ma
 
 Container elements for custom HTML graphical tags for HTML
 
-##### container
+##### html
 
 <description>**optional** _string | HTMLElement_ </description>
 
@@ -186,7 +186,7 @@ Custom graphical markup of HTML elements, either as HTML DOM strings, or HTML el
 
 ##### alignX
 
-<description>**optional** _left' | 'middle' | 'right'_ </description>
+<description>**optional** _'left' | 'middle' | 'right'_ </description>
 
 Alignment of DOM elements in the X direction for HTML
 

@@ -23,9 +23,17 @@ export interface SankeyOptions extends Omit<Options, 'xField' | 'yField' | 'xAxi
    */
   readonly nodeWidthRatio?: number;
   /**
+   * 节点宽度的像素设置，优先级高于 nodeWidthRatio
+   */
+  readonly nodeWidth?: number;
+  /**
    * 节点之间的间距比例，参考画布高度，默认值为 0.03
    */
   readonly nodePaddingRatio?: number;
+  /**
+   * 节点间距的像素设置，优先级高于 nodePaddingRatio
+   */
+  readonly nodePadding?: number;
   /**
    * 节点对齐的方式，默认为 justify
    */

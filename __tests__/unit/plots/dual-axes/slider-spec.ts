@@ -1,4 +1,5 @@
 import { DualAxes } from '../../../../src';
+import { delay } from '../../../utils/delay';
 import { PV_DATA_MULTI, UV_DATA_MULTI, uvBillData, transformData } from '../../../data/pv-uv';
 import { createDiv } from '../../../utils/dom';
 
@@ -45,7 +46,7 @@ describe('slider', () => {
     expect(slider.component.get('minText')).toBe('0601');
     dualAxes.destroy();
   });
-  it('type time', () => {
+  it('type time', async () => {
     const dualAxes = new DualAxes(createDiv('test DualAxes doubal line'), {
       data: [uvBillData, transformData],
       xField: 'time',
@@ -98,6 +99,7 @@ describe('slider', () => {
         },
       },
     });
+
     expect(dualAxes.chart.views[0].getOptions().slider).toEqual({
       start: 0,
       end: 1,
@@ -109,7 +111,9 @@ describe('slider', () => {
     dualAxes.update({
       slider: false,
     });
-    expect(dualAxes.chart.getController('slider')).toBeUndefined();
+    await delay(500);
+    console.log(dualAxes.chart.getController('slider'));
+    expect(dualAxes.chart.views[0].getController('slider').getComponents().length).toBe(0);
     dualAxes.destroy();
   });
 });

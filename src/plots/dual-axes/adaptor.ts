@@ -430,16 +430,16 @@ export function slider(params: Params<DualAxesOptions>): Params<DualAxesOptions>
       }
       renderSlider(rightView, value);
     });
-  }
-  chart.once('afterpaint', () => {
-    // 初始化数据，配置默认值时需要同步
-    if (!isBoolean(slider)) {
-      const { start, end } = slider;
-      if (start || end) {
-        renderSlider(rightView, [start, end]);
+    chart.once('afterpaint', () => {
+      // 初始化数据，配置默认值时需要同步
+      if (!isBoolean(slider)) {
+        const { start, end } = slider;
+        if (start || end) {
+          renderSlider(rightView, [start, end]);
+        }
       }
-    }
-  });
+    });
+  }
 
   return params;
 }

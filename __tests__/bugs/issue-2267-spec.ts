@@ -14,9 +14,6 @@ describe('#2267', () => {
 
   sankey.render();
 
-  // @ts-ignore
-  window.sankey = sankey;
-
   it('sankey nodeWidth, nodePadding px configure', () => {
     const width = sankey.chart.views[1].geometries[0].container.getChildren()[0].getBBox().width;
     // 一定的误差

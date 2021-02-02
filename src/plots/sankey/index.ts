@@ -1,3 +1,4 @@
+import { get } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { Datum } from '../../types';
@@ -48,7 +49,12 @@ export class Sankey extends Plot<SankeyOptions> {
       tooltip: {
         showTitle: false,
         showMarkers: false,
-        fields: ['source', 'target', 'value'],
+        shared: false,
+        fields: ['name', 'source', 'target', 'value', 'isNode'],
+        // 内置：node 不显示 tooltip，edge 显示 tooltip
+        showContent: (items) => {
+          return !get(items, [0, 'data', 'isNode']);
+        },
         formatter: (datum: Datum) => {
           const { source, target, value } = datum;
           return {

@@ -1,3 +1,17 @@
+#### 2.3.11 (2021-02-03)
+
+##### Documentation Changes
+
+*  图表组件 api 整理 ([#2290](https://github.com/antvis/g2plot/pull/2290)) ([97c520df](https://github.com/antvis/g2plot/commit/97c520df14d50192fcdda7547e7d26a11dac428a))
+*  add pyg2plot ([#2284](https://github.com/antvis/g2plot/pull/2284)) ([2a6b76c7](https://github.com/antvis/g2plot/commit/2a6b76c7fc8e8e2aa472b64e6d6bf60906da7580))
+*   AxisCfg API  title.title => title.text ([#2277](https://github.com/antvis/g2plot/pull/2277)) ([067f6b02](https://github.com/antvis/g2plot/commit/067f6b02f06386e56499c488313ee9b1195223b1))
+
+##### New Features
+
+*  双轴图新增 slider ([#2287](https://github.com/antvis/g2plot/pull/2287)) ([0276528d](https://github.com/antvis/g2plot/commit/0276528d10fb5d1eef463c1a138738cf25d476b2))
+* **sankey:**  add nodeWidth, nodePadding options ([#2295](https://github.com/antvis/g2plot/pull/2295)) ([947889b3](https://github.com/antvis/g2plot/commit/947889b3cbf649721281f848c21bfe0418ed72f0))
+* **animation:**  增加动画文档和 demo & 多图层图表支持分 view 动画 ([#2291](https://github.com/antvis/g2plot/pull/2291)) ([9e62cb91](https://github.com/antvis/g2plot/commit/9e62cb91919c46bc7a659a89f3ec0900a765ba8c))
+
 #### 2.3.10 (2021-01-27)
 #### New Features
 

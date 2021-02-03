@@ -7,7 +7,6 @@ export class TreemapDrillDownAction extends Action {
   public cacheDataStack: Record<string, any>[][] = [];
 
   drill(data) {
-    console.log(this.context);
     const { view } = this.context;
     const currentData = view.getData();
     const groupScales = view.getGroupScales();

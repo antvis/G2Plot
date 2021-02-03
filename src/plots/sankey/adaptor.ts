@@ -7,6 +7,7 @@ import { transformDataToNodeLinkData } from '../../utils/data';
 import { SankeyOptions } from './types';
 import { X_FIELD, Y_FIELD, COLOR_FIELD } from './constant';
 import { cutoffCircle } from './circle';
+import { getNodePaddingRatio, getNodeWidthRatio } from './helper';
 
 /**
  * geometry 处理
@@ -26,7 +27,9 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
     tooltip,
     nodeAlign,
     nodePaddingRatio,
+    nodePadding,
     nodeWidthRatio,
+    nodeWidth,
     nodeSort,
   } = options;
 
@@ -47,8 +50,10 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
   const { nodes, links } = sankeyLayout(
     {
       nodeAlign,
-      nodePadding: nodePaddingRatio,
-      nodeWidth: nodeWidthRatio,
+      // @ts-ignore
+      nodePadding: getNodePaddingRatio(nodePadding, nodePaddingRatio, chart.height),
+      // @ts-ignore
+      nodeWidth: getNodeWidthRatio(nodeWidth, nodeWidthRatio, chart.width),
       nodeSort,
     },
     sankeyLayoutInputData
@@ -60,6 +65,7 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
       x: node.x,
       y: node.y,
       name: node.name,
+      isNode: true,
     };
   });
   const edgesData = links.map((link) => {
@@ -70,27 +76,11 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
       x: link.x,
       y: link.y,
       value: link.value,
+      isNode: false,
     };
   });
 
   // 5. node edge views
-  const nodeView = chart.createView();
-  nodeView.data(nodesData);
-
-  polygon({
-    chart: nodeView,
-    options: {
-      xField: X_FIELD,
-      yField: Y_FIELD,
-      seriesField: COLOR_FIELD,
-      polygon: {
-        color,
-        style: nodeStyle,
-      },
-      label,
-      tooltip: false,
-    },
-  });
 
   // edge view
   const edgeView = chart.createView();
@@ -117,6 +107,24 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
           },
         },
       },
+    },
+  });
+
+  const nodeView = chart.createView();
+  nodeView.data(nodesData);
+
+  polygon({
+    chart: nodeView,
+    options: {
+      xField: X_FIELD,
+      yField: Y_FIELD,
+      seriesField: COLOR_FIELD,
+      polygon: {
+        color,
+        style: nodeStyle,
+      },
+      label,
+      tooltip,
     },
   });
 

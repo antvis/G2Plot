@@ -3,6 +3,7 @@ import { Data, Meta, Options, Region, Tooltip } from '../../types';
 import { Axis } from '../../types/axis';
 import { Legend } from '../../types/legend';
 import { Geometry } from '../../adaptor/geometries/base';
+import { Animation } from '../../types/animation';
 import { Annotation } from '../../types/annotation';
 import { Interaction } from '../../types/interaction';
 
@@ -56,6 +57,11 @@ export type IView = {
    * annotation 配置
    */
   readonly annotations?: Annotation[];
+
+  /**
+   * animation 配置
+   */
+  readonly animation?: Animation;
 };
 
 /** 配置类型定义 */

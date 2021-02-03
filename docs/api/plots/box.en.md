@@ -55,7 +55,7 @@ Outliers graphic style, the same configuration as boxStyle.
 
 `markdown:docs/common/component.en.md`
 
-### Event
+### Plot Event
 
 `markdown:docs/common/events.en.md`
 

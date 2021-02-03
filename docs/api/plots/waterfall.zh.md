@@ -102,7 +102,7 @@ leader: { lineWidth: 1, stroke: '#8c8c8c', lineDash: [4, 2] }
 
 `markdown:docs/common/component.zh.md`
 
-### 事件
+### 图表事件
 
 `markdown:docs/common/events.zh.md`
 

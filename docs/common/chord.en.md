@@ -61,7 +61,7 @@ Configuration of chord graph edge styles.
 
 弦图节点之间的间距，0 ~ 1，参考画布的高度，默认为 `0.1`。
 
-### Event
+### Plot Event
 
 `markdown:docs/common/events.en.md`
 

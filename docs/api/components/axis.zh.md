@@ -5,9 +5,13 @@ order: 0
 
 `markdown:docs/styles/component.md`
 
-坐标轴指二维空间中统计图表中的轴，它用来定义坐标系中数据在方向和值的映射关系的图表组件。
+🏷️  坐标轴指二维空间中统计图表中的轴，它用来定义坐标系中数据在方向和值的映射关系的图表组件。
 
-前往墨者学院 [AntV 设计 | 坐标轴 Axis](https://www.yuque.com/mo-college/vis-design/twx9oi) 查看**设计指引**
+🎨  前往墨者学院 [AntV 设计 | 坐标轴 Axis](https://www.yuque.com/mo-college/vis-design/twx9oi) 查看**设计指引**
+
+#### 坐标轴组成
+
+<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*o64XRZfivrEAAAAAAAAAAABkARQnAQ" alt="axis" class="component-img" />
 
 #### 使用方式
 

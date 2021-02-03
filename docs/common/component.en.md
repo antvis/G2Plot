@@ -8,7 +8,7 @@
 
 #### axis
 
-Same for xAxis and yAxis.
+Same for xAxis and yAxis. **Note**: Since `DualAxes` or `BidirectionalBar` has double Y-axes, the yAxis is a object which takes the field in yField as the 'key'.
 
 `markdown:docs/common/axis.en.md`
 

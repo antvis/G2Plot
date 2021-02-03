@@ -5,9 +5,9 @@ order: 2
 
 `markdown:docs/styles/component.md`
 
-图例（legend）是图表的辅助元素，使用颜色、大小、形状区分不同的数据类型，用于图表中数据的筛选。
+🏷️ 图例（legend）是图表的辅助元素，使用颜色、大小、形状区分不同的数据类型，用于图表中数据的筛选。
 
-前往墨者学院 [AntV 设计 | 图例 Legend](https://www.yuque.com/mo-college/vis-design/hcs9p2) 查看**设计指引**。 
+🎨  前往墨者学院 [AntV 设计 | 图例 Legend](https://www.yuque.com/mo-college/vis-design/hcs9p2) 查看**设计指引**。 
 
 #### 使用方式
 

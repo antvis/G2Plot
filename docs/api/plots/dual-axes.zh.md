@@ -160,7 +160,7 @@ xAxis、yAxis 配置相同，由于 DualAxes 是双轴， annotations 类型是�
 
 `markdown:docs/common/slider.zh.md`
 
-### 事件
+### 图表事件
 
 `markdown:docs/common/events.zh.md`
 

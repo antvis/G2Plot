@@ -81,7 +81,7 @@ Point graphic style in the Area.
 
 `markdown:docs/common/component.en.md`
 
-### Event
+### Plot Event
 
 `markdown:docs/common/events.en.md`
 

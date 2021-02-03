@@ -129,7 +129,7 @@ Same for xAxis and yAxis.
 
 `markdown:docs/common/legend.en.md`
 
-### Event
+### Plot Event
 
 `markdown:docs/common/events.en.md`
 

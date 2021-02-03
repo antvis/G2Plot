@@ -1,4 +1,5 @@
 import { Box } from '../../../../src';
+import { OUTLIERS_VIEW_ID, BOX_SYNC_NAME, BOX_RANGE } from '../../../../src/plots/box/constant';
 import { outliersData } from '../../../data/box';
 import { createDiv } from '../../../utils/dom';
 
@@ -17,11 +18,24 @@ describe('box outliers', () => {
 
     const view = box.chart.views[0];
     const geometry = view.geometries[0];
+    const outliersScale = view.getScaleByField('outliers');
+    const yFieldScale = box.chart.getScaleByField(BOX_RANGE);
 
+    // id
+    expect(view.id).toBe(OUTLIERS_VIEW_ID);
     // 类型
     expect(geometry.type).toBe('point');
     // 图形元素个数
     expect(geometry.elements.length).toBe(outliersData.length);
+    // 同步y轴度量 axis sync
+    // @ts-ignore
+    expect(outliersScale.sync).toEqual(BOX_SYNC_NAME);
+    // @ts-ignore
+    expect(outliersScale.nice).toBeTruthy();
+    // @ts-ignore
+    expect(yFieldScale.sync).toEqual(BOX_SYNC_NAME);
+    // @ts-ignore
+    expect(yFieldScale.nice).toBeTruthy();
 
     box.destroy();
   });

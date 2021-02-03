@@ -135,13 +135,18 @@ code.language-text {
   margin: 40px 0 20px;
 }
 
+// 自定义一个 marker START
 a.ant-anchor-link-title[href='#快速上手'],
-a.ant-anchor-link-title[href='#quick-start'] {
+a.ant-anchor-link-title[href='#quick-start'],
+a.ant-anchor-link-title[href='#事件监听'],
+a.ant-anchor-link-title[href='#event-listener']  {
   transform: translateX(-10px);
 }
 
 a.ant-anchor-link-title[href='#快速上手']::before,
-a.ant-anchor-link-title[href='#quick-start']::before {
+a.ant-anchor-link-title[href='#quick-start']::before, 
+a.ant-anchor-link-title[href='#事件监听']::before,
+a.ant-anchor-link-title[href='#event-listener']::before {
   content: ' ';
   display: inline-flex;
   width: 10px;
@@ -152,6 +157,7 @@ a.ant-anchor-link-title[href='#quick-start']::before {
   border-top-color: transparent;
   border-bottom-color: transparent;
 }
+// 自定义一个 marker END
 
 /** 教程文档 自定义样式 END **/
 
@@ -166,3 +172,20 @@ a.ant-anchor-link-title[href='#quick-start']::before {
   }
 }
 /** 图表示例 API 文档样式 END */
+
+/** 自定义 组件-API 文档页样式 START **/
+
+[class*="markdown-module--main"] [class*="markdown-module--content"] .component-img {
+  display: block;
+  margin: 0 auto;
+  max-height: 400px;
+  border: 1px solid #efefef;
+  padding: 4px;
+}
+
+img.img-400 {
+  max-width: 400px !important;
+  border: 1px solid #efefef;
+}
+
+/** 自定义 组件-API 文档页样式 END **/

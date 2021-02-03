@@ -71,15 +71,13 @@ order: 18
 
 `markdown:docs/common/component.zh.md`
 
-### 事件
+### 图表事件
 
 `markdown:docs/common/events.zh.md`
 
 ### 图表方法
 
 `markdown:docs/common/chart-methods.zh.md`
-
-
 
 ### 图表主题
 

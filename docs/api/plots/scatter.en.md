@@ -236,7 +236,7 @@ regressionLine: {
 }
 ```
 
-### Event
+### Plot Event
 
 `markdown:docs/common/events.en.md`
 

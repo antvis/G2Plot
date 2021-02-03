@@ -5,10 +5,9 @@ order: 2
 
 `markdown:docs/styles/component.md`
 
+🏷️ Legend is an auxiliary component of a plot, which uses color, size, and shape mapping, to show the symbol, color, and name of different series. You can click legends to toggle displaying series in the plot.
 
-Legend is an auxiliary component of a plot, which uses color, size, and shape mapping, to show the symbol, color, and name of different series. You can click legends to toggle displaying series in the plot.
-
-Go to [AntV Design | 图例 Legend](https://www.yuque.com/mo-college/vis-design/hcs9p2) of 墨者学院 to learn more about **Design guide**
+🎨  Go to [AntV Design | 图例 Legend](https://www.yuque.com/mo-college/vis-design/hcs9p2) of 墨者学院 to learn more about **Design guide**
 
 #### Usage
 

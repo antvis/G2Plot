@@ -93,7 +93,7 @@ order: 9
 `markdown:docs/common/annotations.zh.md`
 
 
-### 事件
+### 图表事件
 
 `markdown:docs/common/events.zh.md`
 

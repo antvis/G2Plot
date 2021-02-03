@@ -160,7 +160,7 @@ The configuration for Xaxis and Yaxis is the same, since DualAxes are biaxes, an
 
 `markdown:docs/common/slider.en.md`
 
-### Events
+### Plot Events
 
 `markdown:docs/common/events.en.md`
 

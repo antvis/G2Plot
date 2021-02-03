@@ -67,7 +67,7 @@ The vertical spacing between nodes in Sankey diagram, 0 ~ 1, referring to the he
 
 The sankey diagram node layout direction, the default is `the justify`, can choose the 'left' | 'right' | 'center' | 'the justify' four ways.
 
-### Event
+### Plot Event
 
 `markdown:docs/common/events.en.md`
 

@@ -1,6 +1,6 @@
 <div class='custom-api-docs'>
 
-_ComponentAnimateOption_ is configured for each component animation type. Where 'easing' passes in the name of the animation function, the built-in default animation function is shown in the table below, and you can also customize the animation function through 'registerAnimation'.
+_ComponentAnimateOption_ is configured for each component animation type.
 
 ```ts
 interface ComponentAnimateOption {
@@ -16,6 +16,10 @@ interface ComponentAnimateCfg {
   delay?: number; // Delay before updating the animation
 }
 ```
+
+Where 'animation' passes in the name of the animation function, the built-in default animation function is shown in the table below, and you can also customize the animation function through 'registerAnimation'.
+
+**Effects of animation**, go to see [Examples](/en/examples/dynamic-plots/animation) for more information
 
 | Animation         | Effect                                                                                                                                                                                                         | Description                                                      |
 | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |

@@ -1,4 +1,4 @@
-标注是数组类型，可以设置多个。
+Annotations are array types and can be set multiple times.
 
 ```ts
 annotations: [
@@ -17,57 +17,57 @@ annotations: [
 
 <description>**required** _string_ </description>
 
-标注类型, text | line | image | region | dataMarker | dataRegion | regionFilter | shape | html.
+Type of annotation, text | line | image | region | dataMarker | dataRegion | regionFilter | shape | html.
 
 ##### position
 
 <description>**required** _object_ </description>
 
-标注位置。
+The position of annotation.
 
-- 第一种，object 使用图表 x, y 对应的原始数据例如：{ time: '2010-01-01', value: 200 };
-- 第二种，数组来配置位置 [ x, y ]，根据数组中的值的存在以下几种形式：
-  1、对应数据源中的原始数据；
-  2、关键字：'min'、'max'、'median'、'start'、'end' 分别代表数据的最大值、最小值、中间值以及坐标系区间的起始和结束；
-  3、x, y 都是百分比的形式，如 30%，在绘图区域定位(即坐标系内)。
-  1 和 2 两种类型的数据可以混用，但是使用百分比形式时 x 和 y 必须都是百分比形式。
-- 第三种，回调函数，可以动态得确定辅助元素的位置，应用于数据动态更新，辅助元素的位置根据数据变化的场景。
+- In the first case, object uses the raw data corresponding to graphs x and y. For example: { time: '2010-01-01', value: 200 };
+- The second way is to configure the position [x, y] in an array. Based on the presence of the values in the array, the following forms are used:
+  1、Corresponding to the original data in the data source;
+  2、Key words: 'min', 'Max', 'median', 'median', 'start' and 'end' respectively represent the maximum value, minimum value, median value of data and the start and end of coordinate system interval;
+  3、X, y are percentages, such as 30%, located in the drawing area (that is, in the coordinate system).
+  The 1 and 2 types of data can be used interchangeably, but when using the percentage form, x and y must both be in the percentage form.
+- The third, callback function, can dynamically determine the position of the auxiliary element, applied to dynamic data update, the position of the auxiliary element changes according to the data.
 
 ##### top
 
 <description>**optional** _boolean_ _default:_ `false`</description>
 
-是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层。
+If it is drawn at the top of the canvas, the default is false, meaning it is drawn at the bottom.
 
 ##### animate
 
 <description>**optional** _boolean_ </description>
 
-是否进行动画。
+Whether to enable animation.
 
 ##### offsetX
 
 <description>**optional** _number_ </description>
 
-x 方向的偏移量。
+The offset in the x direction.
 
 ##### offsetY
 
 <description>**optional** _number_ </description>
 
-y 方向的偏移量。
+The offset in the y direction.
 
 ##### start
 
 <description>**optional** _Array_ </description>
 
-起始位置，一般用于 line、region 等。
+Starting position, commonly used for line, region, etc.
 
 ##### end
 
 <description>**optional** _Array_ </description>
 
-结束位置，一般用于 line、region 等。
+End position, commonly used for line, region, etc.
 
 ```ts
 {
@@ -81,117 +81,117 @@ y 方向的偏移量。
 
 <description>**optional** _object_ </description>
 
-图形样式属性，参考绘图属性。
+The graph style properties refer to the Graphic Style.
 
 ##### src
 
 <description>**optional** _string_ </description>
 
-图片路径，用于 image 中。
+Image path, used in image.
 
 ##### content
 
 <description>**optional** _string_ </description>
 
-文本内容，用于 text 中。
+Text content, used in text.
 
 ##### rotate
 
 <description>**optional** _number_ </description>
 
-文本的旋转角度，弧度制。
+The rotation Angle of text in radians.
 
 ##### maxLength
 
 <description>**optional** _number_ </description>
 
-文文本的最大长度。
+The maximum length of a text.
 
 ##### autoEllipsis
 
 <description>**optional** _boolean_ </description>
 
-超出 maxLength 是否自动省略。
+Whether the maxLength beyond is automatically omitted.
 
 ##### ellipsisPosition
 
 <description>**optional** _head | middle | tail _ </description>
 
-文本截断的位置。
+The location of the text truncation.
 
 ##### isVertical
 
 <description>**optional** _boolean_ </description>
 
-文本在二维坐标系的显示位置，是沿着 x 轴显示 还是沿着 y 轴显示。
+The display position of the text in a two-dimensional coordinate system, whether it is displayed along the X axis or along the Y axis.
 
 ##### background
 
 <description>**optional** _object_ </description>
 
-文字包围盒样式设置。
+Text wrap box style Settings.
 
-| 参数名  | 类型                | 默认值 | 描述               |
-| ------- | ------------------- | -------- | ------ | ------------------ |
-| style   | _object_ | -      | 文本背景的样式, 参考[绘图属性](/en/docs/api/graphic-style)     |
-| padding | _number \| number[]_ | -      | 文本背景周围的留白 |
+| Properties | Type                 | Default | Description                                                                 |
+| ---------- | -------------------- | ------- | --------------------------------------------------------------------------- |
+| style      | _object_             | -       | Text background style, reference[Graphic Style](/en/docs/api/graphic-style) |
+| padding    | _number \| number[]_ | -       | White space around the background of a text                                 |
 
 ##### color
 
 <description>**optional** _string_ </description>
 
-染色色值，一般用于 regionFilter。
+Color value, usually used in RegionFilter.
 
 ##### apply
 
 <description>**optional** _string[]_ </description>
 
-设定 regionFilter 只对特定 geometry 类型起作用，如 apply: ['area']，一般用于 regionFilter。
+RegionFilter is set to work only on a specific Geometry type, such as Apply: ['area'], which is generally used with RegionFilter.
 
 ##### autoAdjust
 
 <description>**optional** _boolean_ </description>
 
-文本超出绘制区域时，是否自动调节文本方向。
+Whether to automatically adjust text orientation when text exceeds the drawn area.
 
 ##### direction
 
 <description>**optional** _upward | downward_ </description>
 
-朝向。
+Orientation.
 
 ##### lineLength
 
 <description>**optional** _number_ </description>
 
-line 长度，用于 dataRegion。
+Line length for dataRegion.
 
 ##### render
 
 <description>**optional** _string_ </description>
 
-自定义标记的绘制 render 函数，其他 container 为标记绘制的父容器, view 为图形实例, helpers 为辅助函数，其他 parserPosition 可以用来计算数据点对应的坐标位置，用于 shape。
+Render function of custom marking, other container is the parent container of marking drawing, view is the graphic instance, helpers is the auxiliary function, other parserPosition can be used to calculate the coordinate position corresponding to data points, used in shape.
 
 ##### container
 
 <description>**optional** _string | HTMLElement_ </description>
 
-自定义 HTML 图形标记的容器元素，用于 html
+Container elements for custom HTML graphical tags for HTML
 
-##### container
+##### html
 
 <description>**optional** _string | HTMLElement_ </description>
 
-自定义的图形标记的 HTML 元素，可为 HTML DOM 字符串，或 HTML 元素，或 html 回调函数，用于 html
+Custom graphical markup of HTML elements, either as HTML DOM strings, or HTML elements, or HTML callback functions, for HTML
 
 ##### alignX
 
-<description>**optional** _left' | 'middle' | 'right'_ </description>
+<description>**optional** _'left' | 'middle' | 'right'_ </description>
 
-DOM 元素在 X 方向的对齐方式，用于 html
+Alignment of DOM elements in the X direction for HTML
 
 ##### alignY
 
 <description>**optional** _left' | 'middle' | 'right'_ </description>
 
-DOM 元素在 Y 方向的对齐方式，用于 html
+Alignment of DOM elements in the Y direction for HTML

@@ -13,7 +13,7 @@ order: 18
 
 <description>**required** _array object_</description>
 
-设置图表数据源。数据源为对象集合，例如：
+Configure the data source. The data source is a collection of objects. For example:
 
 ```ts
 [
@@ -59,6 +59,7 @@ order: 18
 
 例如: `['open', 'close', 'high', 'low']`
 
+
 #### trendField
 
 <description>**optional**  _string_ _default:_ `trend`</description>
@@ -88,6 +89,8 @@ order: 18
 - normal
 
 
+#### meta
+
 `markdown:docs/common/meta.en.md`
 
 ### Geometry Style
@@ -112,7 +115,7 @@ order: 18
 
 `markdown:docs/common/component.en.md`
 
-### Event
+### Plot Event
 
 `markdown:docs/common/events.en.md`
 

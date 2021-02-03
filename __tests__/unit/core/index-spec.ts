@@ -1,5 +1,5 @@
 import { deepMix, isEqual, clone } from '@antv/util';
-import { Line, G2 } from '../../../src';
+import { Line, G2, Plot } from '../../../src';
 import { partySupport } from '../../data/party-support';
 import { createDiv } from '../../utils/dom';
 import { delay } from '../../utils/delay';
@@ -299,5 +299,20 @@ describe('core', () => {
     expect(line.chart.getOptions().axes['date'].label.autoHide).toBe(false);
 
     line.destroy();
+  });
+
+  it('default-options', () => {
+    type CustomPlotOptions = {};
+    class CustomPlot extends Plot<CustomPlotOptions> {
+      type: 'custom';
+      getSchemaAdaptor() {
+        return () => {
+          // do somethings
+        };
+      }
+    }
+    const plot = new CustomPlot(createDiv(), {});
+    // @ts-ignore
+    expect(Plot.getDefaultOptions()).toEqual(plot.getDefaultOptions());
   });
 });

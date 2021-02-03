@@ -1,26 +1,26 @@
-object 类型的请参考[ShapeAttrs](/en/docs/api/graphic-style)
+Object type refer to [ShapeAttrs](/en/docs/ API /graphic-style)
 
-| 配置项          | 类型     | 功能描述           |
-| --------------- | -------- | ------------------ |
-| start           | _number_    | 默认起始位置       |
-| end             | _number_    | 默认结束位置       |
-| height          | _number_    | 缩略轴高度         |
-| trendCfg        | _trendCfg_ | 背景趋势的配置     |
-| backgroundStyle | _object_    | 背景配置           |
-| foregroundStyle | _object_    | 背景配置           |
-| handlerStyle    | _object_    | handle 配置        |
-| textStyle       | _object_    | 文本配置           |
-| minLimit        | _number_    | 允许滑动位置下限   |
-| maxLimit        | _number_    | 允许滑动位置上限   |
-| formatter       | _Function_ | 滑块文本格式化函数 |
+| Properties      | Type       | Description                             |
+| --------------- | ---------- | --------------------------------------- |
+| start           | _number_   | Default starting position               |
+| end             | _number_   | Default ending position                 |
+| height          | _number_   | Slider height                           |
+| trendCfg        | _trendCfg_ | Configuration of background trends      |
+| backgroundStyle | _object_   | Background style                        |
+| foregroundStyle | _object_   | Foreground style                        |
+| handlerStyle    | _object_   | Handle configuration                    |
+| textStyle       | _object_   | Text style                              |
+| minLimit        | _number_   | Lower limit of sliding position allowed |
+| maxLimit        | _number_   | Upper limit of sliding position allowed |
+| formatter       | _Function_ | Slider text formatting function         |
 
 trendCfg
 
-| 配置项          | 类型     | 功能描述       |
-| --------------- | -------- | -------------- |
-| data            | _number[]_ | 统计文本的样式 |
-| smooth          | _boolean_   | 是否平滑       |
-| isArea          | _boolean_   | 是否面积图     |
-| backgroundStyle | _object_    | 背景样式配置   |
-| lineStyle       | _object_    | line 样式配置  |
-| areaStyle       | _object_    | area 样式配置  |
+| Properties      | Type       | Description                    |
+| --------------- | ---------- | ------------------------------ |
+| data            | _number[]_ | Trend data                     |
+| smooth          | _boolean_  | Whether smooth                 |
+| isArea          | _boolean_  | Whether area                   |
+| backgroundStyle | _object_   | Background style configuration |
+| lineStyle       | _object_   | Line style configuration       |
+| areaStyle       | _object_   | Area style configuration       |

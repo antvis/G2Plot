@@ -1,3 +1,4 @@
+import { groupBy } from '@antv/util';
 import { transformData } from '../../../../src/plots/bidirectional-bar/utils';
 import { data } from '../../../data/bi-directional';
 
@@ -22,10 +23,18 @@ export const hopedata = [
   { country: '中国', type: '2016年转基因种植面积', '2016年转基因种植面积': 5.3 },
   { country: '美国', type: '2016年转基因种植面积', '2016年转基因种植面积': 72.9 },
 ];
+
 describe('bullet*data*transfrom', () => {
   it('data*transfrom', () => {
     // 校验数据转换
-    const transDS = transformData('country', ['2016年耕地总面积', '2016年转基因种植面积'], data);
-    expect(transDS).toEqual(hopedata);
+    const transDS = transformData('country', ['2016年耕地总面积', '2016年转基因种植面积'], 'type', data);
+    expect(transDS).toEqual(Object.values(groupBy(hopedata, 'type')));
+  });
+
+  it('data*transfrom: reverse', () => {
+    // 校验数据转换
+    const [data1, data2] = transformData('country', ['2016年耕地总面积', '2016年转基因种植面积'], 'type', data, true);
+    expect(data1[0].country).toBe('美国');
+    expect(data2[0].country).toBe('美国');
   });
 });

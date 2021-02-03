@@ -20,7 +20,11 @@ export class WordCloud extends Plot<WordCloudOptions> {
    */
   public changeData(data) {
     this.updateOption({ data });
-    this.chart.changeData(transform({ chart: this.chart, options: this.options }));
+    if (this.options.imageMask) {
+      this.render();
+    } else {
+      this.chart.changeData(transform({ chart: this.chart, options: this.options }));
+    }
   }
 
   /**

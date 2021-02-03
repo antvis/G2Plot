@@ -17,7 +17,6 @@
 | animate      | _boolean \| AnimateOption_                                   | 动画配置。                                                                                 |
 | formatter    | _Function_                                                   | 格式化函数                                                                                 |
 | autoHide     | _boolean_                                                    | 是否自动隐藏，默认 false                                                                   |
-                                                               |
 
 示例代码：
 

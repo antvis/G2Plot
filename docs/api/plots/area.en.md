@@ -23,6 +23,8 @@ Configure the data source. The data source is a collection of objects. For examp
 
 Grouping field. For example, when we need to analyze the transaction volume trend of different provinces, the `province` field is the grouping field.
 
+#### meta
+
 `markdown:docs/common/meta.en.md`
 
 ### Graphic Style
@@ -59,11 +61,11 @@ Area graphic style.
 
 Line graphic style in the Area.
 
-| Attr | Type                                      | Description |
-| -------------- | ---------------------------------------- | -------- |
-| color          | _string \| string[] \| Function_         | Line color |
-| style          | _ShapeStyle \| Function_                 | Line graphic style |
-| size           | _number \| [number, number] \| Function_ | Line width |
+| Properties | Type                                     | Description        |
+| ---------- | ---------------------------------------- | ------------------ |
+| color      | _string \| string[] \| Function_         | Line color         |
+| style      | _ShapeStyle \| Function_                 | Line graphic style |
+| size       | _number \| [number, number] \| Function_ | Line width         |
 
 #### point
 
@@ -79,7 +81,7 @@ Point graphic style in the Area.
 
 `markdown:docs/common/component.en.md`
 
-### Event
+### Plot Event
 
 `markdown:docs/common/events.en.md`
 

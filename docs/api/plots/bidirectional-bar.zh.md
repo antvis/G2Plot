@@ -35,21 +35,29 @@ order: 26
 
 设置 y 轴映射字段。
 
-#### yAxis
+<!-- Meta options START -->
 
-<description>**optional** object</description>
+`markdown:docs/common/meta.zh.md`
 
- yAxis 为多个 key 为 yField 里面的 2 个字段。
+Example:
 
- #### layout
+```ts
+{
+  meta: {
+    '2016年耕地总面积': { alias: '耕地总面积' }
+  }
+}
+```
+
+<!-- Meta options END -->
+
+### 图形样式
+
+#### layout
 
 <description>**optional** _'horizontal' | 'vertical'_ _default:_ 'horizontal'</description>
 
 表示对称条形图方向。
-
-`markdown:docs/common/meta.zh.md`
-
-### 图形样式
 
 #### barStyle
 
@@ -63,15 +71,13 @@ order: 26
 
 `markdown:docs/common/component.zh.md`
 
-### 事件
+### 图表事件
 
 `markdown:docs/common/events.zh.md`
 
 ### 图表方法
 
 `markdown:docs/common/chart-methods.zh.md`
-
-
 
 ### 图表主题
 

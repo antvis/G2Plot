@@ -53,11 +53,13 @@ Whether the plot is Range Bar.
 
 Whether the plot is Percent Bar. When isPercent is `true`, isStack must be `true`.
 
+#### meta
+
 `markdown:docs/common/meta.en.md`
 
 ### Graphic Style
 
-`markdown:docs/common/color.zh.md`
+`markdown:docs/common/color.en.md`
 
 `markdown:docs/common/bar-style.en.md`
 
@@ -85,7 +87,7 @@ The ratio of spacing between columns in groups( Range:[0-1] ), only for Grouped 
 
 `markdown:docs/common/connected-area.en.md`
 
-### Event
+### Plot Event
 
 `markdown:docs/common/events.en.md`
 
@@ -96,3 +98,7 @@ The ratio of spacing between columns in groups( Range:[0-1] ), only for Grouped 
 ### Plot Theme
 
 `markdown:docs/common/theme.en.md`
+
+### Plot Interactions
+
+`markdown:docs/common/interactions.en.md`

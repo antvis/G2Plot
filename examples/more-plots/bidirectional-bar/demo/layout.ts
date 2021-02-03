@@ -1,4 +1,4 @@
-import { BidirectionalBar } from '../../../relation/sankey/demo/node_modules/@antv/g2plot';
+import { BidirectionalBar } from '@antv/g2plot';
 
 export const data = [
   { country: '乌拉圭', '2016年耕地总面积': 13.4, '2016年转基因种植面积': 12.3 },
@@ -14,8 +14,6 @@ export const data = [
 
 const BidirectionalBarPlot = new BidirectionalBar('container', {
   data,
-  width: 400,
-  height: 400,
   layout: 'vertical',
   xField: 'country',
   yField: ['2016年耕地总面积', '2016年转基因种植面积'],

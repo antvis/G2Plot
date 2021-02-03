@@ -35,6 +35,8 @@ order: 9
 
 是否转置。
 
+#### meta
+
 `markdown:docs/common/meta.zh.md`
 
 ### 图形样式
@@ -91,7 +93,7 @@ order: 9
 `markdown:docs/common/annotations.zh.md`
 
 
-### 事件
+### 图表事件
 
 `markdown:docs/common/events.zh.md`
 

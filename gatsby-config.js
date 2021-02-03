@@ -21,9 +21,11 @@ module.exports = {
       'latest v2': 'https://g2plot.antv.vision',
       '1.x': 'https://g2plot-v1.antv.vision',
     },
+    galleryMenuCloseAll: true,
     showChartResize: true, // 是否在demo页展示图表视图切换
     showAPIDoc: true, // 是否在demo页展示API文档
     themeSwitcher: 'g2plot',
+    playground: {},
     navs: [
       {
         slug: 'docs/manual',
@@ -67,10 +69,10 @@ module.exports = {
         order: 3,
       },
       {
-        slug: 'api/options',
+        slug: 'api/plots',
         title: {
-          zh: '通用配置项',
-          en: 'Common Configuration',
+          zh: '基础图表',
+          en: 'Plots',
         },
         order: 2,
       },
@@ -83,13 +85,13 @@ module.exports = {
         order: 3,
       },
       {
-        slug: 'api/plots',
+        slug: 'api/options',
         title: {
-          zh: '基础图表',
-          en: 'Plots',
+          zh: '通用配置',
+          en: 'Common Configuration',
         },
         order: 4,
-      },
+      }
     ],
     examples: [
       {
@@ -222,11 +224,11 @@ module.exports = {
       },
       // OTHERS
       {
-        slug: 'general',
+        slug: 'plugin',
         icon: 'other',
         title: {
-          zh: '图表通用配置',
-          en: 'General Configuration',
+          zh: '高级图表',
+          en: 'Advanced Plots',
         },
       },
       {
@@ -238,13 +240,13 @@ module.exports = {
         },
       },
       {
-        slug: 'plugin',
+        slug: 'general',
         icon: 'other',
         title: {
-          zh: '自定义扩展图表',
-          en: 'Custom Plots',
+          zh: '图表通用配置',
+          en: 'General Configuration',
         },
-      },
+      }
     ],
     docsearchOptions: {
       apiKey: '0d19588d7661a81faa8b75f6ade80321',

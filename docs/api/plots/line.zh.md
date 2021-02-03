@@ -30,6 +30,8 @@ const data = [
 
 分组字段。用于同时看一个维度中不同情况的指标需求。比如：我们看不同大区最近 30 天的销售额趋势情况，那么这里的大区字段就是 seriesField。
 
+#### meta
+
 `markdown:docs/common/meta.zh.md`
 
 ### 图形样式
@@ -76,7 +78,6 @@ const data = [
 
 `markdown:docs/common/point-style.zh.md`
 
-
 ### 图表组件
 
 `markdown:docs/common/component.zh.md`
@@ -85,6 +86,18 @@ const data = [
 
 `markdown:docs/common/slider.zh.md`
 
+### 图表事件
+
+`markdown:docs/common/events.zh.md`
+
+### 图表方法
+
+`markdown:docs/common/chart-methods.zh.md`
+
 ### 图表主题
 
 `markdown:docs/common/theme.zh.md`
+
+### 图表交互
+
+`markdown:docs/common/interactions.zh.md`

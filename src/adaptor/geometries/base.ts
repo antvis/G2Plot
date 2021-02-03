@@ -9,9 +9,9 @@ import { transformLabel } from '../../utils';
  * 图形映射属性，按照优先级来的
  */
 export type MappingOptions = {
-  /** point color 映射 */
+  /** color 映射 */
   readonly color?: ColorAttr;
-  /** point shape 映射 */
+  /** shape 映射 */
   readonly shape?: ShapeAttr;
   /** 大小映射, 提供回调的方式 */
   readonly size?: SizeAttr;

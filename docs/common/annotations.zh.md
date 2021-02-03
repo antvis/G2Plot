@@ -1,18 +1,3 @@
-标注是数组类型，可以设置多个。
-
-```ts
-annotations: [
-  {
-    type: 'text',
-    position: ['median', 'median'],
-    content: '辅助文本',
-    style: {
-      fill: 'red',
-    },
-  },
-];
-```
-
 ##### type
 
 <description>**required** _string_ </description>
@@ -179,7 +164,7 @@ line 长度，用于 dataRegion。
 
 自定义 HTML 图形标记的容器元素，用于 html
 
-##### container
+##### html
 
 <description>**optional** _string | HTMLElement_ </description>
 
@@ -187,7 +172,7 @@ line 长度，用于 dataRegion。
 
 ##### alignX
 
-<description>**optional** _left' | 'middle' | 'right'_ </description>
+<description>**optional** _'left' | 'middle' | 'right'_ </description>
 
 DOM 元素在 X 方向的对齐方式，用于 html
 

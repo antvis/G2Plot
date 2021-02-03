@@ -1,8 +1,8 @@
 import { polygon as basePolygon } from '../../adaptor/geometries/polygon';
 import { Params } from '../../core/adaptor';
-import { interaction, animation, theme, legend, annotation, tooltip } from '../../adaptor/common';
+import { interaction as commonInteraction, animation, theme, legend, annotation, tooltip } from '../../adaptor/common';
 import { flow, deepAssign } from '../../utils';
-import { transformData } from './utils';
+import { transformData, isDrillDown, getFommatInteractions } from './utils';
 import { TreemapOptions } from './types';
 
 /**
@@ -18,6 +18,13 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
       options: {
         // 默认按照 name 字段对颜色进行分类
         colorField: 'name',
+        rectStyle: {
+          lineWidth: 1,
+          stroke: '#fff',
+        },
+        hierarchyConfig: {
+          tile: 'treemapResquarify',
+        },
         label: {
           fields: ['name'],
           layout: {
@@ -35,6 +42,8 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
             };
           },
         },
+        interactions: [{ type: 'view-zoom' }, { type: 'treemap-element-zoom' }],
+        // interactions: [{ type: 'drag-move' }],
       },
     },
     params
@@ -47,8 +56,13 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
  */
 function geometry(params: Params<TreemapOptions>): Params<TreemapOptions> {
   const { chart, options } = params;
-  const { color, colorField } = options;
-  const data = transformData(options);
+  const { color, colorField, rectStyle } = options;
+  const data = transformData({
+    data: options.data,
+    colorField: options.colorField,
+    openDrillDown: isDrillDown(options.interactions),
+  });
+
   chart.data(data);
 
   // geometry
@@ -58,12 +72,10 @@ function geometry(params: Params<TreemapOptions>): Params<TreemapOptions> {
         xField: 'x',
         yField: 'y',
         seriesField: colorField,
+        rawFields: ['value'],
         polygon: {
           color,
-          style: {
-            lineWidth: 1,
-            stroke: '#fff',
-          },
+          style: rectStyle,
         },
       },
     })
@@ -79,6 +91,24 @@ function geometry(params: Params<TreemapOptions>): Params<TreemapOptions> {
 function axis(params: Params<TreemapOptions>): Params<TreemapOptions> {
   const { chart } = params;
   chart.axis(false);
+  return params;
+}
+
+/**
+ * Interaction 配置
+ * @param params
+ */
+export function interaction(params: Params<TreemapOptions>): Params<TreemapOptions> {
+  const { chart, options } = params;
+  const { interactions, hierarchyConfig } = options;
+
+  commonInteraction({
+    chart,
+    options: {
+      interactions: getFommatInteractions(interactions, hierarchyConfig),
+    },
+  });
+
   return params;
 }
 

@@ -18,7 +18,7 @@ export function notice(stage: Stage, plotType: string) {
       : stage === Stage.BETA
       ? `Plot '${plotType}' is in BETA stage, DO NOT use it in production env.`
       : stage === Stage.STABLE
-      ? `Plot '${plotType}' is in STABLE stage, import it by "import { ${plotType} } from '@antv/g2'".`
+      ? `Plot '${plotType}' is in STABLE stage, import it by "import { ${plotType} } from '@antv/g2plot'".`
       : 'invalid Stage type.'
   );
 }
@@ -28,7 +28,7 @@ export function notice(stage: Stage, plotType: string) {
  */
 export class Lab {
   static get MultiView() {
-    notice(Stage.DEV, 'multi-view');
+    notice(Stage.STABLE, 'MultiView');
     return MultiView;
   }
 }

@@ -9,7 +9,6 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/3e4db10a-9da1-4b44-80d8-c128f427
       xField: 'xG conceded',
       yField: 'Shot conceded',
       colorField: 'Result',
-      color: ['#c71e1d', '#ffca76', '#09bb9f'],
       size: 5,
       shape: 'circle',
       pointStyle: {

@@ -39,6 +39,8 @@ order: 11
 
 指定层叠字段，通过该字段的值，柱子将会被分割为多个部分，通过颜色进行区分。
 
+#### meta
+
 `markdown:docs/common/meta.zh.md`
 
 ### 图形样式
@@ -57,7 +59,7 @@ order: 11
 
 `markdown:docs/common/component.zh.md`
 
-### 事件
+### 图表事件
 
 `markdown:docs/common/events.zh.md`
 

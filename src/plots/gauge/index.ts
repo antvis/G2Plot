@@ -6,6 +6,7 @@ import { RANGE_VALUE, PERCENT, INDICATEOR_VIEW_ID, RANGE_VIEW_ID } from './const
 import { getIndicatorData, getRangeData } from './utils';
 // 注册 shape
 import './shapes/gauge';
+import './shapes/meter-gauge';
 
 export { GaugeOptions };
 

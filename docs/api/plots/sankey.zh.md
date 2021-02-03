@@ -67,7 +67,7 @@ order: 27
 
 桑基图节点的布局方向，默认为 `justify`，可以选择 'left' | 'right' | 'center' | 'justify' 四种方式。
 
-### Event
+### Plot Event
 
 `markdown:docs/common/events.en.md`
 

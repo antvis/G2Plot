@@ -13,23 +13,25 @@ order: 6
 
 <description>**required** _Array<Record<string, any>[]>_</description>
 
-设置图表数据源。数据源为二维数组，形式为[左轴图形对象集合，右轴图形对象集合]，例如：
+Configure the chart data source. The data source is a two-dimensional array in the form of [left-axis graph object set, right-axis graph object set], for example:
 
 ```ts
 const data = [[{ time: '1991'，value: 20 }], [{ time: '1992', count: 20 }]];
 ```
 
-#### xField 
+#### xField
 
 <description>**required** _string_</description>
 
-点形状在 x 方向位置映射对应的数据字段名，一般对应一个连续字段。例如`{xField: 'time'}`。
+The dot shape maps the name of the corresponding data field in the x-direction position, generally corresponding to a consecutive field. For example: `{xField: 'time'}`。
 
-#### yField 
+#### yField
 
 <description>**required** _string[]_</description>
 
-点形状在 y 方向位置映射所对应的数据字段名数组, 形式为[左轴图形数据字段名，右轴图形数据字段名]，例如 `{yField: ['value', 'count']}`。
+The array of data field names to which the dot shape maps in the Y direction is of the form [left-axis graph data field name, right-axis graph data field name], for example '{yField: ['value', 'count']}'.
+
+#### meta
 
 `markdown:docs/common/meta.en.md`
 
@@ -39,39 +41,40 @@ const data = [[{ time: '1991'，value: 20 }], [{ time: '1992', count: 20 }]];
 
 <description>**optional** _array object_</description>
 
-指定了双轴各自对应的图形配置，形式为[左轴图形配置，右轴图形配置]。每一个配置应为 Line 或 Column 类型的 Config。通过指定双轴对应图形，来实现混合图表功能: 
-- 双轴折线图: [Line, Line], 参考 [DEMO](../../../examples/dual-axes/dual-line)
-- 柱线混合图: [Column, Line], 参考 [DEMO](http://localhost:8080/zh/examples/dual-axes/column-line)
+Specifies the respective configuration of the two axes in the form of "left axis configuration, right axis configuration". Each configuration should be a Config of type LINE or COLUMN. Mixed chart function is implemented by specifying the corresponding graph with two axes:
 
-你还可以通过配置 Line 或 Column 的相关配置（见下文），形成双轴多折线图([DEMO](../../../examples/dual-axes/dual-line#dual-multi-line)), 堆叠柱+折线图([DEMO](../../../examples/dual-axes/stacked-column-line)), 分组柱+折线图([DEMO](../../../examples/dual-axes/grouped-column-line))
+- Biaxial line chart: [Line, Line], reference [DEMO](../../../examples/dual-axes/dual-line)
+- Column and Line Mixing Chart: [Column, Line], reference [DEMO](http://localhost:8080/zh/examples/dual-axes/column-line)
 
-折线对应的图形配置为：
+你还可以通过配置 Line 或 Column 的相关配置（见下文），形成双轴多 Line([DEMO](../../../examples/dual-axes/dual-line#dual-multi-line)), 堆叠柱+Line([DEMO](../../../examples/dual-axes/stacked-column-line)), 分组柱+Line([DEMO](../../../examples/dual-axes/grouped-column-line))
 
-| 细分配置项名称 | 类型                              | 功能描述                                         | 默认值 |
-| -----------  | -------------------------------- | ----------------------------------------------- | ------ |
-| geometry     | _string_                         | 图形类型，指定为'line'                             | 'line' |
-| seriesField  | _string_                         | 拆分字段, 若存在则为多折线，具体用法同[折线图 seriesfield](./line#seriesfield)         |
-| smooth       | _boolean_                        | 是否平滑，具体用法同[折线图 smooth](./line#smooth)    | false |
-| connectNulls | _boolean_                        | 是否连接空数据，具体用法同[折线图 connectnulls](./line#connectnulls)  | true |
-| lineStyle    | _StyleAttr \| Function_          | 折线图形样式，具体用法同[折线图  lineStyle](./line#linestyle)  |  |
-| point        | _pointStyle_                     | 线数据点图形样式，具体用法同[折线图  point](./line#point)  |  |
-| label        | _ContinueLegendLabelCfg_         | 折线图 label,具体用法同[折线图 label](./line#label) |
-| color        | _string \| string[] \| Function_ | 指定点的颜色。具体用法同[折线图 color](./line#color) |
+The corresponding graph configuration of polyline is as follows:
 
-柱形对应的图形配置为：
+| Properties   | Type                             | Description                                                                                                 | Default |
+| ------------ | -------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------- |
+| geometry     | _string_                         | Chart type, specified as 'line'                                                                             | 'line'  |
+| seriesField  | _string_                         | Split the field, if there is a polyline, the specific use of the same[Line seriesfield](./line#seriesfield) |
+| smooth       | _boolean_                        | Whether is smooth[Line smooth](./line#smooth)                                                               | false   |
+| connectNulls | _boolean_                        | Whether to connect empty data[Line connectnulls](./line#connectnulls)                                       | true    |
+| lineStyle    | _StyleAttr \| Function_          | Line style[Line lineStyle](./line#linestyle)                                                                |         |
+| point        | _pointStyle_                     | Line data point graphic style[Line point](./line#point)                                                     |         |
+| label        | _ContinueLegendLabelCfg_         | Line label [Line label](./line#label)                                                                       |
+| color        | _string \| string[] \| Function_ | Specifies the color of the point[Line color](./line#color)                                                  |
 
-| 细分配置项名称 | 类型                              | 功能描述                                         | 默认值 |
-| -----------  | -------------------------------- | ----------------------------------------------- | ------ |
-| geometry     | _string_                         | 图形类型，应指定为'column'                         |  |
-| seriesField  | _string_                         | 拆分字段, 在分组柱状图下同 groupField、colorField，在堆积柱状图下同 stackField、colorField ，具体参考[柱形图 seriesfield](./column#seriesfield)         |
-| isGroup       | _boolean_                        | 是否分组柱形图，具体用法同[柱形图 isGroup](./column#isgroup)    | false |
-| isStack       | _boolean_                        | 是否堆积柱状图，具体用法同[柱形图 isStack](./column#isstack)    | false |
-| columnWidthRatio | _number_                        | 柱状图宽度占比 [0-1] ，具体用法同[柱形图 columnWidthRatio](./column#columnwidthratio)  |  |
-| marginRatio | _number_                        | 分组中柱子之间的间距 [0-1]，仅对分组柱状图适用，具体用法同[柱形图 marginRatio](./column#marginratio)  |  |
-| columnStyle | _StyleAttr \| Function_                        |  柱子样式配置，具体用法同[柱形图 columnStyle](./column#columnstyle)  |  |
-| label        | _ContinueLegendLabelCfg_         | 柱形图 label,具体用法同[柱线图 label](./column#label) |
-| color        | _string \| string[] \| Function_ | 指定点的颜色。具体用法同[折线图 color](./column#color) |
-| groupField   | _string_                         | 拆分字段，用于堆叠+分组柱图，拆分优先级高于 seriesField，isGroup: true 时会根据 groupField 进行分组。    | - |
+The graph corresponding to the column is configured as follows:
+
+| Properties       | Type                             | Description                                                                                                                                                                                               | Default |
+| ---------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| geometry         | _string_                         | Chart type, specified as 'column'                                                                                                                                                                         |         |
+| seriesField      | _string_                         | Split fields, same as GroupField and ColorField under the grouping bar chart, same as StackField and ColorField under the stacking bar chart, specificreference[Column seriesfield](./column#seriesfield) |
+| isGroup          | _boolean_                        | Whether to group bar charts[Column isGroup](./column#isgroup)                                                                                                                                             | false   |
+| isStack          | _boolean_                        | Whether to stack histograms[Column isStack](./column#isstack)                                                                                                                                             | false   |
+| columnWidthRatio | _number_                         | Histogram width ratio [0-1] [Column columnWidthRatio](./column#columnwidthratio)                                                                                                                          |         |
+| marginRatio      | _number_                         | The spacing between columns in a grouping [0-1] applies only to grouping histograms[Column marginRatio](./column#marginratio)                                                                             |         |
+| columnStyle      | _StyleAttr \| Function_          | Column style configuration[Column columnStyle](./column#columnstyle)                                                                                                                                      |         |
+| label            | _ContinueLegendLabelCfg_         | Column label [Column label](./column#label)                                                                                                                                                               |
+| color            | _string \| string[] \| Function_ | Specifies the color of the point[Line color](./column#color)                                                                                                                                              |
+| groupField       | _string_                         | Split field, used to stack group histograms. Split field takes precedence over SeriesField. IsGroup: true will group by GroupField.                                                                       | -       |
 
 ### Plot Components
 
@@ -81,7 +84,7 @@ const data = [[{ time: '1991'，value: 20 }], [{ time: '1992', count: 20 }]];
 
 #### axis
 
-xAxis、yAxis 配置相同，由于 DualAxes 是双轴， yAxis 类型是对象类型，形式为{左轴字段: 左轴配置，右轴字段: 右轴配置}。例如
+XAXIS and YAXIS are configured the same, since DualAxes are biaxial and YAXIS type is an object type, for example
 
 ```ts
 {
@@ -101,7 +104,7 @@ xAxis、yAxis 配置相同，由于 DualAxes 是双轴， yAxis 类型是对象�
 
 #### annotations
 
-xAxis、yAxis 配置相同，由于 DualAxes 是双轴， annotations 类型是对象类型，形式为{左轴字段: 左轴配置，右轴字段: 右轴配置}。例如
+The configuration for Xaxis and Yaxis is the same, since DualAxes are biaxes, and the Annotations type is an object type, with the form {left axis field: left axis configuration, right axis field: right axis configuration}. For example,
 
 ```ts
 {
@@ -142,7 +145,8 @@ xAxis、yAxis 配置相同，由于 DualAxes 是双轴， annotations 类型是�
   }
 }
 ```
-`markdown:docs/common/annotations.zh.md`
+
+`markdown:docs/common/annotations.en.md`
 
 #### legend
 
@@ -152,11 +156,10 @@ xAxis、yAxis 配置相同，由于 DualAxes 是双轴， annotations 类型是�
 
 `markdown:docs/common/theme.en.md`
 
-### 事件
+### Plot Events
 
 `markdown:docs/common/events.en.md`
 
-### 图表方法
+### Plot Methods
 
 `markdown:docs/common/chart-methods.en.md`
-

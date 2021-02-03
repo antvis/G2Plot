@@ -23,6 +23,8 @@ order: 1
 
 分组字段。比如：我们需要分析不同`省份`的交易额趋势，那么`省份字段`就是分组字段。
 
+#### meta
+
 `markdown:docs/common/meta.zh.md`
 
 ### 图形样式

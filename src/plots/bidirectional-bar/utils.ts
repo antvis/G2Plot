@@ -1,30 +1,39 @@
+import { groupBy } from '@antv/util';
+import { Types } from '@antv/g2';
 import { Datum } from '../../types';
-import { BidirectionalBarOptions } from '.';
+import { BidirectionalBarOptions } from './types';
 
 type TransformData = {
-  type: string;
   [key: string]: string | number;
 }[];
 
 /**
- * bidirectional-bar 处理数据
+ * bidirectional-bar 处理数据, 通过 SERIES_FIELD_KEY 字段分成左右数据
  * @param xField
  * @param yField
  * @param data
  */
-export function transformData(xField: string, yField: string[], data: Datum): TransformData {
+export function transformData(
+  xField: string,
+  yField: string[],
+  seriesField: string,
+  data: Datum,
+  reverse?: boolean
+): Types.Data[] {
   const hopeData: TransformData = [];
   yField.forEach((d: string) => {
     data.forEach((k: any) => {
       const obj = {
         [xField]: k[xField],
-        type: d,
+        [seriesField]: d,
         [d]: k[d],
       };
       hopeData.push(obj);
     });
   });
-  return hopeData;
+  const groupData = Object.values(groupBy(hopeData, seriesField));
+  const [data1 = [], data2 = []] = groupData;
+  return reverse ? [data1.reverse(), data2.reverse()] : [data1, data2];
 }
 
 /**

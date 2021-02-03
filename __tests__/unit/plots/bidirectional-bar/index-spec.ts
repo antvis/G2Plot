@@ -1,4 +1,5 @@
 import { BidirectionalBar } from '../../../../src';
+import { SERIES_FIELD_KEY } from '../../../../src/plots/bidirectional-bar/constant';
 import { data } from '../../../data/bi-directional';
 import { createDiv } from '../../../utils/dom';
 
@@ -23,7 +24,7 @@ describe('Bidirectional', () => {
     expect(leftView.options.axes.country.position).toEqual('top');
     //@ts-ignore
     expect(rightView.options.axes.country).toEqual(false);
-    expect(bidirectional.chart.getOptions().scales.type.sync).toEqual(true);
+    expect(bidirectional.chart.getOptions().scales[SERIES_FIELD_KEY].sync).toEqual(true);
 
     // 类型
     expect(leftG.type).toBe('interval');
@@ -44,19 +45,19 @@ describe('Bidirectional', () => {
     const LseriesFields = LcolorAttribute.getFields();
 
     expect(LseriesFields).toHaveLength(1);
-    expect(LseriesFields[0]).toBe('type');
+    expect(LseriesFields[0]).toBe(SERIES_FIELD_KEY);
 
     const RcolorAttribute = rightG.getAttribute('color');
     const RseriesFields = RcolorAttribute.getFields();
 
     expect(RseriesFields).toHaveLength(1);
-    expect(RseriesFields[0]).toBe('type');
+    expect(RseriesFields[0]).toBe(SERIES_FIELD_KEY);
 
     expect(bidirectional.chart.getController('legend').visible).toEqual(true);
 
     expect(bidirectional.chart.getController('legend').getComponents()[0].direction).toEqual('bottom');
 
-    expect(bidirectional.chart.getController('legend').getComponents()[0].extra.scale.field).toEqual('type');
+    expect(bidirectional.chart.getController('legend').getComponents()[0].extra.scale.field).toEqual(SERIES_FIELD_KEY);
 
     bidirectional.destroy();
   });
@@ -77,9 +78,9 @@ describe('Bidirectional', () => {
     const RseriesFields = rightG.getAttribute('color').getFields();
 
     expect(LseriesFields).toHaveLength(1);
-    expect(LseriesFields[0]).toBe('type');
+    expect(LseriesFields[0]).toBe(SERIES_FIELD_KEY);
     expect(RseriesFields).toHaveLength(1);
-    expect(RseriesFields[0]).toBe('type');
+    expect(RseriesFields[0]).toBe(SERIES_FIELD_KEY);
 
     bidirectional.destroy();
   });

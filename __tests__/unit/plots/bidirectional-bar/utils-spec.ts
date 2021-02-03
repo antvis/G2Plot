@@ -1,3 +1,4 @@
+import { groupBy } from '@antv/util';
 import { PaddingCal } from '@antv/g2/lib/chart/layout/padding-cal';
 import { isHorizontal, transformData, syncViewPadding } from '../../../../src/plots/bidirectional-bar/utils';
 
@@ -16,12 +17,14 @@ describe('util', () => {
       { x: 'b', y1: 11, y2: 21, y3: 31 },
     ];
 
-    expect(transformData('x', ['y1', 'y2'], data)).toEqual([
+    const d = [
       { type: 'y1', x: 'a', y1: 10 },
       { type: 'y1', x: 'b', y1: 11 },
       { type: 'y2', x: 'a', y2: 20 },
       { type: 'y2', x: 'b', y2: 21 },
-    ]);
+    ];
+
+    expect(transformData('x', ['y1', 'y2'], 'type', data)).toEqual(Object.values(groupBy(d, 'type')));
   });
 
   it('syncViewPadding * horizontal * top', () => {

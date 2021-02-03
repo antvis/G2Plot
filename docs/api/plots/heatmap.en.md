@@ -13,9 +13,11 @@ order: 23
 
 <description>**required** _array object_</description>
 
-设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+Configure the data source. The data source is a collection of objects. For example:`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
 `markdown:docs/common/xy-field.en.md`
+
+#### meta
 
 `markdown:docs/common/meta.en.md`
 
@@ -23,25 +25,25 @@ order: 23
 
 <description>**optional** _polygon | density_ _default:_ `polygon`</description>
 
-密度热力图需要指定为 density。
+The density heat map needs to be specified as Density.
 
 #### colorField
 
 <description>**optional** _string_</description>
 
-颜色映射字段名。
+Color mapping field name.
 
 #### sizeField
 
 <description>**optional** _string_</description>
 
-点大小映射对应的数据字段名。
+The name of the data field corresponding to the point size map.
 
 #### reflect
 
 <description>**optional** _x | y_</description>
 
-坐标轴映射。
+Axis mapping.
 
 ### Geometry Style
 
@@ -51,34 +53,34 @@ order: 23
 
 <description>**optional** _rect | square | circle_</description>
 
-热力格子中的形状，密度热力图不用指定。
+Shapes in thermal grids, density heat maps are not specified.
 
 #### sizeRatio
 
 <description>**optional** _number_</description>
 
-热力格子中图形的尺寸比例，可选，只有当 shape 和 sizeField 至少指定一项后才生效。
+The scale of the shapes in the thermal lattice, optional, takes effect only if the shape and sizeField specify at least one of these.
 
 #### heatmapStyle
 
 <description>**optional** _object_</description>
 
-热力图样式。 heatmapStyle 中的`fill`会覆盖 `color` heatmapStyle 可以直接指定，也可以通过 callback 的方式，根据数据指定单独的样式。
+Heat map style. The 'fill' in heatMapStyle overwrites the 'color' heatMapStyle and can be specified either directly or via a callback to specify individual styles based on the data.
 
-默认配置：
+Default configuration:
 
-| 细分配置      | 类型   | 功能描述   |
-| ------------- | ------ | ---------- |
-| fill          | string | 填充颜色   |
-| stroke        | string | 描边颜色   |
-| lineWidth     | number | 线宽       |
-| lineDash      | number | 虚线显示   |
-| opacity       | number | 透明度     |
-| fillOpacity   | number | 填充透明度 |
-| strokeOpacity | number | 描边透明度 |
+| Properties    | Type   | Description           |
+| ------------- | ------ | --------------------- |
+| fill          | string | Fill color            |
+| stroke        | string | Stroke color          |
+| lineWidth     | number | Line width            |
+| lineDash      | number | The dotted lines show |
+| opacity       | number | Transparency          |
+| fillOpacity   | number | Fill transparency     |
+| strokeOpacity | number | Stroke transparency   |
 
 ```ts
-// 直接指定
+// Specified directly
 {
   heatmapStyle: {
     fill: 'red',
@@ -96,7 +98,7 @@ order: 23
 
 `markdown:docs/common/component.en.md`
 
-### Event
+### Plot Event
 
 `markdown:docs/common/events.en.md`
 

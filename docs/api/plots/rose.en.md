@@ -13,7 +13,7 @@ order: 13
 
 <description>**required** _array object_</description>
 
-设置图表数据源。数据源为对象集合，例如：
+Configure the data source. The data source is a collection of objects. For example:
 
 ```ts
 [
@@ -34,6 +34,8 @@ order: 13
 
 `markdown:docs/common/xy-field.en.md`
 
+#### meta
+
 `markdown:docs/common/meta.en.md`
 
 ```ts
@@ -53,9 +55,9 @@ const rosePlot = new Rose('container', {
   meta: {
     year: {
       alias: '年份',
-      // 只显示 2001、2002、2003 年份的信息
+      // Only information for 2001, 2002, and 2003 is displayed
       values: ['2001', '2002', '2003'],
-      // 转换结果类似于 “2001年”
+      // The conversion result is similar to "2001"
       formatter: (v) => {
         return `${v}年`;
       },
@@ -67,45 +69,45 @@ const rosePlot = new Rose('container', {
 piePlot.render();
 ```
 
-#### seriesField 
+#### seriesField
 
 <description>**optional** _string_</description>
 
-用于对数据进行分组的字段，比如想根据某个字段内容的不同显示不同的颜色，就可以把该字段的名字设为`seriesField`的值。
+Fields used to group data. For example, if you want to display different colors according to the contents of a field, you can set the field name to the value of 'seriesField'.
 
 #### isGroup
 
 <description>**optional** _string_ _default:_ `false`</description>
 
-是否分组玫瑰图。
+Whether to group roses.
 
 #### isStack
 
 <description>**optional** _string_ _default:_ `false`</description>
 
-是否堆积玫瑰图。
+Whether to stack roses.
 
 ### Geometry Style
 
-#### radius 
+#### radius
 
 <description>**optional** _number_</description>
 
-玫瑰图的半径，原点为画布中心。配置值域为 (0,1]，1 代表玫瑰图撑满绘图区域。
+The radius of the rose with the origin being the center of the canvas. The configuration range is (0,1], where 1 represents the rose chart that fills the drawing area.
 
-#### innerRadius 
+#### innerRadius
 
 <description>**optional** _number_</description>
 
-玫瑰图内部空心圆的半径，规则与 radius 一致。
+The radius of the hollow circle inside the rose is the same as radius.
 
 `markdown:docs/common/color.en.md`
 
-#### sectorStyle 
+#### sectorStyle
 
 <description>**optional** _object | Function_</description>
 
-设置扇形样式。sectorStyle 中的`fill`会覆盖 `color` 的配置。sectorStyle 可以直接指定，也可以通过 callback 的方式，根据数据为每个扇形切片指定单独的样式。
+Set the sector style. The 'fill' in sectorStyle overrides the 'color' configuration. The sectorStyle can be specified either directly or via a callback to specify a separate style for each sector slice based on the data.
 
 `markdown:docs/common/shape-style.en.md`
 
@@ -113,7 +115,7 @@ piePlot.render();
 
 `markdown:docs/common/component.en.md`
 
-### Event
+### Plot Event
 
 `markdown:docs/common/events.en.md`
 

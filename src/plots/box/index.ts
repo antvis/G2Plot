@@ -3,12 +3,29 @@ import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { BoxOptions } from './types';
 import { adaptor } from './adaptor';
-import { BOX_RANGE, BOX_RANGE_ALIAS } from './constant';
+import { transformData } from './utils';
+import { BOX_RANGE, BOX_RANGE_ALIAS, OUTLIERS_VIEW_ID } from './constant';
 export { BoxOptions };
 
 export class Box extends Plot<BoxOptions> {
   /** 图表类型 */
   public type: string = 'box';
+
+  /**
+   * @override
+   * @param data
+   */
+  public changeData(data) {
+    this.updateOption({ data });
+    const { yField } = this.options;
+
+    const outliersView = this.chart.views.find((v) => v.id === OUTLIERS_VIEW_ID);
+    if (outliersView) {
+      outliersView.data(data);
+    }
+
+    this.chart.changeData(transformData(data, yField));
+  }
 
   /**
    * 获取 箱型图 默认配置项

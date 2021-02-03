@@ -21,6 +21,14 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*0luHTJODdMUAAAAAAAAAAAAAARQnAQ"
     },
     {
+      "filename": "bubble-3d.ts",
+      "title": {
+        "zh": "伪 3D 气泡图",
+        "en": "Bubble plot of fake 3D"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/%26Gzzn7RM81/83252692-ca94-40eb-be60-5f9bb591683a.png"
+    },
+    {
       "filename": "quadrant-tooltip.ts",
       "title": {
         "zh": "气泡图-自定义tooltip",

@@ -29,6 +29,8 @@ Grouping field. It is used for grouping by default, and color is used as visual 
 
 Outlier field.
 
+#### meta
+
 `markdown:docs/common/meta.en.md`
 
 ### Graphic Style
@@ -53,7 +55,7 @@ Outliers graphic style, the same configuration as boxStyle.
 
 `markdown:docs/common/component.en.md`
 
-### Event
+### Plot Event
 
 `markdown:docs/common/events.en.md`
 

@@ -1,3 +1,52 @@
+#### 2.3.10 (2021-01-27)
+#### New Features
+
+*  feat(gauge): 支持配置米轨仪表盘 ([#2271](https://github.com/antvis/G2Plot/pull/2271)) ([53ebbfa](https://github.com/antvis/G2Plot/commit/53ebbfa9ac63163f2ae726514eb84c353f6c2094))
+*  feat(treemap): 矩形树图增加下钻交互 ([#2219](https://github.com/antvis/G2Plot/pull/2219)) ([9f206e3](https://github.com/antvis/G2Plot/commit/9f206e33bcefd35b4268f3bf89497dd1167498af))
+*  feat(pie): 饼图 geometry 默认对 elemenent 的 zIndex 进行反序 ([#2266](https://github.com/antvis/G2Plot/pull/2266)) ([a5971b6](https://github.com/antvis/G2Plot/commit/a5971b612ed5bd4712ac2ee0956eba99b4677856))
+*  feat(pie): 饼图支持动态更新数据，支持通过 Pie.getDefauletOptions() 获取默认配置项 ([#2257](https://github.com/antvis/G2Plot/pull/2257)) ([47fa687](https://github.com/antvis/G2Plot/commit/47fa687c89a6d2a2305e7f4fda377b47dc00a47b))
+
+##### Bug Fixes
+
+*  **issue-2264** 修复瀑布图 formatter 不生效 ([#2270](https://github.com/antvis/G2Plot/pull/2270)) ([6787c8b](https://github.com/antvis/G2Plot/commit/6787c8b890c4d03956deb2a9a14d09d78d5470c5))
+*  fix: 修复散点图 size 回调不生效 ([#2263](https://github.com/antvis/G2Plot/pull/2263)) ([510c1b5](https://github.com/antvis/G2Plot/pull/2263))
+*  fix: 饼图数据存在 NaN 时，浏览器崩溃 && 修复中心统计文本更新为 false，再更新为显示，样式丢失 ([#2257](https://github.com/antvis/G2Plot/pull/2257)) ([47fa687](https://github.com/antvis/G2Plot/commit/47fa687c89a6d2a2305e7f4fda377b47dc00a47b))
+
+##### Documentation Changes
+
+*  图表案例导航顺序调整 & 主题文档修整 ([#2272](https://github.com/antvis/G2Plot/pull/2272)) ([b5fc660](https://github.com/antvis/G2Plot/commit/b5fc66000136116247304255aca2661c97f899e3))
+*  完善图表组件文档 ([#2268](https://github.com/antvis/G2Plot/pull/2268)) ([5a35039](https://github.com/antvis/G2Plot/commit/5a3503907739851af9f67c8f949d2b681233f3d2))
+*  docs: 补充图表英文文档 ([#2262](https://github.com/antvis/G2Plot/pull/2262)) ([f1d44c3](https://github.com/antvis/G2Plot/pull/2262))
+*  docs: 补充仪表盘文档 ([#2261](https://github.com/antvis/G2Plot/pull/2261)) ([25e1b42](https://github.com/antvis/G2Plot/commit/25e1b4269ba2aca3c10d634aaa5dec0f3940b163))
+*  docs: 文档层级错误 & 修改 tooltip domStyles 类型定义 ([#2254](https://github.com/antvis/G2Plot/pull/2254)) ([81809a2](https://github.com/antvis/G2Plot/commit/81809a24ff5ec6729fc3801814579ea2ff12a238))
+
+#### 2.3.9 (2021-01-20)
+
+##### Documentation Changes
+
+*  multi-language ([#2244](https://github.com/antvis/g2plot/pull/2244)) ([a11e84e7](https://github.com/antvis/g2plot/commit/a11e84e739fc770b163e1543ca66534d7623f69f))
+
+##### New Features
+
+*  多图层图表正式开放 ([#2245](https://github.com/antvis/g2plot/pull/2245)) ([963399ac](https://github.com/antvis/g2plot/commit/963399acd74959a175d2165927e0852d2f129ff5))
+*  为 treemap 新增 rectstyle 和 hierarchyConfig 属性 ([#2234](https://github.com/antvis/g2plot/pull/2234)) ([bcd21431](https://github.com/antvis/g2plot/commit/bcd2143152e3c72ba2ea36340d57a2fa87f6bf0d))
+*  重写子弹图 changeData 方法 && 添加单测 ([#2221](https://github.com/antvis/g2plot/pull/2221)) ([afb49a60](https://github.com/antvis/g2plot/commit/afb49a608bc40536d44168f2ad25c0c2e34d2bb3))
+*  散点图支持动态更新数据 & 添加单测 ([#2225](https://github.com/antvis/g2plot/pull/2225)) ([ee488955](https://github.com/antvis/g2plot/commit/ee488955ac5760fe33c4af5ceef18cab573c26fa))
+* **radial-bar:**  玉珏图支持配置开始角度和结束角度 ([#2251](https://github.com/antvis/g2plot/pull/2251)) ([b18b4d2b](https://github.com/antvis/g2plot/commit/b18b4d2bcbbece75f98d84afe31c3588dfb56b71))
+* **waterfall:**  瀑布图回调参数增加分类字段 ([#2235](https://github.com/antvis/g2plot/pull/2235)) ([e81665c5](https://github.com/antvis/g2plot/commit/e81665c5566f739422fea88ce3d37b8fac0be1c2))
+
+##### Bug Fixes
+
+* **word-cloud:**  由于无法判断首次 render 是否 ready，changedata 时，如果有 imageMask，重渲染 ([#2252](https://github.com/antvis/g2plot/pull/2252)) ([b5fe6475](https://github.com/antvis/g2plot/commit/b5fe6475558a377ec022ddb14cd6c0e05432e9d6))
+*  size 判断移入 geometry 里面 ([#2237](https://github.com/antvis/g2plot/pull/2237)) ([a9f37137](https://github.com/antvis/g2plot/commit/a9f37137bb23f954364d9a27cc32646125f77318))
+*  对称条形图 meta 支持 yField 设置别名 ([#2240](https://github.com/antvis/g2plot/pull/2240)) ([903a393d](https://github.com/antvis/g2plot/commit/903a393d12716c0484e6b4fe23c9fde45af1198a))
+* **issue-2216:**  饼图默认强制关闭 tooltip shared ([#2241](https://github.com/antvis/g2plot/pull/2241)) ([37cf8a70](https://github.com/antvis/g2plot/commit/37cf8a708876fd95df661289a5308457afd03996))
+* **#2236:**  liquid distance calculate error ([#2238](https://github.com/antvis/g2plot/pull/2238)) ([319789be](https://github.com/antvis/g2plot/commit/319789be5624dd2721aa16a1d63a572c0e79605c))
+
+##### Refactors
+
+* **bullet:**  子弹图升级下 & 修复 axis 配置失效 ([#2228](https://github.com/antvis/g2plot/pull/2228)) ([8ac55498](https://github.com/antvis/g2plot/commit/8ac554981ebc6f3bb8fdb48ecffa0fc85c25686d))
+
 #### 2.3.8 (2021-01-13)
 
 ##### Documentation Changes

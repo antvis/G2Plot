@@ -309,7 +309,7 @@ registerShape('interval', 'liquid-fill-gauge', {
       attrs: {
         x: center.x,
         y: center.y,
-        r: radius - distance,
+        r: radius - distance - border / 2, // border 的大小会占用宽度
       },
     });
 

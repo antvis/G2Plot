@@ -1,4 +1,4 @@
-export const version = '2.3.8';
+export const version = '2.3.10';
 
 // G2 自定义能力透出
 import * as G2 from '@antv/g2';
@@ -25,7 +25,7 @@ export { Column, ColumnOptions } from './plots/column';
 // 条形图及类型定义 | author by [BBSQQ](https://github.com/BBSQQ)
 export { Bar, BarOptions } from './plots/bar';
 
-// 饼图及类型定义 | author by [Me-Momo](https://github.com/Me-Momo)
+// 饼图及类型定义 | author by [visiky](https://github.com/visiky)
 export { Pie, PieOptions } from './plots/pie';
 
 // 玫瑰图及类型定义 | author by [zhangzhonghe](https://github.com/zhangzhonghe)
@@ -37,7 +37,7 @@ export { WordCloud, WordCloudOptions } from './plots/word-cloud';
 // 散点图及类型定义 | author by [lxfu1](https://github.com/lxfu1)
 export { Scatter, ScatterOptions } from './plots/scatter';
 
-// 雷达图及类型定义 | author by [Me-Momo](https://github.com/Me-Momo)
+// 雷达图及类型定义 | author by [visiky](https://github.com/visiky)
 export { Radar, RadarOptions } from './plots/radar';
 
 // 混合图形 | author by [liuzhenying](https://github.com/liuzhenying)
@@ -85,10 +85,10 @@ export { Sunburst, SunburstOptions } from './plots/sunburst';
 // 仪表盘及类型定义 | author by [hustcc](https://github.com/hustcc)
 export { Gauge, GaugeOptions } from './plots/gauge';
 
-// 瀑布图 | author by [Me-momo](https://github.com/me-momo)
+// 瀑布图 | author by [visiky](https://github.com/visiky)
 export { Waterfall, WaterfallOptions } from './plots/waterfall';
 
-// 玉珏图 | author by [yujs](https://github.com/yujs)
+// 玉珏图 | author by [yujs](https://github.com/yujs) | updated by [visiky](https://github.com/visiky)
 export { RadialBar, RadialBarOptions } from './plots/radial-bar';
 
 // 对称条形图及类型定义 | author by [arcsin1](https://github.com/arcsin1)
@@ -106,6 +106,9 @@ export { Chord, ChordOptions } from './plots/chord';
 // 以下开放自定义图表开发的能力（目前仅仅是孵化中）
 /** 所有开放图表都使用 G2Plot.P 作为入口开发，理论上官方的所有图表都可以走 G2Plot.P 的入口（暂时不处理） */
 export { P } from './plugin';
+
+/** 开放多图层图表 (multi-view) */
+export { MultiView, MultiViewOptions } from './plots/multi-view';
 
 /** 开发 adaptor 可能会用到的方法或一些工具方法，不强制使用 */
 export { flow, measureTextWidth } from './utils';

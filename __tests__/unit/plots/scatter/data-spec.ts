@@ -35,7 +35,10 @@ describe('scatter', () => {
     expect(yScale.nice).toBe(false);
     expect(yScale.min).toBe(0);
     expect(yScale.max).toBe(data[0].height * 2);
+
+    scatter.destroy();
   });
+
   it('transformOptions & axis min max', () => {
     const scatter = new Scatter(createDiv(), {
       width: 400,
@@ -65,6 +68,7 @@ describe('scatter', () => {
     expect(yScale.max).toBe(100);
     scatter.destroy();
   });
+
   it('transformOptions & meta min max', () => {
     const scatter = new Scatter(createDiv(), {
       width: 400,
@@ -224,6 +228,76 @@ describe('scatter', () => {
     expect(xScale.max).toBe(160);
     expect(yScale.min).toBe(50);
     expect(yScale.max).toBe(175);
+
+    scatter.destroy();
+  });
+
+  it('changedata: normal', () => {
+    const scatter = new Scatter(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data: [],
+      xField: 'weight',
+      yField: 'height',
+    });
+
+    scatter.render();
+
+    scatter.changeData([
+      { gender: 'female', height: 161.2, weight: 51.6 },
+      { gender: 'female', height: 61.2, weight: 151.6 },
+    ]);
+    const xScale = scatter.chart.getScaleByField('weight');
+    const yScale = scatter.chart.getScaleByField('height');
+    expect(xScale.min).toBe(40);
+    expect(xScale.max).toBe(160);
+    expect(yScale.min).toBe(50);
+    expect(yScale.max).toBe(175);
+
+    scatter.changeData([]);
+    expect(scatter.options.data).toEqual([]);
+    expect(scatter.chart.getOptions().data).toEqual([]);
+
+    scatter.destroy();
+  });
+
+  it('changedata, from one data to empty or to more', () => {
+    const scatter = new Scatter(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data: [{ gender: 'female', height: 161.2, weight: 51.6 }],
+      xField: 'weight',
+      yField: 'height',
+      xAxis: {
+        nice: false,
+      },
+      yAxis: {
+        nice: false,
+      },
+    });
+
+    scatter.render();
+    let xScale = scatter.chart.getScaleByField('weight');
+    let yScale = scatter.chart.getScaleByField('height');
+    expect(xScale.min).toBe(0);
+    expect(xScale.max).toBe(51.6 * 2);
+    expect(yScale.min).toBe(0);
+    expect(yScale.max).toBe(161.2 * 2);
+
+    scatter.changeData([]);
+    expect(scatter.options.data).toEqual([]);
+    expect(scatter.chart.getOptions().data).toEqual([]);
+
+    scatter.changeData([{ gender: 'female', height: 61.2, weight: 351.6 }]);
+    expect(scatter.options.data).toEqual([{ gender: 'female', height: 61.2, weight: 351.6 }]);
+    xScale = scatter.chart.getScaleByField('weight');
+    yScale = scatter.chart.getScaleByField('height');
+    expect(xScale.min).toBe(0);
+    expect(xScale.max).toBe(351.6 * 2);
+    expect(yScale.min).toBe(0);
+    expect(yScale.max).toBe(61.2 * 2);
 
     scatter.destroy();
   });

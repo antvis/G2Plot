@@ -15,6 +15,8 @@ order: 7
 
 设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
+#### meta
+
 `markdown:docs/common/meta.zh.md`
 
 ```ts
@@ -139,15 +141,13 @@ radarPlot.render();
 
 `markdown:docs/common/component.zh.md`
 
-### 事件
+### 图表事件
 
 `markdown:docs/common/events.zh.md`
 
 ### 图表方法
 
 `markdown:docs/common/chart-methods.zh.md`
-
-
 
 ### 图表主题
 

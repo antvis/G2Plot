@@ -13,31 +13,33 @@ order: 11
 
 <description>**required** _array object_</description>
 
-设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+Configure the data source. The data source is a collection of objects. For example:`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-#### binField 
+#### binField
 
 <description>**required** _string_</description>
 
-设置直方图绘制 (进行分箱) 的字段。
+Sets the fields drawn by the histogram.
 
 #### binWidth
 
 <description>**optional** _string_</description>
 
-设置直方图的分箱宽度，binWidth 影响直方图分成多少箱, 不能与 binNumber 一起使用。
+Set the box width of the histogram. BinWidth affects how many boxes the histogram is divided into. Cannot be used with BinNumber.
 
 #### binNumber
 
 <description>**optional** _number_</description>
 
-设置直方图的分箱数量，binNumber 影响直方图分箱后每个柱子的宽度。
+Set the number of histogram boxes. BinNumber affects the width of each column after histogram boxes.
 
 #### stackField
 
 <description>**optional** _number_</description>
 
-指定层叠字段，通过该字段的值，柱子将会被分割为多个部分，通过颜色进行区分。
+Specifies cascading fields by which the column will be divided into sections, separated by color.
+
+#### meta
 
 `markdown:docs/common/meta.en.md`
 
@@ -47,7 +49,7 @@ order: 11
 
 <description>**optional** _StyleAttr | Function_</description>
 
-柱子样式配置。
+Column style configuration.
 
 `markdown:docs/common/shape-style.en.md`
 
@@ -57,7 +59,7 @@ order: 11
 
 `markdown:docs/common/component.en.md`
 
-### Event
+### Plot Event
 
 `markdown:docs/common/events.en.md`
 

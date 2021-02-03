@@ -48,7 +48,7 @@ describe('liquid', () => {
     expect(liquid.chart.middleGroup.findAllByName('waterwave-path')[0].get('animations')[0].toAttrs.matrix[6]).toBe(
       192
     );
-    expect(liquid.chart.middleGroup.findAllByName('waves')[0].get('clipShape').attr('r')).toBe(135);
+    expect(liquid.chart.middleGroup.findAllByName('waves')[0].get('clipShape').attr('r')).toBe(134);
 
     liquid.update({
       outline: {
@@ -70,7 +70,7 @@ describe('liquid', () => {
     expect(liquid.chart.middleGroup.findAllByName('waterwave-path')[0].get('animations')[0].toAttrs.matrix[6]).toBe(
       128
     );
-    expect(liquid.chart.middleGroup.findAllByName('waves')[0].get('clipShape').attr('r')).toBe(127);
+    expect(liquid.chart.middleGroup.findAllByName('waves')[0].get('clipShape').attr('r')).toBe(125);
 
     liquid.destroy();
   });

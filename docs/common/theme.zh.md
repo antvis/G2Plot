@@ -56,29 +56,7 @@ plot.update({ theme: { defaultColor: '#FF6B3B' } })
 
 另外，还可以通过 G2 提供了自定义主题机制来定义全新的主题结构，以允许用户切换、定义图表主题。
 
-```ts
-import { Pie, G2 } from '@antv/g2plot';
+<playground path="general/theme/demo/register-theme.ts" rid="rect-register-theme"></playground>
 
-// Step 1: 注册主题
-G2.registerTheme('new-theme', {
-  defaultColor: '#FF6B3B',
-  colors10: ['#FF6B3B', '#626681', '#FFC100', '#9FB40F', '#76523B', '#DAD5B5', '#0E8E89', '#E19348', '#F383A2', '#247FEA'],
-  colors20: ['#FF6B3B', '#626681', '#FFC100', '#9FB40F', '#76523B', '#DAD5B5', '#0E8E89', '#E19348', '#F383A2', '#247FEA', '#2BCB95', '#B1ABF4', '#1D42C2', '#1D9ED1', '#D64BC0', '#255634', '#8C8C47', '#8CDAE5', '#8E283B', '#791DC9'],
-});
-
-// Step 2: 使用
-const piePlot = new Pie('container', {
-  appendPadding: 10,
-  data,
-  angleField: 'value',
-  colorField: 'type',
-  radius: 0.8,
-  theme: 'new-theme',
-});
-
-piePlot.render();
-
-```
-
-
+前往 [DEMO](/zh/examples/general/theme#register-theme)
 

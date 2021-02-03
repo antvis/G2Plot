@@ -1,5 +1,3 @@
-#### meta
-
 <description>**optional** _object_</description>
 
 全局化配置图表数据元信息，以字段为单位进行配置，来定义数据的类型和展示方式。在 meta 上的配置将同时影响所有组件的文本信息。

@@ -3,7 +3,7 @@ import { Gauge } from '@antv/g2plot';
 const gauge = new Gauge('container', {
   percent: 0.75,
   range: {
-    color: 'l(0) 0:#bde8ff 1:#9ec9ff',
+    color: 'l(0) 0:#B8E1FF 1:#3D76DD',
   },
   startAngle: Math.PI,
   endAngle: 2 * Math.PI,

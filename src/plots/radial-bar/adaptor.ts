@@ -61,7 +61,7 @@ export function meta(params: Params<RadialBarOptions>): Params<RadialBarOptions>
  */
 function coordinate(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   const { chart, options } = params;
-  const { radius, innerRadius } = options;
+  const { radius, innerRadius, startAngle, endAngle } = options;
 
   chart
     .coordinate({
@@ -69,6 +69,8 @@ function coordinate(params: Params<RadialBarOptions>): Params<RadialBarOptions> 
       cfg: {
         radius,
         innerRadius,
+        startAngle,
+        endAngle,
       },
     })
     .transpose();

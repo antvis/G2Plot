@@ -13,9 +13,11 @@ order: 24
 
 <description>**required** _array object_</description>
 
-设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+Configure the data source. The data source is a collection of objects. For example:`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
 `markdown:docs/common/xy-field.en.md`
+
+#### meta
 
 `markdown:docs/common/meta.en.md`
 
@@ -25,33 +27,32 @@ order: 24
 
 <description>**optional** _string_ _default:_ `difference`</description>
 
-label 数据模式，可选值: `absolute`(数据的绝对值)，`difference`(数据的相对差值)。
-
+Label data mode, optional values: 'absolute' (absolute value of data), 'difference' (relative difference of data).
 
 #### total
 
 <description>**optional** _false|object_</description>
 
-是否展示总计值（自动进行统计，新增一根总计值的柱子）。
+Whether to display totals (automatic statistics, add a column with totals).
 
-默认配置： 
+Default configuration:
 
-| 参数名 | 类型 | 是否必选 | 默认值 | 描述 |
-| :---| --- |  --- |  --- |  --- | 
-| label| _string_ | false | 总计 | 总计值柱子的标签 |
-| style | _object_ | false | `{ fill: 'rgba(0, 0, 0, 0.25)' }` | 总计值柱子的样式配置 |
+| Properties | Type     | Required | Default                           | Description                            |
+| :--------- | -------- | -------- | --------------------------------- | -------------------------------------- |
+| label      | _string_ | false    | Total                             | Total value of the column label        |
+| style      | _object_ | false    | `{ fill: 'rgba(0, 0, 0, 0.25)' }` | Total value column style configuration |
 
 #### leaderLine
 
 <description>**optional** _false | object_</description>
 
-是否展示牵引线。
+Whether to show leader line.
 
-默认配置： 
+Default configuration:
 
-| 参数名 | 类型 | 是否必选 | 默认值 | 描述 |
-| :---| --- |  --- |  --- |  --- | 
-| style | _object_ | false | `{ lineWidth: 1, stroke: '#8c8c8c', lineDash: [4, 2]` | 牵引线的样式配置 |
+| Properties | Type     | Required | Default                                               | Description                     |
+| :--------- | -------- | -------- | ----------------------------------------------------- | ------------------------------- |
+| style      | _object_ | false    | `{ lineWidth: 1, stroke: '#8c8c8c', lineDash: [4, 2]` | Leader line style configuration |
 
 ### Geometry Style
 
@@ -59,25 +60,25 @@ label 数据模式，可选值: `absolute`(数据的绝对值)，`difference`(�
 
 <description>**optional** _number_ _default:_ `#f4664a`</description>
 
-上涨色配置。
+Rising color configuration.
 
 #### fallingFill
 
 <description>**optional** _number_ _default:_ `#30bf78`</description>
 
-下降色配置。
+Drop color configuration.
 
 #### columnWidthRatio
 
 <description>**optional** _number_</description>
 
-柱状图宽度占比 [0-1]。
+Width ratio of histogram [0-1].
 
 #### waterfallStyle
 
 <description>**optional** _StyleAttr | Function_</description>
 
-柱子样式配置。
+Column style configuration.
 
 `markdown:docs/common/color.en.md`
 
@@ -85,7 +86,7 @@ label 数据模式，可选值: `absolute`(数据的绝对值)，`difference`(�
 
 `markdown:docs/common/component.en.md`
 
-### Event
+### Plot Event
 
 `markdown:docs/common/events.en.md`
 

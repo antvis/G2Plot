@@ -3,7 +3,9 @@ import { Data, Meta, Options, Region, Tooltip } from '../../types';
 import { Axis } from '../../types/axis';
 import { Legend } from '../../types/legend';
 import { Geometry } from '../../adaptor/geometries/base';
+import { Animation } from '../../types/animation';
 import { Annotation } from '../../types/annotation';
+import { Interaction } from '../../types/interaction';
 
 /**
  * geometry 映射信息
@@ -22,7 +24,7 @@ export type IView = {
   readonly region?: Region;
 
   /**
-   * view 的中数据
+   * view 中的数据
    */
   readonly data: Data;
 
@@ -47,9 +49,19 @@ export type IView = {
   readonly axes?: false | Record<string, Axis>;
 
   /**
+   * interactions 配置
+   */
+  readonly interactions?: Interaction[];
+
+  /**
    * annotation 配置
    */
   readonly annotations?: Annotation[];
+
+  /**
+   * animation 配置
+   */
+  readonly animation?: Animation;
 };
 
 /** 配置类型定义 */
@@ -61,7 +73,7 @@ export interface MultiViewOptions
    */
   readonly syncViewPadding?: boolean;
   /**
-   * 没一个图层的配置。
+   * 每一个图层的配置。
    * 每个图层包括有自己的：数据、图形、图形映射。
    */
   readonly views: IView[];

@@ -17,8 +17,11 @@ const bar = new RadialBar('container', {
   data,
   xField: 'term',
   yField: 'count',
-  radius: 0.8,
-  innerRadius: 0.2,
+  radius: 1,
+  innerRadius: 0.4,
+  // 设置坐标系的起始角度和终止角度
+  startAngle: Math.PI * 0.5,
+  endAngle: Math.PI * 2.5,
   tooltip: {
     showMarkers: true,
   },

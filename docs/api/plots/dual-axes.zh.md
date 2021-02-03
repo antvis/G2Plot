@@ -31,6 +31,8 @@ const data = [[{ time: '1991'，value: 20 }], [{ time: '1992', count: 20 }]];
 
 点形状在 y 方向位置映射所对应的数据字段名数组, 形式为[左轴图形数据字段名，右轴图形数据字段名]，例如 `{yField: ['value', 'count']}`。
 
+#### meta
+
 `markdown:docs/common/meta.zh.md`
 
 ### 图形样式
@@ -154,7 +156,7 @@ xAxis、yAxis 配置相同，由于 DualAxes 是双轴， annotations 类型是�
 
 `markdown:docs/common/theme.zh.md`
 
-### 事件
+### 图表事件
 
 `markdown:docs/common/events.zh.md`
 

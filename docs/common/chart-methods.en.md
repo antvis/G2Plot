@@ -1,4 +1,4 @@
-#### render() 
+#### render()
 
 Render the chart.
 
@@ -24,7 +24,7 @@ plot.update({
 
 更新图表数据。`update()`方法会导致图形区域销毁并重建，如果只进行数据更新，而不涉及其他配置项更新，推荐使用本方法。。
 
-默认配置：`无`
+Default configuration:`无`
 
 使用示例：
 

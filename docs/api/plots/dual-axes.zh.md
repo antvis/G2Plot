@@ -19,13 +19,13 @@ order: 6
 const data = [[{ time: '1991'，value: 20 }], [{ time: '1992', count: 20 }]];
 ```
 
-#### xField 
+#### xField
 
 <description>**required** _string_</description>
 
 点形状在 x 方向位置映射对应的数据字段名，一般对应一个连续字段。例如`{xField: 'time'}`。
 
-#### yField 
+#### yField
 
 <description>**required** _string[]_</description>
 
@@ -41,7 +41,8 @@ const data = [[{ time: '1991'，value: 20 }], [{ time: '1992', count: 20 }]];
 
 <description>**optional** _array object_</description>
 
-指定了双轴各自对应的图形配置，形式为[左轴图形配置，右轴图形配置]。每一个配置应为 Line 或 Column 类型的 Config。通过指定双轴对应图形，来实现混合图表功能: 
+指定了双轴各自对应的图形配置，形式为[左轴图形配置，右轴图形配置]。每一个配置应为 Line 或 Column 类型的 Config。通过指定双轴对应图形，来实现混合图表功能:
+
 - 双轴折线图: [Line, Line], 参考 [DEMO](../../../examples/dual-axes/dual-line)
 - 柱线混合图: [Column, Line], 参考 [DEMO](http://localhost:8080/zh/examples/dual-axes/column-line)
 
@@ -49,31 +50,31 @@ const data = [[{ time: '1991'，value: 20 }], [{ time: '1992', count: 20 }]];
 
 折线对应的图形配置为：
 
-| 细分配置项名称 | 类型                              | 功能描述                                         | 默认值 |
-| -----------  | -------------------------------- | ----------------------------------------------- | ------ |
-| geometry     | _string_                         | 图形类型，指定为'line'                             | 'line' |
-| seriesField  | _string_                         | 拆分字段, 若存在则为多折线，具体用法同[折线图 seriesfield](./line#seriesfield)         |
-| smooth       | _boolean_                        | 是否平滑，具体用法同[折线图 smooth](./line#smooth)    | false |
-| connectNulls | _boolean_                        | 是否连接空数据，具体用法同[折线图 connectnulls](./line#connectnulls)  | true |
-| lineStyle    | _StyleAttr \| Function_          | 折线图形样式，具体用法同[折线图  lineStyle](./line#linestyle)  |  |
-| point        | _pointStyle_                     | 线数据点图形样式，具体用法同[折线图  point](./line#point)  |  |
-| label        | _ContinueLegendLabelCfg_         | 折线图 label,具体用法同[折线图 label](./line#label) |
-| color        | _string \| string[] \| Function_ | 指定点的颜色。具体用法同[折线图 color](./line#color) |
+| 细分配置项名称 | 类型                             | 功能描述                                                                       | 默认值 |
+| -------------- | -------------------------------- | ------------------------------------------------------------------------------ | ------ |
+| geometry       | _string_                         | 图形类型，指定为'line'                                                         | 'line' |
+| seriesField    | _string_                         | 拆分字段, 若存在则为多折线，具体用法同[折线图 seriesfield](./line#seriesfield) |
+| smooth         | _boolean_                        | 是否平滑，具体用法同[折线图 smooth](./line#smooth)                             | false  |
+| connectNulls   | _boolean_                        | 是否连接空数据，具体用法同[折线图 connectnulls](./line#connectnulls)           | true   |
+| lineStyle      | _StyleAttr \| Function_          | 折线图形样式，具体用法同[折线图 lineStyle](./line#linestyle)                   |        |
+| point          | _pointStyle_                     | 线数据点图形样式，具体用法同[折线图 point](./line#point)                       |        |
+| label          | _ContinueLegendLabelCfg_         | 折线图 label,具体用法同[折线图 label](./line#label)                            |
+| color          | _string \| string[] \| Function_ | 指定点的颜色。具体用法同[折线图 color](./line#color)                           |
 
 柱形对应的图形配置为：
 
-| 细分配置项名称 | 类型                              | 功能描述                                         | 默认值 |
-| -----------  | -------------------------------- | ----------------------------------------------- | ------ |
-| geometry     | _string_                         | 图形类型，应指定为'column'                         |  |
-| seriesField  | _string_                         | 拆分字段, 在分组柱状图下同 groupField、colorField，在堆积柱状图下同 stackField、colorField ，具体参考[柱形图 seriesfield](./column#seriesfield)         |
-| isGroup       | _boolean_                        | 是否分组柱形图，具体用法同[柱形图 isGroup](./column#isgroup)    | false |
-| isStack       | _boolean_                        | 是否堆积柱状图，具体用法同[柱形图 isStack](./column#isstack)    | false |
-| columnWidthRatio | _number_                        | 柱状图宽度占比 [0-1] ，具体用法同[柱形图 columnWidthRatio](./column#columnwidthratio)  |  |
-| marginRatio | _number_                        | 分组中柱子之间的间距 [0-1]，仅对分组柱状图适用，具体用法同[柱形图 marginRatio](./column#marginratio)  |  |
-| columnStyle | _StyleAttr \| Function_                        |  柱子样式配置，具体用法同[柱形图 columnStyle](./column#columnstyle)  |  |
-| label        | _ContinueLegendLabelCfg_         | 柱形图 label,具体用法同[柱线图 label](./column#label) |
-| color        | _string \| string[] \| Function_ | 指定点的颜色。具体用法同[折线图 color](./column#color) |
-| groupField   | _string_                         | 拆分字段，用于堆叠+分组柱图，拆分优先级高于 seriesField，isGroup: true 时会根据 groupField 进行分组。    | - |
+| 细分配置项名称   | 类型                             | 功能描述                                                                                                                                        | 默认值 |
+| ---------------- | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| geometry         | _string_                         | 图形类型，应指定为'column'                                                                                                                      |        |
+| seriesField      | _string_                         | 拆分字段, 在分组柱状图下同 groupField、colorField，在堆积柱状图下同 stackField、colorField ，具体参考[柱形图 seriesfield](./column#seriesfield) |
+| isGroup          | _boolean_                        | 是否分组柱形图，具体用法同[柱形图 isGroup](./column#isgroup)                                                                                    | false  |
+| isStack          | _boolean_                        | 是否堆积柱状图，具体用法同[柱形图 isStack](./column#isstack)                                                                                    | false  |
+| columnWidthRatio | _number_                         | 柱状图宽度占比 [0-1] ，具体用法同[柱形图 columnWidthRatio](./column#columnwidthratio)                                                           |        |
+| marginRatio      | _number_                         | 分组中柱子之间的间距 [0-1]，仅对分组柱状图适用，具体用法同[柱形图 marginRatio](./column#marginratio)                                            |        |
+| columnStyle      | _StyleAttr \| Function_          | 柱子样式配置，具体用法同[柱形图 columnStyle](./column#columnstyle)                                                                              |        |
+| label            | _ContinueLegendLabelCfg_         | 柱形图 label,具体用法同[柱线图 label](./column#label)                                                                                           |
+| color            | _string \| string[] \| Function_ | 指定点的颜色。具体用法同[折线图 color](./column#color)                                                                                          |
+| groupField       | _string_                         | 拆分字段，用于堆叠+分组柱图，拆分优先级高于 seriesField，isGroup: true 时会根据 groupField 进行分组。                                           | -      |
 
 ### 图表组件
 
@@ -144,17 +145,20 @@ xAxis、yAxis 配置相同，由于 DualAxes 是双轴， annotations 类型是�
   }
 }
 ```
+
 `markdown:docs/common/annotations.zh.md`
 
 #### legend
 
 `markdown:docs/common/legend.zh.md`
 
-
-#### 主题
 ### 图表主题
 
 `markdown:docs/common/theme.zh.md`
+
+#### 滚动条
+
+`markdown:docs/common/slider.zh.md`
 
 ### 图表事件
 

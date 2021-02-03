@@ -156,6 +156,10 @@ The configuration for Xaxis and Yaxis is the same, since DualAxes are biaxes, an
 
 `markdown:docs/common/theme.en.md`
 
+#### slider
+
+`markdown:docs/common/slider.en.md`
+
 ### Plot Events
 
 `markdown:docs/common/events.en.md`

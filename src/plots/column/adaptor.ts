@@ -86,7 +86,7 @@ function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
  * meta 配置
  * @param params
  */
-function meta(params: Params<ColumnOptions>): Params<ColumnOptions> {
+export function meta(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { options } = params;
   const { xAxis, yAxis, xField, yField, data, isPercent } = options;
 

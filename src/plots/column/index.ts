@@ -3,7 +3,7 @@ import { Adaptor } from '../../core/adaptor';
 import { deepAssign } from '../../utils';
 import { getDataWhetherPecentage } from '../../utils/transform/percent';
 import { ColumnOptions } from './types';
-import { adaptor } from './adaptor';
+import { adaptor, meta } from './adaptor';
 
 export { ColumnOptions };
 
@@ -20,6 +20,8 @@ export class Column extends Plot<ColumnOptions> {
   public changeData(data: ColumnOptions['data']) {
     this.updateOption({ data });
     const { yField, xField, isPercent } = this.options;
+    const { chart, options } = this;
+    meta({ chart, options });
     this.chart.changeData(getDataWhetherPecentage(data, yField, xField, yField, isPercent));
   }
 

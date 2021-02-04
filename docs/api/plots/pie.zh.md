@@ -19,43 +19,48 @@ order: 4
 
 `markdown:docs/common/meta.zh.md`
 
+示例代码：
+
 ```ts
 const data = [
-  { country: 'Asia', year: '1750', value: 502 },
-  { country: 'Asia', year: '1800', value: 635 },
-  { country: 'Europe', year: '1750', value: 163 },
-  { country: 'Europe', year: '1800', value: 203 },
+  { name: '分类一', value: 27 },
+  { name: '分类二', value: 25 },
+  { name: '分类三', value: 18 },
+  { name: '分类四', value: 15 },
+  { name: '分类五', value: 10 },
+  { name: '其他', value: 5 },
 ];
 
 const piePlot = new Pie('container', {
   data,
   // highlight-start
   meta: {
-    country: {
-      alias: '国家',
+    name: {
+      alias: '分类',
       range: [0, 1],
     },
     value: {
       alias: '数量',
+      range: [0.25, 0.75],
       formatter: (v) => {
-        return `${v}个`;
+        return `${v}%`;
       },
     },
   },
   // highlight-end
   angleField: 'value',
-  colorField: 'country',
+  colorField: 'name',
 });
 piePlot.render();
 ```
 
-#### angleField 
+#### angleField
 
 <description>**required** _string_</description>
 
 扇形切片大小（弧度）所对应的数据字段名。
 
-#### colorField 
+#### colorField
 
 <description>**required** _string_</description>
 
@@ -63,24 +68,24 @@ piePlot.render();
 
 ### 图形样式
 
-#### radius 
+#### radius
 
 <description>**optional** _number_</description>
 
 饼图的半径，原点为画布中心。配置值域为 (0,1]，1 代表饼图撑满绘图区域。
 
-#### innerRadius 
+#### innerRadius
 
 <description>**optional** _number_</description>
 
 饼图的内半径，原点为画布中心。配置值域为 (0,1]
-#### startAngle 
+#### startAngle
 
 <description>**optional** _number_</description>
 
 配置坐标系的起始角度。
 
-#### endAngle 
+#### endAngle
 
 <description>**optional** _number_</description>
 
@@ -100,7 +105,7 @@ piePlot.render();
 
 `markdown:docs/common/statistic.zh.md`
 
-#### pieStyle 
+#### pieStyle
 
 <description>**optional** _object_</description>
 

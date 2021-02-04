@@ -21,19 +21,17 @@
 
 ```ts
 {
-  style: {
-    fill: 'red',
-    fillOpacity: 0.5,
-    stroke: 'black',
-    lineWidth: 1,
-    lineDash: [4, 5],
-    strokeOpacity: 0.7,
-    shadowColor: 'black',
-    shadowBlur: 10,
-    shadowOffsetX: 5,
-    shadowOffsetY: 5,
-    cursor: 'pointer'
-  }
+  fill: 'red',
+  fillOpacity: 0.5,
+  stroke: 'black',
+  lineWidth: 1,
+  lineDash: [4, 5],
+  strokeOpacity: 0.7,
+  shadowColor: 'black',
+  shadowBlur: 10,
+  shadowOffsetX: 5,
+  shadowOffsetY: 5,
+  cursor: 'pointer'
 }
 ```
 

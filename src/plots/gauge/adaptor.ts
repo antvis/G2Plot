@@ -12,7 +12,7 @@ import {
   INDICATEOR_VIEW_ID,
   RANGE_VIEW_ID,
   MASK_VIEW_ID,
-} from './constant';
+} from './constants';
 import { GaugeOptions } from './types';
 import { getIndicatorData, getRangeData } from './utils';
 

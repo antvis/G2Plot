@@ -2,22 +2,22 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { ProgressOptions } from './types';
 import { adaptor } from './adaptor';
-import { DEFAULT_COLOR } from './constant';
+import { DEFAULT_OPTIONS } from './constants';
 import { getProgressData } from './utils';
 
 export { ProgressOptions };
 
 export class Progress extends Plot<ProgressOptions> {
+  /**
+   * 获取 仪表盘 默认配置项
+   * @static 供外部使用
+   */
+  static getDefaultOptions(): Partial<ProgressOptions> {
+    return DEFAULT_OPTIONS;
+  }
+
   /** 图表类型 */
   public type: string = 'process';
-
-  protected getDefaultOptions() {
-    return {
-      percent: 0.2,
-      color: DEFAULT_COLOR,
-      animation: true,
-    };
-  }
 
   /**
    * 更新数据
@@ -26,6 +26,10 @@ export class Progress extends Plot<ProgressOptions> {
   public changeData(percent: number) {
     this.updateOption({ percent });
     this.chart.changeData(getProgressData(percent));
+  }
+
+  protected getDefaultOptions() {
+    return Progress.getDefaultOptions();
   }
 
   /**

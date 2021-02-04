@@ -14,3 +14,14 @@ export const DEFAULT_TOOLTIP_OPTIONS = {
     },
   },
 };
+
+/**
+ * 默认配置项
+ */
+export const DEFAULT_OPTIONS = {
+  appendPadding: 2,
+  tooltip: {
+    ...DEFAULT_TOOLTIP_OPTIONS,
+  },
+  animation: {},
+};

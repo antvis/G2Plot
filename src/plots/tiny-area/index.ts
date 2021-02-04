@@ -1,13 +1,21 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { DEFAULT_TOOLTIP_OPTIONS } from '../tiny-line/constants';
 import { getTinyData } from '../tiny-line/utils';
 import { TinyAreaOptions } from './types';
 import { adaptor } from './adaptor';
+import { DEFAULT_OPTIONS } from './constants';
 
 export { TinyAreaOptions };
 
 export class TinyArea extends Plot<TinyAreaOptions> {
+  /**
+   * 获取默认配置项
+   * @static 供外部使用
+   */
+  static getDefaultOptions(): Partial<TinyAreaOptions> {
+    return DEFAULT_OPTIONS;
+  }
+
   /** 图表类型 */
   public type: string = 'tiny-area';
 
@@ -21,22 +29,7 @@ export class TinyArea extends Plot<TinyAreaOptions> {
   }
 
   protected getDefaultOptions() {
-    return {
-      appendPadding: 2,
-      tooltip: {
-        ...DEFAULT_TOOLTIP_OPTIONS,
-      },
-      // 默认样式
-      color: 'l(90) 0:#E5EDFE 1:#ffffff',
-      areaStyle: {
-        fillOpacity: 0.6,
-      },
-      line: {
-        size: 1,
-        color: '#5B8FF9',
-      },
-      animation: true,
-    };
+    return TinyArea.getDefaultOptions();
   }
 
   /**

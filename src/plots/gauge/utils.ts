@@ -1,6 +1,6 @@
 import { clamp, get, size } from '@antv/util';
 import { Data, Datum } from '../../types';
-import { RANGE_VALUE, RANGE_TYPE, PERCENT } from './constant';
+import { RANGE_VALUE, RANGE_TYPE, PERCENT } from './constants';
 import { GaugeOptions } from './types';
 
 /**

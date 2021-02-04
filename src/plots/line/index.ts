@@ -1,14 +1,21 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { deepAssign } from '../../utils';
 import { LineOptions } from './types';
 import { adaptor } from './adaptor';
-
+import { DEFAULT_OPTIONS } from './constants';
 import './interactions';
 
 export { LineOptions };
 
 export class Line extends Plot<LineOptions> {
+  /**
+   * 获取 折线图 默认配置项
+   * @static 供外部使用
+   */
+  static getDefaultOptions(): Partial<LineOptions> {
+    return DEFAULT_OPTIONS;
+  }
+
   /** 图表类型 */
   public type: string = 'line';
 
@@ -25,20 +32,7 @@ export class Line extends Plot<LineOptions> {
    * 获取 折线图 默认配置
    */
   protected getDefaultOptions() {
-    return deepAssign({}, super.getDefaultOptions(), {
-      tooltip: {
-        shared: true,
-        showMarkers: true,
-        showCrosshairs: true,
-        crosshairs: {
-          type: 'x',
-        },
-      },
-      legend: {
-        position: 'top-left',
-      },
-      isStack: false,
-    });
+    return Line.getDefaultOptions();
   }
 
   /**

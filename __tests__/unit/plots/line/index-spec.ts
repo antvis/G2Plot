@@ -1,4 +1,5 @@
 import { Line } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/line/constants';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
 
@@ -88,5 +89,9 @@ describe('line', () => {
     expect(line.chart.getScaleByField('x').range).toEqual([0.1, 0.9]);
 
     line.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(Line.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

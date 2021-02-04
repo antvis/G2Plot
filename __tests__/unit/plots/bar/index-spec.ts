@@ -1,4 +1,5 @@
 import { Bar } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/bar/constants';
 import { salesByArea, subSalesByArea, timeColumnData } from '../../../data/sales';
 import { createDiv } from '../../../utils/dom';
 
@@ -409,5 +410,9 @@ describe('bar', () => {
     expect(bar.chart.geometries[0].elements[0].shape.getChildren()[0].attr('fill')).toBe('red');
 
     bar.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(Bar.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

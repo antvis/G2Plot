@@ -1,4 +1,5 @@
 import { Column } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/column/constants';
 import { salesByArea, subSalesByArea, timeColumnData } from '../../../data/sales';
 import { createDiv } from '../../../utils/dom';
 
@@ -398,5 +399,9 @@ describe('column', () => {
     const theme = column.chart.getTheme();
     expect(theme.defaultColor).toBe('#FF6B3B');
     expect(theme.columnWidthRatio).toBe(0.8);
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(Column.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

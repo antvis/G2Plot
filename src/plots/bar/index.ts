@@ -2,9 +2,8 @@ import { Plot } from '../../core/plot';
 import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { getDataWhetherPecentage } from '../../utils/transform/percent';
-import { meta } from '../column/adaptor';
 import { BarOptions } from './types';
-import { adaptor } from './adaptor';
+import { adaptor, meta } from './adaptor';
 
 export { BarOptions };
 

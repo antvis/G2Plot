@@ -10,6 +10,8 @@ import { Datum } from '../../types';
 import { meta, legend, axis } from '../line/adaptor';
 import { AreaOptions } from './types';
 
+export { meta };
+
 /**
  * geometry 处理
  * @param params

@@ -1,11 +1,13 @@
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
-import { scale, theme, animation, annotation, tooltip } from '../../adaptor/common';
+import { theme, animation, annotation, tooltip } from '../../adaptor/common';
 import { line, point } from '../../adaptor/geometries';
-import { adjustYMetaByZero } from '../../utils/data';
+import { meta } from '../tiny-area/adaptor';
 import { getTinyData } from './utils';
 import { TinyLineOptions } from './types';
 import { X_FIELD, Y_FIELD } from './constants';
+
+export { meta };
 
 /**
  * 字段
@@ -40,31 +42,6 @@ function geometry(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
   chart.legend(false);
 
   return params;
-}
-
-/**
- * meta 配置
- * @param params
- */
-export function meta(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
-  const { options } = params;
-  const { xAxis, yAxis, data } = options;
-  const seriesData = getTinyData(data);
-
-  return flow(
-    scale(
-      {
-        [X_FIELD]: xAxis,
-        [Y_FIELD]: yAxis,
-      },
-      {
-        [X_FIELD]: {
-          type: 'cat',
-        },
-        [Y_FIELD]: adjustYMetaByZero(seriesData, Y_FIELD),
-      }
-    )
-  )(params);
 }
 
 /**

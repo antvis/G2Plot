@@ -12,7 +12,7 @@ import { TinyColumnOptions } from './types';
  */
 function geometry(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> {
   const { chart, options } = params;
-  const { data, xAxis, yAxis, color, columnStyle, columnWidthRatio } = options;
+  const { data, color, columnStyle, columnWidthRatio } = options;
 
   const seriesData = getTinyData(data);
 
@@ -34,22 +34,32 @@ function geometry(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> 
   chart.axis(false);
   chart.legend(false);
   chart.interaction('element-active');
-
-  // scale
-  scale(
-    {
-      [X_FIELD]: xAxis,
-      [Y_FIELD]: yAxis,
-    },
-    {
-      [X_FIELD]: {
-        type: 'cat',
-      },
-      [Y_FIELD]: adjustYMetaByZero(seriesData, Y_FIELD),
-    }
-  )(params);
-
   return params;
+}
+
+/**
+ * meta 配置
+ * @param params
+ */
+export function meta(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> {
+  const { options } = params;
+  const { xAxis, yAxis, data } = options;
+  const seriesData = getTinyData(data);
+
+  return flow(
+    scale(
+      {
+        [X_FIELD]: xAxis,
+        [Y_FIELD]: yAxis,
+      },
+      {
+        [X_FIELD]: {
+          type: 'cat',
+        },
+        [Y_FIELD]: adjustYMetaByZero(seriesData, Y_FIELD),
+      }
+    )
+  )(params);
 }
 
 /**
@@ -58,5 +68,5 @@ function geometry(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> 
  * @param options
  */
 export function adaptor(params: Params<TinyColumnOptions>) {
-  return flow(geometry, tooltip, theme, animation, annotation())(params);
+  return flow(geometry, meta, tooltip, theme, animation, annotation())(params);
 }

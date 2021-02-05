@@ -1,4 +1,4 @@
-import { Column, Area, Bar, Line, Plot } from '../../src';
+import { Column, Area, Bar, Line, Plot, TinyArea, TinyColumn, TinyLine } from '../../src';
 import { createDiv } from '../utils/dom';
 
 describe('#2303', () => {
@@ -42,23 +42,29 @@ describe('#2303', () => {
     yField: 'type',
   };
 
+  const getter = (data) => data.map((d) => d.sales);
+
   const charts = [
     { chart: Column, name: 'column', fieldOptions: fieldOptions1 },
     { chart: Area, name: 'area', fieldOptions: fieldOptions1 },
     { chart: Bar, name: 'bar', fieldOptions: fieldOptions2 },
     { chart: Line, name: 'line', fieldOptions: fieldOptions1 },
+    { chart: TinyArea, name: 'tiny-area', getter },
+    { chart: TinyColumn, name: 'tiny-column', getter },
+    { chart: TinyLine, name: 'tiny-line', getter },
   ];
 
   charts.forEach((d) => {
-    const { chart, name, fieldOptions } = d;
+    const { chart, name, fieldOptions = {}, getter = (d) => d } = d;
     it(`should update scales of ${name} when changeData`, () => {
-      test(chart, fieldOptions, data0, data1);
+      testChart(chart, fieldOptions, getter(data0), getter(data1));
     });
   });
 
-  function test(Chart, fieldOptions, data0, data1) {
-    const domainMax = <T>(d: Plot<T>, axis: 'x' | 'y') => d.chart.getScalesByDim(axis).sales.max;
-    const domainMin = <T>(d: Plot<T>, axis: 'x' | 'y') => d.chart.getScalesByDim(axis).sales.min;
+  function testChart(Chart, fieldOptions, data0, data1) {
+    const getter = Object.keys(fieldOptions).length ? (d) => d.sales : (d) => d.y;
+    const domainMax = <T>(d: Plot<T>, axis: 'x' | 'y') => getter(d.chart.getScalesByDim(axis)).max;
+    const domainMin = <T>(d: Plot<T>, axis: 'x' | 'y') => getter(d.chart.getScalesByDim(axis)).min;
 
     const chart = new Chart(createDiv(), {
       data: data0,

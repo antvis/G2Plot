@@ -2,6 +2,8 @@ import { Params } from '../../core/adaptor';
 import { adaptor as columnAdaptor } from '../column/adaptor';
 import { BarOptions } from './types';
 
+export { meta } from '../column/adaptor';
+
 /**
  * 柱形图适配器
  * @param params

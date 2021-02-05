@@ -2,7 +2,7 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { getDataWhetherPecentage } from '../../utils/transform/percent';
 import { BarOptions } from './types';
-import { adaptor } from './adaptor';
+import { adaptor, meta } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
 
 export { BarOptions };
@@ -27,8 +27,11 @@ export class Bar extends Plot<BarOptions> {
    */
   public changeData(data: BarOptions['data']) {
     this.updateOption({ data });
-    const { xField, yField, isPercent } = this.options;
-    this.chart.changeData(getDataWhetherPecentage(data, xField, yField, xField, isPercent));
+    const { chart, options } = this;
+    const { xField, yField, isPercent } = options;
+    const switchedFieldOptions = { ...options, xField: yField, yField: xField };
+    meta({ chart, options: switchedFieldOptions });
+    chart.changeData(getDataWhetherPecentage(data, xField, yField, xField, isPercent));
   }
 
   /**

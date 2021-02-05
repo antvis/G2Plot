@@ -2,7 +2,7 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { getTinyData } from '../tiny-line/utils';
 import { TinyAreaOptions } from './types';
-import { adaptor } from './adaptor';
+import { adaptor, meta } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
 
 export { TinyAreaOptions };
@@ -25,7 +25,9 @@ export class TinyArea extends Plot<TinyAreaOptions> {
    */
   public changeData(data: TinyAreaOptions['data']) {
     this.updateOption({ data });
-    this.chart.changeData(getTinyData(data));
+    const { chart, options } = this;
+    meta({ chart, options });
+    chart.changeData(getTinyData(data));
   }
 
   protected getDefaultOptions() {

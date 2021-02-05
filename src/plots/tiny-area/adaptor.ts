@@ -13,7 +13,7 @@ import { TinyAreaOptions } from './types';
  */
 function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   const { chart, options } = params;
-  const { data, xAxis, yAxis, color, areaStyle, point: pointOptions, line: lineOptions } = options;
+  const { data, color, areaStyle, point: pointOptions, line: lineOptions } = options;
 
   const seriesData = getTinyData(data);
 
@@ -38,21 +38,32 @@ function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   chart.axis(false);
   chart.legend(false);
 
-  // scale
-  scale(
-    {
-      [X_FIELD]: xAxis,
-      [Y_FIELD]: yAxis,
-    },
-    {
-      [X_FIELD]: {
-        type: 'cat',
-      },
-      [Y_FIELD]: adjustYMetaByZero(seriesData, Y_FIELD),
-    }
-  )(params);
-
   return params;
+}
+
+/**
+ * meta 配置
+ * @param params
+ */
+export function meta(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
+  const { options } = params;
+  const { xAxis, yAxis, data } = options;
+  const seriesData = getTinyData(data);
+
+  return flow(
+    scale(
+      {
+        [X_FIELD]: xAxis,
+        [Y_FIELD]: yAxis,
+      },
+      {
+        [X_FIELD]: {
+          type: 'cat',
+        },
+        [Y_FIELD]: adjustYMetaByZero(seriesData, Y_FIELD),
+      }
+    )
+  )(params);
 }
 
 /**
@@ -61,5 +72,5 @@ function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
  * @param options
  */
 export function adaptor(params: Params<TinyAreaOptions>) {
-  return flow(geometry, tooltip, theme, animation, annotation())(params);
+  return flow(geometry, meta, tooltip, theme, animation, annotation())(params);
 }

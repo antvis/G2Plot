@@ -1,7 +1,7 @@
 import { Adaptor } from '../../core/adaptor';
 import { Plot } from '../../core/plot';
 import { getTinyData } from '../tiny-line/utils';
-import { adaptor } from './adaptor';
+import { adaptor, meta } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
 import { TinyColumnOptions } from './types';
 
@@ -25,7 +25,9 @@ export class TinyColumn extends Plot<TinyColumnOptions> {
    */
   public changeData(data: TinyColumnOptions['data']) {
     this.updateOption({ data });
-    this.chart.changeData(getTinyData(data));
+    const { chart, options } = this;
+    meta({ chart, options });
+    chart.changeData(getTinyData(data));
   }
 
   protected getDefaultOptions() {

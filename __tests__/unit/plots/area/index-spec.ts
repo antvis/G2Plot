@@ -1,4 +1,5 @@
 import { Area } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/area/constants';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
 
@@ -87,5 +88,9 @@ describe('area', () => {
     expect(geometry.scales.value.max).toBe(5000);
 
     area.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(Area.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

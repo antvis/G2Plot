@@ -1,5 +1,6 @@
 import { TooltipCfg } from '@antv/g2/lib/interface';
 import { TinyLine } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/tiny-line/constants';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
 
@@ -210,5 +211,9 @@ describe('tiny-line', () => {
     expect(tinyLine.chart.getController('annotation').getComponents().length).toBe(1);
 
     tinyLine.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(TinyLine.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

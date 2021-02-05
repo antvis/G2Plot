@@ -1,4 +1,4 @@
-import { PERCENT, RANGE_TYPE, RANGE_VALUE } from '../../../../src/plots/gauge/constant';
+import { PERCENT, RANGE_TYPE, RANGE_VALUE } from '../../../../src/plots/gauge/constants';
 import { getIndicatorData, getRangeData } from '../../../../src/plots/gauge/utils';
 
 describe('gauge utils to getData', () => {

@@ -2,12 +2,20 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { TinyLineOptions } from './types';
 import { adaptor, meta } from './adaptor';
-import { DEFAULT_TOOLTIP_OPTIONS } from './constants';
+import { DEFAULT_OPTIONS } from './constants';
 import { getTinyData } from './utils';
 
 export { TinyLineOptions };
 
 export class TinyLine extends Plot<TinyLineOptions> {
+  /**
+   * 获取默认配置项
+   * @static 供外部使用
+   */
+  static getDefaultOptions(): Partial<TinyLineOptions> {
+    return DEFAULT_OPTIONS;
+  }
+
   /** 图表类型 */
   public type: string = 'tiny-line';
 
@@ -23,13 +31,7 @@ export class TinyLine extends Plot<TinyLineOptions> {
   }
 
   protected getDefaultOptions() {
-    return {
-      appendPadding: 2,
-      tooltip: {
-        ...DEFAULT_TOOLTIP_OPTIONS,
-      },
-      animation: true,
-    };
+    return TinyLine.getDefaultOptions();
   }
 
   /**

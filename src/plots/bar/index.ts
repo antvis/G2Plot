@@ -1,9 +1,9 @@
 import { Plot } from '../../core/plot';
-import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { getDataWhetherPecentage } from '../../utils/transform/percent';
 import { BarOptions } from './types';
 import { adaptor, meta } from './adaptor';
+import { DEFAULT_OPTIONS } from './constants';
 
 export { BarOptions };
 
@@ -11,6 +11,14 @@ export { BarOptions };
  * 条形图
  */
 export class Bar extends Plot<BarOptions> {
+  /**
+   * 获取 条形图 默认配置项
+   * @static 供外部使用
+   */
+  static getDefaultOptions(): Partial<BarOptions> {
+    return DEFAULT_OPTIONS;
+  }
+
   /** 图表类型 */
   public readonly type: string = 'bar';
 
@@ -30,16 +38,7 @@ export class Bar extends Plot<BarOptions> {
    * 获取 条形图 默认配置
    */
   protected getDefaultOptions() {
-    return deepAssign({}, super.getDefaultOptions(), {
-      barWidthRatio: 0.6,
-      marginRatio: 1 / 32,
-      tooltip: {
-        shared: true,
-        showMarkers: false,
-        offset: 20,
-      },
-      interactions: [{ type: 'active-region' }],
-    });
+    return Bar.getDefaultOptions();
   }
 
   /**

@@ -3,7 +3,7 @@ import { Params } from '../../core/adaptor';
 import { flow, renderStatistic } from '../../utils';
 import { scale, animation, theme, annotation } from '../../adaptor/common';
 import { geometry } from '../progress/adaptor';
-import { PERCENT } from '../gauge/constant';
+import { PERCENT } from '../gauge/constants';
 import { RingProgressOptions } from './types';
 
 /**

@@ -13,7 +13,7 @@ import { TinyAreaOptions } from './types';
  */
 function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   const { chart, options } = params;
-  const { data, xAxis, yAxis, color, areaStyle, point: pointOptions, line: lineOptions } = options;
+  const { data, color, areaStyle, point: pointOptions, line: lineOptions } = options;
 
   const seriesData = getTinyData(data);
 

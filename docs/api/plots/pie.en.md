@@ -19,32 +19,37 @@ Configure the data source. The data source is a collection of objects. For examp
 
 `markdown:docs/common/meta.en.md`
 
+Example：
+
 ```ts
 const data = [
-  { country: 'Asia', year: '1750', value: 502 },
-  { country: 'Asia', year: '1800', value: 635 },
-  { country: 'Europe', year: '1750', value: 163 },
-  { country: 'Europe', year: '1800', value: 203 },
+  { type: '分类一', value: 27 },
+  { type: '分类二', value: 25 },
+  { type: '分类三', value: 18 },
+  { type: '分类四', value: 15 },
+  { type: '分类五', value: 10 },
+  { type: '其他', value: 5 },
 ];
 
 const piePlot = new Pie('container', {
   data,
   // highlight-start
   meta: {
-    country: {
-      alias: '国家',
+    type: {
+      alias: '分类',
       range: [0, 1],
     },
     value: {
       alias: '数量',
+      range: [0.25, 0.75],
       formatter: (v) => {
-        return `${v}个`;
+        return `${v}%`;
       },
     },
   },
   // highlight-end
   angleField: 'value',
-  colorField: 'country',
+  colorField: 'type',
 });
 piePlot.render();
 ```

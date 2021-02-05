@@ -2,6 +2,7 @@ import { Plot } from '../../core/plot';
 import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { getDataWhetherPecentage } from '../../utils/transform/percent';
+import { meta } from '../column/adaptor';
 import { BarOptions } from './types';
 import { adaptor } from './adaptor';
 
@@ -19,8 +20,11 @@ export class Bar extends Plot<BarOptions> {
    */
   public changeData(data: BarOptions['data']) {
     this.updateOption({ data });
-    const { xField, yField, isPercent } = this.options;
-    this.chart.changeData(getDataWhetherPecentage(data, xField, yField, xField, isPercent));
+    const { chart, options } = this;
+    const { xField, yField, isPercent } = options;
+    const switchedFieldOptions = { ...options, xField: yField, yField: xField };
+    meta({ chart, options: switchedFieldOptions });
+    chart.changeData(getDataWhetherPecentage(data, xField, yField, xField, isPercent));
   }
 
   /**

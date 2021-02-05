@@ -2,7 +2,7 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { deepAssign } from '../../utils';
 import { LineOptions } from './types';
-import { adaptor } from './adaptor';
+import { adaptor, meta } from './adaptor';
 
 import './interactions';
 
@@ -18,6 +18,8 @@ export class Line extends Plot<LineOptions> {
    */
   public changeData(data: LineOptions['data']) {
     this.updateOption({ data });
+    const { chart, options } = this;
+    meta({ chart, options });
     this.chart.changeData(data);
   }
 

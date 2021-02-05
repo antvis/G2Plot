@@ -1,5 +1,6 @@
 import { TooltipCfg } from '@antv/g2/lib/interface';
 import { TinyArea } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/tiny-area/constants';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
 
@@ -236,5 +237,9 @@ describe('tiny-area', () => {
     expect(tinyArea.chart.getController('annotation').getComponents().length).toBe(1);
 
     tinyArea.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(TinyArea.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

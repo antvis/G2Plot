@@ -1,5 +1,6 @@
 import { Gauge } from '../../../../src';
-import { INDICATEOR_VIEW_ID, RANGE_VIEW_ID } from '../../../../src/plots/gauge/constant';
+import { INDICATEOR_VIEW_ID, RANGE_VIEW_ID } from '../../../../src/plots/gauge/constants';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/gauge/constants';
 import { pick } from '../../../../src/utils';
 import { createDiv } from '../../../utils/dom';
 
@@ -195,5 +196,9 @@ describe('gauge', () => {
     expect(gauge.chart.views[1].getYScales()[0].values).toEqual([0.2, 0.8]);
 
     gauge.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(Gauge.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

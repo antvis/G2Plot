@@ -1,6 +1,6 @@
 import { IGroup } from '@antv/g2';
 import { Gauge } from '../../../../../src';
-import { MASK_VIEW_ID } from '../../../../../src/plots/gauge/constant';
+import { MASK_VIEW_ID } from '../../../../../src/plots/gauge/constants';
 import { createDiv } from '../../../../utils/dom';
 
 describe('gauge', () => {

@@ -1,9 +1,9 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { deepAssign } from '../../utils';
 import { getDataWhetherPecentage } from '../../utils/transform/percent';
 import { ColumnOptions } from './types';
 import { adaptor } from './adaptor';
+import { DEFAULT_OPTIONS } from './constants';
 
 export { ColumnOptions };
 
@@ -11,6 +11,14 @@ export { ColumnOptions };
  * 柱形图
  */
 export class Column extends Plot<ColumnOptions> {
+  /**
+   * 获取 柱形图 默认配置项
+   * @static 供外部使用
+   */
+  static getDefaultOptions(): Partial<ColumnOptions> {
+    return DEFAULT_OPTIONS;
+  }
+
   /** 图表类型 */
   public readonly type: string = 'column';
 
@@ -27,16 +35,7 @@ export class Column extends Plot<ColumnOptions> {
    * 获取 柱形图 默认配置
    */
   protected getDefaultOptions() {
-    return deepAssign({}, super.getDefaultOptions(), {
-      columnWidthRatio: 0.6,
-      marginRatio: 1 / 32,
-      tooltip: {
-        shared: true,
-        showMarkers: false,
-        offset: 20,
-      },
-      interactions: [{ type: 'active-region' }],
-    });
+    return Column.getDefaultOptions();
   }
 
   /**

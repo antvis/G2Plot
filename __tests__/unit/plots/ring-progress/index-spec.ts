@@ -1,4 +1,5 @@
 import { RingProgress } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/ring-progress/constants';
 import { createDiv } from '../../../utils/dom';
 
 describe('ring-progress', () => {
@@ -321,5 +322,9 @@ describe('ring-progress', () => {
     expect(ringProgress.chart.geometries[0].elements[0].getData().percent).toBe(0.7);
 
     ringProgress.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(RingProgress.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

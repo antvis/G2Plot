@@ -4,7 +4,7 @@ import { flow, deepAssign } from '../../utils';
 import { scale, animation, theme, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { ProgressOptions } from './types';
-import { DEFAULT_COLOR } from './constant';
+import { DEFAULT_COLOR } from './constants';
 import { getProgressData } from './utils';
 
 /**

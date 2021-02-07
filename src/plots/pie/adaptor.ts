@@ -1,6 +1,7 @@
 import { isFunction, isString, isNil, get, isArray, isNumber } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
+import { legend, interaction, animation, theme, state, annotation } from '../../adaptor/common';
+import { getMappingFunction } from '../../adaptor/geometries/base';
 import { interval } from '../../adaptor/geometries';
 import { flow, template, transformLabel, deepAssign, renderStatistic } from '../../utils';
 import { DEFAULT_OPTIONS } from './contants';
@@ -41,9 +42,6 @@ function geometry(params: Params<PieOptions>): Params<PieOptions> {
     });
 
     interval(p);
-
-    // all zero 额外处理
-    chart.geometries[0].tooltip(`${colorField}*${angleField}`);
   } else {
     chart.data(processData);
 
@@ -208,13 +206,30 @@ export function pieAnnotation(params: Params<PieOptions>): Params<PieOptions> {
 }
 
 /**
- * 饼图 tooltip 配置适配，强制 tooltip.shared 为 false
+ * 饼图 tooltip 配置
+ * 1. 强制 tooltip.shared 为 false
  * @param params
  */
-function adaptorTooltipOptions(params: Params<PieOptions>): Params<PieOptions> {
-  return get(params, ['options', 'tooltip']) !== false
-    ? deepAssign({}, params, { options: { tooltip: { shared: false } } })
-    : params;
+function tooltip(params: Params<PieOptions>): Params<PieOptions> {
+  const { chart, options } = params;
+  const { tooltip, colorField, angleField } = options;
+
+  if (tooltip === false) {
+    chart.tooltip(tooltip);
+  } else {
+    chart.tooltip(deepAssign({}, tooltip, { shared: false }));
+
+    const fields = get(tooltip, 'fields') || [colorField, angleField];
+    let formatter = get(tooltip, 'formatter');
+
+    if (!formatter) {
+      // 主要解决 all zero， 对于非 all zero 也适用
+      formatter = (datum) => ({ name: datum[colorField], value: datum[angleField] });
+    }
+    chart.geometries[0].tooltip(fields.join('*'), getMappingFunction(fields, formatter));
+  }
+
+  return params;
 }
 
 /**
@@ -230,7 +245,7 @@ export function adaptor(params: Params<PieOptions>) {
     theme,
     coordinate,
     legend,
-    (args) => tooltip(adaptorTooltipOptions(args)),
+    tooltip,
     label,
     state,
     /** 指标卡中心文本 放在下层 */

@@ -50,26 +50,6 @@ describe('pie tooltip', () => {
     expect(items[0].value).toBe('yyy');
   });
 
-  it('formatter work in normal cases', async () => {
-    pie.update({
-      tooltip: {
-        fields: ['type', 'value', 'city'],
-        formatter: (datum) => ({ name: `${datum.city}-${datum.type}`, value: `${datum.value}-xxxx` }),
-      },
-    });
-
-    const tooltipController = pie.chart.getController('tooltip');
-    const box = pie.chart.geometries[0].elements[0].shape.getBBox();
-    const point = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
-
-    pie.chart.showTooltip(point);
-    await delay(100);
-    // @ts-ignore
-    const items = tooltipController.getTooltipItems(point);
-    expect(items[0].name).toBe(`${data[0].city}-${data[0].type}`);
-    expect(items[0].value).toBe(`${data[0].value}-xxxx`);
-  });
-
   afterEach(() => {
     pie.chart.clear();
   });

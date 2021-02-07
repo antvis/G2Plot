@@ -35,6 +35,22 @@ const data = [[{ time: '1991'，value: 20 }], [{ time: '1992', count: 20 }]];
 
 `markdown:docs/common/meta.zh.md`
 
+使用示例：
+
+```ts
+{
+  yField: ['value1', 'value2'],
+  meta: {
+    value1: {
+      alias: '温度',
+    },
+    value2: {
+      alias: '海拔'
+    }
+  }
+}
+```
+
 ### 图形样式
 
 #### geometryOptions

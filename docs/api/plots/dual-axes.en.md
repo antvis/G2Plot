@@ -35,6 +35,23 @@ The array of data field names to which the dot shape maps in the Y direction is 
 
 `markdown:docs/common/meta.en.md`
 
+
+Example:
+
+```ts
+{
+  yField: ['value1', 'value2'],
+  meta: {
+    value1: {
+      alias: 'temperature',
+    },
+    value2: {
+      alias: 'altitude'
+    }
+  }
+}
+```
+
 ### Geometry Style
 
 #### geometryOptions

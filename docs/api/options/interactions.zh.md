@@ -32,10 +32,10 @@ action 的详细说明，见 [G2 | 交互反馈](https://g2.antv.vision/zh/docs/
 
 | **Action 名称** | **说明** | **作用于** |
 | --- | --- | --- |
-| element-link-by-color | 用于连接相同颜色的图表元素，一般用于层叠柱状图 | Element |
-| element-highlight | 用于设置和取消图表元素的 highlight，支持多个元素一起 highlight  | Element |
-| element-single-highlight | 用于设置和取消图表元素的 highlight ，只允许单个元素 highlight。高亮的时候会取消当前激活元素之外的元素的高亮态 | Element |
-| element-filter| 图表元素的过滤，支持来自图例（分类和连续）、坐标轴文本的触发 | Element | 
+| element-link-by-color | 用于连接相同颜色的图表元素，一般用于层叠柱状图 | <tag color="green" text="Element">Element</tag> |
+| element-highlight | 用于设置和取消图表元素的 highlight，支持多个元素一起 highlight  | <tag color="green" text="Element">Element</tag> |
+| element-single-highlight | 用于设置和取消图表元素的 highlight ，只允许单个元素 highlight。高亮的时候会取消当前激活元素之外的元素的高亮态 | <tag color="green" text="Element">Element</tag> |
+| element-filter| 图表元素的过滤，支持来自图例（分类和连续）、坐标轴文本的触发 | <tag color="green" text="Element">Element</tag> | 
 
 #### 组装交互
 ##### 图表连接 (相同颜色的图表元素)

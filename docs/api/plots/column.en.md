@@ -101,6 +101,8 @@ The spacing between columns in a grouping [0-1] applies only to grouping columns
 
 ### Plot Theme
 
-### Plot Theme
-
 `markdown:docs/common/theme.en.md`
+
+### Plot Interactions
+
+`markdown:docs/common/interactions.en.md`

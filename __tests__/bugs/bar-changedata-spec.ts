@@ -32,5 +32,7 @@ describe('bar changeData should keep order', () => {
     // 绘制从下至上
     expect(barPlot.chart.geometries[0].elements[0].getData().sales).toBe(data[2].sales);
     expect(barPlot.chart.getData()).toEqual(chartData);
+    
+    barPlot.destroy();
   });
 });

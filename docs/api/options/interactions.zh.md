@@ -43,6 +43,7 @@ action 的详细说明，见 [G2 | 交互反馈](https://g2.antv.vision/zh/docs/
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*KqE9SpqUKpcAAAAAAAAAAABkARQnAQ#align=left&display=inline&height=248&margin=%5Bobject%20Object%5D" width="339" alt="association" />
 
 使用方式:
+
 ```typescript
 G2.registerInteraction('element-link', {
   start: [
@@ -58,6 +59,25 @@ G2.registerInteraction('element-link', {
   // interactions: [{ type: 'element-link' }],
   // 搭配高亮
   interactions: [{ type: 'element-link' }, { type: 'element-highlight-by-color' }],
+}
+```
+
+##### 鼠标手势
+
+使用方式：
+
+```ts
+G2.registerInteraction('hover-cursor', {
+  showEnable: [
+    { trigger: 'element:mouseenter', action: 'cursor:pointer' },
+    { trigger: 'element:mouseleave', action: 'cursor:default' },
+  ],
+});
+
+// options
+{
+  // 搭配 元素高亮
+  interactions: [{ type: 'element-highlight' }, { type: 'hover-cursor' }],
 }
 ```
 

@@ -65,6 +65,25 @@ G2.registerInteraction('element-link', {
 }
 ```
 
+##### Pointer cursor
+
+Example：
+
+```ts
+G2.registerInteraction('hover-cursor', {
+  showEnable: [
+    { trigger: 'element:mouseenter', action: 'cursor:pointer' },
+    { trigger: 'element:mouseleave', action: 'cursor:default' },
+  ],
+});
+
+// options
+{
+  // 搭配 元素高亮
+  interactions: [{ type: 'element-highlight' }, { type: 'hover-cursor' }],
+}
+```
+
 ### More
 
 more usages about interactions, go to see [G2 | interactions](https://g2.antv.vision/en/docs/api/general/interaction)

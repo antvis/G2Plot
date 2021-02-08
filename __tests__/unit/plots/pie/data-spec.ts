@@ -44,7 +44,8 @@ describe('饼图 异常数据', () => {
   });
 
   it('数据全部为 0, 设置 angleField meta', async () => {
-    const pie = new Pie(createDiv(), {
+    const div = createDiv();
+    const pie = new Pie(div, {
       width: 400,
       height: 400,
       data,
@@ -70,10 +71,12 @@ describe('饼图 异常数据', () => {
     const labels = pie.chart.geometries[0].labelsContainer.getChildren();
     expect(every(labels, (label) => (label as IGroup).getChildren()[0].attr('text') === '0 个')).toBe(true);
 
+    // 数据全 0 的时候，tooltip-items 应该和正常保持一致，只有一条
     const positionFields = pie.chart.geometries[0].getAttribute('position').getFields();
     const point = pie.chart.getXY({ 1: data[0].type, [positionFields[1]]: 1 / data.length });
     const tooltipItems = pie.chart.getTooltipItems(point);
-    expect(tooltipItems[1].value).toBe('0 个');
+    expect(tooltipItems[0].name).toBe(data[0].type);
+    expect(tooltipItems[0].value).toBe(0);
 
     pie.destroy();
   });
@@ -120,7 +123,7 @@ describe('饼图 异常数据', () => {
     expect(every(labels, (label) => (label as IGroup).getChildren()[0].attr('text') === 1)).toBe(true);
     const point = pie.chart.getXY({ 1: '类型 1', value: 1 });
     const tooltipItems = pie.chart.getTooltipItems(point);
-    expect(tooltipItems[0].value).toBe('1');
+    expect(tooltipItems[0].value).toBe(1);
 
     pie.destroy();
   });

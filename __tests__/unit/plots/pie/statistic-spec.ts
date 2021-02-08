@@ -73,6 +73,10 @@ describe('中心文本 - 指标卡', () => {
     pie.update({ meta: { value: { formatter: (v) => `${v}¥` } }, statistic: { content: {} } });
     htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
     expect((htmlAnnotations[1] as HTMLElement).innerText).toBe(`${data.reduce((a, b) => a + b.value, 0)}¥`);
+
+    pie.update({ meta: { value: { formatter: undefined } }, statistic: { content: {} } });
+    htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect((htmlAnnotations[1] as HTMLElement).innerText).toBe(`${data.reduce((a, b) => a + b.value, 0)}`);
   });
 
   it('自定义中心文本内容: update statistic title & content', () => {

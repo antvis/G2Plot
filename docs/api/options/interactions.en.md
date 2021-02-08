@@ -19,14 +19,14 @@ In G2Plot, G2's interaction syntax is passed through, as well as some built-in i
 
 | **Interaction name** | **Preivew** | **Comments**|
 | --- | --- | --- |
-| element-active | ![](https://gw.alipayobjects.com/zos/antfincdn/UfhBYHY%26Ju/element-active.gif#align=left&display=inline&height=428&margin=%5Bobject%20Object%5D&name=&originHeight=428&originWidth=660&status=done&style=none&width=660)| |
-| element-selected | ![](https://gw.alipayobjects.com/zos/antfincdn/Uws9%24PzRaR/element-selected.gif#align=left&display=inline&height=420&margin=%5Bobject%20Object%5D&name=&originHeight=420&originWidth=566&status=done&style=none&width=566) | 可以同时选中多个 element |
-| element-single-selected  | ![](https://gw.alipayobjects.com/zos/antfincdn/p5jPi6yN5b/element-single-selected.gif#align=left&display=inline&height=428&margin=%5Bobject%20Object%5D&name=&originHeight=428&originWidth=660&status=done&style=none&width=660) |  |
-| element-highlight | ![](https://gw.alipayobjects.com/zos/antfincdn/Ii0m6b7GV5/element-highlight.gif#align=left&display=inline&height=428&margin=%5Bobject%20Object%5D&name=&originHeight=428&originWidth=660&status=done&style=none&width=660) |  |
-| element-highlight-by-color | ![](https://gw.alipayobjects.com/zos/antfincdn/TexNaYF8xf/element-highlight-by-color.gif#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&name=&originHeight=400&originWidth=558&status=done&style=none&width=558)|  |
-| element-highlight-by-x | ![](https://gw.alipayobjects.com/zos/antfincdn/w5PH%26bkRui/element-highlight-by-x.gif#align=left&display=inline&height=420&margin=%5Bobject%20Object%5D&name=&originHeight=420&originWidth=566&status=done&style=none&width=566) | 相同横轴字段进行同时高亮。对于柱状图(column) ，横轴字段是 xField，对于条形图(bar) ，横轴字段是 yField。 |
-| legend-highlight| ![](https://gw.alipayobjects.com/zos/antfincdn/6cUSu7yn08/legend-highlight.gif#align=left&display=inline&height=300&margin=%5Bobject%20Object%5D&name=&originHeight=420&originWidth=566&status=done&style=none&width=404) | 图例项高亮，对应的图表元素也高亮|
-| axis-label-highlight| ![](https://gw.alipayobjects.com/zos/antfincdn/48JwSOccLo/axis-label-highlight.gif#align=left&display=inline&height=420&margin=%5Bobject%20Object%5D&name=&originHeight=420&originWidth=566&status=done&style=none&width=566)|  |
+| element-active | ![image](https://gw.alipayobjects.com/zos/antfincdn/UfhBYHY%26Ju/element-active.gif#align=left&display=inline&height=428&margin=%5Bobject%20Object%5D&name=&originHeight=428&originWidth=660&status=done&style=none&width=660)| |
+| element-selected | ![image](https://gw.alipayobjects.com/zos/antfincdn/Uws9%24PzRaR/element-selected.gif#align=left&display=inline&height=420&margin=%5Bobject%20Object%5D&name=&originHeight=420&originWidth=566&status=done&style=none&width=566) | 可以同时选中多个 element |
+| element-single-selected  | ![image](https://gw.alipayobjects.com/zos/antfincdn/p5jPi6yN5b/element-single-selected.gif#align=left&display=inline&height=428&margin=%5Bobject%20Object%5D&name=&originHeight=428&originWidth=660&status=done&style=none&width=660) |  |
+| element-highlight | ![image](https://gw.alipayobjects.com/zos/antfincdn/Ii0m6b7GV5/element-highlight.gif#align=left&display=inline&height=428&margin=%5Bobject%20Object%5D&name=&originHeight=428&originWidth=660&status=done&style=none&width=660) |  |
+| element-highlight-by-color | ![image](https://gw.alipayobjects.com/zos/antfincdn/TexNaYF8xf/element-highlight-by-color.gif#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&name=&originHeight=400&originWidth=558&status=done&style=none&width=558)|  |
+| element-highlight-by-x | ![image](https://gw.alipayobjects.com/zos/antfincdn/w5PH%26bkRui/element-highlight-by-x.gif#align=left&display=inline&height=420&margin=%5Bobject%20Object%5D&name=&originHeight=420&originWidth=566&status=done&style=none&width=566) | 相同横轴字段进行同时高亮。对于柱状图(column) ，横轴字段是 xField，对于条形图(bar) ，横轴字段是 yField。 |
+| legend-highlight| ![image](https://gw.alipayobjects.com/zos/antfincdn/6cUSu7yn08/legend-highlight.gif#align=left&display=inline&height=300&margin=%5Bobject%20Object%5D&name=&originHeight=420&originWidth=566&status=done&style=none&width=404) | 图例项高亮，对应的图表元素也高亮|
+| axis-label-highlight| ![image](https://gw.alipayobjects.com/zos/antfincdn/48JwSOccLo/axis-label-highlight.gif#align=left&display=inline&height=420&margin=%5Bobject%20Object%5D&name=&originHeight=420&originWidth=566&status=done&style=none&width=566)|  |
 
 
 #### Built-in Action

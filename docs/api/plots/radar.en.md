@@ -80,13 +80,13 @@ The radius of the inner ring [0-1] is calculated relative to the inner radius ra
 
 #### startAngle
 
-<description>**optional** _number_ _default:_ `(-7 / 6) * Math.PI`</description>
+<description>**optional** _number_ _default:_ `(Math.PI * 0) / 180`</description>
 
 The starting Angle of the disk.
 
 #### endAngle
 
-<description>**optional** _number_ _default:_ `(1 / 6) * Math.PI`</description>
+<description>**optional** _number_ _default:_ `(Math.PI * 180) / 180`</description>
 
 The termination Angle of the disk.
 

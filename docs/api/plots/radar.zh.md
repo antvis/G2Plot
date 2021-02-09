@@ -74,18 +74,18 @@ radarPlot.render();
 
 #### innerRadius
 
-<description>**optional** _number_</description>
+<description>**optional** _number_ _default:_ `0.9`</description>
 
 饼图的内半径，原点为画布中心。配置值域为 (0,1]
 #### startAngle
 
-<description>**optional** _number_</description>
+<description>**optional** _number_ _default:_ `(Math.PI * 0) / 180`</description>
 
 配置坐标系的起始角度。
 
 #### endAngle
 
-<description>**optional** _number_</description>
+<description>**optional** _number_ _default:_ `(Math.PI * 180) / 180`</description>
 
 配置坐标系的结束角度。
 

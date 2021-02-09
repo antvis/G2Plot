@@ -73,11 +73,10 @@ function meta(params: Params<RadarOptions>): Params<RadarOptions> {
  */
 function coord(params: Params<RadarOptions>): Params<RadarOptions> {
   const { chart, options } = params;
-  const { radius, innerRadius, startAngle, endAngle } = options;
+  const { radius, startAngle, endAngle } = options;
 
   chart.coordinate('polar', {
     radius,
-    innerRadius,
     startAngle,
     endAngle,
   });

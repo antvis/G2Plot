@@ -11,7 +11,6 @@ describe('radar', () => {
       xField: 'name',
       yField: 'value',
       radius: 0.8,
-      innerRadius: 0.5,
       startAngle: 0,
       endAngle: Math.PI,
     });
@@ -19,10 +18,9 @@ describe('radar', () => {
     radar.render();
 
     const coordinate = radar.chart.getCoordinate();
-    const { radius, innerRadius, startAngle, endAngle } = coordinate;
+    const { radius, startAngle, endAngle } = coordinate;
     expect(startAngle).toBe(0);
     expect(endAngle).toBe(Math.PI);
-    expect(innerRadius).toBe((radius / 0.8) * 0.5);
 
     radar.destroy();
   });

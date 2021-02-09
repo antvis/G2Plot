@@ -72,11 +72,6 @@ radarPlot.render();
 
 雷达图的半径，原点为绘图区域中心（不包含图表组件区域）。配置值域为 (0,1]，1 代表撑满绘图区域。
 
-#### innerRadius
-
-<description>**optional** _number_ _default:_ `0.9`</description>
-
-饼图的内半径，原点为画布中心。配置值域为 (0,1]
 #### startAngle
 
 <description>**optional** _number_ _default:_ `(Math.PI * 0) / 180`</description>

@@ -22,4 +22,10 @@ export interface RadarOptions extends Options {
   readonly yAxis?: any;
   /** 雷达图半径 */
   readonly radius?: number;
+  /** 雷达图内半径 */
+  readonly innerRadius?: number;
+  /** 雷达图开始角度 */
+  readonly startAngle?: number;
+  /** 雷达图结束角度 */
+  readonly endAngle?: number;
 }

@@ -46,19 +46,19 @@ const radarPlot = new Radar('container', {
 radarPlot.render();
 ```
 
-#### xField 
+#### xField
 
 <description>**required** _string_</description>
 
 雷达图映射到圆周角度所对应的字段，一般为一个分类字段。
 
-#### yField 
+#### yField
 
 <description>**required** _string_</description>
 
 雷达图映射到半径所对应的字段，一般为一个连续字段。
 
-#### seriesField 
+#### seriesField
 
 <description>**required** _string_</description>
 
@@ -66,21 +66,38 @@ radarPlot.render();
 
 ### 图形样式
 
-#### radius 
+#### radius
 
 <description>**optional** _number_</description>
 
 雷达图的半径，原点为绘图区域中心（不包含图表组件区域）。配置值域为 (0,1]，1 代表撑满绘图区域。
 
+#### innerRadius
+
+<description>**optional** _number_</description>
+
+饼图的内半径，原点为画布中心。配置值域为 (0,1]
+#### startAngle
+
+<description>**optional** _number_</description>
+
+配置坐标系的起始角度。
+
+#### endAngle
+
+<description>**optional** _number_</description>
+
+配置坐标系的结束角度。
+
 `markdown:docs/common/color.zh.md`
 
-#### smooth 
+#### smooth
 
 <description>**optional** _boolean_ _default:_ `false`</description>
 
 是否以曲线的形态绘制 (spline)。
 
-#### lineStyle 
+#### lineStyle
 
 <description>**optional** _object ｜ Function_</description>
 
@@ -101,7 +118,7 @@ radarPlot.render();
 }
 ```
 
-#### point 
+#### point
 
 <description>**optional** _object_</description>
 
@@ -109,7 +126,7 @@ radarPlot.render();
 
 `markdown:docs/common/point-style.zh.md`
 
-#### area 
+#### area
 
 <description>**optional** _object_</description>
 

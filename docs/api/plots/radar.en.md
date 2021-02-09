@@ -72,6 +72,24 @@ A field that groups a radar map, usually corresponding to a classification field
 
 The radius of the radar map, starting at the center of the drawing area (not including the chart component area). The configuration range is (0,1), where 1 means to fill the drawing area.
 
+#### innerRadius
+
+<description>**optional** _number_ _default:_ `0.9`</description>
+
+The radius of the inner ring [0-1] is calculated relative to the inner radius radius.
+
+#### startAngle
+
+<description>**optional** _number_ _default:_ `(-7 / 6) * Math.PI`</description>
+
+The starting Angle of the disk.
+
+#### endAngle
+
+<description>**optional** _number_ _default:_ `(1 / 6) * Math.PI`</description>
+
+The termination Angle of the disk.
+
 `markdown:docs/common/color.en.md`
 
 #### smooth

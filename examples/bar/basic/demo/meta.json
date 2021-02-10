@@ -39,7 +39,7 @@
     {
       "filename": "scrollbar.ts",
       "title": {
-        "zh": "带缩略轴条形图",
+        "zh": "带滚动条的条形图",
         "en": "Bar chart with scrollbar"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/asCTjytOVw/6f871384-bba2-4fd6-97ba-7f741e51af7b.png"

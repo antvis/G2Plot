@@ -7,4 +7,4 @@ order: 7
 
 #### 配置项 (_ScrollbarCfg_)
 
-`markdown:docs/common/slider.zh.md`
+`markdown:docs/common/scrollbar.zh.md`

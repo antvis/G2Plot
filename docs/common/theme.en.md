@@ -1,4 +1,4 @@
-#### Theme
+#### Built-in Theme
 
 Built-in defaults: 'default' and 'dark'
 

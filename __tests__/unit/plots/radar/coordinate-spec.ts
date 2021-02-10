@@ -18,7 +18,7 @@ describe('radar', () => {
     radar.render();
 
     const coordinate = radar.chart.getCoordinate();
-    const { radius, startAngle, endAngle } = coordinate;
+    const { startAngle, endAngle } = coordinate;
     expect(startAngle).toBe(0);
     expect(endAngle).toBe(Math.PI);
 

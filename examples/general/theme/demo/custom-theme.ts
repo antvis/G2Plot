@@ -1,65 +1,45 @@
-import { Pie } from '@antv/g2plot';
+import { Column, G2 } from '@antv/g2plot';
+import { deepMix } from '@antv/util';
 
-const data = [
-  { type: '分类一', value: 27 },
-  { type: '分类二', value: 25 },
-  { type: '分类三', value: 18 },
-  { type: '分类四', value: 15 },
-  { type: '分类五', value: 10 },
-  { type: '其他', value: 5 },
-];
+const theme = G2.getTheme('dark');
+document.getElementById('container').style.background = theme.background;
 
-const pie = new Pie('container', {
-  data,
-  padding: 'auto',
-  appendPadding: [10, 10, 5, 10],
-  colorField: 'type',
-  angleField: 'value',
-  xAxis: {
-    tickCount: 5,
-  },
-  radius: 0.8,
-  label: {
-    type: 'inner',
-    offset: '-20%',
-    content: '{percentage}',
-  },
-  theme: {
-    colors10: [
-      '#FF6B3B',
-      '#626681',
-      '#FFC100',
-      '#9FB40F',
-      '#76523B',
-      '#DAD5B5',
-      '#0E8E89',
-      '#E19348',
-      '#F383A2',
-      '#247FEA',
-    ],
-    colors20: [
-      '#FF6B3B',
-      '#626681',
-      '#FFC100',
-      '#9FB40F',
-      '#76523B',
-      '#DAD5B5',
-      '#0E8E89',
-      '#E19348',
-      '#F383A2',
-      '#247FEA',
-      '#2BCB95',
-      '#B1ABF4',
-      '#1D42C2',
-      '#1D9ED1',
-      '#D64BC0',
-      '#255634',
-      '#8C8C47',
-      '#8CDAE5',
-      '#8E283B',
-      '#791DC9',
-    ],
-  },
-});
+fetch('https://gw.alipayobjects.com/os/bmw-prod/be63e0a2-d2be-4c45-97fd-c00f752a66d4.json')
+  .then((res) => res.json())
+  .then((data) => {
+    const column = new Column('container', {
+      data,
+      xField: '城市',
+      yField: '销售额',
+      xAxis: {
+        label: {
+          autoRotate: false,
+        },
+      },
+      appendPadding: 10,
+      theme: deepMix({}, theme, {
+        components: {
+          scrollbar: {
+            // 默认样式
+            default: {
+              style: {
+                trackColor: 'rgba(255,255,255,0.05)',
+                thumbColor: 'rgba(255,255,255,0.25)',
+              },
+            },
+            // hover 时，可以设置滑块样式
+            hover: {
+              style: {
+                thumbColor: 'rgba(255,255,255,0.6)',
+              },
+            },
+          },
+        },
+      }),
+      scrollbar: {
+        type: 'horizontal',
+      },
+    });
 
-pie.render();
+    column.render();
+  });

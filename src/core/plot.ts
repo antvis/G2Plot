@@ -3,7 +3,7 @@ import { each } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
 import { Options, StateName, StateCondition, Size, StateObject } from '../types';
-import { getContainerSize, getAllElements, deepAssign } from '../utils';
+import { getContainerSize, getAllElements, deepAssign, pick } from '../utils';
 import { Adaptor } from './adaptor';
 
 /** 单独 pick 出来的用于基类的类型定义 */
@@ -22,6 +22,17 @@ export type PickOptions = Pick<
 >;
 
 const SOURCE_ATTRIBUTE_NAME = 'data-chart-source-type';
+
+/** plot 图表容器的配置 */
+export const PLOT_CONTAINER_OPTIONS = [
+  'padding',
+  'appendPadding',
+  'renderer',
+  'pixelRatio',
+  'syncViewPadding',
+  'supportCSSTransform',
+  'limitInPlot',
+];
 
 /**
  * 所有 plot 的基类
@@ -78,30 +89,14 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 创建 G2 实例
    */
   private createG2() {
-    const {
-      width,
-      height,
-      padding,
-      appendPadding,
-      renderer,
-      pixelRatio,
-      syncViewPadding,
-      supportCSSTransform,
-      limitInPlot,
-    } = this.options;
+    const { width, height } = this.options;
 
     this.chart = new Chart({
       container: this.container,
       autoFit: false, // G2Plot 使用 size-sensor 进行 autoFit
       ...this.getChartSize(width, height),
-      padding,
-      appendPadding,
-      renderer,
-      pixelRatio,
       localRefresh: false, // 默认关闭，目前 G 还有一些位置问题，难以排查！
-      syncViewPadding,
-      supportCSSTransform,
-      limitInPlot,
+      ...pick(this.options, PLOT_CONTAINER_OPTIONS),
     });
 
     // 给容器增加标识，知道图表的来源区别于 G2

@@ -1,3 +1,4 @@
+import { VIEW_LIFE_CIRCLE } from '@antv/g2';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { adaptor, pieAnnotation } from './adaptor';
@@ -25,6 +26,8 @@ export class Pie extends Plot<PieOptions> {
    * @param data
    */
   public changeData(data: PieOptions['data']) {
+    this.chart.emit(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA);
+
     const prevOptions = this.options;
     const { angleField } = this.options;
     const prevData = processIllegalData(prevOptions.data, angleField);
@@ -39,6 +42,8 @@ export class Pie extends Plot<PieOptions> {
       pieAnnotation({ chart: this.chart, options: this.options });
       this.chart.render(true);
     }
+
+    this.chart.emit(VIEW_LIFE_CIRCLE.AFTER_CHANGE_DATA);
   }
 
   /**

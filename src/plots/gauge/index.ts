@@ -1,3 +1,4 @@
+import { VIEW_LIFE_CIRCLE } from '@antv/g2';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { GaugeOptions } from './types';
@@ -31,8 +32,9 @@ export class Gauge extends Plot<GaugeOptions> {
    * @param percent
    */
   public changeData(percent: number) {
-    this.updateOption({ percent });
+    this.chart.emit(VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA);
 
+    this.updateOption({ percent });
     const indicatorView = this.chart.views.find((v) => v.id === INDICATEOR_VIEW_ID);
     if (indicatorView) {
       indicatorView.data(getIndicatorData(percent));
@@ -44,6 +46,8 @@ export class Gauge extends Plot<GaugeOptions> {
     }
     // todo 后续让 G2 层在 afterrender 之后，来重绘 annotations
     statistic({ chart: this.chart, options: this.options }, true);
+
+    this.chart.emit(VIEW_LIFE_CIRCLE.AFTER_CHANGE_DATA);
   }
 
   /**

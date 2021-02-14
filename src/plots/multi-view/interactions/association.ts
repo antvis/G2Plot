@@ -133,7 +133,7 @@ registerAction('association', Association);
  * 相邻 view 的 active 联动（相同维值的 tooltip 联动）
  */
 registerInteraction('association-active', {
-  start: [{ trigger: 'element:mousemove', action: 'association:active' }],
+  start: [{ trigger: 'element:mouseenter', action: 'association:active' }],
   end: [{ trigger: 'element:mouseleave', action: 'association:reset' }],
 });
 
@@ -141,7 +141,7 @@ registerInteraction('association-active', {
  * 相邻 view 的 highlight 联动, 突出当前 element
  */
 registerInteraction('association-highlight', {
-  start: [{ trigger: 'element:mousemove', action: 'association:highlight' }],
+  start: [{ trigger: 'element:mouseenter', action: 'association:highlight' }],
   end: [{ trigger: 'element:mouseleave', action: 'association:reset' }],
 });
 

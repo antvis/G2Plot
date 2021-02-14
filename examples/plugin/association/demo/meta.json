@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "association-highlight.ts",
+      "title": {
+        "zh": "联动高亮",
+        "en": "Association highlight"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/qaSZNFhh4m/association-highlight.gif"
+    },
+    {
+      "filename": "association-pie.ts",
+      "title": {
+        "zh": "饼图联动",
+        "en": "Association pie"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/4mFSDazvrv/association-pie.gif"
+    }
+  ]
+}

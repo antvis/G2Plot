@@ -2,6 +2,7 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { MultiViewOptions } from './types';
 import { adaptor } from './adaptor';
+import './interactions';
 
 export { MultiViewOptions };
 

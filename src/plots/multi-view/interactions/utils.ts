@@ -31,6 +31,9 @@ export function clearHighlight(view: View) {
     if (el.hasState('active')) {
       el.setState('active', false);
     }
+    if (el.hasState('selected')) {
+      el.setState('selected', false);
+    }
     if (el.hasState('inactive')) {
       el.setState('inactive', false);
     }

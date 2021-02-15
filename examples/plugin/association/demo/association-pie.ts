@@ -15,9 +15,11 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/fKTgtjKdaN/association-pie.json
             data: data.pie1,
             angleField: 'bill',
             colorField: 'area',
+            radius: 0.85,
             tooltip: {
               showMarkers: false,
             },
+            label: { type: 'inner', offset: '-15%' },
             interactions: [
               { type: 'element-active' },
               { type: 'association-tooltip' },
@@ -30,12 +32,14 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/fKTgtjKdaN/association-pie.json
           region: { start: { x: 0.55, y: 0 }, end: { x: 1, y: 1 } },
           options: {
             data: data.pie2,
+            radius: 0.85,
             angleField: 'value',
             colorField: 'area',
+            label: { type: 'inner', offset: '-15%' },
             tooltip: {
               showMarkers: false,
             },
-            interactions: [{ type: 'association-tooltip' }, { type: 'association-active' }],
+            interactions: [{ type: 'association-tooltip' }, { type: 'association-selected' }],
           },
         },
       ],

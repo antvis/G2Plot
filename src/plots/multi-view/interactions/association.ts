@@ -8,10 +8,11 @@ type ActionParams = { linkField?: string; dim?: 'x' | 'y' };
 /**
  * 存在多个 view 时，view 之间的联动交互
  *
- * 提供三个反馈 action，均接受参数：linkField 关联字段，dim 维度
+ * 提供四个反馈 action，均接受参数：linkField 关联字段，dim 维度
  * 1. showTooltip
  * 2. active
  * 3. highlight
+ * 4. selected
  *
  * 附加，两个结束反馈 action：
  * 1. hidetooltip
@@ -105,6 +106,21 @@ class Association extends Action {
   }
 
   /**
+   * 设置 selected 状态
+   */
+  public selected(params?: ActionParams) {
+    const views = getViews(this.context.view);
+    const items = this.getAssociationItems(views, params);
+
+    each(items, (item: EventItem) => {
+      const { active, element } = item;
+      if (active) {
+        element.setState('selected', true);
+      }
+    });
+  }
+
+  /**
    * 进行高亮 => 设置 inactive 状态
    */
   public highlight(params?: ActionParams) {
@@ -134,6 +150,14 @@ registerAction('association', Association);
  */
 registerInteraction('association-active', {
   start: [{ trigger: 'element:mouseenter', action: 'association:active' }],
+  end: [{ trigger: 'element:mouseleave', action: 'association:reset' }],
+});
+
+/**
+ * 相邻 view 的 active 联动（相同维值的 tooltip 联动）
+ */
+registerInteraction('association-selected', {
+  start: [{ trigger: 'element:mouseenter', action: 'association:selected' }],
   end: [{ trigger: 'element:mouseleave', action: 'association:reset' }],
 });
 

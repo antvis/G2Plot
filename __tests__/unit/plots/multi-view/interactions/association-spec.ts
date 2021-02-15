@@ -37,7 +37,7 @@ describe('assocation between views in multi-view plot', () => {
           angleField: 'value',
           colorField: 'type',
           tooltip: {},
-          interactions: [{ type: 'association-active' }],
+          interactions: [{ type: 'association-active' }, { type: 'association-selected' }],
         },
       },
       {
@@ -71,7 +71,7 @@ describe('assocation between views in multi-view plot', () => {
   let view2 = plot.chart.views[1];
   let view3 = plot.chart.views[2];
 
-  it('association: active & highlight', async () => {
+  it('association: active & highlight & selected', async () => {
     const shape11 = view1.geometries[0].elements[0].shape;
     view1.emit('element:mouseenter', { target: shape11, data: { data: data[0] } });
     expect(view1.geometries[0].elements[0].getStates()).toMatchObject(['active']);
@@ -86,8 +86,8 @@ describe('assocation between views in multi-view plot', () => {
     expect(view2.geometries[0].elements[1].getStates()).toMatchObject([]);
 
     view2.emit('element:mouseenter', { target: view2.geometries[0].elements[0].shape, data: { data: data[0] } });
-    expect(view1.geometries[0].elements[0].getStates()).toMatchObject(['active']);
-    expect(view2.geometries[0].elements[0].getStates()).toMatchObject(['active']);
+    expect(view1.geometries[0].elements[0].getStates()).toMatchObject(['active', 'selected']);
+    expect(view2.geometries[0].elements[0].getStates()).toMatchObject(['active', 'selected']);
 
     view2.emit('element:mouseleave', {});
     view2.emit('element:mouseenter', {
@@ -95,7 +95,8 @@ describe('assocation between views in multi-view plot', () => {
       data: { data: { type: '3', value: 41 } },
     });
     expect(view1.geometries[0].elements[2].getStates()).not.toMatchObject(['active']);
-    expect(view2.geometries[0].elements[2].getStates()).toMatchObject(['active']);
+    expect(view1.geometries[0].elements[2].getStates()).not.toMatchObject(['selected']);
+    expect(view2.geometries[0].elements[2].getStates()).toMatchObject(['active', 'selected']);
     view2.emit('element:mouseleave', {});
   });
 

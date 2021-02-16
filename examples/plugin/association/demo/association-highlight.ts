@@ -35,6 +35,8 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/HkxWvFrZuC/association-data.jso
             tooltip: {
               showMarkers: false,
             },
+            radius: 0.85,
+            label: { type: 'inner', formatter: '{name}', offset: '-15%' },
             interactions: [
               { type: 'element-active' },
               {

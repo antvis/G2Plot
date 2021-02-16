@@ -11,25 +11,6 @@ function fetchTrendData() {
   );
 }
 
-const DEFAULT_TOOLTIP_OPTIONS = {
-  showTitle: false,
-  shared: true,
-  showMarkers: false,
-  customContent: (x, data) => `${data[0]?.data?.y || 0}`, // 默认显示原始数据
-  containerTpl: '<div class="g2-tooltip"><div class="g2-tooltip-list"></div></div>',
-  itemTpl: '<span>{value}</span>',
-  domStyles: {
-    'g2-tooltip': {
-      padding: '2px 4px',
-      fontSize: '10px',
-    },
-  },
-  showCrosshairs: true,
-  crosshairs: {
-    type: 'x',
-  },
-};
-
 Promise.all([fetchAreaData(), fetchTrendData()]).then(([data1, data2]) => {
   const uvData = data2.uniqueSessions.map((d, idx) => ({
     date: `${idx}`,
@@ -101,14 +82,22 @@ Promise.all([fetchAreaData(), fetchTrendData()]).then(([data1, data2]) => {
         region: { start: { x: 0, y: 0.5 }, end: { x: 11 / 24, y: 0.7 } },
         options: {
           data: uvData.map((d) => d.uv),
-          tooltip: DEFAULT_TOOLTIP_OPTIONS,
+          tooltip: {},
           meta: {
             iv: {
               min: 20,
             },
           },
+          seriesField: '1',
+          color: () => {
+            const { colors10 } = plot.chart.getTheme();
+            return `l(90) 0:${colors10[0]} 1:rgba(255,255,255,0.2)`;
+          },
           line: {
-            style: { lineWidth: 1.5 },
+            style: () => {
+              const { colors10 } = plot.chart.getTheme();
+              return { lineWidth: 1, stroke: colors10[0] };
+            },
           },
           annotations: [
             {
@@ -133,14 +122,22 @@ Promise.all([fetchAreaData(), fetchTrendData()]).then(([data1, data2]) => {
         region: { start: { x: 13 / 24, y: 0.5 }, end: { x: 17 / 18, y: 0.7 } },
         options: {
           data: pvData.map((d) => d.pv),
-          tooltip: DEFAULT_TOOLTIP_OPTIONS,
+          tooltip: {},
           meta: {
             pv: {
               min: 20,
             },
           },
+          seriesField: '1',
+          color: () => {
+            const { colors10 } = plot.chart.getTheme();
+            return `l(90) 0:${colors10[0]} 1:rgba(255,255,255,0.2)`;
+          },
           line: {
-            style: { lineWidth: 1.5 },
+            style: () => {
+              const { colors10 } = plot.chart.getTheme();
+              return { lineWidth: 1, stroke: colors10[0] };
+            },
           },
           annotations: [
             {
@@ -165,14 +162,22 @@ Promise.all([fetchAreaData(), fetchTrendData()]).then(([data1, data2]) => {
         region: { start: { x: 0 / 24, y: 0.75 }, end: { x: 11 / 24, y: 0.98 } },
         options: {
           data: directTrafficData.map((d) => d.directTraffic),
-          tooltip: DEFAULT_TOOLTIP_OPTIONS,
+          tooltip: {},
           meta: {
             directTraffic: {
               min: 2000,
             },
           },
+          seriesField: '1',
+          color: () => {
+            const { colors10 } = plot.chart.getTheme();
+            return `l(90) 0:${colors10[0]} 1:rgba(255,255,255,0.2)`;
+          },
           line: {
-            style: { lineWidth: 1.5 },
+            style: () => {
+              const { colors10 } = plot.chart.getTheme();
+              return { lineWidth: 1, stroke: colors10[0] };
+            },
           },
           annotations: [
             {
@@ -197,9 +202,17 @@ Promise.all([fetchAreaData(), fetchTrendData()]).then(([data1, data2]) => {
         region: { start: { x: 13 / 24, y: 0.75 }, end: { x: 17 / 18, y: 0.98 } },
         options: {
           data: referringSitesData.map((d) => d.referringSites),
-          tooltip: DEFAULT_TOOLTIP_OPTIONS,
+          tooltip: {},
+          seriesField: '1',
+          color: () => {
+            const { colors10 } = plot.chart.getTheme();
+            return `l(90) 0:${colors10[0]} 1:rgba(255,255,255,0.2)`;
+          },
           line: {
-            style: { lineWidth: 1.5 },
+            style: () => {
+              const { colors10 } = plot.chart.getTheme();
+              return { lineWidth: 1, stroke: colors10[0] };
+            },
           },
           annotations: [
             {

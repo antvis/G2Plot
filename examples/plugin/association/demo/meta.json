@@ -10,7 +10,7 @@
         "zh": "联动高亮",
         "en": "Association highlight"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/qaSZNFhh4m/association-highlight.gif"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/s6YV6XBemg/association-highlight.gif"
     },
     {
       "filename": "association-pie.ts",
@@ -18,7 +18,15 @@
         "zh": "饼图联动",
         "en": "Association pie"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/4mFSDazvrv/association-pie.gif"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/8hTlCI2Fbn/association-pie.gif"
+    },
+    {
+      "filename": "association-filter.ts",
+      "title": {
+        "zh": "联动筛选",
+        "en": "Association fitler"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/%24kAk5jxs1v/association-filter.gif"
     }
   ]
 }

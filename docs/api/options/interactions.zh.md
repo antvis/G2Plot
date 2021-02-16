@@ -9,7 +9,8 @@ order: 7
 ### 使用方式
 
 `markdown:docs/common/interactions.zh.md`
-### 交互
+
+### 交互介绍
 #### 内置交互
 
 更多内置交互列表，见[G2 | 交互](https://g2.antv.vision/zh/docs/api/general/interaction#%E6%89%80%E6%9C%89%E7%9A%84%E4%BA%A4%E4%BA%92%E5%88%97%E8%A1%A8)
@@ -37,8 +38,8 @@ action 的详细说明，见 [G2 | 交互反馈](https://g2.antv.vision/zh/docs/
 | element-single-highlight | 用于设置和取消图表元素的 highlight ，只允许单个元素 highlight。高亮的时候会取消当前激活元素之外的元素的高亮态 | <tag color="green" text="Element">Element</tag> |
 | element-filter| 图表元素的过滤，支持来自图例（分类和连续）、坐标轴文本的触发 | <tag color="green" text="Element">Element</tag> | 
 
-#### 组装交互
-##### 图表连接 (相同颜色的图表元素)
+### 组装交互
+#### 图表连接 (相同颜色的图表元素)
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*KqE9SpqUKpcAAAAAAAAAAABkARQnAQ#align=left&display=inline&height=248&margin=%5Bobject%20Object%5D" width="339" alt="association" />
 
@@ -62,7 +63,7 @@ G2.registerInteraction('element-link', {
 }
 ```
 
-##### 鼠标手势
+#### 鼠标手势
 
 使用方式：
 

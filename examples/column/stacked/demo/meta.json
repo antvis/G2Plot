@@ -11,6 +11,14 @@
         "en": "Stacked column plot"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/KLJB0t7S9W/93ca0482-9d1d-42e9-b99c-c70d87517888.png"
+    },
+    {
+      "filename": "column-background",
+      "title": {
+        "zh": "设置柱状图背景色",
+        "en": "Column plot with background"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/pgOqla53EK/column-background.png"
     }
   ]
 }

@@ -149,3 +149,8 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/K0kfOzo4j%24/column.json')
 
 <playground path="column/grouped/demo/corner-radius.ts" rid="corner-radius"></playground>
 
+### 设置柱子的背景样式
+
+通过设置 `columnBackground.style` 可以指定柱子的背景样式。
+
+<playground path="column/stacked/demo/column-background.ts" rid="column-background"></playground>

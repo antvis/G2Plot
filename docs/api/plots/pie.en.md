@@ -99,6 +99,12 @@ Set the sector style. The 'fill' in the pieStyle will override the 'color' confi
 
 `markdown:docs/common/shape-style.en.md`
 
+#### state
+
+<description>**optional** _object_</description>
+
+`markdown:docs/common/state-style.en.md`
+
 ### Plot Components
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*TBHtTY6RmHIAAAAAAAAAAAAAARQnAQ" alt="Load failed" width="600">

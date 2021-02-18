@@ -75,6 +75,12 @@ Width ratio of column [0-1].
 
 The spacing between columns in a grouping [0-1] applies only to grouping columns.
 
+#### state
+
+<description>**optional** _object_</description>
+
+`markdown:docs/common/state-style.en.md`
+
 ### Plot Components
 
 `markdown:docs/common/component.en.md`

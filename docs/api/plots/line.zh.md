@@ -26,7 +26,7 @@ const data = [
 
 #### seriesField
 
-<description>**optional** _string_</description>
+<description>**可选** _string_</description>
 
 分组字段。用于同时看一个维度中不同情况的指标需求。比如：我们看不同大区最近 30 天的销售额趋势情况，那么这里的大区字段就是 seriesField。
 
@@ -38,25 +38,25 @@ const data = [
 
 #### smooth
 
-<description>**optional** _boolean_ _default:_ `false`</description>
+<description>**可选** _boolean_ _default:_ `false`</description>
 
 曲线是否平滑。
 
 #### stepType
 
-<description>**optional** _hv | vh | hvh | vhv_</description>
+<description>**可选** _hv | vh | hvh | vhv_</description>
 
 阶梯折线图类型，配置后 smooth 无效。 这里的 h 和 v 是 `horizontal` 和 `vertical` 的首字母。所以 vh 的意思就是起始点先竖直方向，然后水平方向。
 
 #### connectNulls
 
-<description>**optional** _boolean_ _default:_ `true`</description>
+<description>**可选** _boolean_ _default:_ `true`</description>
 
 对于折线图中缺失的值，是否连接空数据为一条线，或者折线断开。
 
 #### isStack
 
-<description>**optional** _boolean_ _default:_ `false`</description>
+<description>**可选** _boolean_ _default:_ `false`</description>
 
 对于存在 seriesField 分组字段的情况，我们可以设置 isStack = true，让折线堆叠累加起来。
 
@@ -64,7 +64,7 @@ const data = [
 
 #### lineStyle
 
-<description>**optional** _StyleAttr | Function_</description>
+<description>**可选** _StyleAttr | Function_</description>
 
 折线图形样式。可以直接传入 `ShapeStyle` 结构，也可以使用回调函数的方式，针对不同的数据，来返回不同的样式。对于 ShapeStyle 的数据结构，可以参考：
 
@@ -72,11 +72,17 @@ const data = [
 
 #### point
 
-<description>**optional**</description>
+<description>**可选** _object_</description>
 
 折线数据点图形样式。
 
 `markdown:docs/common/point-style.zh.md`
+
+#### state
+
+<description>**可选** _object_</description>
+
+`markdown:docs/common/state-style.zh.md`
 
 ### 图表组件
 

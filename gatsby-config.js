@@ -26,6 +26,10 @@ module.exports = {
     showAPIDoc: true, // 是否在demo页展示API文档
     themeSwitcher: 'g2plot',
     playground: {},
+    mdPlayground: {
+      // markdown 文档中的 playground 若干设置
+      splitPaneMainSize: '50%',
+    },
     navs: [
       {
         slug: 'docs/manual',

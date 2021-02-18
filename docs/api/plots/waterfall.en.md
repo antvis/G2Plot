@@ -82,6 +82,12 @@ Column style configuration.
 
 `markdown:docs/common/color.en.md`
 
+#### state
+
+<description>**optional** _object_</description>
+
+`markdown:docs/common/state-style.en.md`
+
 ### Plot Components
 
 `markdown:docs/common/component.en.md`

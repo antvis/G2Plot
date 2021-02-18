@@ -108,6 +108,12 @@ piePlot.render();
 
 `markdown:docs/common/shape-style.zh.md`
 
+#### state
+
+<description>**可选** _object_</description>
+
+`markdown:docs/common/state-style.zh.md`
+
 ### 图表组件
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*TBHtTY6RmHIAAAAAAAAAAAAAARQnAQ" alt="加载失败" width="600">

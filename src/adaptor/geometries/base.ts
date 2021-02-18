@@ -1,3 +1,4 @@
+import { Types, Geometry as GeometryOfG2 } from '@antv/g2';
 import { uniq, isFunction, isObject, isString, isNumber, isEmpty } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { ColorAttr, ShapeAttr, SizeAttr, StyleAttr, TooltipAttr, Options, Datum } from '../../types';
@@ -52,6 +53,8 @@ export type Geometry = {
   readonly state?: State;
   /** geometry params */
   readonly args?: any;
+  /** customInfo params */
+  readonly customInfo?: Types.LooseObject;
 };
 
 /**
@@ -134,6 +137,7 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
     tooltipFields,
     label,
     state,
+    customInfo,
   } = options;
 
   // 如果没有 mapping 信息，那么直接返回
@@ -144,7 +148,7 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
   const { color, shape, size, style, tooltip } = mapping;
 
   // 创建 geometry
-  const geometry = chart[type](args).position(`${xField}*${yField}`);
+  const geometry: GeometryOfG2 = chart[type](args).position(`${xField}*${yField}`);
 
   /**
    * color 的几种情况
@@ -186,6 +190,7 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
    * g.color('size*x*y', (size, x, y) => 1-);
    */
   if (isNumber(size)) {
+    // @ts-ignore
     sizeField ? geometry.size(sizeField, size) : geometry.size(size);
   } else if (isFunction(size)) {
     const mappingFields = getMappingField(options, 'size');
@@ -236,6 +241,13 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
    */
   if (state) {
     geometry.state(state);
+  }
+
+  /**
+   * 自定义内容
+   */
+  if (customInfo) {
+    geometry.customInfo(customInfo);
   }
 
   // 防止因为 x y 字段做了通道映射，导致生成图例

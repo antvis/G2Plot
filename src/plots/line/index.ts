@@ -4,6 +4,7 @@ import { LineOptions } from './types';
 import { adaptor, meta } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
 import './interactions';
+import './animations';
 
 export { LineOptions };
 

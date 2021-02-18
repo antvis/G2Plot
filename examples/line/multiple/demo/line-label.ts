@@ -8,6 +8,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/e00d52f4-2fa6-47ee-a0d7-105dd95b
       xField: 'year',
       yField: 'gdp',
       seriesField: 'name',
+      appendPadding: [0, 50, 0, 0],
       yAxis: {
         label: {
           formatter: (v) => `${(v / 10e8).toFixed(1)} B`,
@@ -17,10 +18,9 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/e00d52f4-2fa6-47ee-a0d7-105dd95b
         position: 'top',
       },
       smooth: true,
-      // @TODO 后续会换一种动画方式
       animation: {
         appear: {
-          animation: 'path-in',
+          animation: 'path-in-with-label',
           duration: 5000,
         },
       },

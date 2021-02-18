@@ -1,3 +1,4 @@
+import { Types } from '@antv/g2';
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { getTooltipMapping } from '../../utils/tooltip';
@@ -19,6 +20,8 @@ export interface LineGeometryOptions extends GeometryOptions {
   readonly line?: MappingOptions;
   /** 阶梯折线图类型 */
   readonly stepType?: string;
+  /** 自定义参数 */
+  readonly customInfo?: Types.LooseObject;
 }
 
 /**
@@ -27,7 +30,7 @@ export interface LineGeometryOptions extends GeometryOptions {
  */
 export function line<O extends LineGeometryOptions>(params: Params<O>): Params<O> {
   const { options } = params;
-  const { line, stepType, xField, yField, seriesField, smooth, connectNulls, tooltip } = options;
+  const { line, stepType, xField, yField, seriesField, smooth, connectNulls, tooltip, customInfo } = options;
 
   const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, seriesField]);
 
@@ -47,6 +50,7 @@ export function line<O extends LineGeometryOptions>(params: Params<O>): Params<O
               line
             ),
             args: { connectNulls },
+            customInfo,
           },
         })
       )

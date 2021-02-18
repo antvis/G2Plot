@@ -3,7 +3,7 @@ import { each } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, slider, interaction, animation, theme, scale, annotation, limitInPlot } from '../../adaptor/common';
 import { findGeometry, transformLabel, deepAssign } from '../../utils';
-import { point, line } from '../../adaptor/geometries';
+import { point, line, LineGeometryOptions } from '../../adaptor/geometries';
 import { flow } from '../../utils';
 import { adjustYMetaByZero } from '../../utils/data';
 import { LineOptions } from './types';
@@ -14,12 +14,12 @@ import { LineOptions } from './types';
  */
 function geometry(params: Params<LineOptions>): Params<LineOptions> {
   const { chart, options } = params;
-  const { data, color, lineStyle, lineShape, point: pointMapping, seriesField } = options;
+  const { data, color, lineStyle, lineShape, point: pointMapping, seriesField, endLabel } = options;
 
   chart.data(data);
 
   // line geometry 处理
-  const primary = deepAssign({}, params, {
+  const primary: Params<LineGeometryOptions> = deepAssign({}, params, {
     options: {
       shapeField: seriesField,
       line: {
@@ -36,6 +36,7 @@ function geometry(params: Params<LineOptions>): Params<LineOptions> {
       },
       // label 不传递给各个 geometry adaptor，由 label adaptor 处理
       label: undefined,
+      customInfo: { endLabel },
     },
   });
   const second = deepAssign({}, primary, { options: { tooltip: false } });

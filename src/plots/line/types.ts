@@ -1,3 +1,4 @@
+import { ShapeAttrs, Types } from '@antv/g2';
 import { LineGeometryOptions, PointGeometryOptions } from '../../adaptor/geometries';
 import { Options, StyleAttr } from '../../types';
 
@@ -22,4 +23,9 @@ export interface LineOptions extends Options {
   readonly lineShape?: Required<LineGeometryOptions>['line']['shape'];
   /** 折线数据点图形样式 */
   readonly point?: PointGeometryOptions['point'];
+  /** 尾随标签 */
+  readonly endLabel?: {
+    formatter?: (datum: Types.Datum) => string;
+    style?: ShapeAttrs;
+  };
 }

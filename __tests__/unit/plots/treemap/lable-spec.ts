@@ -33,7 +33,7 @@ describe('treemap basic', () => {
     // @ts-ignore
     expect(treemapPlot.chart.geometries[0].labelOption.cfg.position).toEqual('top');
     expect(treemapPlot.chart.geometries[0].labelsContainer.getChildren()[0].cfg.children[0].attrs.text).toBe(
-      TREEMAP.children[0].name + TREEMAP.children[0].ext
+      '分类 2自定义数据'
     );
 
     // label with custom

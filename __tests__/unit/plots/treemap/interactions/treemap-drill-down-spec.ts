@@ -98,8 +98,8 @@ describe('drill-down intera', () => {
     // @ts-ignore
     const nowData = treemapPlot.chart.getData();
     expect(nowData.length).toBe(2);
-    expect(nowData[0].name).toBe('东欧');
-    expect(nowData[1].name).toBe('西欧');
+    expect(nowData[0].name).toBe('西欧');
+    expect(nowData[1].name).toBe('东欧');
     expect(nowData[0].y).toEqual([1, 1, 0, 0]);
     expect(nowData[1].y).toEqual([1, 1, 0, 0]);
 

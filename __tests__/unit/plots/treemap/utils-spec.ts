@@ -151,6 +151,9 @@ describe('treemap transformData', () => {
       data: data2,
       colorField: 'name',
       openDrillDown: false,
+      hierarchyConfig: {
+        sort: () => 1,
+      },
     });
 
     const areaArr = data.map((dt) => {

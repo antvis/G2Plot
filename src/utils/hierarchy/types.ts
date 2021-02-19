@@ -23,4 +23,5 @@ export interface HierarchyOption {
   paddingBottom?: number;
   paddingLeft?: number;
   as: [string, string];
+  sort?(a: any, b: any): number;
 }

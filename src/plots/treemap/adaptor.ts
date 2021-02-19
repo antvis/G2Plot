@@ -81,6 +81,9 @@ function geometry(params: Params<TreemapOptions>): Params<TreemapOptions> {
     })
   );
 
+  // 做一个反转，这样配合排序，可以将最大值放到左上角，最小值放到右下角
+  chart.coordinate().reflect('y');
+
   return params;
 }
 

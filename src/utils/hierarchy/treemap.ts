@@ -17,6 +17,8 @@ const DEFAULT_OPTIONS: HierarchyOption = {
   paddingBottom: 0,
   paddingLeft: 0,
   as: ['x', 'y'],
+  // 默认降序
+  sort: (a, b) => b.value - a.value,
 };
 
 export function treemap(data: any, options: HierarchyOption): any[] {
@@ -55,7 +57,10 @@ export function treemap(data: any, options: HierarchyOption): any[] {
        * ignoreParentValue 为 false 时，父元素的值由当前节点 及子元素累加而来，该值为 10 + 5 + 5 = 20
        * sum 函数中，d 为用户传入的 data, children 为保留字段
        */
-      d3Hierarchy.hierarchy(data).sum((d) => (options.ignoreParentValue && d.children ? 0 : d[field]))
+      d3Hierarchy
+        .hierarchy(data)
+        .sum((d) => (options.ignoreParentValue && d.children ? 0 : d[field]))
+        .sort(options.sort)
     );
   const root = partition(data);
 

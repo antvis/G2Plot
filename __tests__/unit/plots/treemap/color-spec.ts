@@ -95,7 +95,7 @@ describe('treemap color', () => {
     });
 
     const elements = treemapPlot.chart.geometries[0].elements;
-    expect(elements[0].model.color).toBe('#f00');
+    expect(elements[1].model.color).toBe('#f00');
     expect(elements[5].model.color).toBe('#0f0');
   });
 

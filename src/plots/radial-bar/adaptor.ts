@@ -1,6 +1,6 @@
 import { interaction, animation, theme, scale, tooltip, legend, annotation } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
-import { flow, deepAssign } from '../../utils';
+import { flow, deepAssign, findGeometry, transformLabel } from '../../utils';
 import { interval, point } from '../../adaptor/geometries';
 import { RadialBarOptions } from './types';
 import { getScaleMax } from './utils';
@@ -89,10 +89,50 @@ export function axis(params: Params<RadialBarOptions>): Params<RadialBarOptions>
 }
 
 /**
+ * 数据标签
+ * @param params
+ */
+function label(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
+  const { chart, options } = params;
+  const { label, yField } = options;
+
+  const intervalGeometry = findGeometry(chart, 'interval');
+
+  // label 为 false, 空 则不显示 label
+  if (!label) {
+    intervalGeometry.label(false);
+  } else {
+    const { callback, ...cfg } = label;
+    intervalGeometry.label({
+      fields: [yField],
+      callback,
+      cfg: {
+        ...transformLabel(cfg),
+        type: 'polar',
+      },
+    });
+  }
+
+  return params;
+}
+
+/**
  * 图适配器
  * @param chart
  * @param options
  */
 export function adaptor(params: Params<RadialBarOptions>) {
-  return flow(geometry, meta, axis, coordinate, interaction, animation, theme, tooltip, legend, annotation())(params);
+  return flow(
+    geometry,
+    meta,
+    axis,
+    coordinate,
+    interaction,
+    animation,
+    theme,
+    tooltip,
+    legend,
+    annotation(),
+    label
+  )(params);
 }

@@ -1,8 +1,8 @@
 export const TREEMAP = {
   name: 'root',
   children: [
-    { name: '分类 1', value: 560, ext: '自定义数据' },
-    { name: '分类 2', value: 500, ext: '自定义数据' },
+    { name: '分类 1', value: 500, ext: '自定义数据' },
+    { name: '分类 2', value: 800, ext: '自定义数据' },
     { name: '分类 3', value: 150, ext: '自定义数据' },
     { name: '分类 4', value: 140, ext: '自定义数据' },
     { name: '分类 5', value: 115, ext: '自定义数据' },

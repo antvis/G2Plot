@@ -121,7 +121,15 @@ bar.render();
 
 ## Bar plot features
 
-### Set corner-radius of column
+### Specify minWidth and maxWidth of bar
+
+Using `maxBarWidth` to specify the maximum width of bar, and `minBarWidth` to specify the minimum width of bar.
+
+通过组合指定柱子最大宽度、最小宽度可以达到指定柱子宽度的效果。
+
+<playground path="bar/basic/demo/width.ts" rid="specify-bar-width"></playground>
+
+### Set corner-radius of bar
 
 通过设置 `barStyle.radius` 可以指定柱子的圆角，数据类型可以是 `number` 也可以是 `number[]`。
 
@@ -129,3 +137,9 @@ bar.render();
 当柱子数值为负值时，`const [r1, r2, r3, r4] = radius` 依次代表柱子左下角、右下角、右上角、左上角的 `radius`。
 
 <playground path="bar/grouped/demo/corner-radius.ts" rid="corner-radius"></playground>
+
+### Set background style of bar
+
+Using `barBackground.style` to specify the background style of bar.
+
+<playground path="bar/basic/demo/bar-background.ts" rid="bar-background"></playground>

@@ -121,6 +121,14 @@ bar.render();
 
 ## 条形图特性
 
+### 指定柱子最大宽度、最小宽度
+
+通过设置 `maxBarWidth` 可以指定柱子的最大宽度，设置 `minBarWidth` 可以指定柱子的最小宽度。
+
+通过组合指定柱子最大宽度、最小宽度可以达到指定柱子宽度的效果。
+
+<playground path="bar/basic/demo/width.ts" rid="specify-bar-width"></playground>
+
 ### 设置柱子的圆角
 
 通过设置 `barStyle.radius` 可以指定柱子的圆角，数据类型可以是 `number` 也可以是 `number[]`。
@@ -129,3 +137,9 @@ bar.render();
 当柱子数值为负值时，`const [r1, r2, r3, r4] = radius` 依次代表柱子左下角、右下角、右上角、左上角的 `radius`。
 
 <playground path="bar/grouped/demo/corner-radius.ts" rid="corner-radius"></playground>
+
+### 设置柱子的背景样式
+
+通过设置 `barBackground.style` 可以指定柱子的背景样式。
+
+<playground path="bar/basic/demo/bar-background.ts" rid="bar-background"></playground>

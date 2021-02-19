@@ -132,9 +132,9 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/K0kfOzo4j%24/column.json')
 
 <playground path="column/grouped/demo/basic.ts" rid="group-column"></playground>
 
-### Specify minWidth and maxColumnWidth of column
+### Specify minWidth and maxWidth of column
 
-通过设置 `maxColumnWidth` 可以指定柱子的最大宽度，设置 `minColumnWidth` 可以指定柱子的最小宽度。
+Using `maxColumnWidth` to specify the maximum width of column, and `minColumnWidth` to specify the minimum width of column.
 
 通过组合指定柱子最大宽度、最小宽度可以达到指定柱子宽度的效果。
 
@@ -148,3 +148,9 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/K0kfOzo4j%24/column.json')
 当柱子数值为负值时，`const [r1, r2, r3, r4] = radius` 依次代表柱子左下角、右下角、右上角、左上角的 `radius`。
 
 <playground path="column/grouped/demo/corner-radius.ts" rid="corner-radius"></playground>
+
+### Set background style of column
+
+Using `columnBackground.style` to specify the background style of column.
+
+<playground path="column/stacked/demo/column-background.ts" rid="column-background"></playground>

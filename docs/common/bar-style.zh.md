@@ -19,7 +19,6 @@
 
 `markdown:docs/common/shape-style.zh.md`
 
-
 #### barBackground.style
 
 <description>**可选** _StyleAttr_</description>

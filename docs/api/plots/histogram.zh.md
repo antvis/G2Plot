@@ -55,6 +55,12 @@ order: 11
 
 `markdown:docs/common/color.zh.md`
 
+#### state
+
+<description>**可选** _object_</description>
+
+`markdown:docs/common/state-style.zh.md`
+
 ### 图表组件
 
 `markdown:docs/common/component.zh.md`
@@ -66,8 +72,6 @@ order: 11
 ### 图表方法
 
 `markdown:docs/common/chart-methods.zh.md`
-
-
 
 ### 图表主题
 

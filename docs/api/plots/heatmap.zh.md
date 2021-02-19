@@ -23,25 +23,25 @@ order: 23
 
 #### type
 
-<description>**optional** _polygon | density_ _default:_ `polygon`</description>
+<description>**可选** _polygon | density_ _default:_ `polygon`</description>
 
 密度热力图需要指定为 density。
 
 #### colorField
 
-<description>**optional** _string_</description>
+<description>**可选** _string_</description>
 
 颜色映射字段名。
 
 #### sizeField
 
-<description>**optional** _string_</description>
+<description>**可选** _string_</description>
 
 点大小映射对应的数据字段名。
 
 #### reflect
 
-<description>**optional** _x | y_</description>
+<description>**可选** _x | y_</description>
 
 坐标轴映射。
 
@@ -51,19 +51,19 @@ order: 23
 
 #### shape
 
-<description>**optional** _rect | square | circle_</description>
+<description>**可选** _rect | square | circle_</description>
 
 热力格子中的形状，密度热力图不用指定。
 
 #### sizeRatio
 
-<description>**optional** _number_</description>
+<description>**可选** _number_</description>
 
 热力格子中图形的尺寸比例，可选，只有当 shape 和 sizeField 至少指定一项后才生效。
 
 #### heatmapStyle
 
-<description>**optional** _object_</description>
+<description>**可选** _object_</description>
 
 热力图样式。 heatmapStyle 中的`fill`会覆盖 `color` heatmapStyle 可以直接指定，也可以通过 callback 的方式，根据数据指定单独的样式。
 
@@ -93,6 +93,12 @@ order: 23
   heatmapStyle: (item) => ({fill: 'red'})
 }
 ```
+
+#### state
+
+<description>**可选** _object_</description>
+
+`markdown:docs/common/state-style.en.md`
 
 ## 图表组件
 

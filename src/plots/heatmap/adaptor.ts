@@ -4,7 +4,7 @@ import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../utils';
 import { flow, transformLabel } from '../../utils';
 import { DEFAULT_COLORS } from '../../constant';
-import { tooltip, interaction, animation, theme, scale, annotation } from '../../adaptor/common';
+import { tooltip, interaction, animation, theme, scale, annotation, state } from '../../adaptor/common';
 import { HeatmapOptions } from './types';
 
 /**
@@ -180,5 +180,18 @@ function label(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
  */
 export function adaptor(params: Params<HeatmapOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(field, meta, theme, axis, legend, tooltip, style, label, annotation(), interaction, animation)(params);
+  return flow(
+    field,
+    meta,
+    theme,
+    axis,
+    legend,
+    tooltip,
+    style,
+    label,
+    annotation(),
+    interaction,
+    animation,
+    state
+  )(params);
 }

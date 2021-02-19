@@ -111,6 +111,12 @@ Set the sector style. The 'fill' in sectorStyle overrides the 'color' configurat
 
 `markdown:docs/common/shape-style.en.md`
 
+#### state
+
+<description>**optional** _object_</description>
+
+`markdown:docs/common/state-style.en.md`
+
 ### Plot Components
 
 `markdown:docs/common/component.en.md`

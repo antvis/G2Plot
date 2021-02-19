@@ -111,6 +111,12 @@ piePlot.render();
 
 `markdown:docs/common/shape-style.zh.md`
 
+#### state
+
+<description>**可选** _object_</description>
+
+`markdown:docs/common/state-style.zh.md`
+
 ### 图表组件
 
 `markdown:docs/common/component.zh.md`

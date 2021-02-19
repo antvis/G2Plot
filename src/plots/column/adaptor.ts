@@ -10,6 +10,7 @@ import {
   annotation,
   scrollbar,
   limitInPlot,
+  state,
 } from '../../adaptor/common';
 import { conversionTag } from '../../adaptor/conversion-tag';
 import { connectedArea } from '../../adaptor/connected-area';
@@ -206,6 +207,7 @@ export function adaptor(params: Params<ColumnOptions>, isBar = false) {
   return flow(
     defaultOptions, // 处理默认配置
     theme, // theme 需要在 geometry 之前
+    state,
     geometry,
     meta,
     axis,

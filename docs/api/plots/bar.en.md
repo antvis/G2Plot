@@ -75,6 +75,12 @@ The ratio of bar width( Range:[0-1] ).
 
 The ratio of spacing between columns in groups( Range:[0-1] ), only for Grouped Bar.
 
+#### state
+
+<description>**optional** _object_</description>
+
+`markdown:docs/common/state-style.en.md`
+
 ### Plot Components
 
 `markdown:docs/common/component.en.md`

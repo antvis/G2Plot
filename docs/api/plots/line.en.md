@@ -72,11 +72,17 @@ Polyline graphic style. You can either pass in the 'shapeStyle' structure direct
 
 #### point
 
-<description>**optional**</description>
+<description>**optional** _object_</description>
 
 Polyline data point graph style.
 
 `markdown:docs/common/point-style.en.md`
+
+#### state
+
+<description>**optional** _object_</description>
+
+`markdown:docs/common/state-style.en.md`
 
 ### Plot Components
 

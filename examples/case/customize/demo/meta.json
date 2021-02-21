@@ -5,6 +5,14 @@
   },
   "demos": [
     {
+      "filename": "desire-heatmap.ts",
+      "title": {
+        "zh": "心愿热力图",
+        "en": "Desire heatmap"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/4gOU7HlFcA/relixinnian.png"
+    },
+    {
       "filename": "line.ts",
       "title": {
         "zh": "用户会话",

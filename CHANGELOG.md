@@ -1,3 +1,29 @@
+#### 2.3.12 (2021-02-23)
+
+##### Documentation Changes
+
+* **heatmap:**  添加热力新年 demo ([#2339](https://github.com/antvis/g2plot/pull/2339)) ([a799beea](https://github.com/antvis/g2plot/commit/a799beeadae2cbd89d3ff5299d4e83fa9150597d))
+*  增加 column，bar 背景色设置的 demo & 图表指引 ([#2333](https://github.com/antvis/g2plot/pull/2333)) ([967c1e69](https://github.com/antvis/g2plot/commit/967c1e69a743158c2c991c1b621080b342353d19))
+*  scrollbar style & lock editor version ([#2328](https://github.com/antvis/g2plot/pull/2328)) ([ea9a5757](https://github.com/antvis/g2plot/commit/ea9a575711778635a7ba24f4b00d6e0ed896a74e))
+*  fix link 404 ([#2311](https://github.com/antvis/g2plot/pull/2311)) ([98d63c6e](https://github.com/antvis/g2plot/commit/98d63c6e0e9e5528470e173f04d841c1b5f4c77e))
+* **interactions:**  交互相关的 api 文档补充 ([#2315](https://github.com/antvis/g2plot/pull/2315)) ([2b12ec73](https://github.com/antvis/g2plot/commit/2b12ec73336e3cbbb3f672c515bc618969c0652a))
+* **dual-axes:**  双轴图补充 meta 使用示例 ([#2314](https://github.com/antvis/g2plot/pull/2314)) ([0e7b260f](https://github.com/antvis/g2plot/commit/0e7b260f139e5b3d61cb4e11f96ec1919949e807))
+
+##### New Features
+
+*  treemap layout optimize ([#2337](https://github.com/antvis/g2plot/pull/2337)) ([312bcdbd](https://github.com/antvis/g2plot/commit/312bcdbde224e6f84b35fcc67a53016f5e1764a1))
+*  雷达图新增 innerRadius、startAngle、endAngle ([#2323](https://github.com/antvis/g2plot/pull/2323)) ([11639171](https://github.com/antvis/g2plot/commit/1163917119108ea62e94ecb2ee57b98d9059c8d9))
+*  export default-options, you can use staticMethod to getDefaultOptions, like `Plot.getDefaultOptions()` ([#2307](https://github.com/antvis/g2plot/pull/2307)) ([8efbdd64](https://github.com/antvis/g2plot/commit/8efbdd648c82130c5fab8090771b043fab86cad5))
+* **radial-bar:**  add radial bar label adaptor ([#2336](https://github.com/antvis/g2plot/pull/2336)) ([2f0961b1](https://github.com/antvis/g2plot/commit/2f0961b1cd0f12302d950f76732de7749a19cbf4))
+* **state-style:**  若干图表支持 state 设置样式 & 增加文档 ([#2334](https://github.com/antvis/g2plot/pull/2334)) ([f45d02bc](https://github.com/antvis/g2plot/commit/f45d02bcc9920f7a7f4ebe99cc35bf01ad91bef3))
+
+##### Bug Fixes
+
+*  gague,pie,ring-progress,liquid 等 changedata 触发钩子事件 ([#2319](https://github.com/antvis/g2plot/pull/2319)) ([8bf5a6a9](https://github.com/antvis/g2plot/commit/8bf5a6a9bd92e685594aa4ec7ecdf4791da6e815))
+*  pie tooltip ([#2312](https://github.com/antvis/g2plot/pull/2312)) ([4c42f513](https://github.com/antvis/g2plot/commit/4c42f513484cc857076c954ff8a86ace0cd286a0))
+* **bar:**  bar plot not transformData before changedata ([#2317](https://github.com/antvis/g2plot/pull/2317)) ([7692fcb8](https://github.com/antvis/g2plot/commit/7692fcb8f6ae76edce3ce814a4d95a95ed2e5702))
+* **column:**  update scales when changeData ([#2303](https://github.com/antvis/g2plot/pull/2303)) ([#2306](https://github.com/antvis/g2plot/pull/2306)) ([08570163](https://github.com/antvis/g2plot/commit/08570163b6f761a22ea7fa4f1397d5516c483557))
+
 #### 2.3.11 (2021-02-03)
 
 ##### Documentation Changes

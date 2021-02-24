@@ -92,13 +92,15 @@ export function legend(params: Params<RoseOptions>): Params<RoseOptions> {
  */
 function coordinate(params: Params<RoseOptions>): Params<RoseOptions> {
   const { chart, options } = params;
-  const { radius, innerRadius } = options;
+  const { radius, innerRadius, startAngle, endAngle } = options;
 
   chart.coordinate({
     type: 'polar',
     cfg: {
       radius,
       innerRadius,
+      startAngle,
+      endAngle,
     },
   });
 

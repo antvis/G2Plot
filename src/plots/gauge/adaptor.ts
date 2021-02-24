@@ -1,5 +1,5 @@
 import { isString } from '@antv/util';
-import { interaction, animation, theme, scale } from '../../adaptor/common';
+import { interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { Params } from '../../core/adaptor';
 import { Data } from '../../types';
@@ -198,6 +198,7 @@ export function adaptor(params: Params<GaugeOptions>) {
     theme,
     // meterView 需要放到主题之后
     meterView,
+    annotation(),
     other
     // ... 其他的 adaptor flow
   )(params);

@@ -28,6 +28,9 @@ export function geometry(params: Params<ProgressOptions>): Params<ProgressOption
         style: progressStyle,
         color: isString(color) ? [color, DEFAULT_COLOR[1]] : color,
       },
+      args: {
+        zIndexReversed: true,
+      },
     },
   });
 

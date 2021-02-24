@@ -327,4 +327,24 @@ describe('ring-progress', () => {
   it('defaultOptions 保持从 constants 中获取', () => {
     expect(RingProgress.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
+
+  it('z-index', () => {
+    const ringProgress = new RingProgress(createDiv(), {
+      radius: 1,
+      innerRadius: 0.5,
+      width: 200,
+      height: 100,
+      percent: 0.6,
+      autoFit: false,
+    });
+
+    ringProgress.render();
+    let elements = ringProgress.chart.geometries[0].elements;
+    expect(elements[0].shape.get('zIndex')).toBeGreaterThan(elements[1].shape.get('zIndex'));
+    ringProgress.changeData(0.7);
+    elements = ringProgress.chart.geometries[0].elements;
+    expect(elements[0].shape.get('zIndex')).toBeGreaterThan(elements[1].shape.get('zIndex'));
+
+    ringProgress.destroy();
+  });
 });

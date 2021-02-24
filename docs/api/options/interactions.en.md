@@ -11,7 +11,7 @@ In G2Plot, G2's interaction syntax is passed through, as well as some built-in i
 
 `markdown:docs/common/interactions.en.md`
 
-### Interactions
+### About interactions
 
 #### Built-in interactions
 
@@ -40,9 +40,9 @@ more details about action, got to see [G2 | interaction feedback](https://g2.ant
 | element-single-highlight | 用于设置和取消图表元素的 highlight ，只允许单个元素 highlight。高亮的时候会取消当前激活元素之外的元素的高亮态 | <tag color="green" text="Element">Element</tag> |
 | element-filter| 图表元素的过滤，支持来自图例（分类和连续）、坐标轴文本的触发 | <tag color="green" text="Element">Element</tag> | 
 
-#### Assembel interacions
+### Assembel interacions
 
-##### element-link (chart elements of the same colors)
+#### element-link (chart elements of the same colors)
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*KqE9SpqUKpcAAAAAAAAAAABkARQnAQ#align=left&display=inline&height=248&margin=%5Bobject%20Object%5D" width="339" alt="association" />
 
@@ -65,7 +65,7 @@ G2.registerInteraction('element-link', {
 }
 ```
 
-##### Pointer cursor
+#### Pointer cursor
 
 Example：
 

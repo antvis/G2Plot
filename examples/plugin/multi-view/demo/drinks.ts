@@ -31,7 +31,7 @@ const plot = new MultiView('container', {
         type: 'theta',
         cfg: { radius: 0.85 },
       },
-      axes: { value: { title: { text: 'Drinks' }, tickLine: null, line: false, ticks: false } },
+      axes: { value: { title: { text: 'Drinks' }, grid: null, tickLine: null, line: false, ticks: false } },
       geometries: [
         {
           type: 'interval',
@@ -42,6 +42,7 @@ const plot = new MultiView('container', {
           adjust: { type: 'stack' },
         },
       ],
+      interactions: [{ type: 'element-active' }, { type: 'association-highlight' }],
     },
     {
       data: new DataView()
@@ -112,6 +113,7 @@ const plot = new MultiView('container', {
           mapping: {},
         },
       ],
+      interactions: [{ type: 'element-active' }, { type: 'association-sibling-highlight' }],
     },
   ],
 });

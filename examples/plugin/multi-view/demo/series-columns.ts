@@ -16,7 +16,6 @@ const defaultGrey = '#BFBFBF';
 const plot = new MultiView('container', {
   appendPadding: 8,
   tooltip: { showMarkers: false },
-  views: [],
 });
 
 plot.chart.theme({
@@ -24,76 +23,100 @@ plot.chart.theme({
 });
 
 plot.update({
-  views: [
+  plots: [
     {
       region: { start: { x: 0, y: 0 }, end: { x: 1 / 2, y: 2 / 5 } },
-      data, // 图表数据
-      meta: {
-        value: {
-          alias: '销售额(万)',
+      type: 'bar',
+      options: {
+        data, // 图表数据
+        yField: 'area',
+        xField: 'value',
+        yAxis: { tickLine: null },
+        xAxis: false,
+        seriesField: 'area',
+        label: {
+          position: 'left',
+          layout: { type: 'adjust-color' },
+          formatter: ({ value }) => `${(value * 100).toFixed(1)}%`,
+          style: { fill: '#fff' },
         },
+        color: ({ area }) => {
+          const value = data.find((d) => d.area === area)?.value;
+          return value > 0.3 ? plot.chart.getTheme().defaultColor : defaultGrey;
+        },
+        barStyle: { lineWidth: 1 },
       },
-      axes: { area: { tickLine: false }, value: false },
-      coordinate: { cfg: { isTransposed: true } },
-      geometries: [
-        {
-          type: 'interval',
-          xField: 'area',
-          yField: 'value',
-          mapping: {
-            color: ({ area }) => {
-              const value = data.find((d) => d.area === area).value;
-              return value > 0.3 ? plot.chart.getTheme().defaultColor : defaultGrey;
-            },
-            style: { lineWidth: 1 },
-          },
-          label: {
-            position: 'left',
-            layout: { type: 'adjust-color' },
-            formatter: ({ value }) => `${(value * 100).toFixed(1)}%`,
-            style: { fill: '#fff' },
-          },
-        },
-      ],
     },
     {
       region: { start: { x: 1 / 2, y: 0 }, end: { x: 1, y: 2 / 5 } },
-      data, // 图表数据
-      meta: {
-        value: {
-          alias: '销售额(万)',
+      type: 'bar',
+      options: {
+        data, // 图表数据
+        yField: 'area',
+        xField: 'value',
+        yAxis: { tickLine: null },
+        xAxis: false,
+        label: {},
+        color: ({ area }) => {
+          const value = data.find((d) => d.area === area)?.value;
+          return value > 0.3 ? plot.chart.getTheme().defaultColor : defaultGrey;
+        },
+        barStyle: ({ value }) => {
+          return {
+            lineWidth: 1,
+            fillOpacity: 0,
+            stroke: value > 0.3 ? plot.chart.getTheme().defaultColor : defaultGrey,
+          };
         },
       },
-      axes: { area: { tickLine: false }, value: false },
-      coordinate: { cfg: { isTransposed: true } },
-      geometries: [
-        {
-          type: 'interval',
-          xField: 'area',
-          yField: 'value',
-          mapping: {
-            color: ({ area }) => {
-              const value = data.find((d) => d.area === area).value;
-              return value > 0.3 ? plot.chart.getTheme().defaultColor : defaultGrey;
-            },
-            style: ({ value }) => {
-              return {
-                lineWidth: 1,
-                fillOpacity: 0,
-                stroke: value > 0.3 ? plot.chart.getTheme().defaultColor : defaultGrey,
-              };
-            },
-          },
-          label: {
-            position: 'left',
-            formatter: ({ value }) => `${(value * 100).toFixed(1)}%`,
-          },
-        },
-      ],
     },
     {
+      region: { start: { x: 1 / 2, y: 1 / 2 }, end: { x: 1, y: 1 } },
+      type: 'bar',
+      options: {
+        data, // 图表数据
+        meta: {
+          value: {
+            alias: '销售额(万)',
+            min: 0,
+            max: 1,
+          },
+        },
+        yAxis: { label: { style: { fillOpacity: 0 } }, tickLine: null },
+        xAxis: false,
+        label: {
+          offsetX: -4,
+          position: 'left',
+          layout: { type: 'adjust-color' },
+          style: { fill: '#fff', fontSize: 12 },
+          formatter: ({ area, value }) => {
+            return `${area}\n${(value * 100).toFixed(1)}%`;
+          },
+        },
+        yField: 'area',
+        xField: 'value',
+        color: ({ area }) => {
+          const value = data.find((d) => d.area === area).value;
+          return value > 0.3 ? plot.chart.getTheme().defaultColor : defaultGrey;
+        },
+        annotations: data.map((d, idx) => {
+          return {
+            type: 'line',
+            start: [3 - idx - 0.25, 'min'],
+            end: [3 - idx - 0.25, 'max'],
+            style: {
+              lineWidth: 2,
+              stroke: '#595959',
+            },
+          };
+        }),
+      },
+    },
+  ],
+  views: [
+    {
       region: { start: { x: 0, y: 1 / 2 }, end: { x: 1 / 2, y: 1 } },
-      data, // 图表数据
+      data: [...data].reverse(), // 图表数据
       meta: {
         value: {
           alias: '销售额(万)',
@@ -101,7 +124,7 @@ plot.update({
           min: 0,
         },
       },
-      axes: { area: { tickLine: false }, value: false },
+      axes: { area: { tickLine: null }, value: false },
       coordinate: { cfg: { isTransposed: true } },
       geometries: [
         {
@@ -130,7 +153,7 @@ plot.update({
           },
         },
       ],
-
+      // @ts-ignore
       annotations: [
         ...data.map((d) => {
           return {
@@ -147,62 +170,6 @@ plot.update({
           };
         }),
       ],
-    },
-    {
-      region: { start: { x: 1 / 2, y: 1 / 2 }, end: { x: 1, y: 1 } },
-      data, // 图表数据
-      meta: {
-        value: {
-          alias: '销售额(万)',
-          min: 0,
-          max: 1,
-        },
-      },
-      axes: {
-        area: { label: { style: { fillOpacity: 0 } }, tickLine: false },
-        value: false,
-      },
-      coordinate: { cfg: { isTransposed: true } },
-      label: {
-        offsetX: -4,
-        style: { fill: '#Fff' },
-        formatter: ({ area, value }) => {
-          return `${area}\n${(value * 100).toFixed(1)}%`;
-        },
-      },
-      geometries: [
-        {
-          type: 'interval',
-          xField: 'area',
-          yField: 'value',
-          label: {
-            offsetX: -4,
-            position: 'left',
-            layout: { type: 'adjust-color' },
-            style: { fill: '#fff', fontSize: 12 },
-            formatter: ({ area, value }) => {
-              return `${area}\n${(value * 100).toFixed(1)}%`;
-            },
-          },
-          mapping: {
-            color: ({ area }) => {
-              const value = data.find((d) => d.area === area).value;
-              return value > 0.3 ? plot.chart.getTheme().defaultColor : defaultGrey;
-            },
-          },
-        },
-      ],
-      annotations: data.map((d, idx) => {
-        return {
-          type: 'line',
-          start: [3 - idx - 0.25, 'min'],
-          end: [3 - idx - 0.25, 'max'],
-          style: {
-            lineWidth: 2,
-            stroke: '#595959',
-          },
-        };
-      }),
     },
   ],
 });

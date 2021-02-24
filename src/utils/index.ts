@@ -4,7 +4,7 @@ export { template } from './template';
 export { log, invariant, LEVEL } from './invariant';
 export { getContainerSize } from './dom';
 export { findGeometry, getAllElements } from './geometry';
-export { findViewById } from './view';
+export { findViewById, getViews, getSilbingViews } from './view';
 export { transformLabel } from './label';
 export { getSplinePath } from './path';
 export { deepAssign } from './deep-assign';

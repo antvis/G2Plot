@@ -69,7 +69,7 @@ const rosePlot = new Rose('container', {
 piePlot.render();
 ```
 
-#### seriesField 
+#### seriesField
 
 <description>**optional** _string_</description>
 
@@ -89,21 +89,33 @@ piePlot.render();
 
 ### 图形样式
 
-#### radius 
+#### radius
 
 <description>**optional** _number_</description>
 
 玫瑰图的半径，原点为画布中心。配置值域为 (0,1]，1 代表玫瑰图撑满绘图区域。
 
-#### innerRadius 
+#### innerRadius
 
 <description>**optional** _number_</description>
 
 玫瑰图内部空心圆的半径，规则与 radius 一致。
 
+#### startAngle
+
+<description>**optional** _number_ _default:_ `(Math.PI * 0) / 180`</description>
+
+配置坐标系的起始角度。
+
+#### endAngle
+
+<description>**optional** _number_ _default:_ `(Math.PI * 180) / 180`</description>
+
+配置坐标系的结束角度。
+
 `markdown:docs/common/color.zh.md`
 
-#### sectorStyle 
+#### sectorStyle
 
 <description>**optional** _object | Function_</description>
 

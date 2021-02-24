@@ -18,6 +18,10 @@ export interface RoseOptions extends Options {
   readonly radius?: number;
   /** 内部空心圆的半径，规则与 radius 一致 */
   readonly innerRadius?: number;
+  /** 玫瑰图开始角度 */
+  readonly startAngle?: number;
+  /** 玫瑰图结束角度 */
+  readonly endAngle?: number;
   /**
    * 设置扇形样式。sectorStyle 中的fill会覆盖 color 的配置
    * sectorStyle 可以直接指定，也可以通过 callback 的方式，根据数据为每个扇形切片指定单独的样式

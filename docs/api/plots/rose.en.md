@@ -101,6 +101,18 @@ The radius of the rose with the origin being the center of the canvas. The confi
 
 The radius of the hollow circle inside the rose is the same as radius.
 
+#### startAngle
+
+<description>**optional** _number_ _default:_ `(Math.PI * 0) / 180`</description>
+
+The starting Angle of the disk.
+
+#### endAngle
+
+<description>**optional** _number_ _default:_ `(Math.PI * 180) / 180`</description>
+
+The termination Angle of the disk.
+
 `markdown:docs/common/color.en.md`
 
 #### sectorStyle

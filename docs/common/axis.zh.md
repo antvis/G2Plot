@@ -139,7 +139,7 @@
 
 | 细分配置项名称 | 类型               | 功能描述                                                 |
 | -------------- | ------------------ | -------------------------------------------------------- |
-| line           | _lineStyle_        | 线的样式,                                               |
+| line.style           | _lineStyle_        | 线的样式,                                               |
 | alternateColor | _string\|string[]_ | 两个栅格线间的填充色                                     |
 | closed         | _boolean_          | 对于 circle 是否关闭 grid                                |
 | alignTick      | _boolean_          | 是否同刻度线对齐，如果值为 false，则会显示在两个刻度中间 |

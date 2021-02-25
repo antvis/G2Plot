@@ -37,6 +37,8 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
   chart.legend(false);
   chart.tooltip(tooltip);
   chart.axis(false);
+  // y 镜像一下，防止图形顺序和数据顺序反了
+  chart.coordinate().reflect('y');
 
   // 2. 转换出 layout 前数据
   const sankeyLayoutInputData = transformDataToNodeLinkData(
@@ -132,8 +134,8 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
 
   // scale
   chart.scale({
-    x: { sync: true, nice: true },
-    y: { sync: true, nice: true },
+    x: { sync: true, nice: true, min: 0, max: 1, minLimit: 0, maxLimit: 1 },
+    y: { sync: true, nice: true, min: 0, max: 1, minLimit: 0, maxLimit: 1 },
     name: { sync: 'color' },
   });
 

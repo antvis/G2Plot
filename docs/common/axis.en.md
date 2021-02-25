@@ -139,7 +139,7 @@ Axis grid line configuration item. NULL means not shown.
 
 | Properties     | Type               | Description                                                        |
 | -------------- | ------------------ | ------------------------------------------------------------------ |
-| line           | _lineStyle_        | The style of the line                                              |
+| line.style     | _lineStyle_        | The style of the line                                              |
 | alternateColor | _string\|string[]_ | The fill color between two grid lines                              |
 | closed         | _boolean_          | Whether to close the grid for circle                               |
 | alignTick      | _boolean_          | If the value is false, it will be displayed between the two scales |

@@ -61,7 +61,10 @@ describe('#2352', () => {
       minLimit: 0,
       maxLimit: 1,
     });
+<<<<<<< HEAD
 
     sankey.destroy();
+=======
+>>>>>>> fix(sankey): 图形和数据顺序不一致,布局存在空白区域
   });
 });

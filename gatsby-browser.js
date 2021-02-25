@@ -7,4 +7,3 @@ window.reactDom = require('react-dom');
 window.antd = require('antd');
 
 require('antd/lib/alert/style/index.css');
-

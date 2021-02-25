@@ -32,11 +32,11 @@ interface TransformDataOptions {
   data: TreemapOptions['data'];
   colorField: TreemapOptions['colorField'];
   openDrillDown: boolean;
-  hierarchyConfig?: TreemapOptions['hierarchyConfig'];
+  hierarchyConfig: TreemapOptions['hierarchyConfig'];
 }
 
 export function transformData(options: TransformDataOptions) {
-  const { data, colorField, openDrillDown, hierarchyConfig = {} } = options;
+  const { data, colorField, openDrillDown, hierarchyConfig } = options;
 
   const nodes = treemap(data, {
     ...hierarchyConfig,

@@ -24,7 +24,7 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
           stroke: '#fff',
         },
         hierarchyConfig: {
-          tile: 'treemapResquarify',
+          tile: 'treemapSquarify',
         },
         label: {
           fields: ['name'],
@@ -55,11 +55,12 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
  */
 function geometry(params: Params<TreemapOptions>): Params<TreemapOptions> {
   const { chart, options } = params;
-  const { color, colorField, rectStyle } = options;
+  const { color, colorField, rectStyle, hierarchyConfig } = options;
   const data = transformData({
     data: options.data,
     colorField: options.colorField,
     openDrillDown: isDrillDown(options.interactions),
+    hierarchyConfig,
   });
 
   chart.data(data);

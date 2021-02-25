@@ -36,5 +36,7 @@ describe('treemap view zoom interaction', () => {
     await delay(1000);
 
     expect(treemapPlot.chart.getCanvas().getEvents().mousewheel).toBeUndefined();
+
+    treemapPlot.destroy();
   });
 });

@@ -19,6 +19,8 @@ const DEFAULT_OPTIONS: HierarchyOption = {
   as: ['x', 'y'],
   // 默认降序
   sort: (a, b) => b.value - a.value,
+  // 纵横比, treemapSquarify 布局时可用，默认
+  ratio: 0.5 * (1 + Math.sqrt(5)),
 };
 
 export function treemap(data: any, options: HierarchyOption): any[] {
@@ -35,10 +37,13 @@ export function treemap(data: any, options: HierarchyOption): any[] {
     console.warn(e);
   }
 
+  const tileMethod =
+    options.tile === 'treemapSquarify' ? d3Hierarchy[options.tile].ratio(1) : d3Hierarchy[options.tile];
+
   const partition = (data) =>
     d3Hierarchy
       .treemap()
-      .tile(d3Hierarchy[options.tile])
+      .tile(tileMethod)
       .size(options.size)
       .round(options.round)
       .padding(options.padding)

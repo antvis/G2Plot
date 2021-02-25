@@ -36,9 +36,6 @@ describe('#2352', () => {
 
     sankey.render();
 
-    // @ts-ignore
-    window.sankey = sankey;
-
     // 1. 图形镜像
     // @ts-ignore
     expect(sankey.chart.getCoordinate().isReflectY).toBe(true);
@@ -64,5 +61,7 @@ describe('#2352', () => {
       minLimit: 0,
       maxLimit: 1,
     });
+
+    sankey.destroy();
   });
 });

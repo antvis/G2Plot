@@ -67,6 +67,24 @@ The vertical spacing between nodes in Sankey diagram, 0 ~ 1, referring to the he
 
 The sankey diagram node layout direction, the default is `the justify`, can choose the 'left' | 'right' | 'center' | 'the justify' four ways.
 
+#### nodeDepth
+
+<description>**optional** _Function_</description>
+
+The sankey diagram node `depth` configure, use function to return the depth value, started from zero.
+
+```ts
+{
+  nodeDepth: (datum) => {
+    const { name } = datum;
+    if (name === 'node1') {
+      return 0;
+    }
+    return 1;
+  }
+}
+```
+
 ### Plot Event
 
 `markdown:docs/common/events.en.md`

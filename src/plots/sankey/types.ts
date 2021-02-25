@@ -1,4 +1,5 @@
 import { Data, Datum, Options, StyleAttr } from '../../types';
+import { NodeDepth } from '../../utils/transform/sankey';
 
 /** 配置类型定义 */
 export interface SankeyOptions extends Omit<Options, 'xField' | 'yField' | 'xAxis' | 'yAxis'> {
@@ -42,6 +43,10 @@ export interface SankeyOptions extends Omit<Options, 'xField' | 'yField' | 'xAxi
    * 节点排序方式，默认为空
    */
   readonly nodeSort?: (a: Datum, b: Datum) => number;
+  /**
+   * 节点排放分层的顺序，从 0 开始
+   */
+  readonly nodeDepth?: NodeDepth;
   /**
    * 节点样式
    */

@@ -1,6 +1,8 @@
 import { assign, isString, isFunction } from '@antv/util';
 import { sankey, sankeyLeft, sankeyRight, sankeyCenter, sankeyJustify } from 'd3-sankey';
+import { SankeyOptions } from '../../plots/sankey';
 import { Datum } from '../../types';
+import { pick } from '../pick';
 
 const ALIGN_METHOD = {
   left: sankeyLeft,
@@ -65,6 +67,11 @@ type SankeyLayoutOutputData = {
 export type NodeAlign = keyof typeof ALIGN_METHOD;
 
 /**
+ * 节点的 depth 自定义
+ */
+export type NodeDepth = (datum: Datum) => number;
+
+/**
  * 布局参数的定义
  */
 export type SankeyLayoutOptions = {
@@ -79,6 +86,7 @@ export type SankeyLayoutOptions = {
   readonly nodeAlign?: NodeAlign;
   readonly nodeWidth?: number;
   readonly nodePadding?: number;
+  readonly nodeDepth?: NodeDepth;
 };
 
 /**
@@ -95,8 +103,13 @@ const DEFAULT_OPTIONS: Partial<SankeyLayoutOptions> = {
 /**
  * 获得 align function
  * @param nodeAlign
+ * @param nodeDepth
  */
-export function getNodeAlignFunction(nodeAlign: NodeAlign) {
+export function getNodeAlignFunction(nodeAlign: NodeAlign, nodeDepth: SankeyOptions['nodeDepth']) {
+  if (nodeDepth) {
+    return (node) => nodeDepth(pick(node, ['name']) as any);
+  }
+
   const func = isString(nodeAlign) ? ALIGN_METHOD[nodeAlign] : isFunction(nodeAlign) ? nodeAlign : null;
 
   return func || sankeyJustify;
@@ -118,14 +131,15 @@ export function sankeyLayout(
 ): SankeyLayoutOutputData {
   const options = getDefaultOptions(sankeyLayoutOptions);
 
-  const { nodeId, nodeSort, nodeAlign, nodeWidth, nodePadding } = options;
+  const { nodeId, nodeSort, nodeAlign, nodeWidth, nodePadding, nodeDepth } = options;
 
   const sankeyProcessor = sankey()
-    .nodeSort(nodeSort)
     .links((d: any) => d.links)
+    .nodes((d: any) => d.nodes)
+    .nodeSort(nodeSort)
     .nodeWidth(nodeWidth)
     .nodePadding(nodePadding)
-    .nodeAlign(getNodeAlignFunction(nodeAlign))
+    .nodeAlign(getNodeAlignFunction(nodeAlign, nodeDepth))
     .extent([
       [0, 0],
       [1, 1],

@@ -67,6 +67,24 @@ order: 27
 
 桑基图节点的布局方向，默认为 `justify`，可以选择 'left' | 'right' | 'center' | 'justify' 四种方式。
 
+#### nodeDepth
+
+<description>**optional** _Function_</description>
+
+桑基图节点的深度配置，使用回调进行自定义，返回 depth 数值，从 0 开始，并且返回值需要保证所有的层级都有节点。
+
+```ts
+{
+  nodeDepth: (datum, maxDepth) => {
+    const { name } = datum;
+    if (name === 'node1') {
+      return 0;
+    }
+    return 1;
+  }
+}
+```
+
 ### Plot Event
 
 `markdown:docs/common/events.en.md`

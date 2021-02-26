@@ -98,7 +98,7 @@ export type SankeyLayoutOptions = {
  * 默认值
  */
 const DEFAULT_OPTIONS: Partial<SankeyLayoutOptions> = {
-  nodeId: (node: Datum) => node.id,
+  nodeId: (node: Datum) => node.index,
   nodeAlign: 'justify',
   nodeWidth: 0.008,
   nodePadding: 0.03,

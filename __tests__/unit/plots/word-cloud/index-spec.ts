@@ -49,7 +49,11 @@ describe('word-cloud', () => {
     expect(chart.width).toBe(400);
 
     chart.ele.style.width = `410px`;
-    await delay(200);
+
+    // @ts-ignore
+    cloud.triggerResize();
+
+    await delay(10);
 
     expect(chart.width).toBe(410);
     cloud.destroy();

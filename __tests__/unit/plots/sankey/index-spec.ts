@@ -75,8 +75,8 @@ describe('sankey', () => {
 
     // tooltip
     sankey.chart.showTooltip({ x: 100, y: 100 });
-    expect(document.querySelector('.g2-tooltip-name').textContent).toBe('Nuclear -> Thermal generation');
-    expect(document.querySelector('.g2-tooltip-value').textContent).toBe('839.978');
+    expect(sankey.chart.ele.querySelector('.g2-tooltip-name').textContent).toBe('Nuclear -> Thermal generation');
+    expect(sankey.chart.ele.querySelector('.g2-tooltip-value').textContent).toBe('839.978');
 
     sankey.destroy();
   });

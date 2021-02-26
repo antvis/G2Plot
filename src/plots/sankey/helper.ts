@@ -1,6 +1,6 @@
 import { isRealNumber } from '../../utils/number';
 import { transformDataToNodeLinkData } from '../../utils/data';
-import { NodeSort, sankeyLayout } from '../../utils/transform/sankey';
+import { sankeyLayout } from '../../utils/transform/sankey';
 import { cutoffCircle } from './circle';
 import { SankeyOptions } from './types';
 
@@ -30,6 +30,7 @@ export function transformToViewsData(options: SankeyOptions, width: number, heig
     nodePaddingRatio,
     nodeWidth,
     nodeWidthRatio,
+    nodeDepth,
   } = options;
 
   const sankeyLayoutInputData = transformDataToNodeLinkData(
@@ -46,6 +47,7 @@ export function transformToViewsData(options: SankeyOptions, width: number, heig
       nodePadding: getNodePaddingRatio(nodePadding, nodePaddingRatio, height),
       nodeWidth: getNodeWidthRatio(nodeWidth, nodeWidthRatio, width),
       nodeSort,
+      nodeDepth,
     },
     sankeyLayoutInputData
   );

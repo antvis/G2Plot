@@ -60,20 +60,20 @@ export function transformDataToNodeLinkData(
     // source node
     if (!nodesMap[source]) {
       nodesMap[source] = {
-        index: ++nodesIndex,
+        id: ++nodesIndex,
         name: source,
       };
     }
     if (!nodesMap[target]) {
       nodesMap[target] = {
-        index: ++nodesIndex,
+        id: ++nodesIndex,
         name: target,
       };
     }
     // links
     links.push({
-      source: nodesMap[source].index,
-      target: nodesMap[target].index,
+      source: nodesMap[source].id,
+      target: nodesMap[target].id,
       // sourceName: source,
       // targetName: target,
       value: weight,

@@ -31,6 +31,7 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
     nodeWidthRatio,
     nodeWidth,
     nodeSort,
+    nodeDepth,
   } = options;
 
   // 1. 组件，优先设置，因为子 view 会继承配置
@@ -57,6 +58,7 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
       // @ts-ignore
       nodeWidth: getNodeWidthRatio(nodeWidth, nodeWidthRatio, chart.width),
       nodeSort,
+      nodeDepth,
     },
     sankeyLayoutInputData
   );

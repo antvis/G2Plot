@@ -1,13 +1,10 @@
 import { interaction, animation, theme } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
-import { sankeyLayout } from '../../utils/transform/sankey';
 import { polygon, edge } from '../../adaptor/geometries';
-import { transformDataToNodeLinkData } from '../../utils/data';
 import { SankeyOptions } from './types';
 import { X_FIELD, Y_FIELD, COLOR_FIELD } from './constant';
-import { cutoffCircle } from './circle';
-import { getNodePaddingRatio, getNodeWidthRatio } from './helper';
+import { transformToViewsData } from './helper';
 
 /**
  * geometry 处理
@@ -15,24 +12,7 @@ import { getNodePaddingRatio, getNodeWidthRatio } from './helper';
  */
 function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
   const { chart, options } = params;
-  const {
-    data,
-    sourceField,
-    targetField,
-    weightField,
-    color,
-    nodeStyle,
-    edgeStyle,
-    label,
-    tooltip,
-    nodeAlign,
-    nodePaddingRatio,
-    nodePadding,
-    nodeWidthRatio,
-    nodeWidth,
-    nodeSort,
-    nodeDepth,
-  } = options;
+  const { color, nodeStyle, edgeStyle, label, tooltip } = options;
 
   // 1. 组件，优先设置，因为子 view 会继承配置
   chart.legend(false);
@@ -41,54 +21,13 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
   // y 镜像一下，防止图形顺序和数据顺序反了
   chart.coordinate().reflect('y');
 
-  // 2. 转换出 layout 前数据
-  const sankeyLayoutInputData = transformDataToNodeLinkData(
-    cutoffCircle(data, sourceField, targetField),
-    sourceField,
-    targetField,
-    weightField
-  );
-
-  // 3. layout 之后的数据
-  const { nodes, links } = sankeyLayout(
-    {
-      nodeAlign,
-      // @ts-ignore
-      nodePadding: getNodePaddingRatio(nodePadding, nodePaddingRatio, chart.height),
-      // @ts-ignore
-      nodeWidth: getNodeWidthRatio(nodeWidth, nodeWidthRatio, chart.width),
-      nodeSort,
-      nodeDepth,
-    },
-    sankeyLayoutInputData
-  );
-
-  // 4. 生成绘图数据
-  const nodesData = nodes.map((node) => {
-    return {
-      x: node.x,
-      y: node.y,
-      name: node.name,
-      isNode: true,
-    };
-  });
-  const edgesData = links.map((link) => {
-    return {
-      source: link.source.name,
-      target: link.target.name,
-      name: link.source.name || link.target.name,
-      x: link.x,
-      y: link.y,
-      value: link.value,
-      isNode: false,
-    };
-  });
-
-  // 5. node edge views
+  // 2. node edge views
+  // @ts-ignore
+  const { nodes, edges } = transformToViewsData(options, chart.width, chart.height);
 
   // edge view
-  const edgeView = chart.createView();
-  edgeView.data(edgesData);
+  const edgeView = chart.createView({ id: 'views' });
+  edgeView.data(edges);
 
   edge({
     chart: edgeView,
@@ -114,8 +53,8 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
     },
   });
 
-  const nodeView = chart.createView();
-  nodeView.data(nodesData);
+  const nodeView = chart.createView({ id: 'nodes' });
+  nodeView.data(nodes);
 
   polygon({
     chart: nodeView,

@@ -1,9 +1,12 @@
 import { get } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { Datum } from '../../types';
+import { Data, Datum } from '../../types';
+import { findViewById } from '../../utils';
 import { SankeyOptions } from './types';
 import { adaptor } from './adaptor';
+import { transformToViewsData } from './helper';
+import { EDGES_VIEW_ID, NODES_VIEW_ID } from './constant';
 
 export { SankeyOptions };
 
@@ -14,7 +17,7 @@ export class Sankey extends Plot<SankeyOptions> {
   /** 图表类型 */
   public type: string = 'sankey';
 
-  protected getDefaultOptions() {
+  static getDefaultOptions(): Partial<SankeyOptions> {
     return {
       appendPadding: 8,
       syncViewPadding: true,
@@ -69,9 +72,32 @@ export class Sankey extends Plot<SankeyOptions> {
   }
 
   /**
+   * @override
+   * @param data
+   */
+  public changeData(data: Data) {
+    this.updateOption({ data });
+
+    const { nodes, edges } = transformToViewsData(this.options, this.chart.width, this.chart.height);
+
+    const nodesView = findViewById(this.chart, NODES_VIEW_ID);
+    const edgesView = findViewById(this.chart, EDGES_VIEW_ID);
+
+    nodesView.changeData(nodes);
+    edgesView.changeData(edges);
+  }
+
+  /**
    * 获取适配器
    */
   protected getSchemaAdaptor(): Adaptor<SankeyOptions> {
     return adaptor;
+  }
+
+  /**
+   * 获取 条形图 默认配置
+   */
+  protected getDefaultOptions() {
+    return Sankey.getDefaultOptions();
   }
 }

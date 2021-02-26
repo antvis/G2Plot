@@ -20,20 +20,15 @@ describe('treemap view zoom interaction', () => {
       interactions: [{ type: 'view-zoom' }, { type: 'drag-move' }],
     });
 
-    await delay(1000);
-
     const mousewheelEvent = treemapPlot.chart.getCanvas().getEvents().mousewheel;
+
     expect(Array.isArray(mousewheelEvent)).toBeTruthy();
     expect(mousewheelEvent.length).toBe(1);
-
-    await delay(1000);
 
     // 关闭
     treemapPlot.update({
       interactions: [{ type: 'view-zoom', enable: false }],
     });
-
-    await delay(1000);
 
     expect(treemapPlot.chart.getCanvas().getEvents().mousewheel).toBeUndefined();
 

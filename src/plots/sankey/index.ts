@@ -68,6 +68,14 @@ export class Sankey extends Plot<SankeyOptions> {
       },
       nodeWidthRatio: 0.008,
       nodePaddingRatio: 0.01,
+      animation: {
+        appear: {
+          animation: 'wave-in',
+        },
+        enter: {
+          animation: 'wave-in',
+        },
+      },
     };
   }
 

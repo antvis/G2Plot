@@ -30,6 +30,15 @@ describe('sankey', () => {
 
     expect(sankey.options.appendPadding).toEqual(8);
 
+    expect(sankey.options.animation).toEqual({
+      appear: {
+        animation: 'wave-in',
+      },
+      enter: {
+        animation: 'wave-in',
+      },
+    });
+
     // node
     expect(sankey.chart.views[1].geometries[0].type).toBe('polygon');
     expect(sankey.chart.views[1].geometries[0].data.length).toBe(48);
@@ -59,6 +68,10 @@ describe('sankey', () => {
       "Agricultural 'waste'"
     );
     expect(sankey.chart.views[0].geometries[0].labelsContainer.getChildren().length).toBe(0);
+
+    sankey.update({
+      animation: false,
+    });
 
     // tooltip
     sankey.chart.showTooltip({ x: 100, y: 100 });

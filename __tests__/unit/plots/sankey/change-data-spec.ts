@@ -1,11 +1,11 @@
-import { Datum, Sankey } from '../../../../src';
+import { Sankey } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
-import { ENERGY_RELATIONS } from '../../../data/sankey-energy';
+import { ALIPAY_DATA } from '../../../data/sankey-energy';
 
 describe('sankey', () => {
   it('changeData', async () => {
-    const data = ENERGY_RELATIONS.slice(0, ENERGY_RELATIONS.length - 10);
+    const data = ALIPAY_DATA.slice(0, ALIPAY_DATA.length - 5);
     const sankey = new Sankey(createDiv(), {
       height: 500,
       data,
@@ -15,9 +15,12 @@ describe('sankey', () => {
     });
 
     sankey.render();
+    await delay(50);
+    sankey.changeData(ALIPAY_DATA);
 
-    await delay(100);
+    expect(sankey.options.data).toEqual(ALIPAY_DATA);
+    expect(sankey.chart.views[0].getOptions().data.length).toBe(ALIPAY_DATA.length);
 
-    sankey.changeData(ENERGY_RELATIONS);
+    sankey.destroy();
   });
 });

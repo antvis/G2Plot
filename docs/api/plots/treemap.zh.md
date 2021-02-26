@@ -89,7 +89,7 @@ const data = {
 <description>**optional** _object_</description>
 
 层级布局配置，例如 `tile`等，详细配置参考[d3-hierarchy](https://github.com/d3/d3-hierarchy#treemap)。
-默认为 `{tile: 'treemapResquarify'}`
+默认为 `{tile: 'treemapSquarify', ratio: ratio: 0.5 * (1 + Math.sqrt(5))}`
 
 ### 图表组件
 

@@ -1,6 +1,5 @@
 import { Treemap } from '../../../../../src';
 import { createDiv } from '../../../../utils/dom';
-import { delay } from '../../../../utils/delay';
 import { TREEMAP } from '../../../../data/treemap';
 
 describe('treemap view zoom interaction', () => {

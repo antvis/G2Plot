@@ -17,6 +17,11 @@ export class BidirectionalBar extends Plot<BidirectionalBarOptions> {
    * @override
    */
   public changeData(data = []) {
+    this.chart.emit(
+      VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA,
+      Event.fromData(this.chart, VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA, null)
+    );
+
     // 更新options
     this.updateOption({ data });
     const { xField, yField, layout } = this.options;
@@ -30,6 +35,11 @@ export class BidirectionalBar extends Plot<BidirectionalBarOptions> {
     secondView.data(secondViewData);
     // 重新渲染
     this.chart.render(true);
+
+    this.chart.emit(
+      VIEW_LIFE_CIRCLE.AFTER_CHANGE_DATA,
+      Event.fromData(this.chart, VIEW_LIFE_CIRCLE.AFTER_CHANGE_DATA, null)
+    );
   }
 
   protected getDefaultOptions() {

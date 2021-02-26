@@ -38,7 +38,7 @@ export function treemap(data: any, options: HierarchyOption): any[] {
   }
 
   const tileMethod =
-    options.tile === 'treemapSquarify' ? d3Hierarchy[options.tile].ratio(1) : d3Hierarchy[options.tile];
+    options.tile === 'treemapSquarify' ? d3Hierarchy[options.tile].ratio(options.ratio) : d3Hierarchy[options.tile];
 
   const partition = (data) =>
     d3Hierarchy

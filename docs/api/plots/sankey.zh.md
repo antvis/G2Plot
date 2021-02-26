@@ -71,11 +71,11 @@ order: 27
 
 <description>**optional** _Function_</description>
 
-桑基图节点的深度配置，使用回调进行自定义，返回 depth 数值，从 0 开始。
+桑基图节点的深度配置，使用回调进行自定义，返回 depth 数值，从 0 开始，并且返回值需要保证所有的层级都有节点。
 
 ```ts
 {
-  nodeDepth: (datum) => {
+  nodeDepth: (datum, maxDepth) => {
     const { name } = datum;
     if (name === 'node1') {
       return 0;

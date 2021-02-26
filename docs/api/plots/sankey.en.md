@@ -71,11 +71,11 @@ The sankey diagram node layout direction, the default is `the justify`, can choo
 
 <description>**optional** _Function_</description>
 
-The sankey diagram node `depth` configure, use function to return the depth value, started from zero.
+The sankey diagram node `depth` configure, use function to return the depth value, started from zero, and we need to ensure contains node in every depth level.
 
 ```ts
 {
-  nodeDepth: (datum) => {
+  nodeDepth: (datum, maxDepth) => {
     const { name } = datum;
     if (name === 'node1') {
       return 0;

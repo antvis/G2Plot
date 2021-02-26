@@ -69,7 +69,7 @@ export type NodeAlign = keyof typeof ALIGN_METHOD;
 /**
  * 节点的 depth 自定义
  */
-export type NodeDepth = (datum: Datum) => number;
+export type NodeDepth = (datum: Datum, maxDepth: number) => number;
 
 /**
  * 布局参数的定义
@@ -107,7 +107,7 @@ const DEFAULT_OPTIONS: Partial<SankeyLayoutOptions> = {
  */
 export function getNodeAlignFunction(nodeAlign: NodeAlign, nodeDepth: SankeyOptions['nodeDepth']) {
   if (nodeDepth) {
-    return (node) => nodeDepth(pick(node, ['name']) as any);
+    return (node, maxDepth) => nodeDepth(node, maxDepth);
   }
 
   const func = isString(nodeAlign) ? ALIGN_METHOD[nodeAlign] : isFunction(nodeAlign) ? nodeAlign : null;

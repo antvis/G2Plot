@@ -21,6 +21,7 @@ describe('#2353', () => {
   ];
 
   it('sankey depth config', () => {
+    let maxDepth;
     const sankey = new Sankey(createDiv(), {
       data: DATA,
       padding: 0,
@@ -31,7 +32,8 @@ describe('#2353', () => {
       sourceField: 'source',
       targetField: 'target',
       weightField: 'weight',
-      nodeDepth: (node: Datum) => {
+      nodeDepth: (node: Datum, n) => {
+        maxDepth = n;
         const { name } = node;
         return {
           n1: 0,
@@ -48,6 +50,8 @@ describe('#2353', () => {
     expect(sankey.chart.views[1].geometries[0].elements[1].shape.getBBox().x).toBe(247.5);
     // 指定了 depth，所以 n4 节点的 x 是画布中间
     expect(sankey.chart.views[1].geometries[0].elements[3].shape.getBBox().x).toBe(247.5);
+
+    expect(maxDepth).toBe(3);
 
     sankey.destroy();
   });

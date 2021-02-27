@@ -24,13 +24,13 @@ order: 6
   - touchmove
   - touchend
   - touchcancel
-- drag 事件
+- **drag 事件**
   - dragenter
   - dragover
   - dragleave
   - drop
-- contextmenu 右键事件
-- dblclick 双击事件
+- **contextmenu 右键事件**
+- **dblclick 双击事件**
 
 #### 2. 组合事件
 

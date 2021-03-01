@@ -55,6 +55,19 @@ describe('treemap basic', () => {
     expect(positionFields).toHaveLength(2);
     expect(positionFields).toEqual(['x', 'y']);
 
+    // changeData
+    treemapPlot.changeData({
+      name: 'root',
+      children: [
+        { name: '分类 1', value: 500, ext: '自定义数据' },
+        { name: '分类 2', value: 800, ext: '自定义数据' },
+        { name: '分类 3', value: 150, ext: '自定义数据' },
+      ],
+    });
+
+    expect(treemapPlot.chart.geometries[0].elements.length).toBe(3);
+    expect(treemapPlot.chart.getOptions().data.length).toBe(3);
+
     // @ts-ignore
     // expect(treemapPlot.chart.getController('axis').option).toBeFalsy();
 

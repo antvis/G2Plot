@@ -64,7 +64,7 @@ describe('sankey', () => {
 
       // 不报错即可
       expect(() => {
-        console.log(layout(sankeyLayoutInputData));
+        layout(sankeyLayoutInputData);
       }).not.toThrow();
     }
   });

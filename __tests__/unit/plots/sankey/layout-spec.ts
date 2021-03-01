@@ -5,9 +5,9 @@ import { ENERGY } from '../../../data/sankey-energy';
 describe('sankeyLayout', () => {
   it('getNodeAlignFunction', () => {
     expect(getNodeAlignFunction(null, null)).toBe(justify);
-    expect(getNodeAlignFunction(undefined, null)).toBe(left);
+    expect(getNodeAlignFunction(undefined, null)).toBe(justify);
     // @ts-ignore
-    expect(getNodeAlignFunction('middle', null)).toBe(sankeyJustify);
+    expect(getNodeAlignFunction('middle', null)).toBe(justify);
 
     expect(getNodeAlignFunction('left', null)).toBe(left);
 

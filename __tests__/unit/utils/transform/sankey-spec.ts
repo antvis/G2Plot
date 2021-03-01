@@ -4,16 +4,18 @@ import { ENERGY } from '../../../data/sankey-energy';
 
 describe('sankeyLayout', () => {
   it('getNodeAlignFunction', () => {
-    expect(getNodeAlignFunction(null)).toBe(sankeyJustify);
-    expect(getNodeAlignFunction(undefined)).toBe(sankeyJustify);
+    expect(getNodeAlignFunction(null, null)).toBe(sankeyJustify);
+    expect(getNodeAlignFunction(undefined, null)).toBe(sankeyJustify);
     // @ts-ignore
-    expect(getNodeAlignFunction('middle')).toBe(sankeyJustify);
+    expect(getNodeAlignFunction('middle', null)).toBe(sankeyJustify);
 
-    expect(getNodeAlignFunction('left')).toBe(sankeyLeft);
+    expect(getNodeAlignFunction('left', null)).toBe(sankeyLeft);
 
     const fn = jest.fn();
     // @ts-ignore
     expect(getNodeAlignFunction(fn)).toBe(fn);
+
+    expect(getNodeAlignFunction(sankeyLeft, () => 1)).not.toBe(sankeyLeft);
 
     // @ts-ignore
     expect(getNodeAlignFunction(123)).toBe(sankeyJustify);

@@ -30,6 +30,15 @@ describe('sankey', () => {
 
     expect(sankey.options.appendPadding).toEqual(8);
 
+    expect(sankey.options.animation).toEqual({
+      appear: {
+        animation: 'wave-in',
+      },
+      enter: {
+        animation: 'wave-in',
+      },
+    });
+
     // node
     expect(sankey.chart.views[1].geometries[0].type).toBe('polygon');
     expect(sankey.chart.views[1].geometries[0].data.length).toBe(48);
@@ -60,10 +69,14 @@ describe('sankey', () => {
     );
     expect(sankey.chart.views[0].geometries[0].labelsContainer.getChildren().length).toBe(0);
 
+    sankey.update({
+      animation: false,
+    });
+
     // tooltip
     sankey.chart.showTooltip({ x: 100, y: 100 });
-    expect(document.querySelector('.g2-tooltip-name').textContent).toBe('Nuclear -> Thermal generation');
-    expect(document.querySelector('.g2-tooltip-value').textContent).toBe('839.978');
+    expect(sankey.chart.ele.querySelector('.g2-tooltip-name').textContent).toBe('Nuclear -> Thermal generation');
+    expect(sankey.chart.ele.querySelector('.g2-tooltip-value').textContent).toBe('839.978');
 
     sankey.destroy();
   });

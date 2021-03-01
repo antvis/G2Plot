@@ -71,6 +71,11 @@ export type NodeAlign = keyof typeof ALIGN_METHOD;
 export type NodeDepth = (datum: Datum, maxDepth: number) => number;
 
 /**
+ * 节点排序方法的类型定义
+ */
+export type NodeSort = (a: Datum, b: Datum) => number;
+
+/**
  * 布局参数的定义
  */
 export type SankeyLayoutOptions = {

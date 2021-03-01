@@ -1,6 +1,6 @@
 import { isRealNumber } from '../../utils/number';
 import { transformDataToNodeLinkData } from '../../utils/data';
-import { sankeyLayout } from '../../utils/transform/sankey';
+import { sankeyLayout } from './layout';
 import { cutoffCircle } from './circle';
 import { SankeyOptions } from './types';
 

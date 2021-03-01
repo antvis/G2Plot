@@ -2,7 +2,6 @@ import { assign, isString, isFunction } from '@antv/util';
 import { sankey, sankeyLeft, sankeyRight, sankeyCenter, sankeyJustify } from 'd3-sankey';
 import { SankeyOptions } from '../../plots/sankey';
 import { Datum } from '../../types';
-import { pick } from '../pick';
 
 const ALIGN_METHOD = {
   left: sankeyLeft,

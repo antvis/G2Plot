@@ -1,3 +1,4 @@
+import { isArray } from '@antv/util';
 import { polygon as basePolygon } from '../../adaptor/geometries/polygon';
 import { Params } from '../../core/adaptor';
 import { interaction as commonInteraction, animation, theme, legend, annotation, tooltip } from '../../adaptor/common';
@@ -23,7 +24,7 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
           stroke: '#fff',
         },
         hierarchyConfig: {
-          tile: 'treemapResquarify',
+          tile: 'treemapSquarify',
         },
         label: {
           fields: ['name'],
@@ -42,8 +43,6 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
             };
           },
         },
-        interactions: [{ type: 'view-zoom' }, { type: 'treemap-element-zoom' }],
-        // interactions: [{ type: 'drag-move' }],
       },
     },
     params
@@ -56,11 +55,12 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
  */
 function geometry(params: Params<TreemapOptions>): Params<TreemapOptions> {
   const { chart, options } = params;
-  const { color, colorField, rectStyle } = options;
+  const { color, colorField, rectStyle, hierarchyConfig } = options;
   const data = transformData({
     data: options.data,
     colorField: options.colorField,
     openDrillDown: isDrillDown(options.interactions),
+    hierarchyConfig,
   });
 
   chart.data(data);
@@ -111,6 +111,20 @@ export function interaction(params: Params<TreemapOptions>): Params<TreemapOptio
       interactions: getFommatInteractions(interactions, hierarchyConfig),
     },
   });
+
+  const viewZoomInteraction = isArray(interactions) && interactions.find((i) => i.type === 'view-zoom');
+
+  if (viewZoomInteraction) {
+    // 开启缩放 interaction 后，则阻止默认滚动事件，避免整个窗口的滚动
+    if (viewZoomInteraction.enable !== false) {
+      chart.getCanvas().on('mousewheel', (ev) => {
+        ev.preventDefault();
+      });
+    } else {
+      // 手动关闭后，清除
+      chart.getCanvas().off('mousewheel');
+    }
+  }
 
   return params;
 }

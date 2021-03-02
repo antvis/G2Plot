@@ -264,15 +264,15 @@ function addWaterWave(
  * @param height 外接矩形的高
  */
 function pin(x: number, y: number, width: number, height: number) {
-  const w = (width * 4) / 5;
+  const w = (width * 2) / 3;
   const h = Math.max(w, height);
   const r = w / 2;
 
   // attrs of the upper circle
   const cx = x;
   const cy = r + y - h / 2;
-  const dy = (r * r) / (h - r);
-  const theta = Math.asin(dy / r);
+  const theta = Math.asin(r / ((h - r) * 0.85));
+  const dy = Math.sin(theta) * r;
   const dx = Math.cos(theta) * r;
 
   // the start point of the path
@@ -281,7 +281,7 @@ function pin(x: number, y: number, width: number, height: number) {
 
   // control point
   const cpX = x;
-  const cpY = r + r / Math.sin(theta);
+  const cpY = cy + r / Math.sin(theta);
 
   return `
       M ${x0} ${y0}

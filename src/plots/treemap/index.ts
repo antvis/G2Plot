@@ -2,7 +2,7 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { TreemapOptions } from './types';
 import { adaptor } from './adaptor';
-import { transformData, isDrillDown } from './utils';
+import { transformData, enableInteraction } from './utils';
 import './interactions/treemap-drill-down';
 import '../scatter/interaction';
 
@@ -21,7 +21,7 @@ export class Treemap extends Plot<TreemapOptions> {
     const transData = transformData({
       data,
       colorField,
-      openDrillDown: isDrillDown(interactions),
+      enableDrillDown: enableInteraction(interactions, 'treemap-drill-down'),
       hierarchyConfig,
     });
     this.chart.changeData(transData);

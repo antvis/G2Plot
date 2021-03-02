@@ -1,9 +1,16 @@
 import { isArray } from '@antv/util';
+import { parsePadding } from '@antv/g2/lib/util/padding';
 import { polygon as basePolygon } from '../../adaptor/geometries/polygon';
 import { Params } from '../../core/adaptor';
 import { interaction as commonInteraction, animation, theme, legend, annotation, tooltip } from '../../adaptor/common';
 import { flow, deepAssign } from '../../utils';
-import { transformData, isDrillDown, getFommatInteractions } from './utils';
+import {
+  transformData,
+  findInteraction,
+  enableInteraction,
+  getFommatInteractions,
+  getAdjustAppendPadding,
+} from './utils';
 import { TreemapOptions } from './types';
 
 /**
@@ -56,10 +63,11 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
 function geometry(params: Params<TreemapOptions>): Params<TreemapOptions> {
   const { chart, options } = params;
   const { color, colorField, rectStyle, hierarchyConfig } = options;
+
   const data = transformData({
     data: options.data,
     colorField: options.colorField,
-    openDrillDown: isDrillDown(options.interactions),
+    enableDrillDown: enableInteraction(options.interactions, 'treemap-drill-down'),
     hierarchyConfig,
   });
 
@@ -112,7 +120,8 @@ export function interaction(params: Params<TreemapOptions>): Params<TreemapOptio
     },
   });
 
-  const viewZoomInteraction = isArray(interactions) && interactions.find((i) => i.type === 'view-zoom');
+  // 适配 view-zoom
+  const viewZoomInteraction = findInteraction(interactions, 'view-zoom');
 
   if (viewZoomInteraction) {
     // 开启缩放 interaction 后，则阻止默认滚动事件，避免整个窗口的滚动
@@ -121,11 +130,20 @@ export function interaction(params: Params<TreemapOptions>): Params<TreemapOptio
         ev.preventDefault();
       });
     } else {
-      // 手动关闭后，清除
+      // 手动关闭后，清除。仅对声明 viewZoomInteraction 的清除。
       chart.getCanvas().off('mousewheel');
     }
   }
 
+  // 适应下钻交互面包屑
+  const enableDrillInteraction = enableInteraction(interactions, 'treemap-drill-down');
+  if (enableDrillInteraction) {
+    chart.appendPadding = getAdjustAppendPadding(chart.appendPadding);
+  } else {
+    // 因在下钻过程中，可能存在更新 interaction 的行为，因此在此做一次清除
+    const treemapBreadCrumb = chart.foregroundGroup.findAllByName('treemap-bread-crumb');
+    chart.foregroundGroup.removeChild(treemapBreadCrumb[0], true);
+  }
   return params;
 }
 

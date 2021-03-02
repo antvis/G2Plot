@@ -10,7 +10,7 @@ jobs:
       - name: Use Node.js 12
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 12.10.0
       - name: npm install
         run: |
           npm install
@@ -25,7 +25,7 @@ jobs:
       - name: Use Node.js 12
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 12.10.0
       - name: npm install
         run: |
           npm install
@@ -40,7 +40,7 @@ jobs:
       - name: Use Node.js 12
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 12.10.0
       - name: npm install
         run: |
           npm install

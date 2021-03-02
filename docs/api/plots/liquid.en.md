@@ -31,6 +31,35 @@ Liguid graphic style.
 
 `markdown:docs/common/shape-style.en.md`
 
+#### shape
+
+<description>**optional** _String | Function_ default: `circle`</description>
+
+There are four built-in shapes for liquid plot: `circle | diamond | triangle | pin`. It aslo supports custom shape if shape is a callback function to build path.
+
+示例代码如下：
+
+```ts
+/**
+ * @param x the x for bounding rectangle
+ * @param y the y for bounding rectangle
+ * @param width the width for bounding rectangle
+ * @param height the height for bounding rectangle
+ * @return PathCommand[]
+ */
+function shape(x: number, y: number, width: number, height: number) {
+  const h = height / 2;
+  const w = width / 2;
+  return [
+    ['M', x - x / 3, y - h],
+    ['L', x + w, y - y / 3],
+    ['L', x + x / 3, y + h],
+    ['L', x - w, y + y / 3],
+    ['Z'],
+  ];
+}
+```
+
 `markdown:docs/common/color.en.md`
 
 #### outline

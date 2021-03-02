@@ -1,6 +1,5 @@
 import { Data, Options, StyleAttr } from '../../types';
-import { NodeDepth } from '../../utils/transform/sankey';
-import { NodeSort } from '../../utils/transform/sankey';
+import { NodeDepth, NodeSort } from './layout';
 
 /** 配置类型定义 */
 export interface SankeyOptions extends Omit<Options, 'xField' | 'yField' | 'xAxis' | 'yAxis'> {

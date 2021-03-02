@@ -88,31 +88,6 @@ describe('liquid', () => {
   }
 
   // custom shapes
-  it('should render custom shape if prop shape is a valid function with a string return', () => {
-    const liquid = new Liquid(createDiv(), {
-      ...shapeProps,
-      shape: (x: number, y: number, width: number, height: number) => {
-        const h = height / 2;
-        const w = width / 2;
-        return `
-          M ${x - x / 3} ${y - h}
-          L ${x + w} ${y - y / 3}
-          L ${x + x / 3} ${y + h}
-          L ${x - w} ${y + y / 3}
-          Z
-        `;
-      },
-    });
-    liquid.render();
-    const shapePath = [['M', 200, 15], ['L', 435, 100], ['L', 400, 285], ['L', 165, 200], ['Z']];
-    const clipPath = [['M', 200, 16], ['L', 434, 100], ['L', 400, 284], ['L', 166, 200], ['Z']];
-
-    expect(getShapePath(liquid)).toEqual(shapePath);
-    expect(getClipPath(liquid)).toEqual(clipPath);
-
-    liquid.destroy();
-  });
-
   it('should render custom shape if prop shape is a valid function with a array return', () => {
     const liquid = new Liquid(createDiv(), {
       ...shapeProps,

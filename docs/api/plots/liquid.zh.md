@@ -31,6 +31,35 @@ order: 6
 
 `markdown:docs/common/shape-style.zh.md`
 
+#### shape
+
+<description>**optional** _String | Function_ default: `circle`</description>
+
+水波图有四种内置形状：`circle | diamond | triangle | pin`。同时也支持自定义图形，这个时候需要传入一个构建 Path 的回调函数。
+
+示例代码如下：
+
+```ts
+/**
+ * @param x the x for bounding rectangle
+ * @param y the y for bounding rectangle
+ * @param width the width for bounding rectangle
+ * @param height the height for bounding rectangle
+ * @return PathCommand[]
+ */
+function shape(x: number, y: number, width: number, height: number) {
+  const h = height / 2;
+  const w = width / 2;
+  return [
+    ['M', x - x / 3, y - h],
+    ['L', x + w, y - y / 3],
+    ['L', x + x / 3, y + h],
+    ['L', x - w, y + y / 3],
+    ['Z'],
+  ];
+}
+```
+
 `markdown:docs/common/color.zh.md`
 
 #### outline

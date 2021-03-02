@@ -1,3 +1,4 @@
+import { PathCommand } from '@antv/g-base';
 import { Options, StyleAttr, ColorAttr, Statistic } from '../../types';
 
 /** 轮廓的配置 */
@@ -17,6 +18,8 @@ type Wave = Partial<{
   readonly length: number;
 }>;
 
+type ShapeCallback = (x: number, y: number, width: number, height: number) => PathCommand[];
+
 /** 配置类型定义 */
 export interface LiquidOptions extends Omit<Options, 'data'> {
   /** 指标比例 */
@@ -33,4 +36,6 @@ export interface LiquidOptions extends Omit<Options, 'data'> {
   readonly outline?: Outline;
   /** 波的配置 */
   readonly wave?: Wave;
+  /** 波的形状配置（'circle' | 'rect' | 'triangle' | 'diamond'）*/
+  readonly shape?: string | ShapeCallback;
 }

@@ -132,7 +132,7 @@ scatterPlot.render();
 {
   shapeField: 'gender',
   shape: (gender) => {
-    if(type === 'male'){
+    if(gender === 'male'){
       return 'circle';
     }
     // TODO

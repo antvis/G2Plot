@@ -1,24 +1,24 @@
-import { sankeyLeft, sankeyJustify } from 'd3-sankey';
-import { sankeyLayout, getNodeAlignFunction, getDefaultOptions } from '../../../../src/utils/transform/sankey';
+import { left, justify } from '../../../../src/plots/sankey/sankey';
+import { sankeyLayout, getNodeAlignFunction, getDefaultOptions } from '../../../../src/plots/sankey/layout';
 import { ENERGY } from '../../../data/sankey-energy';
 
 describe('sankeyLayout', () => {
   it('getNodeAlignFunction', () => {
-    expect(getNodeAlignFunction(null, null)).toBe(sankeyJustify);
-    expect(getNodeAlignFunction(undefined, null)).toBe(sankeyJustify);
+    expect(getNodeAlignFunction(null, null)).toBe(justify);
+    expect(getNodeAlignFunction(undefined, null)).toBe(justify);
     // @ts-ignore
-    expect(getNodeAlignFunction('middle', null)).toBe(sankeyJustify);
+    expect(getNodeAlignFunction('middle', null)).toBe(justify);
 
-    expect(getNodeAlignFunction('left', null)).toBe(sankeyLeft);
+    expect(getNodeAlignFunction('left', null)).toBe(left);
 
     const fn = jest.fn();
     // @ts-ignore
     expect(getNodeAlignFunction(fn)).toBe(fn);
 
-    expect(getNodeAlignFunction(sankeyLeft, () => 1)).not.toBe(sankeyLeft);
+    expect(getNodeAlignFunction(left, () => 1)).not.toBe(left);
 
     // @ts-ignore
-    expect(getNodeAlignFunction(123)).toBe(sankeyJustify);
+    expect(getNodeAlignFunction(123)).toBe(justify);
   });
 
   it('getDefaultOptions', () => {

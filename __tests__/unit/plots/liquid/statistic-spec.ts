@@ -53,7 +53,7 @@ describe('liquid statistic', () => {
   it('customHtml 容器的宽度', () => {
     let htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
     // @ts-ignore
-    const circleShape = liquid.chart.geometries[0].elements[0].shape.find((s) => s.get('type') === 'circle');
+    const circleShape = liquid.chart.geometries[0].elements[0].shape.find((s) => s.get('type') === 'path');
     expect(htmlAnnotations[0].getBoundingClientRect().width).toEqual(circleShape.getCanvasBBox().width);
 
     // 开发者可以覆盖

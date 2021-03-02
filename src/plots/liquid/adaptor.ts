@@ -13,7 +13,7 @@ import { getLiquidData } from './utils';
  */
 function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
   const { chart, options } = params;
-  const { percent, color, liquidStyle, radius, outline, wave } = options;
+  const { percent, color, liquidStyle, radius, outline, wave, shape } = options;
 
   chart.scale({
     percent: {
@@ -46,6 +46,7 @@ function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
     radius,
     outline,
     wave,
+    shape,
   });
 
   // 关闭组件

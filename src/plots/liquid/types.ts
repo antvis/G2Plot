@@ -39,3 +39,12 @@ export interface LiquidOptions extends Omit<Options, 'data'> {
   /** 波的形状配置（'circle' | 'rect' | 'triangle' | 'diamond'）*/
   readonly shape?: string | ShapeCallback;
 }
+
+/** 水波图自定义 的 customInfo */
+export type CustomInfo = {
+  radius?: LiquidOptions['radius'];
+  outline?: LiquidOptions['outline'];
+  wave?: LiquidOptions['wave'];
+  shape?: LiquidOptions['shape'];
+  background?: string;
+};

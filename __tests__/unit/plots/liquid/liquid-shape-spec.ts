@@ -92,21 +92,38 @@ describe('liquid', () => {
     const liquid = new Liquid(createDiv(), {
       ...shapeProps,
       shape: (x: number, y: number, width: number, height: number) => {
-        const h = height / 2;
-        const w = width / 2;
+        const r = width / 4;
+        const dx = x - width / 2;
+        const dy = y - height / 2;
         return [
-          ['M', x - x / 3, y - h],
-          ['L', x + w, y - y / 3],
-          ['L', x + x / 3, y + h],
-          ['L', x - w, y + y / 3],
+          ['M', dx, dy + r * 2],
+          ['A', r, r, 0, 0, 1, x, dy + r],
+          ['A', r, r, 0, 0, 1, dx + width, dy + r * 2],
+          ['L', x, dy + height],
+          ['L', dx, dy + r * 2],
           ['Z'],
         ];
       },
     });
     liquid.render();
 
-    const shapePath = [['M', 200, 15], ['L', 435, 100], ['L', 400, 285], ['L', 165, 200], ['Z']];
-    const clipPath = [['M', 200, 16], ['L', 434, 100], ['L', 400, 284], ['L', 166, 200], ['Z']];
+    console.log(getShapePath(liquid), getClipPath(liquid));
+    const shapePath = [
+      ['M', 165, 150],
+      ['A', 67.5, 67.5, 0, 0, 1, 300, 82.5],
+      ['A', 67.5, 67.5, 0, 0, 1, 435, 150],
+      ['L', 300, 285],
+      ['L', 165, 150],
+      ['Z'],
+    ];
+    const clipPath = [
+      ['M', 166, 150],
+      ['A', 67, 67, 0, 0, 1, 300, 83],
+      ['A', 67, 67, 0, 0, 1, 434, 150],
+      ['L', 300, 284],
+      ['L', 166, 150],
+      ['Z'],
+    ];
     expect(getShapePath(liquid)).toEqual(shapePath);
     expect(getClipPath(liquid)).toEqual(clipPath);
 

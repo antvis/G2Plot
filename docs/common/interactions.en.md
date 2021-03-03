@@ -10,6 +10,20 @@ interactions: [{ type: 'element-active' }];
 interactions: [{ type: 'element-active' }, { type: 'brush' }];
 ```
 
+#### Config interactions
+
+通过 `cfg` 可以对交互行为进行配置，详细参考 [G2 | 修改交互的默认交互](https://g2.antv.vision/en/docs/api/general/interaction/#修改交互的默认交互)
+
+```ts
+// 修改 tooltip 触发事件
+interactions: [
+  { 
+    type: 'tooltip',
+    cfg: { start: [{ trigger: 'element:click', action: 'tooltip:show' }] } 
+  }
+]
+```
+
 #### Remove the interaction
 
 ```ts

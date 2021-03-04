@@ -72,6 +72,14 @@ order: 5
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/WBhwhNUzkg/image.png" width="400" align="center" style="display:flex;margin:0 auto;" alt="gauge">
 
+#### gaugeStyle
+
+<description>**optional** _StyleAttr | Function_</description>
+
+仪表盘的样式设置。
+
+`markdown:docs/common/shape-style.zh.md`
+
 ### 图表组件
 
 #### axis

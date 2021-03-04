@@ -1,11 +1,16 @@
 import { registerShape, Types, Util } from '@antv/g2';
-import { getSectorPath } from '@antv/g2/lib/util/graphics';
+import { GaugeCustomInfo } from '../types';
+
+type ShapeCfg = Omit<Types.ShapeInfo, 'customInfo'> & {
+  customInfo: GaugeCustomInfo;
+};
 
 // 自定义Shape 部分
 registerShape('interval', 'meter-gauge', {
-  draw(cfg: Types.ShapeInfo, container) {
+  draw(cfg: ShapeCfg, container) {
     // 使用 customInfo 传递参数
-    const { steps: STEP = 50, stepRatio = 0.5 } = cfg.customInfo;
+    const { meter = {} } = cfg.customInfo;
+    const { steps: STEP = 50, stepRatio = 0.5 } = meter;
 
     const total = this.coordinate.endAngle - this.coordinate.startAngle;
     let interval = total / STEP;
@@ -30,7 +35,7 @@ registerShape('interval', 'meter-gauge', {
       for (let i = startAngle, j = 0; i < endAngle && j < 2 * STEP - 1; j++) {
         const drawn = j % 2;
         if (drawn) {
-          const path = getSectorPath(
+          const path = Util.getSectorPath(
             center.x,
             center.y,
             radius,

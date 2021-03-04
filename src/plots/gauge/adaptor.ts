@@ -55,8 +55,8 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
   }
 
   // 辅助 range
-  // [{ range: 1, type: '0' }]
-  const rangeData: Data = getRangeData(percent, options.range);
+  // [{ range: 1, type: '0', percent: 原始进度百分比 }]
+  const rangeData = getRangeData(percent, options.range);
   const v2 = chart.createView({ id: RANGE_VIEW_ID });
   v2.data(rangeData);
 
@@ -68,6 +68,7 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
       xField: '1',
       yField: RANGE_VALUE,
       seriesField: RANGE_TYPE,
+      rawFields: [PERCENT],
       isStack: true,
       interval: {
         color: rangeColor,
@@ -110,12 +111,7 @@ function meterView(params: Params<GaugeOptions>): Params<GaugeOptions> {
     const v3 = chart.createView({ id: MASK_VIEW_ID });
     v3.data([{ [RANGE_TYPE]: '1', [RANGE_VALUE]: 1 }]);
     const customInfo: GaugeCustomInfo = { meter };
-    v3.interval()
-      .position(`1*${RANGE_VALUE}`)
-      .color(color)
-      .adjust('stack')
-      .shape('meter-gauge')
-      .customInfo(customInfo);
+    v3.interval().position(`1*${RANGE_VALUE}`).color(color).adjust('stack').shape('meter-gauge').customInfo(customInfo);
     v3.coordinate('polar', { innerRadius, radius, startAngle, endAngle }).transpose();
   }
 

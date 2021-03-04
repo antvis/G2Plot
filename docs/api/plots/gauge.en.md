@@ -73,6 +73,16 @@ It works when `type = 'meter'`. Properties are as followed:
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/WBhwhNUzkg/image.png" width="400" align="center" style="display:flex;margin:0 auto;" alt="gauge">
 
+#### gaugeStyle
+
+<description>**optional** _StyleAttr | Function_</description>
+
+Gauge graphic style.
+
+`markdown:docs/common/shape-style.en.md`
+
+### Plot Components
+
 #### axis
 
 <description>**optional** _object_</description>

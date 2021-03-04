@@ -1,5 +1,6 @@
 import { Options, ShapeStyle, Statistic, StyleAttr } from '../../types';
 import { Axis } from '../../types/axis';
+import { PERCENT, RANGE_TYPE, RANGE_VALUE } from './constants';
 
 /** 指标指标的配置 */
 export type Indicator = {
@@ -19,6 +20,15 @@ type Range = {
   /** 辅助刻度的颜色配置 */
   readonly color?: string | string[];
 };
+
+/**
+ * 仪表盘辅助生成的 rangeData
+ */
+export type GaugeRangeData = {
+  readonly [RANGE_VALUE]?: number;
+  readonly [RANGE_TYPE]: string;
+  readonly [PERCENT]: number;
+}[];
 
 /** 仪表盘配置类型定义 */
 export interface GaugeOptions

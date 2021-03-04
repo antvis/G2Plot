@@ -3,7 +3,6 @@ import { interaction, animation, theme, scale, annotation } from '../../adaptor/
 import { interval } from '../../adaptor/geometries';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { Params } from '../../core/adaptor';
-import { Data } from '../../types';
 import { deepAssign, flow, pick, renderGaugeStatistic } from '../../utils';
 import {
   RANGE_TYPE,

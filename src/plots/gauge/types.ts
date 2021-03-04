@@ -1,4 +1,4 @@
-import { Options, ShapeStyle, Statistic } from '../../types';
+import { Options, ShapeStyle, Statistic, StyleAttr } from '../../types';
 import { Axis } from '../../types/axis';
 
 /** 指标指标的配置 */
@@ -41,6 +41,8 @@ export interface GaugeOptions
   readonly indicator?: false | Indicator;
   /** 统计文本 */
   readonly statistic?: Statistic;
+  /** 仪表盘样式 */
+  readonly gaugeStyle?: StyleAttr;
 
   // meter gauge 相关配置
   /** 仪表盘类型, 可选项: 'meter', default 为空 */
@@ -53,3 +55,11 @@ export interface GaugeOptions
     readonly stepRatio?: number;
   };
 }
+
+/**
+ * 仪表盘 自定义 shape 使用的 customInfo
+ */
+export type GaugeCustomInfo = {
+  /** 仪表盘 meter 类型的相关配置 */
+  readonly meter?: GaugeOptions['meter'];
+};

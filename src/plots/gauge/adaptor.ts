@@ -1,5 +1,6 @@
 import { isString } from '@antv/util';
 import { interaction, animation, theme, scale, annotation } from '../../adaptor/common';
+import { interval } from '../../adaptor/geometries';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { Params } from '../../core/adaptor';
 import { Data } from '../../types';
@@ -13,7 +14,7 @@ import {
   RANGE_VIEW_ID,
   MASK_VIEW_ID,
 } from './constants';
-import { GaugeOptions } from './types';
+import { GaugeCustomInfo, GaugeOptions } from './types';
 import { getIndicatorData, getRangeData } from './utils';
 
 /**
@@ -22,7 +23,7 @@ import { getIndicatorData, getRangeData } from './utils';
  */
 function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
   const { chart, options } = params;
-  const { percent, range, radius, innerRadius, startAngle, endAngle, axis, indicator } = options;
+  const { percent, range, radius, innerRadius, startAngle, endAngle, axis, indicator, gaugeStyle } = options;
   const { color } = range;
 
   // 指标 & 指针
@@ -61,7 +62,22 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
 
   const rangeColor = isString(color) ? [color, DEFAULT_COLOR] : color;
 
-  v2.interval().position(`1*${RANGE_VALUE}`).color(RANGE_TYPE, rangeColor).adjust('stack');
+  interval({
+    chart: v2,
+    options: {
+      xField: '1',
+      yField: RANGE_VALUE,
+      seriesField: RANGE_TYPE,
+      isStack: true,
+      interval: {
+        color: rangeColor,
+        style: gaugeStyle,
+      },
+      args: {
+        zIndexReversed: true,
+      },
+    },
+  });
 
   v2.coordinate('polar', {
     innerRadius,
@@ -93,12 +109,13 @@ function meterView(params: Params<GaugeOptions>): Params<GaugeOptions> {
 
     const v3 = chart.createView({ id: MASK_VIEW_ID });
     v3.data([{ [RANGE_TYPE]: '1', [RANGE_VALUE]: 1 }]);
+    const customInfo: GaugeCustomInfo = { meter };
     v3.interval()
       .position(`1*${RANGE_VALUE}`)
       .color(color)
       .adjust('stack')
       .shape('meter-gauge')
-      .customInfo(meter || {});
+      .customInfo(customInfo);
     v3.coordinate('polar', { innerRadius, radius, startAngle, endAngle }).transpose();
   }
 

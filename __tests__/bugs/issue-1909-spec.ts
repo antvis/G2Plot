@@ -11,8 +11,11 @@ describe('#1909', () => {
     });
     liquidPlot.render();
 
+    const getWaveOpacity = (liquid) =>
+      liquid.chart.geometries[0].container.getChildren()[0].getChildren()[0].attr('opacity');
+
     // @ts-ignore
-    expect(liquidPlot.chart.geometries[0].container.getChildren()[1].getChildren()[0].attr('opacity')).toBe(0.2);
+    expect(getWaveOpacity(liquidPlot)).toBe(0.2);
 
     liquidPlot.update({
       liquidStyle: {
@@ -21,10 +24,7 @@ describe('#1909', () => {
     });
 
     // @ts-ignore
-    expect(liquidPlot.chart.geometries[0].container.getChildren()[1].getChildren()[0].attr('opacity')).toBeCloseTo(
-      0.02,
-      5
-    );
+    expect(getWaveOpacity(liquidPlot)).toBeCloseTo(0.02, 5);
 
     liquidPlot.destroy();
   });

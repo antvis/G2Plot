@@ -1,38 +1,29 @@
 import { Liquid } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
+import { getClipPath } from './index-spec';
 
 describe('liquid', () => {
   const shapes = [
     {
       name: 'diamond',
-      shapePath: [['M', 300, 15], ['L', 435, 150], ['L', 300, 285], ['L', 165, 150], ['Z']],
       clipPath: [['M', 300, 16], ['L', 434, 150], ['L', 300, 284], ['L', 166, 150], ['Z']],
     },
     {
       name: 'triangle',
-      shapePath: [['M', 300, 15], ['L', 435, 285], ['L', 165, 285], ['Z']],
       clipPath: [['M', 300, 16], ['L', 434, 284], ['L', 166, 284], ['Z']],
     },
     {
       name: 'pin',
-      shapePath: [
-        ['M', 219.50155281000758, 195],
-        ['A', 108, 108, 0, 1, 1, 380.4984471899925, 195],
-        ['Q', 300, 270, 300, 285],
-        ['Q', 300, 270, 219.50155281000758, 195],
-        ['Z'],
-      ],
       clipPath: [
-        ['M', 220.0978376040075, 194.66666666666666],
-        ['A', 107.2, 107.2, 0, 1, 1, 379.9021623959925, 194.66666666666666],
-        ['Q', 300, 268, 300, 284],
-        ['Q', 300, 268, 220.0978376040075, 194.66666666666666],
+        ['M', 227.75704198540205, 157.88235294117644],
+        ['A', 89.33333333333333, 89.33333333333333, 0, 1, 1, 372.24295801459795, 157.88235294117644],
+        ['Q', 300, 257.2, 300, 284],
+        ['Q', 300, 257.2, 227.75704198540205, 157.88235294117644],
         ['Z'],
       ],
     },
     {
       name: 'circle',
-      shapePath: [['M', 300, 15], ['A', 135, 135, 0, 1, 0, 300, 285], ['A', 135, 135, 0, 1, 0, 300, 15], ['Z']],
       clipPath: [['M', 300, 16], ['A', 134, 134, 0, 1, 0, 300, 284], ['A', 134, 134, 0, 1, 0, 300, 16], ['Z']],
     },
   ];
@@ -43,16 +34,12 @@ describe('liquid', () => {
     percent: 0.25,
   };
 
-  const getShapePath = (liquid) => liquid.chart.middleGroup.getChildren()[0].getChildren()[0].attr('path');
-  const getClipPath = (liquid) => liquid.chart.middleGroup.findAllByName('waves')[0].get('clipShape').attr('path');
-
   it('should render circle if prop shape is not defined', () => {
     const liquid = new Liquid(createDiv(), {
       ...shapeProps,
     });
 
     liquid.render();
-    expect(getShapePath(liquid)).toEqual(shapes[3].shapePath);
     expect(getClipPath(liquid)).toEqual(shapes[3].clipPath);
 
     liquid.destroy();
@@ -65,14 +52,13 @@ describe('liquid', () => {
     });
 
     liquid.render();
-    expect(getShapePath(liquid)).toEqual(shapes[3].shapePath);
     expect(getClipPath(liquid)).toEqual(shapes[3].clipPath);
 
     liquid.destroy();
   });
 
   // builtIn shapes
-  for (const { name, shapePath, clipPath } of shapes) {
+  for (const { name, clipPath } of shapes) {
     it(`should render built-in shapes(${name}) if prop shape is a string`, () => {
       const liquid = new Liquid(createDiv(), {
         ...shapeProps,
@@ -80,7 +66,6 @@ describe('liquid', () => {
       });
 
       liquid.render();
-      expect(getShapePath(liquid)).toEqual(shapePath);
       expect(getClipPath(liquid)).toEqual(clipPath);
 
       liquid.destroy();
@@ -92,22 +77,28 @@ describe('liquid', () => {
     const liquid = new Liquid(createDiv(), {
       ...shapeProps,
       shape: (x: number, y: number, width: number, height: number) => {
-        const h = height / 2;
-        const w = width / 2;
+        const r = width / 4;
+        const dx = x - width / 2;
+        const dy = y - height / 2;
         return [
-          ['M', x - x / 3, y - h],
-          ['L', x + w, y - y / 3],
-          ['L', x + x / 3, y + h],
-          ['L', x - w, y + y / 3],
+          ['M', dx, dy + r * 2],
+          ['A', r, r, 0, 0, 1, x, dy + r],
+          ['A', r, r, 0, 0, 1, dx + width, dy + r * 2],
+          ['L', x, dy + height],
+          ['L', dx, dy + r * 2],
           ['Z'],
         ];
       },
     });
     liquid.render();
-
-    const shapePath = [['M', 200, 15], ['L', 435, 100], ['L', 400, 285], ['L', 165, 200], ['Z']];
-    const clipPath = [['M', 200, 16], ['L', 434, 100], ['L', 400, 284], ['L', 166, 200], ['Z']];
-    expect(getShapePath(liquid)).toEqual(shapePath);
+    const clipPath = [
+      ['M', 166, 150],
+      ['A', 67, 67, 0, 0, 1, 300, 83],
+      ['A', 67, 67, 0, 0, 1, 434, 150],
+      ['L', 300, 284],
+      ['L', 166, 150],
+      ['Z'],
+    ];
     expect(getClipPath(liquid)).toEqual(clipPath);
 
     liquid.destroy();

@@ -3,7 +3,7 @@ import { IGroup, IShape } from '@antv/g-base';
 import { reduce, isNumber, mix } from '@antv/util';
 import { transform } from '../../../utils/matrix';
 import { Point, ShapeStyle } from '../../../types';
-import { LiquidOptions } from '..';
+import { LiquidOptions, CustomInfo } from '../types';
 
 const DURATION = 5000;
 
@@ -264,15 +264,15 @@ function addWaterWave(
  * @param height 外接矩形的高
  */
 function pin(x: number, y: number, width: number, height: number) {
-  const w = (width * 4) / 5;
+  const w = (width * 2) / 3;
   const h = Math.max(w, height);
   const r = w / 2;
 
   // attrs of the upper circle
   const cx = x;
   const cy = r + y - h / 2;
-  const dy = (r * r) / (h - r);
-  const theta = Math.asin(dy / r);
+  const theta = Math.asin(r / ((h - r) * 0.85));
+  const dy = Math.sin(theta) * r;
   const dx = Math.cos(theta) * r;
 
   // the start point of the path
@@ -281,7 +281,7 @@ function pin(x: number, y: number, width: number, height: number) {
 
   // control point
   const cpX = x;
-  const cpY = r + r / Math.sin(theta);
+  const cpY = cy + r / Math.sin(theta);
 
   return `
       M ${x0} ${y0}
@@ -353,7 +353,7 @@ registerShape('interval', 'liquid-fill-gauge', {
     const cy = 0.5;
 
     const { customInfo } = cfg;
-    const { radius: radio, shape } = customInfo;
+    const { radius: radio, shape, background } = customInfo as CustomInfo;
     const outline: LiquidOptions['outline'] = customInfo.outline;
     const wave: LiquidOptions['wave'] = customInfo.wave;
     const { border, distance } = outline;
@@ -376,7 +376,7 @@ registerShape('interval', 'liquid-fill-gauge', {
     const radius = Math.min(halfWidth, minXPoint.y * radio);
     const waveAttrs = getFillAttrs(cfg);
     const shapeAttrs = getLineAttrs(cfg);
-    const innerRadius = radius - distance - border / 2;
+    const innerRadius = radius - border / 2;
     const builtInShapeByName = {
       pin,
       circle,
@@ -384,20 +384,9 @@ registerShape('interval', 'liquid-fill-gauge', {
       triangle,
     };
     const buildPath = typeof shape === 'function' ? shape : builtInShapeByName[shape] || builtInShapeByName['circle'];
-    const outerPath = buildPath(center.x, center.y, radius * 2, radius * 2);
-    const innerPath = buildPath(center.x, center.y, innerRadius * 2, innerRadius * 2);
+    const shapePath = buildPath(center.x, center.y, innerRadius * 2, innerRadius * 2);
 
-    // 1. 首先绘制一个边框
-    container.addShape('path', {
-      name: 'wrap',
-      attrs: mix(shapeAttrs, {
-        path: outerPath,
-        fill: 'transparent',
-        lineWidth: border,
-      }),
-    });
-
-    // 2. 绘制波的 group
+    // 1. 绘制一个波
     const waves = container.addGroup({
       name: 'waves',
     });
@@ -406,7 +395,7 @@ registerShape('interval', 'liquid-fill-gauge', {
     const clipPath = waves.setClip({
       type: 'path',
       attrs: {
-        path: innerPath,
+        path: shapePath,
       },
     });
 
@@ -422,6 +411,27 @@ registerShape('interval', 'liquid-fill-gauge', {
       radius * 2,
       waveLength
     );
+
+    // 2. 绘制一个 distance 宽的 border
+    container.addShape('path', {
+      name: 'distance',
+      attrs: {
+        path: shapePath,
+        fill: 'transparent',
+        lineWidth: border + distance * 2,
+        stroke: background === 'transparent' ? '#fff' : background,
+      },
+    });
+
+    // 3. 绘制一个 border 宽的 border
+    container.addShape('path', {
+      name: 'wrap',
+      attrs: mix(shapeAttrs, {
+        path: shapePath,
+        fill: 'transparent',
+        lineWidth: border,
+      }),
+    });
 
     return container;
   },

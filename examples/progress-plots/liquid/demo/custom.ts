@@ -2,7 +2,7 @@ import { Liquid } from '@antv/g2plot';
 
 const liquidPlot = new Liquid('container', {
   percent: 0.25,
-  shape: function (x: number, y: number, width: number, height: number) {
+  shape: function (x, y, width, height) {
     const r = width / 4;
     const dx = x - width / 2;
     const dy = y - height / 2;

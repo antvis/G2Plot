@@ -1,7 +1,7 @@
 import { Sankey } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 
-describe.skip('sankey', () => {
+describe('sankey', () => {
   it('nodeDepth', () => {
     const ALIPAY_DATA = [
       { source: 'A', target: 'B', value: 160 },

@@ -51,6 +51,7 @@ Dashboard auxiliary arc style.
 | ---------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | ticks      | _number[]_          | Dashboard auxiliary arc style.                                                                                                                  |
 | color      | _string \|string[]_ | The color swatches of auxiliary arcs are selected in accordance with the color swatches; When ticks are set, color cannot be used as a callback |
+| width |  _number_ | Setting the width of gauge range. Default using `'radius', 'innerRadius'` to calculate the width of range. |
 
 <playground rid="gauge" path="progress-plots/gauge/demo/basic.ts"></playground>
 

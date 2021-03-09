@@ -13,6 +13,14 @@
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/xDdGhZK84X/9746c5d8-4341-4c04-9528-87bcab55eedb.png"
     },
     {
+      "filename": "range-width.ts",
+      "title": {
+        "zh": "设置仪表盘的辅助圆弧宽度",
+        "en": "Set range width of gauge"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/8NlQkXxCw8/gauge-range-width.png"
+    },
+    {
       "filename": "single-gradient.ts",
       "title": {
         "zh": "仪表盘(单色渐变)",

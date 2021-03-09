@@ -19,6 +19,8 @@ type Range = {
   readonly ticks?: number[];
   /** 辅助刻度的颜色配置 */
   readonly color?: string | string[];
+  /** 仪表盘辅助背景的宽度 */
+  readonly width?: number;
 };
 
 /**

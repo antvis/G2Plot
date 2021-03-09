@@ -51,6 +51,7 @@ order: 5
 | ------ | -------- | ------------------------------------ |
 | ticks  | _number[]_ | 辅助圆弧显示数字数组                 |
 | color  | _string \|string[]_ | 辅助圆弧的颜色色板，按照色板顺序取值; 当设置 ticks 时，color 无法使用回调的方式 |
+| width | _number_ | 对辅助圆弧的宽度进行像素级别的设置。默认通过 radius，innerRadius 来计算辅助圆弧的宽度。|
 
 <playground rid="gauge" path="progress-plots/gauge/demo/custom-color.ts"></playground>
 

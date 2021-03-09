@@ -2,7 +2,7 @@ import { BidirectionalBar } from '../../src';
 import { createDiv } from '../utils/dom';
 
 describe('#2122', () => {
-  it('数据为空', async () => {
+  it('数据为空', () => {
     const plot = new BidirectionalBar(createDiv(), {
       data: [],
       width: 400,

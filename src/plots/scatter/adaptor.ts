@@ -124,7 +124,8 @@ function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
   // legend 没有指定时根据 shapeField 和 colorField 来设置默认值
   const showLegend = isBoolean(legend) ? legend : legend || !!(shapeField || colorField);
   if (showLegend) {
-    chart.legend(colorField || shapeField, legend);
+    colorField && chart.legend(colorField, legend);
+    shapeField && chart.legend(shapeField, legend);
     // 隐藏连续图例
     if (sizeField) {
       chart.legend(sizeField, false);

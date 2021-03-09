@@ -13,8 +13,7 @@ In addition to using the built-in 'default' and 'dark' themes, you can also modi
 
 The following table lists the specific properties on the configuration items that make up the topic:
 
-| Properties            | Type       | Description                                                                                                   |
-| --------------------- | ---------- | ------------------------------------------------------------------------------------------------------------- |
+| **Properties**            | **Type**       | **Description**    || --------------------- | ---------- | ------------------------------------------------------------------------------------------------------------- |
 | defaultColor          | _string_   | Theme color                                                                                                   |
 | padding               | _number_   | number[]                                                                                                      |
 | fontFamily            | _string_   | Chart font                                                                                                    |
@@ -24,7 +23,7 @@ The following table lists the specific properties on the configuration items tha
 | maxColumnWidth        | _number_   | Maximum width of histogram, pixel value                                                                       |
 | minColumnWidth        | _number_   | Minimum width of histogram, pixel value                                                                       |
 | roseWidthRatio        | _number_   | Rose width ratio, 0-1 range of value                                                                          |
-| multiplePieWidthRatio | number     | Multilayer pie and loop ratio, 0-1 range values                                                               |
+| multiplePieWidthRatio | _number_     | Multilayer pie and loop ratio, 0-1 range values                                                               |
 | geometries            | _object_   | Configure the style of each shape for each Geometry, including the default style and the style for each state |
 | components            | _object_   | Configure theme samples for axes, legends, tooltips, and annotations                                          |
 | labels                | _object_   | Configure the theme style of the label under Geometry                                                         |
@@ -52,6 +51,36 @@ usage:
 }
 ```
 
+#### Theme attributes (StyleSheet)
+
+除了以上介绍的主题属性之外，还可以传入主题样式表来自定义主题。如果你需要对全局主题进行配置的话，对样式风格进行切换，比如更改颜色、字体大小、边框粗细等
+
+usage:
+```ts
+{
+  theme: {
+    styleSheet: {
+      fontFamily: 'Avenir'
+    }
+  }
+}
+```
+
+支持的样式表属性：
+
+| **Properties**            | **Type**       | **Description**    |
+| ----------------------- | -------- | ------------- |
+| `backgroundColor`       | _string_ | Background color        |
+| `brandColor`            | _string_ | Brand color，默认取 10 色分类颜色色板的第一个颜色 |
+| `paletteQualitative10`  | _string_ | Qualitative palette，分类个数小于 10 时使用 |
+| `paletteQualitative20`  | _string_ | Qualitative palette，分类个数大于 10 时使用 |
+| `paletteSemanticRed`    | _string_ | Semantic red      |
+| `paletteSemanticGreen`  | _string_ | Semantic green      |
+| `paletteSemanticYellow` | _string_ | Semantic yellow      |
+| `fontFamily`            | _string_ | fontFamily          |
+
+
+
 #### Update theme
 
 usage：
@@ -66,7 +95,7 @@ plot.update({ theme: { defaultColor: '#FF6B3B' } });
 
 #### Custom theme
 
-In addition, G2 provides a custom topic mechanism to define a new topic structure, allowing users to switch and define chart topics.
+In addition, G2 provides a custom topic mechanism to define a new topic structure, allowing users to switch and define chart topics. Go [G2 | Custom theme](https://g2.antv.vision/en/docs/api/advanced/register-theme) for more details.
 
 <playground path="general/theme/demo/register-theme.ts" rid="rect-register-theme"></playground>
 

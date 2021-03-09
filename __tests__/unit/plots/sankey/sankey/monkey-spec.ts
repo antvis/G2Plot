@@ -32,7 +32,7 @@ const C = [
   'Z',
 ];
 
-describe('sankey', () => {
+describe.skip('sankey', () => {
   it('monkey for deep', () => {
     for (let i = 0; i < 100; i++) {
       const layout = sankey()

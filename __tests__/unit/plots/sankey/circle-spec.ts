@@ -1,7 +1,7 @@
 import { cutoffCircle } from '../../../../src/plots/sankey/circle';
 import { ENERGY_RELATIONS } from '../../../data/sankey-energy';
 
-describe('sankey ', () => {
+describe.skip('sankey ', () => {
   it('cutoffCircle', () => {
     let data = [
       { source: 'a', target: 'b' },

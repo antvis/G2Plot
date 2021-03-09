@@ -96,6 +96,23 @@ Example:
 
 <playground path="progress-plots/gauge/demo/custom-color.ts" rid="rect2"></playground>
 
+### Setting the width of gauge range
+
+Setting the width of gauge range by using `range.width`（pixel）. Default using 'radius' and 'innerRadius' to calculate the width.
+
+Example:
+
+```ts
+{
+  range: {
+    color: '#30BF78',
+    width: 16,
+  },
+}
+```
+
+<playground path="progress-plots/gauge/demo/range-width.ts" rid="rect-ragne-width"></playground>
+
 ### 设置仪表盘展示类型
 
 通过设置 `type: 'meter'`, 可以实现一个展示形态为**米轨**的仪表盘。

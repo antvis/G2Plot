@@ -35,6 +35,7 @@ jobs:
 
   test:
     runs-on: macos-latest
+    timeout-minutes: 1200
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js 12

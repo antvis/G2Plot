@@ -1,10 +1,25 @@
 name: build
 
-on: ["push", "pull_request"]
+on: ["pull_request"]
 
 jobs:
+  lint:
+    runs-on: macos-10.15
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.10.0
+      - name: npm install
+        run: |
+          npm install
+      - name: lint
+        run: |
+          npm run lint
+
   build:
-    runs-on: macOS-latest
+    runs-on: macos-10.15
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js 12
@@ -16,7 +31,22 @@ jobs:
           npm install
       - name: build
         run: |
-          npm run ci
+          npm run build
+
+  test:
+    runs-on: macos-10.15
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.10.0
+      - name: npm install
+        run: |
+          npm install
+      - name: test
+        run: |
+          npm run coverage
         env:
           CI: true
       - name: Coveralls

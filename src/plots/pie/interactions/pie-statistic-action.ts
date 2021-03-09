@@ -1,7 +1,8 @@
-import { View, Action, Util } from '@antv/g2';
-import { Types } from '@antv/g2';
-import { each, get, isFunction, isString } from '@antv/util';
-import { adapteStyle, setStatisticContainerStyle } from '../../../utils/statistic';
+import { View, Action, Util, Types } from '@antv/g2';
+import { each, get } from '@antv/util';
+import { PieOptions } from '..';
+import { Annotation } from '../../../types/annotation';
+import { renderStatistic } from '../../../utils/statistic';
 /**
  * Pie 中心文本事件的 Action
  */
@@ -28,14 +29,13 @@ export class StatisticAction extends Action {
     });
   }
 
-  public change() {
+  public change(arg?: Pick<PieOptions, 'annotations' | 'statistic'>) {
     const { view, event } = this.context;
-    const annotations = this.getAnnotations();
     if (!this.initialAnnotation) {
-      this.initialAnnotation = annotations;
+      this.initialAnnotation = this.getAnnotations();
     }
 
-    let { data } = event?.data || {};
+    let data = get(event, ['data', 'data']);
     if (event.type.match('legend-item')) {
       const delegateObject = Util.getDelegationObject(this.context);
       // @ts-ignore
@@ -47,59 +47,18 @@ export class StatisticAction extends Action {
     }
 
     if (data) {
-      const annotationController = view.getController('annotation');
-      annotationController.clear(true);
-      // @ts-ignore
-      const [, angleField, colorField] = view.getScaleFields();
-      const angleScale = view.getScaleByField(angleField);
-      const colorScale = view.getScaleByField(colorField);
-
-      const annotationOptions = annotations.filter((a) => !get(a, 'key', '').match('statistic'));
-      const statisticOptions = annotations.filter((a) => get(a, 'key', '').match('statistic'));
-
-      const titleOpt = statisticOptions.filter((opt: any) => opt.key === 'top-statistic');
-      const contentOpt = statisticOptions.filter((opt: any) => opt.key === 'bottom-statistic');
-      each(statisticOptions, (option) => {
-        let text;
-        let transform;
-        if (option.key === 'top-statistic') {
-          text = colorScale ? colorScale.getText(data[colorField]) : null;
-          transform = contentOpt ? 'translate(-50%, -100%)' : 'translate(-50%, -50%)';
-        } else {
-          text = angleScale ? angleScale.getText(data[angleField]) : data[angleField];
-          transform = titleOpt ? 'translate(-50%, 0)' : 'translate(-50%,-50%)';
+      const annotations = get(arg, 'annotations', []);
+      const statistic = get(arg, 'statistic', {});
+      // 先清空标注，再重新渲染
+      view.getController('annotation').clear(true);
+      // 先进行其他 annotations，再去渲染统计文本
+      each(annotations, (annotation: Annotation) => {
+        if (typeof annotation === 'object') {
+          view.annotation()[annotation.type](annotation);
         }
-
-        annotationOptions.push({
-          ...option,
-          html: (container, view) => {
-            const coordinate = view.getCoordinate();
-            const containerWidth = coordinate.getRadius() * coordinate.innerRadius * 2;
-
-            const style = isFunction(option.style) ? option.style() : option.style;
-            setStatisticContainerStyle(container, {
-              width: `${containerWidth}px`,
-              transform,
-              // user's style setting has high priority
-              ...adapteStyle(style),
-            });
-            const filteredData = view.getData();
-            if (option.customHtml) {
-              return option.customHtml(container, view, data, filteredData);
-            }
-            if (option.formatter) {
-              text = option.formatter(data, filteredData);
-            }
-            // todo G2 层修复可以返回空字符串 & G2 层修复允许返回非字符串的内容，比如数值 number
-            return text ? (isString(text) ? text : `${text}`) : '<div></div>';
-          },
-        });
-        annotationOptions.forEach((opt) => {
-          // @ts-ignore
-          annotationController.annotation(opt);
-        });
-        view.render(true);
       });
+      renderStatistic(view, { statistic, plotType: 'pie' }, data);
+      view.render(true);
     }
   }
 

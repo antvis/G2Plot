@@ -1,11 +1,13 @@
-import { isFunction, isString, isNil, get, isArray, isNumber } from '@antv/util';
+import { isFunction, isString, isNil, get, isArray, isNumber, each } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { legend, interaction, animation, theme, state, annotation } from '../../adaptor/common';
+import { legend, animation, theme, state, annotation } from '../../adaptor/common';
 import { getMappingFunction } from '../../adaptor/geometries/base';
 import { interval } from '../../adaptor/geometries';
+import { Interaction } from '../../types/interaction';
 import { flow, template, transformLabel, deepAssign, renderStatistic } from '../../utils';
 import { DEFAULT_OPTIONS } from './contants';
 import { adaptOffset, getTotalValue, processIllegalData, isAllZero } from './utils';
+import { PIE_STATISTIC } from './interactions';
 import { PieOptions } from './types';
 
 /**
@@ -228,6 +230,37 @@ function tooltip(params: Params<PieOptions>): Params<PieOptions> {
     }
     chart.geometries[0].tooltip(fields.join('*'), getMappingFunction(fields, formatter));
   }
+
+  return params;
+}
+
+/**
+ * Interaction 配置 (饼图特殊的 interaction, 中心文本变更的时候，需要将一些配置参数传进去）
+ * @param params
+ */
+export function interaction(params: Params<PieOptions>): Params<PieOptions> {
+  const { chart, options } = params;
+  const { interactions, statistic, annotations } = options;
+
+  each(interactions, (i: Interaction) => {
+    if (i.enable === false) {
+      chart.removeInteraction(i.type);
+    } else if (i.type === 'pie-statistic-active') {
+      // 只针对 start 阶段的配置，进行添加参数信息
+      let startStages = [];
+      if (!i.cfg?.start) {
+        startStages = [
+          { trigger: 'element:mouseenter', action: `${PIE_STATISTIC}:change`, arg: { statistic, annotations } },
+        ];
+      }
+      each(i.cfg?.start, (stage) => {
+        startStages.push({ ...stage, arg: { statistic, annotations } });
+      });
+      chart.interaction(i.type, deepAssign({}, i.cfg, { start: startStages }));
+    } else {
+      chart.interaction(i.type, i.cfg || {});
+    }
+  });
 
   return params;
 }

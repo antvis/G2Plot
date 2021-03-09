@@ -2,7 +2,7 @@
 
 <description>**可选** _string[]_</description>
 
-指定 tooltip 中显示的字段，默认不同图表有不同的默认字段列表。配合 `formatter` 配置一起使用，效果更加。
+指定 tooltip 中显示的字段，默认不同图表有不同的默认字段列表。配合 `formatter` 配置一起使用，效果更佳。
 
 ```ts
 tooltip: {

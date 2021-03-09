@@ -3,7 +3,7 @@ import { IGroup, IShape } from '@antv/g-base';
 import { reduce, isNumber, mix } from '@antv/util';
 import { transform } from '../../../utils/matrix';
 import { Point, ShapeStyle } from '../../../types';
-import { LiquidOptions } from '..';
+import { LiquidOptions, CustomInfo } from '../types';
 
 const DURATION = 5000;
 
@@ -32,7 +32,7 @@ function getFillAttrs(cfg: ShapeStyle) {
 }
 
 /**
- * 圆圈的 attrs
+ * shape 的 attrs
  * @param cfg
  */
 function getLineAttrs(cfg: ShapeStyle) {
@@ -256,13 +256,104 @@ function addWaterWave(
   }
 }
 
+/**
+ *
+ * @param x 中心 x
+ * @param y 中心 y
+ * @param width 外接矩形的宽
+ * @param height 外接矩形的高
+ */
+function pin(x: number, y: number, width: number, height: number) {
+  const w = (width * 2) / 3;
+  const h = Math.max(w, height);
+  const r = w / 2;
+
+  // attrs of the upper circle
+  const cx = x;
+  const cy = r + y - h / 2;
+  const theta = Math.asin(r / ((h - r) * 0.85));
+  const dy = Math.sin(theta) * r;
+  const dx = Math.cos(theta) * r;
+
+  // the start point of the path
+  const x0 = cx - dx;
+  const y0 = cy + dy;
+
+  // control point
+  const cpX = x;
+  const cpY = cy + r / Math.sin(theta);
+
+  return `
+      M ${x0} ${y0}
+      A ${r} ${r} 0 1 1 ${x0 + dx * 2} ${y0}
+      Q ${cpX} ${cpY} ${x} ${y + h / 2}
+      Q ${cpX} ${cpY} ${x0} ${y0}
+      Z 
+    `;
+}
+
+/**
+ *
+ * @param x 中心 x
+ * @param y 中心 y
+ * @param width 外接矩形的宽
+ * @param height 外接矩形的高
+ */
+function circle(x: number, y: number, width: number, height: number) {
+  const rx = width / 2;
+  const ry = height / 2;
+  return `
+      M ${x} ${y - ry} 
+      a ${rx} ${ry} 0 1 0 0 ${ry * 2}
+      a ${rx} ${ry} 0 1 0 0 ${-ry * 2}
+      Z
+    `;
+}
+
+/**
+ *
+ * @param x 中心 x
+ * @param y 中心 y
+ * @param width 外接矩形的宽
+ * @param height 外接矩形的高
+ */
+function diamond(x: number, y: number, width: number, height: number) {
+  const h = height / 2;
+  const w = width / 2;
+  return `
+      M ${x} ${y - h}
+      L ${x + w} ${y}
+      L ${x} ${y + h}
+      L ${x - w} ${y}
+      Z
+    `;
+}
+
+/**
+ *
+ * @param x 中心 x
+ * @param y 中心 y
+ * @param width 外接矩形的宽
+ * @param height 外接矩形的高
+ */
+function triangle(x: number, y: number, width: number, height: number) {
+  const h = height / 2;
+  const w = width / 2;
+  return `
+      M ${x} ${y - h}
+      L ${x + w} ${y + h}
+      L ${x - w} ${y + h}
+      Z
+    `;
+}
+
 registerShape('interval', 'liquid-fill-gauge', {
   draw(cfg: any, container: IGroup) {
     const cx = 0.5;
     const cy = 0.5;
 
     const { customInfo } = cfg;
-    const { radius: radio } = customInfo;
+    const { radius: radio, shape, background } = customInfo as CustomInfo;
     const outline: LiquidOptions['outline'] = customInfo.outline;
     const wave: LiquidOptions['wave'] = customInfo.wave;
     const { border, distance } = outline;
@@ -284,32 +375,27 @@ registerShape('interval', 'liquid-fill-gauge', {
     // 保证半径是 画布宽高最小值的 radius 值
     const radius = Math.min(halfWidth, minXPoint.y * radio);
     const waveAttrs = getFillAttrs(cfg);
-    const circleAttrs = getLineAttrs(cfg);
+    const shapeAttrs = getLineAttrs(cfg);
+    const innerRadius = radius - border / 2;
+    const builtInShapeByName = {
+      pin,
+      circle,
+      diamond,
+      triangle,
+    };
+    const buildPath = typeof shape === 'function' ? shape : builtInShapeByName[shape] || builtInShapeByName['circle'];
+    const shapePath = buildPath(center.x, center.y, innerRadius * 2, innerRadius * 2);
 
-    // 1. 首先绘制一个外圆
-    container.addShape('circle', {
-      name: 'wrap',
-      attrs: mix(circleAttrs, {
-        x: center.x,
-        y: center.y,
-        r: radius,
-        fill: 'transparent',
-        lineWidth: border,
-      }),
-    });
-
-    // 2. 绘制波的 group
+    // 1. 绘制一个波
     const waves = container.addGroup({
       name: 'waves',
     });
 
     // 3. 波对应的 clip 裁剪形状
-    const clipCircle = waves.setClip({
-      type: 'circle',
+    const clipPath = waves.setClip({
+      type: 'path',
       attrs: {
-        x: center.x,
-        y: center.y,
-        r: radius - distance - border / 2, // border 的大小会占用宽度
+        path: shapePath,
       },
     });
 
@@ -321,10 +407,31 @@ registerShape('interval', 'liquid-fill-gauge', {
       waveCount,
       waveAttrs,
       waves,
-      clipCircle,
+      clipPath,
       radius * 2,
       waveLength
     );
+
+    // 2. 绘制一个 distance 宽的 border
+    container.addShape('path', {
+      name: 'distance',
+      attrs: {
+        path: shapePath,
+        fill: 'transparent',
+        lineWidth: border + distance * 2,
+        stroke: background === 'transparent' ? '#fff' : background,
+      },
+    });
+
+    // 3. 绘制一个 border 宽的 border
+    container.addShape('path', {
+      name: 'wrap',
+      attrs: mix(shapeAttrs, {
+        path: shapePath,
+        fill: 'transparent',
+        lineWidth: border,
+      }),
+    });
 
     return container;
   },

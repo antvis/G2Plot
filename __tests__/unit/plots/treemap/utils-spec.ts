@@ -131,6 +131,7 @@ describe('treemap transformData', () => {
       data: data1,
       colorField: 'name',
       openDrillDown: false,
+      hierarchyConfig: {},
     });
 
     const areaArr = data.map((dt) => {
@@ -181,6 +182,7 @@ describe('treemap transformData', () => {
       data: data3,
       colorField: 'category',
       openDrillDown: false,
+      hierarchyConfig: {},
     });
     data.forEach((d) => {
       expect(d.category).toEqual(d.expectCategory);
@@ -212,6 +214,7 @@ describe('treemap transformData', () => {
       data: data3,
       colorField: 'category',
       openDrillDown: true,
+      hierarchyConfig: {},
     });
     expect(data.length).toEqual(2);
   });

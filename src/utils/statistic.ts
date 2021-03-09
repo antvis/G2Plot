@@ -106,8 +106,8 @@ export const renderStatistic = (chart: View, options: { statistic: Statistic; pl
         } else if (plotType === 'liquid') {
           const liquidShape = get(view.geometries, [0, 'elements', 0, 'shape']);
           if (liquidShape) {
-            const circle = (liquidShape as IGroup).find((t) => t.get('type') === 'circle');
-            const { width } = circle.getCanvasBBox();
+            const path = (liquidShape as IGroup).find((t) => t.get('type') === 'path');
+            const { width } = path.getCanvasBBox();
             containerW = width;
           }
         } else if (!containerW) {

@@ -1,8 +1,8 @@
 import { isString } from '@antv/util';
 import { interaction, animation, theme, scale, annotation } from '../../adaptor/common';
+import { interval } from '../../adaptor/geometries';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { Params } from '../../core/adaptor';
-import { Data } from '../../types';
 import { deepAssign, flow, pick, renderGaugeStatistic } from '../../utils';
 import {
   RANGE_TYPE,
@@ -13,7 +13,7 @@ import {
   RANGE_VIEW_ID,
   MASK_VIEW_ID,
 } from './constants';
-import { GaugeOptions } from './types';
+import { GaugeCustomInfo, GaugeOptions } from './types';
 import { getIndicatorData, getRangeData } from './utils';
 
 /**
@@ -22,8 +22,8 @@ import { getIndicatorData, getRangeData } from './utils';
  */
 function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
   const { chart, options } = params;
-  const { percent, range, radius, innerRadius, startAngle, endAngle, axis, indicator } = options;
-  const { color } = range;
+  const { percent, range, radius, innerRadius, startAngle, endAngle, axis, indicator, gaugeStyle } = options;
+  const { color, width: rangeWidth } = range;
 
   // 指标 & 指针
   // 如果开启在应用
@@ -54,14 +54,32 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
   }
 
   // 辅助 range
-  // [{ range: 1, type: '0' }]
-  const rangeData: Data = getRangeData(percent, options.range);
+  // [{ range: 1, type: '0', percent: 原始进度百分比 }]
+  const rangeData = getRangeData(percent, options.range);
   const v2 = chart.createView({ id: RANGE_VIEW_ID });
   v2.data(rangeData);
 
   const rangeColor = isString(color) ? [color, DEFAULT_COLOR] : color;
 
-  v2.interval().position(`1*${RANGE_VALUE}`).color(RANGE_TYPE, rangeColor).adjust('stack');
+  interval({
+    chart: v2,
+    options: {
+      xField: '1',
+      yField: RANGE_VALUE,
+      seriesField: RANGE_TYPE,
+      rawFields: [PERCENT],
+      isStack: true,
+      interval: {
+        color: rangeColor,
+        style: gaugeStyle,
+      },
+      args: {
+        zIndexReversed: true,
+      },
+      minColumnWidth: rangeWidth,
+      maxColumnWidth: rangeWidth,
+    },
+  });
 
   v2.coordinate('polar', {
     innerRadius,
@@ -82,7 +100,9 @@ function meterView(params: Params<GaugeOptions>): Params<GaugeOptions> {
 
   const { type, meter } = options;
   if (type === 'meter') {
-    const { innerRadius, radius, startAngle, endAngle } = options;
+    const { innerRadius, radius, startAngle, endAngle, range } = options;
+    const minColumnWidth = range?.width;
+    const maxColumnWidth = range?.width;
 
     const { background } = chart.getTheme();
 
@@ -93,12 +113,13 @@ function meterView(params: Params<GaugeOptions>): Params<GaugeOptions> {
 
     const v3 = chart.createView({ id: MASK_VIEW_ID });
     v3.data([{ [RANGE_TYPE]: '1', [RANGE_VALUE]: 1 }]);
-    v3.interval()
+    const customInfo: GaugeCustomInfo = { meter };
+    v3.interval({ minColumnWidth, maxColumnWidth })
       .position(`1*${RANGE_VALUE}`)
       .color(color)
       .adjust('stack')
       .shape('meter-gauge')
-      .customInfo(meter || {});
+      .customInfo(customInfo);
     v3.coordinate('polar', { innerRadius, radius, startAngle, endAngle }).transpose();
   }
 

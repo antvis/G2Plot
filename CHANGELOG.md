@@ -1,3 +1,32 @@
+#### 2.3.13 (2021-03-02)
+
+##### Chores
+
+*  fix website build error ([#2351](https://github.com/antvis/g2plot/pull/2351)) ([41459220](https://github.com/antvis/g2plot/commit/4145922098169119529d59f4b59fffff5950a671))
+
+##### Documentation Changes
+
+* **typo:**  dblclick, not dbclick ([#2380](https://github.com/antvis/g2plot/pull/2380)) ([f281658e](https://github.com/antvis/g2plot/commit/f281658e9c774db4a1e24df1ecce6d82ab900093))
+*  文档日常 ([#2371](https://github.com/antvis/g2plot/pull/2371)) ([a8e8219c](https://github.com/antvis/g2plot/commit/a8e8219cfb46e08aa9a112e80e6dfb18c59d6288))
+* **slider:**  缩略轴支持配置 handler 样式 & 增加 api 文档说明 ([#2347](https://github.com/antvis/g2plot/pull/2347)) ([bff3fdc2](https://github.com/antvis/g2plot/commit/bff3fdc2cf84688e17b895b31ba3c588280b2c1a))
+* **axis:**  坐标轴文档 ([#2361](https://github.com/antvis/g2plot/pull/2361)) ([ac3e2f9d](https://github.com/antvis/g2plot/commit/ac3e2f9d522e2853dd291e18e9ab763fe6040bfe))
+
+##### New Features
+
+* **sankey:**
+  *  update d3-sankey layout for depth customize ([#2378](https://github.com/antvis/g2plot/pull/2378)) ([bc108703](https://github.com/antvis/g2plot/commit/bc1087030bedf7598c64208bf5778384b6b8f3a3))
+  *  changeData API for sankey ([#2367](https://github.com/antvis/g2plot/pull/2367)) ([63eb8181](https://github.com/antvis/g2plot/commit/63eb81815e037a52d61eb995c96aff15f6883950))
+*  treemap 提供 changeData 能力 ([#2370](https://github.com/antvis/g2plot/pull/2370)) ([69e17cf4](https://github.com/antvis/g2plot/commit/69e17cf4902f43f6487ba2bf9b1e259e6c2b7d70))
+*  sankey node depth configure ([#2357](https://github.com/antvis/g2plot/pull/2357)) ([fa63cb9c](https://github.com/antvis/g2plot/commit/fa63cb9ca89c7ee77dacd32dafbad09a2be6be89))
+*  玫瑰图新增 startAngle、endAngle ([#2350](https://github.com/antvis/g2plot/pull/2350)) ([15e16036](https://github.com/antvis/g2plot/commit/15e16036f41d5aaea2d0883c1fbfba62499609b1))
+*  multiview 支持 multi-plots && 支持 association 🎉🎉🎉 ([#2294](https://github.com/antvis/g2plot/pull/2294)) ([90a85929](https://github.com/antvis/g2plot/commit/90a8592990638727540102dfc1e27fbe34787eba))
+* **gauge:**  仪表盘支持 annotations ([#2345](https://github.com/antvis/g2plot/pull/2345)) ([2f5b0e85](https://github.com/antvis/g2plot/commit/2f5b0e8572b18bad83e2543ae18701a50800db36))
+* **ring-progress:**  将环形进度条的 z-index 进行调整,默认置顶 shape0 ([#2344](https://github.com/antvis/g2plot/pull/2344)) ([d6438e85](https://github.com/antvis/g2plot/commit/d6438e853370891c6c291ed03d6ffd004bbfeb05))
+
+##### Bug Fixes
+
+* **sankey:**  shape order same with data, layout space ([#2354](https://github.com/antvis/g2plot/pull/2354)) ([c86625ca](https://github.com/antvis/g2plot/commit/c86625cacf59ff4c303075a99d86bc665190d92a))
+
 #### 2.3.12 (2021-02-23)
 
 ##### Documentation Changes

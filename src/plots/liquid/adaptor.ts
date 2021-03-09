@@ -4,7 +4,7 @@ import { interaction, animation, theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign, renderStatistic } from '../../utils';
 import { interval } from '../../adaptor/geometries';
-import { LiquidOptions } from './types';
+import { LiquidOptions, CustomInfo } from './types';
 import { getLiquidData } from './utils';
 
 /**
@@ -13,7 +13,7 @@ import { getLiquidData } from './utils';
  */
 function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
   const { chart, options } = params;
-  const { percent, color, liquidStyle, radius, outline, wave } = options;
+  const { percent, color, liquidStyle, radius, outline, wave, shape } = options;
 
   chart.scale({
     percent: {
@@ -40,13 +40,17 @@ function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
   });
   const { ext } = interval(p);
   const geometry = ext.geometry as Geometry;
-
-  // 将 radius 传入到自定义 shape 中
-  geometry.customInfo({
+  const { background } = chart.getTheme();
+  const customInfo: CustomInfo = {
     radius,
     outline,
     wave,
-  });
+    shape,
+    background,
+  };
+
+  // 将 radius 传入到自定义 shape 中
+  geometry.customInfo(customInfo);
 
   // 关闭组件
   chart.legend(false);

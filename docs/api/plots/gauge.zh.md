@@ -51,6 +51,7 @@ order: 5
 | ------ | -------- | ------------------------------------ |
 | ticks  | _number[]_ | 辅助圆弧显示数字数组                 |
 | color  | _string \|string[]_ | 辅助圆弧的颜色色板，按照色板顺序取值; 当设置 ticks 时，color 无法使用回调的方式 |
+| width | _number_ | 对辅助圆弧的宽度进行像素级别的设置。默认通过 radius，innerRadius 来计算辅助圆弧的宽度。|
 
 <playground rid="gauge" path="progress-plots/gauge/demo/custom-color.ts"></playground>
 
@@ -71,6 +72,14 @@ order: 5
 | stepRatio  | _number_ | [0, 1] 范围。代表着 step 和 gap 的比例关系，当 `stepRatio` 为 1 时，gap 为 0 | 0.5，即默认 step 等于 gap 宽度 |
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/WBhwhNUzkg/image.png" width="400" align="center" style="display:flex;margin:0 auto;" alt="gauge">
+
+#### gaugeStyle
+
+<description>**optional** _StyleAttr | Function_</description>
+
+仪表盘的样式设置。
+
+`markdown:docs/common/shape-style.zh.md`
 
 ### 图表组件
 

@@ -88,7 +88,7 @@ Default configuration:
 <description>**optional** _object_</description>
 
 Hierarchical layout configuration, such as' tile ', etc., refer to detailed configuration [d3-hierarchy](https://github.com/d3/d3-hierarchy#treemap)。
-The default is `{tile: 'treemapResquarify'}`
+The default is `{tile: 'treemapSquarify', ratio: 0.5 * (1 + Math.sqrt(5))}` (Golden Section Ratio)
 
 ### Plot Components
 

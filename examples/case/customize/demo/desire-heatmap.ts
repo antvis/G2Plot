@@ -86,7 +86,7 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/wOj8DF0KF0/desire-heatmap.json'
           label: {
             formatter: (datum) => datum.item,
             layout: [{ type: 'adjust-color' }],
-            style: { fontWeight: 700, fontSize: size < 32 ? size * 0.46 : size < 40 ? 0.48 : 0.3 },
+            style: { fontWeight: 700, fontSize: 14 * (size < 32 ? 0.8 : size < 40 ? 1.48 : 1.3) },
           },
         });
       }

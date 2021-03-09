@@ -1,7 +1,8 @@
-import { get } from '@antv/util';
+import { get, isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme, tooltip, scale } from '../../adaptor/common';
 import { flow, transformLabel, deepAssign } from '../../utils';
+import { Datum } from '../../types';
 import { interval, point } from '../../adaptor/geometries';
 import { BulletOptions } from './types';
 import { transformData } from './utils';
@@ -63,7 +64,9 @@ function geometry(params: Params<BulletOptions>): Params<BulletOptions> {
       point: {
         color: get(color, 'target'),
         style: get(bulletStyle, 'target'),
-        size: get(size, 'target') / 2,
+        size: isFunction(get(size, 'target'))
+          ? (data: Datum) => get(size, 'target')(data) / 2
+          : get(size, 'target') / 2,
         shape: layout === 'horizontal' ? 'line' : 'hyphen',
       },
     },

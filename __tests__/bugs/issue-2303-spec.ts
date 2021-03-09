@@ -78,5 +78,7 @@ describe('#2303', () => {
     chart.changeData(data1);
     expect(domainMin(chart, 'y')).toBeLessThan(0); // 不是所有数据大于 0， 所以最小应该小于 0
     expect(domainMax(chart, 'y')).toBeGreaterThan(0);
+
+    chart.destroy();
   }
 });

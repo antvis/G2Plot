@@ -19,6 +19,22 @@
         "en": "Liquid plot - custom style"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*DIzzR6M4T94AAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "diamond.ts",
+      "title": {
+        "zh": "其他形状的水波图",
+        "en": "Liquid plot - built-in shape"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IzMHQL12utQAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "custom.ts",
+      "title": {
+        "zh": "形状自定义的水波图",
+        "en": "Liquid plot - custom shape"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*9MbOSZwdKmYAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

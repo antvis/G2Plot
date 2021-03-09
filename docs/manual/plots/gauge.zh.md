@@ -96,6 +96,23 @@ Example:
 
 <playground path="progress-plots/gauge/demo/custom-color.ts" rid="rect2"></playground>
 
+### 设置辅助圆弧的宽度
+
+通过设置 `range` 的 `'width'` 来对辅助圆弧的宽度进行像素级别的设置。默认通过 radius，innerRadius 来计算辅助圆弧的宽度。
+
+Example:
+
+```ts
+{
+  range: {
+    color: '#30BF78',
+    width: 16,
+  },
+}
+```
+
+<playground path="progress-plots/gauge/demo/range-width.ts" rid="rect-range-width"></playground>
+
 ### 设置仪表盘展示类型
 
 通过设置 `type: 'meter'`, 可以实现一个展示形态为**米轨**的仪表盘。

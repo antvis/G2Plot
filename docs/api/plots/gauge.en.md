@@ -51,6 +51,7 @@ Dashboard auxiliary arc style.
 | ---------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | ticks      | _number[]_          | Dashboard auxiliary arc style.                                                                                                                  |
 | color      | _string \|string[]_ | The color swatches of auxiliary arcs are selected in accordance with the color swatches; When ticks are set, color cannot be used as a callback |
+| width |  _number_ | Setting the width of gauge range. Default using `'radius', 'innerRadius'` to calculate the width of range. |
 
 <playground rid="gauge" path="progress-plots/gauge/demo/basic.ts"></playground>
 
@@ -72,6 +73,16 @@ It works when `type = 'meter'`. Properties are as followed:
 | stepRatio  | _number_ | 0 ~ 1. Represent the ratio between `step` and `gap`. `gap` is zero when `stepRatio` is setting to `1` | 0.5 |
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/WBhwhNUzkg/image.png" width="400" align="center" style="display:flex;margin:0 auto;" alt="gauge">
+
+#### gaugeStyle
+
+<description>**optional** _StyleAttr | Function_</description>
+
+Gauge graphic style.
+
+`markdown:docs/common/shape-style.en.md`
+
+### Plot Components
 
 #### axis
 

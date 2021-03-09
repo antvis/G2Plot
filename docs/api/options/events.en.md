@@ -38,7 +38,7 @@ In `Basic Events`, as long as these events are triggered in the canvas, they wil
 
 - When the column of the column plot is clicked
 - When a certain item of the legend is hovered
-- When the axis label is dbclicked
+- When the axis label is dblclicked
 - and so on...
 
 In this case, we can use the composite event of G2. The composite event rule of G2 is: `component name: basic event name`, namely:
@@ -51,7 +51,7 @@ For example, corresponding to the above scenarios, the event name is:
 
 - element:click
 - legend-item:mouseover
-- axis-label:dbclick
+- axis-label:dblclick
 - and so on...
 
 > Among the built-in components of G2Plot(G2), the classification of componentName is very detailed, which can be roughly explained with the following figure.

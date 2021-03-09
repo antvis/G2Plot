@@ -1,5 +1,6 @@
 import { Liquid } from '../../src';
 import { createDiv } from '../utils/dom';
+import { getRadius } from '../unit/plots/liquid/index-spec';
 
 describe('#2236', () => {
   it('liquid distance', () => {
@@ -16,14 +17,10 @@ describe('#2236', () => {
         length: 128,
       },
     });
-
     liquid.render();
 
     // @ts-ignore
-    expect(liquid.chart.middleGroup.getChildren()[0].getChildren()[1].get('clipShape').attr('r')).toBe(132);
-    // clipShape r + distance + border / 2
-    // @ts-ignore
-    expect(liquid.chart.middleGroup.getChildren()[0].getChildren()[0].attr('r')).toBe(132 + 1 + 4 / 2);
+    expect(getRadius(liquid)).toBe(133);
 
     liquid.destroy();
   });

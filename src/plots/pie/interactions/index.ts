@@ -2,7 +2,9 @@ import { registerAction, registerInteraction } from '@antv/g2';
 import { PieLegendAction } from './pie-legend-action';
 import { StatisticAction } from './pie-statistic-action';
 
-registerAction('pie-statistic', StatisticAction);
+export const PIE_STATISTIC = 'pie-statistic';
+
+registerAction(PIE_STATISTIC, StatisticAction);
 registerInteraction('pie-statistic-active', {
   start: [{ trigger: 'element:mouseenter', action: 'pie-statistic:change' }],
   end: [{ trigger: 'element:mouseleave', action: 'pie-statistic:reset' }],

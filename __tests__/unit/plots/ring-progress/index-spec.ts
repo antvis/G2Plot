@@ -1,6 +1,7 @@
 import { RingProgress } from '../../../../src';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/ring-progress/constants';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 
 describe('ring-progress', () => {
   it('data', () => {
@@ -275,7 +276,7 @@ describe('ring-progress', () => {
     ring.destroy();
   });
 
-  it('style callback', () => {
+  it('style callback', async () => {
     const div = createDiv();
     const ring = new RingProgress(div, {
       width: 200,
@@ -298,10 +299,9 @@ describe('ring-progress', () => {
 
     ring.render();
 
-    setTimeout(() => {
-      const annotation = div.querySelector('.g2-html-annotation');
-      expect((annotation as HTMLElement).style['font-size']).toBe(`${20 * 0.6}px`);
-    }, 50);
+    await delay(10);
+    const annotation = div.querySelector('.g2-html-annotation');
+    expect((annotation as HTMLElement).style['font-size']).toBe(`${20 * 0.6}px`);
 
     ring.destroy();
   });

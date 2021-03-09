@@ -27,7 +27,8 @@ const data = [
     target: 100,
   },
 ];
-describe('bullet-issue-2229', () => {
+
+describe('#2229', () => {
   it('measureSize*rangeSize*targetSize', () => {
     const bullet = new Bullet(createDiv('measureSize*rangeSize bullet'), {
       width: 400,
@@ -38,13 +39,13 @@ describe('bullet-issue-2229', () => {
       targetField: 'target',
       xField: 'title',
       size: {
-        range: (arg) => {
+        range: () => {
           return 20;
         },
-        measure: (arg) => {
+        measure: () => {
           return 15;
         },
-        target: (arg) => {
+        target: () => {
           return 20;
         },
       },

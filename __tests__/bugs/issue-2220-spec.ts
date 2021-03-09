@@ -19,7 +19,7 @@ describe('pie tooltip', () => {
     const box = pie.chart.geometries[0].elements[0].shape.getBBox();
     const point = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
 
-    await delay(100);
+    await delay(80);
     pie.chart.showTooltip(point);
     await delay(100);
     const tooltipName = div.querySelector('.g2-tooltip .g2-tooltip-name');
@@ -32,7 +32,7 @@ describe('pie tooltip', () => {
     const box = pie.chart.geometries[0].elements[0].shape.getBBox();
     const point = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
 
-    await delay(100);
+    await delay(80);
     pie.chart.showTooltip(point);
     await delay(100);
     // @ts-ignore

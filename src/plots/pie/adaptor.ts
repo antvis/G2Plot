@@ -1,11 +1,13 @@
-import { isFunction, isString, isNil, get, isArray, isNumber } from '@antv/util';
+import { isFunction, isString, isNil, get, isArray, isNumber, each } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { legend, interaction, animation, theme, state, annotation } from '../../adaptor/common';
+import { legend, animation, theme, state, annotation } from '../../adaptor/common';
 import { getMappingFunction } from '../../adaptor/geometries/base';
 import { interval } from '../../adaptor/geometries';
+import { Interaction } from '../../types/interaction';
 import { flow, template, transformLabel, deepAssign, renderStatistic } from '../../utils';
 import { DEFAULT_OPTIONS } from './contants';
 import { adaptOffset, getTotalValue, processIllegalData, isAllZero } from './utils';
+import { PIE_STATISTIC } from './interactions';
 import { PieOptions } from './types';
 
 /**
@@ -168,19 +170,13 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
 }
 
 /**
- * statistic 中心文本配置
- * @param params
+ * statistic options 处理
+ * 1. 默认继承 default options 的样式
+ * 2. 默认使用 meta 的 formatter
  */
-export function pieAnnotation(params: Params<PieOptions>): Params<PieOptions> {
-  const { chart, options } = params;
+export function transformStatisticOptions(options: PieOptions): PieOptions {
   const { innerRadius, statistic, angleField, colorField, meta } = options;
-  // 先清空标注，再重新渲染
-  chart.getController('annotation').clear(true);
 
-  // 先进行其他 annotations，再去渲染统计文本
-  flow(annotation())(params);
-
-  /** 中心文本 指标卡 */
   if (innerRadius && statistic) {
     let { title, content } = deepAssign({}, DEFAULT_OPTIONS.statistic, statistic);
     if (title !== false) {
@@ -199,7 +195,28 @@ export function pieAnnotation(params: Params<PieOptions>): Params<PieOptions> {
         content
       );
     }
-    renderStatistic(chart, { statistic: { title, content }, plotType: 'pie' });
+
+    return deepAssign({}, { statistic: { title, content } }, options);
+  }
+  return options;
+}
+
+/**
+ * statistic 中心文本配置
+ * @param params
+ */
+export function pieAnnotation(params: Params<PieOptions>): Params<PieOptions> {
+  const { chart, options } = params;
+  const { innerRadius, statistic } = transformStatisticOptions(options);
+  // 先清空标注，再重新渲染
+  chart.getController('annotation').clear(true);
+
+  // 先进行其他 annotations，再去渲染统计文本
+  flow(annotation())(params);
+
+  /** 中心文本 指标卡 */
+  if (innerRadius && statistic) {
+    renderStatistic(chart, { statistic, plotType: 'pie' });
   }
 
   return params;
@@ -228,6 +245,41 @@ function tooltip(params: Params<PieOptions>): Params<PieOptions> {
     }
     chart.geometries[0].tooltip(fields.join('*'), getMappingFunction(fields, formatter));
   }
+
+  return params;
+}
+
+/**
+ * Interaction 配置 (饼图特殊的 interaction, 中心文本变更的时候，需要将一些配置参数传进去）
+ * @param params
+ */
+export function interaction(params: Params<PieOptions>): Params<PieOptions> {
+  const { chart, options } = params;
+  const { interactions, statistic, annotations } = transformStatisticOptions(options);
+
+  each(interactions, (i: Interaction) => {
+    if (i.enable === false) {
+      chart.removeInteraction(i.type);
+    } else if (i.type === 'pie-statistic-active') {
+      // 只针对 start 阶段的配置，进行添加参数信息
+      let startStages = [];
+      if (!i.cfg?.start) {
+        startStages = [
+          {
+            trigger: 'element:mouseenter',
+            action: `${PIE_STATISTIC}:change`,
+            arg: { statistic, annotations },
+          },
+        ];
+      }
+      each(i.cfg?.start, (stage) => {
+        startStages.push({ ...stage, arg: { statistic, annotations } });
+      });
+      chart.interaction(i.type, deepAssign({}, i.cfg, { start: startStages }));
+    } else {
+      chart.interaction(i.type, i.cfg || {});
+    }
+  });
 
   return params;
 }

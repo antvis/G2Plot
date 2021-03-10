@@ -1,14 +1,15 @@
 import { Pie } from '../../../../src';
 import { salesByArea } from '../../../data/sales';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 
 describe('annotation', () => {
   const pie = new Pie(createDiv(), {
     width: 300,
     height: 400,
     data: salesByArea,
-    colorField: 'sales',
-    angleField: 'area',
+    colorField: 'area',
+    angleField: 'sales',
     innerRadius: 0.64,
   });
 
@@ -55,7 +56,7 @@ describe('annotation', () => {
     expect(pie.chart.getController('annotation').getComponents()[1].component.get('type')).toBe('line');
   });
 
-  it('annotation with change data', () => {
+  it('annotation with change data', async () => {
     pie.update({ data: [], statistic: {} });
     expect(pie.chart.getController('annotation').getComponents().length).toBe(4);
     expect(pie.chart.getController('annotation').getComponents()[0].component.get('content')).toBe('辅助文本');
@@ -65,14 +66,13 @@ describe('annotation', () => {
     expect(annotations[1].innerText).toBe('');
 
     pie.changeData(salesByArea);
-    setTimeout(() => {
-      expect(pie.chart.getController('annotation').getComponents().length).toBe(4);
-      expect(pie.chart.getController('annotation').getComponents()[0].component.get('content')).toBe('辅助文本');
-      // @ts-ignore
-      annotations = pie.chart.ele.querySelectorAll('.g2-html-annotation') as HTMLDivElement[];
-      expect(annotations[0].innerText).toBe('总计');
-      expect(annotations[1].innerText).toBe(salesByArea.reduce((a, b) => a + b.sales, 0));
-    }, 0);
+    await delay(5);
+    expect(pie.chart.getController('annotation').getComponents().length).toBe(4);
+    expect(pie.chart.getController('annotation').getComponents()[0].component.get('content')).toBe('辅助文本');
+    // @ts-ignore
+    annotations = pie.chart.ele.querySelectorAll('.g2-html-annotation') as HTMLDivElement[];
+    expect(annotations[0].innerText).toBe('总计');
+    expect(annotations[1].innerText).toBe(`${salesByArea.reduce((a, b) => a + b.sales, 0)}`);
   });
 
   it('先更新为 false，再更新出现, 且样式不变', () => {
@@ -80,8 +80,8 @@ describe('annotation', () => {
       width: 300,
       height: 400,
       data: salesByArea,
-      colorField: 'sales',
-      angleField: 'area',
+      colorField: 'area',
+      angleField: 'sales',
       innerRadius: 0.64,
     });
 

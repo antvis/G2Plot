@@ -2,8 +2,8 @@ import { Chart } from '@antv/g2';
 import { Pie, PieOptions } from '../../../../src';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/pie/contants';
 import { POSITIVE_NEGATIVE_DATA } from '../../../data/common';
-import { delay } from '../../../utils/delay';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 
 const data = POSITIVE_NEGATIVE_DATA.filter((o) => o.value > 0).map((d, idx) =>
   idx === 1 ? { ...d, type: 'item1' } : d
@@ -256,7 +256,7 @@ describe('中心文本 - 指标卡', () => {
     pie.destroy();
   });
 
-  it('自定义中心文本内容: title & content, 动态数据', () => {
+  it('自定义中心文本内容: title & content, 动态数据', async () => {
     const totalValue = config.data.reduce((a, b) => a + b.value, 0);
     const pie = new Pie(createDiv(), {
       ...config,
@@ -267,7 +267,7 @@ describe('中心文本 - 指标卡', () => {
         },
         content: {
           formatter: (datum, data) => {
-            return !datum ? `test\ntest ${data.reduce((a, b) => a + b.value, 0)}` : `${datum.value}`;
+            return !datum ? `test-test ${data.reduce((a, b) => a + b.value, 0)}` : `${datum.value}`;
           },
           rotate: (30 / 180) * Math.PI,
         },
@@ -278,11 +278,10 @@ describe('中心文本 - 指标卡', () => {
 
     const annotations = getAnnotations(pie.chart);
     expect(annotations.length).toBeGreaterThan(0);
-    setTimeout(() => {
-      const htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
-      expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('总计' /** 中心文本指标卡，默认title */);
-      expect((htmlAnnotations[1] as HTMLElement).innerText).toBe(`test\ntest ${totalValue}`);
-    }, 50);
+    await delay(1);
+    const htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('总计' /** 中心文本指标卡，默认title */);
+    expect((htmlAnnotations[1] as HTMLElement).innerText).toBe(`test-test ${totalValue}`);
 
     pie.destroy();
   });
@@ -306,20 +305,21 @@ describe('中心文本 - 指标卡', () => {
     expect(htmlAnnotations[0].getBoundingClientRect().width).toEqual(600);
   });
 
-  it('statistic 默认继承 defaultOptions', () => {
+  it('statistic 默认继承 defaultOptions', async () => {
     pie.update({ statistic: null });
     expect(pie.chart.ele.querySelectorAll('.g2-html-annotation').length).toBe(0);
 
     pie.update({ statistic: {} });
     expect(pie.chart.ele.querySelectorAll('.g2-html-annotation').length).toBe(2);
     expect(pie.options.statistic).toEqual({});
-    setTimeout(() => {
-      // @ts-ignore
-      const annotations = pie.chart.ele.querySelectorAll('.g2-html-annotation') as HTMLDivElement[];
-      expect(annotations[0].style.fontSize).toEqual(DEFAULT_OPTIONS.statistic.title.fontSize);
-      expect(annotations[1].style.color).toEqual(DEFAULT_OPTIONS.statistic.content.color);
-      expect(annotations[1].style).toMatchObject(DEFAULT_OPTIONS.statistic.content);
-    }, 0);
+    await delay(1);
+
+    // @ts-ignore
+    const annotations = pie.chart.ele.querySelectorAll('.g2-html-annotation') as HTMLDivElement[];
+    expect(annotations[0].style.fontSize).toEqual(DEFAULT_OPTIONS.statistic.title.style.fontSize);
+    // 移除空格
+    expect(annotations[1].style.color.replace(/\s+/g, '')).toEqual(DEFAULT_OPTIONS.statistic.content.style.color);
+    expect(annotations[1].style.textAlign).toBe(DEFAULT_OPTIONS.statistic.content.style.textAlign);
   });
 
   afterEach(() => {

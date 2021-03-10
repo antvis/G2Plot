@@ -1,6 +1,6 @@
 import { registerInteraction, registerAction } from '@antv/g2';
 import { TreemapDrillDownAction } from './actions/treemap-drill-down-action';
-import { isTopParentNode, hasHistoryDrill } from './util';
+import { isTopParentNode } from './util';
 
 registerAction('treemap-drill-down-action', TreemapDrillDownAction);
 
@@ -13,15 +13,7 @@ registerInteraction('treemap-drill-down', {
     {
       trigger: 'element:click',
       isEnable: isTopParentNode,
-      action: ['treemap-drill-down-action:click', 'reset-button:show'],
-    },
-  ],
-  rollback: [
-    { trigger: 'reset-button:click', action: ['treemap-drill-down-action:reset'] },
-    {
-      trigger: 'reset-button:click',
-      action: ['reset-button:hide'],
-      isEnable: (context) => !hasHistoryDrill(context),
+      action: ['treemap-drill-down-action:click'],
     },
   ],
 });

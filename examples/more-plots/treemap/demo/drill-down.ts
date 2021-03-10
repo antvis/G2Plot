@@ -20,6 +20,9 @@ fetch('https://gw.alipayobjects.com/os/basement_prod/c2589761-62d6-411d-9d51-794
     const treemapPlot = new Treemap('container', {
       data: rootData,
       colorField: 'name',
+      legend: {
+        position: 'top-left',
+      },
       interactions: [
         {
           type: 'treemap-drill-down',

@@ -1,6 +1,7 @@
 import { Chart } from '@antv/g2';
 import { Types } from '@antv/g2';
-import { isArray, isFunction, isNumber, isString } from '@antv/util';
+import { isArray, isFunction, isString } from '@antv/util';
+import { normalPadding } from '../../utils/padding';
 import { Params } from '../../core/adaptor';
 import { Datum } from '../../types';
 import { log, LEVEL, getContainerSize } from '../../utils';
@@ -149,34 +150,6 @@ function resolvePadding(options: { padding: Types.ViewPadding; appendPadding: Ty
   const left = padding[3] + appendPadding[3];
 
   return [top, right, bottom, left];
-}
-
-/**
- * 把 padding 转换成统一的数组写法
- * @param padding
- */
-function normalPadding(padding: number | number[] | 'auto'): [number, number, number, number] {
-  if (isNumber(padding)) {
-    return [padding, padding, padding, padding];
-  }
-  if (isArray(padding)) {
-    const length = padding.length;
-
-    if (length === 1) {
-      return [padding[0], padding[0], padding[0], padding[0]];
-    }
-    if (length === 2) {
-      return [padding[0], padding[1], padding[0], padding[1]];
-    }
-    if (length === 3) {
-      return [padding[0], padding[1], padding[2], padding[1]];
-    }
-    if (length === 4) {
-      return padding as [number, number, number, number];
-    }
-  }
-
-  return [0, 0, 0, 0];
 }
 
 /**

@@ -134,17 +134,16 @@ describe('Stock tooltip', () => {
         crosshairs: {
           type: 'xy',
           follow: true,
-          text: (
-            type, // 对应当前 crosshairs 的类型，值为 'x' 或者 'y'
-            defaultContent, // 对应当前 crosshairs 默认的文本内容
-            items, // 对应当前 tooltip 内容框中的数据
-            currentPoint // 对应当前坐标点
-          ) => {
-            console.log(type, defaultContent, items, currentPoint);
-            return {
-              content: 'custom text',
-            };
-          },
+          text: () =>
+            // type, // 对应当前 crosshairs 的类型，值为 'x' 或者 'y'
+            // defaultContent, // 对应当前 crosshairs 默认的文本内容
+            // items, // 对应当前 tooltip 内容框中的数据
+            // currentPoint // 对应当前坐标点
+            {
+              return {
+                content: 'custom text',
+              };
+            },
         },
       },
     });

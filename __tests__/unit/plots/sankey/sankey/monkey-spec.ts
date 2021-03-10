@@ -34,6 +34,11 @@ const C = [
 
 describe('sankey', () => {
   it('monkey for deep', () => {
+    const fn = jest.fn();
+    window.console.error = fn;
+    window.console.warn = fn;
+    window.console.log = fn;
+
     for (let i = 0; i < 100; i++) {
       const layout = sankey()
         .nodeWidth(0.008)

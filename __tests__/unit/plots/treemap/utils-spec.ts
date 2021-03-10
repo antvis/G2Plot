@@ -355,6 +355,5 @@ describe('treemap transformData', () => {
     expect(getAdjustAppendPadding([10, 20])).toStrictEqual([10, 20, 35, 20]);
     expect(getAdjustAppendPadding([10, 20, 30])).toStrictEqual([10, 20, 55, 20]);
     expect(getAdjustAppendPadding([10, 20, 30, 40])).toStrictEqual([10, 20, 55, 40]);
-    expect(getAdjustAppendPadding([10, 20, 30, 40, 50])).toStrictEqual([10, 20, 55, 40]);
   });
 });

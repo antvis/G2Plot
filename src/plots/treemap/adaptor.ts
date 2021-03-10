@@ -1,5 +1,3 @@
-import { isArray } from '@antv/util';
-import { parsePadding } from '@antv/g2/lib/util/padding';
 import { polygon as basePolygon } from '../../adaptor/geometries/polygon';
 import { Params } from '../../core/adaptor';
 import { interaction as commonInteraction, animation, theme, legend, annotation, tooltip } from '../../adaptor/common';
@@ -138,6 +136,7 @@ export function interaction(params: Params<TreemapOptions>): Params<TreemapOptio
   // 适应下钻交互面包屑
   const enableDrillInteraction = enableInteraction(interactions, 'treemap-drill-down');
   if (enableDrillInteraction) {
+    // 为面包屑在底部留出 25px 的空间
     chart.appendPadding = getAdjustAppendPadding(chart.appendPadding);
   } else {
     // 因在下钻过程中，可能存在更新 interaction 的行为，因此在此做一次清除

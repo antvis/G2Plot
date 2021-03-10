@@ -1,6 +1,6 @@
 import { isArray } from '@antv/util';
 import { Types } from '@antv/g2';
-import { parsePadding } from '@antv/g2/lib/util/padding';
+import { normalPadding } from '../../utils/padding';
 import { Interaction } from '../../types/interaction';
 import { treemap } from '../../utils/hierarchy/treemap';
 import { deepAssign } from '../../utils';
@@ -16,7 +16,6 @@ export function findInteraction(
 
 export function enableInteraction(interactions: TreemapOptions['interactions'], interactionType: string): boolean {
   const interaction = findInteraction(interactions, interactionType);
-  console.log(interaction);
   return interaction && interaction.enable !== false;
 }
 
@@ -93,7 +92,7 @@ export function transformData(options: TransformDataOptions) {
 }
 
 export function getAdjustAppendPadding(padding: Types.ViewAppendPadding) {
-  const currentAppendPadding = parsePadding(padding);
+  const currentAppendPadding = normalPadding(padding);
   const BOTTOM = 25;
   return [currentAppendPadding[0], currentAppendPadding[1], currentAppendPadding[2] + BOTTOM, currentAppendPadding[3]];
 }

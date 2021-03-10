@@ -4,7 +4,7 @@ on: ["pull_request"]
 
 jobs:
   lint:
-    runs-on: macos-latest
+    runs-on: macos-10.14
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js 12
@@ -19,7 +19,7 @@ jobs:
           npm run lint
 
   build:
-    runs-on: macos-latest
+    runs-on: macos-10.14
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js 12
@@ -34,7 +34,7 @@ jobs:
           npm run build
 
   test:
-    runs-on: macos-latest
+    runs-on: macos-10.14
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js 12

@@ -5,6 +5,7 @@ import { delay } from '../../../utils/delay';
 import { createDiv } from '../../../utils/dom';
 import { Pie } from '../../../../src';
 import { StatisticAction } from '../../../../src/plots/pie/interactions/pie-statistic-action';
+import { transformStatisticOptions } from '../../../../src/plots/pie/adaptor';
 
 describe('register interaction', () => {
   it('创建 "pie-statistic" action', () => {
@@ -41,7 +42,8 @@ describe('register interaction', () => {
 
   it('触发 pie-statistic:change', async () => {
     context.event = { type: 'custom', data: { data: { type: 'item3', value: 13 } } };
-    action.change();
+    const { statistic, annotations } = transformStatisticOptions(pie.options);
+    action.change({ statistic, annotations });
 
     await delay(50);
 

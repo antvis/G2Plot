@@ -267,7 +267,7 @@ describe('中心文本 - 指标卡', () => {
         },
         content: {
           formatter: (datum, data) => {
-            return !datum ? `test\ntest ${data.reduce((a, b) => a + b.value, 0)}` : `${datum.value}`;
+            return !datum ? `test-test ${data.reduce((a, b) => a + b.value, 0)}` : `${datum.value}`;
           },
           rotate: (30 / 180) * Math.PI,
         },
@@ -281,7 +281,7 @@ describe('中心文本 - 指标卡', () => {
     await delay(1);
     const htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
     expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('总计' /** 中心文本指标卡，默认title */);
-    expect((htmlAnnotations[1] as HTMLElement).innerText).toBe(`test\ntest ${totalValue}`);
+    expect((htmlAnnotations[1] as HTMLElement).innerText).toBe(`test-test ${totalValue}`);
 
     pie.destroy();
   });
@@ -316,9 +316,10 @@ describe('中心文本 - 指标卡', () => {
 
     // @ts-ignore
     const annotations = pie.chart.ele.querySelectorAll('.g2-html-annotation') as HTMLDivElement[];
-    expect(annotations[0].style.fontSize).toEqual(DEFAULT_OPTIONS.statistic.title.fontSize);
-    expect(annotations[1].style.color).toEqual(DEFAULT_OPTIONS.statistic.content.color);
-    expect(annotations[1].style).toMatchObject(DEFAULT_OPTIONS.statistic.content);
+    expect(annotations[0].style.fontSize).toEqual(DEFAULT_OPTIONS.statistic.title.style.fontSize);
+    // 移除空格
+    expect(annotations[1].style.color.replace(/\s+/g, '')).toEqual(DEFAULT_OPTIONS.statistic.content.style.color);
+    expect(annotations[1].style.textAlign).toBe(DEFAULT_OPTIONS.statistic.content.style.textAlign);
   });
 
   afterEach(() => {

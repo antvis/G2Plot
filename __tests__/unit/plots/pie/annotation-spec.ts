@@ -8,8 +8,8 @@ describe('annotation', () => {
     width: 300,
     height: 400,
     data: salesByArea,
-    colorField: 'sales',
-    angleField: 'area',
+    colorField: 'area',
+    angleField: 'sales',
     innerRadius: 0.64,
   });
 
@@ -72,7 +72,7 @@ describe('annotation', () => {
     // @ts-ignore
     annotations = pie.chart.ele.querySelectorAll('.g2-html-annotation') as HTMLDivElement[];
     expect(annotations[0].innerText).toBe('总计');
-    expect(annotations[1].innerText).toBe(salesByArea.reduce((a, b) => a + b.sales, 0));
+    expect(annotations[1].innerText).toBe(`${salesByArea.reduce((a, b) => a + b.sales, 0)}`);
   });
 
   it('先更新为 false，再更新出现, 且样式不变', () => {
@@ -80,8 +80,8 @@ describe('annotation', () => {
       width: 300,
       height: 400,
       data: salesByArea,
-      colorField: 'sales',
-      angleField: 'area',
+      colorField: 'area',
+      angleField: 'sales',
       innerRadius: 0.64,
     });
 

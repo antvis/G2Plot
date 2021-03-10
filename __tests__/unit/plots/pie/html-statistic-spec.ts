@@ -3,6 +3,7 @@ import { Pie } from '../../../../src';
 import { StatisticAction } from '../../../../src/plots/pie/interactions/pie-statistic-action';
 import { POSITIVE_NEGATIVE_DATA } from '../../../data/common';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 
 describe('html-statistics', () => {
   const div = createDiv();
@@ -135,18 +136,21 @@ describe('html-statistics', () => {
     expect(container2.style['font-size']).toBe('12px');
   });
 
-  it('custom html-statistic: 触发交互', () => {
+  it('custom html-statistic: 触发交互', async () => {
     pie.render();
     const context = new InteractionContext(pie.chart);
     const action = new StatisticAction(context);
     const triggerData = POSITIVE_NEGATIVE_DATA[2];
 
     context.event = { type: 'custom', data: { data: triggerData } };
-    action.change();
+    const { statistic, annotations } = pie.options;
+    action.change({ statistic, annotations });
 
-    const annotations = document.querySelectorAll('.g2-html-annotation');
-    expect((annotations[0] as HTMLElement).innerText).toBe(`${triggerData.type}`);
-    expect((annotations[1] as HTMLElement).innerText).toBe(`${triggerData.value}`);
+    await delay(100);
+
+    const doms = document.querySelectorAll('.g2-html-annotation');
+    expect((doms[0] as HTMLElement).innerText).toBe(`${triggerData.type}`);
+    expect((doms[1] as HTMLElement).innerText).toBe(`${triggerData.value}`);
   });
 
   afterEach(() => {

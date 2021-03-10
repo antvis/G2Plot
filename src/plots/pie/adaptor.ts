@@ -236,7 +236,7 @@ function tooltip(params: Params<PieOptions>): Params<PieOptions> {
   } else {
     chart.tooltip(deepAssign({}, tooltip, { shared: false }));
 
-    // 主要解决 all zero， 对于非 all zero 也适用
+    // 主要解决 all zero， 对于非 all zero 不再适用
     if (isAllZero(data, angleField)) {
       let fields = get(tooltip, 'fields');
       let formatter = get(tooltip, 'formatter');

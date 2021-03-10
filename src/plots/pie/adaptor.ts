@@ -1,4 +1,4 @@
-import { isFunction, isString, isNil, get, isArray, isNumber, each } from '@antv/util';
+import { isFunction, isString, isNil, get, isArray, isNumber, each, toString, isEmpty } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { legend, animation, theme, state, annotation } from '../../adaptor/common';
 import { getMappingFunction } from '../../adaptor/geometries/base';
@@ -229,21 +229,24 @@ export function pieAnnotation(params: Params<PieOptions>): Params<PieOptions> {
  */
 function tooltip(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
-  const { tooltip, colorField, angleField } = options;
+  const { tooltip, colorField, angleField, data } = options;
 
   if (tooltip === false) {
     chart.tooltip(tooltip);
   } else {
     chart.tooltip(deepAssign({}, tooltip, { shared: false }));
 
-    const fields = get(tooltip, 'fields') || [colorField, angleField];
-    let formatter = get(tooltip, 'formatter');
+    // 主要解决 all zero， 对于非 all zero 也适用
+    if (isAllZero(data, angleField)) {
+      let fields = get(tooltip, 'fields');
+      let formatter = get(tooltip, 'formatter');
 
-    if (!formatter) {
-      // 主要解决 all zero， 对于非 all zero 也适用
-      formatter = (datum) => ({ name: datum[colorField], value: datum[angleField] });
+      if (isEmpty(get(tooltip, 'fields'))) {
+        fields = [colorField, angleField];
+        formatter = formatter || ((datum) => ({ name: datum[colorField], value: toString(datum[angleField]) }));
+      }
+      chart.geometries[0].tooltip(fields.join('*'), getMappingFunction(fields, formatter));
     }
-    chart.geometries[0].tooltip(fields.join('*'), getMappingFunction(fields, formatter));
   }
 
   return params;

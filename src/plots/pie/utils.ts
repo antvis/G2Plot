@@ -64,5 +64,5 @@ export function processIllegalData(data: PieOptions['data'], angleField: string)
  * @param angleField
  */
 export function isAllZero(data: PieOptions['data'], angleField: string): boolean {
-  return every(data, (d) => d[angleField] === 0);
+  return every(processIllegalData(data, angleField), (d) => d[angleField] === 0);
 }

@@ -11,13 +11,13 @@
 * 矩形树图：新增下钻面包屑指引 ([#2386](https://github.com/antvis/G2Plot/pull/2386)) ([ff9a470](https://github.com/antvis/G2Plot/commit/ff9a470b5327137067981cbcccfbaa8469f3574c))
 * feat(gauge): 仪表盘支持配置 style,支持圆角仪表盘 ([#2395](https://github.com/antvis/G2Plot/pull/2395)) ([7a34182](https://github.com/antvis/G2Plot/commit/7a3418216c1377933cc28a7fd8b08bf9b6d65a96))
 * feat(gauge): gauge 支持像素级别设置宽度 ([#2402](https://github.com/antvis/G2Plot/pull/2402)) ([e87ea30](https://github.com/antvis/G2Plot/commit/e87ea301aa9646223200e54e9506e8c3bf9bf3de))
+
 ##### Bug Fixes
 
 * Fix/liquid shape bugs ([#2396](https://github.com/antvis/G2Plot/pull/2396)) ([e416b44](https://github.com/antvis/G2Plot/commit/e416b449bf371ffa0055dbd00d2d6c30234a1e21))
 * fix: bullet 的 target 支持回调函数处理 ([#2397](https://github.com/antvis/G2Plot/pull/2397)) ([02d9942](https://github.com/antvis/G2Plot/commit/02d994283b0272f584ce132d3decdc097d8f0b15))
 * fix(#2375): 修复饼图中心文本交互没有使用 custom-html ([#2413](https://github.com/antvis/G2Plot/pull/2413)) ([bb848cf](https://github.com/antvis/G2Plot/commit/bb848cf3a58353a2508d38f65975e13963d27fd5))
 * fix(pie-tooltip): tooltip 默认设置 fields 和 formatter 只针对全 0 场景 ([#2415](https://github.com/antvis/G2Plot/pull/2415)) ([85156c8](https://github.com/antvis/G2Plot/commit/85156c827c7c47e48596edb20cebe84cc256f9e1))
-
 
 #### 2.3.13 (2021-03-02)
 

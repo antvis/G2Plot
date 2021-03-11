@@ -50,6 +50,21 @@ describe('pie tooltip', () => {
     expect(items[0].value).toBe('yyy');
   });
 
+  it('tooltip fields is empty, no formatter, using default formatter', async () => {
+    pie.update({ tooltip: { fields: [], formatter: undefined } });
+    const tooltipController = pie.chart.getController('tooltip');
+    const box = pie.chart.geometries[0].elements[0].shape.getBBox();
+    const point = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+
+    await delay(80);
+    pie.chart.showTooltip(point);
+    await delay(100);
+    // @ts-ignore
+    const items = tooltipController.getTooltipItems(point);
+    expect(items[0].name).toBe(data[0].type);
+    expect(items[0].value).toBe(`${data[0].value}`);
+  });
+
   afterEach(() => {
     pie.chart.clear();
   });

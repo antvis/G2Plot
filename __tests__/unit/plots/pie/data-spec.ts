@@ -76,7 +76,7 @@ describe('饼图 异常数据', () => {
     const point = pie.chart.getXY({ 1: data[0].type, [positionFields[1]]: 1 / data.length });
     const tooltipItems = pie.chart.getTooltipItems(point);
     expect(tooltipItems[0].name).toBe(data[0].type);
-    expect(tooltipItems[0].value).toBe(0);
+    expect(tooltipItems[0].value).toBe('0');
 
     pie.destroy();
   });
@@ -123,7 +123,8 @@ describe('饼图 异常数据', () => {
     expect(every(labels, (label) => (label as IGroup).getChildren()[0].attr('text') === 1)).toBe(true);
     const point = pie.chart.getXY({ 1: '类型 1', value: 1 });
     const tooltipItems = pie.chart.getTooltipItems(point);
-    expect(tooltipItems[0].value).toBe(1);
+    // 正常情况，G2Plot 不再处理 formatter 返回原始数值。而G2 层的 tooltipItems 默认都是字符串
+    expect(tooltipItems[0].value).toBe('1');
 
     pie.destroy();
   });

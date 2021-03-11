@@ -106,7 +106,8 @@ export const renderStatistic = (chart: View, options: { statistic: Statistic; pl
         } else if (plotType === 'liquid') {
           const liquidShape = get(view.geometries, [0, 'elements', 0, 'shape']);
           if (liquidShape) {
-            const path = (liquidShape as IGroup).find((t) => t.get('type') === 'path');
+            // 获取到水波图边框大小
+            const path = (liquidShape as IGroup).find((t) => t.get('name') === 'wrap');
             const { width } = path.getCanvasBBox();
             containerW = width;
           }

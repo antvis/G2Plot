@@ -42,6 +42,8 @@ describe('liquid', () => {
     liquid.render();
     expect(getClipPath(liquid)).toEqual(shapes[3].clipPath);
 
+    // @ts-ignore
+    expect(liquid.chart.ele.querySelector('.g2-html-annotation').style.width).toBe('270px');
     liquid.destroy();
   });
 

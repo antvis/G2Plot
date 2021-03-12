@@ -174,6 +174,23 @@ function label(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
 }
 
 /**
+ * 极坐标
+ * @param params
+ */
+function coordinate(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
+  const { chart, options } = params;
+  const { polar } = options;
+
+  if (polar) {
+    chart.coordinate('polar', {
+      innerRadius: 0.2,
+    });
+  }
+
+  return params;
+}
+
+/**
  * 热力图适配器
  * @param chart
  * @param options
@@ -192,6 +209,7 @@ export function adaptor(params: Params<HeatmapOptions>) {
     annotation(),
     interaction,
     animation,
-    state
+    state,
+    coordinate
   )(params);
 }

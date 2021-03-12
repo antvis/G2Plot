@@ -54,6 +54,11 @@ order: 23
 <description>**可选** _rect | square | circle_</description>
 
 热力格子中的形状，密度热力图不用指定。
+#### polar
+
+<description>**可选** _true | false_ </description>
+
+是否需要极坐标，默认 false。
 
 #### sizeRatio
 

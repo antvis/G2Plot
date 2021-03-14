@@ -1,18 +1,33 @@
+import { filter, isNil } from '@antv/util';
 import { interaction, animation, theme, scale, tooltip, legend, annotation } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
 import { interval } from '../../adaptor/geometries';
+import { log, LEVEL } from '../../utils';
 import { RadialBarOptions } from './types';
 import { getScaleMax } from './utils';
 
+function data(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
+  const { chart, options } = params;
+  const { data } = options;
+  const { yField } = options;
+  // 处理不合法的数据
+  const processData = filter(data, (d) => typeof d[yField] === 'number' || isNil(d[yField]));
+
+  // 打印异常数据情况
+  log(LEVEL.WARN, processData.length === data.length, 'illegal data existed in chart data.');
+
+  chart.data(processData);
+
+  return params;
+}
 /**
  * geometry 处理
  * @param params
  */
 function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   const { chart, options } = params;
-  const { data, barStyle: style, color, tooltip, colorField, type, xField, yField } = options;
-  chart.data(data);
+  const { barStyle: style, color, tooltip, colorField, type, xField, yField } = options;
   const p = deepAssign({}, params, {
     options: {
       tooltip,
@@ -85,5 +100,17 @@ export function axis(params: Params<RadialBarOptions>): Params<RadialBarOptions>
  * @param options
  */
 export function adaptor(params: Params<RadialBarOptions>) {
-  return flow(geometry, meta, axis, coordinate, interaction, animation, theme, tooltip, legend, annotation())(params);
+  return flow(
+    data,
+    geometry,
+    meta,
+    axis,
+    coordinate,
+    interaction,
+    animation,
+    theme,
+    tooltip,
+    legend,
+    annotation()
+  )(params);
 }

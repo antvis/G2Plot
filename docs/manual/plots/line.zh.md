@@ -3,88 +3,134 @@ title: 折线图
 order: 0
 ---
 
-### 图表容器
+<div class="manual-docs">
 
-`markdown:docs/common/chart-options.zh.md`
+  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
+      <table
+        class="lake-table"
+        style="width: 100%; outline: none; border-collapse: collapse"
+      >
+        <colgroup>
+          <col width="425" span="1" />
+          <col width="340" span="1" />
+        </colgroup>
+        <tbody>
+          <tr style="height: 33px">
+            <td colspan="1" rowspan="5" style="background: #fff">
+              <playground path="line/basic/demo/line.ts"></playground>
+            </td>
+            <td class="style1">
+              <p><strong>定义</strong></p>
+              <p>
+                <span class="lake-fontsize-12"
+                  >使用一条折线的线段显示数据在一个具有顺序性的维度上的变化。</span
+                >
+              </p>
+              <p>
+                <strong>别名: </strong>
+                <span class="lake-fontsize-12">折线图、线图、基础折线图</span>
+              </p>
+            </td>
+          </tr>
+             <tr style="height: 33px">
+            <td class="style1">
+              <p><strong>何时使用</strong></p>
+              <p><span class="lake-fontsize-12">折线图用于显示数据在一个连续的时间间隔或者时间跨度上的变化，它的特点是反映事物随时间或有序类别而变化的趋势。</span></p>
+            </td>
+          </tr>
+          <tr style="height: 33px">
+            <td class="style1">
+              <p><strong>视觉通道</strong></p>
+              <p><span class="lake-fontsize-12">位置、方向</span></p>
+            </td>
+          </tr>
+          <tr style="height: 33px">
+            <td colspan="1">
+              <p><strong>分析目的</strong></p>
+              <p><span class="lake-fontsize-12">Comparison, Data Over Time</span></p>
+            </td>
+          </tr>
+          <tr style="height: 33px">
+            <td colspan="1">
+              <p><strong>数据准备</strong></p>
+              <p>
+                <span class="lake-fontsize-12">1 个「时间」或「有序名词」字段</span>
+              </p>
+              <p><span class="lake-fontsize-12">1 个「数值」字段</span></p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-### 数据映射
+## 设计指引
 
-#### data
+### 用法建议
 
-<description>**required** _array object_</description>
+<img
+  alt="design"
+  src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*NGoOQatmkx0AAAAAAAAAAABkARQnAQ"
+  width="1000"
+/>
 
-设置图表数据源。数据源为对象集合，例如：
+### 元素构成
+
+<img alt="design" src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*uxv8RJgYx4oAAAAAAAAAAABkARQnAQ" width="800">
+
+<div class="design-guide-list">
+
+- X 轴：通常对应连续数据，值为时间，调用连续数据 X 轴。
+- Y 轴：通常对应连续数据，值为数字，调用连续数据 Y 轴。
+- 图例：通常出现在多条折线图中，用来区分不同折线代表的数据含义。
+- 标签：用来解释数据点的值。
+- 辅助元素：用来解释某个特殊的数据点的值，或标记出某个特殊含义的区域。
+
+</div>
+
+## 快速上手
+
+<div class="sign">
 
 ```ts
-const data = [
-  { time: '1991'，value: 20 },
-  { time: '1992'，value: 20 },
-];
+import { Line } from '@antv/g2plot';
+
+fetch('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38ccf184.json')
+  .then((res) => res.json())
+  .then((data) => {
+    const line = new Line('container', {
+      data,
+      xField: 'Date',
+      yField: 'scales',
+    });
+
+    line.render();
+  });
 ```
 
-`markdown:docs/common/xy-field.zh.md`
+</div>
 
-#### seriesField
+📊 查看更多<a href="/zh/examples/line/basic" target='blank'>示例</a>.
 
-<description>**optional** _string_</description>
+🎨 折线图详细的配置参考 [API 文档](/zh/docs/api/plots/line)。
 
-分组字段。用于同时看一个维度中不同情况的指标需求。比如：我们看不同大区最近 30 天的销售额趋势情况，那么这里的大区字段就是 seriesField。
+## 折线图特性
 
-`markdown:docs/common/meta.zh.md`
+### 曲线图
 
-### 图形样式
+曲线图是用曲线将一系列的数据点连接的图表, 对应的只需要配置 `smooth: true` 属性即可。
 
-#### smooth
+<playground path='line/basic/demo/spline.ts' rid='rect2'></playground>
 
-<description>**optional** _boolean_ _default:_ `false`</description>
+### 阶梯型直线图
 
-曲线是否平滑。
+对应的只需要配置 `stepType` 属性即可。
 
-#### stepType
+```ts
+options: {
+  stepType: 'vh' // 可选项：hv | vh | hvh | vhv
+}
+```
 
-<description>**optional** _hv | vh | hvh | vhv_</description>
+<playground path='line/step/demo/line.ts' rid='rect3'></playground>
 
-阶梯折线图类型，配置后 smooth 无效。 这里的 h 和 v 是 `horizontal` 和 `vertical` 的首字母。所以 vh 的意思就是起始点先竖直方向，然后水平方向。
-
-#### connectNulls
-
-<description>**optional** _boolean_ _default:_ `true`</description>
-
-对于折线图中缺失的值，是否连接空数据为一条线，或者折线断开。
-
-#### isStack
-
-<description>**optional** _boolean_ _default:_ `false`</description>
-
-对于存在 seriesField 分组字段的情况，我们可以设置 isStack = true，让折线堆叠累加起来。
-
-`markdown:docs/common/color.zh.md`
-
-#### lineStyle
-
-<description>**optional** _StyleAttr | Function_</description>
-
-折线图形样式。可以直接传入 `ShapeStyle` 结构，也可以使用回调函数的方式，针对不同的数据，来返回不同的样式。对于 ShapeStyle 的数据结构，可以参考：
-
-`markdown:docs/common/shape-style.zh.md`
-
-#### point
-
-<description>**optional**</description>
-
-折线数据点图形样式。
-
-`markdown:docs/common/point-style.zh.md`
-
-
-### 图表组件
-
-`markdown:docs/common/component.zh.md`
-
-#### 缩略轴
-
-`markdown:docs/common/slider.zh.md`
-
-### 图表主题
-
-`markdown:docs/common/theme.zh.md`
+</div>

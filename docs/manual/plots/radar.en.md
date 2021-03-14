@@ -1,152 +1,86 @@
 ---
 title: Radar
-order: 7
+order: 19
 ---
 
-### Plot Container
+<div class="manual-docs">
 
-`markdown:docs/common/chart-options.en.md`
+ <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
+    <table class="lake-table" style="width: 100%; outline: none; border-collapse: collapse;">
+      <colgroup>
+        <col width="425" span="1">
+        <col width="340" span="1">
+      </colgroup>
+      <tbody>
+        <tr style="height: 33px;">
+          <td colspan="1" rowspan="4" style="background:#fff">
+            <playground path='more-plots/radar/demo/basic.ts' rid='rect1'></playground>
+          </td>
+          <td class="style1">
+          <p><strong>定义</strong></p>
+            <p><span class="lake-fontsize-12">将不同系列的多个维度的数据量映射到坐标轴上，这些坐标轴起始于同一个圆心点，通常结束于圆周边缘，将同一组的点使用线连接起来，用颜色区分系列。</span></p>
+            <p><strong>别名: </strong><span class="lake-fontsize-12">蛛网图</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px;">
+          <td class="style1">
+            <p><strong>视觉通道</strong></p>
+            <p><span class="lake-fontsize-12">颜色、位置</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px;">
+          <td colspan="1">
+            <p><strong>分析目的</strong></p>
+            <p><span class="lake-fontsize-12">比较</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px;">
+          <td colspan="1">
+            <p><strong>数据准备</strong></p>
+               <p><span class="lake-fontsize-12">1 ~ 2 个「无序名词」字段</span></p>
+            <p><span class="lake-fontsize-12">1 个「数值」字段</span></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-### Data Mapping
+## Quick start
 
-#### data
-
-<description>**required** _array object_</description>
-
-设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
-
-`markdown:docs/common/meta.en.md`
+<div class='sign'>
 
 ```ts
-const data = [
-  { item: 'Design', score: 70 },
-  { item: 'Development', score: 60 },
-  { item: 'Marketing', score: 40 },
-  { item: 'Technology', score: 30 },
-];
+import { Radar } from '@antv/g2plot';
 
+// 数据更新于 2021.01.09
+const data = [
+  { name: 'G2', star: 10371 },
+  { name: 'G6', star: 7380 },
+  { name: 'F2', star: 7414 },
+  { name: 'L7', star: 2140 },
+  { name: 'X6', star: 660 },
+  { name: 'AVA', star: 885 },
+  { name: 'G2Plot', star: 1626 },
+];
 const radarPlot = new Radar('container', {
-  data,
-  xField: 'item',
-  yField: 'score',
+  data: data.map((d) => ({ ...d, star: Math.sqrt(d.star) })),
+  xField: 'name',
+  yField: 'star',
   meta: {
-    score: {
-      alias: '分数',
+    star: {
+      min: 0,
+      nice: true,
     },
   },
-  yAxis: {
-    grid: {
-      alternateColor: ['rgba(0, 0, 0, 0.04)', null],
-    },
-  },
-  point: {},
+  area: {},
 });
 radarPlot.render();
 ```
 
-#### xField 
+</div>
 
-<description>**required** _string_</description>
+📊 See more <a href="/en/examples/more-plots/radar" target='blank'>examples</a>.
 
-雷达图映射到圆周角度所对应的字段，一般为一个分类字段。
+🎨 For an overview of the radar plot options see the [API reference](/en/docs/api/plots/radar).
 
-#### yField 
-
-<description>**required** _string_</description>
-
-雷达图映射到半径所对应的字段，一般为一个连续字段。
-
-#### seriesField 
-
-<description>**required** _string_</description>
-
-对雷达图进行分组的字段，一般对应一个分类字段。通过该字段的值，雷达图将会被分为多个组，通过颜色进行区分，并上下重叠。
-
-### Geometry Style
-
-#### radius 
-
-<description>**optional** _number_</description>
-
-雷达图的半径，原点为绘图区域中心（不包含图表组件区域）。配置值域为 (0,1]，1 代表撑满绘图区域。
-
-`markdown:docs/common/color.en.md`
-
-#### smooth 
-
-<description>**optional** _boolean_ _default:_ `false`</description>
-
-是否以曲线的形态绘制 (spline)。
-
-#### lineStyle 
-
-<description>**optional** _object ｜ Function_</description>
-
-配置雷达图上的折线样式，也可以通过回调函数的方法根据对应的数据进行设置，返回参数是通用的 ShapeStyle 对象
-
-`markdown:docs/common/shape-style.en.md`
-
-使用示例：
-
-```ts
-{
-  lineStyle: (x, y, series) => {
-    return {
-      stroke: series === 'a' ? 'red' : 'yellow',
-      lineWidth: 3,
-    };
-  };
-}
-```
-
-#### point 
-
-<description>**optional** _object_</description>
-
-配置雷达图上的点
-
-`markdown:docs/common/point-style.en.md`
-
-#### area 
-
-<description>**optional** _object_</description>
-
-配置雷达图上的面积填充
-
-| 细分配置 | 类型      | 功能描述   |
-| -------- | --------- | ---------- |
-| smooth   | _boolean_ | 是否平滑   |
-| color    | `_string  | string[]   | Function_` | 填充面积颜色，也可以支持回调的方式设置，回调参数为 `color: (x, y, series) => string` |
-| style    | `\_object  | Function\_` | 填充面积样式，也可以支持回调的方式设置，回调参数为 `style: (x, y, series) => object` |
-
-使用示例：
-
-```ts
-{
-  area: {
-    style: (x, y, series) => {
-      return {
-        fill: series === 'a' ? 'red' : 'yellow'
-      }
-    },
-  },
-}
-```
-
-### Plot Components
-
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*KnguSICzqXEAAAAAAAAAAAAAARQnAQ" alt="雷达图 图表组件" width="600">
-
-`markdown:docs/common/component.en.md`
-
-### Event
-
-`markdown:docs/common/events.en.md`
-
-### Plot Method
-
-`markdown:docs/common/chart-methods.en.md`
-
-### Plot Theme
-
-`markdown:docs/common/theme.en.md`
+</div>

@@ -1,7 +1,9 @@
-import {} from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { adaptor as columnAdaptor } from '../column/adaptor';
 import { BarOptions } from './types';
+import { transformBarData } from './utils';
+
+export { meta } from '../column/adaptor';
 
 /**
  * 柱形图适配器
@@ -9,7 +11,20 @@ import { BarOptions } from './types';
  */
 export function adaptor(params: Params<BarOptions>) {
   const { chart, options } = params;
-  const { xField, yField, xAxis, yAxis, barStyle, barWidthRatio, label, data, seriesField, isStack } = options;
+  const {
+    xField,
+    yField,
+    xAxis,
+    yAxis,
+    barStyle,
+    barWidthRatio,
+    label,
+    data,
+    seriesField,
+    isStack,
+    minBarWidth,
+    maxBarWidth,
+  } = options;
 
   // label of bar charts default position is left, if plot has label
   if (label && !label.position) {
@@ -71,8 +86,11 @@ export function adaptor(params: Params<BarOptions>) {
         // rename attrs as column
         columnStyle: barStyle,
         columnWidthRatio: barWidthRatio,
+        minColumnWidth: minBarWidth,
+        maxColumnWidth: maxBarWidth,
+        columnBackground: options.barBackground,
         // bar 调整数据顺序
-        data: data ? data.slice().reverse() : data,
+        data: transformBarData(data),
       },
     },
     true

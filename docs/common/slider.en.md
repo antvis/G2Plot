@@ -1,26 +1,39 @@
-object 类型的请参考[绘图属性](../../manual/graphic-style)
+Object type refer to [ShapeAttrs](/en/docs/api/graphic-style)
 
-| 配置项          | 类型     | 功能描述           |
-| --------------- | -------- | ------------------ |
-| start           | number   | 默认起始位置       |
-| end             | number   | 默认结束位置       |
-| height          | number   | 缩略轴高度         |
-| trendCfg        | trendCfg | 背景趋势的配置     |
-| backgroundStyle | object   | 背景配置           |
-| foregroundStyle | object   | 背景配置           |
-| handlerStyle    | object   | handle 配置        |
-| textStyle       | object   | 文本配置           |
-| minLimit        | number   | 允许滑动位置下限   |
-| maxLimit        | number   | 允许滑动位置上限   |
-| formatter       | Function | 滑块文本格式化函数 |
+| Properties      | Type           | Description                             |
+| --------------- | -------------- | --------------------------------------- |
+| start           | _number_       | Default starting position               |
+| end             | _number_       | Default ending position                 |
+| height          | _number_       | Slider height                           |
+| trendCfg        | _TrendCfg_     | Configuration of background trends      |
+| backgroundStyle | _object_       | Background style                        |
+| foregroundStyle | _object_       | Foreground style                        |
+| handlerStyle    | _HandlerStyle_ | Handler configuration                   |
+| textStyle       | _object_       | Text style                              |
+| minLimit        | _number_       | Lower limit of sliding position allowed |
+| maxLimit        | _number_       | Upper limit of sliding position allowed |
+| formatter       | _Function_     | Slider text formatting function         |
 
-trendCfg
+Types of __*TrendCfg*__  are as follow:
 
-| 配置项          | 类型     | 功能描述       |
-| --------------- | -------- | -------------- |
-| data            | number[] | 统计文本的样式 |
-| smooth          | boolean  | 是否平滑       |
-| isArea          | boolean  | 是否面积图     |
-| backgroundStyle | object   | 背景样式配置   |
-| lineStyle       | object   | line 样式配置  |
-| areaStyle       | object   | area 样式配置  |
+| Properties      | Type       | Description                    |
+| --------------- | ---------- | ------------------------------ |
+| data            | _number[]_ | Trend data                     |
+| smooth          | _boolean_  | Whether smooth                 |
+| isArea          | _boolean_  | Whether area                   |
+| backgroundStyle | _object_   | Background style configuration |
+| lineStyle       | _object_   | Line style configuration       |
+| areaStyle       | _object_   | Area style configuration       |
+
+Types of __*HandlerStyle*__ are as follow:
+
+| Properties | Type     | Description              |
+| ---------- | -------- | ------------------------ |
+| width      | _number_ | Width of slider handler  |
+| height     | _number_ | Height of slider handler |
+| fill          | _string_ | Fill color of handler                           |
+| highLightFill | _string_ | Highlight fill color of handler (when hovering) |
+| stroke        | _string_ | Stroke color of handler                         |
+| opacity       | _number_ | Fill opacity of handler                         |
+| radius        | _number_ | Radius of handler rect                          |
+| cursor        | _string_ | Style of cursor (when hovering handler)         |

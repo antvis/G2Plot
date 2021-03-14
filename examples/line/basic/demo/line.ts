@@ -9,21 +9,10 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38cc
       xField: 'Date',
       yField: 'scales',
       xAxis: {
-        type: 'timeCat',
+        // type: 'timeCat',
         tickCount: 5,
       },
     });
 
     line.render();
-    let cnt = 0;
-    let smooth = false;
-    const interval = setInterval(() => {
-      if (cnt < 5) {
-        smooth = !smooth;
-        cnt += 1;
-        line.update({ smooth });
-      } else {
-        clearInterval(interval);
-      }
-    }, 3000);
   });

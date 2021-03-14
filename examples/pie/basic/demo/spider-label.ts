@@ -14,7 +14,7 @@ const piePlot = new Pie('container', {
   data,
   angleField: 'value',
   colorField: 'type',
-  radius: 0.8,
+  radius: 0.75,
   label: {
     type: 'spider',
     labelHeight: 28,

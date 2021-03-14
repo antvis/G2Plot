@@ -3,6 +3,24 @@ import { bulletData } from '../../../data/bullet';
 import { createDiv } from '../../../utils/dom';
 
 describe('axis bullet', () => {
+  it('axis without meta', () => {
+    const bullet = new Bullet(createDiv('axis*meta bullet'), {
+      width: 400,
+      height: 100,
+      data: bulletData,
+      measureField: 'measures',
+      rangeField: 'ranges',
+      targetField: 'target',
+      xField: 'title',
+      yAxis: { tickCount: 10 },
+    });
+
+    bullet.render();
+    const measureGeometry = bullet.chart.geometries[1];
+    expect(measureGeometry.scales.measures.tickCount).toBe(10);
+
+    bullet.destroy();
+  });
   it('axis*meta', () => {
     const rangeColors = ['#FFB1AC', '#FFDBA2', '#B4EBBF'];
     const bullet = new Bullet(createDiv('axis*meta bullet'), {

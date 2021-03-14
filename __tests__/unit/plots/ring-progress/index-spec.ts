@@ -1,5 +1,7 @@
 import { RingProgress } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/ring-progress/constants';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 
 describe('ring-progress', () => {
   it('data', () => {
@@ -274,7 +276,7 @@ describe('ring-progress', () => {
     ring.destroy();
   });
 
-  it('style callback', () => {
+  it('style callback', async () => {
     const div = createDiv();
     const ring = new RingProgress(div, {
       width: 200,
@@ -297,10 +299,9 @@ describe('ring-progress', () => {
 
     ring.render();
 
-    setTimeout(() => {
-      const annotation = div.querySelector('.g2-html-annotation');
-      expect((annotation as HTMLElement).style['font-size']).toBe(`${20 * 0.6}px`);
-    }, 50);
+    await delay(10);
+    const annotation = div.querySelector('.g2-html-annotation');
+    expect((annotation as HTMLElement).style['font-size']).toBe(`${20 * 0.6}px`);
 
     ring.destroy();
   });
@@ -319,6 +320,30 @@ describe('ring-progress', () => {
     expect(ringProgress.chart.geometries[0].elements[0].getData().percent).toBe(0.6);
     ringProgress.changeData(0.7);
     expect(ringProgress.chart.geometries[0].elements[0].getData().percent).toBe(0.7);
+
+    ringProgress.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(RingProgress.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
+  });
+
+  it('z-index', () => {
+    const ringProgress = new RingProgress(createDiv(), {
+      radius: 1,
+      innerRadius: 0.5,
+      width: 200,
+      height: 100,
+      percent: 0.6,
+      autoFit: false,
+    });
+
+    ringProgress.render();
+    let elements = ringProgress.chart.geometries[0].elements;
+    expect(elements[0].shape.get('zIndex')).toBeGreaterThan(elements[1].shape.get('zIndex'));
+    ringProgress.changeData(0.7);
+    elements = ringProgress.chart.geometries[0].elements;
+    expect(elements[0].shape.get('zIndex')).toBeGreaterThan(elements[1].shape.get('zIndex'));
 
     ringProgress.destroy();
   });

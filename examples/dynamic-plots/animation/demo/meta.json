@@ -1,0 +1,40 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "animation-line.jsx",
+      "title": {
+        "zh": "动画中的线",
+        "en": "Line with animation"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/wzgJEWwC6S/animation-line.gif"
+    },
+    {
+      "filename": "animation-column.jsx",
+      "title": {
+        "zh": "动画中的柱状图",
+        "en": "Column with animation"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/2diiG81%24mH/animation-column.gif"
+    },
+    {
+      "filename": "animation-pie.jsx",
+      "title": {
+        "zh": "动画中的饼图",
+        "en": "Pie with animation"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/j%24xvvpfIky/animation-pie.gif"
+    },
+    {
+      "filename": "easing-effects.ts",
+      "title": {
+        "zh": "easing 效果",
+        "en": "Effects of easing"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/bNlr9D%267qQ/easing-effects.gif"
+    }
+  ]
+}

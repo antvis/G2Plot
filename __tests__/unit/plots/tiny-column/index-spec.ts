@@ -1,5 +1,6 @@
 import { TooltipCfg } from '@antv/g2/lib/interface';
 import { TinyColumn } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/tiny-column/constants';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
 
@@ -211,5 +212,9 @@ describe('tiny-column', () => {
     expect(tinyColumn.chart.getController('annotation').getComponents().length).toBe(1);
 
     tinyColumn.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(TinyColumn.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

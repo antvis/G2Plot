@@ -40,14 +40,6 @@ const columnPlot = new Column('container', {
       autoRotate: false,
     },
   },
-  meta: {
-    type: {
-      alias: '类别',
-    },
-    sales: {
-      alias: '销售额',
-    },
-  },
 });
 
 columnPlot.render();

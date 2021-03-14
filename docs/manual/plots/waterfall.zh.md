@@ -1,115 +1,103 @@
 ---
 title: 瀑布图
-order: 24
+order: 9
 ---
+<div class="manual-docs">
 
-### 图表容器
+ <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
+    <table class="lake-table" style="width: 100%; outline: none; border-collapse: collapse;">
+      <colgroup>
+        <col width="425" span="1">
+        <col width="340" span="1">
+      </colgroup>
+      <tbody>
+        <tr style="height: 33px;">
+          <td colspan="1" rowspan="4" style="background:#fff">
+           <playground path='more-plots/waterfall/demo/basic.ts'></playground>
+          </td>
+          <td class="style1">
+          <p><strong>定义</strong></p>
+            <p><span class="lake-fontsize-12">瀑布图形似瀑布流水，采用绝对值与相对值结合的方式，适用于表达数个特定数值之间的数量变化关系。</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px;">
+          <td class="style1">
+            <p><strong>视觉通道</strong></p>
+            <p><span class="lake-fontsize-12">颜色、长度、位置</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px;">
+          <td colspan="1">
+            <p><strong>分析目的</strong></p>
+            <p><span class="lake-fontsize-12">比较、趋势</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px;">
+          <td colspan="1">
+            <p><strong>数据准备</strong></p>
+            <p><span class="lake-fontsize-12">1 个「数值」字段</span></p>
+               <p><span class="lake-fontsize-12">1 个「有序名词」或「时间」或「无序名词」字段</span></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-`markdown:docs/common/chart-options.zh.md`
-
-### 数据映射
-
-#### data
-
-<description>**required** _array object_</description>
-
-设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
-
-`markdown:docs/common/xy-field.zh.md`
-
-`markdown:docs/common/meta.zh.md`
-
-### 高级配置
-
-#### labelMode
-
-<description>**optional** _string_ _default:_ `difference`</description>
-
-label 数据模式，可选值: `absolute`(数据的绝对值)，`difference`(数据的相对差值)。
+## 快速上手
 
 
-#### total
+<div class="sign">
 
-<description>**optional** _false | object_</description>
+```ts
+import { Waterfall } from '@antv/g2plot';
 
-是否展示总计值（自动进行统计，新增一根总计值的柱子）。
+const data = [
+  { type: '日用品', money: 120 },
+  { type: '伙食费', money: 900 },
+  { type: '交通费', money: 200 },
+  { type: '水电费', money: 300 },
+  { type: '房租', money: 1200 },
+  { type: '商场消费', money: 1000 },
+  { type: '红包收入', money: -2000 },
+];
 
-```sign
-// 默认配置
+const waterfallPlot = new Waterfall('container', {
+  data,
+  xField: 'type',
+  yField: 'money',
+});
+
+waterfallPlot.render();
+```
+
+</div>
+
+<div style="height:12px;"></div>
+
+📊 查看更多<a href="/zh/examples/more-plots/waterfall" target='blank'>示例</a>.
+
+🎨 瀑布图详细的配置参考 [API 文档](/zh/docs/api/plots/waterfall)。
+
+## 瀑布图特性
+
+### 颜色
+
+通过 `risingFill` 和 `fallingFill` 可以指定普通柱形颜色和正值柱形颜色，对于汇总值可以通过 `total.style.fill` 指定颜色。
+
+Example：
+
+```ts
 {
+  risingFill: 'red',
+  fallingFill: 'green',
   total: {
-    label: '总';,
-    style: { fill: 'rgba(0, 0, 0, 0.25)' }
-  }
+    style: {
+      fill: '#96a6a6',
+    },
+  },
 }
 ```
 
-默认配置： 
-
-| 参数名 | 类型 | 是否必选  | 描述 |
-| :---| --- |  --- |  --- |  --- | 
-| label| _string_ | false | 总计值柱子的标签 |
-| style | _object_ | false | 总计值柱子的样式配置 |
-
-#### leaderLine
-
-<description>**optional** _false | object_</description>
-
-是否展示牵引线。
-
-默认配置： 
-
-| 参数名 | 类型 | 是否必选 | 描述 |
-| :---| --- |  --- |  --- | 
-| style | _object_ | false | 牵引线的样式配置 |
-
-```sign
-// 默认值
-leader: { lineWidth: 1, stroke: '#8c8c8c', lineDash: [4, 2] }
-```
-
-### 图形样式
-
-#### risingFill
-
-<description>**optional** _number_ _default:_ `#f4664a`</description>
-
-上涨色配置。
-
-#### fallingFill
-
-<description>**optional** _number_ _default:_ `#30bf78`</description>
-
-上涨色配置。
-
-#### columnWidthRatio
-
-<description>**optional** _number_</description>
-
-柱状图宽度占比 [0-1]。
-
-#### waterfallStyle
-
-<description>**optional** _StyleAttr | Function_</description>
-
-柱子样式配置。
-
-`markdown:docs/common/color.zh.md`
-
-### 图表组件
-
-`markdown:docs/common/component.zh.md`
-
-### 事件
-
-`markdown:docs/common/events.zh.md`
-
-### 图表方法
-
-`markdown:docs/common/chart-methods.zh.md`
+</div>
 
 
-
-### 图表主题
-
-`markdown:docs/common/theme.zh.md`

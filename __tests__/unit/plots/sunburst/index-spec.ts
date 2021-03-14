@@ -146,7 +146,7 @@ describe('sunburst', () => {
     sunburstPlot.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
     expect(
       document.getElementById('sunburst-id-one').getElementsByClassName('g2-tooltip-list-item-value')[0].innerHTML
-    ).toBe('0.0153');
+    ).toBe('0.0211');
     sunburstPlot.chart.hideTooltip();
 
     sunburstPlot.destroy();

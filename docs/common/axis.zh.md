@@ -1,3 +1,38 @@
+##### position
+
+<description>**optional** _`top` | `bottom` | `left` | `right`_</description>
+
+适用于直角坐标系，设置坐标轴的位置。
+
+##### label
+
+<description> _AxisLabelCfg | null_ **optional** </description>
+
+文本标签的配置项，null 表示不展示。_AxisLabelCfg_ 配置如下：
+
+| 参数名       | 类型                                                   | 默认值  | 描述                     |
+| ------------ | -----------------------------------------------------| ------- | ------------------------ |
+| style        | _[ShapeAttrs](/zh/docs/api/shape/shape-attrs)_        | -       | 坐标轴刻度线的样式配置项 |
+| offset       | _number_                                                | -       | label 的偏移量           |
+| rotate       | _number_                                                | -       | 文本旋转角度             |
+| autoRotate   | _boolean_                                               | `true`  | 是否自动旋转             |
+| autoHide     | _boolean_                                                | `false` | 是否自动隐藏             |
+| autoEllipsis | _boolean_                                                | `false` | 是否自动省略             |
+| formatter    | _`(text: string, item: ListItem, index: number) => any`_ | `false` | 格式化函数               |
+
+
+##### verticalFactor
+
+<description>**optional** _number_</description>
+
+标记坐标轴 label 的方向，左侧为 1，右侧为 -1（仅适用于垂直方向的坐标轴）
+
+##### verticalLimitLength
+
+<description>**optional** _number_</description>
+
+配置坐标轴垂直方向的最大限制长度，对文本自适应有很大影响。
+
 ##### nice
 
 <description>**optional** _boolean_ _default:_ `true`</description>
@@ -46,12 +81,6 @@
 
 指定 tick 计算方法，或自定义计算 tick 的方法，内置 tick 计算方法包括 `cat`、`time-cat`、 `wilkinson-extended`、`r-pretty`、`time`、`time-pretty`、`log`、`pow`、`quantile`、`d3-linear`。
 
-##### position
-
-<description>**optional** _`top` | `bottom` | `left` | `right`_</description>
-
-适用于直角坐标系，设置坐标轴的位置。
-
 ##### line
 
 <description>**optional** _object_</description>
@@ -84,6 +113,7 @@
 
 | 细分配置项名称 | 类型         | 功能描述                 |
 | -------------- | ------------ | ------------------------ |
+| text         | _string_     | 坐标轴标题     |
 | offset         | _number_     | 标题距离坐标轴的距离     |
 | spacing        | _lineStyle_  | 标题距离坐标轴文本的距离 |
 | style          | _shapeStyle_ | 标题文本配置项           |
@@ -109,12 +139,12 @@
 
 | 细分配置项名称 | 类型               | 功能描述                                                 |
 | -------------- | ------------------ | -------------------------------------------------------- |
-| line           | _lineStyle_        | 线的样式                                                 |
+| line.style           | _lineStyle_        | 线的样式,                                               |
 | alternateColor | _string\|string[]_ | 两个栅格线间的填充色                                     |
 | closed         | _boolean_          | 对于 circle 是否关闭 grid                                |
 | alignTick      | _boolean_          | 是否同刻度线对齐，如果值为 false，则会显示在两个刻度中间 |
 
-**_lineStyle_**
+**_lineStyle_**的配置如下：
 
 `markdown:docs/common/line-style.zh.md`
 
@@ -149,15 +179,3 @@ interface ComponentAnimateCfg {
   }
 }
 ```
-
-##### verticalFactor
-
-<description>**optional** _number_</description>
-
-标记坐标轴 label 的方向，左侧为 1，右侧为 -1。
-
-##### verticalLimitLength
-
-<description>**optional** _number_</description>
-
-配置坐标轴垂直方向的最大限制长度，对文本自适应有很大影响。

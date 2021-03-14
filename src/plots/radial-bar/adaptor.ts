@@ -1,8 +1,8 @@
 import { filter, isNil } from '@antv/util';
 import { interaction, animation, theme, scale, tooltip, legend, annotation } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
-import { flow, deepAssign } from '../../utils';
-import { interval } from '../../adaptor/geometries';
+import { flow, deepAssign, findGeometry, transformLabel } from '../../utils';
+import { interval, point } from '../../adaptor/geometries';
 import { log, LEVEL } from '../../utils';
 import { RadialBarOptions } from './types';
 import { getScaleMax } from './utils';
@@ -37,11 +37,18 @@ function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
         color,
         shape: type === 'line' ? 'line' : 'intervel',
       },
+      // 柱子的一些样式设置：柱子最小宽度、柱子最大宽度、柱子背景
+      minColumnWidth: options.minBarWidth,
+      maxColumnWidth: options.maxBarWidth,
+      columnBackground: options.barBackground,
     },
   });
   interval(p);
   if (type === 'line') {
-    chart.point().position(`${xField}*${yField}`).shape('circle');
+    point({
+      chart,
+      options: { xField, yField, seriesField: colorField, point: { shape: 'circle', color } },
+    });
   }
   return params;
 }
@@ -69,7 +76,7 @@ export function meta(params: Params<RadialBarOptions>): Params<RadialBarOptions>
  */
 function coordinate(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   const { chart, options } = params;
-  const { radius, innerRadius } = options;
+  const { radius, innerRadius, startAngle, endAngle } = options;
 
   chart
     .coordinate({
@@ -77,6 +84,8 @@ function coordinate(params: Params<RadialBarOptions>): Params<RadialBarOptions> 
       cfg: {
         radius,
         innerRadius,
+        startAngle,
+        endAngle,
       },
     })
     .transpose();
@@ -91,6 +100,34 @@ export function axis(params: Params<RadialBarOptions>): Params<RadialBarOptions>
   const { chart, options } = params;
   const { xField, xAxis } = options;
   chart.axis(xField, xAxis);
+  return params;
+}
+
+/**
+ * 数据标签
+ * @param params
+ */
+function label(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
+  const { chart, options } = params;
+  const { label, yField } = options;
+
+  const intervalGeometry = findGeometry(chart, 'interval');
+
+  // label 为 false, 空 则不显示 label
+  if (!label) {
+    intervalGeometry.label(false);
+  } else {
+    const { callback, ...cfg } = label;
+    intervalGeometry.label({
+      fields: [yField],
+      callback,
+      cfg: {
+        ...transformLabel(cfg),
+        type: 'polar',
+      },
+    });
+  }
+
   return params;
 }
 
@@ -111,6 +148,7 @@ export function adaptor(params: Params<RadialBarOptions>) {
     theme,
     tooltip,
     legend,
-    annotation()
+    annotation(),
+    label
   )(params);
 }

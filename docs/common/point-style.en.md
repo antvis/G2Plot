@@ -1,6 +1,6 @@
-| 细分配置 | 类型     | 功能描述   |
-| -------- | -------- | ---------- |
-| color    | \_string \| string[]  \| Function\_ | 数据点颜色，也可以支持回调的方式设置，回调参数为 `color: (x, y, series) => string` |
-| shape    | \_string \| Function\_ | 数据点形状，也可以支持回调的方式设置，回调参数为 `shape: (x, y, series) => string` |
-| size     | \_number \| Function\_ | 数据点大小，也可以支持回调的方式设置，回调参数为 `size: (x, y, series) => number` |
-| style    | \_object \| Function\_ | 数据点样式，也可以支持回调的方式设置，回调参数为 `style: (x, y, series) => object` |
+| Properties | Type                             | Description                                                                                   |
+| ---------- | -------------------------------- | --------------------------------------------------------------------------------------------- |
+| color      | _string \| string[] \| Function_ | The color of the data point, support callback way, example: `color: (x, y, series) => string` |
+| shape      | \_string \| Function\_           | The shape of the data point, support callback way, example: `shape: (x, y, series) => string` |
+| size       | _number \| Function_             | The size of the data point, support callback way, example: `size: (x, y, series) => number`   |
+| style      | _object \| Function_             | Data point style, support callback way, example: `style: (x, y, series) => object`            |

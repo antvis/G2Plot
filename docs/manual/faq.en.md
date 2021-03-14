@@ -1,6 +1,6 @@
 ---
 title: FAQ
-order: 7
+order: 8
 ---
 
 ## FAQ
@@ -17,6 +17,24 @@ Horizontal axis is configurable, which can be configured in meta. The optional r
 meta: {
   [xField]: {
     range: [0, 1]
+  }
+}
+```
+
+### How to share a Y axis in DaulAxes plot
+
+You can use `scale.sync` and hide one of the y-axis.
+
+```ts
+// 适用于 DualAxes plot
+{
+  yFields: ['y1', 'y2'],
+  meta: {
+    y1: { sync: 'y2' },
+    y2: { sync: true },
+  },
+  yAxis: {
+    y2: false
   }
 }
 ```

@@ -6,7 +6,7 @@ title: API
 
 图形标注，Annotation，作为图表的辅助元素，主要用于在图表上标识额外的标记注解
 
-G2Plot 继承了 G2 的图形标注配置，[详细介绍](https://g2.antv.vision/en/docs/manual/tutorial/annotation)
+G2Plot 继承了 G2 的图形标注配置，[详细介绍](https://g2.antv.vision/en/docs/api/general/annotation)
 
 通用配置属性：
 
@@ -20,7 +20,7 @@ G2Plot 继承了 G2 的图形标注配置，[详细介绍](https://g2.antv.visio
   animate: true;
   /** 动画参数配置，当且仅当 `animate` 属性为 true，即动画开启时生效。 */
   animateOption: {},
-  /** 图形样式属性 */
+  /** Plot Style属性 */
   style: {},
   /** x 方向的偏移量 */
   offsetX: 0,
@@ -54,7 +54,7 @@ G2Plot 继承了 G2 的图形标注配置，[详细介绍](https://g2.antv.visio
     "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ELYbTIVCgPoAAAAAAAAAAABkARQnAQ",
   /** 位置 */
   position: ["50%", "50%"],
-  /** 图形样式属性 */
+  /** Plot Style属性 */
   style: {
     width: 100,
     height: 100

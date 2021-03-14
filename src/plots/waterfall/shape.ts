@@ -1,6 +1,6 @@
 import { IGroup } from '@antv/g-base';
 import { registerShape } from '@antv/g2';
-import { ShapeInfo } from '@antv/g2/lib/interface';
+import { Types } from '@antv/g2';
 import { get } from '@antv/util';
 import { deepAssign } from '../../utils';
 import { Point } from '../../types';
@@ -30,12 +30,12 @@ function getRectPath(points: Point[]) {
  * 获取填充属性
  * @param cfg 图形绘制数据
  */
-function getFillAttrs(cfg: ShapeInfo) {
+function getFillAttrs(cfg: Types.ShapeInfo) {
   return deepAssign({}, cfg.defaultStyle, cfg.style, { fill: cfg.color });
 }
 
 registerShape('interval', 'waterfall', {
-  draw(cfg: ShapeInfo & { points: Point[]; nextPoints: Point[] }, container: IGroup) {
+  draw(cfg: Types.ShapeInfo & { points: Point[]; nextPoints: Point[] }, container: IGroup) {
     const { customInfo, points, nextPoints } = cfg;
 
     const group = container.addGroup();

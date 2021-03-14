@@ -1,7 +1,6 @@
 import { Funnel } from '../../../../src';
 import { PV_DATA, PV_DATA_COMPARE } from '../../../data/conversion';
 import { createDiv } from '../../../utils/dom';
-import { FUNNEL_CONVERSATION, FUNNEL_PERCENT } from '../../../../src/plots/funnel/constant';
 
 describe('conversition tag', () => {
   test('conversition tag: basic & dynamicHeight', () => {
@@ -17,11 +16,13 @@ describe('conversition tag', () => {
 
     const annotation = funnel.chart.getController('annotation').getComponents();
     expect(annotation.length).toEqual(4);
-    PV_DATA.forEach((pvItem, index) => {
-      if (index === 0) return;
-      const content = annotation[index - 1].component.get('text').content;
-      expect(content).toBe(`转化率${(pvItem[FUNNEL_CONVERSATION] * 100).toFixed(2)}%`);
-    });
+
+    expect(annotation.map((co) => co.component.get('text').content)).toEqual([
+      '转化率: 70.00%',
+      '转化率: 71.43%',
+      '转化率: 60.00%',
+      '转化率: 56.67%',
+    ]);
 
     // 自定义 label
     funnel.update({
@@ -39,14 +40,17 @@ describe('conversition tag', () => {
 
     const customAnnotation = funnel.chart.getController('annotation').getComponents();
     expect(customAnnotation.length).toEqual(4);
-    PV_DATA.forEach((pvItem, index) => {
-      if (index === 0) return;
-      const text = customAnnotation[index - 1].component.get('text');
-      expect(text.content).toBe(`${pvItem[FUNNEL_PERCENT]}占比`);
-      expect(text.offsetX).toBe(50);
-      expect(text.offsetY).toBe(20);
-      expect(text.style.fontSize).toBe(18);
-    });
+
+    expect(customAnnotation[0].component.get('text').offsetX).toBe(50);
+    expect(customAnnotation[0].component.get('text').offsetY).toBe(20);
+    expect(customAnnotation[0].component.get('text').style.fontSize).toBe(18);
+
+    expect(customAnnotation.map((co) => co.component.get('text').content)).toEqual([
+      '0.7占比',
+      '0.5占比',
+      '0.3占比',
+      '0.17占比',
+    ]);
 
     // 关闭转化率组件
     funnel.update({
@@ -70,18 +74,22 @@ describe('conversition tag', () => {
     });
     funnel.render();
 
-    funnel.chart.views.forEach((funnelView) => {
-      const { data } = funnelView.getOptions();
-      const annotation = funnelView.getController('annotation').getComponents();
-      expect(annotation.length).toEqual(5);
-      expect(annotation[0].component.cfg.content).toBe(data[0].quarter);
-      data.forEach((pvItem, index) => {
-        if (index === 0) return;
-        expect(annotation[index].component.get('text').content).toBe(
-          `转化率${(pvItem[FUNNEL_CONVERSATION] * 100).toFixed(2)}%`
-        );
-      });
-    });
+    const [v1, v2] = funnel.chart.views;
+    const annotation1 = v1.getController('annotation').getComponents();
+    const d1 = v1.getOptions().data;
+    expect(annotation1[0].component.cfg.content).toBe(d1[0].quarter);
+
+    expect(
+      annotation1.filter((co) => co.component.get('type') === 'line').map((co) => co.component.get('text').content)
+    ).toEqual(['转化率: 70.00%', '转化率: 71.43%', '转化率: 60.00%', '转化率: 76.67%']);
+
+    const annotation2 = v2.getController('annotation').getComponents();
+    const d2 = v2.getOptions().data;
+    expect(annotation2[0].component.cfg.content).toBe(d2[0].quarter);
+
+    expect(
+      annotation2.filter((co) => co.component.get('type') === 'line').map((co) => co.component.get('text').content)
+    ).toEqual(['转化率: 78.75%', '转化率: 74.60%', '转化率: 51.06%', '转化率: 72.92%']);
 
     funnel.destroy();
   });

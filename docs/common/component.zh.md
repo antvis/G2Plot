@@ -8,11 +8,11 @@
 
 #### axis
 
-xAxis、yAxis 配置相同（由于 DualAxes 是双轴， yAxis 类型是数组类型）。
+xAxis、yAxis 配置相同。**注意**：由于 DualAxes(双轴图) 和 BidirectionalBar(对称条形图) 是双 y 轴， yAxis 类型是以 yField 中的字段作为 `key` 值的`object`。
 
 `markdown:docs/common/axis.zh.md`
 
-#### 图例
+#### legend
 
 `markdown:docs/common/legend.zh.md`
 

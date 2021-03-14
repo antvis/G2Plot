@@ -30,19 +30,30 @@ describe('sankey', () => {
 
     expect(sankey.options.appendPadding).toEqual(8);
 
+    expect(sankey.options.animation).toEqual({
+      appear: {
+        animation: 'wave-in',
+      },
+      enter: {
+        animation: 'wave-in',
+      },
+    });
+
     // node
-    expect(sankey.chart.views[0].geometries[0].type).toBe('polygon');
-    expect(sankey.chart.views[0].geometries[0].data.length).toBe(48);
-    expect(sankey.chart.views[0].geometries[0].data[0]).toEqual({
+    expect(sankey.chart.views[1].geometries[0].type).toBe('polygon');
+    expect(sankey.chart.views[1].geometries[0].data.length).toBe(48);
+    expect(sankey.chart.views[1].geometries[0].data[0]).toEqual({
+      isNode: true,
       name: "Agricultural 'waste'",
       x: [0, 0.008, 0.008, 0],
       y: [0.26075939300940637, 0.26075939300940637, 0.2963247055394385, 0.2963247055394385],
     });
 
     // edge
-    expect(sankey.chart.views[1].geometries[0].type).toBe('edge');
-    expect(sankey.chart.views[1].geometries[0].data.length).toBe(68);
-    expect(sankey.chart.views[1].geometries[0].data[0]).toEqual({
+    expect(sankey.chart.views[0].geometries[0].type).toBe('edge');
+    expect(sankey.chart.views[0].geometries[0].data.length).toBe(68);
+    expect(sankey.chart.views[0].geometries[0].data[0]).toEqual({
+      isNode: false,
       name: "Agricultural 'waste'",
       source: "Agricultural 'waste'",
       target: 'Bio-conversion',
@@ -52,16 +63,20 @@ describe('sankey', () => {
     });
 
     // label
-    expect(sankey.chart.views[0].geometries[0].labelsContainer.getChildren().length).toBe(48);
-    expect(sankey.chart.views[0].geometries[0].labelsContainer.getChildByIndex(0).cfg.children[0].attr('text')).toBe(
+    expect(sankey.chart.views[1].geometries[0].labelsContainer.getChildren().length).toBe(48);
+    expect(sankey.chart.views[1].geometries[0].labelsContainer.getChildByIndex(0).cfg.children[0].attr('text')).toBe(
       "Agricultural 'waste'"
     );
-    expect(sankey.chart.views[1].geometries[0].labelsContainer.getChildren().length).toBe(0);
+    expect(sankey.chart.views[0].geometries[0].labelsContainer.getChildren().length).toBe(0);
+
+    sankey.update({
+      animation: false,
+    });
 
     // tooltip
     sankey.chart.showTooltip({ x: 100, y: 100 });
-    expect(document.querySelector('.g2-tooltip-name').textContent).toBe('Oil imports -> Oil');
-    expect(document.querySelector('.g2-tooltip-value').textContent).toBe('504.287');
+    expect(sankey.chart.ele.querySelector('.g2-tooltip-name').textContent).toBe('Nuclear -> Thermal generation');
+    expect(sankey.chart.ele.querySelector('.g2-tooltip-value').textContent).toBe('839.978');
 
     sankey.destroy();
   });
@@ -105,7 +120,7 @@ describe('sankey', () => {
     sankey.render();
 
     // @ts-ignore
-    expect(sankey.chart.views[1].geometries[0].styleOption.cfg).toEqual({
+    expect(sankey.chart.views[0].geometries[0].styleOption.cfg).toEqual({
       fill: '#ccc',
       fillOpacity: 0.5,
       lineWidth: 0,
@@ -113,13 +128,36 @@ describe('sankey', () => {
     });
 
     // @ts-ignore
-    expect(sankey.chart.views[0].geometries[0].styleOption.fields).toEqual(['x', 'y', 'name']);
+    expect(sankey.chart.views[1].geometries[0].styleOption.fields).toEqual(['x', 'y', 'name']);
 
     expect(d).toEqual({
       name: '其他流向',
       x: [0.992, 1, 1, 0.992],
       y: [0.8358823529411765, 0.8358823529411765, 1, 1],
     });
+
+    sankey.destroy();
+  });
+
+  it('sankey circle', () => {
+    const DATA = [
+      { source: 'a', target: 'b', value: 160 },
+      { source: 'b', target: 'c', value: 40 },
+      { source: 'c', target: 'd', value: 10 },
+      { source: 'd', target: 'a', value: 10 },
+    ];
+
+    const sankey = new Sankey(createDiv(), {
+      data: DATA,
+      sourceField: 'source',
+      targetField: 'target',
+      weightField: 'value',
+    });
+
+    sankey.render();
+
+    // 被去掉环
+    expect(sankey.chart.views[0].getOptions().data.length).toBe(3);
 
     sankey.destroy();
   });

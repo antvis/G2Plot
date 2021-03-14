@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/tiny-line.zh.md`
+`markdown:docs/api/plots/tiny-line.zh.md`

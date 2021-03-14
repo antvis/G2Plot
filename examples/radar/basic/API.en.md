@@ -1,1 +1,0 @@
-`markdown:docs/manual/plots/radar.en.md`

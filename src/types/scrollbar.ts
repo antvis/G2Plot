@@ -1,1 +1,3 @@
-export { ScrollbarOption as Scrollbar } from '@antv/g2/lib/interface';
+import { Types } from '@antv/g2';
+
+export type Scrollbar = Types.ScrollbarOption;

@@ -3,108 +3,143 @@ title: 条形图
 order: 3
 ---
 
-### 图表容器
+<div class="manual-docs">
+  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
+      <table
+        class="lake-table"
+        style="width: 100%; outline: none; border-collapse: collapse"
+      >
+        <colgroup>
+          <col width="425" span="1" />
+          <col width="340" span="1" />
+        </colgroup>
+        <tbody>
+          <tr style="height: 33px">
+            <td colspan="1" rowspan="5" style="background: #fff">
+              <playground path="bar/basic/demo/basic.ts"></playground>
+            </td>
+            <td class="style1">
+              <p><strong>定义</strong></p>
+              <p>
+                <span class="lake-fontsize-12"
+                  >使用柱形显示维度的数值。横轴显示分类维度，纵轴显示相应的值</span
+                >
+              </p>
+               <p>
+                <strong>别名: </strong>
+                <span class="lake-fontsize-12">
+               条状图</span>
+              </p>
+                 </td>
+          </tr>
+               <tr style="height: 33px">
+            <td class="style1">
+              <p><strong>何时使用</strong></p>
+              <p><span class="lake-fontsize-12">条形图通过水平柱子长短对比数值大小，它与柱状图类似，只是交换了 X 轴与 Y 轴位置。均适用于对比一组或者多组分类数据。</span></p>
+            </td>
+          </tr>
+          <tr style="height: 33px">
+            <td class="style1">
+              <p><strong>视觉通道</strong></p>
+              <p><span class="lake-fontsize-12">位置、颜色</span></p>
+            </td>
+          </tr>
+          <tr style="height: 33px">
+            <td colspan="1">
+              <p><strong>分析目的</strong></p>
+              <p><span class="lake-fontsize-12">比较、分布、排名</span></p>
+            </td>
+          </tr>
+          <tr style="height: 33px">
+            <td colspan="1">
+              <p><strong>数据准备</strong></p>
+              <p>
+                <span class="lake-fontsize-12">1 ～ 2 个「无序名词」字段</span>
+              </p>
+              <p><span class="lake-fontsize-12">1 个「数值」字段</span></p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-`markdown:docs/common/chart-options.zh.md`
+## 设计指引
 
-### 数据映射
+### 用法建议
 
-#### data
+<img alt="design" src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*0ijxQ78m7M0AAAAAAAAAAABkARQnAQ' width='1000'>
 
-<description>**required** _array object_</description>
+### 元素构成
 
-设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+<img alt="design" src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*hPSDQ5O0A9gAAAAAAAAAAABkARQnAQ' width='800'>
 
-`markdown:docs/common/xy-field.zh.md`
+<div class="design-guide-list">
 
-#### seriesField
+- X 轴：通常对应连续数据，值为数字，调用连续数据 X 轴。
+- Y 轴：通常对应分类数据，值为文本，调用连续数据 Y 轴。
+- 图例：通常出现在分组柱关图、分组条形图中，用来区分不同柱子代表的数据含义。
+- 标签：用来解释数据点的值。
+- 辅助元素：用来解释某个特殊的数据点的值，或标记出某个特殊含义的区域。
 
-<description>**optional** _string_</description>
+</div>
 
-拆分字段，在分组条形图下同 groupField、colorField，在堆积条形图下同 stackField、colorField。
+## 快速上手
 
-#### groupField
+<div class='sign'>
 
-<description>**optional** _string_</description>
+```ts
+import { Bar } from '@antv/g2plot';
 
-拆分字段，用于堆叠分组条形图，拆分优先级高于 seriesField，isGroup: true 时会根据 groupField 进行分组。
+const data = [
+  { year: '1951 年', value: 38 },
+  { year: '1952 年', value: 52 },
+  { year: '1956 年', value: 61 },
+  { year: '1957 年', value: 145 },
+  { year: '1958 年', value: 48 },
+];
 
-#### isGroup
+const bar = new Bar('container', {
+  data,
+  xField: 'value',
+  yField: 'year',
+  seriesField: 'year',
+  legend: {
+    position: 'top-left',
+  },
+});
 
-<description>**optional** _boolean_</description>
+bar.render();
+```
 
-是否分组柱形图。
+</div>
 
-#### isStack
+📊 查看更多<a href="/zh/examples/bar/basic" target='blank'>示例</a>.
 
-<description>**optional** _boolean_</description>
+🎨 条形图详细的配置参考 [API 文档](/zh/docs/api/plots/bar)。
 
-是否堆积条形图。
+</div>
 
-#### isRange
+## 条形图特性
 
-<description>**optional** _boolean_</description>
+### 指定柱子最大宽度、最小宽度
 
-是否区间条形图。
+通过设置 `maxBarWidth` 可以指定柱子的最大宽度，设置 `minBarWidth` 可以指定柱子的最小宽度。
 
-#### isPercent
+通过组合指定柱子最大宽度、最小宽度可以达到指定柱子宽度的效果。
 
-<description>**optional** _boolean_</description>
+<playground path="bar/basic/demo/width.ts" rid="specify-bar-width"></playground>
 
-是否百分百条形图，isPercent 为 true 时，isStack 也需要为 true。
+### 设置柱子的圆角
 
-`markdown:docs/common/meta.zh.md`
+通过设置 `barStyle.radius` 可以指定柱子的圆角，数据类型可以是 `number` 也可以是 `number[]`。
 
-### 图形样式
+当柱子数值为正值时，`const [r1, r2, r3, r4] = radius` 依次代表柱子左上角、右上角、右下角、左下角的 `radius`。
+当柱子数值为负值时，`const [r1, r2, r3, r4] = radius` 依次代表柱子左下角、右下角、右上角、左上角的 `radius`。
 
-#### barWidthRatio
+<playground path="bar/grouped/demo/corner-radius.ts" rid="corner-radius"></playground>
 
-<description>**optional** _number_</description>
+### 设置柱子的背景样式
 
-条形图宽度占比 [0-1]。
+通过设置 `barBackground.style` 可以指定柱子的背景样式。
 
-#### marginRatio
-
-<description>**optional** _number_</description>
-
-分组中柱子之间的间距 [0-1]，仅对分组条形图适用。
-
-#### barStyle
-
-<description>**optional** _StyleAttr | Function_</description>
-
-柱子样式配置。
-
-`markdown:docs/common/shape-style.zh.md`
-
-`markdown:docs/common/color.zh.md`
-
-### 图表组件
-
-`markdown:docs/common/component.zh.md`
-
-#### 滚动条
-
-`markdown:docs/common/slider.zh.md`
-
-#### 转化率
-
-`markdown:docs/common/conversion-tag.zh.md`
-
-#### 联通对比区域
-
-`markdown:docs/common/connected-area.zh.md`
-
-### 事件
-
-`markdown:docs/common/events.zh.md`
-
-### 图表方法
-
-`markdown:docs/common/chart-methods.zh.md`
-
-
-
-### 图表主题
-
-`markdown:docs/common/theme.zh.md`
+<playground path="bar/basic/demo/bar-background.ts" rid="bar-background"></playground>

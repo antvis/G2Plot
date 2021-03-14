@@ -1,4 +1,5 @@
 import { Pie } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/pie/contants';
 import { POSITIVE_NEGATIVE_DATA } from '../../../data/common';
 import { createDiv } from '../../../utils/dom';
 
@@ -19,6 +20,9 @@ describe('pie', () => {
     });
 
     pie.render();
+    expect(pie.type).toBe('pie');
+    // @ts-ignore
+    expect(pie.getDefaultOptions()).toBe(Pie.getDefaultOptions());
 
     const geometry = pie.chart.geometries[0];
     const elements = geometry.elements;
@@ -27,6 +31,8 @@ describe('pie', () => {
     // 绘图数据
     expect(elements[0].getModel().style?.fill || elements[0].getModel().color).toBe('blue');
     expect(elements[1].getModel().style?.fill || elements[1].getModel().color).toBe('red');
+    // @ts-ignore
+    expect(geometry.zIndexReversed).toBe(true);
 
     pie.destroy();
   });
@@ -147,5 +153,28 @@ describe('pie', () => {
     expect(pie.chart.getTheme().components.annotation.text.animate).toBe(true);
 
     pie.destroy();
+  });
+
+  it('tooltip, enforce shared to false', () => {
+    const pie = new Pie(createDiv(), {
+      width: 400,
+      height: 300,
+      data,
+      angleField: 'value',
+      colorField: 'type',
+      tooltip: { shared: true },
+    });
+    pie.render();
+    // @ts-ignore
+    expect(pie.options.tooltip.shared).toBe(true);
+
+    // @ts-ignore
+    expect(pie.chart.getController('tooltip').getTooltipCfg().shared).toBe(false);
+
+    pie.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(Pie.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

@@ -15,18 +15,50 @@
     {
       "filename": "color.ts",
       "title": {
-        "zh": "基础柱状图 - 自定义颜色",
+        "zh": "自定义柱状图颜色",
         "en": "Column plot color"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*dr27SafKNzIAAAAAAAAAAAAAARQnAQ"
     },
     {
-      "filename": "width.ts",
+      "filename": "width-ratio.ts",
       "title": {
-        "zh": "基础柱状图 - 柱子宽度",
-        "en": "Column plot column width"
+        "zh": "指定柱状图宽度比例",
+        "en": "Specify column plot widthRatio"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*92VnSrkQLeAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "width.ts",
+      "title": {
+        "zh": "指定柱状图最小最大宽度",
+        "en": "Column plot with customize width"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/VXpimaHvuV/6fbe7c39-c14a-493c-ad45-4b335ab24ba9.png"
+    },
+    {
+      "filename": "slider.ts",
+      "title": {
+        "zh": "带缩略轴柱状图",
+        "en": "Column plot with slider"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*QhoHQ4QIts0AAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "scrollbar.ts",
+      "title": {
+        "zh": "带滚动条柱状图",
+        "en": "Column plot with scrollbar"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IkdWTaXf4vAAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "conversion-tag.ts",
+      "title": {
+        "zh": "带转化率柱状图",
+        "en": "Column plot with conversion tag"
+      },
+      "screenshot": "https://gw.alicdn.com/tfs/TB1u3.cvUY1gK0jSZFMXXaWcVXa-1638-1228.png"
     },
     {
       "filename": "region-annotation.ts",
@@ -34,31 +66,7 @@
         "zh": "带辅助框标注的基础柱状图",
         "en": "Basic column plot with region annotation"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*FOmATLFeuxkAAAAAAAAAAAAAARQnAQ"
-    },
-    {
-      "filename": "slider.ts",
-      "title": {
-        "zh": "基础柱状图 - 缩略轴",
-        "en": "Column plot slider"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*QhoHQ4QIts0AAAAAAAAAAAAAARQnAQ"
-    },
-    {
-      "filename": "scrollbar.ts",
-      "title": {
-        "zh": "基础柱状图 - 滚动条",
-        "en": "Column plot scroll bar"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IkdWTaXf4vAAAAAAAAAAAABkARQnAQ"
-    },
-    {
-      "filename": "conversion-tag.ts",
-      "title": {
-        "zh": "基础柱状图 - 转化率",
-        "en": "Column plot conversion tag"
-      },
-      "screenshot": "https://gw.alicdn.com/tfs/TB1u3.cvUY1gK0jSZFMXXaWcVXa-1638-1228.png"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/ceFSs9FuNn/2922d5e4-df5f-4512-8f8f-6f2ec258c7b8.png"
     }
   ]
 }

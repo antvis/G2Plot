@@ -1,9 +1,13 @@
-import { every, filter, isFunction, isString, isNil, get, isArray, isNumber } from '@antv/util';
+import { isFunction, isString, isNil, get, isArray, isNumber, each, toString, isEmpty } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { legend, tooltip, interaction, animation, theme, state, annotation } from '../../adaptor/common';
+import { legend, animation, theme, state, annotation } from '../../adaptor/common';
+import { getMappingFunction } from '../../adaptor/geometries/base';
 import { interval } from '../../adaptor/geometries';
-import { flow, LEVEL, log, template, transformLabel, deepAssign, renderStatistic } from '../../utils';
-import { adaptOffset, getTotalValue } from './utils';
+import { Interaction } from '../../types/interaction';
+import { flow, template, transformLabel, deepAssign, renderStatistic } from '../../utils';
+import { DEFAULT_OPTIONS } from './contants';
+import { adaptOffset, getTotalValue, processIllegalData, isAllZero } from './utils';
+import { PIE_STATISTIC } from './interactions';
 import { PieOptions } from './types';
 
 /**
@@ -15,13 +19,9 @@ function geometry(params: Params<PieOptions>): Params<PieOptions> {
   const { data, angleField, colorField, color, pieStyle } = options;
 
   // 处理不合法的数据
-  let processData = filter(data, (d) => typeof d[angleField] === 'number' || isNil(d[angleField]));
+  let processData = processIllegalData(data, angleField);
 
-  // 打印异常数据情况
-  log(LEVEL.WARN, processData.length === data.length, 'illegal data existed in chart data.');
-
-  const allZero = every(processData, (d) => d[angleField] === 0);
-  if (allZero) {
+  if (isAllZero(processData, angleField)) {
     // 数据全 0 处理，调整 position 映射
     const percentageField = '$$percentage$$';
     processData = processData.map((d) => ({ ...d, [percentageField]: 1 / processData.length }));
@@ -37,13 +37,13 @@ function geometry(params: Params<PieOptions>): Params<PieOptions> {
           color,
           style: pieStyle,
         },
+        args: {
+          zIndexReversed: true,
+        },
       },
     });
 
     interval(p);
-
-    // all zero 额外处理
-    chart.geometries[0].tooltip(`${colorField}*${angleField}`);
   } else {
     chart.data(processData);
 
@@ -56,6 +56,9 @@ function geometry(params: Params<PieOptions>): Params<PieOptions> {
         interval: {
           color,
           style: pieStyle,
+        },
+        args: {
+          zIndexReversed: true,
         },
       },
     });
@@ -89,13 +92,15 @@ function meta(params: Params<PieOptions>): Params<PieOptions> {
  */
 function coordinate(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
-  const { radius, innerRadius } = options;
+  const { radius, innerRadius, startAngle, endAngle } = options;
 
   chart.coordinate({
     type: 'theta',
     cfg: {
       radius,
       innerRadius,
+      startAngle,
+      endAngle,
     },
   });
 
@@ -165,16 +170,15 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
 }
 
 /**
- * statistic 中心文本配置
- * @param params
+ * statistic options 处理
+ * 1. 默认继承 default options 的样式
+ * 2. 默认使用 meta 的 formatter
  */
-function statistic(params: Params<PieOptions>): Params<PieOptions> {
-  const { chart, options } = params;
+export function transformStatisticOptions(options: PieOptions): PieOptions {
   const { innerRadius, statistic, angleField, colorField, meta } = options;
 
-  /** 中心文本 指标卡 */
   if (innerRadius && statistic) {
-    let { title, content } = statistic;
+    let { title, content } = deepAssign({}, DEFAULT_OPTIONS.statistic, statistic);
     if (title !== false) {
       title = deepAssign({}, { formatter: (datum) => (datum ? datum[colorField] : '总计') }, title);
     }
@@ -191,8 +195,94 @@ function statistic(params: Params<PieOptions>): Params<PieOptions> {
         content
       );
     }
-    renderStatistic(chart, { statistic: { title, content }, plotType: 'pie' });
+
+    return deepAssign({}, { statistic: { title, content } }, options);
   }
+  return options;
+}
+
+/**
+ * statistic 中心文本配置
+ * @param params
+ */
+export function pieAnnotation(params: Params<PieOptions>): Params<PieOptions> {
+  const { chart, options } = params;
+  const { innerRadius, statistic } = transformStatisticOptions(options);
+  // 先清空标注，再重新渲染
+  chart.getController('annotation').clear(true);
+
+  // 先进行其他 annotations，再去渲染统计文本
+  flow(annotation())(params);
+
+  /** 中心文本 指标卡 */
+  if (innerRadius && statistic) {
+    renderStatistic(chart, { statistic, plotType: 'pie' });
+  }
+
+  return params;
+}
+
+/**
+ * 饼图 tooltip 配置
+ * 1. 强制 tooltip.shared 为 false
+ * @param params
+ */
+function tooltip(params: Params<PieOptions>): Params<PieOptions> {
+  const { chart, options } = params;
+  const { tooltip, colorField, angleField, data } = options;
+
+  if (tooltip === false) {
+    chart.tooltip(tooltip);
+  } else {
+    chart.tooltip(deepAssign({}, tooltip, { shared: false }));
+
+    // 主要解决 all zero， 对于非 all zero 不再适用
+    if (isAllZero(data, angleField)) {
+      let fields = get(tooltip, 'fields');
+      let formatter = get(tooltip, 'formatter');
+
+      if (isEmpty(get(tooltip, 'fields'))) {
+        fields = [colorField, angleField];
+        formatter = formatter || ((datum) => ({ name: datum[colorField], value: toString(datum[angleField]) }));
+      }
+      chart.geometries[0].tooltip(fields.join('*'), getMappingFunction(fields, formatter));
+    }
+  }
+
+  return params;
+}
+
+/**
+ * Interaction 配置 (饼图特殊的 interaction, 中心文本变更的时候，需要将一些配置参数传进去）
+ * @param params
+ */
+export function interaction(params: Params<PieOptions>): Params<PieOptions> {
+  const { chart, options } = params;
+  const { interactions, statistic, annotations } = transformStatisticOptions(options);
+
+  each(interactions, (i: Interaction) => {
+    if (i.enable === false) {
+      chart.removeInteraction(i.type);
+    } else if (i.type === 'pie-statistic-active') {
+      // 只针对 start 阶段的配置，进行添加参数信息
+      let startStages = [];
+      if (!i.cfg?.start) {
+        startStages = [
+          {
+            trigger: 'element:mouseenter',
+            action: `${PIE_STATISTIC}:change`,
+            arg: { statistic, annotations },
+          },
+        ];
+      }
+      each(i.cfg?.start, (stage) => {
+        startStages.push({ ...stage, arg: { statistic, annotations } });
+      });
+      chart.interaction(i.type, deepAssign({}, i.cfg, { start: startStages }));
+    } else {
+      chart.interaction(i.type, i.cfg || {});
+    }
+  });
 
   return params;
 }
@@ -204,7 +294,7 @@ function statistic(params: Params<PieOptions>): Params<PieOptions> {
  */
 export function adaptor(params: Params<PieOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(
+  return flow<Params<PieOptions>>(
     geometry,
     meta,
     theme,
@@ -213,9 +303,8 @@ export function adaptor(params: Params<PieOptions>) {
     tooltip,
     label,
     state,
-    annotation(),
     /** 指标卡中心文本 放在下层 */
-    statistic,
+    pieAnnotation,
     interaction,
     animation
   )(params);

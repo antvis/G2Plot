@@ -1,15 +1,14 @@
 import { Area } from '@antv/g2plot';
 
-fetch('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38ccf184.json')
+fetch('https://gw.alipayobjects.com/os/bmw-prod/360c3eae-0c73-46f0-a982-4746a6095010.json')
   .then((res) => res.json())
   .then((data) => {
     const area = new Area('container', {
       data,
-      xField: 'Date',
-      yField: 'scales',
+      xField: 'timePeriod',
+      yField: 'value',
       xAxis: {
         range: [0, 1],
-        tickCount: 5,
       },
     });
     area.render();

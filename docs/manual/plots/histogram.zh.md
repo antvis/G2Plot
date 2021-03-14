@@ -1,72 +1,74 @@
 ---
 title: 直方图
-order: 11
+order: 8
 ---
 
-### 图表容器
+<div class="manual-docs">
 
-`markdown:docs/common/chart-options.zh.md`
+ <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
+    <table class="lake-table" style="width: 100%; outline: none; border-collapse: collapse;">
+      <colgroup>
+        <col width="425" span="1">
+        <col width="340" span="1">
+      </colgroup>
+      <tbody>
+        <tr style="height: 33px;">
+          <td colspan="1" rowspan="4" style="background:#fff;padding:0;">
+            <playground path='more-plots/histogram/demo/basic.ts'></playground>
+          </td>
+          <td class="style1">
+            <p><strong>定义</strong></p>
+            <p><span class="lake-fontsize-12">直方图是一种统计报告图，由一系列高度不等的纵向条纹或线段表示数据分布的情况。</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px;">
+          <td class="style1">
+            <p><strong>视觉通道</strong></p>
+            <p><span class="lake-fontsize-12">位置</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px;">
+          <td colspan="1">
+            <p><strong>分析目的</strong></p>
+            <p><span class="lake-fontsize-12">比较、趋势</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px;">
+          <td colspan="1">
+            <p><strong>数据准备</strong></p>
+            <p><span class="lake-fontsize-12">1 个「时间」或「有序名词」字段</span></p>
+            <p><span class="lake-fontsize-12">0 ~ 1 个「无序名词」字段</span></p>
+            <p><span class="lake-fontsize-12">1 个「数值」字段</span></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-### 数据映射
+## 快速上手
 
-#### data
+<div class="sign">
 
-<description>**required** _array object_</description>
+```ts
+import { Histogram } from '@antv/g2plot';
 
-设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+fetch('https://gw.alipayobjects.com/os/antfincdn/RoliHq%2453S/histogram.json')
+  .then((data) => data.json())
+  .then((data) => {
+    const histogramPlot = new Histogram('container', {
+      data,
+      binField: 'value',
+      binWidth: 2,
+    });
 
-#### binField 
+    histogramPlot.render();
+  });
+```
 
-<description>**required** _string_</description>
+</div>
 
-设置直方图绘制 (进行分箱) 的字段。
+📊 查看更多<a href="/zh/examples/more-plots/histogram" target='blank'>示例</a>.
 
-#### binWidth
+🎨 直方图详细的配置参考 [API 文档](/zh/docs/api/plots/Histogram)。
 
-<description>**optional** _string_</description>
-
-设置直方图的分箱宽度，binWidth 影响直方图分成多少箱, 不能与 binNumber 一起使用。
-
-#### binNumber
-
-<description>**optional** _number_</description>
-
-设置直方图的分箱数量，binNumber 影响直方图分箱后每个柱子的宽度。
-
-#### stackField
-
-<description>**optional** _number_</description>
-
-指定层叠字段，通过该字段的值，柱子将会被分割为多个部分，通过颜色进行区分。
-
-`markdown:docs/common/meta.zh.md`
-
-### 图形样式
-
-#### columnStyle
-
-<description>**optional** _StyleAttr | Function_</description>
-
-柱子样式配置。
-
-`markdown:docs/common/shape-style.zh.md`
-
-`markdown:docs/common/color.zh.md`
-
-### 图表组件
-
-`markdown:docs/common/component.zh.md`
-
-### 事件
-
-`markdown:docs/common/events.zh.md`
-
-### 图表方法
-
-`markdown:docs/common/chart-methods.zh.md`
-
-
-
-### 图表主题
-
-`markdown:docs/common/theme.zh.md`
+</div>

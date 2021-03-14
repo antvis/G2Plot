@@ -40,15 +40,15 @@
       "filename": "style-callback.ts",
       "title": {
         "zh": "通过回调函数指定折线样式",
-        "en": "Set line style through callback function"
+        "en": "Set line style through callback"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*iHQDSZ9g2fQAAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "marker-active.ts",
       "title": {
-        "zh": "指定 point marker 激活的样式",
-        "en": "Setting point marker active style"
+        "zh": "通过回调函数指定数据点样式",
+        "en": "Set point style through callback"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*MZvDRY7LH-sAAAAAAAAAAABkARQnAQ"
     }

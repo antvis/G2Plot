@@ -1,6 +1,7 @@
 import { Chart } from '@antv/g2';
-import { ViewAppendPadding, ViewPadding } from '@antv/g2/lib/interface';
-import { isArray, isFunction, isNumber, isString } from '@antv/util';
+import { Types } from '@antv/g2';
+import { isArray, isFunction, isString } from '@antv/util';
+import { normalPadding } from '../../utils/padding';
 import { Params } from '../../core/adaptor';
 import { Datum } from '../../types';
 import { log, LEVEL, getContainerSize } from '../../utils';
@@ -108,8 +109,8 @@ export function transform(params: Params<WordCloudOptions>): Tag[] {
 export function getSize(options: {
   width: number;
   height: number;
-  padding: ViewPadding;
-  appendPadding: ViewAppendPadding;
+  padding: Types.ViewPadding;
+  appendPadding: Types.ViewAppendPadding;
   autoFit: boolean;
   container: HTMLElement;
 }): [number, number] {
@@ -140,7 +141,7 @@ export function getSize(options: {
  * 根据图表的 padding 和 appendPadding 计算出图表的最终 padding
  * @param chart
  */
-function resolvePadding(options: { padding: ViewPadding; appendPadding: ViewAppendPadding }) {
+function resolvePadding(options: { padding: Types.ViewPadding; appendPadding: Types.ViewAppendPadding }) {
   const padding = normalPadding(options.padding);
   const appendPadding = normalPadding(options.appendPadding);
   const top = padding[0] + appendPadding[0];
@@ -149,34 +150,6 @@ function resolvePadding(options: { padding: ViewPadding; appendPadding: ViewAppe
   const left = padding[3] + appendPadding[3];
 
   return [top, right, bottom, left];
-}
-
-/**
- * 把 padding 转换成统一的数组写法
- * @param padding
- */
-function normalPadding(padding: number | number[] | 'auto'): [number, number, number, number] {
-  if (isNumber(padding)) {
-    return [padding, padding, padding, padding];
-  }
-  if (isArray(padding)) {
-    const length = padding.length;
-
-    if (length === 1) {
-      return [padding[0], padding[0], padding[0], padding[0]];
-    }
-    if (length === 2) {
-      return [padding[0], padding[1], padding[0], padding[1]];
-    }
-    if (length === 3) {
-      return [padding[0], padding[1], padding[2], padding[1]];
-    }
-    if (length === 4) {
-      return padding as [number, number, number, number];
-    }
-  }
-
-  return [0, 0, 0, 0];
 }
 
 /**

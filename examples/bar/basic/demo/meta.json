@@ -10,39 +10,55 @@
         "zh": "基础条形图",
         "en": "Basic bar plot"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*cnRsQo-Yqg0AAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/rWp4Sq5ofk/10256978-7f35-4a4c-b67c-39aaad269bc2.png"
     },
     {
       "filename": "color.ts",
       "title": {
-        "zh": "基础条形图 - 自定义颜色",
+        "zh": "自定义条形图颜色",
         "en": "Bar plot color"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*U-D1S4w5HNsAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/Gkgl6eYL%26g/e34c6f77-d32b-408b-ae4d-d8bc07074fc5.png"
+    },
+    {
+      "filename": "width-ratio.ts",
+      "title": {
+        "zh": "指定条形图宽度比例",
+        "en": "Bar plot column width"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/%24MveD8UKQW/ddcd45c9-7bbb-4f4e-b290-c225996e687a.png"
     },
     {
       "filename": "width.ts",
       "title": {
-        "zh": "基础条形图 - 柱子宽度",
-        "en": "Bar plot bar width"
+        "zh": "指定条形图最小最大宽度",
+        "en": "Bar plot with customize width"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*uqtcQJ-N-qUAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/9SlsILDGRX/4f0f9f55-e48d-4348-9193-366326e6514d.png"
     },
     {
       "filename": "scrollbar.ts",
       "title": {
-        "zh": "基础条形图 - 滚动条",
+        "zh": "带滚动条的条形图",
         "en": "Bar chart with scrollbar"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*01-mRqASP78AAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/asCTjytOVw/6f871384-bba2-4fd6-97ba-7f741e51af7b.png"
     },
     {
       "filename": "conversion-tag.ts",
       "title": {
-        "zh": "基础条形图 - 转化率",
+        "zh": "带转化率条形图",
         "en": "Bar plot conversion tag"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*QPt7QbZ726QAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/KhabP6L2tr/cf602236-7932-4ef7-b3d6-d98a219c798e.png"
+    },
+    {
+      "filename": "bar-background.ts",
+      "title": {
+        "zh": "设置条形图背景色",
+        "en": "Bar plot with backgorund"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/t6ut5YQMPB/bar-background.png"
     }
   ]
 }

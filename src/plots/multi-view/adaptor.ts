@@ -1,12 +1,16 @@
 import { each } from '@antv/util';
+import { Geometry } from '@antv/g2';
 import { geometry as geometryAdaptor } from '../../adaptor/geometries/base';
 import { interaction, animation, theme, tooltip } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
+import { PLOT_CONTAINER_OPTIONS } from '../../core/plot';
+import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { deepAssign, flow, pick } from '../../utils';
 import { Axis } from '../../types/axis';
-import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { Legend } from '../../types/legend';
+import { Interaction } from '../../types/interaction';
 import { MultiViewOptions, IView, IGeometry } from './types';
+import { execPlotAdaptor } from './utils';
 
 /**
  * geometry 处理
@@ -14,10 +18,10 @@ import { MultiViewOptions, IView, IGeometry } from './types';
  */
 function multiView(params: Params<MultiViewOptions>): Params<MultiViewOptions> {
   const { chart, options } = params;
-  const { views, legend, tooltip } = options;
+  const { views, legend } = options;
 
   each(views, (v: IView) => {
-    const { region, data, meta, axes, coordinate, annotations, geometries } = v;
+    const { region, data, meta, axes, coordinate, interactions, annotations, tooltip, geometries } = v;
 
     // 1. 创建 view
     const viewOfG2 = chart.createView({
@@ -64,12 +68,38 @@ function multiView(params: Params<MultiViewOptions>): Params<MultiViewOptions> {
       }
     });
 
+    // 7. interactions
+    each(interactions, (interaction: Interaction) => {
+      if (interaction.enable === false) {
+        viewOfG2.removeInteraction(interaction.type);
+      } else {
+        viewOfG2.interaction(interaction.type, interaction.cfg);
+      }
+    });
+
     // 8. annotations
     each(annotations, (annotation) => {
       viewOfG2.annotation()[annotation.type]({
         ...annotation,
       });
     });
+
+    // 9. animation (先做动画)
+    if (typeof v.animation === 'boolean') {
+      viewOfG2.animate(false);
+    } else {
+      viewOfG2.animate(true);
+      // 9.1 所有的 Geometry 都使用同一动画（各个图形如有区别，todo 自行覆盖）
+      each(viewOfG2.geometries, (g: Geometry) => {
+        g.animate(v.animation);
+      });
+    }
+
+    if (tooltip) {
+      // 10. tooltip
+      viewOfG2.interaction('tooltip');
+      viewOfG2.tooltip(tooltip);
+    }
   });
 
   // legend
@@ -82,7 +112,31 @@ function multiView(params: Params<MultiViewOptions>): Params<MultiViewOptions> {
   }
 
   // tooltip
-  chart.tooltip(tooltip);
+  chart.tooltip(options.tooltip);
+  return params;
+}
+
+/**
+ * 支持嵌套使用 g2plot 内置图表
+ * @param params
+ */
+function multiPlot(params: Params<MultiViewOptions>): Params<MultiViewOptions> {
+  const { chart, options } = params;
+  const { plots } = options;
+
+  each(plots, (plot) => {
+    const { type, region, options = {} } = plot;
+    const { tooltip } = options;
+
+    const viewOfG2 = chart.createView({ region, ...pick(options, PLOT_CONTAINER_OPTIONS) });
+    if (tooltip) {
+      // 配置 tooltip 交互
+      viewOfG2.interaction('tooltip');
+    }
+
+    execPlotAdaptor(type, viewOfG2, options);
+  });
+
   return params;
 }
 
@@ -95,6 +149,7 @@ export function adaptor(params: Params<MultiViewOptions>) {
   return flow(
     animation, // 多 view 的图，动画配置放到最前面
     multiView,
+    multiPlot,
     interaction,
     animation,
     theme,

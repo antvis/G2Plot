@@ -1,12 +1,20 @@
-import { isString, clamp, size } from '@antv/util';
-import { interaction, animation, theme, scale } from '../../adaptor/common';
+import { isString } from '@antv/util';
+import { interaction, animation, theme, scale, annotation } from '../../adaptor/common';
+import { interval } from '../../adaptor/geometries';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { Params } from '../../core/adaptor';
-import { Data } from '../../types';
 import { deepAssign, flow, pick, renderGaugeStatistic } from '../../utils';
-import { RANGE_TYPE, RANGE_VALUE, PERCENT, DEFAULT_COLOR } from './constant';
-import { GaugeOptions } from './types';
-import { processRangeData } from './utils';
+import {
+  RANGE_TYPE,
+  RANGE_VALUE,
+  PERCENT,
+  DEFAULT_COLOR,
+  INDICATEOR_VIEW_ID,
+  RANGE_VIEW_ID,
+  MASK_VIEW_ID,
+} from './constants';
+import { GaugeCustomInfo, GaugeOptions } from './types';
+import { getIndicatorData, getRangeData } from './utils';
 
 /**
  * geometry 处理
@@ -14,16 +22,15 @@ import { processRangeData } from './utils';
  */
 function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
   const { chart, options } = params;
-  const { percent, range, radius, innerRadius, startAngle, endAngle, axis, indicator } = options;
-  const { ticks, color } = range;
-  const clampTicks = size(ticks) ? ticks : [0, clamp(percent, 0, 1), 1];
+  const { percent, range, radius, innerRadius, startAngle, endAngle, axis, indicator, gaugeStyle } = options;
+  const { color, width: rangeWidth } = range;
 
   // 指标 & 指针
   // 如果开启在应用
   if (indicator) {
-    const indicatorData = [{ [PERCENT]: clamp(percent, 0, 1) }];
+    const indicatorData = getIndicatorData(percent);
 
-    const v1 = chart.createView();
+    const v1 = chart.createView({ id: INDICATEOR_VIEW_ID });
     v1.data(indicatorData);
 
     v1.point()
@@ -47,14 +54,32 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
   }
 
   // 辅助 range
-  // [{ range: 1, type: '0' }]
-  const rangeData: Data = processRangeData(clampTicks as number[]);
-  const v2 = chart.createView();
+  // [{ range: 1, type: '0', percent: 原始进度百分比 }]
+  const rangeData = getRangeData(percent, options.range);
+  const v2 = chart.createView({ id: RANGE_VIEW_ID });
   v2.data(rangeData);
 
   const rangeColor = isString(color) ? [color, DEFAULT_COLOR] : color;
 
-  v2.interval().position(`1*${RANGE_VALUE}`).color(RANGE_TYPE, rangeColor).adjust('stack');
+  interval({
+    chart: v2,
+    options: {
+      xField: '1',
+      yField: RANGE_VALUE,
+      seriesField: RANGE_TYPE,
+      rawFields: [PERCENT],
+      isStack: true,
+      interval: {
+        color: rangeColor,
+        style: gaugeStyle,
+      },
+      args: {
+        zIndexReversed: true,
+      },
+      minColumnWidth: rangeWidth,
+      maxColumnWidth: rangeWidth,
+    },
+  });
 
   v2.coordinate('polar', {
     innerRadius,
@@ -62,6 +87,41 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
     startAngle,
     endAngle,
   }).transpose();
+
+  return params;
+}
+
+/**
+ * meter 类型的仪表盘 有一层 mask
+ * @param params
+ */
+function meterView(params: Params<GaugeOptions>): Params<GaugeOptions> {
+  const { chart, options } = params;
+
+  const { type, meter } = options;
+  if (type === 'meter') {
+    const { innerRadius, radius, startAngle, endAngle, range } = options;
+    const minColumnWidth = range?.width;
+    const maxColumnWidth = range?.width;
+
+    const { background } = chart.getTheme();
+
+    let color = background;
+    if (!color || color === 'transparent') {
+      color = '#fff';
+    }
+
+    const v3 = chart.createView({ id: MASK_VIEW_ID });
+    v3.data([{ [RANGE_TYPE]: '1', [RANGE_VALUE]: 1 }]);
+    const customInfo: GaugeCustomInfo = { meter };
+    v3.interval({ minColumnWidth, maxColumnWidth })
+      .position(`1*${RANGE_VALUE}`)
+      .color(color)
+      .adjust('stack')
+      .shape('meter-gauge')
+      .customInfo(customInfo);
+    v3.coordinate('polar', { innerRadius, radius, startAngle, endAngle }).transpose();
+  }
 
   return params;
 }
@@ -88,10 +148,12 @@ function meta(params: Params<GaugeOptions>): Params<GaugeOptions> {
  * 统计指标文档
  * @param params
  */
-function statistic(params: Params<GaugeOptions>): Params<GaugeOptions> {
+function statistic(params: Params<GaugeOptions>, updated?: boolean): Params<GaugeOptions> {
   const { chart, options } = params;
   const { statistic, percent } = options;
 
+  // 先清空标注，再重新渲染
+  chart.getController('annotation').clear(true);
   if (statistic) {
     const { content } = statistic;
     let transformContent;
@@ -115,6 +177,10 @@ function statistic(params: Params<GaugeOptions>): Params<GaugeOptions> {
     renderGaugeStatistic(chart, { statistic: { ...statistic, content: transformContent } }, { percent });
   }
 
+  if (updated) {
+    chart.render(true);
+  }
+
   return params;
 }
 
@@ -132,6 +198,11 @@ function other(params: Params<GaugeOptions>): Params<GaugeOptions> {
 }
 
 /**
+ * 对外暴露的 adaptor
+ */
+export { statistic };
+
+/**
  * 图适配器
  * @param chart
  * @param options
@@ -146,6 +217,9 @@ export function adaptor(params: Params<GaugeOptions>) {
     statistic,
     interaction,
     theme,
+    // meterView 需要放到主题之后
+    meterView,
+    annotation(),
     other
     // ... 其他的 adaptor flow
   )(params);

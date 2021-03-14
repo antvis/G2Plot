@@ -1,66 +1,66 @@
 ---
 title: 水波图
-order: 12
+order: 10
 ---
 
-### 图表容器
+<div class="manual-docs">
 
-`markdown:docs/common/chart-options.zh.md`
+ <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
+    <table class="lake-table" style="width: 100%; outline: none; border-collapse: collapse;">
+      <colgroup>
+        <col width="425" span="1">
+        <col width="340" span="1">
+      </colgroup>
+      <tbody>
+        <tr style="height: 33px;">
+          <td colspan="1" rowspan="4" style="background:#fff">
+            <playground path='progress-plots/liquid/demo/basic.ts'></playground>
+          </td>
+          <td class="style1">
+          <p><strong>定义</strong></p>
+            <p><span class="lake-fontsize-12">水波图是一种用球形容器和其中的水平线位置来表示进度的示意图。</span></p>
+            <p><strong>别名: </strong><span class="lake-fontsize-12">水波球、进度球</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px;">
+          <td class="style1">
+            <p><strong>视觉通道</strong></p>
+            <p><span class="lake-fontsize-12">位置</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px;">
+          <td colspan="1">
+            <p><strong>分析目的</strong></p>
+            <p><span class="lake-fontsize-12">比较</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px;">
+          <td colspan="1">
+            <p><strong>数据准备</strong></p>
+            <p><span class="lake-fontsize-12">1 个「数值」字段</span></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-### 数据映射
+## 快速上手
 
-#### percent 
+<div class='sign'>
 
-<description>**required** _number_</description>
+```ts
+import { Liquid } from '@antv/g2plot';
 
-指标比例数据 [0-1]。
+const liquidPlot = new Liquid('container', {
+  percent: 0.25,
+});
+liquidPlot.render();
+```
 
-#### radius
+</div>
 
-<description>**optional** _number_ _default:_ `0.9`</description>
+📊 查看更多<a href="/zh/examples/progress-plots/liquid" target='blank'>示例</a>.
 
-外环的半径 [0-1]，相对于画布宽高的最小值来计算的。
+🎨 水波图详细的配置参考 [API 文档](/zh/docs/api/plots/liquid).
 
-### 图形样式
-
-#### liquidStyle
-
-<description>**optional** _StyleAttr | Function_</description>
-
-水波图的配色样式。
-
-`markdown:docs/common/shape-style.zh.md`
-
-`markdown:docs/common/color.zh.md`
-
-#### outline
-
-<description>**optional** _Outline_</description>
-
-水波图的外框容器配置。主要包含以下内容：
-
-| 属性名        | 类型            | 介绍                                         |
-| ------------ | -------------- | -------------------------------------------- |
-| border       | number         | 外框容器的 border 宽度，默认为 2 像素             |
-| disatance    | number         | 外框容器和内部波形的间距，默认为 0 像素             |
-
-#### wave
-
-<description>**optional** _Wave_</description>
-
-水波图的波形配置。主要包含以下内容：
-
-| 属性名        | 类型            | 介绍                                         |
-| ------------ | -------------- | -------------------------------------------- |
-| count        | number         | 水波的个数，默认为 3 个                          |
-| length       | number         | 水波的波长度，默认为 192 像素                     |
-
-### 图表组件
-
-#### statistic ✨
-
-<description>**optional** _object_</description>
-
-指标中心文本组件。
-
-`markdown:docs/common/statistic.zh.md`
+</div>

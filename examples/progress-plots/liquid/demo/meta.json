@@ -1,0 +1,40 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "水波图",
+        "en": "Liquid plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/cK%24GQZR7gg/e4a23f17-d007-4767-ba76-88667a64cbc1.png"
+    },
+    {
+      "filename": "style.ts",
+      "title": {
+        "zh": "样式自定义的水波图",
+        "en": "Liquid plot - custom style"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*DIzzR6M4T94AAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "diamond.ts",
+      "title": {
+        "zh": "其他形状的水波图",
+        "en": "Liquid plot - built-in shape"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IzMHQL12utQAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "custom.ts",
+      "title": {
+        "zh": "形状自定义的水波图",
+        "en": "Liquid plot - custom shape"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*9MbOSZwdKmYAAAAAAAAAAAAAARQnAQ"
+    }
+  ]
+}

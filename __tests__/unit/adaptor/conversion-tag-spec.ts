@@ -478,7 +478,7 @@ describe('zero data no NaN', () => {
         const next = DATA_WITH_ZERO[idx].pv;
         let v;
         if (prev === next) {
-          v = '0.00%';
+          v = '100%';
         } else if (prev === 0) {
           v = '∞';
         } else if (next === 0) {

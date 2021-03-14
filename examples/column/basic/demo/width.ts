@@ -39,7 +39,6 @@ const columnPlot = new Column('container', {
   data,
   xField: 'type',
   yField: 'sales',
-  columnWidthRatio: 0.8,
   xAxis: {
     label: {
       autoHide: true,
@@ -54,6 +53,8 @@ const columnPlot = new Column('container', {
       alias: '销售额',
     },
   },
+  minColumnWidth: 20,
+  maxColumnWidth: 20,
 });
 
 columnPlot.render();

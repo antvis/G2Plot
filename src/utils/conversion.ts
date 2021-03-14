@@ -4,13 +4,13 @@ import { isNumber } from '@antv/util';
  * @param prev
  * @param next
  */
-export function conversionTagformatter(prev: number, next: number): string {
+export function conversionTagFormatter(prev: number, next: number): string {
   if (!isNumber(prev) || !isNumber(next)) {
     return '-';
   }
 
   if (prev === next) {
-    return `${(0).toFixed(2)}%`;
+    return '100%';
   }
   if (prev === 0) {
     return '∞';

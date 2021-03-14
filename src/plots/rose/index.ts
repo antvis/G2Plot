@@ -11,6 +11,15 @@ export class Rose extends Plot<RoseOptions> {
   public type: string = 'rose';
 
   /**
+   * @override
+   * @param data
+   */
+  public changeData(data) {
+    this.updateOption({ data });
+    this.chart.changeData(data);
+  }
+
+  /**
    * 获取默认的 options 配置项
    */
   protected getDefaultOptions(): Partial<RoseOptions> {

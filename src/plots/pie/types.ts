@@ -19,6 +19,11 @@ export interface PieOptions extends Options {
   readonly label?: Label;
   /** 饼图图形样式 */
   readonly pieStyle?: StyleAttr;
+  // 设置扇形图
+  /** 圆环的开始角度 */
+  readonly startAngle?: number;
+  /** 圆环的结束角度 */
+  readonly endAngle?: number;
   /**
    * 指标卡组件: 显示在环图中心，可以代替tooltip，显示环图数据的总计值和各项数据
    * 启用 statistic 组件的同时将自动关闭tooltip

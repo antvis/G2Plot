@@ -10,7 +10,7 @@
         "zh": "基础面积图",
         "en": "Basic area plot"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*AE2CTr-Uz3QAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/ld0NQtdLO0/mianjitugengxinshuju-after.gif"
     },
     {
       "filename": "basic-gradients.ts",
@@ -23,8 +23,8 @@
     {
       "filename": "basic-slider.ts",
       "title": {
-        "zh": "缩略轴面积图",
-        "en": "Slider area plot"
+        "zh": "带缩略轴面积图",
+        "en": "Area plot with slider"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*xXtxRLa2CHoAAAAAAAAAAAAAARQnAQ"
     },

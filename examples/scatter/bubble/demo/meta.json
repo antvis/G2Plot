@@ -1,0 +1,40 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "quadrant.ts",
+      "title": {
+        "zh": "气泡图-四象限",
+        "en": "Bubble plot quadrant"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*tdedT4uaPaYAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "axis-right.ts",
+      "title": {
+        "zh": "气泡图-右侧坐标轴",
+        "en": "Bubble plot yAxis on the right"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*0luHTJODdMUAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "bubble-3d.ts",
+      "title": {
+        "zh": "伪 3D 气泡图",
+        "en": "Bubble plot of fake 3D"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/%26Gzzn7RM81/83252692-ca94-40eb-be60-5f9bb591683a.png"
+    },
+    {
+      "filename": "quadrant-tooltip.ts",
+      "title": {
+        "zh": "气泡图-自定义tooltip",
+        "en": "Custom bubble tooltip"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CvOyT6MoUAQAAAAAAAAAAAAAARQnAQ"
+    }
+  ]
+}

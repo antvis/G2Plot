@@ -1,5 +1,4 @@
-import { View } from '@antv/g2';
-import { IGroup } from '@antv/g2/lib/dependents';
+import { View, IGroup } from '@antv/g2';
 import { each, get, isNumber, isFunction, isString } from '@antv/util';
 import { Datum, ShapeStyle, Statistic, StatisticText } from '../types';
 import { pick, kebabCase } from '.';
@@ -107,8 +106,9 @@ export const renderStatistic = (chart: View, options: { statistic: Statistic; pl
         } else if (plotType === 'liquid') {
           const liquidShape = get(view.geometries, [0, 'elements', 0, 'shape']);
           if (liquidShape) {
-            const circle = (liquidShape as IGroup).find((t) => t.get('type') === 'circle');
-            const { width } = circle.getCanvasBBox();
+            // 获取到水波图边框大小
+            const path = (liquidShape as IGroup).find((t) => t.get('name') === 'wrap');
+            const { width } = path.getCanvasBBox();
             containerW = width;
           }
         } else if (!containerW) {
@@ -129,7 +129,6 @@ export const renderStatistic = (chart: View, options: { statistic: Statistic; pl
         if (option.formatter) {
           text = option.formatter(datum, filteredData);
         }
-
         // todo G2 层修复可以返回空字符串 & G2 层修复允许返回非字符串的内容，比如数值 number
         return text ? (isString(text) ? text : `${text}`) : '<div></div>';
       },

@@ -21,15 +21,29 @@ module.exports = {
       'latest v2': 'https://g2plot.antv.vision',
       '1.x': 'https://g2plot-v1.antv.vision',
     },
+    galleryMenuCloseAll: true,
     showChartResize: true, // 是否在demo页展示图表视图切换
     showAPIDoc: true, // 是否在demo页展示API文档
     themeSwitcher: 'g2plot',
+    playground: {},
+    mdPlayground: {
+      // markdown 文档中的 playground 若干设置
+      splitPaneMainSize: '50%',
+    },
     navs: [
       {
         slug: 'docs/manual',
         title: {
-          zh: '使用文档',
+          zh: '教程',
           en: 'Manual',
+        },
+        order: 2,
+      },
+      {
+        slug: 'docs/api',
+        title: {
+          zh: 'API',
+          en: 'API',
         },
         order: 1,
       },
@@ -53,10 +67,34 @@ module.exports = {
       {
         slug: 'manual/plots',
         title: {
-          zh: '图表',
-          en: 'Plots',
+          zh: '图表指引',
+          en: 'Plot Guide',
         },
         order: 3,
+      },
+      {
+        slug: 'api/plots',
+        title: {
+          zh: '基础图表',
+          en: 'Plots',
+        },
+        order: 2,
+      },
+      {
+        slug: 'api/components',
+        title: {
+          zh: '图表组件',
+          en: 'Components',
+        },
+        order: 3,
+      },
+      {
+        slug: 'api/options',
+        title: {
+          zh: '通用配置',
+          en: 'Common Configuration',
+        },
+        order: 4,
       },
     ],
     examples: [
@@ -101,22 +139,6 @@ module.exports = {
         },
       },
       {
-        slug: 'pie',
-        icon: 'pie',
-        title: {
-          zh: '饼图',
-          en: 'Pie',
-        },
-      },
-      {
-        slug: 'gauge',
-        icon: 'gauge',
-        title: {
-          zh: '仪表盘',
-          en: 'Gauge',
-        },
-      },
-      {
         slug: 'bar',
         icon: 'bar',
         title: {
@@ -125,19 +147,11 @@ module.exports = {
         },
       },
       {
-        slug: 'waterfall',
-        icon: 'column',
+        slug: 'pie',
+        icon: 'pie',
         title: {
-          zh: '瀑布图',
-          en: 'Waterfall Charts',
-        },
-      },
-      {
-        slug: 'scatter',
-        icon: 'point',
-        title: {
-          zh: '散点图',
-          en: 'Scatter',
+          zh: '饼图',
+          en: 'Pie',
         },
       },
       {
@@ -149,51 +163,19 @@ module.exports = {
         },
       },
       {
-        slug: 'radar',
-        icon: 'radar',
+        slug: 'progress-plots',
+        icon: 'gauge',
         title: {
-          zh: '雷达图',
-          en: 'Radar',
+          zh: '进度图',
+          en: 'Progress Plots',
         },
       },
       {
-        slug: 'liquid',
-        icon: 'other',
+        slug: 'scatter',
+        icon: 'point',
         title: {
-          zh: '水波图',
-          en: 'Liquid',
-        },
-      },
-      {
-        slug: 'word-cloud',
-        icon: 'word-cloud',
-        title: {
-          zh: '词云图',
-          en: 'Word Cloud',
-        },
-      },
-      {
-        slug: 'funnel',
-        icon: 'funnel',
-        title: {
-          zh: '漏斗图',
-          en: 'Funnel',
-        },
-      },
-      {
-        slug: 'bullet',
-        icon: 'bullet',
-        title: {
-          zh: '子弹图',
-          en: 'Bullet',
-        },
-      },
-      {
-        slug: 'histogram',
-        icon: 'histogram',
-        title: {
-          zh: '直方图',
-          en: 'Histogram',
+          zh: '散点气泡图',
+          en: 'Scatter and Bubble',
         },
       },
       {
@@ -205,19 +187,11 @@ module.exports = {
         },
       },
       {
-        slug: 'tiny',
-        icon: 'other',
+        slug: 'relation-plots',
+        icon: 'sankey',
         title: {
-          zh: '迷你图',
-          en: 'Tiny Charts',
-        },
-      },
-      {
-        slug: 'box',
-        icon: 'box',
-        title: {
-          zh: '箱型图',
-          en: 'Box',
+          zh: '关系图',
+          en: 'Relation Plots',
         },
       },
       {
@@ -225,72 +199,56 @@ module.exports = {
         icon: 'heatmap',
         title: {
           zh: '热力图',
-          en: 'heatmap',
+          en: 'Heatmap',
         },
       },
       {
-        slug: 'stock',
-        icon: 'candlestick',
-        title: {
-          zh: '股票图',
-          en: 'Stock',
-        },
-      },
-      {
-        slug: 'sunburst',
+        slug: 'tiny',
         icon: 'other',
         title: {
-          zh: '旭日图',
-          en: 'Sunburst',
+          zh: '迷你图',
+          en: 'Tiny Plots',
         },
       },
       {
-        slug: 'radial-bar',
-        icon: 'radial-bar',
+        slug: 'more-plots',
+        icon: 'other',
         title: {
-          zh: '玉珏图',
-          en: 'Radial Bar',
+          zh: '更多图表',
+          en: 'More Plots',
         },
       },
       {
-        slug: 'sankey',
-        icon: 'sankey',
+        slug: 'treemap',
+        icon: 'other',
         title: {
-          zh: '桑基图',
-          en: 'Sankey',
-        },
-      },
-      {
-        slug: 'chord',
-        icon: 'chord',
-        title: {
-          zh: '弦图',
-          en: 'Chord',
-        },
-      },
-      {
-        slug: 'bidirectional-bar',
-        icon: 'bi-directional-bar',
-        title: {
-          zh: '对称条形图',
-          en: 'Bidirectional Bar',
+          zh: '矩形树图',
+          en: 'Treemap',
         },
       },
       // OTHERS
+      {
+        slug: 'plugin',
+        icon: 'other',
+        title: {
+          zh: '高级图表',
+          en: 'Advanced Plots',
+        },
+      },
+      {
+        slug: 'dynamic-plots',
+        icon: 'other',
+        title: {
+          zh: '动态交互图',
+          en: 'Dynamic Plots',
+        },
+      },
       {
         slug: 'general',
         icon: 'other',
         title: {
           zh: '图表通用配置',
           en: 'General Configuration',
-        },
-      },
-      {
-        slug: 'plugin',
-        icon: 'other',
-        title: {
-          zh: '自定义扩展图表',
-          en: 'Custom Plots',
         },
       },
     ],

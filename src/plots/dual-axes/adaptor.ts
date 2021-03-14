@@ -1,6 +1,5 @@
-import { each, findIndex, get, find, isObject, every } from '@antv/util';
-import { Scale } from '@antv/g2/lib/dependents';
-import { LegendItem } from '@antv/g2/lib/interface';
+import { each, findIndex, get, find, isObject, every, isEqual, isBoolean } from '@antv/util';
+import { Scale, Types, Event } from '@antv/g2';
 import {
   theme,
   animation as commonAnimation,
@@ -14,9 +13,10 @@ import { Params } from '../../core/adaptor';
 import { Datum } from '../../types';
 import { flow, deepAssign } from '../../utils';
 import { findViewById } from '../../utils/view';
-import { isColumn, getYAxisWithDefault, getGeometryOption, transArrayToObject } from './util/option';
+import { isColumn, getYAxisWithDefault, getGeometryOption, transformObjectToArray } from './util/option';
 import { getViewLegendItems } from './util/legend';
 import { drawSingleGeometry } from './util/geometry';
+import { renderSlider } from './util/render-sider';
 import { DualAxesOptions, AxisType, DualAxesGeometry } from './types';
 import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
 
@@ -73,14 +73,14 @@ export function transformOptions(params: Params<DualAxesOptions>): Params<DualAx
     {
       options: {
         // yAxis
-        yAxis: transArrayToObject(yField, options.yAxis, 'yAxis should be object.'),
+        yAxis: transformObjectToArray(yField, options.yAxis),
         // geometryOptions
         geometryOptions: [
           getGeometryOption(xField, yField[0], geometryOptions[0]),
           getGeometryOption(xField, yField[1], geometryOptions[1]),
         ],
         // annotations
-        annotations: transArrayToObject(yField, options.annotations, 'annotations should be object.'),
+        annotations: transformObjectToArray(yField, options.annotations),
       },
     }
   );
@@ -181,12 +181,12 @@ export function meta(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
 
   scale({
     [xField]: xAxis,
-    [yField[0]]: yAxis[yField[0]],
+    [yField[0]]: yAxis[0],
   })(deepAssign({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
 
   scale({
     [xField]: xAxis,
-    [yField[1]]: yAxis[yField[1]],
+    [yField[1]]: yAxis[1],
   })(deepAssign({}, params, { chart: findViewById(chart, RIGHT_AXES_VIEW) }));
 
   return params;
@@ -208,11 +208,11 @@ export function axis(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
 
   // 左 View
   leftView.axis(xField, xAxis);
-  leftView.axis(yField[0], getYAxisWithDefault(yAxis[yField[0]], AxisType.Left));
+  leftView.axis(yField[0], getYAxisWithDefault(yAxis[0], AxisType.Left));
 
   // 右 Y 轴
   rightView.axis(xField, false);
-  rightView.axis(yField[1], getYAxisWithDefault(yAxis[yField[1]], AxisType.Right));
+  rightView.axis(yField[1], getYAxisWithDefault(yAxis[1], AxisType.Right));
 
   return params;
 }
@@ -258,21 +258,24 @@ export function interaction(params: Params<DualAxesOptions>): Params<DualAxesOpt
  */
 export function annotation(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart, options } = params;
-  const { yField, annotations } = options;
+  const { annotations } = options;
 
-  commonAnnotation(get(annotations, [yField[0]]))(
+  const a1 = get(annotations, [0]);
+  const a2 = get(annotations, [1]);
+
+  commonAnnotation(a1)(
     deepAssign({}, params, {
       chart: findViewById(chart, LEFT_AXES_VIEW),
       options: {
-        annotations: get(annotations, [yField[0]]),
+        annotations: a1,
       },
     })
   );
-  commonAnnotation(get(annotations, [yField[1]]))(
+  commonAnnotation(a2)(
     deepAssign({}, params, {
       chart: findViewById(chart, RIGHT_AXES_VIEW),
       options: {
-        annotations: get(annotations, [yField[1]]),
+        annotations: a2,
       },
     })
   );
@@ -294,13 +297,13 @@ export function animation(params: Params<DualAxesOptions>): Params<DualAxesOptio
  */
 export function limitInPlot(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart, options } = params;
-  const { yField, yAxis } = options;
+  const { yAxis } = options;
 
   commonLimitInPlot(
     deepAssign({}, params, {
       chart: findViewById(chart, LEFT_AXES_VIEW),
       options: {
-        yAxis: yAxis[yField[0]],
+        yAxis: yAxis[0],
       },
     })
   );
@@ -309,7 +312,7 @@ export function limitInPlot(params: Params<DualAxesOptions>): Params<DualAxesOpt
     deepAssign({}, params, {
       chart: findViewById(chart, RIGHT_AXES_VIEW),
       options: {
-        yAxis: yAxis[yField[1]],
+        yAxis: yAxis[1],
       },
     })
   );
@@ -386,7 +389,10 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
             each(groupScale, (scale: Scale) => {
               if (scale.values && scale.values.indexOf(field) > -1) {
                 view.filter(scale.field, (value) => {
-                  const curLegendItem: LegendItem = find(legendItem, (item: LegendItem) => item.value === value);
+                  const curLegendItem: Types.LegendItem = find(
+                    legendItem,
+                    (item: Types.LegendItem) => item.value === value
+                  );
                   // 使用 legend 中的 unchecked 来判断，使得支持关闭多个图例
                   return !curLegendItem.unchecked;
                 });
@@ -394,6 +400,42 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
             });
             chart.render(true);
           });
+        }
+      }
+    });
+  }
+
+  return params;
+}
+
+/**
+ * slider 配置
+ * @param params
+ */
+export function slider(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
+  const { chart, options } = params;
+  const { slider } = options;
+  const leftView = findViewById(chart, LEFT_AXES_VIEW);
+  const rightView = findViewById(chart, RIGHT_AXES_VIEW);
+  if (slider) {
+    // 左 View
+    leftView.option('slider', slider);
+    // 监听左侧 slider 改变事件， 同步右侧 View 视图
+    leftView.on('slider:valuechanged', (evt: Event) => {
+      const {
+        event: { value, originValue },
+      } = evt;
+      if (isEqual(value, originValue)) {
+        return;
+      }
+      renderSlider(rightView, value);
+    });
+    chart.once('afterpaint', () => {
+      // 初始化数据，配置默认值时需要同步
+      if (!isBoolean(slider)) {
+        const { start, end } = slider;
+        if (start || end) {
+          renderSlider(rightView, [start, end]);
         }
       }
     });
@@ -421,6 +463,7 @@ export function adaptor(params: Params<DualAxesOptions>): Params<DualAxesOptions
     theme,
     animation,
     color,
-    legend
+    legend,
+    slider
   )(params);
 }

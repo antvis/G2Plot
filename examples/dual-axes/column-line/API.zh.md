@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/dual-axes.zh.md`
+`markdown:docs/api/plots/dual-axes.zh.md`

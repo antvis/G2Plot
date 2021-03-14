@@ -1,0 +1,48 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "dynamic-spline.ts",
+      "title": {
+        "zh": "实时刷新的曲线图",
+        "en": "Spline updating real-time"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/uShhKpuVTc/dongtaigengxinzhexiantushuju.gif"
+    },
+    {
+      "filename": "dynamic-column.ts",
+      "title": {
+        "zh": "动态更新的柱状图",
+        "en": "Column updating with dynamic"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/xRi7nXpsN1/dynamtic-column.gif"
+    },
+    {
+      "filename": "dynamic-area.ts",
+      "title": {
+        "zh": "动态更新的面积图",
+        "en": "Area updating with dynamic"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/ld0NQtdLO0/mianjitugengxinshuju-after.gif"
+    },
+    {
+      "filename": "dynamic-gauge.ts",
+      "title": {
+        "zh": "动态更新的仪表盘",
+        "en": "Gauge updating with dynamic"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*O2aDSImbWDgAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "dynamic-pie.ts",
+      "title": {
+        "zh": "动态更新的饼图",
+        "en": "Pie updating with dynamic"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/JQXEkyg2Rm/dongtaigengxinshuju-pie-after.gif"
+    }
+  ]
+}

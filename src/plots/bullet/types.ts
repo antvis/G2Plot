@@ -1,7 +1,7 @@
-import { GeometryLabelCfg } from '@antv/g2/lib/interface';
+import { Types } from '@antv/g2';
 import { Options, ColorAttr, SizeAttr, StyleAttr, Datum } from '../../types';
 
-type GeometryLabelAttr = GeometryLabelCfg | ((datum: Datum) => GeometryLabelCfg);
+type GeometryLabelAttr = Types.GeometryLabelCfg | ((datum: Datum) => Types.GeometryLabelCfg);
 
 type BulletAttr<T> = {
   measure?: T;
@@ -22,7 +22,7 @@ export interface BulletOptions extends Omit<Options, 'color' | 'label' | 'style'
   readonly targetField: string;
 
   /** label 包含了 measure,target,range */
-  readonly label?: BulletAttr<GeometryLabelAttr>;
+  readonly label?: BulletAttr<GeometryLabelAttr | false>;
 
   /** size 包含了 measure,target,range */
   readonly size?: BulletAttr<SizeAttr>;

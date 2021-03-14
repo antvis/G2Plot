@@ -1,4 +1,5 @@
 import { Progress } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/progress/constants';
 import { createDiv } from '../../../utils/dom';
 
 describe('progress', () => {
@@ -265,5 +266,9 @@ describe('progress', () => {
     expect(progress.chart.geometries[0].elements[0].getData().percent).toBe(0.8);
 
     progress.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(Progress.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

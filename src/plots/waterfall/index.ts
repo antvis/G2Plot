@@ -2,6 +2,7 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { WaterfallOptions } from './types';
 import { adaptor } from './adaptor';
+import { transformData } from './utils';
 
 export { WaterfallOptions };
 
@@ -11,6 +12,16 @@ export { WaterfallOptions };
 export class Waterfall extends Plot<WaterfallOptions> {
   /** 图表类型 */
   public readonly type: string = 'waterfall';
+
+  /**
+   * @override
+   * @param data
+   */
+  public changeData(data) {
+    const { xField, yField, total } = this.options;
+    this.updateOption({ data });
+    this.chart.changeData(transformData(data, xField, yField, total));
+  }
 
   /**
    * 获取 瀑布图 的适配器

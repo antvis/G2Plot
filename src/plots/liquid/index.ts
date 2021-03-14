@@ -1,7 +1,9 @@
+import { VIEW_LIFE_CIRCLE, Event } from '@antv/g2';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { LiquidOptions } from './types';
-import { adaptor } from './adaptor';
+import { adaptor, statistic } from './adaptor';
+import { getLiquidData } from './utils';
 // register liquid shape
 import './shapes/liquid';
 
@@ -25,6 +27,7 @@ export class Liquid extends Plot<LiquidOptions> {
           style: {
             opacity: 0.75,
             fontSize: '30px',
+            lineHeight: '30px',
             textAlign: 'center',
           },
         },
@@ -37,6 +40,7 @@ export class Liquid extends Plot<LiquidOptions> {
         count: 3,
         length: 192,
       },
+      shape: 'circle',
     };
   }
 
@@ -45,9 +49,19 @@ export class Liquid extends Plot<LiquidOptions> {
    * @param percent
    */
   public changeData(percent: number) {
-    this.update({
-      percent,
-    });
+    this.chart.emit(
+      VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA,
+      Event.fromData(this.chart, VIEW_LIFE_CIRCLE.BEFORE_CHANGE_DATA, null)
+    );
+    this.updateOption({ percent });
+
+    this.chart.data(getLiquidData(percent));
+    statistic({ chart: this.chart, options: this.options }, true);
+
+    this.chart.emit(
+      VIEW_LIFE_CIRCLE.AFTER_CHANGE_DATA,
+      Event.fromData(this.chart, VIEW_LIFE_CIRCLE.AFTER_CHANGE_DATA, null)
+    );
   }
 
   /**

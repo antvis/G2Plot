@@ -1,0 +1,1 @@
+`markdown:docs/api/plots/histogram.zh.md`

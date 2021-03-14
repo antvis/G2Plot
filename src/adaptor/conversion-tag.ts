@@ -1,10 +1,8 @@
 import { map, find, each, isObject } from '@antv/util';
-import { Coordinate, IGroup, ShapeAttrs } from '@antv/g2/lib/dependents';
-import { Geometry, View, getTheme } from '@antv/g2';
-import Element from '@antv/g2/lib/geometry/element';
+import { Coordinate, IGroup, ShapeAttrs, Element, Geometry, View, getTheme } from '@antv/g2';
 import { Params } from '../core/adaptor';
 import { deepAssign } from '../utils';
-import { conversionTagformatter } from '../utils/conversion';
+import { conversionTagFormatter } from '../utils/conversion';
 import { Options } from '../types';
 
 /** 转化率组件配置选项 */
@@ -76,7 +74,7 @@ function getConversionTagOptionsWithDefaults(options: ConversionTagOptions, hori
           textAlign: 'center',
           textBaseline: 'middle',
         },
-        formatter: conversionTagformatter,
+        formatter: conversionTagFormatter,
       },
     },
     options

@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "2.3.2",
+  "version": "2.3.15",
   "description": "An interactive and responsive charting library",
   "keywords": [
     "chart",
@@ -58,14 +58,12 @@
     "@antv/g2": "^4.1.0",
     "d3-hierarchy": "^2.0.0",
     "d3-regression": "^1.3.5",
-    "d3-sankey": "^0.12.3",
-    "dayjs": "^1.8.36",
     "size-sensor": "^1.0.1",
-    "tslib": "^1.13.0"
+    "tslib": "^2.0.3"
   },
   "devDependencies": {
     "@antv/data-set": "^0.11.5",
-    "@antv/gatsby-theme-antv": "1.0.2",
+    "@antv/gatsby-theme-antv": "^1.0.4",
     "@babel/core": "^7.10.4",
     "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.10.4",
@@ -93,6 +91,7 @@
     "limit-size": "^0.1.3",
     "lint-md-cli": "^0.1.2",
     "lint-staged": "^10.0.7",
+    "miz": "^1.0.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.1",
     "react": "^16.11.0",
@@ -144,5 +143,10 @@
       "gzip": true
     }
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "resolutions": {
+    "monaco-editor": "0.21.3",
+    "@babel/plugin-transform-spread": "7.12.1",
+    "@babel/standalone": "7.12.6"
+  }
 }

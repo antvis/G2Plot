@@ -1,0 +1,64 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "词云图",
+        "en": "Basic word cloud plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*MBDPS6YX7y0AAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "image-mask.ts",
+      "title": {
+        "zh": "词云图-图片遮罩",
+        "en": "Word cloud plot - image mask"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*id4CSZIMCtsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "image-mask-base64.ts",
+      "title": {
+        "zh": "词云图-图片遮罩-base64",
+        "en": "Word cloud plot - image mask base64"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*qkYyQqFTU4YAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "color-field.ts",
+      "title": {
+        "zh": "词云图-colorField",
+        "en": "Word cloud plot - colorField"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*id4CSZIMCtsAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "same-place.ts",
+      "title": {
+        "zh": "词云图-每次渲染保持位置不变",
+        "en": "Word cloud plot - keep the position unchanged"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*CDgnRaN9iXkAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "douban-2020-movie.ts",
+      "title": {
+        "zh": "豆瓣 2020 电影 (部分)",
+        "en": "Movie of 2020 in DouBan (partial)"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/x0MczjNEWG/298b11e6-731c-458b-97c8-f96c77ebb7c1.png"
+    },
+    {
+      "filename": "placement-strategy.ts",
+      "title": {
+        "zh": "词云图-自定义每个词语位置",
+        "en": "Word cloud plot - custom placement"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*BV6DQYM6KFMAAAAAAAAAAAAAARQnAQ"
+    }
+  ]
+}

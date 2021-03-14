@@ -53,7 +53,7 @@ describe('liquid statistic', () => {
   it('customHtml 容器的宽度', () => {
     let htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
     // @ts-ignore
-    const circleShape = liquid.chart.geometries[0].elements[0].shape.find((s) => s.get('type') === 'circle');
+    const circleShape = liquid.chart.geometries[0].elements[0].shape.find((s) => s.get('name') === 'wrap');
     expect(htmlAnnotations[0].getBoundingClientRect().width).toEqual(circleShape.getCanvasBBox().width);
 
     // 开发者可以覆盖
@@ -77,6 +77,24 @@ describe('liquid statistic', () => {
     liquid.update({ statistic: { content: null, title: null } });
     annotations = document.body.querySelectorAll('.g2-html-annotation');
     expect(annotations.length).toBe(0);
+  });
+
+  it('change data', () => {
+    liquid.update({ statistic: { title: {}, content: { formatter: ({ percent: v }) => `${v * 100}.0%` } } });
+    liquid.changeData(0.35);
+    const annotations = document.body.querySelectorAll('.g2-html-annotation');
+    expect(annotations.length).toBe(2);
+    expect((annotations[1] as HTMLElement).innerText).toBe('35.0%');
+
+    liquid.changeData(0.15);
+    expect((document.body.querySelectorAll('.g2-html-annotation')[1] as HTMLElement).innerText).toBe('15.0%');
+
+    liquid.update({ statistic: { content: {}, title: false } });
+    expect(document.body.querySelectorAll('.g2-html-annotation').length).toBe(1);
+    expect((document.body.querySelectorAll('.g2-html-annotation')[0] as HTMLElement).innerText).toBe('15.0%');
+
+    liquid.changeData(0.05);
+    expect((document.body.querySelectorAll('.g2-html-annotation')[0] as HTMLElement).innerText).toBe('5.0%');
   });
 
   afterAll(() => {

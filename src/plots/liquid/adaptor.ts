@@ -4,9 +4,8 @@ import { interaction, animation, theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign, renderStatistic } from '../../utils';
 import { interval } from '../../adaptor/geometries';
-import { LiquidOptions } from './types';
-
-const CAT_VALUE = 'liquid';
+import { LiquidOptions, CustomInfo } from './types';
+import { getLiquidData } from './utils';
 
 /**
  * geometry 处理
@@ -14,9 +13,7 @@ const CAT_VALUE = 'liquid';
  */
 function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
   const { chart, options } = params;
-  const { percent, color, liquidStyle, radius, outline, wave } = options;
-
-  const data = [{ percent, type: CAT_VALUE }];
+  const { percent, color, liquidStyle, radius, outline, wave, shape } = options;
 
   chart.scale({
     percent: {
@@ -25,7 +22,7 @@ function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
     },
   });
 
-  chart.data(data);
+  chart.data(getLiquidData(percent));
 
   const p = deepAssign({}, params, {
     options: {
@@ -43,13 +40,17 @@ function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
   });
   const { ext } = interval(p);
   const geometry = ext.geometry as Geometry;
-
-  // 将 radius 传入到自定义 shape 中
-  geometry.customInfo({
+  const { background } = chart.getTheme();
+  const customInfo: CustomInfo = {
     radius,
     outline,
     wave,
-  });
+    shape,
+    background,
+  };
+
+  // 将 radius 传入到自定义 shape 中
+  geometry.customInfo(customInfo);
 
   // 关闭组件
   chart.legend(false);
@@ -63,10 +64,12 @@ function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
  * 统计指标文档
  * @param params
  */
-function statistic(params: Params<LiquidOptions>): Params<LiquidOptions> {
+export function statistic(params: Params<LiquidOptions>, updated?: boolean): Params<LiquidOptions> {
   const { chart, options } = params;
   const { statistic, percent, meta } = options;
 
+  // 先清空标注，再重新渲染
+  chart.getController('annotation').clear(true);
   if (statistic.content && !statistic.content.formatter) {
     const metaFormatter = get(meta, ['percent', 'formatter']);
     // @ts-ignore
@@ -75,6 +78,10 @@ function statistic(params: Params<LiquidOptions>): Params<LiquidOptions> {
   }
 
   renderStatistic(chart, { statistic, plotType: 'liquid' }, { percent });
+
+  if (updated) {
+    chart.render(true);
+  }
 
   return params;
 }

@@ -1,58 +1,71 @@
-在 Chart 和 View 上通过 on 绑定事件、off 移除绑定事件。
+On Plot, binding events are removed by `ON` and `OFF` method.
 
 ```ts
-// 绑定事件
-chart.on('eventName', callback);
-// 移除事件
-chart.off('eventName', callback);
+// Bind event
+plot.on('eventName', callback);
+// Bind event, only trigger one time
+plot.once('eventName', callback);
+// Remove event
+plot.off('eventName', callback);
 ```
 
-#### eventName
+Composition: `${componentName}:${eventName}`
 
-组成方式：element + ':' + events。
+Element refers to the type of element to bind to, for example `element`、`legend-item`、`axis-label`、`mask`、`plot`、`legend-item-name`、`reset-button` etc.
 
-element 指要绑定的元素类型，例如 `element`、`legend-item`、`axis-label`、`mask`、`plot`、`legend-item-name`、`reset-button` 等。
-
-events 对应 DOM 常见事件，例如 `click`、`mousedown`、`mouseup`、`dblclick`、`mouseenter`、`mouseout`、`mouseover`、`mousemove`、`mouseleave`、`contextmenu` 等，同时支持几个移动端事件：`touchstart`、`touchmove`、`touchend`
+Events correspond to DOM common events, for example `click`、`mousedown`、`mouseup`、`dblclick`、`mouseenter`、`mouseout`、`mouseover`、`mousemove`、`mouseleave`、`contextmenu` etc. And support mobile events: `touchstart`、`touchmove`、`touchend`
 
 ```ts
-// plot添加点击事件,整个图表区域
-chart.on('plot:click', (...args) => {
+// Plot adds click events to the entire chart area
+plot.on('plot:click', (...args) => {
   console.log(...args);
 });
 
-// element 添加点击事件， element 代指 label|point 等
-chart.on('element:click', (...args) => {
+// Element to add a click event, element represents the graphic elements, graphical elements, please see: https://g2.antv.vision/en/docs/manual/concepts/element
+plot.on('element:click', (...args) => {
   console.log(...args);
 });
 
-// 图例添加点击事件
-chart.on('legend-item:click', (...args) => {
+// Legend adds click events
+plot.on('legend-item:click', (...args) => {
   console.log(...args);
 });
 
-// 图例名称添加点击事件
-chart.on('legend-item-name:click', (...args) => {
+// Legend name adds click event
+plot.on('legend-item-name:click', (...args) => {
   console.log(...args);
 });
 
-// label 添加点击事件
-chart.on('label:click', (...args) => {
+// 给 tooltip 添加点击事件
+plot.on('tooltip:show', (...args) => {
   console.log(...args);
 });
 
-// mask 添加点击事件
-chart.on('mask:click', (...args) => {
+plot.on('tooltip:hide', (...args) => {
   console.log(...args);
 });
 
-// axis-label 添加点击事件
-chart.on('axis-label:click', (...args) => {
+plot.on('tooltip:change', (...args) => {
   console.log(...args);
 });
 
-// 给 annotation 添加点击事件
-chart.on('annotation:click', (...args) => {
+// Label adds click events
+plot.on('label:click', (...args) => {
+  console.log(...args);
+});
+
+// Mask adds click events
+plot.on('mask:click', (...args) => {
+  console.log(...args);
+});
+
+// Axis-label adds click events
+plot.on('axis-label:click', (...args) => {
+  console.log(...args);
+});
+
+// Add click events to the annotation
+plot.on('annotation:click', (...args) => {
   console.log(...args);
 });
 ```

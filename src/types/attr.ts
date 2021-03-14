@@ -1,4 +1,4 @@
-import { ShapeAttrs } from '@antv/g-base/lib/types';
+import { ShapeAttrs } from '@antv/g-base';
 import { Datum } from './common';
 
 /** 图形属性 */

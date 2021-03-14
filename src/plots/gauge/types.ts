@@ -1,5 +1,6 @@
-import { Options, ShapeStyle, Statistic } from '../../types';
+import { Options, ShapeStyle, Statistic, StyleAttr } from '../../types';
 import { Axis } from '../../types/axis';
+import { PERCENT, RANGE_TYPE, RANGE_VALUE } from './constants';
 
 /** 指标指标的配置 */
 export type Indicator = {
@@ -18,7 +19,18 @@ type Range = {
   readonly ticks?: number[];
   /** 辅助刻度的颜色配置 */
   readonly color?: string | string[];
+  /** 仪表盘辅助背景的宽度 */
+  readonly width?: number;
 };
+
+/**
+ * 仪表盘辅助生成的 rangeData
+ */
+export type GaugeRangeData = {
+  readonly [RANGE_VALUE]?: number;
+  readonly [RANGE_TYPE]: string;
+  readonly [PERCENT]: number;
+}[];
 
 /** 仪表盘配置类型定义 */
 export interface GaugeOptions
@@ -41,4 +53,25 @@ export interface GaugeOptions
   readonly indicator?: false | Indicator;
   /** 统计文本 */
   readonly statistic?: Statistic;
+  /** 仪表盘样式 */
+  readonly gaugeStyle?: StyleAttr;
+
+  // meter gauge 相关配置
+  /** 仪表盘类型, 可选项: 'meter', default 为空 */
+  readonly type?: string;
+  /** 当仪表盘类型 = 'meter' 生效 */
+  readonly meter?: {
+    /** 仪表盘总步数, default: 50 */
+    readonly steps?: number;
+    /** step 与 gap 的宽度占比, default: 0.5 */
+    readonly stepRatio?: number;
+  };
 }
+
+/**
+ * 仪表盘 自定义 shape 使用的 customInfo
+ */
+export type GaugeCustomInfo = {
+  /** 仪表盘 meter 类型的相关配置 */
+  readonly meter?: GaugeOptions['meter'];
+};

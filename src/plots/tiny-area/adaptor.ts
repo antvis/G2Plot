@@ -3,6 +3,7 @@ import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
 import { area, line, point } from '../../adaptor/geometries';
 import { X_FIELD, Y_FIELD } from '../tiny-line/constants';
+import { getTinyData } from '../tiny-line/utils';
 import { adjustYMetaByZero } from '../../utils/data';
 import { TinyAreaOptions } from './types';
 
@@ -12,11 +13,9 @@ import { TinyAreaOptions } from './types';
  */
 function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   const { chart, options } = params;
-  const { data, xAxis, yAxis, color, areaStyle, point: pointOptions, line: lineOptions } = options;
+  const { data, color, areaStyle, point: pointOptions, line: lineOptions } = options;
 
-  const seriesData = data.map((y: number, x: number) => {
-    return { x, y };
-  });
+  const seriesData = getTinyData(data);
 
   chart.data(seriesData);
 
@@ -39,21 +38,32 @@ function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   chart.axis(false);
   chart.legend(false);
 
-  // scale
-  scale(
-    {
-      [X_FIELD]: xAxis,
-      [Y_FIELD]: yAxis,
-    },
-    {
-      [X_FIELD]: {
-        type: 'cat',
-      },
-      [Y_FIELD]: adjustYMetaByZero(seriesData, Y_FIELD),
-    }
-  )(params);
-
   return params;
+}
+
+/**
+ * meta 配置
+ * @param params
+ */
+export function meta(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
+  const { options } = params;
+  const { xAxis, yAxis, data } = options;
+  const seriesData = getTinyData(data);
+
+  return flow(
+    scale(
+      {
+        [X_FIELD]: xAxis,
+        [Y_FIELD]: yAxis,
+      },
+      {
+        [X_FIELD]: {
+          type: 'cat',
+        },
+        [Y_FIELD]: adjustYMetaByZero(seriesData, Y_FIELD),
+      }
+    )
+  )(params);
 }
 
 /**
@@ -62,5 +72,5 @@ function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
  * @param options
  */
 export function adaptor(params: Params<TinyAreaOptions>) {
-  return flow(geometry, tooltip, theme, animation, annotation())(params);
+  return flow(geometry, meta, tooltip, theme, animation, annotation())(params);
 }

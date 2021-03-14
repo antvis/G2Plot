@@ -1,6 +1,6 @@
 ---
 title: FAQ
-order: 7
+order: 8
 ---
 
 ## FAQ
@@ -17,6 +17,24 @@ order: 7
 meta: {
   [xField]: {
     range: [0, 1]
+  }
+}
+```
+
+### 双轴图如何共用一个 Y 轴
+
+可以通过开启 scale 同步， 然后隐藏其中一个 y 轴坐标。
+
+```ts
+// 适用于 DualAxes plot
+{
+  yFields: ['y1', 'y2'],
+  meta: {
+    y1: { sync: 'y2' },
+    y2: { sync: true },
+  },
+  yAxis: {
+    y2: false
   }
 }
 ```

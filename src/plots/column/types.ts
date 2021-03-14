@@ -1,3 +1,4 @@
+import { ShapeAttrs } from '@antv/g2';
 import { Options, StyleAttr } from '../../types';
 import { OptionWithConversionTag } from '../../adaptor/conversion-tag';
 import { OptionWithConnectedArea } from '../../adaptor/connected-area';
@@ -21,6 +22,12 @@ export interface ColumnOptions extends Options, OptionWithConversionTag, OptionW
   readonly columnWidthRatio?: number;
   /** 分组中柱子之间的间距 [0-1]，仅对分组柱状图适用 */
   readonly marginRatio?: number;
+  /** 柱状图最小宽度（像素） */
+  readonly minColumnWidth?: number;
+  /** 柱状图最大宽度（像素） */
+  readonly maxColumnWidth?: number;
+  /** 柱状图柱子的背景 */
+  readonly columnBackground?: { style?: ShapeAttrs };
   /** 柱子样式配置，可选 */
   readonly columnStyle?: StyleAttr;
   /** 分组字段，优先级高于 seriesField , isGroup: true 时会根据 groupField 进行分组。*/

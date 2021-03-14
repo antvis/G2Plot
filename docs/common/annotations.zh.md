@@ -1,18 +1,3 @@
-标注是数组类型，可以设置多个。
-
-```ts
-annotations: [
-  {
-    type: 'text',
-    position: ['median', 'median'],
-    content: '辅助文本',
-    style: {
-      fill: 'red',
-    },
-  },
-];
-```
-
 ##### type
 
 <description>**required** _string_ </description>
@@ -131,10 +116,11 @@ y 方向的偏移量。
 
 文字包围盒样式设置。
 
-| 参数名  | 类型                | 是否必选 | 默认值 | 描述               |
+| 参数名  | 类型                | 默认值 | 描述               |
 | ------- | ------------------- | -------- | ------ | ------------------ |
-| style   | object 参考绘图属性 |          | -      | 文本背景的样式     |
-| padding | number \| number[]  |          | -      | 文本背景周围的留白 |
+| style   | _object_ | -      | 文本背景的样式, 参考[绘图属性](/en/docs/api/graphic-style)     |
+| padding | _number \| number[]_ | -      | 文本背景周围的留白 |
+
 
 ##### color
 
@@ -178,7 +164,7 @@ line 长度，用于 dataRegion。
 
 自定义 HTML 图形标记的容器元素，用于 html
 
-##### container
+##### html
 
 <description>**optional** _string | HTMLElement_ </description>
 
@@ -186,7 +172,7 @@ line 长度，用于 dataRegion。
 
 ##### alignX
 
-<description>**optional** _left' | 'middle' | 'right'_ </description>
+<description>**optional** _'left' | 'middle' | 'right'_ </description>
 
 DOM 元素在 X 方向的对齐方式，用于 html
 

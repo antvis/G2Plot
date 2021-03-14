@@ -1,15 +1,18 @@
-import { AdjustOption, CoordinateOption } from '@antv/g2/lib/interface';
+import { Types } from '@antv/g2';
 import { Data, Meta, Options, Region, Tooltip } from '../../types';
 import { Axis } from '../../types/axis';
 import { Legend } from '../../types/legend';
 import { Geometry } from '../../adaptor/geometries/base';
+import { Animation } from '../../types/animation';
 import { Annotation } from '../../types/annotation';
+import { Interaction } from '../../types/interaction';
+import { IPlotTypes } from './utils';
 
 /**
  * geometry 映射信息
  */
 export type IGeometry = Geometry & {
-  adjust?: AdjustOption;
+  adjust?: Types.AdjustOption;
 };
 
 /**
@@ -22,7 +25,7 @@ export type IView = {
   readonly region?: Region;
 
   /**
-   * view 的中数据
+   * view 中的数据
    */
   readonly data: Data;
 
@@ -34,7 +37,7 @@ export type IView = {
   /**
    * 坐标系的配置，每一个 view 具有相同的坐标系
    */
-  readonly coordinate?: CoordinateOption;
+  readonly coordinate?: Types.CoordinateOption;
 
   /**
    * 图形 geometry 及映射配置
@@ -47,9 +50,34 @@ export type IView = {
   readonly axes?: false | Record<string, Axis>;
 
   /**
+   * interactions 配置
+   */
+  readonly interactions?: Interaction[];
+
+  /**
    * annotation 配置
    */
   readonly annotations?: Annotation[];
+
+  /**
+   * animation 配置
+   */
+  readonly animation?: Animation;
+
+  /**
+   * tooltip 配置
+   */
+  readonly tooltip?: Tooltip;
+};
+
+/**
+ * 子 plot 的配置
+ */
+export type IPlot = IPlotTypes & {
+  /**
+   * plot view 的布局范围，默认是占满全部
+   */
+  readonly region?: Region;
 };
 
 /** 配置类型定义 */
@@ -61,10 +89,15 @@ export interface MultiViewOptions
    */
   readonly syncViewPadding?: boolean;
   /**
-   * 没一个图层的配置。
+   * 每一个图层的配置。
    * 每个图层包括有自己的：数据、图形、图形映射。
    */
-  readonly views: IView[];
+  readonly views?: IView[];
+
+  /**
+   * 支持使用已有的 plot，限定与指定 plot 类型
+   */
+  readonly plots?: IPlot[];
 
   /**
    * tooltip 配置在 chart 层配置

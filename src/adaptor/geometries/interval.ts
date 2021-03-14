@@ -1,4 +1,4 @@
-import { Geometry, getTheme } from '@antv/g2';
+import { Geometry, getTheme, ShapeAttrs } from '@antv/g2';
 import { isNil, isObject } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { deepAssign } from '../../utils';
@@ -20,7 +20,13 @@ export interface IntervalGeometryOptions extends GeometryOptions {
   readonly widthRatio?: number;
   /** 分组中柱子之间的间距 [0-1]，仅对分组柱状图适用 */
   readonly marginRatio?: number;
-  /** 柱子样式配置 */
+  /** 柱状图最小宽度（像素） */
+  readonly minColumnWidth?: number;
+  /** 柱状图最大宽度（像素） */
+  readonly maxColumnWidth?: number;
+  /** 柱子的背景样式设置 */
+  readonly columnBackground?: { style: ShapeAttrs };
+  /** 柱子视觉通道配置（含 color、shape、size、style、tooltip） */
   readonly interval?: MappingOptions;
   /** 分组字段，优先级高于 seriesField , isGroup: true 时会根据 groupField 进行分组。*/
   readonly groupField?: string;
@@ -76,7 +82,7 @@ function otherAdaptor<O extends IntervalGeometryOptions>(params: Params<O>): Par
 
 export function interval<O extends IntervalGeometryOptions>(params: Params<O>): Params<O> {
   const { options } = params;
-  const { xField, yField, interval, seriesField, tooltip } = options;
+  const { xField, yField, interval, seriesField, tooltip, minColumnWidth, maxColumnWidth, columnBackground } = options;
 
   const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, seriesField]);
 
@@ -92,6 +98,7 @@ export function interval<O extends IntervalGeometryOptions>(params: Params<O>): 
               tooltip: formatter,
               ...interval,
             },
+            args: { minColumnWidth, maxColumnWidth, background: columnBackground },
           },
         })
       )

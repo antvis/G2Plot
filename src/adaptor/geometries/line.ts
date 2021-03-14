@@ -1,6 +1,5 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { ColorAttr, StyleAttr, SizeAttr, ShapeAttr } from '../../types';
 import { getTooltipMapping } from '../../utils/tooltip';
 import { deepAssign } from '../../utils';
 import { GeometryOptions, geometry, MappingOptions } from './base';

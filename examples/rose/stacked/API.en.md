@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/rose.en.md`
+`markdown:docs/api/plots/rose.en.md`

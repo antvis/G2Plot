@@ -1,3 +1,3 @@
-import { AnimateOption } from '@antv/g2/lib/interface';
+import { Types } from '@antv/g2';
 
-export type Animation = false | AnimateOption;
+export type Animation = false | Types.AnimateOption;

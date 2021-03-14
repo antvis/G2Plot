@@ -1,3 +1,4 @@
+import { get } from '@antv/util';
 import { Funnel } from '../../../../src';
 import { PV_DATA } from '../../../data/conversion';
 import { createDiv } from '../../../utils/dom';
@@ -55,7 +56,7 @@ describe('dynamicHeight funnel', () => {
       data.forEach((item, index) => {
         expect(item[PLOYGON_Y][0] - item[PLOYGON_Y][2]).toEqual(item[FUNNEL_TOTAL_PERCENT]);
         expect(item[FUNNEL_PERCENT]).toEqual(item.pv / data[0].pv);
-        expect(item[FUNNEL_CONVERSATION]).toEqual(index === 0 ? 1 : item.pv / data[index - 1].pv);
+        expect(item[FUNNEL_CONVERSATION]).toEqual([get(data, [index - 1, 'pv']), item.pv]);
       });
 
       // color

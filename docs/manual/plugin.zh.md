@@ -7,9 +7,9 @@ order: 6
 
 G2Plot 内置的是业务中使用量占比超过 90% 的常规统计图表，而对于业务产品来说，定制不可避免，这个时候，用户将面临两难：
 
- - 使用 G2 去开发
- - 建议 G2Plot 增加图表
- - 使用其他图表库、或者自研
+- 使用 G2 去开发
+- 建议 G2Plot 增加图表
+- 使用其他图表库、或者自研
 
 而我们作为 G2Plot 开发团队，也陷入一些问题：
 
@@ -24,15 +24,19 @@ import { P } from '@antv/g2plot';
 // 引入自己开发的扩展图表（二维码）
 import { adaptor, defaultOptions } from 'g2plot-qrcode';
 
-const plot = new P('container', {
-  data: 'Hello, G2Plot v2!', // 二维码内容
-}, adaptor, defaultOptions);
+const plot = new P(
+  'container',
+  {
+    data: 'Hello, G2Plot v2!', // 二维码内容
+  },
+  adaptor,
+  defaultOptions
+);
 
 plot.render();
 ```
 
 以这样的开放扩展开发的方式，既保证业务技术栈的统一，又保证 G2Plot 内置图表的足够通用，也可以无限透出 G2 的能力。
-
 
 ## 如何开发自定义图表
 
@@ -46,25 +50,25 @@ plot.render();
 2. 自定义 adaptor 实现配置到 G2 API 的转换
 3. 在 G2Plot 上使用，或者发 NPM 包复用
 
-
 ## 收录自定义图表
 
 > 基于 G2Plot 的`开放开发能力`，定制的第三方图表，弥补 G2Plot 官方通用图表收录标准和数量的限制。插件来源于社区，用于业务生产环境请谨慎筛选。
 
-| 项目名 | 演示 | 描述 | 版本 |
-|---|---|---|---|
-| [G2Plot-QRCode](https://github.com/hustcc/G2Plot-QRCode) | [前往](https://git.hust.cc/G2Plot-QRCode) | Draw a QRCode with G2Plot. | [![npm](https://img.shields.io/npm/v/g2plot-qrcode.svg)](https://www.npmjs.com/package/g2plot-qrcode) |
-| [G2Plot-Column](https://github.com/yujs/G2Plot-Column) | [前往](https://yujs.github.io/G2Plot-Column/) | Customize Column with G2Plot. | [![npm](https://img.shields.io/npm/v/g2plot-column.svg)](https://www.npmjs.com/package/g2plot-column) | 
-
+| 项目名                                                           | 演示                                                  | 描述                          | 版本                                                                                                      |
+| ---------------------------------------------------------------- | ----------------------------------------------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------- |
+| [G2Plot-QRCode](https://github.com/hustcc/G2Plot-QRCode)         | [前往](https://git.hust.cc/G2Plot-QRCode)             | Draw a QRCode with G2Plot.    | [![npm](https://img.shields.io/npm/v/g2plot-qrcode.svg)](https://www.npmjs.com/package/g2plot-qrcode)     |
+| [G2Plot-Column](https://github.com/yujs/G2Plot-Column)           | [前往](https://yujs.github.io/G2Plot-Column/)         | Customize Column with G2Plot. | [![npm](https://img.shields.io/npm/v/g2plot-column.svg)](https://www.npmjs.com/package/g2plot-column)     |
+| [G2Plot-Lollipop](https://github.com/MrSmallLiu/G2Plot-Lollipop) | [前往](https://mrsmallliu.github.io/G2Plot-Lollipop/) | Welcome to G2Plot-Lollipop 👋 | [![npm](https://img.shields.io/npm/v/g2plot-lollipop.svg)](https://www.npmjs.com/package/g2plot-lollipop) |
 
 ## 技术栈封装
 
 > 针对不同技术栈（React、Vue、Angular）的 G2Plot 封装。插件来源于社区，用于业务生产环境请谨慎筛选。
 
-| 项目名 | 技术栈 | 描述 | 版本 |
-|---|---|---|---|
-| [@ant-design/charts](https://github.com/ant-design/ant-design-charts) | **React** | A React Chart Library based on `@antvis/G2Plot`. | ![npm](https://img.shields.io/npm/v/@ant-design/charts) |
-| [React-G2Plot](https://github.com/hustcc/React-G2Plot) | **React** | Unofficial react component wrapper for `@antvis/G2Plot`. | ![npm](https://img.shields.io/npm/v/react-g2plot.svg) |
-| [@opd/g2plot-react](https://github.com/open-data-plan/g2plot-react) | **React** | G2Plot for React. | ![npm](https://img.shields.io/npm/v/@opd/g2plot-react.svg) |
-| [@opd/g2plot-vue](https://github.com/open-data-plan/g2plot-vue) | **Vue** | G2Plot for Vue 3. | ![npm](https://img.shields.io/npm/v/@opd/g2plot-vue.svg) |
-| [ngx-g2plot](https://github.com/stack-stark/ngx-g2plot) | **Angular** | G2Plot for Angular 11. | ![npm](https://img.shields.io/npm/v/ngx-g2plot.svg) |
+| 项目名                                                                | 技术栈      | 描述                                                     | 版本                                                                                         |
+| --------------------------------------------------------------------- | ----------- | -------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| [@ant-design/charts](https://github.com/ant-design/ant-design-charts) | **React**   | A React Chart Library based on `@antvis/G2Plot`.         | ![npm](https://img.shields.io/npm/v/@ant-design/charts)                                      |
+| [React-G2Plot](https://github.com/hustcc/React-G2Plot)                | **React**   | Unofficial react component wrapper for `@antvis/G2Plot`. | ![npm](https://img.shields.io/npm/v/react-g2plot.svg)                                        |
+| [PyG2Plot](https://github.com/hustcc/PyG2Plot)                        | **Python**  | `@AntV/G2Plot` 的 Python3 封装                           | [![pypi](https://img.shields.io/pypi/v/pyg2plot.svg)](https://pypi.python.org/pypi/pyg2plot) |
+| [@opd/g2plot-react](https://github.com/open-data-plan/g2plot-react)   | **React**   | G2Plot for React.                                        | ![npm](https://img.shields.io/npm/v/@opd/g2plot-react.svg)                                   |
+| [@opd/g2plot-vue](https://github.com/open-data-plan/g2plot-vue)       | **Vue**     | G2Plot for Vue, both `v2` and `v3`.                      | ![npm](https://img.shields.io/npm/v/@opd/g2plot-vue.svg)                                     |
+| [ngx-g2plot](https://github.com/stack-stark/ngx-g2plot)               | **Angular** | G2Plot for Angular 11.                                   | ![npm](https://img.shields.io/npm/v/ngx-g2plot.svg)                                          |

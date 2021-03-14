@@ -1,0 +1,1 @@
+`markdown:docs/api/plots/stock.en.md`

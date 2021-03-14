@@ -1,5 +1,5 @@
 {
   "rules": {
-    "no-long-code": 1
+    "no-long-code": 0
   }
 }

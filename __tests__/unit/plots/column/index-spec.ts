@@ -1,4 +1,5 @@
 import { Column } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/column/constants';
 import { salesByArea, subSalesByArea, timeColumnData } from '../../../data/sales';
 import { createDiv } from '../../../utils/dom';
 
@@ -321,6 +322,29 @@ describe('column', () => {
     column.destroy();
   });
 
+  it('column background', () => {
+    const column = new Column(createDiv('with background'), {
+      width: 300,
+      height: 400,
+      data: subSalesByArea,
+      xField: 'sales',
+      yField: 'area',
+    });
+
+    column.render();
+
+    expect(column.options.columnBackground).not.toBeDefined();
+    expect(column.chart.geometries[0].elements[0].shape.isGroup()).toBe(false);
+
+    column.update({ columnBackground: { style: { fill: 'red' } } });
+    expect(column.options.columnBackground).toBeDefined();
+    expect(column.chart.geometries[0].elements[0].shape.isGroup()).toBe(true);
+    //@ts-ignore
+    expect(column.chart.geometries[0].elements[0].shape.getChildren()[0].attr('fill')).toBe('red');
+
+    column.destroy();
+  });
+
   it('theme', () => {
     const column = new Column(createDiv('theme'), {
       width: 300,
@@ -375,5 +399,9 @@ describe('column', () => {
     const theme = column.chart.getTheme();
     expect(theme.defaultColor).toBe('#FF6B3B');
     expect(theme.columnWidthRatio).toBe(0.8);
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(Column.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

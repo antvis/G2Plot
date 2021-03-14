@@ -1,4 +1,4 @@
-import { isBoolean } from '@antv/util';
+import { isBoolean, isNumber } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
 import { point } from '../../adaptor/geometries';
@@ -12,19 +12,15 @@ import { ScatterOptions } from './types';
  * @param params
  * @returns params
  */
-export function transformOptions(params: Params<ScatterOptions>): Params<ScatterOptions> {
-  const { options } = params;
+export function transformOptions(options: ScatterOptions): ScatterOptions {
   const { data = [] } = options;
   // 仅对 data.length === 1 的情况进行处理
   if (data.length === 1) {
-    return deepAssign({}, params, {
-      options: {
-        ...options,
-        meta: getMeta(options),
-      },
+    return deepAssign({}, options, {
+      meta: getMeta(options),
     });
   }
-  return params;
+  return options;
 }
 
 /**
@@ -33,9 +29,19 @@ export function transformOptions(params: Params<ScatterOptions>): Params<Scatter
  */
 function geometry(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { data, type, color, shape, size, pointStyle, shapeField, colorField, xField, yField, sizeField } = options;
+  const { data, type, color, shape, pointStyle, shapeField, colorField, xField, yField, sizeField } = options;
+  let { size } = options;
 
   let { tooltip } = options;
+
+  if (sizeField) {
+    if (!size) {
+      size = [2, 8];
+    }
+    if (isNumber(size)) {
+      size = [size, size];
+    }
+  }
 
   if (tooltip && !tooltip.fields) {
     tooltip = {
@@ -76,16 +82,22 @@ function geometry(params: Params<ScatterOptions>): Params<ScatterOptions> {
  * meta 配置
  * @param params
  */
-function meta(params: Params<ScatterOptions>): Params<ScatterOptions> {
+export function meta(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { options } = params;
-  const { xAxis, yAxis, xField, yField } = options;
+  const { data, xAxis, yAxis, xField, yField } = options;
+
+  let newOptions = options;
+  // 仅对 data.length === 1 的情况进行处理
+  if (data.length === 1) {
+    newOptions = transformOptions(deepAssign({}, options, { meta: getMeta(options) }));
+  }
 
   return flow(
     scale({
       [xField]: xAxis,
       [yField]: yAxis,
     })
-  )(params);
+  )(deepAssign({}, params, { options: newOptions }));
 }
 
 /**
@@ -264,7 +276,6 @@ export function tooltip(params: Params<ScatterOptions>): Params<ScatterOptions> 
 export function adaptor(params: Params<ScatterOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
-    transformOptions,
     geometry,
     meta,
     axis,

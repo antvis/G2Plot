@@ -1,30 +1,28 @@
-#### conversionTag
-
-适用于基础柱形图和基础条形图，转化率组件可以让用户关注到数据的变化比例。
+Applicable to base bar charts and base bar charts, the Conversion Rate component allows the user to focus on the rate of change in the data.
 
 <description>**optional** _object_ | _false_</description>
 
-| 配置项  | 类型            | 是否必选 | 默认值 | 功能描述                         |
-| ------- | --------------- | -------- | ------ | -------------------------------- |
-| size    | number          | 否       | -      | 转化率组件尺寸                   |
-| spacing | number          | 否       | -      | 组件和柱子间距                   |
-| offset  | number          | 否       | -      | 组件和轴线间距                   |
-| arrow   | ArrowCfg、false | 否       | -      | 箭头形状配置，false 时不显示箭头 |
-| text    | TextCfg、false  | 否       | -      | 文本配置、false 时不显示文本     |
+| Properties | Type            | Required | Default | Description                                              |
+| ---------- | --------------- | -------- | ------- | -------------------------------------------------------- |
+| size       | number          | No       | -       | Conversion rate Component dimensions                     |
+| spacing    | number          | No       | -       | Component and column spacing                             |
+| offset     | number          | No       | -       | Component and axis spacing                               |
+| arrow      | ArrowCfg、false | No       | -       | Arrow shape configuration, false does not display arrows |
+| text       | TextCfg、false  | No       | -       | Text configuration, false does not display text          |
 
-其中 ArrowCfg 配置如下
+ArrowCfg configuration is as follows:
 
-| 配置项   | 类型   | 是否必选 | 默认值 | 功能描述 |
-| -------- | ------ | -------- | ------ | -------- |
-| headSize | number | 否       | -      | 箭头尺寸 |
-| style    | object | 否       | -      | 箭头样式 |
+| Properties | Type   | Required | Default | Description       |
+| ---------- | ------ | -------- | ------- | ----------------- |
+| headSize   | number | No       | -       | Size of the arrow |
+| style      | object | No       | -       | Arrow style       |
 
-TextCfg 配置如下
+TextCfg configuration is as follows:
 
-| 配置项    | 类型                                 | 是否必选 | 默认值 | 功能描述         |
-| --------- | ------------------------------------ | -------- | ------ | ---------------- |
-| headSize  | number                               | 否       | -      | 箭头尺寸         |
-| style     | object                               | 否       | -      | 箭头样式         |
-| formatter | (prev:number, next:number) => string | 否       | -      | 自定义转化率计算 |
+| Properties | Type                                 | Required | Default | Description                        |
+| ---------- | ------------------------------------ | -------- | ------- | ---------------------------------- |
+| headSize   | number                               | No       | -       | Size of the arrow                  |
+| style      | object                               | No       | -       | Arrow style                        |
+| formatter  | (prev:number, next:number) => string | No       | -       | Custom conversion rate calculation |
 
-样式配置类型请参考[绘图属性](../../manual/graphic-style)
+Please refer to the style configuration [ShapeAttrs](/en/docs/api/graphic-style)

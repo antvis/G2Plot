@@ -1,110 +1,147 @@
 ---
 title: Pie
-order: 4
+order: 6
 ---
 
-### Plot Container
+<div class="manual-docs">
+  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
+    <table
+      class="lake-table"
+      style="width: 100%; outline: none; border-collapse: collapse"
+    >
+      <colgroup>
+        <col width="425" span="1" />
+        <col width="340" span="1" />
+      </colgroup>
+      <tbody>
+        <tr style="height: 33px">
+          <td colspan="1" rowspan="5" style="background: #fff">
+            <playground path="pie/basic/demo/basic.ts"></playground>
+          </td>
+          <td class="style1">
+            <p><strong>定义</strong></p>
+            <p>
+              <span class="lake-fontsize-12"
+                >通过扇形区块的颜色和弧长（角度、面积）来展现数据的分类和占比情况。</span
+              >
+            </p>
+          </td>
+        </tr>
+        <tr style="height: 33px">
+          <td class="style1">
+            <p><strong>何时使用</strong></p>
+            <p><span class="lake-fontsize-12">饼图通过扇形区块的面积，弧度和颜色等视觉标记，展现数据的分类和占比情况。它的特点是展现部分与部分之间，以及部分与整体的关系。部分相加之和等于整体的 100%，用整圆表示。</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px">
+          <td class="style1">
+            <p><strong>视觉通道</strong></p>
+            <p><span class="lake-fontsize-12">弧长</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px">
+          <td colspan="1">
+            <p><strong>分析目的</strong></p>
+            <p><span class="lake-fontsize-12">比较、组成、占比</span></p>
+          </td>
+        </tr>
+        <tr style="height: 33px">
+          <td colspan="1">
+            <p><strong>数据准备</strong></p>
+            <p>
+              <span class="lake-fontsize-12">1 个「无序名词」字段</span>
+            </p>
+            <p><span class="lake-fontsize-12">1 个「数值」字段</span></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-`markdown:docs/common/chart-options.en.md`
+## Design Guide
 
-### Data Mapping
+### 用法建议
 
-#### data
+<p style="margin: 24px 0 8px;"><strong>💡 分类数不超过 9 个</strong></p>
 
-<description>**required** _array object_</description>
+<img alt="design" src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*JRd_TLOoVhgAAAAAAAAAAABkARQnAQ' width='600'>
 
-设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
+<p style="margin: 24px 0 8px;"><strong>💡 将多个极小值合并展示</strong></p>
 
-`markdown:docs/common/meta.en.md`
+<img alt="design" src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*-0l7QLDcs2QAAAAAAAAAAABkARQnAQ' width='600'>
+
+<p style="margin: 24px 0 8px;"><strong>💡 排列顺序</strong></p>
+
+<img alt="design" src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*RQ4ARoHq2VoAAAAAAAAAAABkARQnAQ' width='600'>
+
+<p style="margin: 24px 0 8px;"><strong>💡 如果每个数值的差异不大，那么不建议使用饼图</strong></p>
+
+<img alt="design" src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*C0prR7ZpOdcAAAAAAAAAAABkARQnAQ' width='600'>
+
+<p style="margin: 24px 0 8px;"><strong>💡 何时将标签放在内部/外部</strong></p>
+
+<img alt="design" src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*elfETrq8NDcAAAAAAAAAAABkARQnAQ' width='600'>
+
+<p style="margin: 24px 0 8px;"><strong>💡 所有的项目相加之和为 100%</strong></p>
+
+<img alt="design" src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*tk2zTqTyMvEAAAAAAAAAAABkARQnAQ' width='600'>
+
+### 元素
+
+<img alt="design" src='https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rUSJQJmhtQ8AAAAAAAAAAABkARQnAQ' width='800'>
+
+<div class="design-guide-list">
+
+- 图形(Element)：饼图由扇形组成，环图由滑块组成。
+- 图形标签(Label)：显示各个区块的占比（%），名称（华东、华南、华北）和实际数值（123.45）。
+- 复合指标：在环图中心位置处显示，或以指标卡形式显示在图表上部分，。
+- 图形辅助组件(Info Component)：图例，tooltip 或者指标卡等的组件支持。
+
+</div>
+
+## Quick start
+
+<div class='sign'>
 
 ```ts
+import { Pie } from '@antv/g2plot';
+
 const data = [
-  { country: 'Asia', year: '1750', value: 502 },
-  { country: 'Asia', year: '1800', value: 635 },
-  { country: 'Europe', year: '1750', value: 163 },
-  { country: 'Europe', year: '1800', value: 203 },
+  { type: '分类一', value: 27 },
+  { type: '分类二', value: 25 },
+  { type: '分类三', value: 18 },
+  { type: '分类四', value: 15 },
+  { type: '分类五', value: 10 },
+  { type: '其他', value: 5 },
 ];
 
 const piePlot = new Pie('container', {
   data,
-  // highlight-start
-  meta: {
-    country: {
-      alias: '国家',
-      range: [0, 1],
-    },
-    value: {
-      alias: '数量',
-      formatter: (v) => {
-        return `${v}个`;
-      },
-    },
-  },
-  // highlight-end
   angleField: 'value',
-  colorField: 'country',
+  colorField: 'type',
 });
+
 piePlot.render();
 ```
 
-#### angleField 
+</div>
 
-<description>**required** _string_</description>
+📊 See more <a href="/en/examples/pie/basic" target='blank'>examples</a>.
 
-扇形切片大小（弧度）所对应的数据字段名。
+🎨 For an overview of the pie plot options see the [API reference](/en/docs/api/plots/pie).
 
-#### colorField 
+## Pie plot features
 
-<description>**required** _string_</description>
+### Donut (Ring) pie
 
-扇形颜色映射对应的数据字段名。
+With G2Plot, you can set the `innerRadius` to create concentric ring.
 
-### Geometry Style
+<playground path='pie/donut/demo/basic.ts' rid='rect2'></playground>
 
-#### radius 
+### Fan chart
 
-<description>**optional** _number_</description>
+By setting `startAngle` and `endAngle`，we can turn a pie plot into a fan chart.
 
-饼图的半径，原点为画布中心。配置值域为 (0,1]，1 代表饼图撑满绘图区域。
+<playground path='pie/basic/demo/quarter-circle.ts' rid='rect3'></playground>
 
-`markdown:docs/common/color.en.md`
-
-#### pieStyle 
-
-<description>**optional** _object_</description>
-
-设置扇形样式。pieStyle 中的`fill`会覆盖 `color` 的配置。pieStyle 可以直接指定，也可以通过 callback 的方式，根据数据为每个扇形切片指定单独的样式。
-
-`markdown:docs/common/shape-style.en.md`
-
-### Plot Components
-
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*TBHtTY6RmHIAAAAAAAAAAAAAARQnAQ" alt="加载失败" width="600">
-
-`markdown:docs/common/component-no-axis.en.md`
-
-#### statistic ✨
-
-<description>**optional** _object_</description>
-
-统计内容组件。当内半径(`innerRadius`) 大于 0 时才生效，默认展示汇总值，可以通过 `formatter` 格式化展示内容，也可以通过 `customHtml` 自定义更多的内容。
-
-![image](https://gw.alipayobjects.com/zos/bmw-prod/860bbf6e-cf20-4bdf-88bd-e8d685d12e9a.svg)
-
-`markdown:docs/common/statistic.zh.md`
-
-### Event
-
-`markdown:docs/common/events.en.md`
-
-### Plot Method
-
-`markdown:docs/common/chart-methods.en.md`
-
-### Plot Theme
-
-`markdown:docs/common/theme.en.md`
-
-### Plot Interactions
-
-`markdown:docs/common/interactions.en.md`
+</div>

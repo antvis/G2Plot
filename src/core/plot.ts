@@ -1,10 +1,9 @@
-import { Chart, Event } from '@antv/g2';
-import Element from '@antv/g2/lib/geometry/element';
+import { Chart, Event, Element } from '@antv/g2';
 import { each } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
 import { Options, StateName, StateCondition, Size, StateObject } from '../types';
-import { getContainerSize, getAllElements, deepAssign } from '../utils';
+import { getContainerSize, getAllElements, deepAssign, pick } from '../utils';
 import { Adaptor } from './adaptor';
 
 /** 单独 pick 出来的用于基类的类型定义 */
@@ -22,10 +21,48 @@ export type PickOptions = Pick<
   | 'limitInPlot'
 >;
 
+const SOURCE_ATTRIBUTE_NAME = 'data-chart-source-type';
+
+/** plot 图表容器的配置 */
+export const PLOT_CONTAINER_OPTIONS = [
+  'padding',
+  'appendPadding',
+  'renderer',
+  'pixelRatio',
+  'syncViewPadding',
+  'supportCSSTransform',
+  'limitInPlot',
+];
+
 /**
  * 所有 plot 的基类
  */
 export abstract class Plot<O extends PickOptions> extends EE {
+  /**
+   * 获取默认的 options 配置项
+   * 每个组件都可以复写
+   */
+  static getDefaultOptions(): any {
+    return {
+      renderer: 'canvas',
+      xAxis: {
+        nice: true,
+        label: {
+          autoRotate: false,
+          autoHide: { type: 'equidistance', cfg: { minGap: 6 } },
+        },
+      },
+      yAxis: {
+        nice: true,
+        label: {
+          autoHide: true,
+          autoRotate: false,
+        },
+      },
+      animation: true,
+    };
+  }
+
   /** plot 类型名称 */
   public abstract readonly type: string = 'base';
   /** plot 的 schema 配置 */
@@ -52,31 +89,18 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 创建 G2 实例
    */
   private createG2() {
-    const {
-      width,
-      height,
-      padding,
-      appendPadding,
-      renderer,
-      pixelRatio,
-      syncViewPadding,
-      supportCSSTransform,
-      limitInPlot,
-    } = this.options;
+    const { width, height } = this.options;
 
     this.chart = new Chart({
       container: this.container,
       autoFit: false, // G2Plot 使用 size-sensor 进行 autoFit
       ...this.getChartSize(width, height),
-      padding,
-      appendPadding,
-      renderer,
-      pixelRatio,
       localRefresh: false, // 默认关闭，目前 G 还有一些位置问题，难以排查！
-      syncViewPadding,
-      supportCSSTransform,
-      limitInPlot,
+      ...pick(this.options, PLOT_CONTAINER_OPTIONS),
     });
+
+    // 给容器增加标识，知道图表的来源区别于 G2
+    this.container.setAttribute(SOURCE_ATTRIBUTE_NAME, 'G2Plot');
   }
 
   /**
@@ -107,24 +131,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 每个组件都可以复写
    */
   protected getDefaultOptions(): any {
-    return {
-      renderer: 'canvas',
-      xAxis: {
-        nice: true,
-        label: {
-          autoRotate: false,
-          autoHide: true,
-        },
-      },
-      yAxis: {
-        nice: true,
-        label: {
-          autoHide: true,
-          autoRotate: false,
-        },
-      },
-      animation: true,
-    };
+    return Plot.getDefaultOptions();
   }
 
   /**
@@ -157,12 +164,20 @@ export abstract class Plot<O extends PickOptions> extends EE {
   }
 
   /**
-   * 更新配置
+   * 更新: 更新配置且重新渲染
    * @param options
    */
   public update(options: Partial<O>) {
-    this.options = deepAssign({}, this.options, options);
+    this.updateOption(options);
     this.render();
+  }
+
+  /**
+   * 更新配置
+   * @param options
+   */
+  protected updateOption(options: Partial<O>) {
+    this.options = deepAssign({}, this.options, options);
   }
 
   /**
@@ -201,6 +216,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
 
   /**
    * 更新数据
+   * @override
    * @param options
    */
   public changeData(data: any) {
@@ -229,6 +245,8 @@ export abstract class Plot<O extends PickOptions> extends EE {
     this.chart.destroy();
     // 清空已经绑定的事件
     this.off();
+
+    this.container.removeAttribute(SOURCE_ATTRIBUTE_NAME);
   }
 
   /**
@@ -237,9 +255,11 @@ export abstract class Plot<O extends PickOptions> extends EE {
   protected execAdaptor() {
     const adaptor = this.getSchemaAdaptor();
 
-    const { padding } = this.options;
+    const { padding, appendPadding } = this.options;
     // 更新 padding
     this.chart.padding = padding;
+    // 更新 appendPadding
+    this.chart.appendPadding = appendPadding;
 
     // 转化成 G2 API
     adaptor({

@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/pie.zh.md`
+`markdown:docs/api/plots/pie.zh.md`

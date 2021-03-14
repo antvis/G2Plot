@@ -1,62 +1,91 @@
-##### nice
-
-<description>**optional** _boolean_ _default:_ `true`</description>
-
-是否美化。
-
-##### min
-
-<description>**optional** _number_ _default:_ `0`</description>
-
-坐标轴最小值。
-
-##### max
-
-<description>**optional** _number_</description>
-
-坐标轴最大值。
-
-##### minLimit
-
-<description>**optional** _number_</description>
-
-最小值限定。
-
-##### maxLimit
-
-<description>**optional** _number_</description>
-
-最大值限定。
-
-##### tickCount
-
-<description>**optional** _number_</description>
-
-期望的坐标轴刻度数量，非最终结果。
-
-##### tickInterval
-
-<description>**optional** _number_</description>
-
-坐标轴刻度间隔。
-
-##### tickMethod
-
-<description>**optional** _string | Function_ _default:_ `false`</description>
-
-指定 tick 计算方法，或自定义计算 tick 的方法，内置 tick 计算方法包括 `cat`、`time-cat`、 `wilkinson-extended`、`r-pretty`、`time`、`time-pretty`、`log`、`pow`、`quantile`、`d3-linear`。
 
 ##### position
 
 <description>**optional** _`top` | `bottom` | `left` | `right`_</description>
 
-适用于直角坐标系，设置坐标轴的位置。
+For Cartesian coordinates, set the position of the coordinate axes.
+
+##### label
+
+<description> _AxisLabelCfg | null_ **optional** </description>
+
+Configurations related to axis label. Set this to `null` to prevent the axis label from appearing. The details of _ AxisLabelCfg_ are as follows:
+
+| Properties | Type                          |    |
+| ------------ | -----------------------------------------------------| ------- | ------------------------ |
+| style        | _[ShapeAttrs](/zh/docs/api/shape/shape-attrs)_        | -       |  Axis label text graphic property style      |
+| offset       | _number_                                                | -       | Axis label offset  
+| rotate       | _number_                                                | -       |  Axis label text rotation Angle              |
+| autoRotate   | _boolean_                                               | `true`  | Whether to rotate automatically, default true         |
+| autoHide     | _boolean_                                                | `false` | Whether to hide it automatically, default to false              |
+| autoEllipsis | _boolean_                                                | `false` | Whether to ellipsis label when overflow, default to false              |
+| formatter    | _`(text: string, item: ListItem, index: number) => any`_ | `false` | Format function               |
+
+##### verticalFactor
+
+<description>**optional** _number_</description>
+
+Mark the direction of the label on the axis, with 1 to the left and -1 to the right (Only works in vertical axis).
+
+##### verticalLimitLength
+
+<description>**optional** _number_</description>
+
+Configuring the maximum limit length in the vertical direction of the coordinate axis has a significant impact on text adaptation.
+
+##### nice
+
+<description>**optional** _boolean_ _default:_ `true`</description>
+
+Whether to nice.
+
+##### min
+
+<description>**optional** _number_ _default:_ `0`</description>
+
+Minimum axis.
+
+##### max
+
+<description>**optional** _number_</description>
+
+Maximum axis.
+
+##### minLimit
+
+<description>**optional** _number_</description>
+
+Minimal limit.
+
+##### maxLimit
+
+<description>**optional** _number_</description>
+
+Maximum limit.
+
+##### tickCount
+
+<description>**optional** _number_</description>
+
+The expected number of axes, not the final result.
+
+##### tickInterval
+
+<description>**optional** _number_</description>
+
+Interval of axes.
+
+##### tickMethod
+
+<description>**optional** _string | Function_ _default:_ `false`</description>
+
+Specify a tick calculation method, or customize a tick calculation method. Built-in tick calculations include `cat`、`time-cat`、 `wilkinson-extended`、`r-pretty`、`time`、`time-pretty`、`log`、`pow`、`quantile`、`d3-linear`。
 
 ##### line
 
 <description>**optional** _object_</description>
 
-坐标轴线的配置项，null 表示不展示。
+Coordinate axis configuration item, NULL means not displayed.
 
 `markdown:docs/common/line-style.en.md`
 
@@ -64,7 +93,7 @@
 
 <description>**optional** _object_</description>
 
-坐标轴刻度线线的配置项，null 表示不展示。
+The configuration item of the coordinate axis scale line. NULL means not displayed.
 
 `markdown:docs/common/line-style.en.md`
 
@@ -72,7 +101,7 @@
 
 <description>**optional** _object_</description>
 
-坐标轴子刻度线的配置项，null 表示不展示。
+A configuration item for a coordinate subscale. NULL indicates that it is not displayed.
 
 `markdown:docs/common/line-style.en.md`
 
@@ -80,14 +109,15 @@
 
 <description>**optional** _object_</description>
 
-标题的配置项，null 表示不展示。
+A configuration item for the title, NULL means not to be displayed.
 
-| 细分配置项名称 | 类型         | 功能描述                 |
-| -------------- | ------------ | ------------------------ |
-| offset         | _number_     | 标题距离坐标轴的距离     |
-| spacing        | _lineStyle_  | 标题距离坐标轴文本的距离 |
-| style          | _shapeStyle_ | 标题文本配置项           |
-| autoRotate     | _boolean_    | 是否自动旋转             |
+| Properties | Type         | Description                                                        |
+| ---------- | ------------ | ------------------------------------------------------------------ |
+| text         | _string_     | The title of axis     |
+| offset     | _number_     | The distance of the title from the coordinate axis                 |
+| spacing    | _lineStyle_  | The distance between the title and the text on the coordinate axis |
+| style      | _shapeStyle_ | Title text configuration items                                     |
+| autoRotate | _boolean_    | Whether to rotate automatically or not                             |
 
 **_shapeStyle_**
 
@@ -97,7 +127,7 @@
 
 <description>**optional** _object_</description>
 
-文本标签的配置项，null 表示不展示。
+A configuration item for the text label. NULL indicates that it is not displayed.
 
 `markdown:docs/common/label.en.md`
 
@@ -105,16 +135,16 @@
 
 <description>**optional** _object_</description>
 
-坐标轴网格线的配置项，null 表示不展示。
+Axis grid line configuration item. NULL means not shown.
 
-| 细分配置项名称 | 类型               | 功能描述                                                 |
-| -------------- | ------------------ | -------------------------------------------------------- |
-| line           | _lineStyle_        | 线的样式                                                 |
-| alternateColor | _string\|string[]_ | 两个栅格线间的填充色                                     |
-| closed         | _boolean_          | 对于 circle 是否关闭 grid                                |
-| alignTick      | _boolean_          | 是否同刻度线对齐，如果值为 false，则会显示在两个刻度中间 |
+| Properties     | Type               | Description                                                        |
+| -------------- | ------------------ | ------------------------------------------------------------------ |
+| line.style     | _lineStyle_        | The style of the line                                              |
+| alternateColor | _string\|string[]_ | The fill color between two grid lines                              |
+| closed         | _boolean_          | Whether to close the grid for circle                               |
+| alignTick      | _boolean_          | If the value is false, it will be displayed between the two scales |
 
-**_lineStyle_**
+The configurations of **_lineStyle_** are as follows:
 
 `markdown:docs/common/line-style.en.md`
 
@@ -122,24 +152,24 @@
 
 <description>**optional** _boolean_ _default:_ `true`</description>
 
-动画开关，默认开启。
+Animation switch, default true.
 
 ##### animateOption
 
 <description>**optional** _object_</description>
 
-动画参数配置。
+Animation parameter configuration.
 
 ```ts
 interface ComponentAnimateCfg {
-  /** 动画执行时间 */
+  /** Duration of the first animation */
   readonly duration?: number;
-  /** 动画缓动函数 */
+  /** Easing method used for the first animation. */
   readonly easing?: string;
-  /** 动画延迟时间 */
+  /** Delay before updating the animation */
   readonly delay?: number;
 }
-// 配置参考
+// Configure the reference
 {
   animateOption: {
     appear: ComponentAnimateCfg;
@@ -149,15 +179,3 @@ interface ComponentAnimateCfg {
   }
 }
 ```
-
-##### verticalFactor
-
-<description>**optional** _number_</description>
-
-标记坐标轴 label 的方向，左侧为 1，右侧为 -1。
-
-##### verticalLimitLength
-
-<description>**optional** _number_</description>
-
-配置坐标轴垂直方向的最大限制长度，对文本自适应有很大影响。

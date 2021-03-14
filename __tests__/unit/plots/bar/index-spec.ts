@@ -1,4 +1,5 @@
 import { Bar } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/bar/constants';
 import { salesByArea, subSalesByArea, timeColumnData } from '../../../data/sales';
 import { createDiv } from '../../../utils/dom';
 
@@ -366,7 +367,7 @@ describe('bar', () => {
     expect(theme.columnWidthRatio).toBe(0.1);
   });
 
-  it('legend/tooltip reversed, grouped', () => {
+  function getBar(isGroup: boolean, isStack: boolean) {
     const bar = new Bar(createDiv('group'), {
       width: 300,
       height: 400,
@@ -374,10 +375,15 @@ describe('bar', () => {
       yField: 'area',
       xField: 'sales',
       seriesField: 'series',
-      isGroup: true,
+      isGroup,
+      isStack,
     });
     bar.render();
+    return bar;
+  }
 
+  it('legend/tooltip reversed, grouped', () => {
+    const bar = getBar(true, false);
     // @ts-ignore
     expect(bar.chart.getOptions().legends['series'].reversed).toBe(true);
     // @ts-ignore
@@ -385,20 +391,28 @@ describe('bar', () => {
   });
 
   it('legend/tooltip reversed, stacked', () => {
-    const bar = new Bar(createDiv('group'), {
-      width: 300,
-      height: 400,
-      data: subSalesByArea,
-      yField: 'area',
-      xField: 'sales',
-      seriesField: 'series',
-      isStack: true,
-    });
-    bar.render();
-
+    const bar = getBar(false, true);
     // @ts-ignore
     expect(bar.chart.getOptions().legends['series'].reversed).toBe(false);
     // @ts-ignore
     expect(bar.chart.getOptions().tooltip?.reversed).toBe(false);
+  });
+
+  it('bar background', () => {
+    const bar = getBar(false, false);
+    expect(bar.options.barBackground).not.toBeDefined();
+    expect(bar.chart.geometries[0].elements[0].shape.isGroup()).toBe(false);
+
+    bar.update({ barBackground: { style: { fill: 'red' } } });
+    expect(bar.options.barBackground).toBeDefined();
+    expect(bar.chart.geometries[0].elements[0].shape.isGroup()).toBe(true);
+    //@ts-ignore
+    expect(bar.chart.geometries[0].elements[0].shape.getChildren()[0].attr('fill')).toBe('red');
+
+    bar.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(Bar.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

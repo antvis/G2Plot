@@ -35,7 +35,7 @@ Liguid graphic style.
 
 <description>**optional** _String | Function_ default: `circle`</description>
 
-There are four built-in shapes for liquid plot: `circle | diamond | triangle | pin`. It aslo supports custom shape if shape is a callback function to build path.
+There are five built-in shapes for liquid plot: `circle | diamond | triangle | pin | rect`. It aslo supports custom shape if shape is a callback function to build path.
 
 示例代码如下：
 

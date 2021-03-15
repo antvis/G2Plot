@@ -1,6 +1,5 @@
 import { isArray } from '@antv/util';
 import { Types, View } from '@antv/g2';
-import { ContinuousLegend } from '_@antv_g2@4.1.12@@antv/g2/lib/dependents';
 import { normalPadding } from '../../utils/padding';
 import { Interaction } from '../../types/interaction';
 import { treemap } from '../../utils/hierarchy/treemap';

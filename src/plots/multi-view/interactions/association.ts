@@ -1,4 +1,4 @@
-import { each, get, map } from '@antv/util';
+import { each, get, map, isArray } from '@antv/util';
 import { registerAction, registerInteraction, View, Element, Action } from '@antv/g2';
 import { getAllElements, getViews, getSilbingViews } from '../../../utils';
 import { clearHighlight, getElementValue } from './utils';
@@ -50,8 +50,8 @@ class Association extends Action {
         const elements = map(getAllElements(v), (ele) => {
           let active = false;
           let inactive = false;
-
-          if (getElementValue(ele, field) === get(data, field)) {
+          const dataValue = isArray(data) ? get(data[0], field) : get(data, field);
+          if (getElementValue(ele, field) === dataValue) {
             active = true;
           } else {
             inactive = true;

@@ -147,6 +147,8 @@ export class TreemapDrillDownAction extends Action {
 
   // 重置位置
   public resetPosition() {
+    // 当在第一层级未绘制面包屑，此时 changedata 触发 resetPosition 函数，需判断 this.breadCrumbGroup 是否存在
+    if (!this.breadCrumbGroup) return;
     const view = this.context.view;
     const coord = view.getCoordinate();
     const point = coord.convert({ x: 0, y: 1 });

@@ -126,6 +126,7 @@ describe('drill-down intera', () => {
     const breadCrumbGroupChildren = breadCrumbGroup.getChildren() as IShape[];
 
     // 测试 面包屑位置
+    treemapPlot.changeSize(400, 600);
     drillDownAction.resetPosition();
     const chartHeight = treemapPlot.chart.height;
 

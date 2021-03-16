@@ -30,9 +30,10 @@ const gauge = new Gauge('container', {
   statistic: {
     content: {
       formatter: ({ percent }) => `Rate: ${(percent * 100).toFixed(0)}%`,
-    },
-    style: {
-      fontSize: 60,
+      style: {
+        color: 'rgba(0,0,0,0.65)',
+        fontSize: 48,
+      },
     },
   },
 });

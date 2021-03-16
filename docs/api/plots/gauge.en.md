@@ -1,5 +1,5 @@
 ---
-title: Gauage
+title: Gauge
 order: 5
 ---
 

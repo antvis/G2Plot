@@ -8,9 +8,15 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/polar-heatmap.json')
       xField: 'time',
       yField: 'week',
       colorField: 'value',
-      polar: true, // 极坐标属性
       legend: true,
       color: '#BAE7FF-#1890FF-#1028ff',
+      coordinate: {
+        // 坐标轴属性配置
+        type: 'polar', // 极坐标
+        cfg: {
+          innerRadius: 0.2,
+        },
+      },
       heatmapStyle: {
         stroke: '#f5f5f5',
         opacity: 0.8,

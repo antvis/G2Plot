@@ -1,3 +1,4 @@
+import { Types } from '@antv/g2';
 import { Options, StyleAttr } from '../../types';
 
 export interface HeatmapOptions extends Options {
@@ -20,5 +21,5 @@ export interface HeatmapOptions extends Options {
   /** 坐标轴映射 */
   readonly reflect?: 'x' | 'y';
   /** 极坐标属性 */
-  readonly polar?: boolean;
+  readonly coordinate?: Types.CoordinateOption;
 }

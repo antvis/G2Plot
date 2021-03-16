@@ -54,11 +54,11 @@ Axis mapping.
 <description>**optional** _rect | square | circle_</description>
 
 Shapes in thermal grids, density heat maps are not specified.
-#### polar
+#### coordinate
 
-<description>**optional** _true | false_ </description>
+<description>**optional** </description>
 
-Whether or not we need polar coordinates, default false.
+Coordinate system configuration property.
 #### sizeRatio
 
 <description>**optional** _number_</description>

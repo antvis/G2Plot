@@ -13,7 +13,7 @@ import { HeatmapOptions } from './types';
  */
 function field(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart, options } = params;
-  const { data, type, reflect, xField, yField, colorField, sizeField, sizeRatio, shape, color } = options;
+  const { data, type, xField, yField, colorField, sizeField, sizeRatio, shape, color } = options;
 
   chart.data(data);
   let geometry: Geometry;
@@ -26,10 +26,6 @@ function field(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
 
   if (colorField) {
     geometry.color(colorField, color || DEFAULT_COLORS.GRADIENT.CONTINUOUS);
-  }
-
-  if (reflect) {
-    chart.coordinate().reflect(reflect);
   }
 
   /**
@@ -179,12 +175,14 @@ function label(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
  */
 function coordinate(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart, options } = params;
-  const { polar } = options;
+  const { coordinate, reflect } = options;
 
-  if (polar) {
-    chart.coordinate('polar', {
-      innerRadius: 0.2,
-    });
+  if (reflect) {
+    chart.coordinate().reflect(reflect);
+  }
+
+  if (coordinate) {
+    chart.coordinate(coordinate);
   }
 
   return params;

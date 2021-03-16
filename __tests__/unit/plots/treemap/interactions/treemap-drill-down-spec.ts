@@ -125,6 +125,12 @@ describe('drill-down intera', () => {
     const breadCrumbGroup = treemapPlot.chart.foregroundGroup.findAllByName('treemap-bread-crumb')[0] as IGroup;
     const breadCrumbGroupChildren = breadCrumbGroup.getChildren() as IShape[];
 
+    // 测试 面包屑位置
+    drillDownAction.resetPosition();
+    const chartHeight = treemapPlot.chart.height;
+
+    expect(breadCrumbGroup.getCanvasBBox().y).toBe(chartHeight - 20 - 20);
+
     expect(breadCrumbGroupChildren.length).toBe(5);
     const textArr = ['初始', '/', data.children[0].name, '/', data.children[0].children[0].name];
     breadCrumbGroupChildren.forEach((shape, index) => {

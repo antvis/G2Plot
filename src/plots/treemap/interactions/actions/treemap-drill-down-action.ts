@@ -36,7 +36,7 @@ export class TreemapDrillDownAction extends Action {
     return deepAssign(this.breadCrumbCfg, this.cfg);
   }
 
-  drill(data) {
+  private drill(data) {
     const config = this.getButtonCfg();
     const { view } = this.context;
     const currentData = view.getData();
@@ -146,7 +146,7 @@ export class TreemapDrillDownAction extends Action {
   }
 
   // 重置位置
-  private resetPosition() {
+  public resetPosition() {
     const view = this.context.view;
     const coord = view.getCoordinate();
     const point = coord.convert({ x: 0, y: 1 });
@@ -157,7 +157,7 @@ export class TreemapDrillDownAction extends Action {
   }
 
   // 隐藏面包屑
-  public hideCrumbGroup() {
+  private hideCrumbGroup() {
     if (this.breadCrumbGroup) {
       this.breadCrumbGroup.hide();
     }

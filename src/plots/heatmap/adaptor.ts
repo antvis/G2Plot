@@ -13,7 +13,7 @@ import { HeatmapOptions } from './types';
  */
 function field(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart, options } = params;
-  const { data, type, reflect, xField, yField, colorField, sizeField, sizeRatio, shape, color } = options;
+  const { data, type, xField, yField, colorField, sizeField, sizeRatio, shape, color } = options;
 
   chart.data(data);
   let geometry: Geometry;
@@ -26,10 +26,6 @@ function field(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
 
   if (colorField) {
     geometry.color(colorField, color || DEFAULT_COLORS.GRADIENT.CONTINUOUS);
-  }
-
-  if (reflect) {
-    chart.coordinate().reflect(reflect);
   }
 
   /**
@@ -174,6 +170,28 @@ function label(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
 }
 
 /**
+ * 极坐标
+ * @param params
+ */
+function coordinate(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
+  const { chart, options } = params;
+  const { coordinate, reflect } = options;
+
+  if (coordinate) {
+    chart.coordinate({
+      type: coordinate.type || 'rect',
+      cfg: coordinate.cfg,
+    });
+  }
+
+  if (reflect) {
+    chart.coordinate().reflect(reflect);
+  }
+
+  return params;
+}
+
+/**
  * 热力图适配器
  * @param chart
  * @param options
@@ -192,6 +210,7 @@ export function adaptor(params: Params<HeatmapOptions>) {
     annotation(),
     interaction,
     animation,
-    state
+    state,
+    coordinate
   )(params);
 }

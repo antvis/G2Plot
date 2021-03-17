@@ -35,6 +35,14 @@
         "en": "Calendar heatmap plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*aLbWR5ioU2UAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "polar.ts",
+      "title": {
+        "zh": "极坐标色块图",
+        "en": "Polar heatmap plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*cNrISYzITTcAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

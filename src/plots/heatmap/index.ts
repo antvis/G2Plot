@@ -24,6 +24,9 @@ export class Heatmap extends Plot<HeatmapOptions> {
     return deepAssign({}, super.getDefaultOptions(), {
       type: 'polygon',
       legend: false,
+      coordinate: {
+        type: 'rect',
+      },
       xAxis: {
         tickLine: null,
         line: null,

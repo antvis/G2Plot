@@ -55,6 +55,33 @@ Axis mapping.
 
 Shapes in thermal grids, density heat maps are not specified.
 
+#### coordinate
+
+<description>**optional** </description>
+
+Coordinate system configuration property.
+
+| Properties  | Type              | Description  |
+| ------- | --------------------- | ------------------------------ |
+| type    | string                | Type of coordinate system |
+| cfg     | _CoordinateCfg_       | Coordinate system configuration term, currently commonly used in polar coordinates |
+
+_**CoordinateOption.type**_ Type of coordinate system：
+
+- cartesian / rect：Cartesian coordinate system
+- polar：Polar coordinates
+- helix：Spiral coordinate system, based on Archimedes helix
+- theta：A special polar coordinate system with fixed radius lengths that maps data only to angles, often used in pie charts
+
+_**CoordinateCfg**_ Coordinate system configuration term, currently commonly used in polar coordinates：
+
+| Properties  | Type     | Description          |
+| ----------- | -------- | ------------------------------------------ |
+| startAngle  | _number_ | For polar coordinates, configure the starting radian   |
+| endAngle    | _number_ | For polar coordinates, configure end radians       |
+| radius      | _number_ | For polar coordinates, configure polar radius, values in the 0-1 range |
+| innerRadius | _number_ | For polar coordinates, radius within polar coordinates, values in the range 0-1  |
+
 #### sizeRatio
 
 <description>**optional** _number_</description>

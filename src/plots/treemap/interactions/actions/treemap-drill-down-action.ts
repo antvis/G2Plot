@@ -115,7 +115,7 @@ export class TreemapDrillDownAction extends Action {
       // 增加文本事件
       textShape.on('click', () => {
         const newHistoryCache = historyCache.slice(0, index + 1);
-        this.reset(newHistoryCache);
+        this.back(newHistoryCache);
       });
 
       // active 效果内置
@@ -173,8 +173,8 @@ export class TreemapDrillDownAction extends Action {
     this.drawBreadCrumb();
   }
 
-  // reset 历史记录，并重绘面包屑
-  public reset(historyCache) {
+  // 回退 历史记录，并重绘面包屑
+  public back(historyCache) {
     const { view } = this.context;
     if (!isArray(this.historyCache) || this.historyCache.length <= 0) {
       return;
@@ -187,5 +187,11 @@ export class TreemapDrillDownAction extends Action {
     } else {
       this.hideCrumbGroup();
     }
+  }
+
+  public reset() {
+    // 清空 historyCache
+    this.historyCache = null;
+    this.hideCrumbGroup();
   }
 }

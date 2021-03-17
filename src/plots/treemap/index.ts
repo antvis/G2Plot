@@ -2,7 +2,7 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { TreemapOptions } from './types';
 import { adaptor } from './adaptor';
-import { transformData, enableInteraction } from './utils';
+import { transformData, enableInteraction, resetDrillDown } from './utils';
 import './interactions/treemap-drill-down';
 import '../scatter/interaction';
 
@@ -25,6 +25,8 @@ export class Treemap extends Plot<TreemapOptions> {
       hierarchyConfig,
     });
     this.chart.changeData(transData);
+
+    resetDrillDown(this.chart);
   }
 
   protected getSchemaAdaptor(): Adaptor<TreemapOptions> {

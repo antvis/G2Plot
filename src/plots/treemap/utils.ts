@@ -1,5 +1,5 @@
 import { isArray } from '@antv/util';
-import { Types } from '@antv/g2';
+import { Types, View } from '@antv/g2';
 import { normalPadding } from '../../utils/padding';
 import { Interaction } from '../../types/interaction';
 import { treemap } from '../../utils/hierarchy/treemap';
@@ -17,6 +17,17 @@ export function findInteraction(
 export function enableInteraction(interactions: TreemapOptions['interactions'], interactionType: string): boolean {
   const interaction = findInteraction(interactions, interactionType);
   return interaction && interaction.enable !== false;
+}
+
+export function resetDrillDown(chart: View) {
+  const drillDownInteraction = chart.interactions['treemap-drill-down'];
+
+  if (!drillDownInteraction) return;
+
+  // @ts-ignore
+  const drillDownAction = drillDownInteraction.context.actions.find((i) => i.name === 'treemap-drill-down-action');
+
+  drillDownAction.reset();
 }
 
 export function getFommatInteractions(

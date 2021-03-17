@@ -169,7 +169,36 @@ describe('drill-down intera', () => {
     expect(drillDownAction.historyCache.length).toBe(1);
     expect(breadCrumbGroup.cfg.visible).toBeFalsy();
 
-    // 切换为普通模式
+    treemapPlot.destroy();
+  });
+
+  it('interaction switch', async () => {
+    const treemapPlot = new Treemap(createDiv(), {
+      data,
+      padding: 20,
+      colorField: 'name',
+      interactions: [
+        {
+          type: 'treemap-drill-down',
+        },
+      ],
+      legend: false,
+    });
+
+    treemapPlot.render();
+
+    const context = new InteractionContext(treemapPlot.chart);
+    const drillDownAction = new TreemapDrillDownAction(context);
+
+    context.event = {
+      type: 'custom',
+      data: {
+        data: data.children[0].children[0],
+      },
+    };
+
+    drillDownAction.click();
+
     treemapPlot.update({
       interactions: [
         { type: 'view-zoom', enable: true },
@@ -188,6 +217,40 @@ describe('drill-down intera', () => {
         { type: 'treemap-drill-down', enable: true },
       ],
     });
+
+    treemapPlot.destroy();
+  });
+
+  it('treemap changeData', async () => {
+    const treemapPlot = new Treemap(createDiv(), {
+      data,
+      colorField: 'name',
+      interactions: [
+        {
+          type: 'treemap-drill-down',
+        },
+      ],
+      legend: false,
+    });
+
+    treemapPlot.render();
+
+    const context = new InteractionContext(treemapPlot.chart);
+    const drillDownAction = new TreemapDrillDownAction(context);
+
+    // 模拟一次点击
+    context.event = {
+      type: 'custom',
+      data: {
+        data: data.children[0],
+      },
+    };
+
+    drillDownAction.click();
+
+    drillDownAction.reset();
+
+    expect(treemapPlot.chart.foregroundGroup.findAllByName('treemap-bread-crumb')[0].cfg.visible).toBe(false);
 
     treemapPlot.destroy();
   });

@@ -12,9 +12,6 @@ describe('heatmap', () => {
       yField: 'day',
       colorField: 'sales',
       shape: 'circle',
-      coordinate: {
-        type: 'rect',
-      },
     });
 
     heatmap.render();
@@ -40,7 +37,6 @@ describe('heatmap', () => {
           radius: 0.85,
           innerRadius: 0.2,
         },
-        actions: [['rotate', 2]],
       },
     });
 
@@ -56,15 +52,18 @@ describe('heatmap', () => {
     heatmap.update({
       ...heatmap.options,
       coordinate: {
-        type: 'rect',
-        actions: [['transpose']],
+        type: 'polar',
+        cfg: {
+          startAngle: 1,
+          endAngle: 2,
+        },
       },
     });
 
     // @ts-ignore
-    expect(heatmap.chart.options.coordinate.actions[0][0]).toBe('transpose');
+    expect(heatmap.chart.options.coordinate.cfg.startAngle).toBe(1);
     // @ts-ignore
-    expect(heatmap.chart.options.coordinate.type).toBe('rect');
+    expect(heatmap.chart.options.coordinate.cfg.endAngle).toBe(2);
 
     heatmap.destroy();
   });

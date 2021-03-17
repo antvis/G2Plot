@@ -182,7 +182,10 @@ function coordinate(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   }
 
   if (coordinate) {
-    chart.coordinate(coordinate);
+    chart.coordinate({
+      type: coordinate?.type || 'rect',
+      cfg: coordinate?.cfg,
+    });
   }
 
   return params;

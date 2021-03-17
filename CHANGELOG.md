@@ -1,3 +1,21 @@
+#### 2.3.16 (2021-03-17)
+
+##### Documentation Changes
+
+* **legend:**  图例分页导航器的主题样式设置 ([#2435](https://github.com/antvis/g2plot/pull/2435)) ([e18fbf33](https://github.com/antvis/g2plot/commit/e18fbf335972f9ccd8f2616f1f63cf5e1742d30b))
+* **theme:**  文档补充主题配置参考链接 ([#2433](https://github.com/antvis/g2plot/pull/2433)) ([e8f19b6c](https://github.com/antvis/g2plot/commit/e8f19b6c56583050eb82ba68cbf4bfdb225fbd2e))
+*  statistic 英文文档完善 ([#2423](https://github.com/antvis/g2plot/pull/2423)) ([e690398b](https://github.com/antvis/g2plot/commit/e690398b00eede031b337bb01b9e1f97f8be1672))
+
+##### New Features
+
+*  add coordinate attribute to heatmap ([#2425](https://github.com/antvis/g2plot/pull/2425)) ([55842a6b](https://github.com/antvis/g2plot/commit/55842a6b1af3568a218f82bc80ffe7b7b777528e))
+* **second-geometry:**  辅助几何图形 point 支持独立设置 state style ([#2429](https://github.com/antvis/g2plot/pull/2429)) ([7d0a5301](https://github.com/antvis/g2plot/commit/7d0a5301ae1ac5994fcb926080e03422d36d5d89))
+
+##### Bug Fixes
+
+* **multi-view:**  修复多图层图表折线图联动取数问题 ([#2428](https://github.com/antvis/g2plot/pull/2428)) ([52fb1471](https://github.com/antvis/g2plot/commit/52fb14717e8d547f4c82039b6b54cbb0c9f1d655))
+* **liquid:**  annotation width ([#2418](https://github.com/antvis/g2plot/pull/2418)) ([9ce38a40](https://github.com/antvis/g2plot/commit/9ce38a40a61c3338aaa9a0cf09498fb4644d3258))
+
 #### 2.3.14 (2021-03-11)
 
 ##### Documentation Changes

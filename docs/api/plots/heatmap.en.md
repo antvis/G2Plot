@@ -61,10 +61,10 @@ Shapes in thermal grids, density heat maps are not specified.
 
 Coordinate system configuration property.
 
-| Properties  | Type              | Whether the choice | Default | Description  |
-| ------- | --------------------- | -------- | ------ | ------------------------------ |
-| type    | string                |          | 'rect' | Type of coordinate system |
-| cfg     | _CoordinateCfg_       |          | -      | Coordinate system configuration term, currently commonly used in polar coordinates |
+| Properties  | Type              | Default | Description  |
+| ------- | --------------------- |  ------ | ------------------------------ |
+| type    | string                | 'rect'  | Type of coordinate system |
+| cfg     | _CoordinateCfg_       | -       | Coordinate system configuration term, currently commonly used in polar coordinates |
 
 _**CoordinateOption.type**_ Type of coordinate system：
 
@@ -75,12 +75,12 @@ _**CoordinateOption.type**_ Type of coordinate system：
 
 _**CoordinateCfg**_ Coordinate system configuration term, currently commonly used in polar coordinates：
 
-| Properties  | Type     | Whether the choice | Default | Description          |
-| ----------- | -------- | -------- | ------ | ------------------------------------------ |
-| startAngle  | _number_ |          | -      | For polar coordinates, configure the starting radian   |
-| endAngle    | _number_ |          | -      | For polar coordinates, configure end radians       |
-| radius      | _number_ |          | -      | For polar coordinates, configure polar radius, values in the 0-1 range |
-| innerRadius | _number_ |          | -      | For polar coordinates, radius within polar coordinates, values in the range 0-1  |
+| Properties  | Type     | Default | Description          |
+| ----------- | -------- |------   | ------------------------------------------ |
+| startAngle  | _number_ |         | For polar coordinates, configure the starting radian   |
+| endAngle    | _number_ |         | For polar coordinates, configure end radians       |
+| radius      | _number_ |         | For polar coordinates, configure polar radius, values in the 0-1 range |
+| innerRadius | _number_ |         | For polar coordinates, radius within polar coordinates, values in the range 0-1  |
 
 #### sizeRatio
 

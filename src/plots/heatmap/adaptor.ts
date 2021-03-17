@@ -177,15 +177,15 @@ function coordinate(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart, options } = params;
   const { coordinate, reflect } = options;
 
-  if (reflect) {
-    chart.coordinate().reflect(reflect);
-  }
-
   if (coordinate) {
     chart.coordinate({
       type: coordinate?.type || 'rect',
       cfg: coordinate?.cfg,
     });
+  }
+
+  if (reflect) {
+    chart.coordinate().reflect(reflect);
   }
 
   return params;

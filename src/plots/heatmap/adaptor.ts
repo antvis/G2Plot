@@ -179,8 +179,8 @@ function coordinate(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
 
   if (coordinate) {
     chart.coordinate({
-      type: coordinate?.type || 'rect',
-      cfg: coordinate?.cfg,
+      type: coordinate.type || 'rect',
+      cfg: coordinate.cfg,
     });
   }
 

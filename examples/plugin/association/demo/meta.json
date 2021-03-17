@@ -27,6 +27,14 @@
         "en": "Association filter"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/%24kAk5jxs1v/association-filter.gif"
+    },
+    {
+      "filename": "association-line.ts",
+      "title": {
+        "zh":"折线图联动",
+        "en":"Association line"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/67tdfeaWWN/line-association.gif"
     }
   ]
 }

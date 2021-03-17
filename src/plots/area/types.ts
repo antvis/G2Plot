@@ -21,5 +21,5 @@ export interface AreaOptions extends Options {
   /** 面积中折线的样式 */
   readonly line?: LineGeometryOptions['line'];
   /** 面积图数据点图形样式 */
-  readonly point?: PointGeometryOptions['point'];
+  readonly point?: PointGeometryOptions['point'] & Pick<PointGeometryOptions, 'state'>;
 }

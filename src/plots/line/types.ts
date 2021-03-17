@@ -20,6 +20,6 @@ export interface LineOptions extends Options {
   readonly lineStyle?: StyleAttr;
   /** 折线 shape 配置 */
   readonly lineShape?: Required<LineGeometryOptions>['line']['shape'];
-  /** 折线数据点图形样式 */
-  readonly point?: PointGeometryOptions['point'];
+  /** 折线数据点：1、图形映射属性 2、状态样式 */
+  readonly point?: PointGeometryOptions['point'] & Pick<PointGeometryOptions, 'state'>;
 }

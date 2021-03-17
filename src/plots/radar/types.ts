@@ -13,7 +13,7 @@ export interface RadarOptions extends Options {
   /** 折线图形样式 */
   readonly lineStyle?: ShapeStyle | ((x: any, y: any, series?: any) => ShapeStyle);
   /** 数据点图形样式 */
-  readonly point?: PointGeometryOptions['point'];
+  readonly point?: PointGeometryOptions['point'] & Pick<PointGeometryOptions, 'state'>;
   /** area 图形样式, 均提供回调的方式, 不开放 field 映射配置 */
   readonly area?: AreaGeometryOptions['area'];
   /** 角度轴配置 */

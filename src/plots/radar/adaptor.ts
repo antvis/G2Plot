@@ -12,6 +12,8 @@ function geometry(params: Params<RadarOptions>): Params<RadarOptions> {
   const { chart, options } = params;
   const { data, lineStyle, color, point: pointOptions, area: areaOptions } = options;
 
+  const pointState = pointOptions?.state;
+
   chart.data(data);
 
   // 雷达图 主 geometry
@@ -43,9 +45,10 @@ function geometry(params: Params<RadarOptions>): Params<RadarOptions> {
       tooltip: false,
     },
   });
+  const pointParams = deepAssign({}, primary, { options: { tooltip: false, state: pointState } });
 
   line(primary);
-  point(second);
+  point(pointParams);
   area(second);
 
   return params;

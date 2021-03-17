@@ -40,6 +40,59 @@ Background box configuration item. _LegendBackgroundCFG_ is configured as follow
 
 Apply to <tag color="green" text="Classification legend">Classification legend</tag>,whether to page when there are too many legend items.
 
+##### pageNavigator
+
+<description>**optional** _object_ </description>
+
+Apply to <tag color="green" text="Classification legend">Classification legend</tag>, configure the style of page navigator, it works when legend is in flipPage. Types of _LegendPageNavigatorCfg_ are as follow:
+
+| Properties | Type     | Default | Description          |
+| ------ | --------------------- | ------ | -------------- |
+| marker.style | _PageNavigatorMarkerStyle_ | -      | 分页器指示箭头配置项    |
+| text.style   | _PageNavigatorTextStyle_   | -      | The text style of page info.    |
+
+Types of **_PageNavigatorMarkerStyle_** are as follow:
+
+| Properties | Type     | Default | Description          |
+| ------ | --------------------- | ------ | -------------- |
+| inactiveFill | _string_ | -      | Fill color of arrow marker when unclickable (inactive status). |
+| inactiveOpacity   | _number_   | -      | Fill opacity of arrow marker when unclickable (inactive status). |
+| fill | _string_ | -      | Default fill color of arrow marker (active status). |
+| opacity   | _number_   | -      | Default fill opacity of arrow marker (active status). |
+| size   | _number_   | -      | Size of arrow marker. |
+
+Types of **_PageNavigatorTextStyle_** are as follow:
+
+| Properties | Type     | Default | Description          |
+| ------ | --------------------- | ------ | -------------- |
+| fill | _string_ | -      | Font color of page navigator info. |
+| fontSize   | _number_   | -      |  Font size of page navigator info. |
+
+Example：
+
+```ts
+pageNavigator: {
+  marker: {
+    style: {
+      // 非激活，不可点击态时的填充色设置
+      inactiveFill: '#000',
+      inactiveOpacity: 0.45,
+      // 默认填充色设置
+      fill: '#000',
+      opacity: 0.8,
+      size: 12,
+    },
+  },
+  text: {
+    style: {
+      fill: '#ccc',
+      fontSize: 8,
+    },
+  },
+},
+```
+
+
 ##### handler
 
 <description>**optional** _ContinueLegendHandlerCfg_ </description>

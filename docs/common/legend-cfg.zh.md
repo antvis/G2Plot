@@ -40,6 +40,58 @@
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，当图例项过多时是否进行分页。
 
+##### pageNavigator
+
+<description>**optional** _object_ </description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例分页导航器的主题样式设置。_LegendPageNavigatorCfg_ 配置如下：
+
+| 参数名  | 类型                | 默认值 | 描述           |
+| ------ | --------------------- | ------ | -------------- |
+| marker.style | _PageNavigatorMarkerStyle_ | -      | 分页器指示箭头 样式配置    |
+| text.style   | _PageNavigatorTextStyle_   | -      | 分页器页面信息 样式配置   |
+
+**_PageNavigatorMarkerStyle_** 配置如下：
+
+| 参数名  | 类型                | 默认值 | 描述           |
+| ------ | --------------------- | ------ | -------------- |
+| inactiveFill | _string_ | -      | Fill color of arrow marker when unclickable (inactive status). |
+| inactiveOpacity   | _number_   | -      | Fill opacity of arrow marker when unclickable (inactive status). |
+| fill | _string_ | -      | Default fill color of arrow marker (active status). |
+| opacity   | _number_   | -      | Default fill opacity of arrow marker (active status). |
+| size   | _number_   | -      | Size of arrow marker. |
+
+**_PageNavigatorTextStyle_** 配置如下：
+
+| 参数名  | 类型                | 默认值 | 描述           |
+| ------ | --------------------- | ------ | -------------- |
+| fill | _string_ | -      | Font color of page navigator info. |
+| fontSize   | _number_   | -      |  Font size of page navigator info. |
+
+示例：
+
+```ts
+pageNavigator: {
+  marker: {
+    style: {
+      // 非激活，不可点击态时的填充色设置
+      inactiveFill: '#000',
+      inactiveOpacity: 0.45,
+      // 默认填充色设置
+      fill: '#000',
+      opacity: 0.8,
+      size: 12,
+    },
+  },
+  text: {
+    style: {
+      fill: '#ccc',
+      fontSize: 8,
+    },
+  },
+},
+```
+
 ##### handler
 
 <description>**optional** _ContinueLegendHandlerCfg_ </description>

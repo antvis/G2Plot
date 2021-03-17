@@ -15,5 +15,9 @@ registerInteraction('treemap-drill-down', {
       isEnable: isTopParentNode,
       action: ['treemap-drill-down-action:click'],
     },
+    {
+      trigger: 'afterchangesize',
+      action: ['treemap-drill-down-action:resetPosition'],
+    },
   ],
 });

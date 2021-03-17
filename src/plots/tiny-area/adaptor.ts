@@ -14,6 +14,7 @@ import { TinyAreaOptions } from './types';
 function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
   const { chart, options } = params;
   const { data, color, areaStyle, point: pointOptions, line: lineOptions } = options;
+  const pointState = pointOptions?.state;
 
   const seriesData = getTinyData(data);
 
@@ -29,11 +30,12 @@ function geometry(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
     },
   });
   const second = deepAssign({}, primary, { options: { tooltip: false } });
+  const pointParams = deepAssign({}, primary, { options: { tooltip: false, state: pointState } });
 
   // area geometry 处理
   area(primary);
   line(second);
-  point(second);
+  point(pointParams);
 
   chart.axis(false);
   chart.legend(false);

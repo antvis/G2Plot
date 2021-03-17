@@ -17,6 +17,8 @@ function geometry(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
   const { chart, options } = params;
   const { data, color, lineStyle, point: pointMapping } = options;
 
+  const pointState = pointMapping?.state;
+
   const seriesData = getTinyData(data);
 
   chart.data(seriesData);
@@ -33,10 +35,10 @@ function geometry(params: Params<TinyLineOptions>): Params<TinyLineOptions> {
       point: pointMapping,
     },
   });
-  const second = deepAssign({}, primary, { options: { tooltip: false } });
+  const pointParams = deepAssign({}, primary, { options: { tooltip: false, state: pointState } });
 
   line(primary);
-  point(second);
+  point(pointParams);
 
   chart.axis(false);
   chart.legend(false);

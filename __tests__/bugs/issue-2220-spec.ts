@@ -34,7 +34,7 @@ describe('pie tooltip', () => {
 
     await delay(80);
     pie.chart.showTooltip(point);
-    await delay(100);
+    await delay(300);
     // @ts-ignore
     let items = tooltipController.getTooltipItems(point);
     expect(items[0].name).toBe('xxx');

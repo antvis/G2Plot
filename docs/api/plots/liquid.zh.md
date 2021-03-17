@@ -35,7 +35,7 @@ order: 6
 
 <description>**optional** _String | Function_ default: `circle`</description>
 
-水波图有四种内置形状：`circle | diamond | triangle | pin`。同时也支持自定义图形，这个时候需要传入一个构建 Path 的回调函数。
+水波图有五种内置形状：`circle | diamond | triangle | pin | rect`。同时也支持自定义图形，这个时候需要传入一个构建 Path 的回调函数。
 
 示例代码如下：
 

@@ -347,6 +347,26 @@ function triangle(x: number, y: number, width: number, height: number) {
     `;
 }
 
+/**
+ *
+ * @param x 中心 x
+ * @param y 中心 y
+ * @param width 外接矩形的宽
+ * @param height 外接矩形的高
+ */
+function rect(x: number, y: number, width: number, height: number) {
+  const GOLDEN_SECTION_RATIO = 0.618;
+  const h = height / 2;
+  const w = (width / 2) * GOLDEN_SECTION_RATIO;
+  return `
+      M ${x - w} ${y - h}
+      L ${x + w} ${y - h}
+      L ${x + w} ${y + h}
+      L ${x - w} ${y + h}
+      Z
+    `;
+}
+
 registerShape('interval', 'liquid-fill-gauge', {
   draw(cfg: any, container: IGroup) {
     const cx = 0.5;
@@ -382,6 +402,7 @@ registerShape('interval', 'liquid-fill-gauge', {
       circle,
       diamond,
       triangle,
+      rect,
     };
     const buildPath = typeof shape === 'function' ? shape : builtInShapeByName[shape] || builtInShapeByName['circle'];
     const shapePath = buildPath(center.x, center.y, innerRadius * 2, innerRadius * 2);

@@ -99,11 +99,11 @@ Whether to render TooltipMarkers.
 
 ##### marker
 
-<description>**optional** _object_</description>
+<description>**optional** _ShapeAttrs_</description>
 
 TooltipMarker style configuration.
 
-`markdown:docs/common/marker.en.md`
+Please refer to the style configuration [ShapeAttrs](/en/docs/api/graphic-style)
 
 ##### showContent
 

@@ -99,11 +99,11 @@ true 表示合并当前点对应的所有数据并展示，false 表示只展示
 
 ##### marker
 
-<description>**可选** _object_</description>
+<description>**可选** _ShapeAttrs_</description>
 
 tooltipMarker 的样式配置。
 
-`markdown:docs/common/marker.zh.md`
+样式配置类型，详细可见: [ShapeAttrs](/zh/docs/api/graphic-style)
 
 ##### showContent
 

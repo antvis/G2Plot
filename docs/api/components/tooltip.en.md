@@ -11,7 +11,7 @@ order: 3
 
 #### Tooltip
 
-<img src="https://gw.alipayobjects.com/zos/antfincdn/HjTKrPN%24j6/tooltip-intro.png" class="component-img"  alt="tooltip" />
+<img src="https://gw.alipayobjects.com/zos/antfincdn/qAwyqRLJXT/Tooltip%252520jieshao.png" class="component-img"  alt="tooltip" />
 
 #### Configurations (_TooltipCfg_)
 

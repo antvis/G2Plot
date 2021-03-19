@@ -120,16 +120,14 @@ function axis(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { legend, colorField, shapeField, sizeField } = options;
-  // legend 没有指定时根据 shapeField 和 colorField 来设置默认值
+  const { legend, colorField, shapeField, shapeLegend, sizeField, sizeLegend } = options;
+
   const showLegend = isBoolean(legend) ? legend : legend || !!(shapeField || colorField);
+
   if (showLegend) {
     colorField && chart.legend(colorField, legend);
-    shapeField && chart.legend(shapeField, legend);
-    // 隐藏连续图例
-    if (sizeField) {
-      chart.legend(sizeField, false);
-    }
+    shapeField && chart.legend(shapeField, shapeLegend ? deepAssign({}, legend, shapeLegend) : legend);
+    sizeField && chart.legend(sizeField, sizeLegend ? deepAssign({}, legend, sizeLegend) : false);
   } else {
     chart.legend(false);
   }

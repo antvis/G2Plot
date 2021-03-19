@@ -7,6 +7,7 @@ import {
   StyleAttr,
   ShapeAttr,
   SizeAttr,
+  Legend,
 } from '../../types';
 
 interface Labels extends Omit<TextOption, 'position'> {
@@ -48,10 +49,14 @@ export interface ScatterOptions extends Options {
   readonly sizeField?: string;
   /** 散点图大小 */
   readonly size?: SizeAttr;
+  /** 散点图大小 legend 配置, 如果没有，默认取通用 legend */
+  readonly sizeLegend?: Legend;
   /** 点形状映射对应的数据字段名 */
   readonly shapeField?: string;
   /** 散点图形状 */
   readonly shape?: ShapeAttr;
+  /** 散点图图例 legend 配置, 如果没有，默认取通用 legend */
+  readonly shapeLegend?: Legend;
   /** 散点图样式 */
   readonly pointStyle?: StyleAttr;
   /** 点颜色映射对应的数据字段名 */

@@ -197,4 +197,37 @@ describe('scatter', () => {
 
     scatter.destroy();
   });
+
+  it('sizeLegend: sizeLegend * sizeField * true', () => {
+    const scatter = new Scatter(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data,
+      xField: 'weight',
+      yField: 'height',
+      shapeField: 'gender',
+      size: [2, 8],
+      sizeField: 'weight',
+      color: ['red', 'blue'],
+      colorField: 'gender',
+      xAxis: {
+        nice: true,
+      },
+      sizeLegend: {},
+    });
+
+    scatter.render();
+    const legendController = scatter.chart.getController('legend');
+    // @ts-ignore
+    const {
+      // @ts-ignore
+      option: { weight, height, gender },
+    } = legendController;
+    expect(weight).toBeTruthy();
+    expect(height).toBe(false);
+    expect(gender).toBeUndefined();
+
+    scatter.destroy();
+  });
 });

@@ -91,6 +91,8 @@ The spacing between columns in a grouping [0-1] applies only to grouping columns
 
 #### Conversion Tag
 
+Applicable to base bar charts and base bar charts, the Conversion Rate component allows the user to focus on the rate of change in the data.
+
 `markdown:docs/common/conversion-tag.en.md`
 
 #### Connected Area

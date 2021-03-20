@@ -1,6 +1,6 @@
 ---
-title: Tooltip
-order: 3
+title: 悬浮提示 - Tooltip
+order: 5
 ---
 
 `markdown:docs/styles/component.md`

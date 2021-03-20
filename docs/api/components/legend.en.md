@@ -1,6 +1,6 @@
 ---
 title: Legend
-order: 2
+order: 0
 ---
 
 `markdown:docs/styles/component.md`

@@ -93,6 +93,8 @@ order: 2
 
 #### 转化率
 
+适用于基础柱形图和基础条形图，转化率组件可以让用户关注到数据的变化比例。
+
 `markdown:docs/common/conversion-tag.zh.md`
 
 #### 联通区域对比

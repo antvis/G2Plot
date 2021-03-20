@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "conversion-tag-with-link.ts",
+      "title": {
+        "zh": "转化率标签 - 点击跳转",
+        "en": "Conversion tag with jump link"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/ffFWVjr415/conversion-tag-link.gif"
+    }
+  ]
+}

@@ -87,6 +87,8 @@ The ratio of spacing between columns in groups( Range:[0-1] ), only for Grouped 
 
 #### Conversion Tag
 
+Applicable to base bar charts and base bar charts, the Conversion Rate component allows the user to focus on the rate of change in the data.
+
 `markdown:docs/common/conversion-tag.en.md`
 
 #### Connected Area

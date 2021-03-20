@@ -1,6 +1,6 @@
 ---
 title: Scrollbar
-order: 7
+order: 3
 ---
 
 `markdown:docs/styles/component.md`

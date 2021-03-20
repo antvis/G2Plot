@@ -1,6 +1,6 @@
 ---
-title: 滚动条
-order: 7
+title: 滚动条 - Scrollbar
+order: 3
 ---
 
 `markdown:docs/styles/component.md`

@@ -1,4 +1,4 @@
-import { filter, isNil } from '@antv/util';
+import { filter } from '@antv/util';
 import { interaction, animation, theme, scale, tooltip, legend, annotation } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign, findGeometry, transformLabel } from '../../utils';
@@ -7,12 +7,17 @@ import { log, LEVEL } from '../../utils';
 import { RadialBarOptions } from './types';
 import { getScaleMax } from './utils';
 
+/**
+ * data 处理
+ * @param params
+ */
 function data(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   const { chart, options } = params;
   const { data } = options;
   const { yField } = options;
+
   // 处理不合法的数据
-  const processData = filter(data, (d) => typeof d[yField] === 'number' || isNil(d[yField]));
+  const processData = filter(data, (d) => typeof d[yField] === 'number' && !isNaN(d[yField]));
 
   // 打印异常数据情况
   log(LEVEL.WARN, processData.length === data.length, 'illegal data existed in chart data.');
@@ -58,8 +63,11 @@ function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
  * @param params
  */
 export function meta(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
-  const { options } = params;
-  const { yField, data, maxAngle } = options;
+  const { options, chart } = params;
+
+  // data 使用chart.data之后的
+  const { data } = chart.getOptions();
+  const { yField, maxAngle } = options;
   return flow(
     scale({
       [yField]: {

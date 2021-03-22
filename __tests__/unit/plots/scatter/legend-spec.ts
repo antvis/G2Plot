@@ -20,16 +20,15 @@ describe('scatter', () => {
     const legendController = scatter.chart.getController('legend');
     // @ts-ignore
     const { option } = legendController;
-    expect(option).toBe(false);
+    expect(option).toEqual({ height: false, weight: false });
     scatter.update({
       shapeField: 'gender',
     });
     // @ts-ignore
-    expect(scatter.chart.getController('legend').option).toEqual({
-      gender: undefined,
-      height: false,
-      weight: false,
-    });
+    expect(scatter.chart.getController('legend').option).toEqual({ height: false, weight: false });
+
+    expect(legendController.getComponents().length).toBe(1);
+
     scatter.update({
       shapeField: '',
       colorField: 'g',
@@ -195,6 +194,47 @@ describe('scatter', () => {
     expect(height).toBe(false);
     expect(gender).toBeTruthy();
 
+    scatter.destroy();
+  });
+
+  const scatter = new Scatter(createDiv(), {
+    width: 400,
+    height: 300,
+    appendPadding: 10,
+    data: data.map((d) => ({ ...d, ['gender-1']: d.gender })),
+    xField: 'weight',
+    yField: 'height',
+    shapeField: 'gender',
+    xAxis: {
+      nice: true,
+    },
+  });
+
+  scatter.render();
+
+  it('not colorField, but shapeField, legend 会取 shapeField', () => {
+    const legendController = scatter.chart.getController('legend');
+    expect(legendController.getComponents().length).toBe(1);
+    expect(legendController.getComponents()[0].id).toBe('legend-gender');
+  });
+
+  it('shapeLegend toBe false', () => {
+    scatter.update({ shapeLegend: false });
+    const legendController = scatter.chart.getController('legend');
+    expect(legendController.getComponents().length).toBe(0);
+  });
+
+  it('当 colorField & shapeLegend 同字段时，shapeLegend false 会导致 colorLegend 关闭', () => {
+    scatter.update({ colorField: 'gender', shapeLegend: {} });
+    let legendController = scatter.chart.getController('legend');
+    expect(legendController.getComponents().length).toBe(1);
+
+    scatter.update({ shapeLegend: false });
+    legendController = scatter.chart.getController('legend');
+    expect(legendController.getComponents().length).toBe(0);
+  });
+
+  afterAll(() => {
     scatter.destroy();
   });
 });

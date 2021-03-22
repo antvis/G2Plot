@@ -1,4 +1,4 @@
-import { isBoolean, isNumber } from '@antv/util';
+import { isNumber } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
 import { point } from '../../adaptor/geometries';
@@ -120,17 +120,32 @@ function axis(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { chart, options } = params;
-  const { legend, colorField, shapeField, sizeField } = options;
-  // legend 没有指定时根据 shapeField 和 colorField 来设置默认值
-  const showLegend = isBoolean(legend) ? legend : legend || !!(shapeField || colorField);
-  if (showLegend) {
-    colorField && chart.legend(colorField, legend);
-    shapeField && chart.legend(shapeField, legend);
-    // 隐藏连续图例
-    if (sizeField) {
-      chart.legend(sizeField, false);
-    }
-  } else {
+  const { legend, colorField, shapeField, sizeField, shapeLegend, sizeLegend } = options;
+
+  /** 1. legend 不为 false, 则展示图例, 优先展示 color 分类图例 */
+  const showLegend = legend !== false;
+  // 1. shapeLegend 为 false, 强制关闭 shape 映射图例
+  // 2.1 shapeLegend 不为空时，展示 shape 图例； 2.2 否则colorField 不存在，且 legend 存在时，可展示 shape 图例
+  const showShapeLegend = shapeField && shapeLegend !== false && ((showLegend && !colorField) || shapeLegend);
+  /** 默认没有 sizeField，则隐藏连续图例 */
+  const showSizeLegend = sizeLegend;
+
+  if (colorField) {
+    showLegend ? chart.legend(colorField, legend) : chart.legend(colorField, false);
+  }
+
+  // 优先取 shapeLegend，否则取 legend
+  if (showShapeLegend) {
+    chart.legend(shapeField, shapeLegend || legend);
+  } else if (shapeField && shapeLegend === false) {
+    chart.legend(shapeField, false);
+  }
+
+  if (sizeField) {
+    showSizeLegend ? chart.legend(sizeField, sizeLegend) : chart.legend(sizeField, false);
+  }
+
+  if (!showLegend && !showShapeLegend && !showSizeLegend) {
     chart.legend(false);
   }
 

@@ -108,6 +108,7 @@ describe('scatter', () => {
   });
 
   it('color mapping with shape mapping, legends', () => {
+    scatter.update({ shapeLegend: {} });
     const legendController = scatter.chart.getController('legend');
     expect(legendController.getComponents().length).toBe(2);
     expect(legendController.getComponents()[0].component.get('items').length).toBe(3);

@@ -128,18 +128,23 @@ function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
   // 2.1 shapeLegend 不为空时，展示 shape 图例； 2.2 否则colorField 不存在，且 legend 存在时，可展示 shape 图例
   const showShapeLegend = shapeField && shapeLegend !== false && ((showLegend && !colorField) || shapeLegend);
   /** 默认没有 sizeField，则隐藏连续图例 */
-  const showSizeLegend = sizeField && sizeLegend;
+  const showSizeLegend = sizeLegend;
 
-  if (showLegend) {
-    chart.legend(colorField, legend);
+  if (colorField) {
+    showLegend ? chart.legend(colorField, legend) : chart.legend(colorField, false);
   }
+
+  // 优先取 shapeLegend，否则取 legend
   if (showShapeLegend) {
-    // 优先取 shapeLegend，否则取 legend
     chart.legend(shapeField, shapeLegend || legend);
+  } else if (shapeField && shapeLegend === false) {
+    chart.legend(shapeField, false);
   }
-  if (showSizeLegend) {
-    chart.legend(sizeField, sizeLegend);
+
+  if (sizeField) {
+    showSizeLegend ? chart.legend(sizeField, sizeLegend) : chart.legend(sizeField, false);
   }
+
   if (!showLegend && !showShapeLegend && !showSizeLegend) {
     chart.legend(false);
   } else if (!showSizeLegend && sizeField) {

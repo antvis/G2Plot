@@ -197,6 +197,112 @@ describe('scatter', () => {
     scatter.destroy();
   });
 
+  it('shapeLegend: shapeField * {}', () => {
+    const scatter = new Scatter(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data,
+      xField: 'weight',
+      yField: 'height',
+      shapeField: 'gender',
+      shapeLegend: {},
+      xAxis: {
+        nice: true,
+      },
+    });
+
+    scatter.render();
+    const legendController = scatter.chart.getController('legend');
+    // @ts-ignore
+    expect(legendController.option).toEqual({
+      gender: {},
+    });
+
+    scatter.destroy();
+  });
+
+  it('shapeLegend: legend * shapeField * false', () => {
+    const scatter = new Scatter(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data,
+      xField: 'weight',
+      yField: 'height',
+      shapeField: 'gender',
+      shapeLegend: false,
+      colorField: '',
+      xAxis: {
+        nice: true,
+      },
+      legend: {},
+    });
+
+    scatter.render();
+    const legendController = scatter.chart.getController('legend');
+    // @ts-ignore
+    expect(legendController.option).toEqual({
+      gender: false,
+      height: false,
+      weight: false,
+    });
+
+    scatter.destroy();
+  });
+
+  it('sizeLegend: sizeField * {}', () => {
+    const scatter = new Scatter(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data,
+      xField: 'weight',
+      yField: 'height',
+      sizeField: 'weight',
+      sizeLegend: {},
+      xAxis: {
+        nice: true,
+      },
+    });
+
+    scatter.render();
+    const legendController = scatter.chart.getController('legend');
+    // @ts-ignore
+    expect(legendController.option).toEqual({
+      weight: {},
+    });
+
+    scatter.destroy();
+  });
+
+  it('sizeLegend: legend * sizeField * false', () => {
+    const scatter = new Scatter(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data,
+      xField: 'weight',
+      yField: 'height',
+      sizeField: 'weight',
+      sizeLegend: false,
+      colorField: '',
+      xAxis: {
+        nice: true,
+      },
+      legend: {},
+    });
+
+    scatter.render();
+    const legendController = scatter.chart.getController('legend');
+    // @ts-ignore
+    expect(legendController.option).toEqual({
+      height: false,
+      weight: false,
+    });
+
+  });
+
   const scatter = new Scatter(createDiv(), {
     width: 400,
     height: 300,

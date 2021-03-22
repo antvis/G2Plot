@@ -147,6 +147,8 @@ function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
 
   if (!showLegend && !showShapeLegend && !showSizeLegend) {
     chart.legend(false);
+  } else if (!showSizeLegend && sizeField) {
+    chart.legend(sizeField, false);
   }
 
   return params;

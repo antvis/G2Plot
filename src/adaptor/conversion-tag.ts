@@ -145,6 +145,10 @@ function renderArrowTag(config: TagRenderConfig, elemPrev: Element, elemNext: El
   group.addShape('polygon', {
     id: `${view.id}-conversion-tag-arrow-${geometry.getElementId(elemPrev.getModel().mappingData)}`,
     name: 'conversion-tag-arrow',
+    origin: {
+      element: elemPrev,
+      nextElement: elemNext,
+    },
     attrs: {
       ...(arrow.style || {}),
       points,
@@ -167,6 +171,10 @@ function renderTextTag(config: TagRenderConfig, elemPrev: Element, elemNext: Ele
   const textShape = group.addShape('text', {
     id: `${view.id}-conversion-tag-text-${geometry.getElementId(elemPrev.getModel().mappingData)}`,
     name: 'conversion-tag-text',
+    origin: {
+      element: elemPrev,
+      nextElement: elemNext,
+    },
     attrs: {
       ...(options.text?.style || {}),
       text,

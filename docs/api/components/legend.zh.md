@@ -1,6 +1,6 @@
 ---
-title: 图例
-order: 2
+title: 图例 - Legend
+order: 0
 ---
 
 `markdown:docs/styles/component.md`

@@ -1,6 +1,6 @@
 ---
-title: Annotation
-order: 4
+title: Annotations
+order: 6
 ---
 
 `markdown:docs/styles/component.md`
@@ -45,12 +45,12 @@ annotations: [
 
 #### Configurations（_AnnotationCfg_）
 
-> ❕ means: _required_
+> ❗️ means: _required_
 
 | Properties    | Type       | Description                               | Apply to             |
 | --- | --- | --- | --- |
-| type ❕| _string_ | 图形标注类型. |
-| position ❕  | _object_ | 标注位置. |
+| type ❗️| _string_ | 图形标注类型. |
+| position ❗️  | _object_ | 标注位置. |
 | animate | _boolean_ | 是否进行动画. |
 | autoAdjust | _boolean_ | 文本超出绘制区域时，是否自动调节文本方向. |
 | start | _array_ | 起始位置. | <tag color="green" text="line"> Line </tag> <tag color="green" text="region"> Region </tag> 

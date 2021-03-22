@@ -1,6 +1,6 @@
 ---
-title: 数据标签
-order: 1
+title: 数据标签 - Label
+order: 4
 ---
 
 `markdown:docs/styles/component.md`

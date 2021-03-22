@@ -1,6 +1,6 @@
 ---
 title: Label
-order: 1
+order: 4
 ---
 
 `markdown:docs/styles/component.md`

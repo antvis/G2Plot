@@ -1,28 +1,26 @@
-Applicable to base bar charts and base bar charts, the Conversion Rate component allows the user to focus on the rate of change in the data.
-
 <description>**optional** _object_ | _false_</description>
 
-| Properties | Type            | Required | Default | Description                                              |
-| ---------- | --------------- | -------- | ------- | -------------------------------------------------------- |
-| size       | number          | No       | -       | Conversion rate Component dimensions                     |
-| spacing    | number          | No       | -       | Component and column spacing                             |
-| offset     | number          | No       | -       | Component and axis spacing                               |
-| arrow      | ArrowCfg、false | No       | -       | Arrow shape configuration, false does not display arrows |
-| text       | TextCfg、false  | No       | -       | Text configuration, false does not display text          |
+| Properties | Type                | Default | Description                                              |
+| ---------- | ------------------- | ------- | -------------------------------------------------------- | ----------------------------------------------- |
+| size       | _number_            | -       | Conversion rate Component dimensions                     |
+| spacing    | _number_            | -       | Component and column spacing                             |
+| offset     | _number_            | -       | Component and axis spacing                               |
+| arrow      | _ArrowCfg \| false_ | -       | Arrow shape configuration, false does not display arrows |
+| text       | _TextCfg \| false_  | No      | -                                                        | Text configuration, false does not display text |
 
 ArrowCfg configuration is as follows:
 
-| Properties | Type   | Required | Default | Description       |
-| ---------- | ------ | -------- | ------- | ----------------- |
-| headSize   | number | No       | -       | Size of the arrow |
-| style      | object | No       | -       | Arrow style       |
+| Properties | Type     | Default | Description       |
+| ---------- | -------- | ------- | ----------------- |
+| headSize   | _number_ | -       | Size of the arrow |
+| style      | _object_ | -       | Arrow style       |
 
 TextCfg configuration is as follows:
 
-| Properties | Type                                 | Required | Default | Description                        |
-| ---------- | ------------------------------------ | -------- | ------- | ---------------------------------- |
-| headSize   | number                               | No       | -       | Size of the arrow                  |
-| style      | object                               | No       | -       | Arrow style                        |
-| formatter  | (prev:number, next:number) => string | No       | -       | Custom conversion rate calculation |
+| Properties | Type                                   | Default | Description                        |
+| ---------- | -------------------------------------- | ------- | ---------------------------------- |
+| headSize   | _number_                               | -       | Size of the arrow                  |
+| style      | _object_                               | -       | Arrow style                        |
+| formatter  | _(prev:number, next:number) => string_ | -       | Custom conversion rate calculation |
 
 Please refer to the style configuration [ShapeAttrs](/en/docs/api/graphic-style)

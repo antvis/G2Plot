@@ -1,6 +1,6 @@
 ---
 title: Axis
-order: 0
+order: 1
 ---
 
 `markdown:docs/styles/component.md`

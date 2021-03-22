@@ -1,6 +1,6 @@
 ---
-title: 缩略轴
-order: 6
+title: 缩略轴 - Slider
+order: 2
 ---
 
 `markdown:docs/styles/component.md`

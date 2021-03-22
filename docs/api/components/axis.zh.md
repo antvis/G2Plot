@@ -1,6 +1,6 @@
 ---
-title: 坐标轴
-order: 0
+title: 坐标轴 - Axis
+order: 1
 ---
 
 `markdown:docs/styles/component.md`

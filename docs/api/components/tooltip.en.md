@@ -1,6 +1,6 @@
 ---
 title: Tooltip
-order: 3
+order: 5
 ---
 
 `markdown:docs/styles/component.md`

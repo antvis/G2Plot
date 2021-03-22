@@ -4,6 +4,7 @@ import { Column, ColumnOptions, Bar, BarOptions } from '../../../src';
 import { createDiv } from '../../utils/dom';
 import { delay } from '../../utils/delay';
 import { near } from '../../utils/number';
+import { dispatchEvent } from '../../utils/event';
 import { subSalesByArea } from '../../data/sales';
 
 const DATA = [
@@ -66,6 +67,11 @@ describe('column conversion tag', () => {
         expect(texts[idx - 1].attr('text')).toBe(((DATA[idx].y / DATA[idx - 1].y) * 100).toFixed(2) + '%');
       }
     });
+    texts.forEach((text, idx) => {
+      // origin info
+      expect(text.get('origin').element).toBe(plot.chart.geometries[0].elements[idx]);
+      expect(text.get('origin').nextElement).toBe(plot.chart.geometries[0].elements[idx + 1]);
+    });
 
     // 箭头
     const arrows = group.findAllByName('conversion-tag-arrow');
@@ -73,12 +79,15 @@ describe('column conversion tag', () => {
     // 每一个都有唯一的 ID
     expect(uniq(arrowIds)).toHaveLength(DATA.length - 1);
     expect(arrows).toHaveLength(DATA.length - 1);
-    arrows.forEach((arrow) => {
+    arrows.forEach((arrow, idx) => {
       const bbox = arrow.getBBox();
       // spacing: 8
       expect(near(bbox.width, totalWidth - 8 * 2)).toBeTruthy();
       // size: 32
       expect(near(bbox.height, 32)).toBeTruthy();
+      // origin info
+      expect(arrow.get('origin').element).toBe(plot.chart.geometries[0].elements[idx]);
+      expect(arrow.get('origin').nextElement).toBe(plot.chart.geometries[0].elements[idx + 1]);
     });
   });
 
@@ -602,5 +611,47 @@ describe('conversion tag disabled with seriesField', () => {
     // 整体
     const group: IGroup = foreground.findAllByName('conversion-tag-group')[0] as IGroup;
     expect(group).toBeUndefined();
+  });
+});
+
+describe('conversion tag listent to events', () => {
+  const container = createDiv();
+
+  const options: ColumnOptions = {
+    data: DATA,
+    autoFit: false,
+    width: 600,
+    height: 400,
+    xField: 'x',
+    yField: 'y',
+    conversionTag: {},
+    animation: false,
+  };
+  const plot = new Column(container, options);
+
+  it('events', async () => {
+    plot.render();
+    let c;
+    plot.on('conversion-tag-group:mouseenter', (evt) => {
+      c = evt?.target;
+    });
+
+    await delay(100);
+
+    const foreground = plot.chart.foregroundGroup;
+    const group: IGroup = foreground.findAllByName('conversion-tag-group')[0] as IGroup;
+    // 箭头
+    const arrows = group.findAllByName('conversion-tag-arrow');
+    const texts = group.findAllByName('conversion-tag-text');
+
+    const canvas = plot.chart.getCanvas();
+    const bbox = arrows[0].getCanvasBBox();
+    dispatchEvent(bbox, canvas, 'mouseenter');
+
+    await delay(100);
+
+    expect(c?.get('id')).toBe(texts[0].get('id'));
+    expect(c?.get('origin').element).toBe(plot.chart.geometries[0].elements[0]);
+    expect(c?.get('origin').nextElement).toBe(plot.chart.geometries[0].elements[1]);
   });
 });

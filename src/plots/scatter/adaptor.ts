@@ -130,20 +130,20 @@ function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const showSizeLegend = sizeLegend;
 
   if (colorField) {
-    showLegend ? chart.legend(colorField, legend) : chart.legend(colorField, false);
+    chart.legend(colorField, showLegend ? legend : false);
   }
 
-  // 优先取 shapeLegend，否则取 legend
+  // 优先取 shapeLegend, 否则取 legend
   if (shapeField) {
-    showShapeLegend
-      ? chart.legend(shapeField, shapeLegend)
-      : shapeLegend !== false && showLegend
-      ? chart.legend(shapeField, legend)
-      : chart.legend(shapeField, false);
+    if (shapeLegend) {
+      chart.legend(shapeField, shapeLegend);
+    } else {
+      chart.legend(shapeField, shapeLegend === false ? false : legend);
+    }
   }
 
   if (sizeField) {
-    showSizeLegend ? chart.legend(sizeField, sizeLegend) : chart.legend(sizeField, false);
+    chart.legend(sizeField, showSizeLegend ? sizeLegend : false);
   }
 
   if (!showLegend && !showShapeLegend && !showSizeLegend) {

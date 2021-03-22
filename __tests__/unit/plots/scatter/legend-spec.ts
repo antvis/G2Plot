@@ -215,7 +215,7 @@ describe('scatter', () => {
     scatter.render();
     const legendController = scatter.chart.getController('legend');
     // @ts-ignore
-    expect(legendController.option).toEqual({
+    expect(legendController.option).toMatchObject({
       gender: {},
     });
 
@@ -270,6 +270,7 @@ describe('scatter', () => {
     const legendController = scatter.chart.getController('legend');
     // @ts-ignore
     expect(legendController.option).toEqual({
+      height: false,
       weight: {},
     });
 
@@ -300,7 +301,6 @@ describe('scatter', () => {
       height: false,
       weight: false,
     });
-
   });
 
   const scatter = new Scatter(createDiv(), {

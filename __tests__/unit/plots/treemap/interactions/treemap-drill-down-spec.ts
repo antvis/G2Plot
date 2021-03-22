@@ -1,7 +1,6 @@
 import { getInteraction } from '@antv/g2';
 import InteractionContext from '@antv/g2/lib/interaction/context';
 import { IGroup, IShape } from '@antv/g2/lib/dependents';
-import { TREEMAP_CHILDREN } from '../../../../data/treemap-nest';
 import { createDiv } from '../../../../utils/dom';
 import { Treemap } from '../../../../../src';
 import { TreemapDrillDownAction } from '../../../../../src/plots/treemap/interactions/actions/treemap-drill-down-action';

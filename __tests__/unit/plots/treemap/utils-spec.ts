@@ -360,8 +360,8 @@ describe('treemap transformData', () => {
   });
 
   it('resetDrillDown', () => {
-    // @ts-ignore
     expect(() => {
+      // @ts-ignore
       resetDrillDown({
         // @ts-ignore
         interactions: {},

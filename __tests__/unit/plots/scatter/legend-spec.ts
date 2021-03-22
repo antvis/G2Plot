@@ -20,16 +20,16 @@ describe('scatter', () => {
     const legendController = scatter.chart.getController('legend');
     // @ts-ignore
     const { option } = legendController;
-    expect(option).toBe(false);
+    expect(option).toBe(undefined);
     scatter.update({
       shapeField: 'gender',
     });
     // @ts-ignore
     expect(scatter.chart.getController('legend').option).toEqual({
       gender: undefined,
-      height: false,
-      weight: false,
     });
+    expect(legendController.getComponents().length).toBe(1);
+
     scatter.update({
       shapeField: '',
       colorField: 'g',

@@ -30,6 +30,13 @@ export function resetDrillDown(chart: View) {
   drillDownAction.reset();
 }
 
+export function removeForegroundGroupShape(chart: View) {
+  const treemapBreadCrumb = chart.foregroundGroup.findAllByName('treemap-bread-crumb');
+  if (treemapBreadCrumb && treemapBreadCrumb[0]) {
+    chart.foregroundGroup.removeChild(treemapBreadCrumb[0], true);
+  }
+}
+
 export function getFommatInteractions(
   interactions: TreemapOptions['interactions'],
   hierarchyConfig: TreemapOptions['hierarchyConfig']

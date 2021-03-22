@@ -6,6 +6,7 @@ import {
   transformData,
   findInteraction,
   enableInteraction,
+  removeForegroundGroupShape,
   getFommatInteractions,
   getAdjustAppendPadding,
 } from './utils';
@@ -111,6 +112,9 @@ export function interaction(params: Params<TreemapOptions>): Params<TreemapOptio
   const { chart, options } = params;
   const { interactions, hierarchyConfig } = options;
 
+  // 每次 update，虽然 interaction 对象重绘已更新，但绘制在 foregroundGroup 中的面包屑并不会被清空，因此手动 remove 下 shape
+  removeForegroundGroupShape(chart);
+
   commonInteraction({
     chart,
     options: {
@@ -138,10 +142,6 @@ export function interaction(params: Params<TreemapOptions>): Params<TreemapOptio
   if (enableDrillInteraction) {
     // 为面包屑在底部留出 25px 的空间
     chart.appendPadding = getAdjustAppendPadding(chart.appendPadding);
-  } else {
-    // 因在下钻过程中，可能存在更新 interaction 的行为，因此在此做一次清除
-    const treemapBreadCrumb = chart.foregroundGroup.findAllByName('treemap-bread-crumb');
-    chart.foregroundGroup.removeChild(treemapBreadCrumb[0], true);
   }
   return params;
 }

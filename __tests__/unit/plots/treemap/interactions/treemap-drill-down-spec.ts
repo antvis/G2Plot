@@ -1,6 +1,7 @@
 import { getInteraction } from '@antv/g2';
 import InteractionContext from '@antv/g2/lib/interaction/context';
 import { IGroup, IShape } from '@antv/g2/lib/dependents';
+import { TREEMAP_CHILDREN } from '../../../../data/treemap-nest';
 import { createDiv } from '../../../../utils/dom';
 import { Treemap } from '../../../../../src';
 import { TreemapDrillDownAction } from '../../../../../src/plots/treemap/interactions/actions/treemap-drill-down-action';
@@ -172,7 +173,7 @@ describe('drill-down intera', () => {
     treemapPlot.destroy();
   });
 
-  it('interaction switch', async () => {
+  it('interaction reset: changeData', async () => {
     const treemapPlot = new Treemap(createDiv(), {
       data,
       padding: 20,
@@ -199,58 +200,11 @@ describe('drill-down intera', () => {
 
     drillDownAction.click();
 
-    treemapPlot.update({
-      interactions: [
-        { type: 'view-zoom', enable: true },
-        { type: 'treemap-drill-down', enable: false },
-      ],
-    });
-
-    // @ts-ignore
-    expect(treemapPlot.chart.autoPadding.bottom).toBe(20);
-    expect(treemapPlot.chart.getData().length).toBe(6);
-    expect(treemapPlot.chart.foregroundGroup.findAllByName('treemap-bread-crumb').length).toBe(0);
-
-    treemapPlot.update({
-      interactions: [
-        { type: 'view-zoom', enable: false },
-        { type: 'treemap-drill-down', enable: true },
-      ],
-    });
-
-    treemapPlot.destroy();
-  });
-
-  it('treemap changeData', async () => {
-    const treemapPlot = new Treemap(createDiv(), {
-      data,
-      colorField: 'name',
-      interactions: [
-        {
-          type: 'treemap-drill-down',
-        },
-      ],
-      legend: false,
-    });
-
-    treemapPlot.render();
-
-    const context = new InteractionContext(treemapPlot.chart);
-    const drillDownAction = new TreemapDrillDownAction(context);
-
-    // 模拟一次点击
-    context.event = {
-      type: 'custom',
-      data: {
-        data: data.children[0],
-      },
-    };
-
-    drillDownAction.click();
-
     drillDownAction.reset();
 
-    expect(treemapPlot.chart.foregroundGroup.findAllByName('treemap-bread-crumb')[0].cfg.visible).toBe(false);
+    expect(drillDownAction.historyCache).toBeNull();
+    // @ts-ignore
+    expect(drillDownAction.breadCrumbGroup.cfg.visible).toBeFalsy();
 
     treemapPlot.destroy();
   });

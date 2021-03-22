@@ -51,4 +51,21 @@ describe('area', () => {
     expect(currenData[0].g2plot_percent).toBeUndefined();
     area.destroy();
   });
+  it('percent area with no series field', () => {
+    const area = new Area(createDiv('percent*area', document.body, 'percent_container'), {
+      width: 400,
+      height: 300,
+      data: percentData,
+      xField: 'year',
+      yField: 'value',
+      isPercent: true,
+    });
+
+    area.render();
+
+    // render
+    expect(area.options.isPercent).toBe(true);
+    expect(area.chart.geometries[0].getAdjust('stack')).toBeUndefined();
+    area.destroy();
+  });
 });

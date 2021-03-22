@@ -116,8 +116,8 @@ function label(params: Params<AreaOptions>): Params<AreaOptions> {
  */
 function adjust(params: Params<AreaOptions>): Params<AreaOptions> {
   const { chart, options } = params;
-  const { isStack, isPercent } = options;
-  if (isPercent || isStack) {
+  const { isStack, isPercent, seriesField } = options;
+  if ((isPercent || isStack) && seriesField) {
     each(chart.geometries, (g: Geometry) => {
       g.adjust('stack');
     });

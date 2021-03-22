@@ -7,16 +7,24 @@
 | offsetX    | _number_                                                     | The offset distance of the label from the data point in the X direction                                                                                          |
 | offsetY    | _number_                                                     | The offset distance of the label from the data point in the Y direction                                                                                          |
 | content    | _string \| IGroup \| IShape \| GeometryLabelContentCallback_ | Text content that is displayed, if not declared, is displayed according to the value of the first field participating in the mapping                             |
-| style      | object                                                       | Label text graphic property style                                                                                                                                |
+| style      | _ShapeAttrs_                                                       | Label text graphic property style                                                                                                                                |
 | autoRotate | _string_                                                     | Whether to rotate automatically, default true                                                                                                                    |
 | rotate     | _number_                                                     | Text rotation Angle                                                                                                                                              |
-| labelLine  | _null \| \_boolean_ \|object\_                               | Used to set the style property of the text connector. NULL indicates that it is not displayed.                                                                   |
+| labelLine  | _null_ \| _boolean_ \| _LabelLineCfg_                               | Used to set the style property of the text connector. NULL indicates that it is not displayed.                                                                   |
 | labelEmit  | _boolean_                                                    | Only applies to text in polar coordinates, indicating whether the text is radially displayed according to the Angle. True means on and false means off           |
 | layout     | _'overlap' \| 'fixedOverlap' \| 'limitInShape'_              | Text layout type, support a variety of layout function combination.                                                                                              |
 | position   | _'top' \| 'bottom' \| 'middle' \| 'left' \| 'right'_         | Specifies the position of the current Label relative to the current graphic                                                                                      |
 | animate    | _boolean \| AnimateOption_                                   | Animation configuration.                                                                                                                                         |
 | formatter  | _Function_                                                   | Format function                                                                                                                                                  |
 | autoHide   | _boolean_                                                    | Whether to hide it automatically, default to false                                                                                                               |
+
+Types of __*LabelLineCfg*__ are as follow: (Go [ShapeAttrs](/zh/docs/api/shape/shape-attrs) see more details about _ShapeAttrs_)
+
+```plain
+type LabelLineCfg = {
+  style?: ShapeAttrs;
+}
+```
 
 Example code:
 

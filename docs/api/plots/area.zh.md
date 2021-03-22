@@ -47,6 +47,16 @@ order: 1
 
 是否百分比面积图，百分比时默认开启 isStack。
 
+#### startOnZero
+
+<description>**optional** _boolean_ _default:_ `true`</description>
+
+积图是否从 0 基准线开始填充，使用时 isStack 需为 false。
+
+<img alt='startOnZero-true' width='300' src='https://gw.alipayobjects.com/zos/rmsportal/ZQqwUCczalrKqGgagOVp.png'/>
+
+<img alt='startOnZero-false' width='300' src='https://gw.alipayobjects.com/zos/rmsportal/yPswkaXvUpCYOdhocGwB.png'/>
+
 #### areaStyle
 
 <description>**optional** _StyleAttr | Function_</description>

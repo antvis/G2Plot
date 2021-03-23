@@ -13,6 +13,14 @@
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/kRFIJ2OlFs/FE726B54-2352-47F5-AAF9-B17D281CE513.png"
     },
     {
+      "filename": "mapping-color-and-shape.ts",
+      "title": {
+        "zh": "散点图颜色和形状映射",
+        "en": "The color and shape mapping of scatter plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/xqD9bPVmaU/4ecbc1e7-ebf0-4777-ad7b-7190a4db51e9.png"
+    },
+    {
       "filename": "label.ts",
       "title": {
         "zh": "散点图图形标签",

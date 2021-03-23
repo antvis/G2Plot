@@ -34,4 +34,21 @@ describe('area', () => {
 
     area.destroy();
   });
+  it('stack area with no series field', () => {
+    const area = new Area(createDiv(), {
+      width: 400,
+      height: 300,
+      data: partySupport.filter((o) => ['FF', 'Lab'].includes(o.type)),
+      xField: 'date',
+      yField: 'value',
+      isStack: true,
+    });
+
+    area.render();
+
+    expect(area.options.isStack).toBe(true);
+    expect(area.chart.geometries[0].getAdjust('stack')).toBeUndefined();
+
+    area.destroy();
+  });
 });

@@ -14,5 +14,6 @@ Types of __*ScrollbarStyle*__ are as follow:
 | Properties | Type       | Description                 |
 | --------------- | ---------------- | ------------------ |
 | trackColor        | _string_    | Color of scrollbar track       |
-| thumbColor        | _number_    | Color of scrollbar thumb       |
+| thumbColor        | _string_    | Color of scrollbar thumb       |
+| thumbHighlightColor  | _string_    | Highlight color of scrollbar thumb, 对应主题的 hover.style.thumbColor     |
 | lineCap | _string_    | Determines the shape used to draw the end points of scrollbar，is same as property of Canvas lineCap。     |

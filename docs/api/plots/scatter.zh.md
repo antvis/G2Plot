@@ -64,15 +64,21 @@ scatterPlot.render();
 
 点颜色映射对应的数据字段名。
 
-### 图形样式
-
-`markdown:docs/common/color.zh.md`
-
 #### sizeField
 
 <description>**optional** _string_</description>
 
 点大小映射对应的数据字段名。
+
+#### shapeField
+
+<description>**optional** _string_</description>
+
+点形状映射对应的数据字段名。
+
+### 图形样式
+
+`markdown:docs/common/color.zh.md`
 
 #### size
 
@@ -101,12 +107,6 @@ scatterPlot.render();
   }
 }
 ```
-
-#### shapeField
-
-<description>**optional** _string_</description>
-
-点形状映射对应的数据字段名。
 
 #### shape
 
@@ -190,7 +190,58 @@ scatterPlot.render();
 
 ### 图表组件
 
-`markdown:docs/common/component.zh.md`
+#### tooltip
+
+`markdown:docs/common/tooltip.zh.md`
+
+#### label
+
+`markdown:docs/common/label.zh.md`
+
+#### axis
+
+xAxis、yAxis 配置相同。**注意**：由于 DualAxes(双轴图) 和 BidirectionalBar(对称条形图) 是双 y 轴， yAxis 类型是以 yField 中的字段作为 `key` 值的 `object`。
+
+`markdown:docs/common/axis.zh.md`
+
+#### legend
+
+<description>**optional** _false | LegendCfg_</description>
+
+```sign
+当 colorField 存在时，且 legend 不为 false，默认会渲染 color 字段映射图例。
+当 shapeField 存在时，且 legend 不为 false，默认会渲染 shape 映射图例。你可以通过设置 `shapeLegend: false` 来隐藏 shape 图例。
+```
+
+`markdown:docs/common/legend.zh.md`
+
+#### shapeLegend
+
+<description>**optional** _false | LegendCfg_</description>
+
+```sign
+当 shapeField 存在时，且 legend 不为 false 以及 shapeLegend 不为 false，默认会渲染 shape 映射图例。
+
+1、你可以通过设置 `shapeLegend: false` 来隐藏 shape 图例。
+2、你也可以通过定义 `shapeLegend` 来对 shape 图例进行配置。
+```
+
+详细配置同：[legend](#legend)
+
+#### sizeLegend
+
+<description>**optional** _false | LegendCfg_</description>
+
+```sign
+默认不展示 size 图例，只有当你定义 `sizeLegend` 时，才展示 size 图例。
+```
+
+详细配置同：[legend](#legend)
+
+#### annotations
+
+`markdown:docs/common/annotations.zh.md`
+
 
 #### quadrant
 

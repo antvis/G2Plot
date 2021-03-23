@@ -61,7 +61,7 @@ Example:
 Specifies the respective configuration of the two axes in the form of "left axis configuration, right axis configuration". Each configuration should be a Config of type LINE or COLUMN. Mixed chart function is implemented by specifying the corresponding graph with two axes:
 
 - Biaxial line chart: [Line, Line], reference [DEMO](../../../examples/dual-axes/dual-line)
-- Column and Line Mixing Chart: [Column, Line], reference [DEMO](../../..//examples/dual-axes/column-line)
+- Column and Line Mixing Chart: [Column, Line], reference [DEMO](../../../examples/dual-axes/column-line)
 
 你还可以通过配置 Line 或 Column 的相关配置（见下文），形成双轴多 Line([DEMO](../../../examples/dual-axes/dual-line#dual-multi-line)), 堆叠柱+Line([DEMO](../../../examples/dual-axes/stacked-column-line)), 分组柱+Line([DEMO](../../../examples/dual-axes/grouped-column-line))
 

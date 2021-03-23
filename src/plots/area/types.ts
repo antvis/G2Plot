@@ -22,4 +22,6 @@ export interface AreaOptions extends Options {
   readonly line?: LineGeometryOptions['line'];
   /** 面积图数据点图形样式 */
   readonly point?: PointGeometryOptions['point'] & Pick<PointGeometryOptions, 'state'>;
+  /** 积图是否从 0 基准线开始填充 */
+  readonly startOnZero?: boolean;
 }

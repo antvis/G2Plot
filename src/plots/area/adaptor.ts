@@ -29,6 +29,7 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
     yField,
     tooltip,
     seriesField,
+    startOnZero,
   } = options;
   const pointState = pointMapping?.state;
 
@@ -60,6 +61,9 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
       tooltip: tooltipOptions,
       // label 不传递给各个 geometry adaptor，由 label adaptor 处理
       label: undefined,
+      args: {
+        startOnZero,
+      },
     },
   });
   const second = deepAssign({}, primary, { options: { tooltip: false } });
@@ -112,8 +116,8 @@ function label(params: Params<AreaOptions>): Params<AreaOptions> {
  */
 function adjust(params: Params<AreaOptions>): Params<AreaOptions> {
   const { chart, options } = params;
-  const { isStack, isPercent } = options;
-  if (isPercent || isStack) {
+  const { isStack, isPercent, seriesField } = options;
+  if ((isPercent || isStack) && seriesField) {
     each(chart.geometries, (g: Geometry) => {
       g.adjust('stack');
     });

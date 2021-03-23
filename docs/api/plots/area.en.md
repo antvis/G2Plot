@@ -47,6 +47,16 @@ Whether the plot is Stacked Area.
 
 Whether the plot is Percent Area. When the plot is Percent Area, isStack is `true` by default.
 
+#### startOnZero
+
+<description>**optional** _boolean_ _default:_ `true`</description>
+
+Whether the plot is filled from 0 datum，isStack must be false when used.
+
+| true                                                                                                                | false                                                                                                                |
+| ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| <img alt='startOnZero-true' width='300' src='https://gw.alipayobjects.com/zos/rmsportal/ZQqwUCczalrKqGgagOVp.png'/> | <img alt='startOnZero-false' width='300' src='https://gw.alipayobjects.com/zos/rmsportal/yPswkaXvUpCYOdhocGwB.png'/> |
+
 #### areaStyle
 
 <description>**optional** _StyleAttr | Function_</description>

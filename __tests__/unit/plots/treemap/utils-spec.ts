@@ -5,7 +5,6 @@ import {
   getFommatInteractions,
   getAdjustAppendPadding,
   resetDrillDown,
-  removeForegroundGroupShape,
 } from '../../../../src/plots/treemap/utils';
 
 const data1 = {
@@ -365,32 +364,6 @@ describe('treemap transformData', () => {
       resetDrillDown({
         // @ts-ignore
         interactions: {},
-      });
-    }).not.toThrowError();
-  });
-
-  it('removeForegroundGroupShape', () => {
-    // @ts-ignore
-    expect(() => {
-      removeForegroundGroupShape({
-        // @ts-ignore
-        foregroundGroup: {
-          findAllByName: () => {
-            return undefined;
-          },
-        },
-      });
-    }).not.toThrowError();
-
-    // @ts-ignore
-    expect(() => {
-      removeForegroundGroupShape({
-        // @ts-ignore
-        foregroundGroup: {
-          findAllByName: () => {
-            return [];
-          },
-        },
       });
     }).not.toThrowError();
   });

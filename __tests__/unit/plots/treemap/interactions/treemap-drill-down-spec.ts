@@ -172,7 +172,7 @@ describe('drill-down intera', () => {
     treemapPlot.destroy();
   });
 
-  it('interaction reset: changeData', async () => {
+  it('interaction reset and destory', async () => {
     const treemapPlot = new Treemap(createDiv(), {
       data,
       padding: 20,
@@ -204,6 +204,14 @@ describe('drill-down intera', () => {
     expect(drillDownAction.historyCache).toBeNull();
     // @ts-ignore
     expect(drillDownAction.breadCrumbGroup.cfg.visible).toBeFalsy();
+
+    drillDownAction.click();
+
+    expect(treemapPlot.chart.foregroundGroup.findAllByName('treemap-bread-crumb').length).toBe(1);
+
+    drillDownAction.destroy();
+
+    expect(treemapPlot.chart.foregroundGroup.findAllByName('treemap-bread-crumb').length).toBe(0);
 
     treemapPlot.destroy();
   });

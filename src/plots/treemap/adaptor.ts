@@ -6,7 +6,6 @@ import {
   transformData,
   findInteraction,
   enableInteraction,
-  removeForegroundGroupShape,
   getFommatInteractions,
   getAdjustAppendPadding,
 } from './utils';
@@ -111,9 +110,6 @@ function axis(params: Params<TreemapOptions>): Params<TreemapOptions> {
 export function interaction(params: Params<TreemapOptions>): Params<TreemapOptions> {
   const { chart, options } = params;
   const { interactions, hierarchyConfig } = options;
-
-  // 每次 update，虽然 interaction 对象重绘已更新，但绘制在 foregroundGroup 中的面包屑并不会被清空，因此手动 remove 下 shape
-  removeForegroundGroupShape(chart);
 
   commonInteraction({
     chart,

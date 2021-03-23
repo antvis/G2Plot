@@ -31,11 +31,17 @@ export class TreemapDrillDownAction extends Action {
   // 面包屑基础配置
   private breadCrumbCfg = DEFAULT_BREAD_CRUMB_CONFIG;
 
-  // mix 默认的配置和用户配置
+  /**
+   * 获取 mix 默认的配置和用户配置
+   */
   private getButtonCfg() {
     return deepAssign(this.breadCrumbCfg, this.cfg);
   }
 
+  /**
+   * 下钻数据并更新 view 显示层
+   * @param data 下钻数据
+   */
   private drill(data) {
     const config = this.getButtonCfg();
     const { view } = this.context;
@@ -80,7 +86,9 @@ export class TreemapDrillDownAction extends Action {
     this.breadCrumbGroup.show();
   }
 
-  // 绘制 Button 和 文本
+  /**
+   * 绘制 Button 和 文本
+   */
   private drawBreadCrumbGroup() {
     const config = this.getButtonCfg();
     const historyCache = this.historyCache;
@@ -145,7 +153,9 @@ export class TreemapDrillDownAction extends Action {
     });
   }
 
-  // 重置位置
+  /**
+   * 重置位置，初始化及触发 chart  afterchangesize 回调时使用
+   */
   public resetPosition() {
     // 当在第一层级未绘制面包屑，此时 changedata 触发 resetPosition 函数，需判断 this.breadCrumbGroup 是否存在
     if (!this.breadCrumbGroup) return;
@@ -158,14 +168,18 @@ export class TreemapDrillDownAction extends Action {
     breadCrumbGroup.setMatrix(matrix);
   }
 
-  // 隐藏面包屑
+  /**
+   * 隐藏面包屑
+   */
   private hideCrumbGroup() {
     if (this.breadCrumbGroup) {
       this.breadCrumbGroup.hide();
     }
   }
 
-  // 点击事件: 下钻数据，并绘制面包屑
+  /**
+   * 点击事件, 下钻数据，并绘制面包屑
+   */
   public click() {
     const data = get(this.context, ['event', 'data', 'data']);
     if (!data) return false;
@@ -173,7 +187,10 @@ export class TreemapDrillDownAction extends Action {
     this.drawBreadCrumb();
   }
 
-  // 回退 历史记录，并重绘面包屑
+  /**
+   * 回退事件，点击面包屑时触发
+   * @param historyCache 当前要回退到的历史
+   */
   public back(historyCache) {
     const { view } = this.context;
     if (!isArray(this.historyCache) || this.historyCache.length <= 0) {
@@ -189,9 +206,21 @@ export class TreemapDrillDownAction extends Action {
     }
   }
 
+  /**
+   * reset: 重置面包屑置初始状态，chart changeData 时使用
+   */
   public reset() {
-    // 清空 historyCache
     this.historyCache = null;
     this.hideCrumbGroup();
+  }
+
+  /**
+   * destroy: 销毁资源
+   */
+  public destroy() {
+    if (this.breadCrumbGroup) {
+      this.breadCrumbGroup.remove();
+    }
+    super.destroy();
   }
 }

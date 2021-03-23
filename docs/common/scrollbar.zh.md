@@ -15,5 +15,6 @@ __*ScrollbarStyle*__ 类型如下：
 | 配置项           | 类型              | 功能描述            |
 | --------------- | ---------------- | ------------------ |
 | trackColor        | _string_    | 滚动条滑道填充色      |
-| thumbColor        | _number_    | 滚动条滑块填充色      |
+| thumbColor        | _string_    | 滚动条滑块填充色      |
+| thumbHighlightColor  | _string_    | 滚动条滑块高亮样式，对应主题的 hover.style.thumbColor     |
 | lineCap           | _string_    | 决定滚动条末端绘制形状，同 Canvas lineCap 属性。     |

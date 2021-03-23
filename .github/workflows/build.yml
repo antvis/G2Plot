@@ -34,7 +34,10 @@ jobs:
           npm run build
 
   test:
-    runs-on: macos-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, macos-10.14, macos-11.0, ubuntu-latest]
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js 12

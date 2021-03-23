@@ -65,15 +65,21 @@ Adjust types provided by G2Plot includes 'stack', 'dodge' 'jitter', 'symmetric'.
 
 The name of the data field corresponding to the dot color map.
 
-### Geometry Style
+#### shapeField
 
-`markdown:docs/common/color.en.md`
+<description>**optional** _string_</description>
+
+The name of the data field corresponding to the dot shape map.
 
 #### sizeField
 
 <description>**optional** _string_</description>
 
 The name of the data field corresponding to the point size map.
+
+### Geometry Style
+
+`markdown:docs/common/color.en.md`
 
 #### size
 
@@ -102,12 +108,6 @@ Specifies the size of the point. If no sizeField is configured, specify one. Whe
   }
 }
 ```
-
-#### shapeField
-
-<description>**optional** _string_</description>
-
-The name of the data field corresponding to the dot shape map.
 
 #### shape
 
@@ -191,7 +191,57 @@ Default configuration:
 
 ### Plot Components
 
-`markdown:docs/common/component.en.md`
+#### tooltip
+
+`markdown:docs/common/tooltip.en.md`
+
+#### label
+
+`markdown:docs/common/label.en.md`
+
+#### axis
+
+Same for xAxis and yAxis. **Note**: Since `DualAxes` or `BidirectionalBar` has double Y-axes, the yAxis is a object which takes the field in yField as the 'key'.
+
+`markdown:docs/common/axis.en.md`
+
+#### legend
+
+<description>**optional** _false | LegendCfg_</description>
+
+```sign
+When colorField existed and legend is not false, color legend will be rendered.
+When shapeField existed and legend is not false, shape legend will be rendered. You can set `shapeLegend: false` to hide shape legend.
+```
+
+`markdown:docs/common/legend.en.md`
+
+#### shapeLegend
+
+<description>**optional** _false | LegendCfg_</description>
+
+```sign
+当 shapeField 存在时，且 legend 不为 false 以及 shapeLegend 不为 false，默认会渲染 shape 映射图例。
+
+1、你可以通过设置 `shapeLegend: false` 来隐藏 shape 图例。
+2、你也可以通过定义 `shapeLegend` 来对 shape 图例进行配置。
+```
+
+Details to see: [legend](#legend)
+
+#### sizeLegend
+
+<description>**optional** _false | LegendCfg_</description>
+
+```sign
+Default size legend is not shown, only when `sizeField` and `sizeLegend` existed，size legend will be shown。
+```
+
+Details to see: [legend](#legend)
+
+#### annotations
+
+`markdown:docs/common/annotations.en.md`
 
 #### quadrant
 

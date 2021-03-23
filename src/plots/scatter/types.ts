@@ -46,10 +46,14 @@ export interface ScatterOptions extends Options {
   readonly type?: 'jitter' | 'stack' | 'symmetric' | 'dodge';
   /** 点大小映射对应的数据字段名 */
   readonly sizeField?: string;
+  /** size 对应的图例 */
+  readonly sizeLegend?: Options['legend'];
   /** 散点图大小 */
   readonly size?: SizeAttr;
   /** 点形状映射对应的数据字段名 */
   readonly shapeField?: string;
+  /** shape 对应的图例 */
+  readonly shapeLegend?: Options['legend'];
   /** 散点图形状 */
   readonly shape?: ShapeAttr;
   /** 散点图样式 */

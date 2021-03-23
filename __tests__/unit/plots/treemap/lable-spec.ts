@@ -23,7 +23,8 @@ describe('treemap basic', () => {
         },
         fields: ['name', 'ext'],
         formatter: (v) => {
-          return `${v.name}${v.ext}`;
+          const ratio = v.value / v.parent.value;
+          return `${v.name}_${v.ext}_${ratio.toFixed(2)}`;
         },
       },
     });
@@ -32,8 +33,13 @@ describe('treemap basic', () => {
     expect(treemapPlot.chart.geometries[0].labelOption.fields).toEqual(['name', 'ext']);
     // @ts-ignore
     expect(treemapPlot.chart.geometries[0].labelOption.cfg.position).toEqual('top');
+
+    // 验证比例是否正确，以及 label 是否正常渲染
+    const root = TREEMAP.children.reduce((sum, i) => sum + i.value, 0);
+    const ratio = (TREEMAP.children[1].value / root).toFixed(2);
+
     expect(treemapPlot.chart.geometries[0].labelsContainer.getChildren()[0].cfg.children[0].attrs.text).toBe(
-      '分类 2自定义数据'
+      `分类 2_自定义数据_${ratio}`
     );
 
     // label with custom

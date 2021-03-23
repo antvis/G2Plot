@@ -89,6 +89,7 @@ export function transformData(options: TransformDataOptions) {
       y: node.y,
       depth: node.depth,
       value: node.value,
+      parent: node.parent,
     });
     if (!node.data[colorField] && node.parent) {
       const ancestorNode = node.ancestors().find((n) => n.data[colorField]);

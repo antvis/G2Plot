@@ -23,7 +23,7 @@ describe('treemap basic', () => {
         },
         fields: ['name', 'ext'],
         formatter: (v) => {
-          const ratio = v.value / v.parent.value;
+          const ratio = v.value / v.path[v.path.length - 1].value;
           return `${v.name}_${v.ext}_${ratio.toFixed(2)}`;
         },
       },

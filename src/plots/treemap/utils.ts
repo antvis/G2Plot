@@ -1,4 +1,4 @@
-import { isArray } from '@antv/util';
+import { isArray, get } from '@antv/util';
 import { Types, View } from '@antv/g2';
 import { normalPadding } from '../../utils/padding';
 import { Interaction } from '../../types/interaction';
@@ -84,12 +84,21 @@ export function transformData(options: TransformDataOptions) {
       return null;
     }
 
+    // path 信息仅挑选必要祖先元素属性，因为在有些属性是不必要(x, y), 或是不准确的(下钻时的 depth)，不对外透出
+    const curPath = node.ancestors().map((n) => ({
+      data: n.data,
+      height: n.height,
+      value: n.value,
+    }));
+    // 在下钻树图中，每次绘制的是当前层级信息，将父元素的层级信息（data.path) 做一层拼接。
+    const path = enableDrillDown && isArray(data.path) ? curPath.concat(data.path.slice(1)) : curPath;
+
     const eachNode = Object.assign({}, node.data, {
       x: node.x,
       y: node.y,
       depth: node.depth,
       value: node.value,
-      parent: node.parent,
+      path,
     });
     if (!node.data[colorField] && node.parent) {
       const ancestorNode = node.ancestors().find((n) => n.data[colorField]);

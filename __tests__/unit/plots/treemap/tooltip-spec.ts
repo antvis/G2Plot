@@ -35,9 +35,9 @@ describe('treemap tooltip', () => {
       tooltip: {
         showTitle: true,
         title: 'test',
-        fields: ['name', 'value', 'ext', 'parent'],
+        fields: ['name', 'value', 'ext', 'path'],
         formatter: (data) => {
-          const ratio = (data.value / data.parent.value).toFixed(2);
+          const ratio = (data.value / data.path[data.path.length - 1].value).toFixed(2);
           return {
             name: data.name,
             value: `${data.value}/${data.ext || '-'}/${ratio}`,
@@ -50,7 +50,7 @@ describe('treemap tooltip', () => {
 
     expect(customTooltipOption.showTitle).toBe(true);
     expect(customTooltipOption.title).toBe('test');
-    expect(customTooltipOption.fields).toEqual(['name', 'value', 'ext', 'parent']);
+    expect(customTooltipOption.fields).toEqual(['name', 'value', 'ext', 'path']);
 
     const testElement = treemapPlot.chart.geometries[0].elements.find((ele) => ele.data.name === '其他');
     const bbox = testElement.getBBox();
@@ -60,7 +60,7 @@ describe('treemap tooltip', () => {
     );
     expect(document.querySelectorAll('#treemap-tooltip .g2-tooltip-list-item .g2-tooltip-value')[0].innerHTML).toBe(
       `${testElement.data.value}/${testElement.data.ext || '-'}/${(
-        testElement.data.value / testElement.data.parent.value
+        testElement.data.value / testElement.data.path[testElement.data.path.length - 1].value
       ).toFixed(2)}`
     );
   });

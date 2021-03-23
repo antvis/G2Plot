@@ -33,6 +33,16 @@ const data = {
 - children (非叶子节点)
 
 嵌套矩形树图中，布局由叶子节点的 value 值决定。
+
+G2 plot 会根据 data 生成以下数据结构，绘制矩形树图，并作为 label，tooltip 的入参供用户使用。
+
+- name
+- value
+- path: 当前节点的层级信息(包含当前节点)
+- childre: 当前节点的叶节点信息（仅存在时给出）
+
+其中，你可以在 label（tooltip）的 formatter 函数中获取 path 参数，从而计算占比
+
 #### colorField
 
 <description>**optional** _string_</description>

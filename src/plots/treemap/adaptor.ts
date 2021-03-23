@@ -40,7 +40,7 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
         tooltip: {
           showMarkers: false,
           showTitle: false,
-          fields: ['name', 'value', colorField],
+          fields: ['name', 'value', colorField, 'path'],
           formatter: (data) => {
             return {
               name: data.name,

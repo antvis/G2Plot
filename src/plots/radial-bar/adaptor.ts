@@ -1,9 +1,30 @@
+import { filter } from '@antv/util';
 import { interaction, animation, theme, scale, tooltip, legend, annotation } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
-import { flow, deepAssign, findGeometry, transformLabel } from '../../utils';
+import { flow, deepAssign, findGeometry, transformLabel, log, LEVEL } from '../../utils';
 import { interval, point } from '../../adaptor/geometries';
 import { RadialBarOptions } from './types';
 import { getScaleMax } from './utils';
+/**
+ * data 处理，过滤非法数据
+ * @param params
+ */
+function data(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
+  const { chart, options } = params;
+  const { data } = options;
+  const { yField } = options;
+  const processData = filter(data, (d) => {
+    const v = d[yField];
+    return typeof v === 'number' && !isNaN(v);
+  });
+
+  // 打印异常数据情况
+  log(LEVEL.WARN, processData.length === data.length, 'illegal data existed in chart data.');
+
+  chart.data(processData);
+
+  return params;
+}
 
 /**
  * geometry 处理
@@ -11,8 +32,7 @@ import { getScaleMax } from './utils';
  */
 function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   const { chart, options } = params;
-  const { data, barStyle: style, color, tooltip, colorField, type, xField, yField } = options;
-  chart.data(data);
+  const { barStyle: style, color, tooltip, colorField, type, xField, yField } = options;
   const p = deepAssign({}, params, {
     options: {
       tooltip,
@@ -43,8 +63,11 @@ function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
  * @param params
  */
 export function meta(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
-  const { options } = params;
-  const { yField, data, maxAngle } = options;
+  const { options, chart } = params;
+  const { yField, maxAngle } = options;
+
+  // data使用chart.data()之后的，因为原始data中可能存在非法数据
+  const { data } = chart.getOptions();
   return flow(
     scale({
       [yField]: {
@@ -123,6 +146,7 @@ function label(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
  */
 export function adaptor(params: Params<RadialBarOptions>) {
   return flow(
+    data,
     geometry,
     meta,
     axis,

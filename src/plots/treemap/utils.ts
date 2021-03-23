@@ -1,4 +1,4 @@
-import { isArray, get } from '@antv/util';
+import { isArray } from '@antv/util';
 import { Types, View } from '@antv/g2';
 import { normalPadding } from '../../utils/padding';
 import { Interaction } from '../../types/interaction';

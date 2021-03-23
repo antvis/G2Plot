@@ -24,7 +24,7 @@ describe('treemap tooltip', () => {
     const tooltipOption = treemapPlot.chart.options.tooltip;
     expect(tooltipOption.showMarkers).toBe(false);
     expect(tooltipOption.showTitle).toBe(false);
-    expect(tooltipOption.fields).toEqual(['name', 'value', 'name']);
+    expect(tooltipOption.fields).toEqual(['name', 'value', 'name', 'path']);
     expect(tooltipOption.formatter(TREEMAP.children[0])).toEqual({ name: '分类 1', value: 500 });
   });
 

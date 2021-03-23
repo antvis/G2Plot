@@ -172,6 +172,47 @@ describe('drill-down intera', () => {
     treemapPlot.destroy();
   });
 
+  it('interaction switch', async () => {
+    const treemapPlot = new Treemap(createDiv(), {
+      data,
+      padding: 20,
+      colorField: 'name',
+      interactions: [
+        {
+          type: 'treemap-drill-down',
+        },
+      ],
+      legend: false,
+    });
+
+    treemapPlot.render();
+
+    const context = new InteractionContext(treemapPlot.chart);
+    const drillDownAction = new TreemapDrillDownAction(context);
+
+    context.event = {
+      type: 'custom',
+      data: {
+        data: data.children[0].children[0],
+      },
+    };
+
+    drillDownAction.click();
+
+    treemapPlot.update({
+      interactions: [
+        { type: 'view-zoom', enable: true },
+        { type: 'treemap-drill-down', enable: false },
+      ],
+    });
+
+    // @ts-ignore
+    expect(treemapPlot.chart.autoPadding.bottom).toBe(20);
+    expect(treemapPlot.chart.getData().length).toBe(6);
+
+    treemapPlot.destroy();
+  });
+
   it('interaction reset and destory', async () => {
     const treemapPlot = new Treemap(createDiv(), {
       data,

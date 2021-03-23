@@ -140,7 +140,7 @@ With G2Plot, you can set the `innerRadius` to create concentric ring.
 
 ### Fan chart
 
-By setting `startAngle` and `endAngle`，we can turn a pie plot into a fan chart.
+By setting startAngle` and endAngle, we can turn a pie plot into a fan chart.
 
 <playground path='pie/basic/demo/quarter-circle.ts' rid='rect3'></playground>
 

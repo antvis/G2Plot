@@ -49,7 +49,7 @@ export function adaptOffset(type: string, offset?: string | number): string | nu
 export function processIllegalData(data: PieOptions['data'], angleField: string) {
   const processData = filter(data, (d) => {
     const v = d[angleField];
-    return (typeof v === 'number' && !isNaN(v)) || v === null;
+    return v === null || (typeof v === 'number' && !isNaN(v));
   });
 
   // 打印异常数据情况

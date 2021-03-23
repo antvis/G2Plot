@@ -124,10 +124,6 @@ function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
 
   /** legend 不为 false, 则展示图例, 优先展示 color 分类图例 */
   const showLegend = legend !== false;
-  /** 默认不展示 shape 图例，当 shapeLegend 为 undefined 也不展示图例 */
-  const showShapeLegend = shapeLegend;
-  /** 默认没有 sizeField，则隐藏连续图例 */
-  const showSizeLegend = sizeLegend;
 
   if (colorField) {
     chart.legend(colorField, showLegend ? legend : false);
@@ -143,10 +139,12 @@ function legend(params: Params<ScatterOptions>): Params<ScatterOptions> {
   }
 
   if (sizeField) {
-    chart.legend(sizeField, showSizeLegend ? sizeLegend : false);
+    chart.legend(sizeField, sizeLegend ? sizeLegend : false);
   }
 
-  if (!showLegend && !showShapeLegend && !showSizeLegend) {
+  /** 默认不展示 shape 图例，当 shapeLegend 为 undefined 也不展示图例 */
+  /** 默认没有 sizeField，则隐藏连续图例 */
+  if (!showLegend && !shapeLegend && !sizeLegend) {
     chart.legend(false);
   }
 

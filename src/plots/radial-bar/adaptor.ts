@@ -13,9 +13,10 @@ function data(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   const { chart, options } = params;
   const { data } = options;
   const { yField } = options;
+
   const processData = filter(data, (d) => {
     const v = d[yField];
-    return typeof v === 'number' && !isNaN(v);
+    return (typeof v === 'number' && !isNaN(v)) || v === null;
   });
 
   // 打印异常数据情况

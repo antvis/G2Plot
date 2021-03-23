@@ -5,11 +5,11 @@ describe('#2394', () => {
   it('filter illegal data', () => {
     const data = [
       { name: 'X6', star: '297a' },
-      { name: 'G', star: 506 },
-      { name: 'AVA', star: 805 },
-      { name: 'G2Plot', star: 1478 },
-      { name: 'L7', star: 2029 },
-      { name: 'G6', star: 7100 },
+      { name: 'G', star: NaN },
+      { name: 'G2Plot', star: undefined },
+      { name: 'L7', star: '0' },
+      { name: 'AVA', star: null },
+      { name: 'G6', star: 0 },
       { name: 'F2', star: 7346 },
       { name: 'G2', star: 10178 },
     ];
@@ -30,8 +30,13 @@ describe('#2394', () => {
 
     radialBar.render();
 
-    expect(radialBar.chart.geometries[0].elements.length).toBe(7);
-    expect(radialBar.chart.geometries[0].data.length).toBe(7);
+    expect(radialBar.chart.geometries[0].elements.length).toBe(4);
+    expect(radialBar.chart.geometries[0].data.length).toBe(4);
+
+    // null认为是0，不过滤
+    expect(radialBar.chart.geometries[0].data[0].star).toBeNull();
+
+    expect(radialBar.chart.geometries[0].data[1].star).toBe(0);
 
     radialBar.destroy();
   });

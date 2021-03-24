@@ -41,11 +41,11 @@ order: 6
 
 ```ts
 /**
- * @param x the x for bounding rectangle
- * @param y the y for bounding rectangle
- * @param width the width for bounding rectangle
- * @param height the height for bounding rectangle
- * @return PathCommand[]
+ * @param x  外接矩形中心点的 x 坐标
+ * @param y  外接矩形中心点的 y 坐标
+ * @param width  外接矩形的宽
+ * @param height  外接矩形的高
+ * @return  PathCommand[]
  */
 function shape(x: number, y: number, width: number, height: number) {
   const h = height / 2;

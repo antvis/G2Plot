@@ -41,11 +41,11 @@ There are five built-in shapes for liquid plot: `circle | diamond | triangle | p
 
 ```ts
 /**
- * @param x the x for bounding rectangle
- * @param y the y for bounding rectangle
- * @param width the width for bounding rectangle
- * @param height the height for bounding rectangle
- * @return PathCommand[]
+ * @param x  x for the center point of bounding rectangle
+ * @param y  y for the center point of bounding rectangle
+ * @param width  width for bounding rectangle
+ * @param height  height for bounding rectangle
+ * @return  PathCommand[]
  */
 function shape(x: number, y: number, width: number, height: number) {
   const h = height / 2;

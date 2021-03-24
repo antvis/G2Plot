@@ -63,4 +63,18 @@ liquidPlot.render();
 
 🎨 水波图详细的配置参考 [API 文档](/zh/docs/api/plots/liquid).
 
+## 水波图特性
+
+### 配置不同形状的水波图
+
+水波图有五种内置形状：`circle | diamond | triangle | pin | rect`
+
+<playground path='progress-plots/liquid/demo/diamond.ts' rid='rect1'></playground>
+
+### 自定义形状的水波图
+
+水波图除了内置的形状之外，同时也支持自定义图形，这个时候需要传入一个构建 Path 的回调函数。
+
+<playground path='progress-plots/liquid/demo/custom-star.ts' rid='rect2'></playground>
+
 </div>

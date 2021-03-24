@@ -13,20 +13,28 @@
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/cK%24GQZR7gg/e4a23f17-d007-4767-ba76-88667a64cbc1.png"
     },
     {
-      "filename": "style.ts",
+      "filename": "rect.ts",
       "title": {
-        "zh": "样式自定义的水波图",
-        "en": "Liquid plot - custom style"
+        "zh": "矩形水波图",
+        "en": "Liquid plot - rect shape"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*DIzzR6M4T94AAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/QHxzt6bLeR/rect-liquid.gif"
     },
     {
       "filename": "diamond.ts",
       "title": {
-        "zh": "其他形状的水波图",
-        "en": "Liquid plot - built-in shape"
+        "zh": "钻石水波图",
+        "en": "Liquid plot - diamond shape"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IzMHQL12utQAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "custom-star.ts",
+      "title": {
+        "zh": "自定义星星 🌟 水波图",
+        "en": "Liquid plot - custom star shape"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/30%26URi8Zcp/star-liquid.gif"
     },
     {
       "filename": "custom.ts",
@@ -35,6 +43,14 @@
         "en": "Liquid plot - custom shape"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*9MbOSZwdKmYAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "style.ts",
+      "title": {
+        "zh": "样式自定义的水波图",
+        "en": "Liquid plot - custom style"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*DIzzR6M4T94AAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

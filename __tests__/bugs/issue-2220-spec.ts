@@ -61,8 +61,10 @@ describe('pie tooltip', () => {
     await delay(100);
     // @ts-ignore
     const items = tooltipController.getTooltipItems(point);
-    expect(items[0].name).toBe(data[0].type);
-    expect(items[0].value).toBe(`${data[0].value}`);
+    if (items[0]) {
+      expect(items[0].name).toBe(data[0].type);
+      expect(items[0].value).toBe(`${data[0].value}`);
+    }
   });
 
   afterEach(() => {

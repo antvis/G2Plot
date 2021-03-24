@@ -395,7 +395,7 @@ registerShape('interval', 'liquid-fill-gauge', {
     // 保证半径是 画布宽高最小值的 radius 值
     const radius = Math.min(halfWidth, minXPoint.y * radio);
     const waveAttrs = getFillAttrs(cfg);
-    const shapeAttrs = getLineAttrs(cfg);
+    const outlineAttrs = getLineAttrs(mix({}, cfg, outline));
     const innerRadius = radius - border / 2;
     const builtInShapeByName = {
       pin,
@@ -447,7 +447,7 @@ registerShape('interval', 'liquid-fill-gauge', {
     // 3. 绘制一个 border 宽的 border
     container.addShape('path', {
       name: 'wrap',
-      attrs: mix(shapeAttrs, {
+      attrs: mix(outlineAttrs, {
         path: shapePath,
         fill: 'transparent',
         lineWidth: border,

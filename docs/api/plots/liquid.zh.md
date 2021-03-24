@@ -9,7 +9,7 @@ order: 6
 
 ### 数据映射
 
-#### percent 
+#### percent
 
 <description>**required** _number_</description>
 
@@ -68,10 +68,18 @@ function shape(x: number, y: number, width: number, height: number) {
 
 水波图的外框容器配置。主要包含以下内容：
 
-| 属性名        | 类型            | 介绍                                         |
-| ------------ | -------------- | -------------------------------------------- |
-| border       | number         | 外框容器的 border 宽度，默认为 2 像素             |
-| distance     | number         | 外框容器和内部波形的间距，默认为 0 像素             |
+| 属性名   | 类型              | 介绍                                    |
+| -------- | ----------------- | --------------------------------------- |
+| border   | _number_          | 外框容器的 border 宽度，默认为 2 像素   |
+| distance | _number_          | 外框容器和内部波形的间距，默认为 0 像素 |
+| style    | _OutlineStyleCfg_ | 外框容器的 border 样式设置              |
+
+_*OutlineStyleCfg*_ 支持配置的样式如下：
+
+| 属性名        | 类型     | 介绍                                                      |
+| ------------- | -------- | --------------------------------------------------------- |
+| stroke        | _string_ | 外框容器 border 填充色，默认和水波填充色 `color` 保持一致 |
+| strokeOpacity | _number_ | 外框容器 border 填充透明度                                |
 
 #### wave
 
@@ -79,10 +87,10 @@ function shape(x: number, y: number, width: number, height: number) {
 
 水波图的波形配置。主要包含以下内容：
 
-| 属性名        | 类型            | 介绍                                         |
-| ------------ | -------------- | -------------------------------------------- |
-| count        | number         | 水波的个数，默认为 3 个                          |
-| length       | number         | 水波的波长度，默认为 192 像素                     |
+| 属性名 | 类型           | 介绍                          |
+| ------ | -------------- | ----------------------------- |
+| count  | _number_       | 水波的个数，默认为 3 个       |
+| length | _number_ | 水波的波长度，默认为 192 像素 |
 
 ### 图表组件
 

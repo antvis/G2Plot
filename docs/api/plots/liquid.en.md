@@ -68,10 +68,18 @@ function shape(x: number, y: number, width: number, height: number) {
 
 The ouline configure for liquid plot, includes:
 
-| Properties | Type   | Desc                                          |
-| ---------- | ------ | --------------------------------------------- |
-| border     | number | border width of ouline, default 2px           |
-| distance   | number | distance between ouline and wave, default 0px |
+| Properties | Type              | Desc                                          |
+| ---------- | ----------------- | --------------------------------------------- |
+| border     | _number_          | border width of ouline, default 2px           |
+| distance   | _number_          | distance between ouline and wave, default 0px |
+| style      | _OutlineStyleCfg_ | the style configure of ouline                 |
+
+The style configure of outline for liquid plot, includes:
+
+| Properties    | Type     | Desc                                                      |
+| ------------- | -------- | --------------------------------------------------------- |
+| stroke        | _string_ | border color of outline，defaut is same as `liquid.color` |
+| strokeOpacity | _number_ | border color opacity of outline                           |
 
 #### wave
 

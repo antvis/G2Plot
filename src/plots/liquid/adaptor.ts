@@ -24,10 +24,7 @@ function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
 
   chart.data(getLiquidData(percent));
 
-  let color = options.color;
-  if (!color) {
-    color = chart.getTheme().defaultColor;
-  }
+  const color = options.color || chart.getTheme().defaultColor;
 
   const p = deepAssign({}, params, {
     options: {

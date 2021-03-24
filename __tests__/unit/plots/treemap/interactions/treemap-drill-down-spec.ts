@@ -193,7 +193,7 @@ describe('drill-down intera', () => {
     context.event = {
       type: 'custom',
       data: {
-        data: data.children[0].children[0],
+        data: data.children[0],
       },
     };
 
@@ -206,6 +206,7 @@ describe('drill-down intera', () => {
       ],
     });
 
+    // 更换 interactions 后，padding 正常
     // @ts-ignore
     expect(treemapPlot.chart.autoPadding.bottom).toBe(20);
     expect(treemapPlot.chart.getData().length).toBe(6);
@@ -216,7 +217,6 @@ describe('drill-down intera', () => {
   it('interaction reset and destory', async () => {
     const treemapPlot = new Treemap(createDiv(), {
       data,
-      padding: 20,
       colorField: 'name',
       interactions: [
         {
@@ -231,10 +231,11 @@ describe('drill-down intera', () => {
     const context = new InteractionContext(treemapPlot.chart);
     const drillDownAction = new TreemapDrillDownAction(context);
 
+    // 模拟一次点击
     context.event = {
       type: 'custom',
       data: {
-        data: data.children[0].children[0],
+        data: data.children[0],
       },
     };
 
@@ -245,6 +246,7 @@ describe('drill-down intera', () => {
     expect(drillDownAction.historyCache).toBeNull();
     // @ts-ignore
     expect(drillDownAction.breadCrumbGroup.cfg.visible).toBeFalsy();
+    expect(treemapPlot.chart.foregroundGroup.findAllByName('treemap-bread-crumb')[0].cfg.visible).toBe(false);
 
     drillDownAction.click();
 

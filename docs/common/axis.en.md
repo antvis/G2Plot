@@ -1,4 +1,3 @@
-
 ##### position
 
 <description>**optional** _`top` | `bottom` | `left` | `right`_</description>
@@ -111,13 +110,14 @@ A configuration item for a coordinate subscale. NULL indicates that it is not di
 
 A configuration item for the title, NULL means not to be displayed.
 
-| Properties | Type         | Description                                                        |
-| ---------- | ------------ | ------------------------------------------------------------------ |
-| text         | _string_     | The title of axis     |
-| offset     | _number_     | The distance of the title from the coordinate axis                 |
-| spacing    | _lineStyle_  | The distance between the title and the text on the coordinate axis |
-| style      | _shapeStyle_ | Title text configuration items                                     |
-| autoRotate | _boolean_    | Whether to rotate automatically or not                             |
+| Properties | Type         | Description                                                                |
+| ---------- | ------------ | -------------------------------------------------------------------------- |
+| text       | _string_     | The title of axis                                                          |
+| position   | _string_     | Position of the axis title, default: 'center'. Options: start, center, end |
+| offset     | _number_     | The distance of the title from the coordinate axis                         |
+| spacing    | _lineStyle_  | The distance between the title and the text on the coordinate axis         |
+| style      | _shapeStyle_ | Title text configuration items                                             |
+| autoRotate | _boolean_    | Whether to rotate automatically or not                                     |
 
 **_shapeStyle_**
 

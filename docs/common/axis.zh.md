@@ -20,7 +20,6 @@
 | autoEllipsis | _boolean_                                                | `false` | 是否自动省略             |
 | formatter    | _`(text: string, item: ListItem, index: number) => any`_ | `false` | 格式化函数               |
 
-
 ##### verticalFactor
 
 <description>**optional** _number_</description>
@@ -111,13 +110,14 @@
 
 标题的配置项，null 表示不展示。
 
-| 细分配置项名称 | 类型         | 功能描述                 |
-| -------------- | ------------ | ------------------------ |
-| text         | _string_     | 坐标轴标题     |
-| offset         | _number_     | 标题距离坐标轴的距离     |
-| spacing        | _lineStyle_  | 标题距离坐标轴文本的距离 |
-| style          | _shapeStyle_ | 标题文本配置项           |
-| autoRotate     | _boolean_    | 是否自动旋转             |
+| 细分配置项名称 | 类型         | 功能描述                                                  |
+| -------------- | ------------ | --------------------------------------------------------- |
+| text           | _string_     | 坐标轴标题                                                |
+| position       | _string_     | 轴标题的位置，默认：'center'。可选项： start, center, end |
+| offset         | _number_     | 标题距离坐标轴的距离                                      |
+| spacing        | _lineStyle_  | 标题距离坐标轴文本的距离                                  |
+| style          | _shapeStyle_ | 标题文本配置项                                            |
+| autoRotate     | _boolean_    | 是否自动旋转                                              |
 
 **_shapeStyle_**
 
@@ -139,7 +139,7 @@
 
 | 细分配置项名称 | 类型               | 功能描述                                                 |
 | -------------- | ------------------ | -------------------------------------------------------- |
-| line.style           | _lineStyle_        | 线的样式,                                               |
+| line.style     | _lineStyle_        | 线的样式,                                                |
 | alternateColor | _string\|string[]_ | 两个栅格线间的填充色                                     |
 | closed         | _boolean_          | 对于 circle 是否关闭 grid                                |
 | alignTick      | _boolean_          | 是否同刻度线对齐，如果值为 false，则会显示在两个刻度中间 |

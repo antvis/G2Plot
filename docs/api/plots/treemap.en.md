@@ -33,6 +33,15 @@ Each level of data needs to have three attributes
 
 In the nested rectangular tree diagram, the layout is determined by the value value of the leaf node.
 
+G2 plot generates the following data structure based on data:
+
+- name
+- value
+- path: Level information of the current node (including the current node)，The level information is from data (node metadata), value (node value), height (node height)
+- children: Leaf node information of the current node (only if it exists)
+
+Among them, you can get the path parameter in the formatter function of label (tooltip), so as to calculate the proportion, [DEMO](../../../examples/more-plots/treemap#treemap-nest)
+
 #### colorField
 
 <description>**optional** _string_</description>

@@ -4,9 +4,9 @@ import { legend, animation, theme, state, annotation } from '../../adaptor/commo
 import { getMappingFunction } from '../../adaptor/geometries/base';
 import { interval } from '../../adaptor/geometries';
 import { Interaction } from '../../types/interaction';
-import { flow, template, transformLabel, deepAssign, renderStatistic } from '../../utils';
+import { flow, template, transformLabel, deepAssign, renderStatistic, processIllegalData } from '../../utils';
 import { DEFAULT_OPTIONS } from './contants';
-import { adaptOffset, getTotalValue, processIllegalData, isAllZero } from './utils';
+import { adaptOffset, getTotalValue, isAllZero } from './utils';
 import { PIE_STATISTIC } from './interactions';
 import { PieOptions } from './types';
 

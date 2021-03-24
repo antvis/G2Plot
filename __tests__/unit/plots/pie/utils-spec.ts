@@ -1,4 +1,5 @@
-import { adaptOffset, getTotalValue, isAllZero, processIllegalData } from '../../../../src/plots/pie/utils';
+import { adaptOffset, getTotalValue, isAllZero } from '../../../../src/plots/pie/utils';
+import { processIllegalData } from '../../../../src/utils';
 
 describe('utils of pie plot', () => {
   const data = [

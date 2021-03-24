@@ -22,14 +22,20 @@ const liquidPlot = new Liquid('container', {
     return path;
   },
   outline: {
-    border: 4,
-    distance: 8,
+    border: 2,
+    distance: 4,
+    style: {
+      stroke: '#FFC100',
+      strokeOpacity: 0.65,
+    },
   },
   wave: {
     length: 128,
   },
   theme: {
-    defaultColor: '#FAAD14',
+    styleSheet: {
+      brandColor: '#FAAD14',
+    },
   },
 });
 

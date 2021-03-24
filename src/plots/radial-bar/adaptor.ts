@@ -16,7 +16,7 @@ function data(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
 
   const processData = filter(data, (d) => {
     const v = d[yField];
-    return (typeof v === 'number' && !isNaN(v)) || v === null;
+    return v === null || (typeof v === 'number' && !isNaN(v));
   });
 
   // 打印异常数据情况

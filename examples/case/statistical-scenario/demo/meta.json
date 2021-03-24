@@ -30,7 +30,7 @@
 
     },
     {
-      "filename": "funnel.ts",
+      "filename": "trend-funnel.ts",
       "title": {
         "zh": "漏斗图(趋势)",
         "en": "Statistical Charts-Funnel"

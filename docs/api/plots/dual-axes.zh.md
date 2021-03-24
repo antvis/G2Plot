@@ -59,10 +59,10 @@ const data = [[{ time: '1991'，value: 20 }], [{ time: '1992', count: 20 }]];
 
 指定了双轴各自对应的图形配置，形式为[左轴图形配置，右轴图形配置]。每一个配置应为 Line 或 Column 类型的 Config。通过指定双轴对应图形，来实现混合图表功能:
 
-- 双轴折线图: [Line, Line], 参考 [DEMO](../../../examples/dual-axes/dual-line)
-- 柱线混合图: [Column, Line], 参考 [DEMO](../../../examples/dual-axes/column-line)
+- 双轴折线图: [Line, Line], 参考 [DEMO](/zh/examples/dual-axes/dual-line)
+- 柱线混合图: [Column, Line], 参考 [DEMO](/zh/examples/dual-axes/column-line)
 
-你还可以通过配置 Line 或 Column 的相关配置（见下文），形成双轴多折线图([DEMO](../../../examples/dual-axes/dual-line#dual-multi-line)), 堆叠柱+折线图([DEMO](../../../examples/dual-axes/stacked-column-line)), 分组柱+折线图([DEMO](../../../examples/dual-axes/grouped-column-line))
+你还可以通过配置 Line 或 Column 的相关配置（见下文），形成双轴多折线图([DEMO](/zh/examples/dual-axes/dual-line#dual-multi-line)), 堆叠柱+折线图([DEMO](/zh/examples/dual-axes/stacked-column-line)), 分组柱+折线图([DEMO](/zh/examples/dual-axes/grouped-column-line))
 
 折线对应的图形配置为：
 

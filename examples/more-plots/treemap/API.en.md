@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/treemap.en.md`
+`markdown:docs/api/plots/treemap.en.md`

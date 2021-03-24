@@ -267,28 +267,16 @@ describe.skip('word-cloud utils', () => {
 
   it('utils: processImageMask with url, error', async () => {
     // 无效 url
-    const url = 'something';
-    let img;
-
-    try {
-      img = await processImageMask(url);
-      expect(img).toBe(undefined);
-    } catch (img) {
-      expect(img).toBe(undefined);
-    }
+    expect(async () => {
+      await processImageMask('something');
+    }).toThrow();
   });
 
   it('utils: processImageMask with invalid value', async () => {
     // 无效值
-    const url = {} as any;
-    let img;
-
-    try {
-      img = await processImageMask(url);
-      expect(img).toBe(undefined);
-    } catch (img) {
-      expect(img).toBe(undefined);
-    }
+    expect(async () => {
+      await processImageMask({} as any);
+    }).toThrow();
   });
 
   it('utils: processImageMask, base64', async () => {

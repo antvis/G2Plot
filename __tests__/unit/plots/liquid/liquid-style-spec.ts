@@ -34,7 +34,6 @@ describe('liquid', () => {
       percent: 0.8,
     });
 
-    // G2 chart.clear 的时候，geometry 销毁了，但是 container 还保留的，内存泄露。
     // @ts-ignore
     expect(liquid.chart.middleGroup.getChildren()[0].getChildren()[0].getChildren()[0].attr('fill')).toBe('red'); // wave path
   });

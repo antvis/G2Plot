@@ -4,6 +4,7 @@ import {
   enableInteraction,
   getFommatInteractions,
   getAdjustAppendPadding,
+  resetDrillDown,
 } from '../../../../src/plots/treemap/utils';
 
 const data1 = {
@@ -355,5 +356,15 @@ describe('treemap transformData', () => {
     expect(getAdjustAppendPadding([10, 20])).toStrictEqual([10, 20, 35, 20]);
     expect(getAdjustAppendPadding([10, 20, 30])).toStrictEqual([10, 20, 55, 20]);
     expect(getAdjustAppendPadding([10, 20, 30, 40])).toStrictEqual([10, 20, 55, 40]);
+  });
+
+  it('resetDrillDown', () => {
+    expect(() => {
+      // @ts-ignore
+      resetDrillDown({
+        // @ts-ignore
+        interactions: {},
+      });
+    }).not.toThrowError();
   });
 });

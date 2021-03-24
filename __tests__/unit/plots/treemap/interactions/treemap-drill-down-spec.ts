@@ -193,7 +193,7 @@ describe('drill-down intera', () => {
     context.event = {
       type: 'custom',
       data: {
-        data: data.children[0].children[0],
+        data: data.children[0],
       },
     };
 
@@ -206,22 +206,15 @@ describe('drill-down intera', () => {
       ],
     });
 
+    // 更换 interactions 后，padding 正常
     // @ts-ignore
     expect(treemapPlot.chart.autoPadding.bottom).toBe(20);
     expect(treemapPlot.chart.getData().length).toBe(6);
-    expect(treemapPlot.chart.foregroundGroup.findAllByName('treemap-bread-crumb').length).toBe(0);
-
-    treemapPlot.update({
-      interactions: [
-        { type: 'view-zoom', enable: false },
-        { type: 'treemap-drill-down', enable: true },
-      ],
-    });
 
     treemapPlot.destroy();
   });
 
-  it('treemap changeData', async () => {
+  it('interaction reset and destory', async () => {
     const treemapPlot = new Treemap(createDiv(), {
       data,
       colorField: 'name',
@@ -250,7 +243,18 @@ describe('drill-down intera', () => {
 
     drillDownAction.reset();
 
+    expect(drillDownAction.historyCache).toBeNull();
+    // @ts-ignore
+    expect(drillDownAction.breadCrumbGroup.cfg.visible).toBeFalsy();
     expect(treemapPlot.chart.foregroundGroup.findAllByName('treemap-bread-crumb')[0].cfg.visible).toBe(false);
+
+    drillDownAction.click();
+
+    expect(treemapPlot.chart.foregroundGroup.findAllByName('treemap-bread-crumb').length).toBe(1);
+
+    drillDownAction.destroy();
+
+    expect(treemapPlot.chart.foregroundGroup.findAllByName('treemap-bread-crumb').length).toBe(0);
 
     treemapPlot.destroy();
   });

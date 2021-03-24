@@ -138,10 +138,6 @@ export function interaction(params: Params<TreemapOptions>): Params<TreemapOptio
   if (enableDrillInteraction) {
     // 为面包屑在底部留出 25px 的空间
     chart.appendPadding = getAdjustAppendPadding(chart.appendPadding);
-  } else {
-    // 因在下钻过程中，可能存在更新 interaction 的行为，因此在此做一次清除
-    const treemapBreadCrumb = chart.foregroundGroup.findAllByName('treemap-bread-crumb');
-    chart.foregroundGroup.removeChild(treemapBreadCrumb[0], true);
   }
   return params;
 }

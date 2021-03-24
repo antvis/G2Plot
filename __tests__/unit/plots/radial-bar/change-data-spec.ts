@@ -4,7 +4,7 @@ import { antvStar } from '../../../data/antv-star';
 import { getScaleMax } from '../../../../src/plots/radial-bar/utils';
 
 describe('radial-bar changeData', () => {
-  it('changeData: normal', () => {
+  it.skip('changeData: normal', () => {
     const bar = new RadialBar(createDiv(), {
       width: 400,
       height: 300,

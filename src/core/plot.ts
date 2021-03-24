@@ -247,6 +247,8 @@ export abstract class Plot<O extends PickOptions> extends EE {
     this.off();
 
     this.container.removeAttribute(SOURCE_ATTRIBUTE_NAME);
+    // todo 临时验证，删除图表容器 div
+    this.container.parentNode.removeChild(this.container);
   }
 
   /**

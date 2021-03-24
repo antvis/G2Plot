@@ -11,7 +11,7 @@ import {
 import { CountryEconomy } from '../../../data/country-economy';
 import { createDiv } from '../../../utils/dom';
 
-describe.skip('word-cloud utils', () => {
+describe('word-cloud utils', () => {
   const params: Params<WordCloudOptions> = {
     chart: {
       width: 500,

@@ -245,7 +245,7 @@ xAxis、yAxis 配置相同。**注意**：由于 DualAxes(双轴图) 和 Bidirec
 
 #### quadrant
 
-[**DEMO**](../../../examples/scatter/bubble#quadrant)
+[**DEMO**](/zh/examples/scatter/bubble#quadrant)
 
 <description>**optional** _object_</description>
 
@@ -261,7 +261,7 @@ xAxis、yAxis 配置相同。**注意**：由于 DualAxes(双轴图) 和 Bidirec
 
 #### regressionLine
 
-[**DEMO**](../../../examples/scatter/scatter#line)
+[**DEMO**](/zh/examples/scatter/scatter#line)
 
 <description>**optional** _object_</description>
 

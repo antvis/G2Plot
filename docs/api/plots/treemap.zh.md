@@ -41,7 +41,7 @@ G2 plot 会根据 data 生成以下数据结构：
 - path: 当前节点的层级信息(包含当前节点)，层级信息由 data（节点元数据），value（节点 value），height（节点高度）
 - children: 当前节点的叶节点信息（仅存在时给出）
 
-其中，你可以在 label（tooltip）的 formatter 函数中获取 path 参数，从而计算占比, 可参见[DEMO](../../../examples/more-plots/treemap#treemap-nest)
+其中，你可以在 label（tooltip）的 formatter 函数中获取 path 参数，从而计算占比, 可参见[DEMO](/zh/examples/more-plots/treemap#treemap-nest)
 
 #### colorField
 

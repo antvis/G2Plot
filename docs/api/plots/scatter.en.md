@@ -245,7 +245,7 @@ Details to see: [legend](#legend)
 
 #### quadrant
 
-[**DEMO**](../../../examples/scatter/bubble#quadrant)
+[**DEMO**](/en/examples/scatter/bubble#quadrant)
 
 <description>**optional** _object_</description>
 
@@ -261,7 +261,7 @@ Quadrant components.
 
 #### regressionLine
 
-[**DEMO**](../../../examples/scatter/scatter#line)
+[**DEMO**](/en/examples/scatter/scatter#line)
 
 <description>**optional** _object_</description>
 

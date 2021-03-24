@@ -1,3 +1,24 @@
+#### 2.3.17 (2021-03-24)
+
+##### Documentation Changes
+
+* **G2Plot Calendar:**  补充组合图表 demo & 增加一个插件图表 ([#2448](https://github.com/antvis/g2plot/pull/2448)) ([772155db](https://github.com/antvis/g2plot/commit/772155db9dea67665bf139ed322ecd47659ae928))
+* **scrollbar:**  补充滚动条滑块的高亮色文档 ([#2449](https://github.com/antvis/g2plot/pull/2449)) ([bfd9e24d](https://github.com/antvis/g2plot/commit/bfd9e24df3301d500cdbaf9918ac1872607267bf))
+* **label-line:** 类型定义补全 ([#2443](https://github.com/antvis/g2plot/pull/2443)) ([33dfa3b1](https://github.com/antvis/g2plot/commit/33dfa3b11713d1367c226b8a4446144028f1bf9b))
+* **tooltip:**  更新 tooltip 关于 marker 的文档 ([#2439](https://github.com/antvis/g2plot/pull/2439)) ([9836e08c](https://github.com/antvis/g2plot/commit/9836e08cb761a031e4aebb908716fe2e2e30b9e4))
+
+##### New Features
+
+* **liquid:**  水波图支持跟随主题色 & 水波图支持 outline 配置样式 & 文档以及 demo 优化 ([#2455](https://github.com/antvis/g2plot/pull/2455)) ([04f2a66c](https://github.com/antvis/g2plot/commit/04f2a66c0f0da10d25d0321be350efef50501cf6))
+* **scatter:**  散点图支持 color 和 shape 同时映射图例字段 & 添加单测 ([#2406](https://github.com/antvis/g2plot/pull/2406)) ([c7b7724e](https://github.com/antvis/g2plot/commit/c7b7724eab6000b7c4cee02af3bec3667e067196))
+* **area:** 面积图支持 startOnZero ([#2444](https://github.com/antvis/g2plot/pull/2444)) ([1cdea551](https://github.com/antvis/g2plot/commit/1cdea551fdcc7e64186ef03b0ab37fc3263a4bcc))
+* **conversion-tag:**  转化分析 tag 添加 elements 信息,方便业务上使用 ([#2441](https://github.com/antvis/g2plot/pull/2441)) ([706942a7](https://github.com/antvis/g2plot/commit/706942a7ac08d45188adef71c7ce61815dd3199d))
+
+##### Bug Fixes
+
+* **dual-axes:** 双轴图 theme 主题设置 ([#2451](https://github.com/antvis/g2plot/pull/2451)) ([69bf536d](https://github.com/antvis/g2plot/commit/69bf536df21399d5730616250f919ad5001e073a))
+* **radial-bar:**  修复玉钰图存在非法数据崩溃问题 ([#2394](https://github.com/antvis/g2plot/pull/2394)) ([#2447](https://github.com/antvis/g2plot/pull/2447)) ([0f2bd788](https://github.com/antvis/g2plot/commit/0f2bd788c27a539822391aa197532ee43b821116))
+
 #### 2.3.16 (2021-03-17)
 
 ##### Documentation Changes

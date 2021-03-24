@@ -13,7 +13,7 @@ import { getLiquidData } from './utils';
  */
 function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
   const { chart, options } = params;
-  const { percent, color, liquidStyle, radius, outline, wave, shape } = options;
+  const { percent, liquidStyle, radius, outline, wave, shape } = options;
 
   chart.scale({
     percent: {
@@ -24,12 +24,17 @@ function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
 
   chart.data(getLiquidData(percent));
 
+  let color = options.color;
+  if (!color) {
+    color = chart.getTheme().defaultColor;
+  }
+
   const p = deepAssign({}, params, {
     options: {
       xField: 'type',
       yField: 'percent',
       // radius 放到 columnWidthRatio 中。
-      // 保证横向的大小是根据  redius 生成的
+      // 保证横向的大小是根据  radius 生成的
       widthRatio: radius,
       interval: {
         color,
@@ -92,6 +97,6 @@ export function statistic(params: Params<LiquidOptions>, updated?: boolean): Par
  * @param options
  */
 export function adaptor(params: Params<LiquidOptions>) {
-  // flow 的方式处理所有的配置到 G2 API
-  return flow(geometry, statistic, scale({}), animation, theme, interaction)(params);
+  // flow 的方式处理所有的配置到 G2 API (主题前置，会影响绘制的取色)
+  return flow(theme, geometry, statistic, scale({}), animation, interaction)(params);
 }

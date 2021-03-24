@@ -1,6 +1,6 @@
-import { each, every, filter, isString } from '@antv/util';
-import { LEVEL, log } from '../../utils';
+import { each, every, isString } from '@antv/util';
 import { Data } from '../../types';
+import { processIllegalData } from '../../utils';
 import { PieOptions } from './types';
 
 /**
@@ -39,23 +39,6 @@ export function adaptOffset(type: string, offset?: string | number): string | nu
     default:
       return offset;
   }
-}
-
-/**
- * 处理不合法的数据(过滤 非数值型 和 NaN，保留 null)
- * @param data
- * @param angleField
- */
-export function processIllegalData(data: PieOptions['data'], angleField: string) {
-  const processData = filter(data, (d) => {
-    const v = d[angleField];
-    return v === null || (typeof v === 'number' && !isNaN(v));
-  });
-
-  // 打印异常数据情况
-  log(LEVEL.WARN, processData.length === data.length, 'illegal data existed in chart data.');
-
-  return processData;
 }
 
 /**

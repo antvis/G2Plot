@@ -19,7 +19,7 @@ export class RadialBar extends Plot<RadialBarOptions> {
    */
   public changeData(data) {
     this.updateOption({ data });
-    // 更新玉珏图的scale
+    // 更新玉珏图的 scale
     meta({ chart: this.chart, options: this.options });
     this.chart.changeData(data);
   }

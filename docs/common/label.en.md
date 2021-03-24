@@ -18,7 +18,7 @@
 | formatter  | _Function_                                                   | Format function                                                                                                                                                  |
 | autoHide   | _boolean_                                                    | Whether to hide it automatically, default to false                                                                                                               |
 
-Types of __*LabelLineCfg*__ are as follow: (Go [ShapeAttrs](/zh/docs/api/shape/shape-attrs) see more details about _ShapeAttrs_)
+Types of __*LabelLineCfg*__ are as follow: (Go [ShapeAttrs](/zh/docs/api/graphic-style) see more details about _ShapeAttrs_)
 
 ```plain
 type LabelLineCfg = {

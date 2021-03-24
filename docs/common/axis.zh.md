@@ -12,7 +12,7 @@
 
 | 参数名       | 类型                                                   | 默认值  | 描述                     |
 | ------------ | -----------------------------------------------------| ------- | ------------------------ |
-| style        | _[ShapeAttrs](/zh/docs/api/shape/shape-attrs)_        | -       | 坐标轴刻度线的样式配置项 |
+| style        | _[ShapeAttrs](/zh/docs/api/graphic-style)_        | -       | 坐标轴刻度线的样式配置项 |
 | offset       | _number_                                                | -       | label 的偏移量           |
 | rotate       | _number_                                                | -       | 文本旋转角度             |
 | autoRotate   | _boolean_                                               | `true`  | 是否自动旋转             |

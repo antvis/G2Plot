@@ -115,7 +115,7 @@
 | text           | _string_     | 坐标轴标题                                                |
 | position       | _string_     | 轴标题的位置，默认：'center'。可选项： start, center, end |
 | offset         | _number_     | 标题距离坐标轴的距离                                      |
-| spacing        | _lineStyle_  | 标题距离坐标轴文本的距离                                  |
+| spacing        | _number_  | 标题距离坐标轴文本的距离                                  |
 | style          | _shapeStyle_ | 标题文本配置项                                            |
 | autoRotate     | _boolean_    | 是否自动旋转                                              |
 

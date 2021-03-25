@@ -45,6 +45,14 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*xZtSQocP4kYAAAAAAAAAAAAAARQnAQ"
     },
     {
+      "filename": "label-layout.ts",
+      "title": {
+        "zh": "饼图-标签布局：限制在 plot 内，溢出省略展示",
+        "en": "Pie label layout，auto ellipsis when out-of-plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*QyXPRK-URmUAAAAAAAAAAAAAARQnAQ"
+    },
+    {
       "filename": "pie-texture.ts",
       "title": {
         "en": "Pie plot fill with texture",

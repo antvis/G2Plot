@@ -13,9 +13,7 @@ export const DEFAULT_OPTIONS = deepAssign({}, Plot.getDefaultOptions(), {
     showTitle: false,
     showMarkers: false,
   },
-  label: {
-    layout: { type: 'limit-in-plot', cfg: { action: 'ellipsis' } },
-  },
+  label: {},
   /** 饼图样式, 不影响暗黑主题 */
   pieStyle: {
     stroke: 'white',

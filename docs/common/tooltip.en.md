@@ -75,7 +75,7 @@ Configure tooltip crosshairs to work if and only if 'showCrosshairs' is true.
 | Properties     | Type                   | Description                                                                                   |
 | -------------- | ---------------------- | --------------------------------------------------------------------------------------------- |
 | type           | \_`x` \| `y` \| `xy`\_ | Crosshairs Type: 'X' represents the auxiliary line on the X axis, 'Y' on the Y axis           |
-| line           | _lineStyle_            | The configuration item for line, see more [_ShapeAttrs_](/en/docs/api/shape/shape-attrs)      |
+| line           | _lineStyle_            | The configuration item for line, see more [_ShapeAttrs_](/en/docs/api/graphic-style#configure-line-styles)      |
 | text           | _textStyle_            | Guideline text configuration, support callback                                                |
 | textBackground | _textBackgroundStyle_  | Guideline text background configuration                                                       |
 | follow         | _boolean_              | Whether the guide line follows the mouse. Default is false, that is, to locate the data point |
@@ -89,7 +89,7 @@ Configure tooltip crosshairs to work if and only if 'showCrosshairs' is true.
 | Properties | Type                 | Description                                 |
 | ---------- | -------------------- | ------------------------------------------- |
 | padding    | _number \| number[]_ | White space around the background of a text |
-| style      | _shapeStyle_         | The configuration item for line, see more [_ShapeAttrs_](/en/docs/api/shape/shape-attrs)             |
+| style      | _shapeStyle_         | The configuration item for line, see more [_ShapeAttrs_](/en/docs/api/graphic-style)             |
 
 ##### showMarkers
 

@@ -10,16 +10,15 @@
 
 文本标签的配置项，null 表示不展示。_AxisLabelCfg_ 配置如下：
 
-| 参数名       | 类型                                                   | 默认值  | 描述                     |
-| ------------ | -----------------------------------------------------| ------- | ------------------------ |
-| style        | _[ShapeAttrs](/zh/docs/api/shape/shape-attrs)_        | -       | 坐标轴刻度线的样式配置项 |
-| offset       | _number_                                                | -       | label 的偏移量           |
-| rotate       | _number_                                                | -       | 文本旋转角度             |
-| autoRotate   | _boolean_                                               | `true`  | 是否自动旋转             |
+| 参数名       | 类型                                                     | 默认值  | 描述                     |
+| ------------ | -------------------------------------------------------- | ------- | ------------------------ |
+| style        | _[ShapeAttrs](/zh/docs/api/graphic-style)_               | -       | 坐标轴刻度线的样式配置项 |
+| offset       | _number_                                                 | -       | label 的偏移量           |
+| rotate       | _number_                                                 | -       | 文本旋转角度             |
+| autoRotate   | _boolean_                                                | `true`  | 是否自动旋转             |
 | autoHide     | _boolean_                                                | `false` | 是否自动隐藏             |
 | autoEllipsis | _boolean_                                                | `false` | 是否自动省略             |
 | formatter    | _`(text: string, item: ListItem, index: number) => any`_ | `false` | 格式化函数               |
-
 
 ##### verticalFactor
 
@@ -93,9 +92,19 @@
 
 <description>**optional** _object_</description>
 
-坐标轴刻度线线的配置项，null 表示不展示。
+坐标轴刻度线的配置项，null 表示不展示。
 
-`markdown:docs/common/line-style.zh.md`
+| 细分配置项名称 | 类型                               | 功能描述                     |
+| -------------- | ---------------------------------- | ---------------------------- |
+| style          | _ShapeAttrs \| ShapeAttrsCallback_ | 坐标轴刻度线的样式。         |
+| alignTick      | _boolean_                          | 坐标轴刻度线是否同 tick 对齐 |
+| length         | _number_                           | 坐标轴刻度线长度             |
+
+关于 _ShapeAttrs_ 详细查看 [ShapeAttrs](/zh/docs/api/graphic-style) 文档。_ShapeAttrsCallback_ 回调参数如下：
+
+```ts
+type ShapeAttrsCallback = (item: any, index: number, items: any[]) => ShapeAttrs;
+```
 
 ##### subTickLine
 
@@ -103,7 +112,17 @@
 
 坐标轴子刻度线的配置项，null 表示不展示。
 
-`markdown:docs/common/line-style.zh.md`
+| 细分配置项名称 | 类型                               | 功能描述             |
+| -------------- | ---------------------------------- | -------------------- |
+| style          | _ShapeAttrs \| ShapeAttrsCallback_ | 坐标轴子刻度线的样式。 |
+| count          | _number_                           | 子刻度个数           |
+| length         | _number_                           | 坐标轴子刻度线长度     |
+
+关于 _ShapeAttrs_ 详细查看 [ShapeAttrs](/zh/docs/api/graphic-style) 文档。_ShapeAttrsCallback_ 回调参数如下：
+
+```ts
+type ShapeAttrsCallback = (item: any, index: number, items: any[]) => ShapeAttrs;
+```
 
 ##### title
 
@@ -111,13 +130,14 @@
 
 标题的配置项，null 表示不展示。
 
-| 细分配置项名称 | 类型         | 功能描述                 |
-| -------------- | ------------ | ------------------------ |
-| text         | _string_     | 坐标轴标题     |
-| offset         | _number_     | 标题距离坐标轴的距离     |
-| spacing        | _lineStyle_  | 标题距离坐标轴文本的距离 |
-| style          | _shapeStyle_ | 标题文本配置项           |
-| autoRotate     | _boolean_    | 是否自动旋转             |
+| 细分配置项名称 | 类型         | 功能描述                                                  |
+| -------------- | ------------ | --------------------------------------------------------- |
+| text           | _string_     | 坐标轴标题                                                |
+| position       | _string_     | 轴标题的位置，默认：'center'。可选项： start, center, end |
+| offset         | _number_     | 标题距离坐标轴的距离                                      |
+| spacing        | _number_     | 标题距离坐标轴文本的距离                                  |
+| style          | _shapeStyle_ | 标题文本配置项                                            |
+| autoRotate     | _boolean_    | 是否自动旋转                                              |
 
 **_shapeStyle_**
 
@@ -139,14 +159,12 @@
 
 | 细分配置项名称 | 类型               | 功能描述                                                 |
 | -------------- | ------------------ | -------------------------------------------------------- |
-| line.style           | _lineStyle_        | 线的样式,                                               |
+| line           | _lineStyle_        | 线的样式,                                                |
 | alternateColor | _string\|string[]_ | 两个栅格线间的填充色                                     |
 | closed         | _boolean_          | 对于 circle 是否关闭 grid                                |
 | alignTick      | _boolean_          | 是否同刻度线对齐，如果值为 false，则会显示在两个刻度中间 |
 
-**_lineStyle_**的配置如下：
-
-`markdown:docs/common/line-style.zh.md`
+网格线条样式的配置与 [line](#line) 是一致的。
 
 ##### animate
 

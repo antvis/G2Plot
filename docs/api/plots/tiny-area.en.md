@@ -37,7 +37,7 @@ Area chart style.
 
 #### line
 
-<description>**optional** _lineStyle_</description>
+<description>**optional** _object_</description>
 
 The pattern of polylines in the area.
 

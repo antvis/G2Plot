@@ -48,19 +48,9 @@ Result:
 
 ## Configure line styles
 
-| Properties    | Type            | Description                                                                                                                                                                                |
-| ------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| stroke        | string          | The color of the line                                                                                                                                                                      |
-| lineWidth     | number          | Line width                                                                                                                                                                                 |
-| lineDash      | [number,number] | With dotted line configuration, the first value is the length of each segment of the dotted line, and the second value is the distance between segments. LineDash sets [0,0] to no stroke. |
-| opacity       | number          | Transparency                                                                                                                                                                               |
-| shadowColor   | string          | Shadow color                                                                                                                                                                               |
-| shadowBlur    | number          | Gaussian blur coefficient                                                                                                                                                                  |
-| shadowOffsetX | number          | Sets the horizontal distance between the shadow and the shape                                                                                                                              |
-| shadowOffsetY | number          | Sets the vertical distance of the shadow from the shape                                                                                                                                    |
-| cursor        | string          | Mouse style. Mouse styles with CSS, default 'default'。                                                                                                                                    |
+`markdown:docs/common/line-style.en.md`
 
-Use the full graphic style `lineStyle` to configure the Line graphic style. Example:
+In a line plot, you can use `linestyle` directly to configure the Line graphic style. Example:
 
 ```ts
 lineStyle: {

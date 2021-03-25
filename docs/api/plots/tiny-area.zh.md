@@ -37,7 +37,7 @@ order: 15
 
 #### line
 
-<description>**optional** _lineStyle_</description>
+<description>**optional** _object_</description>
 
 面积中折线的样式。
 

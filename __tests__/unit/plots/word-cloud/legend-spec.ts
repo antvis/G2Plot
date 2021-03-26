@@ -33,6 +33,7 @@ describe('word-cloud', () => {
       weightField: 'GDP',
       colorField: 'continent',
       legend: {},
+      animation: false,
     });
 
     cloud.render();

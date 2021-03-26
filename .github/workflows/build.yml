@@ -1,10 +1,11 @@
 name: build
 
-on: ["pull_request"]
+on: ["push", "pull_request"]
 
 jobs:
   lint:
     runs-on: macos-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 12
@@ -20,6 +21,7 @@ jobs:
 
   build:
     runs-on: macos-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 12
@@ -35,6 +37,7 @@ jobs:
 
   test:
     runs-on: macos-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 12

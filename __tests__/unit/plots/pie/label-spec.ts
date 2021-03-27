@@ -107,45 +107,47 @@ describe('pie label', () => {
 });
 
 describe('support template string formatter', () => {
-  const pie = new Pie(createDiv(), {
-    width: 400,
-    height: 400,
-    data: [
-      { type: 'item1', value: 1 },
-      { type: 'item2', value: 2 },
-      { type: 'item3', value: 2 },
-    ],
-    angleField: 'value',
-    colorField: 'type',
-    label: {
-      content: '{name}: {value}',
-    },
+  it('', () => {
+    const pie = new Pie(createDiv(), {
+      width: 400,
+      height: 400,
+      data: [
+        { type: 'item1', value: 1 },
+        { type: 'item2', value: 2 },
+        { type: 'item3', value: 2 },
+      ],
+      angleField: 'value',
+      colorField: 'type',
+      label: {
+        content: '{name}: {value}',
+      },
+    });
+
+    pie.render();
+    let labels = pie.chart.geometries[0].labelsContainer.getChildren();
+    expect((labels[0] as IGroup).getChildren()[0].attr('text')).toBe('item1: 1');
+
+    pie.update({
+      ...pie.options,
+      label: {
+        content: '{name}: {value}({percentage})',
+      },
+    });
+    labels = pie.chart.geometries[0].labelsContainer.getChildren();
+    // todo 暂时没有提供精度配置，直接粗暴返回
+    expect((labels[0] as IGroup).getChildren()[0].attr('text')).toBe('item1: 1(2...');
+
+    // 移除 limit-in-plot ellipsis
+    pie.update({
+      ...pie.options,
+      label: {
+        content: '{name}: {value}({percentage})',
+        layout: [],
+      },
+    });
+    labels = pie.chart.geometries[0].labelsContainer.getChildren();
+    expect((labels[0] as IGroup).getChildren()[0].attr('text')).toBe('item1: 1(20.00%)');
+
+    pie.destroy();
   });
-
-  pie.render();
-  let labels = pie.chart.geometries[0].labelsContainer.getChildren();
-  expect((labels[0] as IGroup).getChildren()[0].attr('text')).toBe('item1: 1');
-
-  pie.update({
-    ...pie.options,
-    label: {
-      content: '{name}: {value}({percentage})',
-    },
-  });
-  labels = pie.chart.geometries[0].labelsContainer.getChildren();
-  // todo 暂时没有提供精度配置，直接粗暴返回
-  expect((labels[0] as IGroup).getChildren()[0].attr('text')).toBe('item1: 1(2...');
-
-  // 移除 limit-in-plot ellipsis
-  pie.update({
-    ...pie.options,
-    label: {
-      content: '{name}: {value}({percentage})',
-      layout: [],
-    },
-  });
-  labels = pie.chart.geometries[0].labelsContainer.getChildren();
-  expect((labels[0] as IGroup).getChildren()[0].attr('text')).toBe('item1: 1(20.00%)');
-
-  pie.destroy();
 });

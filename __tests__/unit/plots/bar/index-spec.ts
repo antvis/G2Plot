@@ -388,6 +388,7 @@ describe('bar', () => {
     expect(bar.chart.getOptions().legends['series'].reversed).toBe(true);
     // @ts-ignore
     expect(bar.chart.getOptions().tooltip.reversed).toBe(true);
+    bar.destroy();
   });
 
   it('legend/tooltip reversed, stacked', () => {
@@ -396,6 +397,7 @@ describe('bar', () => {
     expect(bar.chart.getOptions().legends['series'].reversed).toBe(false);
     // @ts-ignore
     expect(bar.chart.getOptions().tooltip?.reversed).toBe(false);
+    bar.destroy();
   });
 
   it('bar background', () => {

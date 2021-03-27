@@ -654,4 +654,8 @@ describe('conversion tag listent to events', () => {
     expect(c?.get('origin').element).toBe(plot.chart.geometries[0].elements[0]);
     expect(c?.get('origin').nextElement).toBe(plot.chart.geometries[0].elements[1]);
   });
+
+  afterAll(() => {
+    plot.destroy();
+  });
 });

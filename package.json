@@ -109,6 +109,7 @@
   "jest": {
     "runner": "jest-electron/runner",
     "testEnvironment": "jest-electron/environment",
+    "testTimeout": 30000,
     "setupFilesAfterEnv": [
       "jest-extended"
     ],

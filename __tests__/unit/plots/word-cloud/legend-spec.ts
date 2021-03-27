@@ -36,7 +36,7 @@ describe('word-cloud', () => {
       animation: false,
       wordStyle: {
         // 本地跑 live 也会丢失一个 series，故此加上 font-size
-        fontSize: [8, 40],
+        fontSize: [12, 20],
       },
     });
 

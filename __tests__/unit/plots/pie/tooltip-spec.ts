@@ -12,6 +12,7 @@ describe('pie tooltip', () => {
     data,
     angleField: 'value',
     colorField: 'type',
+    animation: false,
   });
   pie.render();
 
@@ -44,8 +45,6 @@ describe('pie tooltip', () => {
     const point = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
 
     pie.chart.showTooltip(point);
-    await delay(100);
-    // @ts-ignore
     const items = tooltipController.getTooltipItems(point);
     expect(items.length).toBe(3);
     expect(items[0].name).toBe('类型');

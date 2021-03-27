@@ -41,7 +41,7 @@
     "lint-staged": "lint-staged",
     "test": "jest",
     "test-live": "cross-env DEBUG_MODE=1 jest --watch ./__tests__",
-    "coverage": "jest --coverage",
+    "coverage": "jest -w 16 --coverage",
     "ci": "run-s lint coverage build",
     "changelog": "generate-changelog",
     "prepublishOnly": "run-s lint test build",

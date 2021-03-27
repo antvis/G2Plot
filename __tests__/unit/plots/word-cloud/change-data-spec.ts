@@ -3,13 +3,16 @@ import { CountryEconomy } from '../../../data/country-economy';
 import { createDiv } from '../../../utils/dom';
 
 describe('word-cloud changeData', () => {
-  it.skip('changeData: normal', () => {
+  it('changeData: normal', () => {
     const cloud = new WordCloud(createDiv(), {
       width: 1024,
       height: 1024,
       data: CountryEconomy,
       wordField: 'Country',
       weightField: 'GDP',
+      wordStyle: {
+        fontSize: [8, 30],
+      },
       animation: false,
     });
 
@@ -25,7 +28,7 @@ describe('word-cloud changeData', () => {
     cloud.destroy();
   });
 
-  it.skip('changeData: from empty to have data', () => {
+  it('changeData: from empty to have data', () => {
     const cloud = new WordCloud(createDiv(), {
       width: 1024,
       height: 1024,
@@ -33,6 +36,9 @@ describe('word-cloud changeData', () => {
       wordField: 'Country',
       weightField: 'GDP',
       animation: false,
+      wordStyle: {
+        fontSize: [8, 30],
+      },
     });
 
     cloud.render();

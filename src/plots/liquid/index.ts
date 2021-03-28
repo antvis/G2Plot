@@ -8,7 +8,7 @@ import { getLiquidData } from './utils';
 // register liquid shape
 import './shapes/liquid';
 
-export { LiquidOptions };
+export type { LiquidOptions };
 
 /**
  * 传说中的水波图
@@ -16,7 +16,7 @@ export { LiquidOptions };
 export class Liquid extends Plot<LiquidOptions> {
   /**
    * 获取 饼图 默认配置项
-   * @static 供外部使用
+   * 供外部使用
    */
   static getDefaultOptions(): Partial<LiquidOptions> {
     return DEFAULT_OPTIONS;

@@ -4,7 +4,7 @@ import { Datum } from '../../types';
 import { ChordOptions } from './types';
 import { adaptor } from './adaptor';
 
-export { ChordOptions };
+export type { ChordOptions };
 
 /**
  *  弦图 Chord

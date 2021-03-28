@@ -5,12 +5,12 @@ import { AreaOptions } from './types';
 import { adaptor, meta } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
 
-export { AreaOptions };
+export type { AreaOptions };
 
 export class Area extends Plot<AreaOptions> {
   /**
    * 获取 面积图 默认配置项
-   * @static 供外部使用
+   * 供外部使用
    */
   static getDefaultOptions(): Partial<AreaOptions> {
     return DEFAULT_OPTIONS;

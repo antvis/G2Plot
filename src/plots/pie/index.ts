@@ -8,12 +8,12 @@ import { PieOptions } from './types';
 import { isAllZero } from './utils';
 import './interactions';
 
-export { PieOptions };
+export type { PieOptions };
 
 export class Pie extends Plot<PieOptions> {
   /**
    * 获取 饼图 默认配置项
-   * @static 供外部使用
+   * 供外部使用
    */
   static getDefaultOptions(): Partial<PieOptions> {
     return DEFAULT_OPTIONS;

@@ -6,7 +6,7 @@ import { adaptor, meta } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
 import { transformBarData } from './utils';
 
-export { BarOptions };
+export type { BarOptions };
 
 /**
  * 条形图
@@ -14,7 +14,7 @@ export { BarOptions };
 export class Bar extends Plot<BarOptions> {
   /**
    * 获取 条形图 默认配置项
-   * @static 供外部使用
+   * 供外部使用
    */
   static getDefaultOptions(): Partial<BarOptions> {
     return DEFAULT_OPTIONS;

@@ -8,7 +8,7 @@ import { adaptor } from './adaptor';
 import { transformToViewsData } from './helper';
 import { EDGES_VIEW_ID, NODES_VIEW_ID } from './constant';
 
-export { SankeyOptions };
+export type { SankeyOptions };
 
 /**
  *  桑基图 Sankey

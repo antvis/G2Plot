@@ -7,7 +7,7 @@ import { adaptor } from './adaptor';
 import { syncViewPadding, transformData, isHorizontal } from './utils';
 import { SERIES_FIELD_KEY, FIRST_AXES_VIEW, SECOND_AXES_VIEW } from './constant';
 
-export { BidirectionalBarOptions };
+export type { BidirectionalBarOptions };
 
 export class BidirectionalBar extends Plot<BidirectionalBarOptions> {
   /** 图表类型 */

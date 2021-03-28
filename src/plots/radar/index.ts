@@ -5,7 +5,7 @@ import { RadarOptions } from './types';
 import { adaptor } from './adaptor';
 import './interactions';
 
-export { RadarOptions };
+export type { RadarOptions };
 
 export class Radar extends Plot<RadarOptions> {
   /** 图表类型 */

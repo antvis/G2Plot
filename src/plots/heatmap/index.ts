@@ -7,7 +7,7 @@ import { adaptor } from './adaptor';
 import './shapes/circle';
 import './shapes/square';
 
-export { HeatmapOptions };
+export type { HeatmapOptions };
 
 export class Heatmap extends Plot<HeatmapOptions> {
   /** 图表类型 */

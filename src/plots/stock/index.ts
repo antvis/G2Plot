@@ -7,7 +7,7 @@ import { getStockData } from './utils';
 
 import { DEFAULT_TOOLTIP_OPTIONS } from './constant';
 
-export { StockOptions };
+export type { StockOptions };
 
 export class Stock extends Plot<StockOptions> {
   /** 图表类型 */

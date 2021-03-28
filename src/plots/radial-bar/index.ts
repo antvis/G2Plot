@@ -4,7 +4,7 @@ import { Adaptor } from '../../core/adaptor';
 import { RadialBarOptions } from './types';
 import { adaptor, meta } from './adaptor';
 
-export { RadialBarOptions };
+export type { RadialBarOptions };
 
 /**
  * 玉珏图

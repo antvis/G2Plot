@@ -8,7 +8,7 @@ import { processImageMask, transform } from './utils';
 // 注册的shape
 import './shapes/word-cloud';
 
-export { WordCloudOptions };
+export type { WordCloudOptions };
 
 export class WordCloud extends Plot<WordCloudOptions> {
   /** 词云图 */

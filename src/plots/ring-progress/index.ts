@@ -6,12 +6,12 @@ import { RingProgressOptions } from './types';
 import { adaptor, statistic } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
 
-export { RingProgressOptions };
+export type { RingProgressOptions };
 
 export class RingProgress extends Plot<RingProgressOptions> {
   /**
    * 获取默认配置项
-   * @static 供外部使用
+   * 供外部使用
    */
   static getDefaultOptions(): Partial<RingProgressOptions> {
     return DEFAULT_OPTIONS;

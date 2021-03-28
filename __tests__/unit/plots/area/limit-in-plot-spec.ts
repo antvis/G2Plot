@@ -69,4 +69,8 @@ describe('line limitInPlot', () => {
     plot.render();
     expect(plot.chart.limitInPlot).toBeTruthy();
   });
+
+  afterAll(() => {
+    plot.destroy();
+  });
 });

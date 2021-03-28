@@ -47,7 +47,7 @@ describe('scatter', () => {
     expect(scatter.chart.geometries[0].tooltipOption).toBe(false);
     expect(scatter.chart.getComponents().find((co) => co.type === 'tooltip')).toBe(undefined);
 
-    // scatter.destroy();
+    scatter.destroy();
   });
 
   it('tooltip: itemTpl options', () => {

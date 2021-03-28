@@ -19,4 +19,8 @@ describe('#2267', () => {
     // 一定的误差
     expect(width > 12 && width < 20).toBe(true);
   });
+
+  afterAll(() => {
+    sankey.destroy();
+  });
 });

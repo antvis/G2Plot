@@ -33,6 +33,11 @@ describe('word-cloud', () => {
       weightField: 'GDP',
       colorField: 'continent',
       legend: {},
+      animation: false,
+      wordStyle: {
+        // 本地跑 live 也会丢失一个 series，故此加上 font-size
+        fontSize: [12, 20],
+      },
     });
 
     cloud.render();

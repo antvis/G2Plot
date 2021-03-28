@@ -10,6 +10,10 @@ describe('word-cloud changeData', () => {
       data: CountryEconomy,
       wordField: 'Country',
       weightField: 'GDP',
+      wordStyle: {
+        fontSize: [8, 30],
+      },
+      animation: false,
     });
 
     cloud.render();
@@ -31,6 +35,10 @@ describe('word-cloud changeData', () => {
       data: [],
       wordField: 'Country',
       weightField: 'GDP',
+      animation: false,
+      wordStyle: {
+        fontSize: [8, 30],
+      },
     });
 
     cloud.render();

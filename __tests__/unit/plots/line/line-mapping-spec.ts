@@ -40,5 +40,6 @@ describe('line shape', () => {
       const model = element.getModel();
       expect(model.shape).toBe(shapeCallback(model.data[0]));
     });
+    plot.destroy();
   });
 });

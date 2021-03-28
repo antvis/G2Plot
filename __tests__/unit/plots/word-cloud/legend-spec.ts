@@ -2,6 +2,7 @@ import { groupBy, keys } from '@antv/util';
 import { WordCloud } from '../../../../src';
 import { CountryEconomy } from '../../../data/country-economy';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 
 describe('word-cloud', () => {
   it('legend', () => {
@@ -24,7 +25,7 @@ describe('word-cloud', () => {
     cloud.destroy();
   });
 
-  it('开启 legend', () => {
+  it('开启 legend', async () => {
     const cloud = new WordCloud(createDiv('x*y'), {
       width: 400,
       height: 300,
@@ -43,6 +44,7 @@ describe('word-cloud', () => {
     cloud.render();
 
     const options = cloud.chart.getOptions();
+    await delay(cloud.options.timeInterval || 10);
 
     expect(options.legends).not.toBe(false);
     const legendController = cloud.chart.getController('legend');

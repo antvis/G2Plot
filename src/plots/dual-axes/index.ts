@@ -4,7 +4,7 @@ import { deepAssign } from '../../utils';
 import { DualAxesOptions } from './types';
 import { adaptor } from './adaptor';
 
-export { DualAxesOptions };
+export type { DualAxesOptions };
 
 export class DualAxes extends Plot<DualAxesOptions> {
   /** 图表类型: 双轴图 */

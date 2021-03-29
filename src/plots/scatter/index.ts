@@ -5,7 +5,7 @@ import { ScatterOptions } from './types';
 import { adaptor, transformOptions, meta } from './adaptor';
 import './interaction';
 
-export { ScatterOptions };
+export type { ScatterOptions };
 
 export class Scatter extends Plot<ScatterOptions> {
   /** 图表类型 */

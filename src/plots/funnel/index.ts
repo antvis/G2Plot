@@ -4,7 +4,7 @@ import { FunnelOptions } from './types';
 import { adaptor } from './adaptor';
 import { FUNNEL_CONVERSATION as FUNNEL_CONVERSATION_FIELD } from './constant';
 
-export { FunnelOptions };
+export type { FunnelOptions };
 
 export { FUNNEL_CONVERSATION_FIELD };
 

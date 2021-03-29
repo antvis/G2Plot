@@ -5,12 +5,12 @@ import { TinyAreaOptions } from './types';
 import { adaptor, meta } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
 
-export { TinyAreaOptions };
+export type { TinyAreaOptions };
 
 export class TinyArea extends Plot<TinyAreaOptions> {
   /**
    * 获取默认配置项
-   * @static 供外部使用
+   * 供外部使用
    */
   static getDefaultOptions(): Partial<TinyAreaOptions> {
     return DEFAULT_OPTIONS;

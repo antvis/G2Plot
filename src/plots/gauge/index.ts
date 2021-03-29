@@ -10,7 +10,7 @@ import { getIndicatorData, getRangeData } from './utils';
 import './shapes/gauge';
 import './shapes/meter-gauge';
 
-export { GaugeOptions };
+export type { GaugeOptions };
 
 /**
  * 仪表盘
@@ -18,7 +18,7 @@ export { GaugeOptions };
 export class Gauge extends Plot<GaugeOptions> {
   /**
    * 获取 仪表盘 默认配置项
-   * @static 供外部使用
+   * 供外部使用
    */
   static getDefaultOptions(): Partial<GaugeOptions> {
     return DEFAULT_OPTIONS;

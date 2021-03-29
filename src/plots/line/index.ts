@@ -5,12 +5,12 @@ import { adaptor, meta } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
 import './interactions';
 
-export { LineOptions };
+export type { LineOptions };
 
 export class Line extends Plot<LineOptions> {
   /**
    * 获取 折线图 默认配置项
-   * @static 供外部使用
+   * 供外部使用
    */
   static getDefaultOptions(): Partial<LineOptions> {
     return DEFAULT_OPTIONS;

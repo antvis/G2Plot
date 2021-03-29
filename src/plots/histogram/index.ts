@@ -5,7 +5,7 @@ import { binHistogram } from '../../utils/transform/histogram';
 import { HistogramOptions } from './types';
 import { adaptor } from './adaptor';
 
-export { HistogramOptions };
+export type { HistogramOptions };
 
 export class Histogram extends Plot<HistogramOptions> {
   /** 图表类型 */

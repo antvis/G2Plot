@@ -6,7 +6,7 @@ import { transformData, enableInteraction, resetDrillDown } from './utils';
 import './interactions/treemap-drill-down';
 import '../scatter/interaction';
 
-export { TreemapOptions };
+export type { TreemapOptions };
 
 export class Treemap extends Plot<TreemapOptions> {
   /** 图表类型 */

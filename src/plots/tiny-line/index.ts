@@ -5,12 +5,12 @@ import { adaptor, meta } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
 import { getTinyData } from './utils';
 
-export { TinyLineOptions };
+export type { TinyLineOptions };
 
 export class TinyLine extends Plot<TinyLineOptions> {
   /**
    * 获取默认配置项
-   * @static 供外部使用
+   * 供外部使用
    */
   static getDefaultOptions(): Partial<TinyLineOptions> {
     return DEFAULT_OPTIONS;

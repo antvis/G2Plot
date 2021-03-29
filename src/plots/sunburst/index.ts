@@ -4,7 +4,7 @@ import { Adaptor } from '../../core/adaptor';
 import { SunburstOptions } from './types';
 import { adaptor } from './adaptor';
 
-export { SunburstOptions };
+export type { SunburstOptions };
 
 export class Sunburst extends Plot<SunburstOptions> {
   /** 图表类型 */

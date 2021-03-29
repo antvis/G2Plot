@@ -4,7 +4,7 @@ import { WaterfallOptions } from './types';
 import { adaptor } from './adaptor';
 import { transformData } from './utils';
 
-export { WaterfallOptions };
+export type { WaterfallOptions };
 
 /**
  * 瀑布图

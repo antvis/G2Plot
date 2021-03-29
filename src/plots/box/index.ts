@@ -5,7 +5,7 @@ import { BoxOptions } from './types';
 import { adaptor } from './adaptor';
 import { transformData } from './utils';
 import { BOX_RANGE, BOX_RANGE_ALIAS, OUTLIERS_VIEW_ID } from './constant';
-export { BoxOptions };
+export type { BoxOptions };
 
 export class Box extends Plot<BoxOptions> {
   /** 图表类型 */

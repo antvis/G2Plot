@@ -4,7 +4,7 @@ import { Adaptor } from '../../core/adaptor';
 import { RoseOptions } from './types';
 import { adaptor } from './adaptor';
 
-export { RoseOptions };
+export type { RoseOptions };
 
 export class Rose extends Plot<RoseOptions> {
   /** 玫瑰图 */

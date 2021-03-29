@@ -4,7 +4,7 @@ import { MultiViewOptions } from './types';
 import { adaptor } from './adaptor';
 import './interactions';
 
-export { MultiViewOptions };
+export type { MultiViewOptions };
 
 /**
  * 多图层图形，释放 G2 80% 的功能，可以用来做：

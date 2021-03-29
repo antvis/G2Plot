@@ -5,7 +5,7 @@ import { BulletOptions } from './types';
 import { adaptor, meta } from './adaptor';
 import { transformData } from './utils';
 
-export { BulletOptions };
+export type { BulletOptions };
 
 export class Bullet extends Plot<BulletOptions> {
   /** 图表类型 */

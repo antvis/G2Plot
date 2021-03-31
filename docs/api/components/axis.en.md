@@ -11,7 +11,7 @@ order: 1
 
 #### Axes
 
-<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*o64XRZfivrEAAAAAAAAAAABkARQnAQ" alt="axis" class="component-img" />
+![axis](https://gw.alipayobjects.com/zos/antfincdn/9%26VKKR%24IRL/53914110-1361-47f8-80c0-02d6150bdf99.png)
 
 #### Usage
 

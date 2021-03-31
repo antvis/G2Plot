@@ -13,7 +13,7 @@ order: 5
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/qAwyqRLJXT/Tooltip%252520jieshao.png" class="component-img"  alt="tooltip" />
 
-#### Configurations (_TooltipCfg_)
+#### Properties - _TooltipCfg_
 
 `markdown:docs/common/tooltip.en.md`
 

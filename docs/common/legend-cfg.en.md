@@ -51,7 +51,7 @@ Background box configuration item. _LegendBackgroundCFG_ is configured as follow
 
 <description>**optional** _boolean_ </description>
 
-Apply to <tag color="green" text="Classification legend">Classification legend</tag>,whether to page when there are too many legend items.
+Apply to <tag color="green" text="Classification legend">Classification legend</tag>,whether to page when there are too many legend items. (⚠️ 暂不支持多行展示分页)
 
 ##### pageNavigator
 
@@ -185,13 +185,13 @@ Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, sel
 
 <description>**optional** _number_ </description>
 
-Apply to <tag color="green" text="Classification legend">Classification legend</tag>, the maximum width of the legend item.
+Apply to <tag color="green" text="Classification legend">Classification legend</tag>, the maximum width of the legend item. 当 layout 等于 'horizontal' 时，生效，当图例项横向排布，超过最大宽度时，会结合 `flipPage: true` 进行分页。
 
 ##### maxHeight
 
 <description>**optional** _number_ </description>
 
-Apply to <tag color="green" text="Classification legend">Classification legend</tag>, the maximum height of the legend item.
+Apply to <tag color="green" text="Classification legend">Classification legend</tag>, the maximum height of the legend item. 当 layout 等于 'vertical' 时，生效，当图例项纵向排布，超过最大高度时，会结合 `flipPage: true` 进行分页。
 
 ##### reversed
 

@@ -53,7 +53,7 @@
 
 <description>**optional** _boolean_ </description>
 
-适用于 <tag color="green" text="分类图例">分类图例</tag>，当图例项过多时是否进行分页。
+适用于 <tag color="green" text="分类图例">分类图例</tag>，当图例项过多时是否进行分页。(⚠️ 暂不支持多行展示分页)
 
 ##### pageNavigator
 
@@ -189,13 +189,13 @@ pageNavigator: {
 
 <description>**optional** _number_ </description>
 
-适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大宽度设置。
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大宽度设置。当 layout 等于 'horizontal' 时，生效，当图例项横向排布，超过最大宽度时，会结合 `flipPage: true` 进行分页。
 
 ##### maxHeight
 
 <description>**optional** _number_ </description>
 
-适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大高度设置。
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大高度设置。当 layout 等于 'vertical' 时，生效，当图例项纵向排布，超过最大高度时，会结合 `flipPage: true` 进行分页。
 
 ##### reversed
 

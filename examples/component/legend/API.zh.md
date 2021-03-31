@@ -2,7 +2,7 @@
 title: API
 ---
 
-### 使用方式
+#### 使用方式
 
 配置图例有两种方式：
 
@@ -21,6 +21,6 @@ legend: {
 }
 ```
 
-### 配置属性
+#### 配置属性
 
 `markdown:docs/common/legend-cfg.zh.md`

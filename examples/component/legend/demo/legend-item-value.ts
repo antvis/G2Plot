@@ -12,12 +12,17 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/PC3daFYjNw/column-data.json')
       legend: {
         position: 'right-top',
         offsetX: 8,
+        title: {
+          text: '产品类别 (平均销售量）',
+          spacing: 8,
+        },
         itemValue: {
+          formatter: (text, item) => {
+            const items = data.filter((d) => d.type === item.value);
+            return items.length ? items.reduce((a, b) => a + b.value, 0) / items.length : '-';
+          },
           style: {
             opacity: 0.65,
-          },
-          formatter: (text, item) => {
-            return data.find((d) => d.type === item.value)?.value;
           },
         },
       },

@@ -38,7 +38,7 @@ class Plot extends React.Component {
     return (
       <section>
         <div>
-          <span className="select-label">切换动画</span>
+          <span className="select-label">切换位置</span>
           <Select
             aria-label="select"
             defaultValue="top-left"

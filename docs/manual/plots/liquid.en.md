@@ -74,6 +74,6 @@ Liquid plot has 5 built-in shapes: `circle | diamond | triangle | pin | rect`
 
 In addition to the built-in shapes, the liquid plot also supports custom graphics. At this time, a callback function to build path needs to be passed in.
 
-<playground path='progress-plots/liquid/demo/custom-star.ts' rid='rect2'></playground>
+<playground path='progress-plots/liquid/demo/outline-style.ts' rid='rect2'></playground>
 
 </div>

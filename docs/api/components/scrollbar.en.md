@@ -1,11 +1,19 @@
 ---
 title: Scrollbar
 order: 3
+contributors:
+  [
+    {
+      author: '新茗',
+      github: 'visiky',
+      avatar: 'https://gw.alipayobjects.com/zos/antfincdn/KAeYPA3TV0/avatar.jpeg',
+    },
+  ]
 ---
 
 `markdown:docs/styles/component.md`
 
-#### Configurations (_ScrollbarCfg_)
+#### Properties - _ScrollbarCfg_
 
 `markdown:docs/common/scrollbar.en.md`
 

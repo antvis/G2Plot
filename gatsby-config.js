@@ -239,15 +239,23 @@ module.exports = {
         slug: 'dynamic-plots',
         icon: 'other',
         title: {
-          zh: '动态交互图',
+          zh: '动态交互',
           en: 'Dynamic Plots',
+        },
+      },
+      {
+        slug: 'component',
+        icon: 'other',
+        title: {
+          zh: '图表组件',
+          en: 'Components',
         },
       },
       {
         slug: 'general',
         icon: 'other',
         title: {
-          zh: '图表通用配置',
+          zh: '通用配置',
           en: 'General Configuration',
         },
       },

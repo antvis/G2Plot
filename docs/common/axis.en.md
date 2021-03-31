@@ -12,7 +12,7 @@ Configurations related to axis label. Set this to `null` to prevent the axis lab
 
 | Properties   | Type                                                     |         |
 | ------------ | -------------------------------------------------------- | ------- | --------------------------------------------------------- |
-| style        | _[ShapeAttrs](/zh/docs/api/graphic-style)_               | -       | Axis label text graphic property style                    |
+| style        | _[ShapeAttrs](/en/docs/api/graphic-style)_               | -       | Axis label text graphic property style                    |
 | offset       | _number_                                                 | -       | Axis label offset                                         |
 | rotate       | _number_                                                 | -       | Axis label text rotation Angle                            |
 | autoRotate   | _boolean_                                                | `true`  | Whether to rotate automatically, default true             |

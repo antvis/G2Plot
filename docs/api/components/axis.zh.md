@@ -9,9 +9,9 @@ order: 1
 
 🎨  前往墨者学院 [AntV 设计 | 坐标轴 Axis](https://www.yuque.com/mo-college/vis-design/twx9oi) 查看**设计指引**
 
-#### 坐标轴组成
+#### 构成元素
 
-<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*o64XRZfivrEAAAAAAAAAAABkARQnAQ" alt="axis" class="component-img" />
+![axis](https://gw.alipayobjects.com/zos/antfincdn/9%26VKKR%24IRL/53914110-1361-47f8-80c0-02d6150bdf99.png)
 
 #### 使用方式
 
@@ -34,6 +34,6 @@ xAxis: {
 }
 ```
 
-#### 配置项 (_AxisCfg_)
+#### 配置属性 - _AxisCfg_
 
 `markdown:docs/common/axis.zh.md`

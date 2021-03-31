@@ -75,6 +75,6 @@ liquidPlot.render();
 
 水波图除了内置的形状之外，同时也支持自定义图形，这个时候需要传入一个构建 Path 的回调函数。
 
-<playground path='progress-plots/liquid/demo/custom-star.ts' rid='rect2'></playground>
+<playground path='progress-plots/liquid/demo/outline-style.ts' rid='rect2'></playground>
 
 </div>

@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "legend-position.jsx",
+      "title": {
+        "zh": "图例位置",
+        "en": "Legend position"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/FpI3Qcbr11/tooltip.gif"
+    },
+    {
+      "filename": "legend-item-value.ts",
+      "title": {
+        "zh": "展示图例项的数值",
+        "en": "Display value of legend item"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/KL9rDFTlDt/64abafb6-8e4e-48ff-9a79-cb84883a3bef.png"
+    }
+  ]
+}

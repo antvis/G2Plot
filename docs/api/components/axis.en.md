@@ -11,7 +11,7 @@ order: 1
 
 #### Axes
 
-![axis](https://gw.alipayobjects.com/zos/antfincdn/9%26VKKR%24IRL/53914110-1361-47f8-80c0-02d6150bdf99.png)
+![axis](https://gw.alipayobjects.com/zos/antfincdn/9%265Yc6tQuN/648d2019-aee9-4a17-8567-6bbc5910c38d.png)
 
 #### Usage
 
@@ -33,6 +33,6 @@ xAxis: {
 }
 ```
 
-#### Configuration (_AxisCfg_)
+#### Properties - _AxisCfg_
 
 `markdown:docs/common/axis.en.md`

@@ -173,18 +173,6 @@ pageNavigator: {
 
 `markdown:docs/common/marker.zh.md`
 
-##### min
-
-<description>**optional** _number_ </description>
-
-适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择范围的最小值。
-
-##### max
-
-<description>**optional** _number_ </description>
-
-适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择范围的最大值。
-
 ##### maxWidth
 
 <description>**optional** _number_ </description>
@@ -223,9 +211,26 @@ pageNavigator: {
 
 `markdown:docs/common/marker.zh.md`
 
+##### min
+
+<description>**optional** _number_ </description>
+
+适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择范围的最小值。
+
+##### max
+
+<description>**optional** _number_ </description>
+
+适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择范围的最大值。
+
+##### value
+
+<description>**optional** _number[]_ </description>
+
+适用于 <tag color="cyan" text="连续图例">连续图例</tag>，当前选中的范围。
 ##### slidable
 
-<description>**optional** _boolean_ </description>
+<description>**optional** _boolean_  _default:_ `true`</description>
 
 适用于 <tag color="cyan" text="连续图例">连续图例</tag>，滑块是否可以滑动。
 
@@ -237,10 +242,14 @@ pageNavigator: {
 
 | 参数名        | 类型     | 描述                                                                             |
 | ------------- | -------- | -------------------------------------------------------------------------------- |
-| type          | _string_ | rail 的类型，color, size                                                         |
+| type          | _string_ | rail 的类型，color, size，默认：'color'                                                       |
 | size          | _number_ | 滑轨的宽度                                                                       |
-| defaultLength | _number_ | 滑轨的默认长度，，当限制了 maxWidth,maxHeight 时，不会使用这个属性会自动计算长度 |
+| defaultLength | _number_ | 滑轨的默认长度，默认：100。当限制了 maxWidth,maxHeight 时，不会使用这个属性会自动计算长度 |
 | style         | _object_ | 滑轨的样式，参考 [绘图属性](/zh/docs/api/graphic-style)                          |
+
+|**rail.type='color'**| **rail.type='size** |
+|---|---|
+|![](https://gw.alipayobjects.com/zos/antfincdn/jwMUDJ63aN/72957823-0148-4b24-bbf4-c756959467d3.png)|![](https://gw.alipayobjects.com/zos/antfincdn/t%26LwpJHUA6/52de13d5-b232-4efb-aacf-6d673778d92a.png)|
 
 ##### track
 
@@ -254,18 +263,14 @@ pageNavigator: {
 ##### handler
 
 <description>**optional** _ContinueLegendHandlerCfg_ </description>
-适用于 <tag color="cyan" text="连续图例">连续图例</tag>，滑块的配置项。_ContinueLegendHandlerCfg_ 配置如下：
+适用于 <tag color="cyan" text="连续图例">连续图例</tag>，滑块的配置项。(暂不支持自定义)
+
+_ContinueLegendHandlerCfg_ 配置如下：
 
 | 参数名 | 类型     | 默认值 | 描述                                                        |
 | ------ | -------- | ------ | ----------------------------------------------------------- |
-| size   | _number_ | -      | 滑块的大小                                                  |
+| size   | _number_ | -      | 滑块的大小，默认：10                                                  |
 | style  | _object_ | -      | 滑块的样式设置，参考 [绘图属性](/zh/docs/api/graphic-style) |
-
-##### values
-
-<description>**optional** _number[]_ </description>
-
-适用于 <tag color="cyan" text="连续图例">连续图例</tag>，选择的值。
 
 ##### animate
 

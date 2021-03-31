@@ -149,18 +149,6 @@ Apply to <tag color="green" text="Classification legend">Classification legend</
 
 Apply to <tag color="green" text="Classification legend">Classification legend</tag>, control the horizontal spacing of legend items.
 
-##### label
-
-<description>**optional** _ContinueLegendLabelCfg_ </description>
-
-Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, a configuration item for the text, _ContinueLegendLabelCfg_ Configuration is as follows:
-
-| Properties | Type     | Default | Description                                                                                                                                                                                                                                      |
-| ---------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| align      | _string_ | -       | The alignment of text with the slider <br/> - rail : Align with the slide rail, at both ends of the slide rail <br/> - top, bottom: Legends are valid when laid out horizontally <br/> - left, right: Legends are valid when laid out vertically |
-| style      | _object_ | -       | Text style configuration item, reference [Graphic Style](/zh/docs/api/graphic-style)                                                                                                                                                             |
-| spacing    | _number_ | -       | The distance between the text and the slide                                                                                                                                                                                                      |
-
 ##### marker
 
 <description>**optional** _MarkerCfg_ </description>
@@ -168,18 +156,6 @@ Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, a c
 Apply to <tag color="green" text="Classification legend">Classification legend</tag>, the configuration of the Marker icon of the legend item.
 
 `markdown:docs/common/marker.en.md`
-
-##### min
-
-<description>**optional** _number_ </description>
-
-Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, select the minimum value of the range.
-
-##### max
-
-<description>**optional** _number_ </description>
-
-Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, select the maximum value of the range.
 
 ##### maxWidth
 
@@ -218,9 +194,27 @@ Apply to <tag color="green" text="Classification legend">Classification legend</
 
 `markdown:docs/common/marker.en.md`
 
+##### min
+
+<description>**optional** _number_ </description>
+
+Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, select the minimum value of the range.
+
+##### max
+
+<description>**optional** _number_ </description>
+
+Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, select the maximum value of the range.
+
+##### value
+
+<description>**optional** _number[]_ </description>
+
+Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, 当前选中的范围.
+
 ##### slidable
 
-<description>**optional** _boolean_ </description>
+<description>**optional** _boolean_ _default:_ `true`</description>
 Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, whether the slider can slide.
 
 ##### rail
@@ -230,10 +224,27 @@ Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, a s
 
 | Properties    | Type     | Default | Description                                                                                                                                |
 | ------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| type          | _string_ | -       | rail type: color and size                                                                                                                  |
+| type          | _string_ | -       | rail type: color and size, default: 'color'                                                                                                     |
 | size          | _number_ | -       | The width of the slide rail                                                                                                                |
-| defaultLength | _number_ | -       | The default length of the slider. When maxWidth,maxHeight is limited, this property is not used and the length is automatically calculated |
+| defaultLength | _number_ | -       | The default length of the slider, default: 100. When maxWidth,maxHeight is limited, this property is not used and the length is automatically calculated |
 | style         | _object_ | -       | Slide rail style, refer to [Graphic Style](/zh/docs/api/graphic-style)                                                                     |
+
+
+|**rail.type='color'**| **rail.type='size** |
+|---|---|
+|![](https://gw.alipayobjects.com/zos/antfincdn/jwMUDJ63aN/72957823-0148-4b24-bbf4-c756959467d3.png)|![](https://gw.alipayobjects.com/zos/antfincdn/t%26LwpJHUA6/52de13d5-b232-4efb-aacf-6d673778d92a.png)|
+
+##### label
+
+<description>**optional** _ContinueLegendLabelCfg_ </description>
+
+Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, a configuration item for the text, _ContinueLegendLabelCfg_ Configuration is as follows:
+
+| Properties | Type     | Default | Description                                                                                                                                                                                                                                      |
+| ---------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| align      | _string_ | -       | The alignment of text with the slider <br/> - rail : Align with the slide rail, at both ends of the slide rail <br/> - top, bottom: Legends are valid when laid out horizontally <br/> - left, right: Legends are valid when laid out vertically |
+| style      | _object_ | -       | Text style configuration item, reference [Graphic Style](/zh/docs/api/graphic-style)                                                                                                                                                             |
+| spacing    | _number_ | -       | The distance between the text and the slide                                                                                                                                                                                                      |
 
 ##### track
 
@@ -247,18 +258,14 @@ Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, sel
 ##### handler
 
 <description>**optional** _ContinueLegendHandlerCfg_ </description>
-Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, configuration items for slider _ContinueLegendHandlerCfg_ is configured as follows:
+Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, configuration items for slider. (暂不支持自定义)
+
+_ContinueLegendHandlerCfg_ is configured as follows:
 
 | Properties | Type     | Default | Description                                                                 |
 | ---------- | -------- | ------- | --------------------------------------------------------------------------- |
-| size       | _number_ | -       | Slider size                                                                 |
+| size       | _number_ | -       | Slider size, default: 10                                                             |
 | style      | _object_ | -       | Slider configuration, reference [Graphic Style](/zh/docs/api/graphic-style) |
-
-##### values
-
-<description>**optional** _number[]_ </description>
-
-Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, selected value.
 
 ##### animate
 

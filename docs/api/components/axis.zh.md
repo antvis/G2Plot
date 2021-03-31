@@ -1,6 +1,24 @@
 ---
 title: 坐标轴 - Axis
 order: 1
+contributors:
+  [
+    {
+      author: '新茗',
+      github: 'visiky',
+      avatar: 'https://gw.alipayobjects.com/zos/antfincdn/KAeYPA3TV0/avatar.jpeg',
+    },
+     {
+      author: 'BBSQQ',
+      github: 'BBSQQ',
+      avatar: 'https://avatars.githubusercontent.com/u/35586469',
+    },
+     {
+      author: 'lxfu1',
+      github: 'lxfu1',
+      avatar: 'https://avatars.githubusercontent.com/u/31396322',
+    },
+  ]
 ---
 
 `markdown:docs/styles/component.md`

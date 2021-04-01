@@ -71,7 +71,7 @@ describe('adaptor - interval', () => {
     const elements = plot.chart.geometries[0].elements;
     expect(elements.length).toBe(2);
     expect(elements[0].shape.getCanvasBBox().width).toBe(20);
-    expect(elements[1].shape.getCanvasBBox().width).toBe(20);
+    expect(elements[1].shape.getCanvasBBox().width).toBeCloseTo(20);
     plot.destroy();
   });
 });

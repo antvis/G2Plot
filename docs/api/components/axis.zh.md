@@ -1,6 +1,24 @@
 ---
 title: 坐标轴 - Axis
 order: 1
+contributors:
+  [
+    {
+      author: '新茗',
+      github: 'visiky',
+      avatar: 'https://gw.alipayobjects.com/zos/antfincdn/KAeYPA3TV0/avatar.jpeg',
+    },
+     {
+      author: 'BBSQQ',
+      github: 'BBSQQ',
+      avatar: 'https://avatars.githubusercontent.com/u/35586469',
+    },
+     {
+      author: 'lxfu1',
+      github: 'lxfu1',
+      avatar: 'https://avatars.githubusercontent.com/u/31396322',
+    },
+  ]
 ---
 
 `markdown:docs/styles/component.md`
@@ -11,7 +29,7 @@ order: 1
 
 #### 构成元素
 
-![axis](https://gw.alipayobjects.com/zos/antfincdn/9%26VKKR%24IRL/53914110-1361-47f8-80c0-02d6150bdf99.png)
+![axis](https://gw.alipayobjects.com/zos/antfincdn/9%265Yc6tQuN/648d2019-aee9-4a17-8567-6bbc5910c38d.png)
 
 #### 使用方式
 

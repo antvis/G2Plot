@@ -2,7 +2,7 @@
 title: API
 ---
 
-### Usage
+#### Usage
 
 There are two ways to configure legends
 
@@ -21,6 +21,6 @@ legend: {
 }
 ```
 
-### Properties
+#### Properties
 
 `markdown:docs/common/legend-cfg.en.md`

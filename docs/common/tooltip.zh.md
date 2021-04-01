@@ -158,6 +158,36 @@ tooltipMarker 的样式配置。
 
 tooltip 偏移量。
 
+##### reversed
+
+<description>**optional** _boolean_</description>
+
+是否将 tooltip items 逆序.
+
+##### showNil
+
+<description>**optional** _boolean_</description>
+
+是否显示空值的 tooltip 项
+
+##### customItems
+
+<description>**可选** _Function_</description>
+
+在 tooltip 渲染之前，对最终的 items 进行自定义处理（比如排序、过滤、格式化等）。
+
+```ts
+{
+  tooltip: {
+    customItems: (originalItems: TooltipItem[]) => {
+      // process originalItems, 
+      return originalItems;
+    };
+  }
+}
+```
+<!-- todo 补充 customItems demo -->
+
 ##### customContent
 
 <description>**可选** _Function_</description>
@@ -173,3 +203,7 @@ tooltip 偏移量。
   }
 }
 ```
+
+尝试一下：
+
+<playground path="case/customize/demo/customize-tooltip.ts" rid="customize-tooltip"></playground>

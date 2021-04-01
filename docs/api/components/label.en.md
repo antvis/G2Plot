@@ -9,7 +9,7 @@ order: 4
 
 🎨  Go to [AntV Design | 标签 Label](https://www.yuque.com/mo-college/vis-design/roy3am) of 墨者学院 to learn more about **Design guide**.
 
-#### _LabelCfg_
+#### Properties - _LabelCfg_
 
 `markdown:docs/common/label.en.md`
 

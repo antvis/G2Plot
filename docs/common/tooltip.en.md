@@ -158,6 +158,35 @@ The styles for each DOM.
 
 Tooltip offset.
 
+##### reversed
+
+<description>**optional** _boolean_</description>
+
+是否将 tooltip items 逆序.
+
+##### showNil
+
+<description>**optional** _boolean_</description>
+
+是否显示空值的 tooltip 项
+
+##### customItems ✨
+
+<description>**optional** _Function_</description>
+
+在 tooltip 渲染之前，对最终的 items 进行自定义处理（比如排序、过滤、格式化等）。
+
+```ts
+{
+  tooltip: {
+    customItems: (originalItems: TooltipItem[]) => {
+      // process originalItems, 
+      return originalItems;
+    };
+  }
+}
+```
+
 ##### customContent
 
 <description>**optional** _Function_</description>
@@ -173,3 +202,7 @@ Support for custom templates.
   }
 }
 ```
+
+Try it:
+
+<playground path="case/customize/demo/customize-tooltip.ts" rid="customize-tooltip"></playground>

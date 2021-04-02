@@ -3,7 +3,7 @@ export { pick } from './pick';
 export { template } from './template';
 export { log, invariant, LEVEL } from './invariant';
 export { getContainerSize } from './dom';
-export { findGeometry, getAllElements } from './geometry';
+export { findGeometry, getAllElements, getAllElementsRecursively } from './geometry';
 export { findViewById, getViews, getSilbingViews } from './view';
 export { transformLabel } from './label';
 export { getSplinePath } from './path';

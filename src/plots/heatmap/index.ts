@@ -1,8 +1,8 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { deepAssign } from '../../utils';
 import { HeatmapOptions } from './types';
 import { adaptor } from './adaptor';
+import { DEFAULT_OPTIONS } from './constants';
 // registered shapes
 import './shapes/circle';
 import './shapes/square';
@@ -10,6 +10,14 @@ import './shapes/square';
 export type { HeatmapOptions };
 
 export class Heatmap extends Plot<HeatmapOptions> {
+  /**
+   * 获取 柱形图 默认配置项
+   * 供外部使用
+   */
+  static getDefaultOptions(): Partial<HeatmapOptions> {
+    return DEFAULT_OPTIONS;
+  }
+
   /** 图表类型 */
   public type: string = 'heatmap';
 
@@ -20,39 +28,10 @@ export class Heatmap extends Plot<HeatmapOptions> {
     return adaptor;
   }
 
+  /**
+   * 获取 色块图 默认配置
+   */
   protected getDefaultOptions() {
-    return deepAssign({}, super.getDefaultOptions(), {
-      type: 'polygon',
-      legend: false,
-      coordinate: {
-        type: 'rect',
-      },
-      xAxis: {
-        tickLine: null,
-        line: null,
-        grid: {
-          alignTick: false,
-          line: {
-            style: {
-              lineWidth: 1,
-              lineDash: null,
-              stroke: '#f0f0f0',
-            },
-          },
-        },
-      },
-      yAxis: {
-        grid: {
-          alignTick: false,
-          line: {
-            style: {
-              lineWidth: 1,
-              lineDash: null,
-              stroke: '#f0f0f0',
-            },
-          },
-        },
-      },
-    });
+    return Heatmap.getDefaultOptions();
   }
 }

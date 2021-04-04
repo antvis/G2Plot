@@ -14,6 +14,9 @@ describe('Bidirectional', () => {
     });
     bidirectional.render();
 
+    // @ts-ignore
+    expect(bidirectional.getDefaultOptions()).toEqual(BidirectionalBar.getDefaultOptions());
+
     expect(bidirectional.type).toEqual('bidirectional-bar');
 
     const leftView = bidirectional.chart.views[0];

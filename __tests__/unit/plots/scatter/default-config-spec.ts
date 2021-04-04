@@ -1,4 +1,5 @@
 import { Scatter } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/scatter/constant';
 import { data } from '../../../data/gender';
 import { createDiv } from '../../../utils/dom';
 
@@ -28,5 +29,9 @@ describe('scatter', () => {
     expect(options.tooltip.crosshairs.type).toEqual('xy');
 
     scatter.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(Scatter.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

@@ -1,6 +1,7 @@
 import { RadialBar } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { antvStar } from '../../../data/antv-star';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/radial-bar/constant';
 
 const xField = 'name';
 const yField = 'star';
@@ -128,5 +129,9 @@ describe('radial-bar', () => {
     expect(bar.chart.geometries[0].elements[0].shape.isGroup()).toBe(false);
 
     bar.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(RadialBar.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

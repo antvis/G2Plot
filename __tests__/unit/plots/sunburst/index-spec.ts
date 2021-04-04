@@ -3,6 +3,7 @@ import { Sunburst } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { SUNBRUST_DATA } from '../../../data/sunburst';
 import { mobile } from '../../../data/mobile';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/sunburst/constant';
 
 const MOBILE_DATA = clone(mobile);
 MOBILE_DATA.forEach((m) => {
@@ -214,5 +215,9 @@ describe('sunburst', () => {
     sunburstPlot.chart.hideTooltip();
 
     sunburstPlot.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(Sunburst.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

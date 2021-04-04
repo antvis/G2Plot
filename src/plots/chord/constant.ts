@@ -1,3 +1,5 @@
+import { Datum } from '../../types';
+
 export const X_FIELD = 'x';
 export const Y_FIELD = 'y';
 export const NODE_COLOR_FIELD = 'name';

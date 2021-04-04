@@ -1,6 +1,7 @@
 import { Stock } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { kdata } from '../../../data/stock';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/stock/constant';
 
 describe('Stock', () => {
   it('x*y', () => {
@@ -33,5 +34,9 @@ describe('Stock', () => {
     expect(positionFields).toHaveLength(2);
 
     k.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(Stock.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

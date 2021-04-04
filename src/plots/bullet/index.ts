@@ -3,7 +3,7 @@ import { Adaptor } from '../../core/adaptor';
 import { BulletOptions } from './types';
 import { adaptor, meta } from './adaptor';
 import { transformData } from './utils';
-import { DEFAULT_OPTIONS } from './constants';
+import { DEFAULT_OPTIONS } from './constant';
 
 export type { BulletOptions };
 

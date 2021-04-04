@@ -3,7 +3,7 @@ import { Adaptor } from '../../core/adaptor';
 import { binHistogram } from '../../utils/transform/histogram';
 import { HistogramOptions } from './types';
 import { adaptor } from './adaptor';
-import { DEFAULT_OPTIONS } from './constants';
+import { DEFAULT_OPTIONS } from './constant';
 
 export type { HistogramOptions };
 

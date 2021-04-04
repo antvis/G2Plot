@@ -10,6 +10,16 @@ import { SERIES_FIELD_KEY, FIRST_AXES_VIEW, SECOND_AXES_VIEW } from './constant'
 export type { BidirectionalBarOptions };
 
 export class BidirectionalBar extends Plot<BidirectionalBarOptions> {
+  /**
+   * 获取 默认配置项
+   * 供外部使用
+   */
+  static getDefaultOptions(): Partial<BidirectionalBarOptions> {
+    return deepAssign({}, super.getDefaultOptions(), {
+      syncViewPadding,
+    });
+  }
+
   /** 图表类型 */
   public type: string = 'bidirectional-bar';
 
@@ -43,9 +53,7 @@ export class BidirectionalBar extends Plot<BidirectionalBarOptions> {
   }
 
   protected getDefaultOptions() {
-    return deepAssign({}, super.getDefaultOptions(), {
-      syncViewPadding,
-    });
+    return BidirectionalBar.getDefaultOptions();
   }
 
   /**

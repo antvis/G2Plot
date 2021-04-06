@@ -1,7 +1,6 @@
 import { Heatmap } from '../../../../src';
 import { basicHeatmapData, semanticBasicHeatmapData } from '../../../data/basic-heatmap';
 import { createDiv } from '../../../utils/dom';
-import { DEFAULT_COLORS } from '../../../../src/constant';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/heatmap/constant';
 
 describe('heatmap', () => {
@@ -37,7 +36,7 @@ describe('heatmap', () => {
       }
     });
 
-    const colors = DEFAULT_COLORS.GRADIENT.CONTINUOUS.split('-');
+    const colors = heatmap.chart.getTheme().sequenceColors;
     expect(elements[maxElementIndex].getModel().color.toUpperCase()).toBe(colors[colors.length - 1]);
     expect(elements[minElementIndex].getModel().color.toUpperCase()).toBe(colors[0]);
 
@@ -92,7 +91,7 @@ describe('heatmap', () => {
       }
     });
 
-    const colors = DEFAULT_COLORS.GRADIENT.CONTINUOUS.split('-');
+    const colors = heatmap.chart.getTheme().sequenceColors;
     expect(elements[maxElementIndex].getModel().color.toUpperCase()).toBe(colors[colors.length - 1]);
     expect(elements[minElementIndex].getModel().color.toUpperCase()).toBe(colors[0]);
 

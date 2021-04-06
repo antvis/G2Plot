@@ -5,7 +5,7 @@ import { Params } from '../../core/adaptor';
 import { interaction, animation, theme, state, scale, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { findGeometry, flow, transformLabel, deepAssign } from '../../utils';
-import { Y_FIELD, ABSOLUTE_FIELD, DIFF_FIELD, IS_TOTAL } from './constants';
+import { Y_FIELD, ABSOLUTE_FIELD, DIFF_FIELD, IS_TOTAL } from './constant';
 import { WaterfallOptions } from './types';
 import { transformData } from './utils';
 import './shape';

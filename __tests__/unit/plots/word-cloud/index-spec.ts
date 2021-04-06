@@ -17,6 +17,9 @@ describe('word-cloud', () => {
     const cloud = new WordCloud(createDiv(), options);
     cloud.render();
 
+    // @ts-ignore
+    expect(cloud.getDefaultOptions()).toBe(WordCloud.getDefaultOptions());
+
     const geometry = cloud.chart.geometries[0];
     const positionFields = geometry.getAttribute('position').getFields();
 

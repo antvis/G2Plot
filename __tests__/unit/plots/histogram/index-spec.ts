@@ -1,4 +1,5 @@
 import { Histogram } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/histogram/constant';
 import { histogramData, histogramStackData } from '../../../data/histogram-data';
 import { createDiv } from '../../../utils/dom';
 
@@ -14,6 +15,8 @@ describe('histogram', () => {
     });
 
     histogram.render();
+    // @ts-ignore
+    expect(histogram.getDefaultOptions()).toBe(Histogram.getDefaultOptions());
 
     const geometry = histogram.chart.geometries[0];
     const shapeOrigin = geometry.getShapes()[0].get('origin').data;
@@ -170,5 +173,9 @@ describe('histogram', () => {
     });
 
     histogram.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(Histogram.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

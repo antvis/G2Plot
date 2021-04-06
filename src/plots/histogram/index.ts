@@ -1,13 +1,21 @@
 import { Plot } from '../../core/plot';
-import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { binHistogram } from '../../utils/transform/histogram';
 import { HistogramOptions } from './types';
 import { adaptor } from './adaptor';
+import { DEFAULT_OPTIONS } from './constant';
 
 export type { HistogramOptions };
 
 export class Histogram extends Plot<HistogramOptions> {
+  /**
+   * 获取 默认配置项
+   * 供外部使用
+   */
+  static getDefaultOptions(): Partial<HistogramOptions> {
+    return DEFAULT_OPTIONS;
+  }
+
   /** 图表类型 */
   public type: string = 'histogram';
 
@@ -18,18 +26,11 @@ export class Histogram extends Plot<HistogramOptions> {
     this.chart.changeData(binHistogram(data, binField, binWidth, binNumber, stackField));
   }
 
+  /**
+   * 获取直方图的适配器
+   */
   protected getDefaultOptions() {
-    return deepAssign({}, super.getDefaultOptions(), {
-      // @ts-ignore
-      columnStyle: {
-        stroke: '#FFFFFF',
-      },
-      tooltip: {
-        shared: true,
-        showMarkers: false,
-      },
-      interactions: [{ type: 'active-region' }],
-    });
+    return Histogram.getDefaultOptions();
   }
 
   /**

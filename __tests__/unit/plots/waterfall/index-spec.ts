@@ -1,4 +1,5 @@
 import { Waterfall } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/waterfall/constant';
 import { createDiv } from '../../../utils/dom';
 
 describe('waterfall plot', () => {
@@ -82,5 +83,9 @@ describe('waterfall plot', () => {
 
     expect(waterfall.chart.geometries[0].elements[0].shape.get('children')[0].attr('fill')).toBe('pink');
     expect(waterfall.chart.geometries[0].elements[2].shape.get('children')[0].attr('fill')).toBe('#000');
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(Waterfall.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

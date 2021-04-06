@@ -1,9 +1,8 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { Datum } from '../../types';
-import { deepAssign } from '../../utils';
 import { WordCloudOptions } from './types';
 import { adaptor } from './adaptor';
+import { DEFAULT_OPTIONS } from './constant';
 import { processImageMask, transform } from './utils';
 // 注册的shape
 import './shapes/word-cloud';
@@ -11,6 +10,14 @@ import './shapes/word-cloud';
 export type { WordCloudOptions };
 
 export class WordCloud extends Plot<WordCloudOptions> {
+  /**
+   * 获取 词云图 默认配置项
+   * 供外部使用
+   */
+  static getDefaultOptions(): Partial<WordCloudOptions> {
+    return DEFAULT_OPTIONS;
+  }
+
   /** 词云图 */
   public type: string = 'word-cloud';
 
@@ -31,28 +38,7 @@ export class WordCloud extends Plot<WordCloudOptions> {
    * 获取默认的 options 配置项
    */
   protected getDefaultOptions(): Partial<WordCloudOptions> {
-    return deepAssign({}, super.getDefaultOptions(), {
-      timeInterval: 2000,
-      legend: false,
-      tooltip: {
-        showTitle: false,
-        showMarkers: false,
-        showCrosshairs: false,
-        fields: ['text', 'value', 'color'],
-        formatter: (datum: Datum) => {
-          return { name: datum.text, value: datum.value };
-        },
-      },
-      wordStyle: {
-        fontFamily: 'Verdana',
-        fontWeight: 'normal',
-        padding: 1,
-        fontSize: [12, 60],
-        rotation: [0, 90],
-        rotationSteps: 2,
-        rotateRatio: 0.5,
-      },
-    });
+    return WordCloud.getDefaultOptions();
   }
 
   /**

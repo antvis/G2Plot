@@ -1,6 +1,5 @@
-import { Action, IGroup } from '@antv/g2';
+import { Action, IGroup, Util } from '@antv/g2';
 import { get, isArray } from '@antv/util';
-import { ext } from '@antv/matrix-util';
 import { deepAssign } from '../../../../utils/deep-assign';
 import { transformData } from '../../utils';
 
@@ -164,7 +163,7 @@ export class TreemapDrillDownAction extends Action {
     const point = coord.convert({ x: 0, y: 1 });
     const breadCrumbGroup = this.breadCrumbGroup;
     const bbox = breadCrumbGroup.getBBox();
-    const matrix = ext.transform(null, [['t', point.x + PADDING_LEFT, point.y + bbox.height + PADDING_TOP]]);
+    const matrix = Util.transform(null, [['t', point.x + PADDING_LEFT, point.y + bbox.height + PADDING_TOP]]);
     breadCrumbGroup.setMatrix(matrix);
   }
 

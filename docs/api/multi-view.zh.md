@@ -26,7 +26,7 @@ order: 8
 
 每一个图层的配置，每一个 plot 也是一个图层，都包含自己的：数据、图形、图形配置。
 
-在 2.4.0 版本之后，我们提供了 `plots` 的配置项，你可以使用 plots 来代替 views 或者联合使用。
+在 2.3.9 版本之后，我们提供了 `plots` 的配置项，你可以使用 plots 来代替 views 或者联合使用。
 
 <playground path="plugin/multi-view/demo/series-columns.ts" rid="multi-views-plots"></playground>
 

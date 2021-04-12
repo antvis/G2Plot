@@ -60,6 +60,7 @@ export function Sankey() {
     py; // nodePadding
   let id = defaultId;
   let align = justify;
+  let depth;
   let sort;
   let linkSort;
   let nodes = defaultNodes;
@@ -91,6 +92,10 @@ export function Sankey() {
 
   sankey.nodeAlign = function (_) {
     return arguments.length ? ((align = typeof _ === 'function' ? _ : constant(_)), sankey) : align;
+  };
+
+  sankey.nodeDepth = function (_) {
+    return arguments.length ? ((depth = typeof _ === 'function' ? _ : _), sankey) : depth;
   };
 
   sankey.nodeSort = function (_) {
@@ -184,6 +189,18 @@ export function Sankey() {
       if (++x > n) throw new Error('circular link');
       current = next;
       next = new Set();
+    }
+
+    // 如果配置了 depth，则设置自定义 depth
+    if (depth) {
+      const maxDepth = Math.max(maxValueBy(nodes, (d: any) => d.depth) + 1, 0);
+
+      let node;
+      for (let i = 0; i < nodes.length; i++) {
+        node = nodes[i];
+        const x = Math.max(maxValueBy(nodes, (d: any) => d.depth) + 1, 0);
+        node.depth = depth.call(null, node, maxDepth);
+      }
     }
   }
 

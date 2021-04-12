@@ -210,13 +210,13 @@ export { statistic };
 export function adaptor(params: Params<GaugeOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
+    theme,
     // animation 配置必须在 createView 之前，不然无法让子 View 生效
     animation,
     geometry,
     meta,
     statistic,
     interaction,
-    theme,
     // meterView 需要放到主题之后
     meterView,
     annotation(),

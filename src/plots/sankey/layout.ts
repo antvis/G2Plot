@@ -1,7 +1,6 @@
 import { assign, isString, isFunction } from '@antv/util';
 import { Datum } from '../../types';
 import { sankey, left, right, center, justify } from './sankey';
-import { SankeyOptions } from './types';
 
 const ALIGN_METHOD = {
   left,
@@ -109,11 +108,7 @@ const DEFAULT_OPTIONS: Partial<SankeyLayoutOptions> = {
  * @param nodeAlign
  * @param nodeDepth
  */
-export function getNodeAlignFunction(nodeAlign: NodeAlign, nodeDepth: SankeyOptions['nodeDepth']) {
-  if (nodeDepth) {
-    return (node, maxDepth) => nodeDepth(node, maxDepth);
-  }
-
+export function getNodeAlignFunction(nodeAlign: NodeAlign) {
   const func = isString(nodeAlign) ? ALIGN_METHOD[nodeAlign] : isFunction(nodeAlign) ? nodeAlign : null;
 
   return func || justify;
@@ -143,7 +138,8 @@ export function sankeyLayout(
     .nodeSort(nodeSort)
     .nodeWidth(nodeWidth)
     .nodePadding(nodePadding)
-    .nodeAlign(getNodeAlignFunction(nodeAlign, nodeDepth))
+    .nodeDepth(nodeDepth)
+    .nodeAlign(getNodeAlignFunction(nodeAlign))
     .extent([
       [0, 0],
       [1, 1],

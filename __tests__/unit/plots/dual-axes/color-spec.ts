@@ -44,7 +44,9 @@ describe('color', () => {
     // legend 颜色
     const legendComponentItem = dualAxes.chart.getController('legend').getComponents()[0].component.cfg.items;
     legendComponentItem.forEach((legendItem, index) => {
-      const color = legendItem.marker.style.fill || legendItem.marker.style.stroke;
+      // lineWidth > 0, 则颜色为 stroke
+      const markerStyle = legendItem.marker.style;
+      const color = markerStyle.lineWidth > 0 ? markerStyle.stroke : markerStyle.fill;
       expect(color).toBe(['#f00', '#0f0', '#00f'][index]);
     });
 
@@ -82,7 +84,8 @@ describe('color', () => {
 
     const legendComponentItem = dualAxes.chart.getController('legend').getComponents()[0].component.cfg.items;
     legendComponentItem.forEach((legendItem, index) => {
-      const color = legendItem.marker.style.fill || legendItem.marker.style.stroke;
+      const markerStyle = legendItem.marker.style;
+      const color = markerStyle.lineWidth > 0 ? markerStyle.stroke : markerStyle.fill;
       expect(color).toBe(colors10[index]);
     });
     dualAxes.destroy();
@@ -176,7 +179,8 @@ describe('color', () => {
 
     const legendComponentItem = dualAxes.chart.getController('legend').getComponents()[0].component.cfg.items;
     legendComponentItem.forEach((legendItem, index) => {
-      const color = legendItem.marker.style.fill || legendItem.marker.style.stroke;
+      const markerStyle = legendItem.marker.style;
+      const color = markerStyle.lineWidth > 0 ? markerStyle.stroke : markerStyle.fill;
       expect(color).toBe(colors10.concat(colors10)[index]);
     });
     dualAxes.destroy();

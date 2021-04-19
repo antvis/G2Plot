@@ -1,4 +1,4 @@
-Object type refer to [ShapeAttrs](/en/docs/api/graphic-style)
+> Only line plot, area plot and dual-axes plot are supported.
 
 | Properties      | Type           | Description                             |
 | --------------- | -------------- | --------------------------------------- |
@@ -6,10 +6,10 @@ Object type refer to [ShapeAttrs](/en/docs/api/graphic-style)
 | end             | _number_       | Default ending position                 |
 | height          | _number_       | Slider height                           |
 | trendCfg        | _TrendCfg_     | Configuration of background trends      |
-| backgroundStyle | _object_       | Background style                        |
-| foregroundStyle | _object_       | Foreground style                        |
+| backgroundStyle | _object_       | Background style, reference[Graphic Style](/en/docs/api/graphic-style)                        |
+| foregroundStyle | _object_       | Foreground style, reference[Graphic Style](/en/docs/api/graphic-style)                        |
 | handlerStyle    | _HandlerStyle_ | Handler configuration                   |
-| textStyle       | _object_       | Text style                              |
+| textStyle       | _object_       | Text style, reference[Graphic Style](/en/docs/api/graphic-style)                              |
 | minLimit        | _number_       | Lower limit of sliding position allowed |
 | maxLimit        | _number_       | Upper limit of sliding position allowed |
 | formatter       | _Function_     | Slider text formatting function         |
@@ -21,9 +21,9 @@ Types of __*TrendCfg*__  are as follow:
 | data            | _number[]_ | Trend data                     |
 | smooth          | _boolean_  | Whether smooth                 |
 | isArea          | _boolean_  | Whether area                   |
-| backgroundStyle | _object_   | Background style configuration |
-| lineStyle       | _object_   | Line style configuration       |
-| areaStyle       | _object_   | Area style configuration       |
+| backgroundStyle | _object_   | Background style configuration, reference[Graphic Style](/en/docs/api/graphic-style) |
+| lineStyle       | _object_   | Line style configuration, reference[Graphic Style](/en/docs/api/graphic-style)       |
+| areaStyle       | _object_   | Area style configuration, reference[Graphic Style](/en/docs/api/graphic-style)       |
 
 Types of __*HandlerStyle*__ are as follow:
 

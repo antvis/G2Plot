@@ -1,6 +1,14 @@
 ---
 title: 水波图
 order: 10
+contributors:
+  [
+    {
+      author: '新茗',
+      github: 'visiky',
+      avatar: 'https://gw.alipayobjects.com/zos/antfincdn/KAeYPA3TV0/avatar.jpeg',
+    },
+  ]
 ---
 
 <div class="manual-docs">
@@ -78,3 +86,7 @@ liquidPlot.render();
 <playground path='progress-plots/liquid/demo/outline-style.ts' rid='rect2'></playground>
 
 </div>
+
+## 博客文章
+
+- [如何绘制一个星星形状的水波图 🌟](https://www.yuque.com/antv/g2plot/vww7eq#zK8bt)

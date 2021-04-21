@@ -118,4 +118,12 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/360c3eae-0c73-46f0-a982-4746a609
 
 🎨 For an overview of the area plot options see the [API reference](/en/docs/api/plots/area)。
 
+## Area features
+
+### Add median line annotations
+
+- Add a median line to the area plot by using `annotations`.
+
+<playground path="component/annotation/demo/area-with-line-annotation.ts" rid="area-line-annotations"></playground>
+
 </div>

@@ -55,12 +55,21 @@ module.exports = {
         },
         order: 0,
       },
+    ],
+    ecosystems: [
       {
-        slug: 'https://charts.ant.design/',
-        title: {
-          zh: 'React 版本',
-          en: 'React Version',
+        name: {
+          zh: 'Ant Design Charts（React）',
+          en: 'Ant Design Charts (React)',
         },
+        url: 'https://charts.ant.design/',
+      },
+      {
+        name: {
+          zh: 'G2Plot 可视化圈子（博客文章）',
+          en: 'Blog posts of G2Plot',
+        },
+        url: 'https://www.yuque.com/antv/g2plot',
       },
     ],
     docs: [

@@ -1,7 +1,16 @@
 ---
 title: Liquid
 order: 10
+contributors:
+  [
+    {
+      author: '新茗',
+      github: 'visiky',
+      avatar: 'https://gw.alipayobjects.com/zos/antfincdn/KAeYPA3TV0/avatar.jpeg',
+    },
+  ]
 ---
+
 <div class="manual-docs">
 
  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
@@ -77,3 +86,7 @@ In addition to the built-in shapes, the liquid plot also supports custom graphic
 <playground path='progress-plots/liquid/demo/outline-style.ts' rid='rect2'></playground>
 
 </div>
+
+## Blog posts
+
+- [如何绘制一个星星形状的水波图 🌟](https://www.yuque.com/antv/g2plot/vww7eq#zK8bt)

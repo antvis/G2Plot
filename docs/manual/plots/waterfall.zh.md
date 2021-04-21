@@ -1,7 +1,16 @@
 ---
 title: 瀑布图
 order: 9
+contributors:
+  [
+    {
+      author: '新茗',
+      github: 'visiky',
+      avatar: 'https://gw.alipayobjects.com/zos/antfincdn/KAeYPA3TV0/avatar.jpeg',
+    },
+  ]
 ---
+
 <div class="manual-docs">
 
  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">

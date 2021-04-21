@@ -18,24 +18,6 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38cc
         {
           type: 'line',
           /** 起始位置 */
-          start: ['min', 'median'],
-          /** 结束位置 */
-          end: ['max', 'median'],
-          text: {
-            content: '中位线',
-            position: 'right',
-            offsetY: 18,
-            style: {
-              textAlign: 'right',
-            },
-          },
-          style: {
-            lineDash: [4, 4],
-          },
-        },
-        {
-          type: 'line',
-          /** 起始位置 */
           start: ['min', maxValue],
           /** 结束位置 */
           end: ['max', maxValue],

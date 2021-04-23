@@ -77,7 +77,7 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
   chart.scale({
     x: { sync: true, nice: true, min: 0, max: 1, minLimit: 0, maxLimit: 1 },
     y: { sync: true, nice: true, min: 0, max: 1, minLimit: 0, maxLimit: 1 },
-    name: { sync: 'color' },
+    name: { sync: 'color', type: 'cat' },
   });
 
   return params;

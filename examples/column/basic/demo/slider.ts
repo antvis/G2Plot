@@ -5,8 +5,8 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/be63e0a2-d2be-4c45-97fd-c00f752a
   .then((data) => {
     const column = new Column('container', {
       data,
-      xField: '城市',
-      yField: '销售额',
+      xField: '品类',
+      yField: '商品销售额增速',
       xAxis: {
         label: {
           autoRotate: false,

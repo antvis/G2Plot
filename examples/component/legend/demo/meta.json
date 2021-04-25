@@ -19,6 +19,14 @@
         "en": "Display value of legend item"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/KL9rDFTlDt/64abafb6-8e4e-48ff-9a79-cb84883a3bef.png"
+    },
+    {
+      "filename": "legend-focus.ts",
+      "title": {
+        "zh": "图例项默认不选中",
+        "en": "Default unselected legend tem"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/KL9rDFTlDt/64abafb6-8e4e-48ff-9a79-cb84883a3bef.png"
     }
   ]
 }

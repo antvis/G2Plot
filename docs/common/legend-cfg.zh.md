@@ -164,6 +164,8 @@ pageNavigator: {
 | align   | _string_ | -      | 文本同滑轨的对齐方式 <br/> - rail ： 同滑轨对齐，在滑轨的两端 <br/> - top, bottom: 图例水平布局时有效 <br/> - left, right: 图例垂直布局时有效 |
 | style   | _object_ | -      | 文本样式配置项，详见  [绘图属性](/zh/docs/api/graphic-style)                                                                                  |
 | spacing | _number_ | -      | 文本同滑轨的距离                                                                                                                              |
+| formatter  | _(value: any) => string_ | 文本的格式化方式 |
+
 
 ##### marker
 
@@ -228,6 +230,27 @@ pageNavigator: {
 <description>**optional** _number[]_ </description>
 
 适用于 <tag color="cyan" text="连续图例">连续图例</tag>，当前选中的范围。
+
+##### legendOption.selected ✨ 🆕
+
+<description> _object_ **optional** </description>
+
+图例高亮状态，false 表示默认置灰，默认不设置或为 true 表示高亮，会同步进行数据的筛选展示。
+
+示例：
+
+```ts
+legend: {
+  selected: {
+    '分类一': true,
+    '分类二': false,
+    '分类三': false,
+  }
+}
+```
+
+<playground path='component/legend/demo/legend-focus.ts' rid='legend-selected'></playground>
+
 ##### slidable
 
 <description>**optional** _boolean_  _default:_ `true`</description>

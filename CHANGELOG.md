@@ -1,3 +1,15 @@
+#### 2.3.19 (2021-04-26)
+
+##### Documentation Changes
+
+* **chord:** 和弦图增加 examples 处的文档 ([#2517](https://github.com/antvis/g2plot/pull/2517)) ([1c43752c](https://github.com/antvis/g2plot/commit/1c43752c1a2a26d35f18a69d3d76399a83abd814))
+* **legend:**  图例补全文档 ([df6968ef](https://github.com/antvis/g2plot/commit/df6968efca8f5784447fd3b48065169702f081bc))
+*  文档日常更新 & 网站导航增加周边生态 ([#2509](https://github.com/antvis/g2plot/pull/2509)) ([b216b5e5](https://github.com/antvis/g2plot/commit/b216b5e5b0cb9f4c3a52c0339892e0993756e089))
+
+##### Bug Fixes
+
+*  升级官网主题 & 修复文档命名错误 ([#2508](https://github.com/antvis/g2plot/pull/2508)) ([50999c32](https://github.com/antvis/g2plot/commit/50999c32d10570103c0ed30fa85c7943da5bf849))
+
 #### 2.3.18 (2021-04-12)
 
 ##### Chores

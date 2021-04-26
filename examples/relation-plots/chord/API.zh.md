@@ -1,1 +1,1 @@
-`markdown:docs/manual/plots/chord.zh.md`
+`markdown:docs/common/chord.zh.md`

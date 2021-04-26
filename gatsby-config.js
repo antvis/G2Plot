@@ -71,6 +71,13 @@ module.exports = {
         },
         url: 'https://www.yuque.com/antv/g2plot',
       },
+      {
+        name: {
+          zh: 'AntV ThemeSet（主题构建器）',
+          en: 'AntV ThemeSet',
+        },
+        url: 'https://visiky.github.io/g2plot-theme-builder',
+      },
     ],
     docs: [
       {

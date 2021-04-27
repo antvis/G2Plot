@@ -1,7 +1,8 @@
-import { Action, IGroup, Element } from '@antv/g2';
+import { Action, Element } from '@antv/g2';
 import { get } from '@antv/util';
 import { Datum, Point } from '../../../../types';
 import { findViewById } from '../../../../utils';
+import { EDGES_VIEW_ID, NODES_VIEW_ID } from '../../constant';
 
 export class SankeyNodeDragAction extends Action {
   /**
@@ -39,11 +40,11 @@ export class SankeyNodeDragAction extends Action {
   }
 
   private getNodeView() {
-    return findViewById(this.context.view, 'nodes');
+    return findViewById(this.context.view, NODES_VIEW_ID);
   }
 
   private getEdgeView() {
-    return findViewById(this.context.view, 'edges');
+    return findViewById(this.context.view, EDGES_VIEW_ID);
   }
 
   /**
@@ -90,7 +91,6 @@ export class SankeyNodeDragAction extends Action {
   public translate() {
     if (this.isDragging) {
       const chart = this.context.view;
-      console.log(111, 'translate');
 
       const currentPoint = {
         x: get(this.context, 'event.x'),

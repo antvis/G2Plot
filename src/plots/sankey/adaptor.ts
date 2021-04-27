@@ -1,9 +1,9 @@
 import { interaction, theme } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
-import { findViewById, flow } from '../../utils';
+import { flow } from '../../utils';
 import { polygon, edge } from '../../adaptor/geometries';
 import { SankeyOptions } from './types';
-import { X_FIELD, Y_FIELD, COLOR_FIELD } from './constant';
+import { X_FIELD, Y_FIELD, COLOR_FIELD, EDGES_VIEW_ID, NODES_VIEW_ID } from './constant';
 import { transformToViewsData } from './helper';
 
 /**
@@ -26,7 +26,7 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
   const { nodes, edges } = transformToViewsData(options, chart.width, chart.height);
 
   // edge view
-  const edgeView = chart.createView({ id: 'edges' });
+  const edgeView = chart.createView({ id: EDGES_VIEW_ID });
   edgeView.data(edges);
 
   edge({
@@ -53,7 +53,7 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
     },
   });
 
-  const nodeView = chart.createView({ id: 'nodes' });
+  const nodeView = chart.createView({ id: NODES_VIEW_ID });
   nodeView.data(nodes);
 
   polygon({

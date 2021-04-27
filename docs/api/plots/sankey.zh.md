@@ -85,6 +85,18 @@ order: 27
 }
 ```
 
+#### nodeDraggable
+
+<description>**optional** _boolean_</description>
+
+决定桑基图中的节点是否可以拖拽位置，默认为 `false`。
+
+```ts
+{
+  nodeDraggable: true,
+}
+```
+
 ### Plot Event
 
 `markdown:docs/common/events.en.md`

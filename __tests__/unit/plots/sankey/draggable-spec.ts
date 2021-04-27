@@ -15,12 +15,16 @@ describe('sankey', () => {
       nodeWidth: 32,
     });
 
-    // @ts-ignore
-    // window.sankey = sankey;
-
     sankey.render();
 
     expect(sankey.chart.interactions['sankey-node-draggable']).toBeDefined();
-    // sankey.destroy();
+
+    sankey.update({
+      nodeDraggable: false,
+    });
+
+    expect(sankey.chart.interactions['sankey-node-draggable']).not.toBeDefined();
+
+    sankey.destroy();
   });
 });

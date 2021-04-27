@@ -116,7 +116,6 @@ export function nodeDraggable(params: Params<SankeyOptions>): Params<SankeyOptio
   const { chart, options } = params;
   const { nodeDraggable } = options;
 
-  const nodeView = findViewById(chart, 'nodes');
   const DRAG_INTERACTION = 'sankey-node-draggable';
 
   if (nodeDraggable) {

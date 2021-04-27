@@ -12,6 +12,7 @@ describe('sankey', () => {
       targetField: 'target',
       weightField: 'value',
       nodeDraggable: true,
+      nodeWidth: 32,
     });
 
     // @ts-ignore

@@ -76,7 +76,7 @@ module.exports = {
           zh: 'AntV ThemeSet（主题构建器）',
           en: 'AntV ThemeSet',
         },
-        url: 'https://visiky.github.io/g2plot-theme-builder',
+        url: 'https://antv.vision/theme-set',
       },
     ],
     docs: [

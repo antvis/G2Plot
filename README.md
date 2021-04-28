@@ -14,6 +14,13 @@ A charting library based on the Grammar of Graphics.
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/antvis/g2plot.svg)](http://isitmaintained.com/project/antvis/g2plot "Percentage of issues still open")
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/antvis/g2plot.svg)](http://isitmaintained.com/project/antvis/g2plot "Average time to resolve an issue")
 
+<p align="center">
+  <a href="https://g2plot.antv.vision/en">Website</a> •
+  <a href="https://g2plot.antv.vision/en/docs/manual/getting-started">Quick Start</a> •
+  <a href="https://www.yuque.com/antv/g2plot">Blog</a> •
+  <a href="https://github.com/antvis/theme-set">AntV ThemeSet</a>
+</p>
+
 </div>
 
 G2Plot is an interactive and responsive charting library.
@@ -24,33 +31,33 @@ Based on [the grammar of graphics](https://github.com/antvis/g2), you can easily
 </div>
 <br/>
 
-## Features
+## ✨ Features
 
-### Pretty & Lightweight
+### 📦 Pretty & Lightweight
 
 With [AntV](https://antv.vision/en) design principles of data visualization, G2Plot provides standard and elegant visual styles as well as neat config options.
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rqI2Qqt0pTwAAAAAAAAAAABkARQnAQ" />
 
-### Responsive
+### 📊 Responsive
 
 G2Plot guarantees the readability of the charts in different sizes and data.
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ifK1TLi_4WoAAAAAAAAAAABkARQnAQ" />
 
-### Storytelling
+### 🔳 Storytelling
 
 With the feature of _layers_, charts can be grouped, nested or linked to do exploratory analysis and expressive storytelling.
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gd00QaD9110AAAAAAAAAAABkARQnAQ" />
 
-## Installation
+## 📦 Installation
 
 ```bash
 $ npm install @antv/g2plot
 ```
 
-## Usage
+## 🔨 Usage
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*37siRJftYDIAAAAAAAAAAABkARQnAQ" />
 
@@ -79,19 +86,19 @@ const bar = new Bar('container', {
 bar.render();
 ```
 
-## Contributing
+## 🤝 How to Contribute
 
 Your contributions are always welcome! Please Do have a look at the [issues](https://github.com/antvis/g2plot/issues) first.
 
 To become a contributor, please follow our [contributing guide](https://github.com/antvis/g2plot/blob/master/CONTRIBUTING.md).
 
-## Contact us
+## 📧 Contact us
 
 钉钉群组号码: 30233731
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/9sHnl5k%26u4/dingdingqun.png" width="200" height="266" />
 
-## Links
+## 🔗 Links
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/1yMwFkBvyV/chartcube-logo-cube.svg" width="18"> [ChartCube](https://chartcube.alipay.com/) - Online chart making tool based on G2Plot.
 

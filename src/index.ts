@@ -81,7 +81,7 @@ export type { RingProgressOptions } from './plots/ring-progress';
 export { Heatmap } from './plots/heatmap';
 export type { HeatmapOptions } from './plots/heatmap';
 
-// 箱线图及类型定义 | author by [BBSQQ](https://github.com/BBSQQ)
+// 箱线图及类型定义 | author by [BBSQQ](https://github.com/BBSQQ), [visiky](https://github.com/visiky)
 export { Box } from './plots/box';
 export type { BoxOptions } from './plots/box';
 
@@ -129,7 +129,7 @@ export type { TreemapOptions } from './plots/treemap';
 export { Sankey } from './plots/sankey';
 export type { SankeyOptions } from './plots/sankey';
 
-// 弦图及类型定义 | author by [MrSmallLiu](https://github.com/MrSmallLiu)
+// 弦图及类型定义 | author by [MrSmallLiu](https://github.com/MrSmallLiu), [visiky](https://github.com/visiky)
 export { Chord } from './plots/chord';
 export type { ChordOptions } from './plots/chord';
 

@@ -87,5 +87,6 @@ plot.update({ theme: { defaultColor: '#FF6B3B' } })
 
 <playground path="general/theme/demo/register-theme.ts" rid="rect-register-theme"></playground>
 
-前往 [DEMO](/zh/examples/general/theme#register-theme)
+🌰 自定义主题 [DEMO](/zh/examples/general/theme#register-theme) 示例
+💄 在线主题构建工具 [AntV ThemeSet](https://theme-set.antv.vision)
 

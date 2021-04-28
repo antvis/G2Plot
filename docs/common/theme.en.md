@@ -100,4 +100,6 @@ In addition, G2 provides a custom topic mechanism to define a new topic structur
 
 <playground path="general/theme/demo/register-theme.ts" rid="rect-register-theme"></playground>
 
-Go [DEMO](/en/examples/general/theme#register-theme)
+🌰 Customize theme [DEMO](/zh/examples/general/theme#register-theme) 
+💄 Online theme constructor [AntV ThemeSet](https://theme-set.antv.vision)
+

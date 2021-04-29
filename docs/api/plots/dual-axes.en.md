@@ -63,20 +63,20 @@ Specifies the respective configuration of the two axes in the form of "left axis
 - Biaxial line chart: [Line, Line], reference [DEMO](/en/examples/dual-axes/dual-line)
 - Column and Line Mixing Chart: [Column, Line], reference [DEMO](/en/examples/dual-axes/column-line)
 
-你还可以通过配置 Line 或 Column 的相关配置（见下文），形成双轴多 Line([DEMO](/en/examples/dual-axes/dual-line#dual-multi-line)), 堆叠柱+Line([DEMO](/en/examples/dual-axes/stacked-column-line)), 分组柱+Line([DEMO](/en/examples/dual-axes/grouped-column-line))
+You can also configure the related configuration of Line or Column (see below) to form a DualAxisLine([DEMO](/en/examples/dual-axes/dual-line#dual-multi-line)), StackingColumnLine([DEMO](/en/examples/dual-axes/stacked-column-line)), GroupColumnLine([DEMO](/en/examples/dual-axes/grouped-column-line))
 
 The corresponding graph configuration of polyline is as follows:
 
 | Properties   | Type                             | Description                                                                                                 | Default |
 | ------------ | -------------------------------- | ----------------------------------------------------------------------------------------------------------- | ------- |
 | geometry     | _string_                         | Chart type, specified as 'line'                                                                             | 'line'  |
-| seriesField  | _string_                         | Split the field, if there is a polyline, the specific use of the same[Line seriesfield](./line#seriesfield) |
-| smooth       | _boolean_                        | Whether is smooth[Line smooth](./line#smooth)                                                               | false   |
-| connectNulls | _boolean_                        | Whether to connect empty data[Line connectnulls](./line#connectnulls)                                       | true    |
-| lineStyle    | _StyleAttr \| Function_          | Line style[Line lineStyle](./line#linestyle)                                                                |         |
-| point        | _pointStyle_                     | Line data point graphic style[Line point](./line#point)                                                     |         |
-| label        | _ContinueLegendLabelCfg_         | Line label [Line label](./line#label)                                                                       |
-| color        | _string \| string[] \| Function_ | Specifies the color of the point[Line color](./line#color)                                                  |
+| seriesField  | _string_                         | Split the field, if there is a polyline, the specific use of the same [Line seriesfield](../../docs/api/plots/line#seriesfield) |
+| smooth       | _boolean_                        | Whether is smooth [Line smooth](../../docs/api/plots/line#smooth)                                                               | false   |
+| connectNulls | _boolean_                        | Whether to connect empty data [Line connectnulls](../../docs/api/plots/line#connectnulls)                                       | true    |
+| lineStyle    | _StyleAttr \| Function_          | Line style [Line lineStyle](../../docs/api/plots/line#linestyle)                                                                |         |
+| point        | _pointStyle_                     | Line data point graphic style [Line point](../../docs/api/plots/line#point)                                                     |         |
+| label        | _ContinueLegendLabelCfg_         | Line label [Line label](../../docs/api/plots/line#label)                                                                       |
+| color        | _string \| string[] \| Function_ | Specifies the color of the point [Line color](../../docs/api/plots/line#color)                                                  |
 
 The graph corresponding to the column is configured as follows:
 
@@ -84,13 +84,13 @@ The graph corresponding to the column is configured as follows:
 | ---------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | geometry         | _string_                         | Chart type, specified as 'column'                                                                                                                                                                         |         |
 | seriesField      | _string_                         | Split fields, same as GroupField and ColorField under the grouping bar chart, same as StackField and ColorField under the stacking bar chart, specificreference[Column seriesfield](./column#seriesfield) |
-| isGroup          | _boolean_                        | Whether to group bar charts[Column isGroup](./column#isgroup)                                                                                                                                             | false   |
-| isStack          | _boolean_                        | Whether to stack histograms[Column isStack](./column#isstack)                                                                                                                                             | false   |
-| columnWidthRatio | _number_                         | Histogram width ratio [0-1] [Column columnWidthRatio](./column#columnwidthratio)                                                                                                                          |         |
-| marginRatio      | _number_                         | The spacing between columns in a grouping [0-1] applies only to grouping histograms[Column marginRatio](./column#marginratio)                                                                             |         |
-| columnStyle      | _StyleAttr \| Function_          | Column style configuration[Column columnStyle](./column#columnstyle)                                                                                                                                      |         |
-| label            | _ContinueLegendLabelCfg_         | Column label [Column label](./column#label)                                                                                                                                                               |
-| color            | _string \| string[] \| Function_ | Specifies the color of the point[Line color](./column#color)                                                                                                                                              |
+| isGroup          | _boolean_                        | Whether to group bar charts[Column isGroup](../../docs/api/plots/column#isgroup)                                                                                                                                             | false   |
+| isStack          | _boolean_                        | Whether to stack histograms[Column isStack](../../docs/api/plots/column#isstack)                                                                                                                                             | false   |
+| columnWidthRatio | _number_                         | Histogram width ratio [0-1] [Column columnWidthRatio](../../docs/api/plots/column#columnwidthratio)                                                                                                                          |         |
+| marginRatio      | _number_                         | The spacing between columns in a grouping [0-1] applies only to grouping histograms[Column marginRatio](../../docs/api/plots/column#marginratio)                                                                             |         |
+| columnStyle      | _StyleAttr \| Function_          | Column style configuration[Column columnStyle](../../docs/api/plots/column#columnstyle)                                                                                                                                      |         |
+| label            | _ContinueLegendLabelCfg_         | Column label [Column label](../../docs/api/plots/column#label)                                                                                                                                                               |
+| color            | _string \| string[] \| Function_ | Specifies the color of the point [Column color](../../docs/api/plots/column#color)                                                                                                                                              |
 | groupField       | _string_                         | Split field, used to stack group histograms. Split field takes precedence over SeriesField. IsGroup: true will group by GroupField.                                                                       | -       |
 
 ### Plot Components

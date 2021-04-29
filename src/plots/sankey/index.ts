@@ -7,6 +7,8 @@ import { SankeyOptions } from './types';
 import { adaptor } from './adaptor';
 import { transformToViewsData } from './helper';
 import { EDGES_VIEW_ID, NODES_VIEW_ID } from './constant';
+// 桑基图内置交互
+import './interactions';
 
 export type { SankeyOptions };
 

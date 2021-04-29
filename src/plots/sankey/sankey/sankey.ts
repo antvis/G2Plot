@@ -198,7 +198,6 @@ export function Sankey() {
       let node;
       for (let i = 0; i < nodes.length; i++) {
         node = nodes[i];
-        const x = Math.max(maxValueBy(nodes, (d: any) => d.depth) + 1, 0);
         node.depth = depth.call(null, node, maxDepth);
       }
     }

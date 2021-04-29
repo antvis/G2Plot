@@ -85,6 +85,18 @@ The sankey diagram node `depth` configure, use function to return the depth valu
 }
 ```
 
+#### nodeDraggable
+
+<description>**optional** _boolean_</description>
+
+Whether the node of sankey is draggable, default is `false`.
+
+```ts
+{
+  nodeDraggable: true,
+}
+```
+
 ### Plot Event
 
 `markdown:docs/common/events.en.md`

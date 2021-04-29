@@ -3,7 +3,7 @@ import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { polygon, edge } from '../../adaptor/geometries';
 import { SankeyOptions } from './types';
-import { X_FIELD, Y_FIELD, COLOR_FIELD } from './constant';
+import { X_FIELD, Y_FIELD, COLOR_FIELD, EDGES_VIEW_ID, NODES_VIEW_ID } from './constant';
 import { transformToViewsData } from './helper';
 
 /**
@@ -26,7 +26,7 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
   const { nodes, edges } = transformToViewsData(options, chart.width, chart.height);
 
   // edge view
-  const edgeView = chart.createView({ id: 'views' });
+  const edgeView = chart.createView({ id: EDGES_VIEW_ID });
   edgeView.data(edges);
 
   edge({
@@ -53,7 +53,7 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
     },
   });
 
-  const nodeView = chart.createView({ id: 'nodes' });
+  const nodeView = chart.createView({ id: NODES_VIEW_ID });
   nodeView.data(nodes);
 
   polygon({
@@ -109,6 +109,25 @@ export function animation(params: Params<SankeyOptions>): Params<SankeyOptions> 
 }
 
 /**
+ * 节点拖动
+ * @param params
+ */
+export function nodeDraggable(params: Params<SankeyOptions>): Params<SankeyOptions> {
+  const { chart, options } = params;
+  const { nodeDraggable } = options;
+
+  const DRAG_INTERACTION = 'sankey-node-draggable';
+
+  if (nodeDraggable) {
+    chart.interaction(DRAG_INTERACTION);
+  } else {
+    chart.removeInteraction(DRAG_INTERACTION);
+  }
+
+  return params;
+}
+
+/**
  * 图适配器
  * @param chart
  * @param options
@@ -118,6 +137,7 @@ export function adaptor(params: Params<SankeyOptions>) {
   return flow(
     geometry,
     interaction,
+    nodeDraggable,
     animation,
     theme
     // ... 其他的 adaptor flow

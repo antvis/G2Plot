@@ -69,27 +69,27 @@ const data = [[{ time: '1991'，value: 20 }], [{ time: '1992', count: 20 }]];
 | 细分配置项名称 | 类型                             | 功能描述                                                                       | 默认值 |
 | -------------- | -------------------------------- | ------------------------------------------------------------------------------ | ------ |
 | geometry       | _string_                         | 图形类型，指定为'line'                                                         | 'line' |
-| seriesField    | _string_                         | 拆分字段, 若存在则为多折线，具体用法同[折线图 seriesfield](../../docs/api/plots/line#seriesfield) |
-| smooth         | _boolean_                        | 是否平滑，具体用法同[折线图 smooth](../../docs/api/plots/line#smooth)                             | false  |
-| connectNulls   | _boolean_                        | 是否连接空数据，具体用法同[折线图 connectnulls](../../docs/api/plots/line#connectnulls)           | true   |
-| lineStyle      | _StyleAttr \| Function_          | 折线图形样式，具体用法同[折线图 lineStyle](../../docs/api/plots/line#linestyle)                   |        |
-| point          | _pointStyle_                     | 线数据点图形样式，具体用法同[折线图 point](../../docs/api/plots/line#point)                       |        |
-| label          | _ContinueLegendLabelCfg_         | 折线图 label,具体用法同[折线图 label](../../docs/api/plots/line#label)                            |
-| color          | _string \| string[] \| Function_ | 指定点的颜色。具体用法同[折线图 color](../../docs/api/plots/line#color)                           |
+| seriesField    | _string_                         | 拆分字段, 若存在则为多折线，具体用法同[折线图 seriesfield](/zh/docs/api/plots/line#seriesfield) |
+| smooth         | _boolean_                        | 是否平滑，具体用法同[折线图 smooth](/zh/docs/api/plots/line#smooth)                             | false  |
+| connectNulls   | _boolean_                        | 是否连接空数据，具体用法同[折线图 connectnulls](/zh/docs/api/plots/line#connectnulls)           | true   |
+| lineStyle      | _StyleAttr \| Function_          | 折线图形样式，具体用法同[折线图 lineStyle](/zh/docs/api/plots/line#linestyle)                   |        |
+| point          | _pointStyle_                     | 线数据点图形样式，具体用法同[折线图 point](/zh/docs/api/plots/line#point)                       |        |
+| label          | _ContinueLegendLabelCfg_         | 折线图 label,具体用法同[折线图 label](/zh/docs/api/plots/line#label)                            |
+| color          | _string \| string[] \| Function_ | 指定点的颜色。具体用法同[折线图 color](/zh/docs/api/plots/line#color)                           |
 
 柱形对应的图形配置为：
 
 | 细分配置项名称   | 类型                             | 功能描述                                                                                                                                        | 默认值 |
 | ---------------- | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
 | geometry         | _string_                         | 图形类型，应指定为'column'                                                                                                                      |        |
-| seriesField      | _string_                         | 拆分字段, 在分组柱状图下同 groupField、colorField，在堆积柱状图下同 stackField、colorField ，具体参考[柱形图 seriesfield](../../docs/api/plots/column#seriesfield) |
-| isGroup          | _boolean_                        | 是否分组柱形图，具体用法同[柱形图 isGroup](../../docs/api/plots/column#isgroup)                                                                                    | false  |
-| isStack          | _boolean_                        | 是否堆积柱状图，具体用法同[柱形图 isStack](../../docs/api/plots/column#isstack)                                                                                    | false  |
-| columnWidthRatio | _number_                         | 柱状图宽度占比 [0-1] ，具体用法同[柱形图 columnWidthRatio](../../docs/api/plots/column#columnwidthratio)                                                           |        |
-| marginRatio      | _number_                         | 分组中柱子之间的间距 [0-1]，仅对分组柱状图适用，具体用法同[柱形图 marginRatio](../../docs/api/plots/column#marginratio)                                            |        |
-| columnStyle      | _StyleAttr \| Function_          | 柱子样式配置，具体用法同[柱形图 columnStyle](../../docs/api/plots/column#columnstyle)                                                                              |        |
-| label            | _ContinueLegendLabelCfg_         | 柱形图 label,具体用法同[柱形图 label](../../docs/api/plots/column#label)                                                                                           |
-| color            | _string \| string[] \| Function_ | 指定点的颜色。具体用法同[柱形图 color](../../docs/api/plots/column#color)                                                                                          |
+| seriesField      | _string_                         | 拆分字段, 在分组柱状图下同 groupField、colorField，在堆积柱状图下同 stackField、colorField ，具体参考[柱形图 seriesfield](/zh/docs/api/plots/column#seriesfield) |
+| isGroup          | _boolean_                        | 是否分组柱形图，具体用法同[柱形图 isGroup](/zh/docs/api/plots/column#isgroup)                                                                                    | false  |
+| isStack          | _boolean_                        | 是否堆积柱状图，具体用法同[柱形图 isStack](/zh/docs/api/plots/column#isstack)                                                                                    | false  |
+| columnWidthRatio | _number_                         | 柱状图宽度占比 [0-1] ，具体用法同[柱形图 columnWidthRatio](/zh/docs/api/plots/column#columnwidthratio)                                                           |        |
+| marginRatio      | _number_                         | 分组中柱子之间的间距 [0-1]，仅对分组柱状图适用，具体用法同[柱形图 marginRatio](/zh/docs/api/plots/column#marginratio)                                            |        |
+| columnStyle      | _StyleAttr \| Function_          | 柱子样式配置，具体用法同[柱形图 columnStyle](/zh/docs/api/plots/column#columnstyle)                                                                              |        |
+| label            | _ContinueLegendLabelCfg_         | 柱形图 label,具体用法同[柱形图 label](/zh/docs/api/plots/column#label)                                                                                           |
+| color            | _string \| string[] \| Function_ | 指定点的颜色。具体用法同[柱形图 color](/zh/docs/api/plots/column#color)                                                                                          |
 | groupField       | _string_                         | 拆分字段，用于堆叠+分组柱图，拆分优先级高于 seriesField，isGroup: true 时会根据 groupField 进行分组。                                           | -      |
 
 ### 图表组件

@@ -1,4 +1,4 @@
-import { interaction, animation, theme } from '../../adaptor/common';
+import { interaction, animation, theme, state } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow } from '../../utils';
 import { polygon, edge } from '../../adaptor/geometries';
@@ -177,6 +177,7 @@ function edgeGeometry(params: Params<ChordOptions>): Params<ChordOptions> {
 export function adaptor(params: Params<ChordOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
+    theme,
     transformData,
     coordinate,
     scale,
@@ -186,7 +187,7 @@ export function adaptor(params: Params<ChordOptions>) {
     edgeGeometry,
     nodeGeometry,
     interaction,
-    animation,
-    theme
+    state,
+    animation
   )(params);
 }

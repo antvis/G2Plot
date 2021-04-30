@@ -47,8 +47,6 @@ order: 28
 
 弦图边样式的配置。
 
-`markdown:docs/common/color.zh.md`
-
 #### nodeWidthRatio
 
 <description>**optional** _number_</description>
@@ -60,7 +58,6 @@ order: 28
 <description>**optional** _number_</description>
 
 弦图节点之间的间距，0 ~ 1，参考画布的高度，默认为 `0.1`。
-
 
 ### Plot Event
 

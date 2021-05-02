@@ -98,6 +98,6 @@ The wave configure for liquid plot, includes:
 
 <description>**optional** _object_</description>
 
-Text component.
+Metric central text component.
 
 `markdown:docs/common/statistic.en.md`

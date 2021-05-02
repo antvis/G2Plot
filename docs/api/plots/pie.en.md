@@ -115,7 +115,7 @@ Set the sector style. The 'fill' in the pieStyle will override the 'color' confi
 
 <description>**optional** _object_</description>
 
-Statistical content components. When the innerRadius (' innerRadius') is greater than 0, the default is to display the summary value. You can use 'formatter' to format the content, or you can use 'customHtml' to customize more content.
+Statistical content components. When the innerRadius is greater than 0, the default is to display the summary value. You can use 'formatter' to format the content, or you can use 'customHtml' to customize more content.
 
 ![image](https://gw.alipayobjects.com/zos/bmw-prod/860bbf6e-cf20-4bdf-88bd-e8d685d12e9a.svg)
 

@@ -1,6 +1,9 @@
+
+推荐使用 💄 [ThemeSet](https://theme-set.antv.vision) 在线自定义自己的主题配置。
+
 #### 内置主题
 
-目前默认的内置主要要两套：`default` 和 `dark` 
+目前默认的内置主要有两套：`default` 和 `dark` 
 
 ```ts
 {
@@ -88,5 +91,4 @@ plot.update({ theme: { defaultColor: '#FF6B3B' } })
 <playground path="general/theme/demo/register-theme.ts" rid="rect-register-theme"></playground>
 
 🌰 自定义主题 [DEMO](/zh/examples/general/theme#register-theme) 示例
-💄 在线主题构建工具 [AntV ThemeSet](https://theme-set.antv.vision)
 

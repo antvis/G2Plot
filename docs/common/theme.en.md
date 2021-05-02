@@ -1,3 +1,5 @@
+Recommend to use 💄 [ThemeSet](https://theme-set.antv.vision) to customize your theme configurations online.
+
 #### Built-in Theme
 
 Built-in defaults: 'default' and 'dark'
@@ -101,5 +103,3 @@ In addition, G2 provides a custom topic mechanism to define a new topic structur
 <playground path="general/theme/demo/register-theme.ts" rid="rect-register-theme"></playground>
 
 🌰 Customize theme [DEMO](/zh/examples/general/theme#register-theme) 
-💄 Online theme constructor [AntV ThemeSet](https://theme-set.antv.vision)
-

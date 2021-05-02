@@ -16,6 +16,10 @@ export interface SankeyOptions extends Omit<Options, 'xField' | 'yField' | 'xAxi
    */
   readonly weightField: string;
   /**
+   * 附加的 元字段
+   */
+  readonly rawFields?: string[];
+  /**
    * 数据
    */
   readonly data: Data;

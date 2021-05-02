@@ -1,6 +1,7 @@
 import { Datum, Sankey } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
+import { createDiv, removeDom } from '../../../utils/dom';
 import { ENERGY_RELATIONS } from '../../../data/sankey-energy';
+import { PARALLEL_SET } from '../../../data/parallel-set';
 
 describe('sankey', () => {
   it('sankey', () => {
@@ -160,5 +161,47 @@ describe('sankey', () => {
     expect(sankey.chart.views[0].getOptions().data.length).toBe(3);
 
     sankey.destroy();
+  });
+
+  it('sankey rawFields', () => {
+    const data = [];
+    const keys = ['Survived', 'Sex', 'Age', 'Class'];
+    PARALLEL_SET.forEach((d) => {
+      keys.reduce((a, b) => {
+        if (a && b) {
+          data.push({
+            source: d[a],
+            target: d[b],
+            value: d.value,
+            path: `${d[keys[0]]} -> ${d[keys[1]]} -> ${d[keys[2]]} -> ${d[keys[3]]}`,
+          });
+        }
+        return b;
+      });
+    });
+
+    const dom = createDiv();
+    const sankey = new Sankey(dom, {
+      data: data,
+      sourceField: 'source',
+      targetField: 'target',
+      weightField: 'value',
+      nodeWidthRatio: 0.01,
+      nodePaddingRatio: 0.03,
+      nodeDraggable: true,
+    });
+
+    sankey.render();
+    expect(sankey.chart.views[0].getData()[0].path).not.toBeDefined();
+    expect(sankey.chart.views[1].getData()[0].path).not.toBeDefined();
+
+    sankey.update({ rawFields: ['path'] });
+    expect(sankey.chart.views[0].getData()[0].path).toBeDefined();
+    expect(sankey.chart.views[1].getData()[0].path).toBeDefined();
+    expect(sankey.chart.views[0].getData()[0].path).toBe('Perished -> Male -> Adult -> Crew');
+    expect(sankey.chart.views[1].getData()[0].path).toBe('Perished -> Male -> Adult -> Crew');
+
+    sankey.destroy();
+    removeDom(dom);
   });
 });

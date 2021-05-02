@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "html-tooltip.ts",
+      "title": {
+        "zh": "自定义 html tooltip",
+        "en": "Customize html tooltip"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/QyLwg8GGZl/36da41bf-f6b6-4521-803f-5aee9d0da3a9.png"
+    }
+  ]
+}

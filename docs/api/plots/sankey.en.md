@@ -33,6 +33,14 @@ Sets the target node data field of Sankey diagram. For the above data, for examp
 
 Set the weight field information of the relationship between nodes. The larger the data, the larger the edge. For example, for the above data, it is: 'value'.
 
+#### rawFields
+
+<description>**optional** _string[_</description>
+
+Raw fields of original data. With the 'rawsFields' definition, you can get the original (raw) datum on node or edge elements.
+
+<playground path="relation-plots/sankey/demo/draggable.ts" rid="sankey-raw-fields"></playground>
+
 ### Geometry Style
 
 #### nodeStyle

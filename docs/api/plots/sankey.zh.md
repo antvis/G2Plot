@@ -33,6 +33,14 @@ order: 27
 
 设置节点之间关系的权重字段信息，数据越大，边越大。比如针对上述数据，就是： `value`。
 
+#### rawFields
+
+<description>**optional** _string[_</description>
+
+其他原始字段，便于在节点、边定义 tooltip 或者 label 时取用。
+
+<playground path="relation-plots/sankey/demo/draggable.ts" rid="sankey-raw-fields"></playground>
+
 ### Geometry Style
 
 #### nodeStyle

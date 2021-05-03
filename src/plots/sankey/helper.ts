@@ -1,4 +1,4 @@
-import { isRealNumber } from '../../utils/number';
+import { isRealNumber, pick } from '../../utils';
 import { transformDataToNodeLinkData } from '../../utils/data';
 import { sankeyLayout } from './layout';
 import { cutoffCircle } from './circle';
@@ -31,13 +31,15 @@ export function transformToViewsData(options: SankeyOptions, width: number, heig
     nodeWidth,
     nodeWidthRatio,
     nodeDepth,
+    rawFields = [],
   } = options;
 
   const sankeyLayoutInputData = transformDataToNodeLinkData(
     cutoffCircle(data, sourceField, targetField),
     sourceField,
     targetField,
-    weightField
+    weightField,
+    rawFields
   );
 
   // 3. layout 之后的数据
@@ -56,9 +58,7 @@ export function transformToViewsData(options: SankeyOptions, width: number, heig
   return {
     nodes: nodes.map((node) => {
       return {
-        x: node.x,
-        y: node.y,
-        name: node.name,
+        ...pick(node, ['x', 'y', 'name', ...rawFields]),
         isNode: true,
       };
     }),
@@ -67,9 +67,7 @@ export function transformToViewsData(options: SankeyOptions, width: number, heig
         source: link.source.name,
         target: link.target.name,
         name: link.source.name || link.target.name,
-        x: link.x,
-        y: link.y,
-        value: link.value,
+        ...pick(link, ['x', 'y', 'value', ...rawFields]),
         isNode: false,
       };
     }),

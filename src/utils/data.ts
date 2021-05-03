@@ -2,6 +2,7 @@ import { get, isNumber, filter } from '@antv/util';
 import { Data, Datum, Meta, Options } from '../types';
 import { NodeLinkData } from '../types/relation-data';
 import { LEVEL, log } from './invariant';
+import { pick } from './pick';
 
 /**
  * 查看数据是否是全负数、或者全正数
@@ -34,12 +35,14 @@ export function adjustYMetaByZero(data: Data, field: string): Meta {
  * @param sourceField
  * @param targetField
  * @param weightField
+ * @param rawFields 存放一些原数据
  */
 export function transformDataToNodeLinkData(
   data: Data,
   sourceField: string,
   targetField: string,
-  weightField: string
+  weightField: string,
+  rawFields: string[] = []
 ): NodeLinkData {
   if (!Array.isArray(data)) {
     return {
@@ -59,17 +62,21 @@ export function transformDataToNodeLinkData(
     const target = datum[targetField];
     const weight = datum[weightField];
 
+    const rawData = pick(datum, rawFields);
+
     // source node
     if (!nodesMap[source]) {
       nodesMap[source] = {
         id: ++nodesIndex,
         name: source,
+        ...rawData,
       };
     }
     if (!nodesMap[target]) {
       nodesMap[target] = {
         id: ++nodesIndex,
         name: target,
+        ...rawData,
       };
     }
     // links
@@ -79,6 +86,7 @@ export function transformDataToNodeLinkData(
       // sourceName: source,
       // targetName: target,
       value: weight,
+      ...rawData,
     });
   });
   return {

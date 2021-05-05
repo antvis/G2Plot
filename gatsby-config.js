@@ -78,6 +78,13 @@ module.exports = {
         },
         url: 'https://theme-set.antv.vision',
       },
+      {
+        name: {
+          zh: 'Vis Dashboard（可视化精选集）',
+          en: 'Vis Dashboard',
+        },
+        url: 'https://vis-dashboard.antv.vision',
+      },
     ],
     docs: [
       {

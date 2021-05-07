@@ -3,7 +3,6 @@ import { Geometry } from '@antv/g2';
 import { Params } from '../../core/adaptor';
 import { findGeometry } from '../../utils';
 import { flow, transformLabel } from '../../utils';
-import { DEFAULT_COLORS } from '../../constant';
 import { tooltip, interaction, animation, theme, scale, annotation, state } from '../../adaptor/common';
 import { HeatmapOptions } from './types';
 
@@ -25,7 +24,7 @@ function field(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   }
 
   if (colorField) {
-    geometry.color(colorField, color || DEFAULT_COLORS.GRADIENT.CONTINUOUS);
+    geometry.color(colorField, color || chart.getTheme().sequenceColors.join('-'));
   }
 
   /**
@@ -199,9 +198,9 @@ function coordinate(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
 export function adaptor(params: Params<HeatmapOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
+    theme,
     field,
     meta,
-    theme,
     axis,
     legend,
     tooltip,

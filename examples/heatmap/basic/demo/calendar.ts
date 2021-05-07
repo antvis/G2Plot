@@ -63,7 +63,6 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/github-commit.json')
       xField: 'week',
       yField: 'day',
       colorField: 'commits',
-      color: '#BAE7FF-#1890FF-#0050B3',
       reflect: 'y',
       shape: 'boundary-polygon',
       meta: {

@@ -23,12 +23,3 @@ export const AXIS_META_CONFIG_KEYS = [
   // 是否同步
   'sync',
 ];
-
-/**
- * 默认色彩
- */
-export const DEFAULT_COLORS = {
-  GRADIENT: {
-    CONTINUOUS: '#BAE7FF-#1890FF-#0050B3',
-  },
-};

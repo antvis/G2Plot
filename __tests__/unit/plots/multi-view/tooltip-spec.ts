@@ -1,8 +1,8 @@
-import { MultiView } from '../../../../src/plots/multi-view';
+import { Mix } from '../../../../src/plots/multi-view';
 import { createDiv } from '../../../utils/dom';
 
 describe('multi-view tooltip', () => {
-  const plot = new MultiView(createDiv(), {
+  const plot = new Mix(createDiv(), {
     tooltip: { showMarkers: false },
     plots: [
       {

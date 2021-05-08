@@ -1,9 +1,9 @@
-import { MultiView } from '../../../../src/plots/multi-view';
+import { Mix } from '../../../../src/plots/multi-view';
 import { createDiv } from '../../../utils/dom';
 import { DEFAULT_OPTIONS as pieDft } from '../../../../src/plots/pie/contants';
 
 describe('multi-plots in multi-view', () => {
-  const plot = new MultiView(createDiv(), {
+  const plot = new Mix(createDiv(), {
     plots: [
       {
         type: 'line',

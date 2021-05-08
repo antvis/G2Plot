@@ -1,11 +1,11 @@
-import { Lab, MultiView } from '../../../../src';
+import { Lab, Mix } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { partySupport } from '../../../data/party-support';
 
 describe('multi-view', () => {
   it('simple line', () => {
     const data = partySupport.filter((o) => ['FF', 'Lab'].includes(o.type));
-    const line = new Lab.MultiView(createDiv(), {
+    const line = new Lab.Mix(createDiv(), {
       width: 400,
       height: 300,
       views: [
@@ -104,7 +104,7 @@ describe('multi-view', () => {
 
   it('add interactions', () => {
     const data = partySupport.filter((o) => ['FF', 'Lab'].includes(o.type));
-    const line = new Lab.MultiView(createDiv(), {
+    const line = new Lab.Mix(createDiv(), {
       width: 400,
       height: 300,
       views: [
@@ -150,7 +150,7 @@ describe('multi-view', () => {
 
   it('animation for each view', () => {
     const data = new Array(30).fill(1).map((d, idx) => ({ x: `${idx}`, y: idx + Math.random() * 10 }));
-    const plot = new MultiView(createDiv(), {
+    const plot = new Mix(createDiv(), {
       animation: false,
       views: [
         {

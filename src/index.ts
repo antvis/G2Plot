@@ -138,8 +138,8 @@ export type { ChordOptions } from './plots/chord';
 export { P } from './plugin';
 
 /** 开放多图层图表 (multi-view) */
-export { MultiView } from './plots/multi-view';
-export type { MultiViewOptions } from './plots/multi-view';
+export { Mix } from './plots/mix';
+export type { MixOptions } from './plots/mix';
 
 /** 开发 adaptor 可能会用到的方法或一些工具方法，不强制使用 */
 export { flow, measureTextWidth } from './utils';

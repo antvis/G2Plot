@@ -1,5 +1,5 @@
 import { registerInteraction } from '@antv/g2';
-import { MultiView } from '../../../../../src';
+import { Mix } from '../../../../../src';
 import { createDiv } from '../../../../utils/dom';
 
 describe('assocation between views in multi-view plot', () => {
@@ -8,7 +8,7 @@ describe('assocation between views in multi-view plot', () => {
     { type: '2', value: 41 },
   ];
   const div = createDiv();
-  const plot = new MultiView(div, {
+  const plot = new Mix(div, {
     width: 400,
     height: 200,
     autoFit: false,

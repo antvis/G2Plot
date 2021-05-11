@@ -1,4 +1,4 @@
-import { Mix } from '../../../../src/plots/multi-view';
+import { Mix } from '../../../../src/plots/mix';
 import { createDiv } from '../../../utils/dom';
 import { DEFAULT_OPTIONS as pieDft } from '../../../../src/plots/pie/contants';
 

@@ -3,7 +3,7 @@ import { DEFAULT_OPTIONS as lineDft } from '../../../../src/plots/line/constants
 import { DEFAULT_OPTIONS as columnDft } from '../../../../src/plots/column/constants';
 import { DEFAULT_OPTIONS as barDft } from '../../../../src/plots/bar/constants';
 import { DEFAULT_OPTIONS as areaDft } from '../../../../src/plots/area/constants';
-import { execPlotAdaptor } from '../../../../src/plots/multi-view/utils';
+import { execPlotAdaptor } from '../../../../src/plots/mix/utils';
 import { createDiv } from '../../../utils/dom';
 
 describe('utils', () => {

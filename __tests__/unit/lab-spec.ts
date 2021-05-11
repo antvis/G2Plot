@@ -3,7 +3,7 @@ import { Lab, notice, Stage } from '../../src/lab';
 describe('lab', () => {
   it('lab', () => {
     expect(Lab).toBeDefined();
-    expect(Lab.Mix).toBeDefined();
+    expect(Lab.MultiView).toBeDefined();
   });
 
   it('notice', () => {

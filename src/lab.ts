@@ -27,8 +27,8 @@ export function notice(stage: Stage, plotType: string) {
  * 实验室图表，实验室中的图表分成不同的阶段。
  */
 export class Lab {
-  static get Mix() {
-    notice(Stage.STABLE, 'Mix');
+  static get MultiView() {
+    notice(Stage.STABLE, 'MultiView');
     return Mix;
   }
 }

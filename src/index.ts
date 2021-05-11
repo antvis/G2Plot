@@ -137,8 +137,11 @@ export type { ChordOptions } from './plots/chord';
 /** 所有开放图表都使用 G2Plot.P 作为入口开发，理论上官方的所有图表都可以走 G2Plot.P 的入口（暂时不处理） */
 export { P } from './plugin';
 
-/** 开放多图层图表 (multi-view) */
-export { Mix } from './plots/mix';
+// 已经废弃，更名为 Mix
+export { Mix as MultiView } from './plots/mix';
+export type { MixOptions as MultiViewOptions } from './plots/mix';
+/** 开放多图层图表 (mix) */
+export { Mix as Mix } from './plots/mix';
 export type { MixOptions } from './plots/mix';
 
 /** 开发 adaptor 可能会用到的方法或一些工具方法，不强制使用 */

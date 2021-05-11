@@ -1,4 +1,4 @@
-import { Mix } from '../../../../src/plots/multi-view';
+import { Mix } from '../../../../src/plots/mix';
 import { createDiv } from '../../../utils/dom';
 
 describe('multi-view tooltip', () => {

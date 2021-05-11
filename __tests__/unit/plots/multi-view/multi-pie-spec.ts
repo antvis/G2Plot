@@ -31,7 +31,7 @@ describe('multi-view', () => {
       as: 'percent',
     });
 
-    const pie = new Lab.Mix(createDiv(), {
+    const pie = new Lab.MultiView(createDiv(), {
       width: 400,
       height: 400,
       views: [

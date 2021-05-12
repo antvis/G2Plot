@@ -1,4 +1,4 @@
-import { MultiView } from '@antv/g2plot';
+import { Mix } from '@antv/g2plot';
 import { groupBy, get } from '@antv/util';
 
 fetch('https://gw.alipayobjects.com/os/antfincdn/HkxWvFrZuC/association-data.json')
@@ -12,7 +12,7 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/HkxWvFrZuC/association-data.jso
       }));
     }
 
-    const plot = new MultiView('container', {
+    const plot = new Mix('container', {
       // 关闭 chart 上的 tooltip，子 view 开启 tooltip
       tooltip: false,
       plots: [

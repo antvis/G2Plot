@@ -1,5 +1,5 @@
 import { DataView } from '@antv/data-set';
-import { MultiView } from '@antv/g2plot';
+import { Mix } from '@antv/g2plot';
 
 const data = [
   ['Cosmopolitan', 51, 45, 6],
@@ -19,7 +19,7 @@ const yearData = [
   ['2015', 89, 286, 41, 48],
 ];
 
-const plot = new MultiView('container', {
+const plot = new Mix('container', {
   height: 500,
   padding: 'auto',
   tooltip: { showMarkers: false },

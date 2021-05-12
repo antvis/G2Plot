@@ -1,4 +1,4 @@
-import { MultiView } from '@antv/g2plot';
+import { Mix } from '@antv/g2plot';
 import insertCss from 'insert-css';
 
 // 我们用 insert-css 演示引入自定义样式
@@ -81,7 +81,7 @@ insertCss(`
 fetch('https://gw.alipayobjects.com/os/antfincdn/yTron%268MtC/range-data.json')
   .then((data) => data.json())
   .then((data) => {
-    const plot = new MultiView('container', {
+    const plot = new Mix('container', {
       meta: {
         date: { sync: true },
         minTemp: { min: 0, max: 30 },

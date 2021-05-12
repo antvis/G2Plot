@@ -51,6 +51,14 @@
         "en": "Series Columns"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Xr_fTpVCRv4AAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "sales-analysis.ts",
+      "title": {
+        "zh": "各公司销售情况分析",
+        "en": "Sales analyze of company"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/KFq%26pzL%26WG/7b5f5942-e463-44e6-8aca-d1417a39075a.png"
     }
   ]
 }

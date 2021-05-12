@@ -35,6 +35,22 @@
         "en": "Stacked grouped column plot"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/9ExrwrpVrA/908eff62-1132-4dbb-8c3c-9cbe8183c6d8.png"
+    },
+    {
+      "filename": "dodge-padding.ts",
+      "title": {
+        "zh": "分组柱状图像素级组内柱子间距",
+        "en": "DodgePadding of grouped column plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/VL8xZlzwm5/2d96f1be-83c6-47c8-8a02-6023ecdbe035.png"
+    },
+    {
+      "filename": "interval-padding.ts",
+      "title": {
+        "zh": "分组柱状图像素级组间间距",
+        "en": "IntervalPadding of grouped column plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/lRokVhHkrr/61d333f8-9d15-4327-b70f-8e026453cf70.png"
     }
   ]
 }

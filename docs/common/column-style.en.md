@@ -1,3 +1,19 @@
+#### intervalPadding
+
+<description>**optional**, _number_</description>
+
+Specify the padding of interval, pixel value.  Used in GroupColumn plot.
+
+<playground path='column/grouped/interval-padding.ts' rid='rect1'></playground>
+
+#### dodgePadding
+
+<description>**optional**, _number_</description>
+
+Specify the padding of interval on the same group, pixel value. Used in GroupColumn plot.
+
+<playground path='column/grouped/dodge-padding.ts' rid='rect2'></playground>
+
 #### minColumnWidth
 
 <description>**optional**, _number_</description>

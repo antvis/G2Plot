@@ -2,8 +2,15 @@ import { ShapeAttrs } from '@antv/g2';
 import { Options, StyleAttr } from '../../types';
 import { OptionWithConversionTag } from '../../adaptor/conversion-tag';
 import { OptionWithConnectedArea } from '../../adaptor/connected-area';
+import { IntervalGeometryOptions } from '../../adaptor/geometries/interval';
 
-export interface ColumnOptions extends Options, OptionWithConversionTag, OptionWithConnectedArea {
+type PartialIntervalGeometryOptions = Pick<IntervalGeometryOptions, 'dodgePadding' | 'intervalPadding'>;
+
+export interface ColumnOptions
+  extends Options,
+    OptionWithConversionTag,
+    OptionWithConnectedArea,
+    PartialIntervalGeometryOptions {
   /** x 轴字段 */
   readonly xField: string;
   /** y 轴字段 */

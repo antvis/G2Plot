@@ -18,8 +18,12 @@ export interface IntervalGeometryOptions extends GeometryOptions {
   readonly isStack?: boolean;
   /** 柱状图宽度占比 [0-1] */
   readonly widthRatio?: number;
+  /** 分组间柱子之间的组间间距(像素级)，仅对分组柱状图适用 */
+  readonly intervalPadding?: number;
   /** 分组中柱子之间的间距 [0-1]，仅对分组柱状图适用 */
   readonly marginRatio?: number;
+  /** 分组中柱子之间的组内间距(像素级)，仅对分组柱状图适用 */
+  readonly dodgePadding?: number;
   /** 柱状图最小宽度（像素） */
   readonly minColumnWidth?: number;
   /** 柱状图最大宽度（像素） */
@@ -82,7 +86,18 @@ function otherAdaptor<O extends IntervalGeometryOptions>(params: Params<O>): Par
 
 export function interval<O extends IntervalGeometryOptions>(params: Params<O>): Params<O> {
   const { options } = params;
-  const { xField, yField, interval, seriesField, tooltip, minColumnWidth, maxColumnWidth, columnBackground } = options;
+  const {
+    xField,
+    yField,
+    interval,
+    seriesField,
+    tooltip,
+    minColumnWidth,
+    maxColumnWidth,
+    columnBackground,
+    dodgePadding,
+    intervalPadding,
+  } = options;
 
   const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, seriesField]);
 
@@ -98,7 +113,7 @@ export function interval<O extends IntervalGeometryOptions>(params: Params<O>): 
               tooltip: formatter,
               ...interval,
             },
-            args: { minColumnWidth, maxColumnWidth, background: columnBackground },
+            args: { dodgePadding, intervalPadding, minColumnWidth, maxColumnWidth, background: columnBackground },
           },
         })
       )

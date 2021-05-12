@@ -19,6 +19,22 @@
         "en": "Bar plot with corner-radius"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/vFQNz1dCaD/21d77486-a9a3-4287-bc49-24fc40ad4800.png"
+    },
+    {
+      "filename": "dodge-padding.ts",
+      "title": {
+        "zh": "分组条形图像素级组内柱子间距",
+        "en": "DodgePadding of grouped bar plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/pb4RmT767Q/953ed207-ec9b-4d0b-8f19-dadd7e016610.png"
+    },
+    {
+      "filename": "interval-padding.ts",
+      "title": {
+        "zh": "分组条形图像素级组间间距",
+        "en": "IntervalPadding of grouped bar plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/%24aj8gaJ%267H/8d4e1840-3aa0-44af-bae4-6f6aa4de47e0.png"
     }
   ]
 }

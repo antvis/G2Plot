@@ -241,7 +241,7 @@ export function Sankey() {
   }
 
   function initializeNodeBreadths(columns) {
-    const ky = (minValueBy(columns, (c: any[]) => (y1 - y0 - (c.length - 1) * py) / sumBy(c, value)) as any) as number;
+    const ky = minValueBy(columns, (c: any[]) => (y1 - y0 - (c.length - 1) * py) / sumBy(c, value)) as any as number;
     for (const nodes of columns) {
       let y = y0;
       for (const node of nodes) {
@@ -264,7 +264,7 @@ export function Sankey() {
 
   function computeNodeBreadths(graph) {
     const columns = computeNodeLayers(graph);
-    py = Math.min(dy, (y1 - y0) / (((maxValueBy(columns, (c: any[]) => c.length) as any) as number) - 1));
+    py = Math.min(dy, (y1 - y0) / ((maxValueBy(columns, (c: any[]) => c.length) as any as number) - 1));
     initializeNodeBreadths(columns);
     for (let i = 0; i < iterations; ++i) {
       const alpha = Math.pow(0.99, i);

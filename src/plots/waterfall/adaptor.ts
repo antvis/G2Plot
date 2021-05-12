@@ -16,18 +16,8 @@ import './shape';
  */
 function geometry(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
   const { chart, options } = params;
-  const {
-    data,
-    xField,
-    yField,
-    total,
-    leaderLine,
-    columnWidthRatio,
-    waterfallStyle,
-    risingFill,
-    fallingFill,
-    color,
-  } = options;
+  const { data, xField, yField, total, leaderLine, columnWidthRatio, waterfallStyle, risingFill, fallingFill, color } =
+    options;
 
   // 数据处理
   chart.data(transformData(data, xField, yField, total));

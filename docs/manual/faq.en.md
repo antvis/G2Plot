@@ -38,3 +38,7 @@ You can use `scale.sync` and hide one of the y-axis.
   }
 }
 ```
+
+### MultiView Plot of multiple-views is rename to Mix from v2.3.20
+
+More details to see [API](/en/docs/api/mix)  of Mix Plot

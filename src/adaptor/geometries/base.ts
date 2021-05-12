@@ -122,19 +122,8 @@ export function getMappingFunction(mappingFields: string[], func: (datum: Datum)
  */
 export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O> {
   const { chart, options } = params;
-  const {
-    type,
-    args,
-    mapping,
-    xField,
-    yField,
-    colorField,
-    shapeField,
-    sizeField,
-    tooltipFields,
-    label,
-    state,
-  } = options;
+  const { type, args, mapping, xField, yField, colorField, shapeField, sizeField, tooltipFields, label, state } =
+    options;
 
   // 如果没有 mapping 信息，那么直接返回
   if (!mapping) {

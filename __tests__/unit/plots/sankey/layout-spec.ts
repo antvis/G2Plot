@@ -35,20 +35,14 @@ describe('sankeyLayout', () => {
     expect(data.nodes[0].name).toBe("Agricultural 'waste'");
     expect(data.nodes[0].x).toEqual([0, 0.008, 0.008, 0]);
     expect(data.nodes[0].y).toEqual([
-      0.15714829392583463,
-      0.15714829392583463,
-      0.17602864502202453,
-      0.17602864502202453,
+      0.15714829392583463, 0.15714829392583463, 0.17602864502202453, 0.17602864502202453,
     ]);
 
     expect(data.links[0].source.name).toBe("Agricultural 'waste'");
     expect(data.links[0].target.name).toBe('Bio-conversion');
     expect(data.links[0].x).toEqual([0.008, 0.008, 0.1417142857142857, 0.1417142857142857]);
     expect(data.links[0].y).toEqual([
-      0.17602864502202453,
-      0.15714829392583463,
-      0.23174113600532192,
-      0.21286078490913202,
+      0.17602864502202453, 0.15714829392583463, 0.23174113600532192, 0.21286078490913202,
     ]);
   });
 });

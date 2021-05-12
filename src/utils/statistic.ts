@@ -34,10 +34,12 @@ export function adapteStyle(style?: StatisticText['style']): object {
   if (get(style, 'fill')) {
     styleObject['color'] = style['fill'];
   }
-  const { shadowColor, shadowBlur = 0, shadowOffsetX = 0, shadowOffsetY = 0 } = pick(
-    style,
-    shapeStyleKeys
-  ) as ShapeStyle;
+  const {
+    shadowColor,
+    shadowBlur = 0,
+    shadowOffsetX = 0,
+    shadowOffsetY = 0,
+  } = pick(style, shapeStyleKeys) as ShapeStyle;
   styleObject['text-shadow'] = `${[shadowColor, `${shadowOffsetX}px`, `${shadowOffsetY}px`, `${shadowBlur}px`].join(
     ' '
   )}`;

@@ -1,6 +1,6 @@
 ---
-title: Multi-View Plot
+title: Mix Plot
 order: 0
 ---
 
-`markdown:docs/api/multi-view.en.md`
+`markdown:docs/api/mix.en.md`

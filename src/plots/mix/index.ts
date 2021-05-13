@@ -1,10 +1,10 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { MultiViewOptions } from './types';
+import { MixOptions } from './types';
 import { adaptor } from './adaptor';
 import './interactions';
 
-export type { MultiViewOptions };
+export type { MixOptions };
 
 /**
  * 多图层图形，释放 G2 80% 的功能，可以用来做：
@@ -17,14 +17,14 @@ export type { MultiViewOptions };
  *   - 柱饼组合图
  *   - ...
  */
-export class MultiView extends Plot<MultiViewOptions> {
+export class Mix extends Plot<MixOptions> {
   /** 图表类型 */
-  public type: string = 'multi-view';
+  public type: string = 'mix';
 
   /**
    * 获取适配器
    */
-  protected getSchemaAdaptor(): Adaptor<MultiViewOptions> {
+  protected getSchemaAdaptor(): Adaptor<MixOptions> {
     return adaptor;
   }
 }

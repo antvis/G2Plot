@@ -81,7 +81,7 @@ export type IPlot = IPlotTypes & {
 };
 
 /** 配置类型定义 */
-export interface MultiViewOptions
+export interface MixOptions
   extends Omit<Options, 'data' | 'legend' | 'xAxis' | 'yAxis' | 'legend' | 'tooltip' | 'slider' | 'scrollbar'> {
   /**
    * 是否同步子 view 的配置

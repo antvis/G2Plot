@@ -38,3 +38,7 @@ meta: {
   }
 }
 ```
+
+### 多图层图表自 2.3.20 版本从 MultiView 更名为 Mix
+
+具体使用：可以见 Mix Plot [API](/zh/docs/api/mix) 文档

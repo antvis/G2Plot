@@ -9,14 +9,14 @@ import { deepAssign, flow, pick } from '../../utils';
 import { Axis } from '../../types/axis';
 import { Legend } from '../../types/legend';
 import { Interaction } from '../../types/interaction';
-import { MultiViewOptions, IView, IGeometry } from './types';
+import { MixOptions, IView, IGeometry } from './types';
 import { execPlotAdaptor } from './utils';
 
 /**
  * geometry 处理
  * @param params
  */
-function multiView(params: Params<MultiViewOptions>): Params<MultiViewOptions> {
+function multiView(params: Params<MixOptions>): Params<MixOptions> {
   const { chart, options } = params;
   const { views, legend } = options;
 
@@ -120,7 +120,7 @@ function multiView(params: Params<MultiViewOptions>): Params<MultiViewOptions> {
  * 支持嵌套使用 g2plot 内置图表
  * @param params
  */
-function multiPlot(params: Params<MultiViewOptions>): Params<MultiViewOptions> {
+function multiPlot(params: Params<MixOptions>): Params<MixOptions> {
   const { chart, options } = params;
   const { plots } = options;
 
@@ -145,7 +145,7 @@ function multiPlot(params: Params<MultiViewOptions>): Params<MultiViewOptions> {
  * @param chart
  * @param options
  */
-export function adaptor(params: Params<MultiViewOptions>) {
+export function adaptor(params: Params<MixOptions>) {
   return flow(
     animation, // 多 view 的图，动画配置放到最前面
     multiView,

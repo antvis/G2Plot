@@ -1,4 +1,4 @@
-import { G2, MultiView } from '@antv/g2plot';
+import { G2, Mix } from '@antv/g2plot';
 
 // 定义新的交互
 G2.registerInteraction('other-visible', {
@@ -41,7 +41,7 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/diamond.json')
   .then((data) => {
     const subData = data.slice(0, 400);
 
-    const plot = new MultiView('container', {
+    const plot = new Mix('container', {
       tooltip: false,
       views: [
         {

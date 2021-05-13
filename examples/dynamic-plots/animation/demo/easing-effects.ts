@@ -1,4 +1,4 @@
-import { MultiView } from '@antv/g2plot';
+import { Mix } from '@antv/g2plot';
 
 /** Generater a data array of 30 items */
 const data = new Array(30).fill(1).map((d, idx) => idx + Math.random() * 10);
@@ -96,5 +96,5 @@ for (let i = 0; i < ROWS; i++) {
   }
 }
 
-const plot = new MultiView('container', { tooltip: false, plots });
+const plot = new Mix('container', { tooltip: false, plots });
 plot.render();

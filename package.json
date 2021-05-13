@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "2.3.20",
+  "version": "2.3.21",
   "description": "An interactive and responsive charting library",
   "keywords": [
     "chart",
@@ -149,6 +149,5 @@
     "monaco-editor": "0.21.3",
     "@babel/plugin-transform-spread": "7.12.1",
     "@babel/standalone": "7.12.6"
-  },
-  "sideEffects": false
+  }
 }

@@ -10,6 +10,8 @@ type CSSStyle = Omit<Partial<CSSStyleDeclaration>, 'opacity' | 'fontWeight' | 'l
 export type StatisticText = {
   /** 统计文本的样式 */
   readonly style?: CSSStyle | ((datum: Datum) => CSSStyle);
+  /** 支持文本常量 */
+  readonly content?: string;
   /** 文本的格式化 */
   readonly formatter?: (datum?: Datum, data?: Data /** filterData */) => string;
   readonly rotate?: number;

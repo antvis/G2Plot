@@ -125,5 +125,19 @@ describe('饼图 statistics 相关处理函数', () => {
     // @ts-ignore
     expect(div.querySelector('.g2-html-annotation').innerText).toBe('xxx');
     chart.clear();
+
+    renderGaugeStatistic(chart, {
+      statistic: {
+        title: {
+          content: '__title__',
+        },
+        content: {},
+      },
+    });
+    chart.render();
+    expect(chart.getComponents().filter((c) => c.type === 'annotation').length).toBe(2);
+    // @ts-ignore
+    expect(div.querySelector('.g2-html-annotation').innerText).toBe('__title__');
+    chart.clear();
   });
 });

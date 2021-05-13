@@ -183,6 +183,8 @@ export const renderGaugeStatistic = (chart: View, options: { statistic: Statisti
         }
         if (option.formatter) {
           text = option.formatter(datum, filteredData);
+        } else if (option.content) {
+          text = option.content
         }
 
         // todo G2 层修复可以返回空字符串 & G2 层修复允许返回非字符串的内容，比如数值 number

@@ -152,8 +152,10 @@
   },
   "sideEffects": [
     "./esm/**/interactions/*.js",
+    "./esm/**/shapes/*.js",
     "./esm/**/shape.js",
     "./lib/**/interactions/*.js",
+    "./lib/**/shapes/*.js",
     "./lib/**/shape.js"
   ]
 }

@@ -25,7 +25,11 @@ module.exports = {
     showChartResize: true, // 是否在demo页展示图表视图切换
     showAPIDoc: true, // 是否在demo页展示API文档
     themeSwitcher: 'g2plot',
-    playground: {},
+    playground: {
+      devDependencies: {
+        typescript: 'latest',
+      },
+    },
     mdPlayground: {
       // markdown 文档中的 playground 若干设置
       splitPaneMainSize: '50%',

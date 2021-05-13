@@ -41,4 +41,8 @@ meta: {
 
 ### 多图层图表自 2.3.20 版本从 MultiView 更名为 Mix
 
-具体使用：可以见 Mix Plot [API](/zh/docs/api/mix) 文档
+具体使用：可以见 Mix Plot [API](/zh/docs/api/mix) 文档。
+
+### 水波图无法设置透明或者图片背景
+
+因为水波图需要支持 distance 和通过 path 来自定义 shape，所以目前没有办法设置透明或者图片背景。

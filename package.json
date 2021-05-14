@@ -114,7 +114,7 @@
       "jest-extended"
     ],
     "preset": "ts-jest",
-    "collectCoverage": true,
+    "collectCoverage": false,
     "collectCoverageFrom": [
       "src/**/*.ts",
       "!**/node_modules/**",

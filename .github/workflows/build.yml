@@ -21,9 +21,8 @@ jobs:
           cache-name: cache-node-modules
         with:
           path: ./node_modules
-          key: ${{ runner.os }}-build-cache-node-modules-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            cache-node-modules-
+          key: g2plot-cache-${{ runner.os }}-${{ secrets.CACHE_FLAG || '' }}-${{ hashFiles('**/package.json') }}
+
       - name: Run ci
         run: |
           npm install

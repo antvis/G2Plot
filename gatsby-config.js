@@ -134,6 +134,14 @@ module.exports = {
         },
       },
       {
+        slug: 'facet',
+        icon: 'gallery',
+        title: {
+          zh: 'Facet ❤️',
+          en: '分面图 ❤️',
+        },
+      },
+      {
         slug: 'case',
         icon: 'gallery',
         title: {

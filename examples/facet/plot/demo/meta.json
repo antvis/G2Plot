@@ -1,0 +1,72 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "column.ts",
+      "title": {
+        "zh": "Column 分面图",
+        "en": "Column facet"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/SAiAwUtFTN/d8350db2-a905-4bd0-9c99-a750a1ee8cb0.png"
+    },
+    {
+      "filename": "rect.ts",
+      "title": {
+        "zh": "二维行列(矩形)分面",
+        "en": "Rect facet"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/%24PP5iO2j2X/3658552c-f0d2-4da5-a236-36509187676c.png"
+    },
+    {
+      "filename": "list.ts",
+      "title": {
+        "zh": "列表分面",
+        "en": "List facet"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/8cbQnUoZKq/1e19cd37-55b7-4c56-8476-a64aa5bdb768.png"
+    },
+    {
+      "filename": "circle.ts",
+      "title": {
+        "zh": "圆形分面",
+        "en": "Circle facet"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/PaADJJDV4V/1f52ab89-c989-4014-bd18-c3f3d36f8a90.png"
+    },
+    {
+      "filename": "mirror.ts",
+      "title": {
+        "zh": "镜像分面",
+        "en": "Mirror facet"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/lt6RMVMz7I/0623b932-a8dc-402f-87d3-a80d889661bf.png"
+    },
+    {
+      "filename": "matrix.ts",
+      "title": {
+        "zh": "矩阵分面",
+        "en": "Matrix facet"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/tx5DXB6xhh/99a19fdb-c428-43a2-8210-49e255d14e8c.png"
+    },
+    {
+      "filename": "tree.ts",
+      "title": {
+        "zh": "树型分面",
+        "en": "Tree facet"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/Hq%24sncegPI/3620662f-48f8-45c6-a269-c36168137ea0.png"
+    },
+    {
+      "filename": "tree-column.ts",
+      "title": {
+        "zh": "多级树型分面",
+        "en": "Tree clolumn facet"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/CBR0Ay1K3M/44c5908a-9a23-4aa0-8e26-563619456997.png"
+    }
+  ]
+}

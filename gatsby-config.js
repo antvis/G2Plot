@@ -1,4 +1,4 @@
-const { repository } = require('./package.json');
+const { repository, version } = require('./package.json');
 
 module.exports = {
   plugins: [
@@ -18,7 +18,7 @@ module.exports = {
     siteUrl: 'https://g2plot.antv.vision',
     githubUrl: repository.url,
     versions: {
-      'latest v2': 'https://g2plot.antv.vision',
+      [version]: 'https://g2plot.antv.vision',
       '1.x': 'https://g2plot-v1.antv.vision',
     },
     galleryMenuCloseAll: true,

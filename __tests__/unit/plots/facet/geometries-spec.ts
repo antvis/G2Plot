@@ -1,7 +1,6 @@
 import { groupBy, size } from '@antv/util';
 import { Facet } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
-import { simulateMouseEvent } from '../../../utils/event';
 
 describe('facet', () => {
   const data = [
@@ -25,8 +24,8 @@ describe('facet', () => {
     eachView: (view, facet) => {
       return {
         geometries: [
-          { type: 'interval', xField: 'date', yField: 'value', colorField: 'name' },
-          { type: 'point', xField: 'date', yField: 'value', colorField: 'name' },
+          { type: 'interval', xField: 'date', yField: 'value', colorField: 'name', mapping: {} },
+          { type: 'point', xField: 'date', yField: 'value', colorField: 'name', mapping: {} },
         ],
       };
     },

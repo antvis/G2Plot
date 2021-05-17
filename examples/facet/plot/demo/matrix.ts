@@ -4,7 +4,8 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/iris.json')
   .then((res) => res.json())
   .then((data) => {
     const plot = new Facet('container', {
-      appendPadding: [0, 16, 16, 16],
+      appendPadding: [0, 0, 16, 0],
+      padding: 16,
       type: 'matrix',
       fields: ['SepalLength', 'SepalWidth', 'PetalLength', 'PetalWidth'],
       data,

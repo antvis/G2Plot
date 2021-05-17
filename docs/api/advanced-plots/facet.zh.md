@@ -1,6 +1,6 @@
 ---
 title: 分面图
-order: 10
+order: 9
 ---
 
 分面（Facet）是指利用 G2 提供的 View 递归嵌套能力，将一份数据按照某个维度分隔成若干子集，然后创建一个图表的矩阵，将每一个数据子集绘制到图表矩阵的窗格中。
@@ -66,7 +66,6 @@ order: 10
 <description>**optional** _boolean_</description>
 
 是否对超出坐标系范围的 Geometry 进行剪切。
-
 
 ### FacetCfg
 
@@ -162,7 +161,7 @@ order: 10
 type ViewCallback = (innerView: View, facet?: FacetData) => IPlot;
 ```
 
-<playground path="facet/basic/demo/rect.ts" rid="facet-rect-plot">
+<playground path="facet/basic/demo/rect.ts" rid="facet-rect-plot"></playground>
 
 其中 _FacetData_ 结构如下：
 
@@ -183,7 +182,6 @@ type ViewCallback = (innerView: View, facet?: FacetData) => IPlot;
 | columnValuesLength | number     | 当前列字段的枚举值长度                      |
 | children           | TreeData[] | 只有 tree 类型分面有，树 children 数据      |
 | originColIndex     | number     | 只有 tree 类型分面有，原始数据列 index      |
-
 
 ### IPlot
 

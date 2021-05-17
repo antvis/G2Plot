@@ -3,4 +3,4 @@ title: Mix Plot
 order: 0
 ---
 
-`markdown:docs/api/mix.en.md`
+`markdown:docs/api/advanced-plots/mix.en.md`

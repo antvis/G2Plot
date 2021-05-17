@@ -1,2 +1,2 @@
 
-`markdown:docs/api/facet.zh.md`
+`markdown:docs/api/advanced-plots/facet.zh.md`

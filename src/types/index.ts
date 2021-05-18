@@ -4,3 +4,5 @@ export * from './state';
 export * from './attr';
 export * from './statistic';
 export * from './meta';
+export * from './axis';
+export * from './interaction';

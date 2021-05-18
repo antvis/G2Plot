@@ -108,12 +108,20 @@ module.exports = {
         order: 2,
       },
       {
+        slug: 'api/advanced-plots',
+        title: {
+          zh: '高级图表',
+          en: 'Advanced plots',
+        },
+        order: 3,
+      },
+      {
         slug: 'api/components',
         title: {
           zh: '图表组件',
           en: 'Components',
         },
-        order: 3,
+        order: 4,
       },
       {
         slug: 'api/options',
@@ -121,8 +129,8 @@ module.exports = {
           zh: '通用配置',
           en: 'Common Configuration',
         },
-        order: 4,
-      },
+        order: 5,
+      }
     ],
     examples: [
       {
@@ -131,6 +139,14 @@ module.exports = {
         title: {
           zh: '',
           en: '',
+        },
+      },
+      {
+        slug: 'facet',
+        icon: 'gallery',
+        title: {
+          zh: 'Facet ❤️',
+          en: '分面图 ❤️',
         },
       },
       {

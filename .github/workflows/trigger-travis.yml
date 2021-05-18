@@ -15,7 +15,7 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
           source_file: 'trigger.md'
-          destination_repo: 'https://github.com/lxfu1/release-inspection-of-antv'
+          destination_repo: 'https://github.com/lxfu1/release-inspection-of-antv.git'
           destination_folder: 'server'
           user_email: 'github-actions[bot]@users.noreply.github.com'
           user_name: 'github-actions[bot]'

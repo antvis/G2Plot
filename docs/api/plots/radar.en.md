@@ -62,7 +62,7 @@ The radar map maps to the field corresponding to the radius, typically a continu
 
 <description>**required** _string_</description>
 
-A field that groups a radar map, usually corresponding to a classification field. By the value of this field, the radar map will be divided into groups, separated by color, and overlaid.
+A field that groups a radar map, usually corresponding to a classification field (**Attention：require a string field**). By the value of this field, the radar map will be divided into groups, separated by color, and overlaid.
 
 ### Geometry Style
 

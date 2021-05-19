@@ -20,3 +20,4 @@ jobs:
           user_email: 'github-actions[bot]@users.noreply.github.com'
           user_name: 'github-actions[bot]'
           commit_message: 'Trigger travis actions'
+          destination_branch: 'master'

@@ -11,7 +11,7 @@ jobs:
 
       - name: Generate API module
         env:
-          GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git clone https://user:$GITHUB_TOKEN@github.com/lxfu1/release-inspection-of-antv
 

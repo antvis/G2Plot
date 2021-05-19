@@ -30,7 +30,6 @@ jobs:
           # origin ***github.com/lxfu1/release-inspection-of-antv (fetch)
           # origin ***github.com/lxfu1/release-inspection-of-antv (push)
 
-          git push --set-upstream origin api-version-$COMMIT # This does not work
           git push --set-upstream https://user:$GITHUB_TOKEN@github.com/lxfu1/release-inspection-of-antv api-version-$COMMIT # This does not work either
       # - name: Pushes a file to release-inspection-of-antv
       #   uses: dmnemec/copy_file_to_another_repo_action@main

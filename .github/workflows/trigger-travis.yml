@@ -25,12 +25,8 @@ jobs:
           touch new-file.sh
           git add new-file.sh
           git commit --message 'Trigger travis actions'
-
-          git remote -v # Prints:
-          # origin ***github.com/lxfu1/release-inspection-of-antv (fetch)
-          # origin ***github.com/lxfu1/release-inspection-of-antv (push)
-
-          git push --set-upstream https://user:$GITHUB_TOKEN@github.com/lxfu1/release-inspection-of-antv api-version-$COMMIT # This does not work either
+          git push --set-upstream origin api-version-$COMMIT
+          git push --set-upstream https://user:$GITHUB_TOKEN@github.com/lxfu1/release-inspection-of-antv.git api-version-$COMMIT # This does not work either
       # - name: Pushes a file to release-inspection-of-antv
       #   uses: dmnemec/copy_file_to_another_repo_action@main
       #   env:

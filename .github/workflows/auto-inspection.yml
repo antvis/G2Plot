@@ -1,0 +1,23 @@
+name: auto inspection
+
+on: ['push', 'pull_request']
+
+jobs:
+  copy-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Ready for inspection
+        uses: dmnemec/copy_file_to_another_repo_action@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          source_file: 'CHANGELOG.md'
+          destination_repo: 'lxfu1/release-inspection-of-antv'
+          destination_folder: 'changelog/g2plot'
+          user_email: '954055752@qq.com'
+          user_name: 'lxfu1'
+          commit_message: 'start inspection'
+          destination_branch: 'master'

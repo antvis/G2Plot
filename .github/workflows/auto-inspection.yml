@@ -19,5 +19,5 @@ jobs:
           destination_folder: 'changelog/g2plot'
           user_email: '954055752@qq.com'
           user_name: 'lxfu1'
-          commit_message: 'start inspection'
+          commit_message: 'g2plot start inspection'
           destination_branch: 'master'

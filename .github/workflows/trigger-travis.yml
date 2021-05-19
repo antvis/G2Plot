@@ -9,15 +9,37 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Pushes a file to release-inspection-of-antv
-        uses: dmnemec/copy_file_to_another_repo_action@main
+      - name: Generate API module
         env:
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-        with:
-          source_file: '.prettierrc'
-          destination_repo: 'lxfu1/release-inspection-of-antv'
-          destination_folder: 'server'
-          user_email: '954055752@qq.com'
-          user_name: 'lxfu1'
-          commit_message: 'Trigger travis actions'
-          destination_branch: 'master'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git clone https://user:$GITHUB_TOKEN@github.com/lxfu1/release-inspection-of-antv
+
+          cd release-inspection-of-antv
+          git config user.name "lxf1"
+          git config user.email "954055752@qq.com"
+          git config --list
+          git checkout -b api-version-$COMMIT
+
+          touch new-file.sh
+          git add new-file.sh
+          git commit --message 'Trigger travis actions'
+
+          git remote -v # Prints:
+          # origin ***github.com/lxfu1/release-inspection-of-antv (fetch)
+          # origin ***github.com/lxfu1/release-inspection-of-antv (push)
+
+          git push --set-upstream origin api-version-$COMMIT # This does not work
+          git push --set-upstream https://user:$GITHUB_TOKEN@github.com/lxfu1/release-inspection-of-antv api-version-$COMMIT # This does not work either
+      # - name: Pushes a file to release-inspection-of-antv
+      #   uses: dmnemec/copy_file_to_another_repo_action@main
+      #   env:
+      #     API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      #   with:
+      #     source_file: '.prettierrc'
+      #     destination_repo: 'lxfu1/release-inspection-of-antv'
+      #     destination_folder: 'server'
+      #     user_email: '954055752@qq.com'
+      #     user_name: 'lxfu1'
+      #     commit_message: 'Trigger travis actions'
+      #     destination_branch: 'master'

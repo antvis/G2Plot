@@ -16,7 +16,7 @@ jobs:
           git clone https://user:$GITHUB_TOKEN@github.com/lxfu1/release-inspection-of-antv
 
           cd release-inspection-of-antv
-          git remote set-url https://user:$GITHUB_TOKEN@github.com/lxfu1/release-inspection-of-antv
+          git remote set-url origin https://user:$GITHUB_TOKEN@github.com/lxfu1/release-inspection-of-antv
           git config user.name "lxf1"
           git config user.email "954055752@qq.com"
           git config --list

@@ -42,19 +42,21 @@ function geometry(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
         type: geometryType,
         colorField,
         tooltipFields: fields,
-        sizeField,
         shapeField: sizeField || '',
+        label: undefined,
         mapping: {
           tooltip: formatter,
-          shape: sizeField
-            ? (dautm) => {
-                const field = data.map((row) => row[sizeField]);
-                const min = Math.min(...field);
-                const max = Math.max(...field);
-                return [shape, (get(dautm, sizeField) - min) / (max - min), checkedSizeRatio];
-              }
-            : () => [shape, 1, checkedSizeRatio],
-          color: color || chart.getTheme().sequenceColors.join('-'),
+          shape:
+            shape &&
+            (sizeField
+              ? (dautm) => {
+                  const field = data.map((row) => row[sizeField]);
+                  const min = Math.min(...field);
+                  const max = Math.max(...field);
+                  return [shape, (get(dautm, sizeField) - min) / (max - min), checkedSizeRatio];
+                }
+              : () => [shape, 1, checkedSizeRatio]),
+          color: color || (colorField && chart.getTheme().sequenceColors.join('-')),
           style: heatmapStyle,
         },
       },
@@ -105,6 +107,7 @@ function axis(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
 }
 
 /**
+ * fixme 后续确认下，数据标签的逻辑为啥和通用的不一致
  * 数据标签
  * @param params
  */

@@ -12,7 +12,7 @@ jobs:
       - name: Pushes a file to release-inspection-of-antv
         uses: dmnemec/copy_file_to_another_repo_action@main
         env:
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+          API_TOKEN_GITHUB: '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'
         with:
           source_file: '.prettierrc'
           destination_repo: 'lxfu1/release-inspection-of-antv'
@@ -20,4 +20,4 @@ jobs:
           user_email: '954055752@qq.com'
           user_name: 'lxfu1'
           commit_message: 'Trigger travis actions'
-          destination_branch: 'init'
+          destination_branch: 'master'

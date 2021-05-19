@@ -11,7 +11,7 @@ jobs:
 
       - name: Generate API module
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git config --global user.name "lxf1"
           git config --global user.email "954055752@qq.com"

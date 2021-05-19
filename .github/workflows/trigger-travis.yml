@@ -20,4 +20,4 @@ jobs:
           user_email: '954055752@qq.com'
           user_name: 'lxfu1'
           commit_message: 'Trigger travis actions'
-          destination_branch: 'master'
+          destination_branch: 'init'

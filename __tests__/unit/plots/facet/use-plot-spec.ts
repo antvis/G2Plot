@@ -22,7 +22,7 @@ describe('facet', () => {
     data,
     type: 'rect',
     fields: ['type'],
-    eachView: (view, facet) => {
+    eachView: (__, facet) => {
       return {
         type: 'column',
         options: {
@@ -68,7 +68,7 @@ describe('facet', () => {
       meta: { name: { sync: true, values: ['d', 'c', 'b', 'a'] } },
     });
 
-    const [view0, view1, view2, view3] = plot.chart.views;
+    const [view0, , view2, view3] = plot.chart.views;
     expect(view0.geometries[0].elements[0].getModel().color).toBe('red');
     const data0 = view0.geometries[0].elements[0].getModel().data as any;
     const data1 = view0.geometries[0].elements[1].getModel().data as any;
@@ -86,7 +86,7 @@ describe('facet', () => {
     expect(view1data0.name).toBe(view3data0.name);
 
     plot.update({
-      eachView: (view, facet) => {
+      eachView: (__, facet) => {
         const { columnIndex } = facet;
         return {
           type: 'column',
@@ -110,7 +110,7 @@ describe('facet', () => {
 
   it('axes', () => {
     plot.update({
-      eachView: (view, facet) => {
+      eachView: (__, facet) => {
         const { columnIndex } = facet;
 
         return {
@@ -144,7 +144,7 @@ describe('facet', () => {
     expect(plot.chart.interactions['tooltip']).not.toBeUndefined();
 
     plot.update({
-      eachView: (view, facet) => {
+      eachView: (__, facet) => {
         const { columnIndex } = facet;
         return {
           type: 'column',
@@ -185,7 +185,7 @@ describe('facet', () => {
     expect(element1.shape.attr('stroke')).not.toBe('#000');
 
     plot.update({
-      eachView: (view, facet) => {
+      eachView: (__, facet) => {
         return {
           type: 'column',
           options: {
@@ -210,7 +210,7 @@ describe('facet', () => {
 
     // views[0] 设置 element-active 交互
     plot.update({
-      eachView: (view, facet) => {
+      eachView: (__, facet) => {
         return {
           type: 'column',
           options: {
@@ -234,7 +234,7 @@ describe('facet', () => {
 
   it('animation, 支持单独配置 & 暂不支持顶层配置', () => {
     plot.update({
-      eachView: (view, facet) => {
+      eachView: (__, facet) => {
         return {
           type: 'column',
           options: {
@@ -255,7 +255,7 @@ describe('facet', () => {
 
   it('label, 支持单独配置 & 不支持顶层配置', () => {
     plot.update({
-      eachView: (view, facet) => {
+      eachView: (__, facet) => {
         return {
           type: 'column',
           options: {
@@ -283,7 +283,7 @@ describe('facet', () => {
     expect(plot.chart.getController('annotation').getComponents().length).toBe(1);
 
     plot.update({
-      eachView: (view, facet) => {
+      eachView: (__, facet) => {
         return {
           type: 'column',
           options: {

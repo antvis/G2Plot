@@ -6,7 +6,7 @@ title: API
 
 ### 设置状态样式
 
-- 目前支持 4 种状态样式的设置：`default`, `active`, `selected`, `inactive`，详细可见 [G2 state](https://g2.antv.vision/en/docs/api/geometry/geometry#state) 文档
+- 目前支持 4 种状态样式的设置：`default`, `active`, `selected`, `inactive`，详细可见 [G2 state](https://g2.antv.vision/en/docs/api/general/geometry#geomstate) 文档
 
 使用示例:
 

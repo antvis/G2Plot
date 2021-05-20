@@ -16,7 +16,6 @@ export const DEFAULT_OPTIONS = {
         textAlign: 'center' as const,
         textBaseline: 'middle' as const,
       },
-      formatter: ({ percent }) => `${(percent * 100).toFixed(2)}%`,
     },
   },
   animation: {},

@@ -72,13 +72,13 @@ export function statistic(params: Params<LiquidOptions>, updated?: boolean): Par
 
   // 先清空标注，再重新渲染
   chart.getController('annotation').clear(true);
-  const contentOpt = statistic.content;
-  if (contentOpt && !contentOpt.formatter) {
-    const metaFormatter = get(meta, ['percent', 'formatter']) || ((v) => `${(v * 100).toFixed(2)}%`);
-    // @ts-ignore
-    contentOpt.formatter = ({ percent }) => {
-      return !isNil(contentOpt.content) ? contentOpt.content : metaFormatter(percent);
-    };
+
+  const metaFormatter = get(meta, ['percent', 'formatter']) || ((v) => `${(v * 100).toFixed(2)}%`);
+  let contentOpt = statistic.content;
+  if (contentOpt) {
+    contentOpt = deepAssign({}, contentOpt, {
+      content: !isNil(contentOpt.content) ? contentOpt.content : metaFormatter(percent),
+    });
   }
 
   renderStatistic(chart, { statistic: { ...statistic, content: contentOpt }, plotType: 'liquid' }, { percent });

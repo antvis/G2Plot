@@ -1,5 +1,5 @@
 import { Geometry } from '@antv/g2';
-import { get } from '@antv/util';
+import { get, isNil } from '@antv/util';
 import { interaction, animation, theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign, renderStatistic } from '../../utils';
@@ -72,14 +72,16 @@ export function statistic(params: Params<LiquidOptions>, updated?: boolean): Par
 
   // 先清空标注，再重新渲染
   chart.getController('annotation').clear(true);
-  if (statistic.content && !statistic.content.formatter) {
-    const metaFormatter = get(meta, ['percent', 'formatter']);
+  const contentOpt = statistic.content;
+  if (contentOpt && !contentOpt.formatter) {
+    const metaFormatter = get(meta, ['percent', 'formatter']) || ((v) => `${(v * 100).toFixed(2)}%`);
     // @ts-ignore
-    statistic.content.formatter = ({ percent }) =>
-      metaFormatter ? metaFormatter(percent) : `${(percent * 100).toFixed(2)}%`;
+    contentOpt.formatter = ({ percent }) => {
+      return !isNil(contentOpt.content) ? contentOpt.content : metaFormatter(percent);
+    };
   }
 
-  renderStatistic(chart, { statistic, plotType: 'liquid' }, { percent });
+  renderStatistic(chart, { statistic: { ...statistic, content: contentOpt }, plotType: 'liquid' }, { percent });
 
   if (updated) {
     chart.render(true);

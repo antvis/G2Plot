@@ -1,4 +1,4 @@
-import { get } from '@antv/util';
+import { get, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow, renderStatistic } from '../../utils';
 import { scale, animation, theme, annotation } from '../../adaptor/common';
@@ -38,13 +38,10 @@ export function statistic(params: Params<RingProgressOptions>, updated?: boolean
   if (innerRadius && statistic) {
     const transformContent = statistic.content;
     if (transformContent && !transformContent.formatter) {
+      const metaFormatter = get(meta, [PERCENT, 'formatter']) || ((v) => v);
       // @ts-ignore
       transformContent.formatter = ({ percent }) => {
-        const metaFormatter = get(meta, [PERCENT, 'formatter']);
-        if (metaFormatter) {
-          return metaFormatter(percent);
-        }
-        return percent;
+        return !isNil(transformContent.content) ? transformContent.content : metaFormatter(percent);
       };
     }
     renderStatistic(

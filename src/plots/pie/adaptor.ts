@@ -178,25 +178,29 @@ export function transformStatisticOptions(options: PieOptions): PieOptions {
   const { innerRadius, statistic, angleField, colorField, meta } = options;
 
   if (innerRadius && statistic) {
-    let { title, content } = deepAssign({}, DEFAULT_OPTIONS.statistic, statistic);
-    if (title !== false) {
-      title = deepAssign({}, { formatter: (datum) => (datum ? datum[colorField] : '总计') }, title);
+    let { title: titleOpt, content: contentOpt } = deepAssign({}, DEFAULT_OPTIONS.statistic, statistic);
+    if (titleOpt !== false) {
+      titleOpt = deepAssign(
+        {},
+        { formatter: (datum) => (datum ? datum[colorField] : !isNil(titleOpt.content) ? titleOpt.content : '总计') },
+        titleOpt
+      );
     }
-    if (content !== false) {
-      content = deepAssign(
+    if (contentOpt !== false) {
+      contentOpt = deepAssign(
         {},
         {
           formatter: (datum, data) => {
-            const metaFormatter = get(meta, [angleField, 'formatter']);
             const dataValue = datum ? datum[angleField] : getTotalValue(data, angleField);
-            return metaFormatter ? metaFormatter(dataValue) : dataValue;
+            const metaFormatter = get(meta, [angleField, 'formatter']) || ((v) => v);
+            return !isNil(contentOpt.content) ? contentOpt.content : metaFormatter(dataValue);
           },
         },
-        content
+        contentOpt
       );
     }
 
-    return deepAssign({}, { statistic: { title, content } }, options);
+    return deepAssign({}, { statistic: { title: titleOpt, content: contentOpt } }, options);
   }
   return options;
 }

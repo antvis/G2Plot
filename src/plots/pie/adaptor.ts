@@ -5,6 +5,7 @@ import { getMappingFunction } from '../../adaptor/geometries/base';
 import { interval } from '../../adaptor/geometries';
 import { Interaction } from '../../types/interaction';
 import { flow, template, transformLabel, deepAssign, renderStatistic, processIllegalData } from '../../utils';
+import { Data, Datum } from '../../types';
 import { DEFAULT_OPTIONS } from './contants';
 import { adaptOffset, getTotalValue, isAllZero } from './utils';
 import { PIE_STATISTIC } from './interactions';
@@ -178,25 +179,41 @@ export function transformStatisticOptions(options: PieOptions): PieOptions {
   const { innerRadius, statistic, angleField, colorField, meta } = options;
 
   if (innerRadius && statistic) {
-    let { title, content } = deepAssign({}, DEFAULT_OPTIONS.statistic, statistic);
-    if (title !== false) {
-      title = deepAssign({}, { formatter: (datum) => (datum ? datum[colorField] : '总计') }, title);
-    }
-    if (content !== false) {
-      content = deepAssign(
+    let { title: titleOpt, content: contentOpt } = deepAssign({}, DEFAULT_OPTIONS.statistic, statistic);
+    if (titleOpt !== false) {
+      titleOpt = deepAssign(
         {},
         {
-          formatter: (datum, data) => {
-            const metaFormatter = get(meta, [angleField, 'formatter']);
-            const dataValue = datum ? datum[angleField] : getTotalValue(data, angleField);
-            return metaFormatter ? metaFormatter(dataValue) : dataValue;
+          formatter: (datum: Datum) => {
+            // 交互中
+            if (datum) {
+              return datum[colorField];
+            }
+            return !isNil(titleOpt.content) ? titleOpt.content : '总计';
           },
         },
-        content
+        titleOpt
+      );
+    }
+    if (contentOpt !== false) {
+      contentOpt = deepAssign(
+        {},
+        {
+          formatter: (datum: Datum, data: Data) => {
+            const dataValue = datum ? datum[angleField] : getTotalValue(data, angleField);
+            const metaFormatter = get(meta, [angleField, 'formatter']) || ((v) => v);
+            // 交互中
+            if (datum) {
+              return metaFormatter(dataValue);
+            }
+            return !isNil(contentOpt.content) ? contentOpt.content : metaFormatter(dataValue);
+          },
+        },
+        contentOpt
       );
     }
 
-    return deepAssign({}, { statistic: { title, content } }, options);
+    return deepAssign({}, { statistic: { title: titleOpt, content: contentOpt } }, options);
   }
   return options;
 }

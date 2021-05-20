@@ -6,7 +6,6 @@ export const DEFAULT_OPTIONS = {
   statistic: {
     title: false as const,
     content: {
-      formatter: ({ percent }) => `${(percent * 100).toFixed(2)}%`,
       style: {
         opacity: 0.75,
         fontSize: '30px',

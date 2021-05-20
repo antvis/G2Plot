@@ -34,7 +34,7 @@ const piePlot = new Pie('container', {
         overflow: 'hidden',
         textOverflow: 'ellipsis',
       },
-      formatter: () => 'AntV\nG2Plot',
+      content: 'AntV\nG2Plot',
     },
   },
 });

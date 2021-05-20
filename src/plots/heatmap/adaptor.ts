@@ -1,31 +1,23 @@
-import { isFunction, isObject } from '@antv/util';
-import { Geometry } from '@antv/g2';
+import { get } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { findGeometry } from '../../utils';
+import { deepAssign, findGeometry } from '../../utils';
 import { flow, transformLabel } from '../../utils';
-import { tooltip, interaction, animation, theme, scale, annotation, state } from '../../adaptor/common';
+import { tooltip, interaction, animation, theme, scale, annotation, state, legend } from '../../adaptor/common';
+import { geometry as geometryAdaptor } from '../../adaptor/geometries/base';
+import { getTooltipMapping } from '../../utils/tooltip';
 import { HeatmapOptions } from './types';
 
-/**
- * 数据字段映射
- * @param params
- */
-function field(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
+function geometry(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart, options } = params;
-  const { data, type, xField, yField, colorField, sizeField, sizeRatio, shape, color } = options;
+  const { data, type, xField, yField, colorField, sizeField, sizeRatio, shape, color, tooltip, heatmapStyle } = options;
 
   chart.data(data);
-  let geometry: Geometry;
-
+  let geometryType = 'polygon';
   if (type === 'density') {
-    geometry = chart.heatmap().position(`${xField}*${yField}`);
-  } else {
-    geometry = chart.polygon().position(`${xField}*${yField}`);
+    geometryType = 'heatmap';
   }
 
-  if (colorField) {
-    geometry.color(colorField, color || chart.getTheme().sequenceColors.join('-'));
-  }
+  const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, colorField]);
 
   /**
    * The ratio between the actual size and the max available size, must be in range `[0,1]`.
@@ -44,26 +36,32 @@ function field(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
     }
   }
 
-  // when it has to change shape from original rect
-  if (shape) {
-    // just to change shape in cell
-    if (!sizeField) {
-      geometry.shape('', () => {
-        return [shape, 1, checkedSizeRatio];
-      });
-    }
-
-    // specific shape in different size
-    if (sizeField) {
-      const field = data.map((row) => row[sizeField]);
-      const min = Math.min(...field);
-      const max = Math.max(...field);
-
-      geometry.shape(sizeField, (v) => {
-        return [shape, (v - min) / (max - min), checkedSizeRatio];
-      });
-    }
-  }
+  geometryAdaptor(
+    deepAssign({}, params, {
+      options: {
+        type: geometryType,
+        colorField,
+        tooltipFields: fields,
+        shapeField: sizeField || '',
+        label: undefined,
+        mapping: {
+          tooltip: formatter,
+          shape:
+            shape &&
+            (sizeField
+              ? (dautm) => {
+                  const field = data.map((row) => row[sizeField]);
+                  const min = Math.min(...field);
+                  const max = Math.max(...field);
+                  return [shape, (get(dautm, sizeField) - min) / (max - min), checkedSizeRatio];
+                }
+              : () => [shape, 1, checkedSizeRatio]),
+          color: color || (colorField && chart.getTheme().sequenceColors.join('-')),
+          style: heatmapStyle,
+        },
+      },
+    })
+  );
 
   return params;
 }
@@ -109,42 +107,7 @@ function axis(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
 }
 
 /**
- * legend 配置
- * @param params
- */
-function legend(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
-  const { chart, options } = params;
-  const { legend, colorField } = options;
-
-  if (legend) {
-    chart.legend(colorField, legend);
-  } else {
-    chart.legend(false);
-  }
-
-  return params;
-}
-
-/**
- * 样式
- * @param params
- */
-function style(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
-  const { chart, options } = params;
-  const { xField, yField, colorField, sizeField, heatmapStyle } = options;
-
-  const geometry = chart.geometries[0];
-  if (heatmapStyle && geometry) {
-    if (isFunction(heatmapStyle)) {
-      geometry.style(`${xField}*${yField}*${colorField}*${sizeField}`, heatmapStyle);
-    } else if (isObject(heatmapStyle)) {
-      geometry.style(heatmapStyle);
-    }
-  }
-  return params;
-}
-
-/**
+ * fixme 后续确认下，数据标签的逻辑为啥和通用的不一致
  * 数据标签
  * @param params
  */
@@ -199,17 +162,16 @@ export function adaptor(params: Params<HeatmapOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
     theme,
-    field,
     meta,
+    coordinate,
+    geometry,
     axis,
     legend,
     tooltip,
-    style,
     label,
     annotation(),
     interaction,
     animation,
-    state,
-    coordinate
+    state
   )(params);
 }

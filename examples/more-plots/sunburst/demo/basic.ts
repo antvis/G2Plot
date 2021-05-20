@@ -8,7 +8,7 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json')
       seriesField: 'sum',
       colorField: 'label',
       innerRadius: 0.3,
-      interactions: [{ type: 'element-active' }],
+      interactions: [{ type: 'element-active' }, { type: 'sunburst-drill-down' }],
     });
     sunburstPlot.render();
   });

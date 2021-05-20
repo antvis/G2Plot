@@ -1,3 +1,7 @@
+import { Types } from '@antv/g2';
+import { isArray } from '@antv/util';
+import { normalPadding } from '../../utils/padding';
+import { Interaction } from '../../types/interaction';
 import { partition } from '../../utils/hierarchy/partition';
 import { treemap } from '../../utils/hierarchy/treemap';
 import { SunburstOptions } from './types';
@@ -75,4 +79,23 @@ export function getTooltipTemplate(params: {
   });
   container.innerHTML = listItem;
   return container;
+}
+
+export function getAdjustAppendPadding(padding: Types.ViewAppendPadding) {
+  const currentAppendPadding = normalPadding(padding);
+  const TOP = 25;
+  return [currentAppendPadding[0] + TOP, currentAppendPadding[1], currentAppendPadding[2], currentAppendPadding[3]];
+}
+
+export function findInteraction(
+  interactions: SunburstOptions['interactions'],
+  interactionType: string
+): undefined | Interaction {
+  if (!isArray(interactions)) return undefined;
+  return interactions.find((i) => i.type === interactionType);
+}
+
+export function enableInteraction(interactions: SunburstOptions['interactions'], interactionType: string): boolean {
+  const interaction = findInteraction(interactions, interactionType);
+  return interaction && interaction.enable !== false;
 }

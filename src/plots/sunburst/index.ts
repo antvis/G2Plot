@@ -3,6 +3,7 @@ import { Adaptor } from '../../core/adaptor';
 import { SunburstOptions } from './types';
 import { adaptor } from './adaptor';
 import { DEFAULT_OPTIONS } from './constant';
+import './interactions/sunburst-drill-down';
 
 export type { SunburstOptions };
 

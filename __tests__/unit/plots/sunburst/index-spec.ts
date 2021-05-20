@@ -221,3 +221,33 @@ describe('sunburst', () => {
     expect(Sunburst.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });
+
+describe('sunburst', () => {
+  it('appendPadding: interactions appendPadding', async () => {
+    const data = {
+      name: 'root',
+      children: MOBILE_DATA,
+    };
+    const sunburstPlot = new Sunburst(createDiv('sunburset', document.body, 'sunburset-id'), {
+      data,
+      seriesField: 'sum',
+      colorField: 'label',
+      appendPadding: [20, 20, 20, 20],
+      innerRadius: 0.3,
+      interactions: [{ type: 'element-active' }, { type: 'sunburst-drill-down' }],
+    });
+    sunburstPlot.render();
+
+    const drillTop = sunburstPlot.chart.appendPadding[0] - (sunburstPlot.options?.appendPadding?.[0] || 0);
+    expect(drillTop).toBe(25);
+
+    sunburstPlot.update({
+      interactions: [{ type: 'element-active' }],
+    });
+
+    const top = sunburstPlot.chart.appendPadding[0] - (sunburstPlot.options?.appendPadding?.[0] || 0);
+    expect(top).toBe(0);
+
+    sunburstPlot.destroy();
+  });
+});

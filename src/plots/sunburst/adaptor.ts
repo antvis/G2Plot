@@ -2,7 +2,7 @@ import { Params } from '../../core/adaptor';
 import { polygon as polygonAdaptor } from '../../adaptor/geometries';
 import { interaction, animation, theme, annotation } from '../../adaptor/common';
 import { flow, findGeometry, transformLabel, deepAssign } from '../../utils';
-import { transformData, getTooltipTemplate } from './utils';
+import { transformData, getTooltipTemplate, getAdjustAppendPadding, enableInteraction } from './utils';
 import { SunburstOptions } from './types';
 
 /**
@@ -145,6 +145,33 @@ export function tooltip(params: Params<SunburstOptions>): Params<SunburstOptions
 }
 
 /**
+ * 传入参数到chart中，用于交互配置
+ * @param params
+ */
+export function setOptions(params: Params<SunburstOptions>): Params<SunburstOptions> {
+  const { chart, options } = params;
+  chart.option('options', options);
+  return params;
+}
+
+/**
+ * appendPadding 配置
+ * @param params
+ */
+export function appendPadding(params: Params<SunburstOptions>): Params<SunburstOptions> {
+  const { chart, options } = params;
+  const { interactions } = options;
+
+  // 适应下钻交互面包屑
+  const enableDrillInteraction = enableInteraction(interactions, 'sunburst-drill-down');
+  if (enableDrillInteraction) {
+    // 为面包屑在顶部留出 25px 的空间
+    chart.appendPadding = getAdjustAppendPadding(chart.appendPadding);
+  }
+  return params;
+}
+
+/**
  * 旭日图适配器
  * @param chart
  * @param options
@@ -160,7 +187,9 @@ export function adaptor(params: Params<SunburstOptions>) {
     coordinate,
     tooltip,
     label,
+    setOptions,
     interaction,
+    appendPadding,
     animation,
     annotation()
   )(params);

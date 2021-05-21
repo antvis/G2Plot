@@ -1,5 +1,5 @@
 import { isArray } from '@antv/util';
-import { Data, Datum } from '../../types';
+import { Data } from '../../types';
 
 /**
  * 根据 edges 获取对应的 node 结构

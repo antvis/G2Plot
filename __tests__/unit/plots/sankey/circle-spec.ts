@@ -83,6 +83,18 @@ describe('sankey ', () => {
       { source: 'b', target: 'c' },
     ]);
 
+    // 自定义 sourceField targetField
+    const customData = [
+      { from: 'a', to: 'c' },
+      { from: 'b', to: 'c' },
+      { from: 'c', to: 'a' },
+    ];
+
+    expect(cutoffCircle(customData, 'from', 'to')).toEqual([
+      { from: 'a', to: 'c' },
+      { from: 'b', to: 'c' },
+    ]);
+
     // 稍微正式一点的数据
     expect(cutoffCircle(ENERGY_RELATIONS, 'source', 'target')).toEqual(ENERGY_RELATIONS);
     expect(cutoffCircle(ENERGY_RELATIONS, 'source', 'target')).not.toBe(ENERGY_RELATIONS);

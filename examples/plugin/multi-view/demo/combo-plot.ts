@@ -1,4 +1,4 @@
-import { MultiView } from '@antv/g2plot';
+import { Mix } from '@antv/g2plot';
 
 const averageData = [
   { date: '2015-02', value: 21168 },
@@ -9,7 +9,7 @@ const averageData = [
   { date: '2018-08', value: 27890 },
 ];
 
-const plot = new MultiView('container', {
+const plot = new Mix('container', {
   appendPadding: 8,
   tooltip: { shared: true },
   syncViewPadding: true,

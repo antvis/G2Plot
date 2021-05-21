@@ -1,9 +1,9 @@
-import { MultiView } from '@antv/g2plot';
+import { Mix } from '@antv/g2plot';
 
 fetch('https://gw.alipayobjects.com/os/antfincdn/fKTgtjKdaN/association-pie.json')
   .then((data) => data.json())
   .then((data) => {
-    const plot = new MultiView('container', {
+    const plot = new Mix('container', {
       // 关闭 chart 上的 tooltip，子 view 开启 tooltip
       tooltip: false,
       legend: true,

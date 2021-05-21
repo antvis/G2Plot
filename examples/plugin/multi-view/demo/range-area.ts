@@ -1,10 +1,10 @@
-import { MultiView } from '@antv/g2plot';
+import { Mix } from '@antv/g2plot';
 
 fetch('https://gw.alipayobjects.com/os/antfincdn/qE48lpzwRc/range-area-data.json')
   .then((data) => data.json())
   .then((data) => {
     const { area: data1, line: data2 } = data;
-    const rangeAreaPlot = new MultiView('container', {
+    const rangeAreaPlot = new Mix('container', {
       appendPadding: 8,
       syncViewPadding: true,
       tooltip: { shared: true, showMarkers: false, showCrosshairs: true, offsetY: -50 },

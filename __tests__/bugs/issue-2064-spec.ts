@@ -82,5 +82,7 @@ describe('#2064', () => {
     expect(area.labelsContainer.getChildren()).toHaveLength(0);
     expect(line.labelsContainer.getChildren()).toHaveLength(data.length);
     expect(point.labelsContainer.getChildren()).toHaveLength(0);
+
+    plot.destroy();
   });
 });

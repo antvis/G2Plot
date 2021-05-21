@@ -34,10 +34,12 @@ export function adapteStyle(style?: StatisticText['style']): object {
   if (get(style, 'fill')) {
     styleObject['color'] = style['fill'];
   }
-  const { shadowColor, shadowBlur = 0, shadowOffsetX = 0, shadowOffsetY = 0 } = pick(
-    style,
-    shapeStyleKeys
-  ) as ShapeStyle;
+  const {
+    shadowColor,
+    shadowBlur = 0,
+    shadowOffsetX = 0,
+    shadowOffsetY = 0,
+  } = pick(style, shapeStyleKeys) as ShapeStyle;
   styleObject['text-shadow'] = `${[shadowColor, `${shadowOffsetX}px`, `${shadowOffsetY}px`, `${shadowBlur}px`].join(
     ' '
   )}`;
@@ -87,7 +89,6 @@ export const renderStatistic = (chart: View, options: { statistic: Statistic; pl
     if (!option) {
       return;
     }
-    let text = '';
     let transform = '';
     if (idx === 0) {
       transform = contentOpt ? 'translate(-50%, -100%)' : 'translate(-50%, -50%)';
@@ -126,6 +127,8 @@ export const renderStatistic = (chart: View, options: { statistic: Statistic; pl
         if (option.customHtml) {
           return option.customHtml(container, view, datum, filteredData);
         }
+
+        let text = option.content;
         if (option.formatter) {
           text = option.formatter(datum, filteredData);
         }
@@ -154,7 +157,6 @@ export const renderGaugeStatistic = (chart: View, options: { statistic: Statisti
     if (!option) {
       return;
     }
-    let text = '';
     const style = isFunction(option.style) ? option.style(datum) : option.style;
     chart.annotation().html({
       position: ['50%', '100%'],
@@ -179,6 +181,8 @@ export const renderGaugeStatistic = (chart: View, options: { statistic: Statisti
         if (option.customHtml) {
           return option.customHtml(container, view, datum, filteredData);
         }
+
+        let text = option.content;
         if (option.formatter) {
           text = option.formatter(datum, filteredData);
         }

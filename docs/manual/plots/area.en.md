@@ -1,6 +1,14 @@
 ---
 title: Area
 order: 5
+contributors:
+  [
+    {
+      author: '新茗',
+      github: 'visiky',
+      avatar: 'https://gw.alipayobjects.com/zos/antfincdn/KAeYPA3TV0/avatar.jpeg',
+    },
+  ]
 ---
 
 <div class="manual-docs">
@@ -109,5 +117,13 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/360c3eae-0c73-46f0-a982-4746a609
 📊 See more <a href="/en/examples/area/basic" target='blank'>examples</a>.
 
 🎨 For an overview of the area plot options see the [API reference](/en/docs/api/plots/area)。
+
+## Area features
+
+### Add median line annotations
+
+- Add a median line to the area plot by using `annotations`.
+
+<playground path="component/annotation/demo/area-with-line-annotation.ts" rid="area-line-annotations"></playground>
 
 </div>

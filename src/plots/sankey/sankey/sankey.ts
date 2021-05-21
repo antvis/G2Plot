@@ -60,6 +60,7 @@ export function Sankey() {
     py; // nodePadding
   let id = defaultId;
   let align = justify;
+  let depth;
   let sort;
   let linkSort;
   let nodes = defaultNodes;
@@ -91,6 +92,10 @@ export function Sankey() {
 
   sankey.nodeAlign = function (_) {
     return arguments.length ? ((align = typeof _ === 'function' ? _ : constant(_)), sankey) : align;
+  };
+
+  sankey.nodeDepth = function (_) {
+    return arguments.length ? ((depth = typeof _ === 'function' ? _ : _), sankey) : depth;
   };
 
   sankey.nodeSort = function (_) {
@@ -185,6 +190,17 @@ export function Sankey() {
       current = next;
       next = new Set();
     }
+
+    // 如果配置了 depth，则设置自定义 depth
+    if (depth) {
+      const maxDepth = Math.max(maxValueBy(nodes, (d: any) => d.depth) + 1, 0);
+
+      let node;
+      for (let i = 0; i < nodes.length; i++) {
+        node = nodes[i];
+        node.depth = depth.call(null, node, maxDepth);
+      }
+    }
   }
 
   function computeNodeHeights({ nodes }) {
@@ -225,7 +241,7 @@ export function Sankey() {
   }
 
   function initializeNodeBreadths(columns) {
-    const ky = (minValueBy(columns, (c: any[]) => (y1 - y0 - (c.length - 1) * py) / sumBy(c, value)) as any) as number;
+    const ky = minValueBy(columns, (c: any[]) => (y1 - y0 - (c.length - 1) * py) / sumBy(c, value)) as any as number;
     for (const nodes of columns) {
       let y = y0;
       for (const node of nodes) {
@@ -248,7 +264,7 @@ export function Sankey() {
 
   function computeNodeBreadths(graph) {
     const columns = computeNodeLayers(graph);
-    py = Math.min(dy, (y1 - y0) / (((maxValueBy(columns, (c: any[]) => c.length) as any) as number) - 1));
+    py = Math.min(dy, (y1 - y0) / ((maxValueBy(columns, (c: any[]) => c.length) as any as number) - 1));
     initializeNodeBreadths(columns);
     for (let i = 0; i < iterations; ++i) {
       const alpha = Math.pow(0.99, i);

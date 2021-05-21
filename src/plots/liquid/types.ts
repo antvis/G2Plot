@@ -1,5 +1,5 @@
 import { PathCommand } from '@antv/g-base';
-import { Options, StyleAttr, ColorAttr, Statistic } from '../../types';
+import { Options, StyleAttr, ColorAttr, Statistic, ShapeStyle } from '../../types';
 
 /** 轮廓的配置 */
 type Outline = Partial<{
@@ -7,6 +7,8 @@ type Outline = Partial<{
   readonly border: number;
   /** 内外的边距，默认为 0px */
   readonly distance: number;
+  /** 外环的样式 */
+  readonly style?: Pick<ShapeStyle, 'stroke' | 'strokeOpacity'>;
   // /** 外边框的形状，可以有 circle，rect，默认为 circle */
   // readonly containerShape?: 'circle' | 'rect';
 }>;

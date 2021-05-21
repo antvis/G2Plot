@@ -1,11 +1,19 @@
 ---
 title: 滚动条 - Scrollbar
 order: 3
+contributors:
+  [
+    {
+      author: '新茗',
+      github: 'visiky',
+      avatar: 'https://gw.alipayobjects.com/zos/antfincdn/KAeYPA3TV0/avatar.jpeg',
+    },
+  ]
 ---
 
 `markdown:docs/styles/component.md`
 
-#### 配置项 (_ScrollbarCfg_)
+#### 配置属性 - _ScrollbarCfg_
 
 `markdown:docs/common/scrollbar.zh.md`
 

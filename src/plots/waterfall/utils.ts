@@ -1,7 +1,7 @@
 import { isUndefined, isNumber, get, reduce, isObject } from '@antv/util';
 import { Options } from '../../types';
 import { LEVEL, log } from '../../utils';
-import { ABSOLUTE_FIELD, DIFF_FIELD, IS_TOTAL, Y_FIELD } from './constants';
+import { ABSOLUTE_FIELD, DIFF_FIELD, IS_TOTAL, Y_FIELD } from './constant';
 
 /**
  * @desc 数据处理函数，统一将数据处理成[start, end]

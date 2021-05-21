@@ -14,7 +14,7 @@ export type Indicator = {
   };
 };
 
-type Range = {
+export type Range = {
   /** 辅助的刻度值 0 ~ 1 的数字 */
   readonly ticks?: number[];
   /** 辅助刻度的颜色配置 */

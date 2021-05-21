@@ -1,13 +1,20 @@
 import { Plot } from '../../core/plot';
-import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { BoxOptions } from './types';
 import { adaptor } from './adaptor';
 import { transformData } from './utils';
-import { BOX_RANGE, BOX_RANGE_ALIAS, OUTLIERS_VIEW_ID } from './constant';
-export { BoxOptions };
+import { DEFAULT_OPTIONS, OUTLIERS_VIEW_ID } from './constant';
+export type { BoxOptions };
 
 export class Box extends Plot<BoxOptions> {
+  /**
+   * 获取 默认配置项
+   * 供外部使用
+   */
+  static getDefaultOptions(): Partial<BoxOptions> {
+    return DEFAULT_OPTIONS;
+  }
+
   /** 图表类型 */
   public type: string = 'box';
 
@@ -31,21 +38,7 @@ export class Box extends Plot<BoxOptions> {
    * 获取 箱型图 默认配置项
    */
   protected getDefaultOptions(): Partial<BoxOptions> {
-    return deepAssign({}, super.getDefaultOptions(), {
-      meta: {
-        [BOX_RANGE]: { min: 0, alias: BOX_RANGE_ALIAS },
-      },
-
-      // 默认区域交互
-      interactions: [{ type: 'active-region' }],
-
-      // 默认 tooltips 共享，不显示 markers
-      tooltip: {
-        showMarkers: false,
-        showCrosshairs: true,
-        shared: true,
-      },
-    });
+    return Box.getDefaultOptions();
   }
 
   /**

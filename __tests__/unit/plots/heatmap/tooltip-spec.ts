@@ -59,4 +59,35 @@ describe('heatmap', () => {
 
     heatmap.destroy();
   });
+
+  it('tooltip config', () => {
+    const heatmap = new Heatmap(createDiv('tooltip false'), {
+      width: 400,
+      height: 300,
+      data: semanticBasicHeatmapData,
+      xField: 'name',
+      yField: 'day',
+      colorField: 'sales',
+      label: {
+        offset: -2,
+        style: {
+          fill: '#fff',
+          shadowBlur: 2,
+          shadowColor: 'rgba(0, 0, 0, .45)',
+        },
+      },
+      tooltip: {
+        fields: ['name', 'day'],
+      },
+    });
+
+    heatmap.render();
+
+    // @ts-ignore
+    const element = heatmap.chart.geometries[0].elements[0];
+    const point = { x: element.shape.getBBox().x, y: element.shape.getBBox().y };
+    expect(heatmap.chart.getController('tooltip').getTooltipItems(point).length).toBe(2);
+
+    heatmap.destroy();
+  });
 });

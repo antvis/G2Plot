@@ -1,6 +1,24 @@
 ---
 title: 坐标轴 - Axis
 order: 1
+contributors:
+  [
+    {
+      author: '新茗',
+      github: 'visiky',
+      avatar: 'https://gw.alipayobjects.com/zos/antfincdn/KAeYPA3TV0/avatar.jpeg',
+    },
+     {
+      author: 'BBSQQ',
+      github: 'BBSQQ',
+      avatar: 'https://avatars.githubusercontent.com/u/35586469',
+    },
+     {
+      author: 'lxfu1',
+      github: 'lxfu1',
+      avatar: 'https://avatars.githubusercontent.com/u/31396322',
+    },
+  ]
 ---
 
 `markdown:docs/styles/component.md`
@@ -9,9 +27,9 @@ order: 1
 
 🎨  前往墨者学院 [AntV 设计 | 坐标轴 Axis](https://www.yuque.com/mo-college/vis-design/twx9oi) 查看**设计指引**
 
-#### 坐标轴组成
+#### 构成元素
 
-<img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*o64XRZfivrEAAAAAAAAAAABkARQnAQ" alt="axis" class="component-img" />
+![axis](https://gw.alipayobjects.com/zos/antfincdn/9%265Yc6tQuN/648d2019-aee9-4a17-8567-6bbc5910c38d.png)
 
 #### 使用方式
 
@@ -34,6 +52,6 @@ xAxis: {
 }
 ```
 
-#### 配置项 (_AxisCfg_)
+#### 配置属性 - _AxisCfg_
 
 `markdown:docs/common/axis.zh.md`

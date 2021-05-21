@@ -5,12 +5,12 @@ import { adaptor, meta } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
 import { TinyColumnOptions } from './types';
 
-export { TinyColumnOptions };
+export type { TinyColumnOptions };
 
 export class TinyColumn extends Plot<TinyColumnOptions> {
   /**
    * 获取默认配置项
-   * @static 供外部使用
+   * 供外部使用
    */
   static getDefaultOptions(): Partial<TinyColumnOptions> {
     return DEFAULT_OPTIONS;

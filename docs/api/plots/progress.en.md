@@ -1,11 +1,11 @@
 ---
-title: 进度条图
+title: Progress plot
 order: 20
 ---
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.zh.md`
+`markdown:docs/common/chart-options.en.md`
 
 ### Data Mapping
 
@@ -29,10 +29,10 @@ order: 20
 
 柱子样式配置。
 
-`markdown:docs/common/shape-style.zh.md`
+`markdown:docs/common/shape-style.en.md`
 
-`markdown:docs/common/color.zh.md`
+`markdown:docs/common/color.en.md`
 
 ### Plot Component
 
-`markdown:docs/common/component-progress.zh.md`
+`markdown:docs/common/component-progress.en.md`

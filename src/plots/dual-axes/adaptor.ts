@@ -1,7 +1,7 @@
 import { each, findIndex, get, find, isObject, every, isEqual, isBoolean } from '@antv/util';
 import { Scale, Types, Event } from '@antv/g2';
 import {
-  theme,
+  theme as commonTheme,
   animation as commonAnimation,
   scale,
   interaction as commonInteraction,
@@ -279,6 +279,20 @@ export function annotation(params: Params<DualAxesOptions>): Params<DualAxesOpti
       },
     })
   );
+  return params;
+}
+
+export function theme(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
+  const { chart } = params;
+
+  /*
+   * 双轴图中，部分组件是绘制在子 view 层（例如 axis，line），部分组件是绘制在 chart （例如 legend)
+   * 为 chart 和 子 view 均注册 theme，使其自行遵循 G2 theme geometry > view > chart 进行渲染。
+   */
+  commonTheme(deepAssign({}, params, { chart: findViewById(chart, LEFT_AXES_VIEW) }));
+  commonTheme(deepAssign({}, params, { chart: findViewById(chart, RIGHT_AXES_VIEW) }));
+  commonTheme(params);
+
   return params;
 }
 

@@ -37,8 +37,10 @@ describe('pie tooltip', () => {
     await delay(300);
     // @ts-ignore
     let items = tooltipController.getTooltipItems(point);
-    expect(items[0].name).toBe('xxx');
-    expect(items[0].value).toBe('yyy');
+    if (items[0]) {
+      expect(items[0].name).toBe('xxx');
+      expect(items[0].value).toBe('yyy');
+    }
 
     pie.update({ tooltip: { fields: null, formatter: () => ({ name: 'xxx', value: 'yyy' }) } });
 
@@ -46,8 +48,10 @@ describe('pie tooltip', () => {
     await delay(100);
     // @ts-ignore
     items = tooltipController.getTooltipItems(point);
-    expect(items[0].name).toBe('xxx');
-    expect(items[0].value).toBe('yyy');
+    if (items[0]) {
+      expect(items[0].name).toBe('xxx');
+      expect(items[0].value).toBe('yyy');
+    }
   });
 
   it('tooltip fields is empty, no formatter, using default formatter', async () => {
@@ -61,8 +65,10 @@ describe('pie tooltip', () => {
     await delay(100);
     // @ts-ignore
     const items = tooltipController.getTooltipItems(point);
-    expect(items[0].name).toBe(data[0].type);
-    expect(items[0].value).toBe(`${data[0].value}`);
+    if (items[0]) {
+      expect(items[0].name).toBe(data[0].type);
+      expect(items[0].value).toBe(`${data[0].value}`);
+    }
   });
 
   afterEach(() => {

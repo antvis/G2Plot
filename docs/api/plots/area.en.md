@@ -67,7 +67,7 @@ Area graphic style.
 
 #### line
 
-<description>**optional** _lineStyle_</description>
+<description>**optional** _object_</description>
 
 Line graphic style in the Area.
 

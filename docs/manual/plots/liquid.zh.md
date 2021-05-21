@@ -1,6 +1,14 @@
 ---
 title: 水波图
 order: 10
+contributors:
+  [
+    {
+      author: '新茗',
+      github: 'visiky',
+      avatar: 'https://gw.alipayobjects.com/zos/antfincdn/KAeYPA3TV0/avatar.jpeg',
+    },
+  ]
 ---
 
 <div class="manual-docs">
@@ -63,4 +71,22 @@ liquidPlot.render();
 
 🎨 水波图详细的配置参考 [API 文档](/zh/docs/api/plots/liquid).
 
+## 水波图特性
+
+### 配置不同形状的水波图
+
+水波图有五种内置形状：`circle | diamond | triangle | pin | rect`
+
+<playground path='progress-plots/liquid/demo/diamond.ts' rid='rect1'></playground>
+
+### 自定义形状的水波图
+
+水波图除了内置的形状之外，同时也支持自定义图形，这个时候需要传入一个构建 Path 的回调函数。
+
+<playground path='progress-plots/liquid/demo/outline-style.ts' rid='rect2'></playground>
+
 </div>
+
+## 博客文章
+
+- [如何绘制一个星星形状的水波图 🌟](https://www.yuque.com/antv/g2plot/vww7eq#zK8bt)

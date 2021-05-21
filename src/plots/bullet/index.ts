@@ -1,13 +1,21 @@
 import { Plot } from '../../core/plot';
-import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { BulletOptions } from './types';
 import { adaptor, meta } from './adaptor';
 import { transformData } from './utils';
+import { DEFAULT_OPTIONS } from './constant';
 
-export { BulletOptions };
+export type { BulletOptions };
 
 export class Bullet extends Plot<BulletOptions> {
+  /**
+   * 获取 子弹图 默认配置项
+   * 供外部使用
+   */
+  static getDefaultOptions(): Partial<BulletOptions> {
+    return DEFAULT_OPTIONS;
+  }
+
   /** 图表类型 */
   public type: string = 'bullet';
 
@@ -26,32 +34,10 @@ export class Bullet extends Plot<BulletOptions> {
     return adaptor;
   }
 
+  /**
+   * 获取 子弹图 默认配置
+   */
   protected getDefaultOptions() {
-    return deepAssign({}, super.getDefaultOptions(), {
-      layout: 'horizontal',
-      size: {
-        range: 30,
-        measure: 20,
-        target: 20,
-      },
-      xAxis: {
-        tickLine: false,
-        line: null,
-      },
-      bulletStyle: {
-        range: {
-          fillOpacity: 0.5,
-        },
-      },
-      label: {
-        measure: {
-          position: 'right',
-        },
-      },
-      tooltip: {
-        // 默认关闭
-        showMarkers: false,
-      },
-    });
+    return Bullet.getDefaultOptions();
   }
 }

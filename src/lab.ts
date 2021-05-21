@@ -1,4 +1,4 @@
-import { MultiView } from './plots/multi-view';
+import { Mix } from './plots/mix';
 
 /** 实验室图表所处的阶段 */
 export enum Stage {
@@ -29,6 +29,6 @@ export function notice(stage: Stage, plotType: string) {
 export class Lab {
   static get MultiView() {
     notice(Stage.STABLE, 'MultiView');
-    return MultiView;
+    return Mix;
   }
 }

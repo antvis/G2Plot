@@ -1,6 +1,8 @@
 ---
 title: 面积图
 order: 5
+contributors:
+  [{ author: '新茗', github: 'visiky', avatar: 'https://gw.alipayobjects.com/zos/antfincdn/KAeYPA3TV0/avatar.jpeg' }]
 ---
 
 <div class="manual-docs">
@@ -96,8 +98,10 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/360c3eae-0c73-46f0-a982-4746a609
       data,
       xField: 'timePeriod',
       yField: 'value',
-      xAxis: {
-        range: [0, 1],
+      meta: {
+        timePeriod: {
+          range: [0, 1],
+        },
       },
     });
     area.render();
@@ -109,5 +113,13 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/360c3eae-0c73-46f0-a982-4746a609
 📊 查看更多<a href="/zh/examples/area/basic" target='blank'>示例</a>.
 
 🎨 面积图详细的配置参考 [API 文档](/zh/docs/api/plots/area)。
+
+## 面积图特性
+
+### 添加中位线标注
+
+- 通过 `annotations` 可以给面积图增加图表标注
+
+<playground path="component/annotation/demo/area-with-line-annotation.ts" rid="area-line-annotations"></playground>
 
 </div>

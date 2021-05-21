@@ -1,9 +1,8 @@
-import { get } from '@antv/util';
+import { get, isNil } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow, renderStatistic } from '../../utils';
+import { deepAssign, flow, renderStatistic } from '../../utils';
 import { scale, animation, theme, annotation } from '../../adaptor/common';
 import { geometry } from '../progress/adaptor';
-import { PERCENT } from '../gauge/constants';
 import { RingProgressOptions } from './types';
 
 /**
@@ -36,20 +35,16 @@ export function statistic(params: Params<RingProgressOptions>, updated?: boolean
 
   /** 中心文本 指标卡 */
   if (innerRadius && statistic) {
-    const transformContent = statistic.content;
-    if (transformContent && !transformContent.formatter) {
-      // @ts-ignore
-      transformContent.formatter = ({ percent }) => {
-        const metaFormatter = get(meta, [PERCENT, 'formatter']);
-        if (metaFormatter) {
-          return metaFormatter(percent);
-        }
-        return percent;
-      };
+    const metaFormatter = get(meta, ['percent', 'formatter']) || ((v) => `${(v * 100).toFixed(2)}%`);
+    let contentOpt = statistic.content;
+    if (contentOpt) {
+      contentOpt = deepAssign({}, contentOpt, {
+        content: !isNil(contentOpt.content) ? contentOpt.content : metaFormatter(percent),
+      });
     }
     renderStatistic(
       chart,
-      { statistic: { ...statistic, content: transformContent }, plotType: 'ring-progress' },
+      { statistic: { ...statistic, content: contentOpt }, plotType: 'ring-progress' },
       { percent }
     );
   }

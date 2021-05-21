@@ -1,4 +1,4 @@
-const { repository } = require('./package.json');
+const { repository, version } = require('./package.json');
 
 module.exports = {
   plugins: [
@@ -18,14 +18,18 @@ module.exports = {
     siteUrl: 'https://g2plot.antv.vision',
     githubUrl: repository.url,
     versions: {
-      'latest v2': 'https://g2plot.antv.vision',
+      [version]: 'https://g2plot.antv.vision',
       '1.x': 'https://g2plot-v1.antv.vision',
     },
     galleryMenuCloseAll: true,
     showChartResize: true, // 是否在demo页展示图表视图切换
     showAPIDoc: true, // 是否在demo页展示API文档
     themeSwitcher: 'g2plot',
-    playground: {},
+    playground: {
+      devDependencies: {
+        typescript: 'latest',
+      },
+    },
     mdPlayground: {
       // markdown 文档中的 playground 若干设置
       splitPaneMainSize: '50%',
@@ -55,12 +59,35 @@ module.exports = {
         },
         order: 0,
       },
+    ],
+    ecosystems: [
       {
-        slug: 'https://charts.ant.design/',
-        title: {
-          zh: 'React 版本',
-          en: 'React Version',
+        name: {
+          zh: 'Ant Design Charts（React）',
+          en: 'Ant Design Charts (React)',
         },
+        url: 'https://charts.ant.design/',
+      },
+      {
+        name: {
+          zh: 'G2Plot 可视化圈子（博客文章）',
+          en: 'Blog posts of G2Plot',
+        },
+        url: 'https://www.yuque.com/antv/g2plot',
+      },
+      {
+        name: {
+          zh: 'AntV ThemeSet（主题构建器）',
+          en: 'AntV ThemeSet',
+        },
+        url: 'https://theme-set.antv.vision',
+      },
+      {
+        name: {
+          zh: 'Vis Dashboard（可视化精选集）',
+          en: 'Vis Dashboard',
+        },
+        url: 'https://vis-dashboard.antv.vision',
       },
     ],
     docs: [
@@ -81,12 +108,20 @@ module.exports = {
         order: 2,
       },
       {
+        slug: 'api/advanced-plots',
+        title: {
+          zh: '高级图表',
+          en: 'Advanced plots',
+        },
+        order: 3,
+      },
+      {
         slug: 'api/components',
         title: {
           zh: '图表组件',
           en: 'Components',
         },
-        order: 3,
+        order: 4,
       },
       {
         slug: 'api/options',
@@ -94,8 +129,8 @@ module.exports = {
           zh: '通用配置',
           en: 'Common Configuration',
         },
-        order: 4,
-      },
+        order: 5,
+      }
     ],
     examples: [
       {
@@ -104,6 +139,14 @@ module.exports = {
         title: {
           zh: '',
           en: '',
+        },
+      },
+      {
+        slug: 'facet',
+        icon: 'gallery',
+        title: {
+          zh: 'Facet ❤️',
+          en: '分面图 ❤️',
         },
       },
       {
@@ -239,15 +282,23 @@ module.exports = {
         slug: 'dynamic-plots',
         icon: 'other',
         title: {
-          zh: '动态交互图',
+          zh: '动态交互',
           en: 'Dynamic Plots',
+        },
+      },
+      {
+        slug: 'component',
+        icon: 'other',
+        title: {
+          zh: '图表组件',
+          en: 'Components',
         },
       },
       {
         slug: 'general',
         icon: 'other',
         title: {
-          zh: '图表通用配置',
+          zh: '通用配置',
           en: 'General Configuration',
         },
       },

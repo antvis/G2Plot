@@ -2,6 +2,7 @@ import { Liquid, measureTextWidth } from '@antv/g2plot';
 
 const liquidPlot = new Liquid(document.getElementById('container'), {
   percent: 0.26,
+  radius: 0.8,
   statistic: {
     title: {
       formatter: () => '盈利率',

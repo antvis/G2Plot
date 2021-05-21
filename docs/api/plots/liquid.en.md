@@ -41,11 +41,11 @@ There are five built-in shapes for liquid plot: `circle | diamond | triangle | p
 
 ```ts
 /**
- * @param x the x for bounding rectangle
- * @param y the y for bounding rectangle
- * @param width the width for bounding rectangle
- * @param height the height for bounding rectangle
- * @return PathCommand[]
+ * @param x  x for the center point of bounding rectangle
+ * @param y  y for the center point of bounding rectangle
+ * @param width  width for bounding rectangle
+ * @param height  height for bounding rectangle
+ * @return  PathCommand[]
  */
 function shape(x: number, y: number, width: number, height: number) {
   const h = height / 2;
@@ -68,10 +68,18 @@ function shape(x: number, y: number, width: number, height: number) {
 
 The ouline configure for liquid plot, includes:
 
-| Properties | Type   | Desc                                          |
-| ---------- | ------ | --------------------------------------------- |
-| border     | number | border width of ouline, default 2px           |
-| distance   | number | distance between ouline and wave, default 0px |
+| Properties | Type              | Desc                                          |
+| ---------- | ----------------- | --------------------------------------------- |
+| border     | _number_          | border width of ouline, default 2px           |
+| distance   | _number_          | distance between ouline and wave, default 0px |
+| style      | _OutlineStyleCfg_ | the style configure of ouline                 |
+
+The style configure of outline for liquid plot, includes:
+
+| Properties    | Type     | Desc                                                      |
+| ------------- | -------- | --------------------------------------------------------- |
+| stroke        | _string_ | border color of outline，defaut is same as `liquid.color` |
+| strokeOpacity | _number_ | border color opacity of outline                           |
 
 #### wave
 
@@ -90,6 +98,6 @@ The wave configure for liquid plot, includes:
 
 <description>**optional** _object_</description>
 
-Text component.
+Metric central text component.
 
 `markdown:docs/common/statistic.en.md`

@@ -3,45 +3,33 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { LiquidOptions } from './types';
 import { adaptor, statistic } from './adaptor';
+import { DEFAULT_OPTIONS } from './constants';
 import { getLiquidData } from './utils';
 // register liquid shape
 import './shapes/liquid';
 
-export { LiquidOptions };
+export type { LiquidOptions };
 
 /**
  * 传说中的水波图
  */
 export class Liquid extends Plot<LiquidOptions> {
+  /**
+   * 获取 饼图 默认配置项
+   * 供外部使用
+   */
+  static getDefaultOptions(): Partial<LiquidOptions> {
+    return DEFAULT_OPTIONS;
+  }
+
   /** 图表类型 */
   public type: string = 'liquid';
 
+  /**
+   * 获取 水波图 默认配置项, 供 base 获取
+   */
   protected getDefaultOptions(): Partial<LiquidOptions> {
-    return {
-      color: '#6a99f9',
-      radius: 0.9,
-      statistic: {
-        title: false,
-        content: {
-          formatter: ({ percent }) => `${(percent * 100).toFixed(2)}%`,
-          style: {
-            opacity: 0.75,
-            fontSize: '30px',
-            lineHeight: '30px',
-            textAlign: 'center',
-          },
-        },
-      },
-      outline: {
-        border: 2,
-        distance: 0,
-      },
-      wave: {
-        count: 3,
-        length: 192,
-      },
-      shape: 'circle',
-    };
+    return Liquid.getDefaultOptions();
   }
 
   /**

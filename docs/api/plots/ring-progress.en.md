@@ -1,11 +1,11 @@
 ---
-title: 进度环图
+title: Ring progress plot
 order: 19
 ---
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.zh.md`
+`markdown:docs/common/chart-options.en.md`
 
 ### Data Mapping
 
@@ -35,18 +35,18 @@ order: 19
 
 柱子样式配置。
 
-`markdown:docs/common/shape-style.zh.md`
+`markdown:docs/common/shape-style.en.md`
 
-`markdown:docs/common/color.zh.md`
+`markdown:docs/common/color.en.md`
 
 ### Plot Component
 
-`markdown:docs/common/component-progress.zh.md`
+`markdown:docs/common/component-progress.en.md`
 
 #### statistic
 
 <description>**optional** _object_</description>
 
-统计内容组件，主要包含 title、content 来部分内容。
+Metric central text component, contains 'title' and 'content'.
 
-`markdown:docs/common/statistic.zh.md`
+`markdown:docs/common/statistic.en.md`

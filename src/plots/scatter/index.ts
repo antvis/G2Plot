@@ -3,11 +3,20 @@ import { Adaptor } from '../../core/adaptor';
 import { deepAssign } from '../../utils';
 import { ScatterOptions } from './types';
 import { adaptor, transformOptions, meta } from './adaptor';
+import { DEFAULT_OPTIONS } from './constant';
 import './interaction';
 
-export { ScatterOptions };
+export type { ScatterOptions };
 
 export class Scatter extends Plot<ScatterOptions> {
+  /**
+   * 获取 散点图 默认配置项
+   * 供外部使用
+   */
+  static getDefaultOptions(): Partial<ScatterOptions> {
+    return DEFAULT_OPTIONS;
+  }
+
   /** 图表类型 */
   public type: string = 'point';
 
@@ -23,23 +32,13 @@ export class Scatter extends Plot<ScatterOptions> {
   }
 
   /**
-   * 获取散点图的适配器
+   * 获取 散点图 的适配器
    */
   protected getSchemaAdaptor(): Adaptor<ScatterOptions> {
     return adaptor;
   }
 
   protected getDefaultOptions() {
-    return deepAssign({}, super.getDefaultOptions(), {
-      size: 4,
-      tooltip: {
-        showTitle: false,
-        showMarkers: false,
-        showCrosshairs: true,
-        crosshairs: {
-          type: 'xy',
-        },
-      },
-    });
+    return Scatter.getDefaultOptions();
   }
 }

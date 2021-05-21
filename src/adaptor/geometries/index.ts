@@ -1,6 +1,12 @@
-export { area, AreaGeometryOptions } from './area';
-export { line, LineGeometryOptions } from './line';
-export { point, PointGeometryOptions } from './point';
-export { interval, IntervalGeometryOptions } from './interval';
-export { polygon, PolygonGeometryOptions } from './polygon';
-export { edge, EdgeGeometryOptions } from './edge';
+export { area } from './area';
+export type { AreaGeometryOptions } from './area';
+export { line } from './line';
+export type { LineGeometryOptions } from './line';
+export { point } from './point';
+export type { PointGeometryOptions } from './point';
+export { interval } from './interval';
+export type { IntervalGeometryOptions } from './interval';
+export { polygon } from './polygon';
+export type { PolygonGeometryOptions } from './polygon';
+export { edge } from './edge';
+export type { EdgeGeometryOptions } from './edge';

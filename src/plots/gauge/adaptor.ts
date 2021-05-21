@@ -155,14 +155,14 @@ function statistic(params: Params<GaugeOptions>, updated?: boolean): Params<Gaug
   // 先清空标注，再重新渲染
   chart.getController('annotation').clear(true);
   if (statistic) {
-    const { content } = statistic;
+    const { content: contentOption } = statistic;
     let transformContent;
     // 当设置 content 的时候，设置默认样式
-    if (content) {
+    if (contentOption) {
       transformContent = deepAssign(
         {},
         {
-          formatter: ({ percent }) => `${(percent * 100).toFixed(2)}%`,
+          content: `${(percent * 100).toFixed(2)}%`,
           style: {
             opacity: 0.75,
             fontSize: '30px',
@@ -171,7 +171,7 @@ function statistic(params: Params<GaugeOptions>, updated?: boolean): Params<Gaug
             color: 'rgba(44,53,66,0.85)',
           },
         },
-        content
+        contentOption
       );
     }
     renderGaugeStatistic(chart, { statistic: { ...statistic, content: transformContent } }, { percent });
@@ -210,13 +210,13 @@ export { statistic };
 export function adaptor(params: Params<GaugeOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
+    theme,
     // animation 配置必须在 createView 之前，不然无法让子 View 生效
     animation,
     geometry,
     meta,
     statistic,
     interaction,
-    theme,
     // meterView 需要放到主题之后
     meterView,
     annotation(),

@@ -16,6 +16,10 @@ export interface SankeyOptions extends Omit<Options, 'xField' | 'yField' | 'xAxi
    */
   readonly weightField: string;
   /**
+   * 附加的 元字段
+   */
+  readonly rawFields?: string[];
+  /**
    * 数据
    */
   readonly data: Data;
@@ -55,4 +59,8 @@ export interface SankeyOptions extends Omit<Options, 'xField' | 'yField' | 'xAxi
    * 边样式
    */
   readonly edgeStyle?: StyleAttr;
+  /**
+   * 节点位置是否可以拖拽，默认为 false
+   */
+  readonly nodeDraggable?: boolean;
 }

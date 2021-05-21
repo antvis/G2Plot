@@ -1,18 +1,19 @@
 import { VIEW_LIFE_CIRCLE, Event } from '@antv/g2';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
+import { processIllegalData } from '../../utils';
 import { adaptor, pieAnnotation } from './adaptor';
 import { DEFAULT_OPTIONS } from './contants';
 import { PieOptions } from './types';
-import { isAllZero, processIllegalData } from './utils';
+import { isAllZero } from './utils';
 import './interactions';
 
-export { PieOptions };
+export type { PieOptions };
 
 export class Pie extends Plot<PieOptions> {
   /**
    * 获取 饼图 默认配置项
-   * @static 供外部使用
+   * 供外部使用
    */
   static getDefaultOptions(): Partial<PieOptions> {
     return DEFAULT_OPTIONS;

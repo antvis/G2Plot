@@ -1,30 +1,28 @@
-import { deepAssign } from '../../utils';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { SunburstOptions } from './types';
 import { adaptor } from './adaptor';
+import { DEFAULT_OPTIONS } from './constant';
 
-export { SunburstOptions };
+export type { SunburstOptions };
 
 export class Sunburst extends Plot<SunburstOptions> {
+  /**
+   * 获取 旭日图 默认配置项
+   * 供外部使用
+   */
+  static getDefaultOptions(): Partial<SunburstOptions> {
+    return DEFAULT_OPTIONS;
+  }
+
   /** 图表类型 */
   public type: string = 'sunburst';
 
   /**
-   * 获取旭日图默认配置
+   * 获取 旭日图 默认配置
    */
   protected getDefaultOptions() {
-    return deepAssign({}, super.getDefaultOptions(), {
-      type: 'partition',
-      innerRadius: 0,
-      seriesField: 'value',
-      tooltip: {
-        shared: true,
-        showMarkers: false,
-        offset: 20,
-        showTitle: false,
-      },
-    });
+    return Sunburst.getDefaultOptions();
   }
 
   /**

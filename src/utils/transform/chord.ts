@@ -56,6 +56,7 @@ type ChordLayoutOutputData = {
   readonly nodes: OutputNode[];
   readonly links: OutputLink[];
 };
+
 /**
  * 处理节点的value、edges
  * @param nodeById
@@ -80,6 +81,7 @@ function processGraph(nodeById, edges, options) {
     });
   });
 }
+
 /**
  * 节点排序
  * @param nodes
@@ -201,9 +203,11 @@ function locatingEdges(nodeById, edges, options): OutputLink[] {
   }
   return edges;
 }
+
 export function getDefaultOptions(options: ChordLayoutOptions): ChordLayoutOptions {
   return assign({}, DEFAULT_OPTIONS, options);
 }
+
 export function chordLayout(
   chordLayoutOptions: ChordLayoutOptions,
   chordLayoutInputData: NodeLinkData

@@ -1,4 +1,4 @@
-import { MultiView } from '@antv/g2plot';
+import { Mix } from '@antv/g2plot';
 
 // Step 1: 声明数据源
 // G2Plot 对数据源格式的要求，仅仅是 JSON 数组，数组的每个元素是一个标准 JSON 对象。
@@ -13,7 +13,7 @@ const defaultGrey = '#BFBFBF';
 
 // Step 2: 创建图表
 
-const plot = new MultiView('container', {
+const plot = new Mix('container', {
   appendPadding: 8,
   tooltip: { showMarkers: false },
 });

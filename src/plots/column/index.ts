@@ -5,7 +5,7 @@ import { ColumnOptions } from './types';
 import { adaptor, meta } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
 
-export { ColumnOptions };
+export type { ColumnOptions };
 
 /**
  * 柱形图
@@ -13,7 +13,7 @@ export { ColumnOptions };
 export class Column extends Plot<ColumnOptions> {
   /**
    * 获取 柱形图 默认配置项
-   * @static 供外部使用
+   * 供外部使用
    */
   static getDefaultOptions(): Partial<ColumnOptions> {
     return DEFAULT_OPTIONS;

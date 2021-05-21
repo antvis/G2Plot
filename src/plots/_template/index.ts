@@ -3,7 +3,7 @@ import { Adaptor } from '../../core/adaptor';
 import { TemplateOptions } from './types';
 import { adaptor } from './adaptor';
 
-export { TemplateOptions };
+export type { TemplateOptions };
 
 /**
  * 这个是一个图表开发的 模板代码！

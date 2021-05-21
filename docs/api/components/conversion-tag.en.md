@@ -1,6 +1,14 @@
 ---
 title: ConversionTag
 order: 8
+contributors:
+  [
+    {
+      author: '新茗',
+      github: 'visiky',
+      avatar: 'https://gw.alipayobjects.com/zos/antfincdn/KAeYPA3TV0/avatar.jpeg',
+    },
+  ]
 ---
 
 Applicable to base bar charts and base bar charts, the Conversion Rate component allows the user to focus on the rate of change in the data.

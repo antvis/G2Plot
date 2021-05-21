@@ -1,9 +1,9 @@
-import { MultiView } from '../../../../src/plots/multi-view';
+import { Mix } from '../../../../src/plots/mix';
 import { createDiv } from '../../../utils/dom';
 import { DEFAULT_OPTIONS as pieDft } from '../../../../src/plots/pie/contants';
 
 describe('multi-plots in multi-view', () => {
-  const plot = new MultiView(createDiv(), {
+  const plot = new Mix(createDiv(), {
     plots: [
       {
         type: 'line',
@@ -85,6 +85,53 @@ describe('multi-plots in multi-view', () => {
     // 先渲染 view，再渲染 plots
     expect(plot.chart.views[0].geometries[0].type).toBe('area');
     expect(plot.chart.views[1].geometries.length).toBe(0);
+  });
+
+  it('新增 scatter & histogram', () => {
+    plot.update({
+      views: [],
+      plots: [
+        {
+          type: 'scatter',
+          options: {
+            data: [
+              { x: 'x', y: 1 },
+              { x: 'x1', y: 20 },
+            ],
+            xField: 'x',
+            yField: 'y',
+          },
+        },
+        {
+          type: 'histogram',
+          options: {
+            data: [
+              { x: 'x', y: 1 },
+              { x: 'x1', y: 1 },
+              { x: 'x3', y: 1 },
+              { x: 'x4', y: 20 },
+            ],
+            binField: 'y',
+          },
+        },
+        {
+          // @ts-ignore
+          type: 'waterfall',
+          options: {
+            data: [
+              { x: 'x', y: 1 },
+              { x: 'x1', y: 1 },
+              { x: 'x3', y: 1 },
+              { x: 'x4', y: 20 },
+            ],
+            binField: 'y',
+          },
+        },
+      ],
+    });
+    const geometries = [];
+    plot.chart.views.forEach((view) => geometries.push(...view.geometries));
+    expect(geometries.length).toBe(2);
   });
 
   afterAll(() => {

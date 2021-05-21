@@ -19,3 +19,7 @@ Same for xAxis and yAxis. **Note**: Since `DualAxes` or `BidirectionalBar` has d
 #### annotations
 
 `markdown:docs/common/annotations.en.md`
+
+#### slider
+
+`markdown:docs/common/slider.en.md`

@@ -14,6 +14,13 @@
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/antvis/g2plot.svg)](http://isitmaintained.com/project/antvis/g2plot "Percentage of issues still open")
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/antvis/g2plot.svg)](http://isitmaintained.com/project/antvis/g2plot "Average time to resolve an issue")
 
+<p align="center">
+  <a href="https://g2plot.antv.vision/en">网站</a> •
+  <a href="https://g2plot.antv.vision/en/docs/manual/getting-started">快速开始</a> •
+  <a href="https://www.yuque.com/antv/g2plot">博客</a> •
+  <a href="https://github.com/antvis/theme-set">AntV ThemeSet</a>
+</p>
+
 </div>
 
 一套简单、易用、并具备一定扩展能力和组合能力的统计图表库，基于图形语法理论搭建而成，『G2Plot』中的 G2 即意指图形语法 (the Grammar of Graphics)，同时也致敬了 [ggplot2](https://ggplot2.tidyverse.org/)。我们想做的事有三件：
@@ -26,7 +33,7 @@
   <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*sXqrRrEwFRQAAAAAAAAAAABkARQnAQ" width="800">
 </div>
 
-## 特性
+## ✨ 特性
 
 ### 📦 开箱即用、体验优雅的高质量统计图表
 
@@ -52,13 +59,13 @@ G2Plot 呈现给用户的是一套提炼自企业级产品的视觉语言和设�
   <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gd00QaD9110AAAAAAAAAAABkARQnAQ" width="600" />
 </div>
 
-## 安装
+## 📦 安装
 
 ```bash
 $ npm install @antv/g2plot
 ```
 
-## 使用
+## 🔨 使用
 
 <div align="center">
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*37siRJftYDIAAAAAAAAAAABkARQnAQ" width="450" />
@@ -89,7 +96,7 @@ const bar = new Bar('container', {
 bar.render();
 ```
 
-## 参与贡献
+## 🤝 参与贡献
 
 我们非常欢迎你的贡献！无论是 issue 还是 PR。
 
@@ -97,13 +104,13 @@ bar.render();
 
 提交代码请遵循 [贡献指引](https://github.com/antvis/g2plot/blob/master/CONTRIBUTING.md)。
 
-## 联系我们
+## 📧 联系我们
 
 钉钉群组号码: 30233731
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/9sHnl5k%26u4/dingdingqun.png" width="200" height="266" />
 
-## 相关链接
+## 🔗 相关链接
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/1yMwFkBvyV/chartcube-logo-cube.svg" width="18"> [ChartCube](https://chartcube.alipay.com/) - 基于 G2Plot 的在线图表制作工具，交互简单，一键导出图表代码！
 

@@ -1,7 +1,16 @@
 ---
 title: Liquid
 order: 10
+contributors:
+  [
+    {
+      author: '新茗',
+      github: 'visiky',
+      avatar: 'https://gw.alipayobjects.com/zos/antfincdn/KAeYPA3TV0/avatar.jpeg',
+    },
+  ]
 ---
+
 <div class="manual-docs">
 
  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
@@ -62,4 +71,22 @@ liquidPlot.render();
 
 🎨 For an overview of the liquid plot options see the [API reference](/en/docs/api/plots/liquid).
 
+## Liquid plot features
+
+### Using built-in shape
+
+Liquid plot has 5 built-in shapes: `circle | diamond | triangle | pin | rect`
+
+<playground path='progress-plots/liquid/demo/diamond.ts' rid='rect1'></playground>
+
+### Custom liquid shape
+
+In addition to the built-in shapes, the liquid plot also supports custom graphics. At this time, a callback function to build path needs to be passed in.
+
+<playground path='progress-plots/liquid/demo/outline-style.ts' rid='rect2'></playground>
+
 </div>
+
+## Blog posts
+
+- [如何绘制一个星星形状的水波图 🌟](https://www.yuque.com/antv/g2plot/vww7eq#zK8bt)

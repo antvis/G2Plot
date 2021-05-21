@@ -21,5 +21,7 @@ describe('#2260', () => {
     await delay(500);
     expect(signal1).toBe('before');
     expect(signal2).toBe('after');
+
+    gauge.destroy();
   });
 });

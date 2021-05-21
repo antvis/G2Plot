@@ -1,4 +1,5 @@
 import { Bullet } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/bullet/constant';
 import { bulletData, bulletDatas } from '../../../data/bullet';
 import { createDiv } from '../../../utils/dom';
 
@@ -321,5 +322,9 @@ describe('bullet', () => {
     });
     expect(bullet.chart.getScaleByField('measures').max).toBe(120);
     expect(bullet.chart.getScaleByField('measures').maxLimit).toBe(120);
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(Bullet.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

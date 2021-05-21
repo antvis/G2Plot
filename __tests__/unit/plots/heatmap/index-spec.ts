@@ -1,7 +1,7 @@
 import { Heatmap } from '../../../../src';
 import { basicHeatmapData, semanticBasicHeatmapData } from '../../../data/basic-heatmap';
 import { createDiv } from '../../../utils/dom';
-import { DEFAULT_COLORS } from '../../../../src/constant';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/heatmap/constant';
 
 describe('heatmap', () => {
   it('x*y with color', () => {
@@ -15,6 +15,9 @@ describe('heatmap', () => {
     });
 
     heatmap.render();
+
+    // @ts-ignore
+    expect(heatmap.getDefaultOptions()).toBe(Heatmap.getDefaultOptions());
 
     const geometry = heatmap.chart.geometries[0];
 
@@ -33,7 +36,7 @@ describe('heatmap', () => {
       }
     });
 
-    const colors = DEFAULT_COLORS.GRADIENT.CONTINUOUS.split('-');
+    const colors = heatmap.chart.getTheme().sequenceColors;
     expect(elements[maxElementIndex].getModel().color.toUpperCase()).toBe(colors[colors.length - 1]);
     expect(elements[minElementIndex].getModel().color.toUpperCase()).toBe(colors[0]);
 
@@ -88,10 +91,14 @@ describe('heatmap', () => {
       }
     });
 
-    const colors = DEFAULT_COLORS.GRADIENT.CONTINUOUS.split('-');
+    const colors = heatmap.chart.getTheme().sequenceColors;
     expect(elements[maxElementIndex].getModel().color.toUpperCase()).toBe(colors[colors.length - 1]);
     expect(elements[minElementIndex].getModel().color.toUpperCase()).toBe(colors[0]);
 
     heatmap.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(Heatmap.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

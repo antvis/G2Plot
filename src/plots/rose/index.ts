@@ -1,12 +1,20 @@
 import { Plot } from '../../core/plot';
-import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { RoseOptions } from './types';
 import { adaptor } from './adaptor';
+import { DEFAULT_OPTIONS } from './constant';
 
-export { RoseOptions };
+export type { RoseOptions };
 
 export class Rose extends Plot<RoseOptions> {
+  /**
+   * 获取 玫瑰图 默认配置项
+   * 供外部使用
+   */
+  static getDefaultOptions(): Partial<RoseOptions> {
+    return DEFAULT_OPTIONS;
+  }
+
   /** 玫瑰图 */
   public type: string = 'rose';
 
@@ -23,28 +31,7 @@ export class Rose extends Plot<RoseOptions> {
    * 获取默认的 options 配置项
    */
   protected getDefaultOptions(): Partial<RoseOptions> {
-    return deepAssign({}, super.getDefaultOptions(), {
-      xAxis: false,
-      yAxis: false,
-      legend: {
-        position: 'right',
-        offsetX: -10,
-      },
-      sectorStyle: {
-        stroke: '#fff',
-        lineWidth: 1,
-      },
-      label: {
-        layout: {
-          type: 'limit-in-shape',
-        },
-      },
-      tooltip: {
-        shared: true,
-        showMarkers: false,
-      },
-      interactions: [{ type: 'active-region' }],
-    });
+    return Rose.getDefaultOptions();
   }
 
   /**

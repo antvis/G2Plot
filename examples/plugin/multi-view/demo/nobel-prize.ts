@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { DataView } from '@antv/data-set';
-import { MultiView } from '@antv/g2plot';
+import { Mix } from '@antv/g2plot';
 import { keys, groupBy } from '@antv/util';
 
 function generateYearData() {
@@ -47,7 +47,7 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/NHer2zyRYE/nobel-prize-data.jso
     };
 
     const yearData = generateYearData();
-    const plot = new MultiView('container', {
+    const plot = new Mix('container', {
       height: 500,
       padding: 'auto',
       appendPadding: [20, 0, 20, 0],

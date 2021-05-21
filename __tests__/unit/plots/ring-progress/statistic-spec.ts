@@ -26,10 +26,16 @@ describe('ringProgress statistic', () => {
     expect((annotation as HTMLElement).innerText).toBe('65.00%');
   });
 
+  it('使用 content', () => {
+    ringProgress.update({ statistic: { content: { content: 'ss' } } });
+    const annotation = document.body.querySelector('.g2-html-annotation');
+    expect((annotation as HTMLElement).innerText).toBe('ss');
+  });
+
   it('使用 meta 格式化', () => {
     ringProgress.update({
       meta: { percent: { formatter: (v) => `${v * 100}.000%` } },
-      statistic: { content: { formatter: null } },
+      statistic: { content: { content: null } },
     });
     const annotation = document.body.querySelector('.g2-html-annotation');
     expect((annotation as HTMLElement).innerText).toBe('65.000%');

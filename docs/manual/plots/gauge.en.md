@@ -1,6 +1,14 @@
 ---
 title: Gauge
 order: 6
+contributors:
+  [
+    {
+      author: '新茗',
+      github: 'visiky',
+      avatar: 'https://gw.alipayobjects.com/zos/antfincdn/KAeYPA3TV0/avatar.jpeg',
+    },
+  ]
 ---
 
 <div class="manual-docs">
@@ -38,7 +46,7 @@ order: 6
 
 为了视觉上的不拥挤且符合常识，我们建议指针的数量不超过 3 根。
 
-## 快速上手
+## Quick start
 
 <div class='sign'>
 
@@ -62,9 +70,9 @@ gauge.render();
 
 </div>
 
-📊 查看更多<a href="/zh/examples/progress-plots/gauge" target='blank'>示例</a>.
+📊 See more <a href="/zh/examples/progress-plots/gauge" target='blank'>examples</a>.
 
-🎨 仪表盘详细的配置参考 [API 文档](/zh/docs/api/plots/gauge).
+🎨 For an overview of the gauge plot options see the [API reference](/zh/docs/api/plots/gauge).
 
 </div>
 

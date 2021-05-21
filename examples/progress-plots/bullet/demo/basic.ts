@@ -23,7 +23,13 @@ const bulletPlot = new Bullet('container', {
   xAxis: {
     line: null,
   },
-  yAxis: false,
+  yAxis: {
+    tickMethod: ({ max }) => {
+      const interval = Math.ceil(max / 5);
+      // 自定义刻度 ticks
+      return [0, interval, interval * 2, interval * 3, interval * 4, max];
+    },
+  },
   // 自定义 legend
   legend: {
     custom: true,

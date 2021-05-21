@@ -1,4 +1,5 @@
 import { Liquid } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/liquid/constants';
 import { createDiv } from '../../../utils/dom';
 
 export const getClipPath = (liquid) => liquid.chart.middleGroup.findAllByName('waves')[0].get('clipShape').attr('path');
@@ -26,6 +27,10 @@ describe('liquid', () => {
     // 宽 < 高，按照高度来设置 radius
     liquid.changeSize(500, 500);
     expect(getRadius(liquid)).toBe(224);
+
+    // 默认配置项
+    // @ts-ignore
+    expect(liquid.getDefaultOptions()).toBe(Liquid.getDefaultOptions());
 
     liquid.destroy();
   });
@@ -87,5 +92,9 @@ describe('liquid', () => {
     expect(liquid.chart.geometries[0].elements[0].getData().percent).toBe(0.5);
 
     liquid.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(Liquid.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

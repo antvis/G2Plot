@@ -1,15 +1,18 @@
 import { Plot } from '../../core/plot';
-import { deepAssign } from '../../utils';
 import { Adaptor } from '../../core/adaptor';
 import { RadialBarOptions } from './types';
 import { adaptor, meta } from './adaptor';
+import { DEFAULT_OPTIONS } from './constant';
 
-export { RadialBarOptions };
+export type { RadialBarOptions };
 
 /**
  * 玉珏图
  */
 export class RadialBar extends Plot<RadialBarOptions> {
+  static getDefaultOptions(): Partial<RadialBarOptions> {
+    return DEFAULT_OPTIONS;
+  }
   /** 图表类型 */
   public type: string = 'radial-bar';
 
@@ -19,7 +22,7 @@ export class RadialBar extends Plot<RadialBarOptions> {
    */
   public changeData(data) {
     this.updateOption({ data });
-    // 更新玉珏图的scale
+    // 更新玉珏图的 scale
     meta({ chart: this.chart, options: this.options });
     this.chart.changeData(data);
   }
@@ -28,19 +31,7 @@ export class RadialBar extends Plot<RadialBarOptions> {
    * 获取默认配置
    */
   protected getDefaultOptions(): Partial<RadialBarOptions> {
-    return deepAssign({}, super.getDefaultOptions(), {
-      interactions: [{ type: 'element-active' }],
-      legend: false,
-      tooltip: {
-        showMarkers: false,
-      },
-      xAxis: {
-        grid: null,
-        tickLine: null,
-        line: null,
-      },
-      maxAngle: 240,
-    });
+    return RadialBar.getDefaultOptions();
   }
 
   /**

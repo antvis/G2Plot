@@ -75,7 +75,7 @@ Configure tooltip crosshairs to work if and only if 'showCrosshairs' is true.
 | Properties     | Type                   | Description                                                                                   |
 | -------------- | ---------------------- | --------------------------------------------------------------------------------------------- |
 | type           | \_`x` \| `y` \| `xy`\_ | Crosshairs Type: 'X' represents the auxiliary line on the X axis, 'Y' on the Y axis           |
-| line           | _lineStyle_            | The configuration item for line, see more [_ShapeAttrs_](/en/docs/api/shape/shape-attrs)      |
+| line           | _lineStyle_            | The configuration item for line, see more [_ShapeAttrs_](/en/docs/api/graphic-style#configure-line-styles)      |
 | text           | _textStyle_            | Guideline text configuration, support callback                                                |
 | textBackground | _textBackgroundStyle_  | Guideline text background configuration                                                       |
 | follow         | _boolean_              | Whether the guide line follows the mouse. Default is false, that is, to locate the data point |
@@ -89,7 +89,7 @@ Configure tooltip crosshairs to work if and only if 'showCrosshairs' is true.
 | Properties | Type                 | Description                                 |
 | ---------- | -------------------- | ------------------------------------------- |
 | padding    | _number \| number[]_ | White space around the background of a text |
-| style      | _shapeStyle_         | The configuration item for line, see more [_ShapeAttrs_](/en/docs/api/shape/shape-attrs)             |
+| style      | _shapeStyle_         | The configuration item for line, see more [_ShapeAttrs_](/en/docs/api/graphic-style)             |
 
 ##### showMarkers
 
@@ -158,6 +158,35 @@ The styles for each DOM.
 
 Tooltip offset.
 
+##### reversed
+
+<description>**optional** _boolean_</description>
+
+是否将 tooltip items 逆序.
+
+##### showNil
+
+<description>**optional** _boolean_</description>
+
+是否显示空值的 tooltip 项
+
+##### customItems ✨
+
+<description>**optional** _Function_</description>
+
+在 tooltip 渲染之前，对最终的 items 进行自定义处理（比如排序、过滤、格式化等）。
+
+```ts
+{
+  tooltip: {
+    customItems: (originalItems: TooltipItem[]) => {
+      // process originalItems, 
+      return originalItems;
+    };
+  }
+}
+```
+
 ##### customContent
 
 <description>**optional** _Function_</description>
@@ -173,3 +202,7 @@ Support for custom templates.
   }
 }
 ```
+
+Try it:
+
+<playground path="case/customize/demo/customize-tooltip.ts" rid="customize-tooltip"></playground>

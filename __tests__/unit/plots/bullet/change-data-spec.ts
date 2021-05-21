@@ -30,7 +30,11 @@ describe('Bullet changeData', () => {
 
     const newData = [{ title: '数学', ranges: [0, 50, 100], measures: [120], target: 85 }];
     bullet.changeData(newData);
-    const { min: newMin, max: newMax, ds: newDs } = transformData({
+    const {
+      min: newMin,
+      max: newMax,
+      ds: newDs,
+    } = transformData({
       data: newData,
       measureField: 'measures',
       rangeField: 'ranges',
@@ -61,7 +65,11 @@ describe('Bullet changeData', () => {
     expect(bullet.chart.geometries[0].data).toEqual([]);
 
     bullet.changeData(bulletData);
-    const { min: newMin, max: newMax, ds: newDs } = transformData({
+    const {
+      min: newMin,
+      max: newMax,
+      ds: newDs,
+    } = transformData({
       data: bulletData,
       measureField: 'measures',
       rangeField: 'ranges',

@@ -5,12 +5,12 @@ import { adaptor } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
 import { getProgressData } from './utils';
 
-export { ProgressOptions };
+export type { ProgressOptions };
 
 export class Progress extends Plot<ProgressOptions> {
   /**
    * 获取 仪表盘 默认配置项
-   * @static 供外部使用
+   * 供外部使用
    */
   static getDefaultOptions(): Partial<ProgressOptions> {
     return DEFAULT_OPTIONS;

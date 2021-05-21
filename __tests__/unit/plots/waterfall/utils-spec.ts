@@ -1,4 +1,4 @@
-import { ABSOLUTE_FIELD, DIFF_FIELD, IS_TOTAL, Y_FIELD } from '../../../../src/plots/waterfall/constants';
+import { ABSOLUTE_FIELD, DIFF_FIELD, IS_TOTAL, Y_FIELD } from '../../../../src/plots/waterfall/constant';
 import { processData, transformData } from '../../../../src/plots/waterfall/utils';
 
 describe('utils of waterfall', () => {

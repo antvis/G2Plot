@@ -19,3 +19,7 @@ xAxis、yAxis 配置相同。**注意**：由于 DualAxes(双轴图) 和 Bidirec
 #### annotations
 
 `markdown:docs/common/annotations.zh.md`
+
+#### slider
+
+`markdown:docs/common/slider.zh.md`

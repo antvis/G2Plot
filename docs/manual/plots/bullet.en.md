@@ -56,7 +56,7 @@ order: 9
       </table>
     </div>
 
-## 设计指引
+## Design Guide
 
 ### 元素构成
 
@@ -64,7 +64,7 @@ order: 9
 
 <img alt="design" src="https://zos.alipayobjects.com/rmsportal/DkOloAVoymGGRJgmezOc.png" width='600'>
 
-## 快速上手
+## Quick start
 
 <div class='sign'>
 
@@ -97,12 +97,12 @@ bulletPlot.render();
 
 </div>
 
-📊 查看更多<a href="/en/examples/progress-plots/bullet" target='blank'>示例</a>.
+📊 See more <a href="/en/examples/progress-plots/bullet" target='blank'>examples</a>.
 
-🎨 子弹图详细的配置参考 [API 文档](/en/docs/api/plots/bullet)。
+🎨 For an overview of the bullet plot options see the [API reference](/en/docs/api/plots/bullet)。
 
 </div>
 
-## 子弹图特性
+## Bullet plot features
 
-- 正在努力补充中...
+- Working hard to add...

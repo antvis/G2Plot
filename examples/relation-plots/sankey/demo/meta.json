@@ -19,6 +19,14 @@
         "en": "Energy sankey"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*W-V0QYiLLbgAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "draggable.ts",
+      "title": {
+        "zh": "可拖拽节点桑基图",
+        "en": "Draggable sankey"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/n1taFikWlA/aedefca9-04ba-4588-97ec-82903c039224.png"
     }
   ]
 }

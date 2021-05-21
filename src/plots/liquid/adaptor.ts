@@ -1,5 +1,5 @@
 import { Geometry } from '@antv/g2';
-import { get } from '@antv/util';
+import { get, isNil } from '@antv/util';
 import { interaction, animation, theme, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign, renderStatistic } from '../../utils';
@@ -13,7 +13,7 @@ import { getLiquidData } from './utils';
  */
 function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
   const { chart, options } = params;
-  const { percent, color, liquidStyle, radius, outline, wave, shape } = options;
+  const { percent, liquidStyle, radius, outline, wave, shape } = options;
 
   chart.scale({
     percent: {
@@ -24,12 +24,14 @@ function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
 
   chart.data(getLiquidData(percent));
 
+  const color = options.color || chart.getTheme().defaultColor;
+
   const p = deepAssign({}, params, {
     options: {
       xField: 'type',
       yField: 'percent',
       // radius 放到 columnWidthRatio 中。
-      // 保证横向的大小是根据  redius 生成的
+      // 保证横向的大小是根据  radius 生成的
       widthRatio: radius,
       interval: {
         color,
@@ -70,14 +72,16 @@ export function statistic(params: Params<LiquidOptions>, updated?: boolean): Par
 
   // 先清空标注，再重新渲染
   chart.getController('annotation').clear(true);
-  if (statistic.content && !statistic.content.formatter) {
-    const metaFormatter = get(meta, ['percent', 'formatter']);
-    // @ts-ignore
-    statistic.content.formatter = ({ percent }) =>
-      metaFormatter ? metaFormatter(percent) : `${(percent * 100).toFixed(2)}%`;
+
+  const metaFormatter = get(meta, ['percent', 'formatter']) || ((v) => `${(v * 100).toFixed(2)}%`);
+  let contentOpt = statistic.content;
+  if (contentOpt) {
+    contentOpt = deepAssign({}, contentOpt, {
+      content: !isNil(contentOpt.content) ? contentOpt.content : metaFormatter(percent),
+    });
   }
 
-  renderStatistic(chart, { statistic, plotType: 'liquid' }, { percent });
+  renderStatistic(chart, { statistic: { ...statistic, content: contentOpt }, plotType: 'liquid' }, { percent });
 
   if (updated) {
     chart.render(true);
@@ -92,6 +96,6 @@ export function statistic(params: Params<LiquidOptions>, updated?: boolean): Par
  * @param options
  */
 export function adaptor(params: Params<LiquidOptions>) {
-  // flow 的方式处理所有的配置到 G2 API
-  return flow(geometry, statistic, scale({}), animation, theme, interaction)(params);
+  // flow 的方式处理所有的配置到 G2 API (主题前置，会影响绘制的取色)
+  return flow(theme, geometry, statistic, scale({}), animation, interaction)(params);
 }

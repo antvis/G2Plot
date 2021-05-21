@@ -1,0 +1,56 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "line-annotation.ts",
+      "title": {
+        "zh": "辅助线标注",
+        "en": "Line annotation"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*d8s-RrJb-xcAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "area-with-line-annotation.ts",
+      "title": {
+        "zh": "带中位线标注的面积图",
+        "en": "Area with line annotation"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/xSfk26S6da/2415772d-efc8-462a-846c-155dc15eb8cb.png"
+    },
+    {
+      "filename": "line-annotation1.ts",
+      "title": {
+        "zh": "辅助线标注（精确定位）",
+        "en": "Line annotation (accurate position)"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*W7VdTZsmINgAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "image-annotation.ts",
+      "title": {
+        "zh": "图片标注",
+        "en": "Image annotation"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Wq83RaOoWxgAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "region-and-data-marker.ts",
+      "title": {
+        "zh": "辅助框标注 和 数据点标记",
+        "en": "DataMarker annotation"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*sHEVT7y_JZgAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "region-annotation.ts",
+      "title": {
+        "zh": "辅助框标注",
+        "en": "Region annotation"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*_MLfT47OxekAAAAAAAAAAAAAARQnAQ"
+    }
+  ]
+}

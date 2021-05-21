@@ -1,9 +1,9 @@
-import { MultiView } from '../../../src';
+import { Mix } from '../../../src';
 import { findViewById, getViews, getSilbingViews } from '../../../src/utils/view';
 import { createDiv } from '../../utils/dom';
 
 describe('utils of view', () => {
-  const plot = new MultiView(createDiv(), {
+  const plot = new Mix(createDiv(), {
     views: [
       {
         data: [{ x: 'x', y: 1 }],

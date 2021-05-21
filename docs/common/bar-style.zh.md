@@ -1,3 +1,18 @@
+#### intervalPadding
+
+<description>**可选**, _number_</description>
+
+功能描述: 分组柱状图的组间间距调整，像素级别。
+
+<playground path='bar/grouped/interval-padding.ts' rid='rect1'></playground>
+
+#### dodgePadding
+
+<description>**可选**, _number_</description>
+
+功能描述: 分组柱状图的组内柱子间距调整，像素级别。
+
+<playground path='bar/grouped/dodge-padding.ts' rid='rect2'></playground>
 
 #### minBarWidth
 

@@ -18,7 +18,7 @@
 | formatter    | _Function_                                                   | 格式化函数                                                                                 |
 | autoHide     | _boolean_                                                    | 是否自动隐藏，默认 false                                                                   |
 
-__*LabelLineCfg*__ 类型定义如下：（关于 _ShapeAttrs_ 详细查看 [ShapeAttrs](/zh/docs/api/shape/shape-attrs) 文档）
+__*LabelLineCfg*__ 类型定义如下：（关于 _ShapeAttrs_ 详细查看 [ShapeAttrs](/zh/docs/api/graphic-style) 文档）
 
 ```plain
 type LabelLineCfg = {

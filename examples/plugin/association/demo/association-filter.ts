@@ -1,4 +1,4 @@
-import { MultiView, G2 } from '@antv/g2plot';
+import { Mix, G2 } from '@antv/g2plot';
 
 G2.registerInteraction('custom-association-filter', {
   showEnable: [
@@ -34,7 +34,7 @@ G2.registerInteraction('custom-association-filter', {
 fetch('https://gw.alipayobjects.com/os/antfincdn/HkxWvFrZuC/association-data.json')
   .then((data) => data.json())
   .then((data) => {
-    const plot = new MultiView('container', {
+    const plot = new Mix('container', {
       // 关闭 chart 上的 tooltip，子 view 开启 tooltip
       tooltip: false,
       plots: [

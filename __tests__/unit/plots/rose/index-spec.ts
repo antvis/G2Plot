@@ -1,4 +1,5 @@
 import { Rose } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/rose/constant';
 import { salesByArea, subSalesByArea } from '../../../data/sales';
 import { createDiv } from '../../../utils/dom';
 
@@ -75,5 +76,9 @@ describe('rose', () => {
     expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
 
     rose.destroy();
+  });
+
+  it('defaultOptions 保持从 constants 中获取', () => {
+    expect(Rose.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

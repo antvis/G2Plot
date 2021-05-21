@@ -1,4 +1,4 @@
-import { MultiView } from '@antv/g2plot';
+import { Mix } from '@antv/g2plot';
 
 function fetchAreaData() {
   return fetch('https://gw.alipayobjects.com/os/bmw-prod/b6fde479-c353-47de-a4c0-442d58474b9d.json').then((data) =>
@@ -28,7 +28,7 @@ Promise.all([fetchAreaData(), fetchTrendData()]).then(([data1, data2]) => {
     date: `${idx}`,
     referringSites: d,
   }));
-  const plot = new MultiView('container', {
+  const plot = new Mix('container', {
     height: 140,
     appendPadding: [20, 0, 0, 0],
     tooltip: false,

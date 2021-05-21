@@ -48,19 +48,9 @@ G2Plot 使用 [G](https://github.com/antvis/g) 作为绘图引擎，一些图形
 
 ## 配置线的样式
 
-| 属性名        | 类型            | 介绍                                                                                                   |
-| ------------- | --------------- | ------------------------------------------------------------------------------------------------------ |
-| stroke        | string          | 线的颜色                                                                                               |
-| lineWidth     | number          | 线宽                                                                                                   |
-| lineDash      | [number,number] | 虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 |
-| opacity       | number          | 透明度                                                                                                 |
-| shadowColor   | string          | 阴影颜色                                                                                               |
-| shadowBlur    | number          | 高斯模糊系数                                                                                           |
-| shadowOffsetX | number          | 设置阴影距图形的水平距离                                                                               |
-| shadowOffsetY | number          | 设置阴影距图形的垂直距离                                                                               |
-| cursor        | string          | 鼠标样式。同 css 的鼠标样式,默认 'default'。                                                           |
+`markdown:docs/common/line-style.zh.md`
 
-示例代码，使用全量图形样式配置 Line (基础折线图) 的折线图形样式 `LineStyle`：
+在折线图中，你可以直接使用 `linestyle` 来配置 line 几何图形的样式。示例:
 
 ```ts
 lineStyle: {
@@ -74,7 +64,7 @@ lineStyle: {
   shadowOffsetY: 5,
   cursor: 'pointer'
 }
-```
+````
 
 效果：
 
@@ -83,12 +73,12 @@ lineStyle: {
 ## 配置文字样式
 
 | 属性名        | 类型            | 介绍                                                                                                         |
-| ------------- | --------------- | ------------------------------------------------------------------------------------------------------------ |
+| ------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | -------- | -------- | ------------ | --------------------------- |
 | fontSize      | number          | 文字大小                                                                                                     |
 | fontFamily    | string          | 文字字体                                                                                                     |
 | fontWeight    | number          | 字体粗细                                                                                                     |
 | lineHeight    | number          | 文字的行高                                                                                                   |
-| textAlign     | string          | 设置文本内容的当前对齐方式, 支持的属性：`center`                                                             | `end` | `left` | `right` | `start`，默认值为`start` |
+| textAlign     | string          | 设置文本内容的当前对齐方式, 支持的属性：`center`                                                             | `end`    | `left`   | `right`      | `start`，默认值为`start`    |
 | textBaseline  | string          | 设置在绘制文本时使用的当前文本基线, 支持的属性:`top`                                                         | `middle` | `bottom` | `alphabetic` | `hanging`。默认值为`bottom` |
 | fill          | string          | 文字的填充色                                                                                                 |
 | fillOpacity   | number          | 文字的填充透明度                                                                                             |

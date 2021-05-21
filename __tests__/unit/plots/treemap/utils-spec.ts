@@ -4,6 +4,7 @@ import {
   enableInteraction,
   getFommatInteractions,
   getAdjustAppendPadding,
+  resetDrillDown,
 } from '../../../../src/plots/treemap/utils';
 
 const data1 = {
@@ -60,7 +61,7 @@ const data2 = {
 
 // 叶节点有分类，父节点有分类
 // 叶节点没有，父节点有
-// 叶节点有，父节点没有，
+// 叶节点有，父节点没有
 // 叶节点没有，父节点没有
 
 const data3 = {
@@ -193,6 +194,12 @@ describe('treemap transformData', () => {
     expect(areaArr[2] / areaArr[1]).toEqual(data1.children[2].value / data1.children[1].value);
 
     expect(data[0].ext).toBe('自定义数据');
+
+    const root = data1.children.reduce((sum, i) => sum + i.value, 0);
+
+    expect(data[0].path.length).toBe(2);
+    expect(data[0].path[0].value).toBe(data1.children[0].value);
+    expect(data[0].path[1].value).toBe(root);
   });
 
   it('transformData, nest treemap', () => {
@@ -223,6 +230,9 @@ describe('treemap transformData', () => {
     );
 
     expect(data[2].ext).toBe('自定义数据');
+    expect(data[0].path.length).toBe(3);
+    expect(data[0].path[1].data.children.length).toBe(2);
+    expect(data[0].path[1].value).toBe(150);
   });
 
   it('transformData, nest treemap, colorField', () => {
@@ -258,13 +268,25 @@ describe('treemap transformData', () => {
   });
 
   it('transformData, nest treemap, enableDrillDown', () => {
-    const data = transformData({
-      data: data3,
+    const config = {
       colorField: 'category',
       enableDrillDown: true,
       hierarchyConfig: {},
+    };
+
+    const data = transformData({
+      data: data3,
+      ...config,
     });
+
     expect(data.length).toEqual(2);
+
+    const childData = transformData({
+      data: data[0],
+      ...config,
+    });
+
+    expect(childData[0].path.length).toBe(3);
   });
 
   it('getFommatInteractions', () => {
@@ -355,5 +377,15 @@ describe('treemap transformData', () => {
     expect(getAdjustAppendPadding([10, 20])).toStrictEqual([10, 20, 35, 20]);
     expect(getAdjustAppendPadding([10, 20, 30])).toStrictEqual([10, 20, 55, 20]);
     expect(getAdjustAppendPadding([10, 20, 30, 40])).toStrictEqual([10, 20, 55, 40]);
+  });
+
+  it('resetDrillDown', () => {
+    expect(() => {
+      // @ts-ignore
+      resetDrillDown({
+        // @ts-ignore
+        interactions: {},
+      });
+    }).not.toThrowError();
   });
 });

@@ -1,6 +1,8 @@
-import { get, isNumber } from '@antv/util';
-import { Data, Datum, Meta } from '../types';
+import { get, isNumber, filter } from '@antv/util';
+import { Data, Datum, Meta, Options } from '../types';
 import { NodeLinkData } from '../types/relation-data';
+import { LEVEL, log } from './invariant';
+import { pick } from './pick';
 
 /**
  * 查看数据是否是全负数、或者全正数
@@ -26,18 +28,21 @@ export function adjustYMetaByZero(data: Data, field: string): Meta {
   }
   return {};
 }
+
 /**
  * 转换数据格式为带有节点与边的数据格式
  * @param data
  * @param sourceField
  * @param targetField
  * @param weightField
+ * @param rawFields 存放一些原数据
  */
 export function transformDataToNodeLinkData(
   data: Data,
   sourceField: string,
   targetField: string,
-  weightField: string
+  weightField: string,
+  rawFields: string[] = []
 ): NodeLinkData {
   if (!Array.isArray(data)) {
     return {
@@ -57,17 +62,21 @@ export function transformDataToNodeLinkData(
     const target = datum[targetField];
     const weight = datum[weightField];
 
+    const rawData = pick(datum, rawFields);
+
     // source node
     if (!nodesMap[source]) {
       nodesMap[source] = {
         id: ++nodesIndex,
         name: source,
+        ...rawData,
       };
     }
     if (!nodesMap[target]) {
       nodesMap[target] = {
         id: ++nodesIndex,
         name: target,
+        ...rawData,
       };
     }
     // links
@@ -77,10 +86,28 @@ export function transformDataToNodeLinkData(
       // sourceName: source,
       // targetName: target,
       value: weight,
+      ...rawData,
     });
   });
   return {
     nodes: Object.values(nodesMap),
     links,
   };
+}
+
+/**
+ * 处理不合法的数据(过滤 非数值型 和 NaN，保留 null)
+ * @param data
+ * @param angleField
+ */
+export function processIllegalData(data: Options['data'], field: string) {
+  const processData = filter(data, (d) => {
+    const v = d[field];
+    return v === null || (typeof v === 'number' && !isNaN(v));
+  });
+
+  // 打印异常数据情况
+  log(LEVEL.WARN, processData.length === data.length, 'illegal data existed in chart data.');
+
+  return processData;
 }

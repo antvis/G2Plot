@@ -1,0 +1,24 @@
+{
+  "title": {
+    "zh": "小提琴图",
+    "en": "Violin"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "基础小提琴图",
+        "en": "Basic violin plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*hL2WSrRh9K0AAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "group.ts",
+      "title": {
+        "zh": "分组小提琴图",
+        "en": "Grouped violin plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*bZZ8SLkfTZUAAAAAAAAAAABkARQnAQ"
+    }
+  ]
+}

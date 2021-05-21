@@ -1,5 +1,4 @@
 import { Params } from '../../core/adaptor';
-import { findGeometry } from '../../utils';
 import {
   tooltip,
   slider,
@@ -15,9 +14,8 @@ import {
 import { conversionTag } from '../../adaptor/conversion-tag';
 import { connectedArea } from '../../adaptor/connected-area';
 import { interval } from '../../adaptor/geometries';
-import { flow, transformLabel, deepAssign } from '../../utils';
+import { flow, transformLabel, deepAssign, findGeometry, adjustYMetaByZero } from '../../utils';
 import { getDataWhetherPecentage } from '../../utils/transform/percent';
-import { adjustYMetaByZero } from '../../utils/data';
 import { Datum } from '../../types';
 import { ColumnOptions } from './types';
 

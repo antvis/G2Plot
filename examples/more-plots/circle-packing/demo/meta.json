@@ -1,0 +1,48 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "Circle packing",
+        "en": "Circle packing"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/AF1%24co0stf/7db34ba1-5adc-4fca-ab40-fdeb45195ffb.png"
+    },
+    {
+      "filename": "nest.ts",
+      "title": {
+        "zh": "多层 circle packing",
+        "en": "Nest circle packing"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/0OctH62S1l/fb31a01b-f609-4239-a5c3-358da994432e.png"
+    },
+    {
+      "filename": "label.ts",
+      "title": {
+        "zh": "展示数据标签",
+        "en": "Display label"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/0OctH62S1l/fb31a01b-f609-4239-a5c3-358da994432e.png"
+    },
+    {
+      "filename": "custom-padding.ts",
+      "title": {
+        "zh": "自定义圆圈之间的 padding 距离",
+        "en": "Custom padding between circles"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/dCP6LawPW0/7ffa2fef-af09-4df4-8db3-b8f1ddbc63a5.png"
+    },
+    {
+      "filename": "custom-shape.ts",
+      "title": {
+        "zh": "自定义形状",
+        "en": "Custom shape"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/ld0NQtdLO0/mianjitugengxinshuju-after.gif"
+    }
+  ]
+}

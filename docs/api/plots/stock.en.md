@@ -65,7 +65,20 @@ Configure the data source. The data source is a collection of objects. For examp
 
 ### Geometry Style
 
-`markdown:docs/common/color.en.md`
+> Stock plot only support configure **Rising color** and **Falling color**. Configuring `color` is not supported now.
+#### risingFill
+
+<description>**optional** _number_ _default:_ `#ef5350`</description>
+
+Rising color configuration.
+
+#### fallingFill
+
+<description>**optional** _number_ _default:_ `#26a69a`</description>
+
+Falling color configuration.
+
+<playground path="more-plots/stock#custom-color" rid="custom-color"></playground>
 
 ### Plot Components
 

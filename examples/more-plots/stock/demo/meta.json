@@ -11,6 +11,14 @@
         "en": "Basic candlestick plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*-HIwQbCnfFUAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "custom-color.ts",
+      "title": {
+        "zh": "自定义颜色：绿涨红跌",
+        "en": "Custom stock color"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/4EtM9REqIP/8edb0a9e-293e-4b87-bc61-d814e958acbd.png"
     }
   ]
 }

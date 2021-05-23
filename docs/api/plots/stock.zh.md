@@ -65,7 +65,21 @@ order: 18
 
 ### 图形样式
 
-`markdown:docs/common/color.zh.md`
+> 股票图只支持配置**上涨色**与**下跌色**，暂不支持 `color` 配置。
+
+#### risingFill
+
+<description>**optional** _number_ _default:_ `#ef5350`</description>
+
+上涨色配置。
+
+#### fallingFill
+
+<description>**optional** _number_ _default:_ `#26a69a`</description>
+
+下降色配置。
+
+<playground path="more-plots/stock#custom-color" rid="custom-color"></playground>
 
 ### 图表组件
 

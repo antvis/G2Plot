@@ -10,3 +10,5 @@ export { polygon } from './polygon';
 export type { PolygonGeometryOptions } from './polygon';
 export { edge } from './edge';
 export type { EdgeGeometryOptions } from './edge';
+export { schema } from './schema';
+export type { SchemaGeometryOptions } from './schema';

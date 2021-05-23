@@ -9,7 +9,6 @@ export const TREND_DOWN = 'down';
 
 /** tooltip 配置 */
 export const DEFAULT_TOOLTIP_OPTIONS = {
-  showTitle: false,
   showMarkers: false,
   showCrosshairs: true,
   shared: true,
@@ -17,10 +16,6 @@ export const DEFAULT_TOOLTIP_OPTIONS = {
     type: 'xy',
     follow: true,
   },
-  itemTpl:
-    '<li class="g2-tooltip-list-item" data-index={index}>' +
-    '<span style="background-color:{color};" class="g2-tooltip-marker"></span>' +
-    '{name}{value}</li>',
 };
 
 /**

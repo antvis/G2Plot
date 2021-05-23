@@ -13,10 +13,26 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*-HIwQbCnfFUAAAAAAAAAAAAAARQnAQ"
     },
     {
+      "filename": "meta-alias.ts",
+      "title": {
+        "zh": "设置字段别名",
+        "en": "Set alias of field"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/4EtM9REqIP/8edb0a9e-293e-4b87-bc61-d814e958acbd.png"
+    },
+    {
       "filename": "custom-color.ts",
       "title": {
         "zh": "自定义颜色：绿涨红跌",
         "en": "Custom stock color"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/4EtM9REqIP/8edb0a9e-293e-4b87-bc61-d814e958acbd.png"
+    },
+    {
+      "filename": "custom-tooltip.ts",
+      "title": {
+        "zh": "自定义 Tooltip 展示字段",
+        "en": "Custom tooltip fields"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/4EtM9REqIP/8edb0a9e-293e-4b87-bc61-d814e958acbd.png"
     }

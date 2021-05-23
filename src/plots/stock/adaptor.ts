@@ -1,12 +1,47 @@
-import { isObject } from '@antv/util';
+import { isObject, get } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { interaction, animation, theme } from '../../adaptor/common';
-import { findGeometry, flow, pick, deepAssign } from '../../utils';
+import { interaction, animation, theme, state, annotation } from '../../adaptor/common';
+import { geometry } from '../../adaptor/geometries/base';
+import { flow, pick, deepAssign } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 
+import { Y_FIELD, TREND_FIELD, TREND_UP, TREND_DOWN } from './constant';
 import { StockOptions } from './types';
-import { Y_FIELD, TREND_FIELD, TREND_UP, TREND_DOWN, TREND_COLOR } from './constant';
 import { getStockData } from './utils';
+
+/**
+ * 获取 geometry tooltip 配置
+ */
+function getTooltipOption(params: Params<StockOptions>): { fields: string[]; callback: Function } {
+  const { options } = params;
+  const { xField, yField } = options;
+
+  const [open, close, high, low] = yField;
+
+  const openAlias = meta[open] ? meta[open].alias || open : open;
+  const closeAlias = meta[close] ? meta[close].alias || open : close;
+  const highAlias = meta[high] ? meta[high].alias || high : high;
+  const lowAlias = meta[low] ? meta[low].alias || low : low;
+
+  // geom级别tooltip
+  const geomTooltipOptions = {
+    fields: [xField, open, close, high, low],
+    callback: (datum) => {
+      const tpl = {
+        name: get(datum, [xField]),
+        value: `
+          <br><span data-label="${openAlias}" style="padding-left: 16px">${openAlias}：${get(datum, open)}</span>
+          <br><span data-label="${closeAlias}" style="padding-left: 16px">${closeAlias}：${get(datum, close)}</span>
+          <br><span data-label="${highAlias}" style="padding-left: 16px">${highAlias}：${get(datum, high)}</span>
+          <br><span data-label="${lowAlias}" style="padding-left: 16px">${lowAlias}：${get(datum, low)}</span>
+        `,
+      };
+      return tpl;
+    },
+  };
+
+  return geomTooltipOptions;
+}
 
 /**
  * 图表配置处理
@@ -16,13 +51,29 @@ function field(params: Params<StockOptions>): Params<StockOptions> {
   const { chart, options } = params;
   const { xField, yField } = options;
 
-  const data = options.data;
+  const { data, risingFill, fallingFill } = options;
 
   chart.data(getStockData(data, yField));
 
-  const geometry = chart.schema().position(`${xField}*${Y_FIELD}`).shape('candle');
+  const toolipOptions = getTooltipOption(params);
 
-  geometry.color(TREND_FIELD, TREND_COLOR);
+  geometry(
+    deepAssign({}, params, {
+      options: {
+        type: 'schema',
+        xField,
+        yField: Y_FIELD,
+        colorField: TREND_FIELD,
+        tooltipFields: toolipOptions.fields,
+        mapping: {
+          shape: 'candle',
+          color: [risingFill, fallingFill],
+          // geometry tooltip
+          tooltip: toolipOptions.callback,
+        },
+      },
+    })
+  );
 
   return params;
 }
@@ -85,32 +136,7 @@ export function axis(params: Params<StockOptions>): Params<StockOptions> {
  */
 export function tooltip(params: Params<StockOptions>): Params<StockOptions> {
   const { chart, options } = params;
-  const { xField, yField, meta = {}, tooltip = {} } = options;
-  const geometry = findGeometry(chart, 'schema');
-
-  const [open, close, high, low] = yField;
-
-  const openAlias = meta[open] ? meta[open].alias || open : open;
-  const closeAlias = meta[close] ? meta[close].alias || open : close;
-  const highAlias = meta[high] ? meta[high].alias || high : high;
-  const lowAlias = meta[low] ? meta[low].alias || low : low;
-
-  // geom级别tooltip
-  const baseGeomTooltipOptions = {
-    fields: [xField, open, close, high, low],
-    callback: (xFieldVal, openVal, closeVal, highVal, lowVal) => {
-      const tpl = {
-        name: xFieldVal,
-        value: `
-          <br><span data-label="${openAlias}" style="padding-left: 16px">${openAlias}：${openVal}</span>
-          <br><span data-label="${closeAlias}" style="padding-left: 16px">${closeAlias}：${closeVal}</span>
-          <br><span data-label="${highAlias}" style="padding-left: 16px">${highAlias}：${highVal}</span>
-          <br><span data-label="${lowAlias}" style="padding-left: 16px">${lowAlias}：${lowVal}</span>
-        `,
-      };
-      return tpl;
-    },
-  };
+  const { xField, tooltip = {} } = options;
 
   // chart级别tooltip， text格式化显示内容
   const baseTooltipOptions = {
@@ -132,7 +158,6 @@ export function tooltip(params: Params<StockOptions>): Params<StockOptions> {
     if (isObject(tooltip)) {
       const chartTooltip = deepAssign({}, baseTooltipOptions, tooltip);
       chart.tooltip(chartTooltip);
-      geometry.tooltip(baseGeomTooltipOptions);
     }
   } else {
     chart.tooltip(false);
@@ -165,5 +190,5 @@ export function legend(params: Params<StockOptions>): Params<StockOptions> {
  */
 export function adaptor(params: Params<StockOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(field, meta, theme, axis, tooltip, legend, interaction, animation)(params);
+  flow(theme, field, meta, axis, tooltip, legend, interaction, animation, state, annotation())(params);
 }

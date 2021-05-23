@@ -7,8 +7,6 @@ export const TREND_FIELD = 'trend';
 export const TREND_UP = 'up';
 export const TREND_DOWN = 'down';
 
-export const TREND_COLOR = ['#ef5350', '#26a69a'];
-
 /** tooltip 配置 */
 export const DEFAULT_TOOLTIP_OPTIONS = {
   showTitle: false,
@@ -35,4 +33,6 @@ export const DEFAULT_OPTIONS = deepAssign({}, Plot.getDefaultOptions(), {
   legend: {
     position: 'top-left',
   },
+  risingFill: '#ef5350',
+  fallingFill: '#26a69a',
 });

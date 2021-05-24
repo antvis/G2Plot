@@ -43,6 +43,14 @@
         "en": "Custom crosshairs pointer"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/UKHCDVwzFB/stock-crosshairs.png"
+    },
+    {
+      "filename": "custom-style.ts",
+      "title": {
+        "zh": "自定义样式",
+        "en": "Custom style"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*-HIwQbCnfFUAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

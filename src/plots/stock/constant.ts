@@ -16,14 +16,27 @@ export const DEFAULT_TOOLTIP_OPTIONS = {
     type: 'xy',
     follow: true,
     text: (type, defaultContent, items) => {
-      const tooltipCrosshairsText = { position: type === 'y' ? 'start' : 'end' };
+      let textContent;
       if (type === 'x') {
         const item = items[0];
-        tooltipCrosshairsText['content'] = item ? item.title : defaultContent;
+        textContent = item ? item.title : defaultContent;
       } else {
-        tooltipCrosshairsText['content'] = defaultContent;
+        textContent = defaultContent;
       }
-      return tooltipCrosshairsText;
+      return {
+        position: type === 'y' ? 'start' : 'end',
+        content: textContent,
+        style: {
+          fill: '#dfdfdf',
+        },
+      };
+    },
+    // 自定义 crosshairs textBackground 样式
+    textBackground: {
+      padding: [2, 4],
+      style: {
+        fill: '#666',
+      },
     },
   },
 };

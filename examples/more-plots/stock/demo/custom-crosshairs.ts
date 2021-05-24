@@ -42,9 +42,9 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/qtQ9nYfYJe/stock-data.json')
           },
           // 自定义 crosshairs textBackground 样式
           textBackground: {
-            padding: [2, 4],
+            padding: [4, 8],
             style: {
-              fill: '#666',
+              fill: '#363636',
             },
           },
         },

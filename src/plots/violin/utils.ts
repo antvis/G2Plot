@@ -32,7 +32,7 @@ export type PdfOptions = {
 export const toBoxValue = (values: number[]) => {
   return {
     minMax: [min(values), max(values)],
-    quantile: quantile(values, [0.25, 0.75]),
+    quantile: [quantile(values, 0.25), quantile(values, 0.75)],
     median: quantile(values, [0.5]),
   };
 };

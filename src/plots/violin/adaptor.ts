@@ -167,7 +167,7 @@ function meta(params: Params<ViolinOptions>): Params<ViolinOptions> {
  */
 function axis(params: Params<ViolinOptions>): Params<ViolinOptions> {
   const { chart, options } = params;
-  const { xAxis, yAxis, xField, yField } = options;
+  const { xAxis, yAxis, xField, yField, tooltip } = options;
 
   // 为 false 则是不显示轴
   if (xAxis === false) {
@@ -187,55 +187,63 @@ function tooltip(params: Params<ViolinOptions>): Params<ViolinOptions> {
   if (!box) return params;
 
   const textMap = box.textMap;
-  chart.tooltip({
-    showMarkers: false,
-    customItems: (originalItems) => {
-      const sample = originalItems?.[0];
-      if (!sample) return [];
+  chart.tooltip(
+    deepAssign(
+      {},
+      // 内置的配置
+      {
+        showMarkers: false,
+        customItems: (originalItems) => {
+          const sample = originalItems?.[0];
+          if (!sample) return [];
 
-      // 数据
-      const [min, max] = sample.data[MIN_MAX];
-      const [q1, q3] = sample.data[QUANTILE];
-      const [median] = sample.data[MEDIAN];
-      return [
-        {
-          ...sample,
-          name: textMap.max,
-          title: textMap.max,
-          value: max,
-          marker: 'circle',
+          // 数据
+          const [min, max] = sample.data[MIN_MAX];
+          const [q1, q3] = sample.data[QUANTILE];
+          const [median] = sample.data[MEDIAN];
+          return [
+            {
+              ...sample,
+              name: textMap.max,
+              title: textMap.max,
+              value: max,
+              marker: 'circle',
+            },
+            {
+              ...sample,
+              name: textMap.q3,
+              title: textMap.q3,
+              value: q3,
+              marker: 'circle',
+            },
+            {
+              ...sample,
+              name: textMap.median,
+              title: textMap.median,
+              value: median,
+              marker: 'circle',
+            },
+            {
+              ...sample,
+              name: textMap.q1,
+              title: textMap.q1,
+              value: q1,
+              marker: 'circle',
+            },
+            {
+              ...sample,
+              name: textMap.min,
+              title: textMap.min,
+              value: min,
+              marker: 'circle',
+            },
+          ];
         },
-        {
-          ...sample,
-          name: textMap.q3,
-          title: textMap.q3,
-          value: q3,
-          marker: 'circle',
-        },
-        {
-          ...sample,
-          name: textMap.median,
-          title: textMap.median,
-          value: median,
-          marker: 'circle',
-        },
-        {
-          ...sample,
-          name: textMap.q1,
-          title: textMap.q1,
-          value: q1,
-          marker: 'circle',
-        },
-        {
-          ...sample,
-          name: textMap.min,
-          title: textMap.min,
-          value: min,
-          marker: 'circle',
-        },
-      ];
-    },
-  });
+      },
+      // 用户的配置
+      tooltip
+    )
+  );
 
   return params;
 }

@@ -77,7 +77,7 @@ export function cutoffCircle(edges: Data, sourceField: string, targetField: stri
         // 当前节点在访问中，再次被访问，证明有环，移动到 removeData
         if (visited[node] == 1) {
           // 拼接为字符串，方便最后过滤
-          removedData.push(`${dfsNode}${node}`);
+          removedData.push(`${dfsNode}_${node}`);
         } else if (visited[node] == -1) {
           // 当前结点及后边的结点都被访问过，直接跳至下一个结点
           return;
@@ -99,6 +99,10 @@ export function cutoffCircle(edges: Data, sourceField: string, targetField: stri
     DFS(node);
   });
 
+  if (removedData.length !== 0) {
+    console.warn(`sankey data contains circle, ${removedData.length} records removed.`, removedData);
+  }
+
   // 过滤 remove 路径
-  return edges.filter((edge) => removedData.findIndex((i) => i === `${edge[sourceField]}${edge[targetField]}`) < 0);
+  return edges.filter((edge) => removedData.findIndex((i) => i === `${edge[sourceField]}_${edge[targetField]}`) < 0);
 }

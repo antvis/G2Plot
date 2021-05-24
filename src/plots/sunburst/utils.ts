@@ -4,7 +4,9 @@ import { normalPadding } from '../../utils/padding';
 import { Interaction } from '../../types/interaction';
 import { partition } from '../../utils/hierarchy/partition';
 import { treemap } from '../../utils/hierarchy/treemap';
-import { SunburstOptions } from './types';
+import { SunburstOptions, SunburstData } from './types';
+
+export const COLORROOTKEY = 'COLORROOTKEY';
 
 /**
  * sunburst 处理数据
@@ -98,4 +100,19 @@ export function findInteraction(
 export function enableInteraction(interactions: SunburstOptions['interactions'], interactionType: string): boolean {
   const interaction = findInteraction(interactions, interactionType);
   return interaction && interaction.enable !== false;
+}
+
+// 数组的第一项name 添加到所有的子项 为brand 颜色区分字段 保证交互后依然可以有颜色区分
+export function dataCreateBrand(datas: SunburstData[], nameKey: string, colorKey: string) {
+  datas.forEach((data) => {
+    const createBrand = (data: SunburstData, brand?: string) => {
+      data[colorKey] = brand || data[nameKey];
+      if (data.children) {
+        data.children.forEach((item) => {
+          createBrand(item, data[colorKey]);
+        });
+      }
+    };
+    createBrand(data);
+  });
 }

@@ -7,6 +7,7 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json')
       data,
       seriesField: 'sum',
       colorField: 'label',
+      colorRoot: true,
       innerRadius: 0.3,
       interactions: [{ type: 'element-active' }, { type: 'sunburst-drill-down' }],
     });

@@ -2,7 +2,14 @@ import { Params } from '../../core/adaptor';
 import { polygon as polygonAdaptor } from '../../adaptor/geometries';
 import { interaction, animation, theme, annotation } from '../../adaptor/common';
 import { flow, findGeometry, transformLabel, deepAssign } from '../../utils';
-import { transformData, getTooltipTemplate, getAdjustAppendPadding, enableInteraction } from './utils';
+import {
+  transformData,
+  getTooltipTemplate,
+  getAdjustAppendPadding,
+  enableInteraction,
+  dataCreateBrand,
+  COLORROOTKEY,
+} from './utils';
 import { SunburstOptions } from './types';
 
 /**
@@ -11,8 +18,14 @@ import { SunburstOptions } from './types';
  */
 function geometry(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart, options } = params;
-  const { color, colorField, sunburstStyle } = options;
-  const data = transformData(options);
+  const { color, colorField, sunburstStyle, colorRoot } = options;
+  let newColorField = colorField;
+  if (colorRoot) {
+    newColorField = `${colorField}-${COLORROOTKEY}`;
+    dataCreateBrand(options.data.children, colorField, newColorField);
+  }
+
+  const data = transformData({ ...options, colorField: newColorField });
   chart.data(data);
 
   // geometry
@@ -21,7 +34,7 @@ function geometry(params: Params<SunburstOptions>): Params<SunburstOptions> {
       options: {
         xField: 'x',
         yField: 'y',
-        seriesField: colorField,
+        seriesField: newColorField,
         polygon: {
           color,
           style: sunburstStyle,
@@ -48,8 +61,9 @@ export function axis(params: Params<SunburstOptions>): Params<SunburstOptions> {
  * @param params
  */
 export function legend(params: Params<SunburstOptions>): Params<SunburstOptions> {
-  const { chart } = params;
-  chart.legend(false);
+  const { chart, options } = params;
+  const { legend } = options;
+  chart.legend(legend);
   return params;
 }
 

@@ -1,7 +1,7 @@
 import { Action, IGroup, Util } from '@antv/g2';
 import { get, isArray } from '@antv/util';
 import { deepAssign } from '../../../../utils/deep-assign';
-import { transformData } from '../../utils';
+import { transformData, dataCreateBrand, COLORROOTKEY } from '../../utils';
 
 // 面包屑文字和分割符'/'之间的距离
 const PADDING = 4;
@@ -44,7 +44,7 @@ export class SunburstDrillDownAction extends Action {
     const currentData = view.getData();
 
     const {
-      options: { colorField, type, seriesField },
+      options: { colorField, type, seriesField, colorRoot },
     } = view.getOptions();
     const hierarchyConfig = get(view, ['interactions', 'sunburst-drill-down', 'cfg', 'hierarchyConfig'], {});
 
@@ -58,11 +58,16 @@ export class SunburstDrillDownAction extends Action {
         },
       ];
     }
+    let newColorField = colorField;
+    if (colorRoot) {
+      newColorField = `${newColorField}-${COLORROOTKEY}`;
+      dataCreateBrand(data.children, colorField, newColorField);
+    }
 
     const drillData = transformData({
       data,
       type,
-      colorField,
+      colorField: newColorField,
       seriesField,
       hierarchyConfig,
     });

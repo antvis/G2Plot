@@ -1,7 +1,7 @@
 import { Options, StyleAttr } from '../../types';
 import { HierarchyOption } from '../../utils/hierarchy/types';
 
-export interface SunburstOptions extends Omit<Options, 'data' | 'legend' | 'slider' | 'scrollbar' | 'xAxis' | 'yAxis'> {
+export interface SunburstOptions extends Omit<Options, 'data' | 'slider' | 'scrollbar' | 'xAxis' | 'yAxis'> {
   /** 旭日图数据 */
   readonly data: any;
   /** 布局类型 */
@@ -16,8 +16,14 @@ export interface SunburstOptions extends Omit<Options, 'data' | 'legend' | 'slid
   readonly radius?: number;
   /** 颜色映射 */
   readonly colorField?: string;
+  /** 根颜色映射 */
+  readonly colorRoot?: string;
   /** 旭日图形样式 */
   readonly sunburstStyle?: StyleAttr;
   /** 层级布局配置 */
   readonly hierarchyConfig?: Omit<HierarchyOption, 'as' | 'type' | 'field'>;
 }
+
+export type SunburstData = {
+  children?: SunburstData[];
+};

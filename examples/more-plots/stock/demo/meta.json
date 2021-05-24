@@ -11,6 +11,54 @@
         "en": "Basic candlestick plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*-HIwQbCnfFUAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "meta-alias.ts",
+      "title": {
+        "zh": "设置字段别名",
+        "en": "Set alias of field"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/4EtM9REqIP/8edb0a9e-293e-4b87-bc61-d814e958acbd.png"
+    },
+    {
+      "filename": "custom-color.ts",
+      "title": {
+        "zh": "自定义颜色：绿涨红跌",
+        "en": "Custom stock color"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/4EtM9REqIP/8edb0a9e-293e-4b87-bc61-d814e958acbd.png"
+    },
+    {
+      "filename": "custom-tooltip.ts",
+      "title": {
+        "zh": "自定义 Tooltip 展示字段",
+        "en": "Custom tooltip fields"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/4EtM9REqIP/8edb0a9e-293e-4b87-bc61-d814e958acbd.png"
+    },
+    {
+      "filename": "custom-crosshairs.ts",
+      "title": {
+        "zh": "自定义 crosshairs 指示器",
+        "en": "Custom crosshairs pointer"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/UKHCDVwzFB/stock-crosshairs.png"
+    },
+    {
+      "filename": "custom-style.ts",
+      "title": {
+        "zh": "自定义样式",
+        "en": "Custom style"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*-HIwQbCnfFUAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "slider.ts",
+      "title": {
+        "zh": "带缩略轴的股票图",
+        "en": "Stock plot with slider"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/H1Rf%26M6wMO/af51e97a-7665-4591-a3f0-9c7931b15b76.png"
     }
   ]
 }

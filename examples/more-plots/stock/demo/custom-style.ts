@@ -7,6 +7,14 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/qtQ9nYfYJe/stock-data.json')
       data,
       xField: 'trade_date',
       yField: ['open', 'close', 'high', 'low'],
+      tooltip: {
+        // 关闭 tooltip 悬浮内容
+        showContent: false,
+      },
+      style: {
+        stroke: '#666',
+        lineWidth: 0.5,
+      },
     });
 
     stockPlot.render();

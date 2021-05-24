@@ -63,9 +63,35 @@ Configure the data source. The data source is a collection of objects. For examp
 
 `markdown:docs/common/meta.en.md`
 
+[Live demo](/en/examples/more-plots/stock#meta-alias)
+
 ### Geometry Style
 
-`markdown:docs/common/color.en.md`
+> Stock plot only support configure **Rising color** and **Falling color**. Configuring `color` is not supported now.
+
+#### risingFill
+
+<description>**optional** _number_ _default:_ `#ef5350`</description>
+
+Rising color configuration.
+
+#### fallingFill
+
+<description>**optional** _number_ _default:_ `#26a69a`</description>
+
+Falling color configuration.
+
+<playground path="more-plots/stock/demo/custom-color.ts" rid="custom-color"></playground>
+
+#### style
+
+<description>**optional** _StyleAttr | Function_</description>
+
+Graphic style of stock plot. You can either pass in the 'shapeStyle' structure directly, or you can use callbacks to return different styles for different data. For the ShapeStyle data structure, see:
+
+`markdown:docs/common/shape-style.en.md`
+
+<playground path="more-plots/stock/demo/custom-style.ts" rid="custom-style"></playground>
 
 ### Plot Components
 
@@ -78,8 +104,6 @@ Configure the data source. The data source is a collection of objects. For examp
 ### Plot Method
 
 `markdown:docs/common/chart-methods.en.md`
-
-### Plot Theme
 
 ### Plot Theme
 

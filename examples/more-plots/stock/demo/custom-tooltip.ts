@@ -7,6 +7,16 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/qtQ9nYfYJe/stock-data.json')
       data,
       xField: 'trade_date',
       yField: ['open', 'close', 'high', 'low'],
+      meta: {
+        vol: { alias: '成交量' },
+        open: { alias: '开盘价' },
+        close: { alias: '收盘价' },
+        high: { alias: '最高价' },
+        low: { alias: '最低价' },
+      },
+      tooltip: {
+        fields: ['open', 'close', 'high', 'low', 'vol'],
+      },
     });
 
     stockPlot.render();

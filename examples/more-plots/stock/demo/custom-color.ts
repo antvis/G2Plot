@@ -7,6 +7,9 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/qtQ9nYfYJe/stock-data.json')
       data,
       xField: 'trade_date',
       yField: ['open', 'close', 'high', 'low'],
+      // 绿涨红跌
+      fallingFill: '#ef5350',
+      risingFill: '#26a69a',
     });
 
     stockPlot.render();

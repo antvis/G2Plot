@@ -7,10 +7,14 @@ export interface ViolinOptions extends Options {
   readonly yField: string;
   /** 拆分字段映射，默认是分组情况，颜色作为视觉通道 */
   readonly seriesField?: string;
-  /** 是否平滑，默认是 */
-  readonly smooth?: boolean;
-  /** 是否空心，默认否 */
-  readonly hollow?: boolean;
+  /**
+   * 小提琴的形状。
+   * 默认: 非平滑、实心
+   * smooth: 平滑
+   * hollow: 空心
+   * hollow-smooth: 平滑、空心
+   */
+  readonly shape?: 'smooth' | 'hollow' | 'hollow-smooth';
   /** 小提琴样式配置，可选 */
   readonly violinStyle?: StyleAttr;
   /** 核函数配置，当前只支持三角核 */

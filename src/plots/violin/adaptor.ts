@@ -5,16 +5,16 @@ import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { ViolinOptions } from './types';
 import { transformViolinData } from './utils';
 import {
-  MEDIAN,
+  MEDIAN_FIELD,
   MEDIAN_VIEW_ID,
-  MIN_MAX,
+  MIN_MAX_FIELD,
   MIN_MAX_VIEW_ID,
-  QUANTILE,
+  QUANTILE_FIELD,
   QUANTILE_VIEW_ID,
-  SERIES,
-  VIOLIN_SIZE,
+  SERIES_FIELD,
+  VIOLIN_SIZE_FIELD,
   VIOLIN_VIEW_ID,
-  VIOLIN_Y,
+  VIOLIN_Y_FIELD,
   X_FIELD,
 } from './constant';
 
@@ -24,13 +24,6 @@ const adjustCfg = [
     marginRatio: 1 / 32,
   } as const,
 ];
-
-const getViolinShape = (smooth?: boolean, hollow?: boolean) => {
-  if (hollow) {
-    return smooth ? 'smooth-hollow' : 'hollow';
-  }
-  return smooth ? 'smooth' : 'violin';
-};
 
 /** 处理数据 */
 function data(params: Params<ViolinOptions>): Params<ViolinOptions> {
@@ -42,19 +35,18 @@ function data(params: Params<ViolinOptions>): Params<ViolinOptions> {
 /** 小提琴轮廓 */
 function violinView(params: Params<ViolinOptions>): Params<ViolinOptions> {
   const { chart, options } = params;
-  const { seriesField, color, violinStyle } = options;
-  const shape = getViolinShape(options.smooth, options.hollow);
+  const { seriesField, color, shape = 'violin', violinStyle } = options;
 
   const view = chart.createView({ id: VIOLIN_VIEW_ID });
   const g = view.violin();
-  g.position(`${X_FIELD}*${VIOLIN_Y}`)
+  g.position(`${X_FIELD}*${VIOLIN_Y_FIELD}`)
     .adjust(adjustCfg)
     .shape(shape)
-    .color(seriesField ? SERIES : X_FIELD, color)
-    .size(VIOLIN_SIZE)
+    .color(seriesField ? SERIES_FIELD : X_FIELD, color)
+    .size(VIOLIN_SIZE_FIELD)
     .style(violinStyle);
 
-  view.axis(VIOLIN_Y, {
+  view.axis(VIOLIN_Y_FIELD, {
     grid: {
       line: null,
     },
@@ -62,7 +54,7 @@ function violinView(params: Params<ViolinOptions>): Params<ViolinOptions> {
       alignTick: false,
     },
   });
-  view.axis(VIOLIN_Y, {
+  view.axis(VIOLIN_Y_FIELD, {
     grid: {
       line: {
         style: {
@@ -89,8 +81,8 @@ function boxView(params: Params<ViolinOptions>): Params<ViolinOptions> {
   const minMaxView = chart.createView({ id: MIN_MAX_VIEW_ID });
   minMaxView
     .interval()
-    .position(`${X_FIELD}*${MIN_MAX}`)
-    .color(seriesField ? SERIES : X_FIELD, color)
+    .position(`${X_FIELD}*${MIN_MAX_FIELD}`)
+    .color(seriesField ? SERIES_FIELD : X_FIELD, color)
     .adjust(adjustCfg)
     .size(1)
     .style({
@@ -101,8 +93,8 @@ function boxView(params: Params<ViolinOptions>): Params<ViolinOptions> {
   const quantileView = chart.createView({ id: QUANTILE_VIEW_ID });
   quantileView
     .interval()
-    .position(`${X_FIELD}*${QUANTILE}`)
-    .color(seriesField ? SERIES : X_FIELD, color)
+    .position(`${X_FIELD}*${QUANTILE_FIELD}`)
+    .color(seriesField ? SERIES_FIELD : X_FIELD, color)
     .adjust(adjustCfg)
     .size(8)
     .style({
@@ -113,8 +105,8 @@ function boxView(params: Params<ViolinOptions>): Params<ViolinOptions> {
   const medianView = chart.createView({ id: MEDIAN_VIEW_ID });
   medianView
     .point()
-    .position(`${X_FIELD}*${MEDIAN}`)
-    .color(seriesField ? SERIES : X_FIELD, color)
+    .position(`${X_FIELD}*${MEDIAN_FIELD}`)
+    .color(seriesField ? SERIES_FIELD : X_FIELD, color)
     .adjust(adjustCfg)
     .size(1)
     .style({
@@ -139,19 +131,19 @@ function meta(params: Params<ViolinOptions>): Params<ViolinOptions> {
       sync: true,
       ...pick(xAxis, AXIS_META_CONFIG_KEYS),
     },
-    [VIOLIN_Y]: {
+    [VIOLIN_Y_FIELD]: {
       sync: 'y',
       ...pick(yAxis, AXIS_META_CONFIG_KEYS),
     },
-    [MIN_MAX]: {
+    [MIN_MAX_FIELD]: {
       sync: 'y',
       ...pick(yAxis, AXIS_META_CONFIG_KEYS),
     },
-    [QUANTILE]: {
+    [QUANTILE_FIELD]: {
       sync: 'y',
       ...pick(yAxis, AXIS_META_CONFIG_KEYS),
     },
-    [MEDIAN]: {
+    [MEDIAN_FIELD]: {
       sync: 'y',
       ...pick(yAxis, AXIS_META_CONFIG_KEYS),
     },
@@ -198,9 +190,9 @@ function tooltip(params: Params<ViolinOptions>): Params<ViolinOptions> {
           if (!sample) return [];
 
           // 数据
-          const [min, max] = sample.data[MIN_MAX];
-          const [q1, q3] = sample.data[QUANTILE];
-          const [median] = sample.data[MEDIAN];
+          const [min, max] = sample.data[MIN_MAX_FIELD];
+          const [q1, q3] = sample.data[QUANTILE_FIELD];
+          const [median] = sample.data[MEDIAN_FIELD];
           return [
             {
               ...sample,

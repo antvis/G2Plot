@@ -19,6 +19,14 @@
         "en": "Grouped violin plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*eb3AQ6CiBLwAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "shape.ts",
+      "title": {
+        "zh": "平滑/空心小提琴图",
+        "en": "Smooth/Hollow violin plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*0nOgSohp4QAAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

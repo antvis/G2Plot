@@ -2,13 +2,13 @@ import { Plot } from '../../core/plot';
 import { deepAssign } from '../../utils';
 import { ViolinOptions } from './types';
 
-export const SERIES = 'series';
 export const X_FIELD = 'x';
-export const VIOLIN_Y = 'violinY';
-export const VIOLIN_SIZE = 'violinSize';
-export const MIN_MAX = 'minMax';
-export const QUANTILE = 'quantile';
-export const MEDIAN = 'median';
+export const SERIES_FIELD = 'series';
+export const VIOLIN_Y_FIELD = 'violinY';
+export const VIOLIN_SIZE_FIELD = 'violinSize';
+export const MIN_MAX_FIELD = 'minMax';
+export const QUANTILE_FIELD = 'quantile';
+export const MEDIAN_FIELD = 'median';
 
 export const VIOLIN_VIEW_ID = 'violin_view';
 export const MIN_MAX_VIEW_ID = 'min_max_view';

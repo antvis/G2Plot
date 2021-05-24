@@ -51,17 +51,11 @@ type KdeOptions = {
 
 ### Graphic Style
 
-#### smooth
+#### shape
 
-<description>**optional** _Boolean_</description>
+<description>**optional** _'smooth'|'hollow'|'hollow-smooth'_</description>
 
-Smoothen the violin. Defaults to true.
-
-#### hollow
-
-<description>**optional** _Boolean_</description>
-
-Make viollin shapes hollow. Defaults to false.
+The shape of violin geometry. Could be 'smooth', 'hollow' or 'hollow-smooth'. Defaults to rough, solid voilins.
 
 #### violinStyle
 

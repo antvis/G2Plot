@@ -50,17 +50,15 @@ type KdeOptions = {
 
 ### 图形样式
 
-#### smooth
+#### shape
 
-<description>**optional** _Boolean_</description>
+<description>**optional** _'smooth'|'hollow'|'hollow-smooth'_</description>
 
-是否平滑小提琴轮廓线，默认是。
-
-#### hollow
-
-<description>**optional** _Boolean_</description>
-
-是否为空心小提琴，默认否。
+小提琴形状。
+* 默认: 非平滑、实心
+* smooth: 平滑
+* hollow: 空心
+* hollow-smooth: 平滑、空心
 
 #### violinStyle
 

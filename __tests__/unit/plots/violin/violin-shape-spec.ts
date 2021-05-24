@@ -21,19 +21,19 @@ describe('violin', () => {
 
     // Defaults to { smooth: true, hollow: false }
     violin.render();
-    expect(getViolinShapeType(violin)).toBe('smooth');
-
-    violin.update({ smooth: false, hollow: false });
-    violin.render();
     expect(getViolinShapeType(violin)).toBe('violin');
 
-    violin.update({ smooth: false, hollow: true });
+    violin.update({ shape: 'smooth' });
+    violin.render();
+    expect(getViolinShapeType(violin)).toBe('smooth');
+
+    violin.update({ shape: 'hollow' });
     violin.render();
     expect(getViolinShapeType(violin)).toBe('hollow');
 
-    violin.update({ smooth: true, hollow: true });
+    violin.update({ shape: 'hollow-smooth' });
     violin.render();
-    expect(getViolinShapeType(violin)).toBe('smooth-hollow');
+    expect(getViolinShapeType(violin)).toBe('hollow-smooth');
 
     violin.destroy();
   });

@@ -1,8 +1,6 @@
-import { groupBy } from '@antv/util';
-import { min, max } from '@antv/util';
-// TODO: 分析包大小、有无 tree-shaking
-import { quantile, median } from 'simple-statistics';
+import { groupBy, min, max } from '@antv/util';
 import pdf from 'pdfast';
+import { quantile } from '../../utils/transform/quantile';
 import { ViolinOptions } from './types';
 
 export type ViolinData = {
@@ -34,8 +32,8 @@ export type PdfOptions = {
 export const toBoxValue = (values: number[]) => {
   return {
     minMax: [min(values), max(values)],
-    quantile: [quantile(values, 0.25), quantile(values, 0.75)],
-    median: [median(values)],
+    quantile: quantile(values, [0.25, 0.75]),
+    median: quantile(values, [0.5]),
   };
 };
 

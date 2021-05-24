@@ -16,7 +16,7 @@ function geometry(params: Params<StockOptions>): Params<StockOptions> {
   const { chart, options } = params;
   const { yField } = options;
 
-  const { data, risingFill, fallingFill, tooltip } = options;
+  const { data, risingFill, fallingFill, tooltip, style } = options;
 
   chart.data(getStockData(data, yField));
 
@@ -31,8 +31,7 @@ function geometry(params: Params<StockOptions>): Params<StockOptions> {
         schema: {
           shape: 'candle',
           color: [risingFill, fallingFill],
-          // fixme
-          // style
+          style,
         },
         yField: Y_FIELD,
         seriesField: TREND_FIELD,

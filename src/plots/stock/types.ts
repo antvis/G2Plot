@@ -1,4 +1,4 @@
-import { Options } from '../../types';
+import { Options, StyleAttr } from '../../types';
 
 export interface StockOptions extends Options {
   /** x 轴字段  日期*/
@@ -12,4 +12,7 @@ export interface StockOptions extends Options {
   readonly risingFill?: string;
   /** 下跌色 */
   readonly fallingFill?: string;
+
+  /** 样式配置 */
+  readonly style?: StyleAttr;
 }

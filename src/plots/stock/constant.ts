@@ -15,6 +15,16 @@ export const DEFAULT_TOOLTIP_OPTIONS = {
   crosshairs: {
     type: 'xy',
     follow: true,
+    text: (type, defaultContent, items) => {
+      const tooltipCrosshairsText = { position: type === 'y' ? 'start' : 'end' };
+      if (type === 'x') {
+        const item = items[0];
+        tooltipCrosshairsText['content'] = item ? item.title : defaultContent;
+      } else {
+        tooltipCrosshairsText['content'] = defaultContent;
+      }
+      return tooltipCrosshairsText;
+    },
   },
 };
 

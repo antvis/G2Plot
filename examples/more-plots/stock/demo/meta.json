@@ -35,6 +35,14 @@
         "en": "Custom tooltip fields"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/4EtM9REqIP/8edb0a9e-293e-4b87-bc61-d814e958acbd.png"
+    },
+    {
+      "filename": "custom-crosshairs.ts",
+      "title": {
+        "zh": "自定义 crosshairs 指示器",
+        "en": "Custom crosshairs pointer"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/UKHCDVwzFB/stock-crosshairs.png"
     }
   ]
 }

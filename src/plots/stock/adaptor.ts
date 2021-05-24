@@ -103,28 +103,10 @@ export function axis(params: Params<StockOptions>): Params<StockOptions> {
  */
 export function tooltip(params: Params<StockOptions>): Params<StockOptions> {
   const { chart, options } = params;
-  const { xField, tooltip } = options;
+  const { tooltip } = options;
 
   if (tooltip !== false) {
-    const chartTooltip = deepAssign(
-      {},
-      {
-        crosshairs: {
-          text: (type, defaultContent, items) => {
-            const tooltipCrosshairsText = { position: 'end' };
-            if (type === 'x') {
-              const item = items[0];
-              tooltipCrosshairsText['content'] = item ? item.data[xField] : defaultContent;
-            } else {
-              tooltipCrosshairsText['content'] = defaultContent;
-            }
-            return tooltipCrosshairsText;
-          },
-        },
-      },
-      tooltip
-    );
-    chart.tooltip(chartTooltip);
+    chart.tooltip(tooltip);
   } else {
     chart.tooltip(false);
   }

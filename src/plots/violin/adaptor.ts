@@ -15,6 +15,7 @@ import {
   VIOLIN_SIZE,
   VIOLIN_VIEW_ID,
   VIOLIN_Y,
+  X_FIELD,
 } from './constant';
 
 const adjustCfg = [
@@ -46,10 +47,10 @@ function violinView(params: Params<ViolinOptions>): Params<ViolinOptions> {
 
   const view = chart.createView({ id: VIOLIN_VIEW_ID });
   const g = view.violin();
-  g.position(`x*${VIOLIN_Y}`)
+  g.position(`${X_FIELD}*${VIOLIN_Y}`)
     .adjust(adjustCfg)
     .shape(shape)
-    .color(seriesField ? SERIES : 'x', color)
+    .color(seriesField ? SERIES : X_FIELD, color)
     .size(VIOLIN_SIZE)
     .style(violinStyle);
 
@@ -88,8 +89,8 @@ function boxView(params: Params<ViolinOptions>): Params<ViolinOptions> {
   const minMaxView = chart.createView({ id: MIN_MAX_VIEW_ID });
   minMaxView
     .interval()
-    .position(`x*${MIN_MAX}`)
-    .color(seriesField ? SERIES : 'x', color)
+    .position(`${X_FIELD}*${MIN_MAX}`)
+    .color(seriesField ? SERIES : X_FIELD, color)
     .adjust(adjustCfg)
     .size(1)
     .style({
@@ -100,8 +101,8 @@ function boxView(params: Params<ViolinOptions>): Params<ViolinOptions> {
   const quantileView = chart.createView({ id: QUANTILE_VIEW_ID });
   quantileView
     .interval()
-    .position(`x*${QUANTILE}`)
-    .color(seriesField ? SERIES : 'x', color)
+    .position(`${X_FIELD}*${QUANTILE}`)
+    .color(seriesField ? SERIES : X_FIELD, color)
     .adjust(adjustCfg)
     .size(8)
     .style({
@@ -112,8 +113,8 @@ function boxView(params: Params<ViolinOptions>): Params<ViolinOptions> {
   const medianView = chart.createView({ id: MEDIAN_VIEW_ID });
   medianView
     .point()
-    .position(`x*${MEDIAN}`)
-    .color(seriesField ? SERIES : 'x', color)
+    .position(`${X_FIELD}*${MEDIAN}`)
+    .color(seriesField ? SERIES : X_FIELD, color)
     .adjust(adjustCfg)
     .size(1)
     .style({
@@ -134,7 +135,7 @@ function meta(params: Params<ViolinOptions>): Params<ViolinOptions> {
   const baseMeta = {};
 
   const scales = deepAssign(baseMeta, meta, {
-    x: {
+    [X_FIELD]: {
       sync: true,
       ...pick(xAxis, AXIS_META_CONFIG_KEYS),
     },

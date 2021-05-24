@@ -3,6 +3,7 @@ import { deepAssign } from '../../utils';
 import { ViolinOptions } from './types';
 
 export const SERIES = 'series';
+export const X_FIELD = 'x';
 export const VIOLIN_Y = 'violinY';
 export const VIOLIN_SIZE = 'violinSize';
 export const MIN_MAX = 'minMax';

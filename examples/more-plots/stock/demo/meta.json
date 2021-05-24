@@ -51,6 +51,14 @@
         "en": "Custom style"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*-HIwQbCnfFUAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "slider.ts",
+      "title": {
+        "zh": "带缩略轴的股票图",
+        "en": "Stock plot with slider"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/H1Rf%26M6wMO/af51e97a-7665-4591-a3f0-9c7931b15b76.png"
     }
   ]
 }

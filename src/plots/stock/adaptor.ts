@@ -1,5 +1,5 @@
 import { Params } from '../../core/adaptor';
-import { interaction, animation, theme, state, annotation } from '../../adaptor/common';
+import { interaction, animation, theme, annotation, slider } from '../../adaptor/common';
 import { schema } from '../../adaptor/geometries';
 import { flow, pick, deepAssign } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
@@ -137,5 +137,5 @@ export function legend(params: Params<StockOptions>): Params<StockOptions> {
  */
 export function adaptor(params: Params<StockOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  flow(theme, geometry, meta, axis, tooltip, legend, interaction, animation, state, annotation())(params);
+  flow(theme, geometry, meta, axis, tooltip, legend, interaction, animation, annotation(), slider)(params);
 }

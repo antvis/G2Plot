@@ -74,17 +74,15 @@ Configure tooltip crosshairs to work if and only if 'showCrosshairs' is true.
 
 | Properties     | Type                   | Description                                                                                   |
 | -------------- | ---------------------- | --------------------------------------------------------------------------------------------- |
-| type           | \_`x` \| `y` \| `xy`\_ | Crosshairs Type: 'X' represents the auxiliary line on the X axis, 'Y' on the Y axis           |
+| type           | _'x' \| 'y' \| 'xy'_ | Crosshairs Type: 'X' represents the auxiliary line on the X axis, 'Y' on the Y axis           |
 | line           | _lineStyle_            | The configuration item for line, see more [_ShapeAttrs_](/en/docs/api/graphic-style#configure-line-styles)      |
-| text           | _textStyle_            | Guideline text configuration, support callback                                                |
+| text           | _TooltipCrosshairsText \| TooltipCrosshairsTextCallback_     | Text configuration of crosshairs pointer, support callback                                                |
 | textBackground | _textBackgroundStyle_  | Guideline text background configuration                                                       |
 | follow         | _boolean_              | Whether the guide line follows the mouse. Default is false, that is, to locate the data point |
 
-**_*textStyle*_**
+`markdown:docs/common/crosshairs-text.zh.md`
 
-`markdown:docs/common/text-style.en.md`
-
-**_textBackgroundStyle_**
+**_TextBackgroundStyle_**
 
 | Properties | Type                 | Description                                 |
 | ---------- | -------------------- | ------------------------------------------- |

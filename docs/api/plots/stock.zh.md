@@ -63,6 +63,8 @@ order: 18
 
 `markdown:docs/common/meta.zh.md`
 
+[在线体验](/zh/examples/more-plots/stock#meta-alias)
+
 ### 图形样式
 
 > 股票图只支持配置**上涨色**与**下跌色**，暂不支持 `color` 配置。
@@ -79,7 +81,17 @@ order: 18
 
 下降色配置。
 
-<playground path="more-plots/stock#custom-color" rid="custom-color"></playground>
+<playground path="more-plots/stock/demo/custom-color.ts" rid="custom-color"></playground>
+
+#### style
+
+<description>**可选** _StyleAttr | Function_</description>
+
+股票图 图形样式。可以直接传入 `ShapeStyle` 结构，也可以使用回调函数的方式，针对不同的数据，来返回不同的样式。对于 ShapeStyle 的数据结构，可以参考：
+
+`markdown:docs/common/shape-style.zh.md`
+
+<playground path="more-plots/stock/demo/custom-style.ts" rid="custom-style"></playground>
 
 ### 图表组件
 

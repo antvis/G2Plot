@@ -12,8 +12,6 @@ function geometry(params: Params<RadarOptions>): Params<RadarOptions> {
   const { chart, options } = params;
   const { data, lineStyle, color, point: pointOptions, area: areaOptions } = options;
 
-  const pointState = pointOptions?.state;
-
   chart.data(data);
 
   // 雷达图 主 geometry
@@ -45,6 +43,8 @@ function geometry(params: Params<RadarOptions>): Params<RadarOptions> {
       tooltip: false,
     },
   });
+  // 优先使用 point.state, 其次取主元素的 state 状态样式配置
+  const pointState = pointOptions?.state || options.state;
   const pointParams = deepAssign({}, primary, { options: { tooltip: false, state: pointState } });
 
   line(primary);

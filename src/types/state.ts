@@ -3,8 +3,8 @@ import { Datum, Data } from './common';
 
 export type State = Types.StateOption;
 
-/** 状态名称，G2 Element 开放 'active' | 'inactive' | 'selected' 三种状态 */
-export type StateName = 'active' | 'inactive' | 'selected';
+/** 状态名称，G2 Element 开放 'active' | 'inactive' | 'selected' | 'default' 四种状态 */
+export type StateName = 'active' | 'inactive' | 'selected' | 'default';
 
 /** 状态条件 */
 export type StateCondition = (data: Datum | Data) => boolean;

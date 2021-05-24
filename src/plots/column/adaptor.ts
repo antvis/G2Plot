@@ -1,7 +1,7 @@
+import { Types } from '@antv/g2';
+import { each, filter, isMatch } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { findGeometry } from '../../utils';
 import {
-  tooltip,
   slider,
   interaction,
   animation,
@@ -15,9 +15,8 @@ import {
 import { conversionTag } from '../../adaptor/conversion-tag';
 import { connectedArea } from '../../adaptor/connected-area';
 import { interval } from '../../adaptor/geometries';
-import { flow, transformLabel, deepAssign } from '../../utils';
+import { flow, transformLabel, deepAssign, findGeometry, adjustYMetaByZero, pick } from '../../utils';
 import { getDataWhetherPecentage } from '../../utils/transform/percent';
-import { adjustYMetaByZero } from '../../utils/data';
 import { Datum } from '../../types';
 import { ColumnOptions } from './types';
 
@@ -198,6 +197,50 @@ function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
 }
 
 /**
+ * 柱形图 tooltip 配置 (对堆叠、分组做特殊处理)
+ * @param params
+ */
+function columnTooltip(params: Params<ColumnOptions>): Params<ColumnOptions> {
+  const { chart, options } = params;
+  const { tooltip, isGroup, isStack, groupField, data, xField, yField, seriesField } = options;
+
+  if (tooltip === false) {
+    chart.tooltip(false);
+  } else {
+    let tooltipOptions = tooltip;
+    // fix: https://github.com/antvis/G2Plot/issues/2572
+    if (isGroup && isStack) {
+      const tooltipFormatter =
+        tooltipOptions?.formatter ||
+        ((datum: Datum) => ({ name: `${datum[seriesField]} - ${datum[groupField]}`, value: datum[yField] }));
+      tooltipOptions = {
+        ...tooltipOptions,
+        customItems: (originalItems: Types.TooltipItem[]) => {
+          const items: Types.TooltipItem[] = [];
+          each(originalItems, (item: Types.TooltipItem) => {
+            // Find datas in same cluster
+            const datas = filter(data, (d) => isMatch(d, pick(item.data, [xField, seriesField])));
+            datas.forEach((datum) => {
+              items.push({
+                ...item,
+                value: datum[yField],
+                data: datum,
+                mappingData: { _origin: datum },
+                ...tooltipFormatter(datum),
+              });
+            });
+          });
+          return items;
+        },
+      };
+    }
+    chart.tooltip(tooltipOptions);
+  }
+
+  return params;
+}
+
+/**
  * 柱形图适配器
  * @param params
  */
@@ -212,7 +255,7 @@ export function adaptor(params: Params<ColumnOptions>, isBar = false) {
     meta,
     axis,
     legend,
-    tooltip,
+    columnTooltip,
     slider,
     scrollbar,
     label,

@@ -27,6 +27,14 @@
         "en": "Smooth/Hollow violin plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*0nOgSohp4QAAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "textMap.ts",
+      "title": {
+        "zh": "自定义Tooltip文案",
+        "en": "Customize tooltip texts"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IsxHQYqkeEsAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

@@ -71,6 +71,16 @@ Violin graphic style.
 
 Options to render inner box plot. Set `false` to avoid rendering box plot.
 
+The statistical data of inner box plot includes:
+
+- max: The maximum value, rendered as the highest point in the box plot.
+- min: The minimum value, rendered as the lowest point in the box plot.
+- q3: The 3rd quartile, rendered as box top.
+- q1: The 1st quartile, rendered as box bottom.
+- median: The median value, rendered as a little circle.
+
+You can specify these texts in `box.textMap`.
+
 ```ts
 type BoxOptions = false | {
   /** Text of the box plot. */

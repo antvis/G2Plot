@@ -72,7 +72,17 @@ type KdeOptions = {
 
 <description>**optional** _false | object_</description>
 
-内部箱线图配置。设置为 `false` 时不渲染箱线图。
+小提琴图内置的箱线图配置。设置为 `false` 时不渲染箱线图。
+
+箱线图的统计数据分别为：
+
+- max: 数据中的最大值，作为箱线图的最高点；
+- min: 数据中的最小值，作为箱线图的最低点；
+- q3: 上四分位，即 25% 的数据大于该数，作为箱线图中箱子的高点；
+- q1: 下四分位，即 25% 的数据小于该数，作为箱线图中箱子的低点；
+- median: 数据的中位数，在箱线图中用圆点表示。
+
+可以在 `box.textMap` 中指定文案。
 
 ```ts
 type BoxOptions = false | {

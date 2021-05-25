@@ -231,7 +231,7 @@ pageNavigator: {
 
 适用于 <tag color="cyan" text="连续图例">连续图例</tag>，当前选中的范围。
 
-##### legendOption.selected ✨ 🆕
+##### selected ✨ 🆕
 
 <description> _object_ **optional** </description>
 

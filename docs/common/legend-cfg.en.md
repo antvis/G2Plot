@@ -212,7 +212,7 @@ Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, sel
 
 Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, 当前选中的范围.
 
-##### legendOption.selected ✨ 🆕
+##### selected ✨ 🆕
 
 <description> _object_ **optional** </description>
 

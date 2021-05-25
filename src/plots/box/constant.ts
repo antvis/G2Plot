@@ -24,4 +24,7 @@ export const DEFAULT_OPTIONS = deepAssign({}, Plot.getDefaultOptions(), {
     showMarkers: false,
     shared: true,
   },
+  boxStyle: {
+    lineWidth: 1,
+  },
 });

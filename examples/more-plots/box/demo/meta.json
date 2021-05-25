@@ -27,6 +27,14 @@
         "en": "Box plot with error"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*cE6vR461omUAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "meta-alias.ts",
+      "title": {
+        "zh": "设置字段别名",
+        "en": "Set alias of field"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/BUWqiUYOhY/box-alias.png"
     }
   ]
 }

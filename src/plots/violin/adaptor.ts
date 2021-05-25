@@ -1,7 +1,9 @@
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme } from '../../adaptor/common';
+import { interval, point, violin } from '../../adaptor/geometries';
 import { flow, pick, deepAssign } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
+import { Datum } from '../../types';
 import { ViolinOptions } from './types';
 import { transformViolinData } from './utils';
 import {
@@ -17,6 +19,16 @@ import {
   VIOLIN_Y_FIELD,
   X_FIELD,
 } from './constant';
+
+const ALL_FIELDS = [
+  X_FIELD,
+  SERIES_FIELD,
+  VIOLIN_Y_FIELD,
+  VIOLIN_SIZE_FIELD,
+  MIN_MAX_FIELD,
+  QUANTILE_FIELD,
+  MEDIAN_FIELD,
+];
 
 const adjustCfg = [
   {
@@ -35,16 +47,26 @@ function data(params: Params<ViolinOptions>): Params<ViolinOptions> {
 /** 小提琴轮廓 */
 function violinView(params: Params<ViolinOptions>): Params<ViolinOptions> {
   const { chart, options } = params;
-  const { seriesField, color, shape = 'violin', violinStyle } = options;
+  const { seriesField, color, shape = 'violin', violinStyle, tooltip } = options;
 
   const view = chart.createView({ id: VIOLIN_VIEW_ID });
-  const g = view.violin();
-  g.position(`${X_FIELD}*${VIOLIN_Y_FIELD}`)
-    .adjust(adjustCfg)
-    .shape(shape)
-    .color(seriesField ? SERIES_FIELD : X_FIELD, color)
-    .size(VIOLIN_SIZE_FIELD)
-    .style(violinStyle);
+  violin({
+    chart: view,
+    options: {
+      xField: X_FIELD,
+      yField: VIOLIN_Y_FIELD,
+      seriesField: seriesField ? SERIES_FIELD : X_FIELD,
+      sizeField: VIOLIN_SIZE_FIELD,
+      tooltip: {
+        fields: ALL_FIELDS,
+        ...tooltip,
+      },
+      violin: {
+        style: violinStyle,
+      },
+    },
+  });
+  view.geometries[0].adjust(adjustCfg);
 
   view.axis(VIOLIN_Y_FIELD, {
     grid: {
@@ -72,47 +94,80 @@ function violinView(params: Params<ViolinOptions>): Params<ViolinOptions> {
 /** 箱线 */
 function boxView(params: Params<ViolinOptions>): Params<ViolinOptions> {
   const { chart, options } = params;
-  const { seriesField, color, box } = options;
+  const { seriesField, color, box, tooltip } = options;
 
   // 如果配置 `box` 为 false ，不渲染内部箱线图
   if (!box) return params;
 
   // 边缘线
   const minMaxView = chart.createView({ id: MIN_MAX_VIEW_ID });
-  minMaxView
-    .interval()
-    .position(`${X_FIELD}*${MIN_MAX_FIELD}`)
-    .color(seriesField ? SERIES_FIELD : X_FIELD, color)
-    .adjust(adjustCfg)
-    .size(1)
-    .style({
-      lineWidth: 0,
-    });
+  interval({
+    chart: minMaxView,
+    options: {
+      xField: X_FIELD,
+      yField: MIN_MAX_FIELD,
+      seriesField: seriesField ? SERIES_FIELD : X_FIELD,
+      tooltip: {
+        fields: ALL_FIELDS,
+        ...tooltip,
+      },
+      interval: {
+        color,
+        size: 1,
+        style: {
+          lineWidth: 0,
+        },
+      },
+    },
+  });
+  minMaxView.geometries[0].adjust(adjustCfg);
 
   // 四分点位
   const quantileView = chart.createView({ id: QUANTILE_VIEW_ID });
-  quantileView
-    .interval()
-    .position(`${X_FIELD}*${QUANTILE_FIELD}`)
-    .color(seriesField ? SERIES_FIELD : X_FIELD, color)
-    .adjust(adjustCfg)
-    .size(8)
-    .style({
-      fillOpacity: 1,
-    });
+  interval({
+    chart: quantileView,
+    options: {
+      xField: X_FIELD,
+      yField: QUANTILE_FIELD,
+      seriesField: seriesField ? SERIES_FIELD : X_FIELD,
+      tooltip: {
+        fields: ALL_FIELDS,
+        ...tooltip,
+      },
+      interval: {
+        color,
+        size: 8,
+        style: {
+          fillOpacity: 1,
+        },
+      },
+    },
+  });
+  quantileView.geometries[0].adjust(adjustCfg);
 
   // 中位值
   const medianView = chart.createView({ id: MEDIAN_VIEW_ID });
-  medianView
-    .point()
-    .position(`${X_FIELD}*${MEDIAN_FIELD}`)
-    .color(seriesField ? SERIES_FIELD : X_FIELD, color)
-    .adjust(adjustCfg)
-    .size(1)
-    .style({
-      fill: 'white',
-      lineWidth: 0,
-    });
+  point({
+    chart: medianView,
+    options: {
+      xField: X_FIELD,
+      yField: MEDIAN_FIELD,
+      seriesField: seriesField ? SERIES_FIELD : X_FIELD,
+      tooltip: {
+        fields: ALL_FIELDS,
+        ...tooltip,
+      },
+      point: {
+        color,
+        size: 1,
+        style: {
+          fill: 'white',
+          lineWidth: 0,
+        },
+      },
+    },
+  });
+  medianView.geometries[0].adjust(adjustCfg);
 
   return params;
 }
@@ -185,55 +240,64 @@ function tooltip(params: Params<ViolinOptions>): Params<ViolinOptions> {
       // 内置的配置
       {
         showMarkers: false,
+        // 默认 formatter 把 datum 转换为 { value: { min, max, q1, q3, median } } 的结构体。
+        formatter: (datum: Datum) => {
+          return {
+            value: {
+              min: datum.minMax[0],
+              max: datum.minMax[1],
+              q1: datum.quantile[0],
+              q3: datum.quantile[1],
+              median: datum.median[0],
+            },
+          };
+        },
+        // 默认 customItems 消费上述结构体。
         customItems: (originalItems) => {
           const sample = originalItems?.[0];
           if (!sample) return [];
 
-          // 数据
-          const [min, max] = sample.data[MIN_MAX_FIELD];
-          const [q1, q3] = sample.data[QUANTILE_FIELD];
-          const [median] = sample.data[MEDIAN_FIELD];
           return [
             {
               ...sample,
               name: textMap.max,
               title: textMap.max,
-              value: max,
+              value: sample.value.max,
               marker: 'circle',
             },
             {
               ...sample,
               name: textMap.q3,
               title: textMap.q3,
-              value: q3,
+              value: sample.value.q3,
               marker: 'circle',
             },
             {
               ...sample,
               name: textMap.median,
               title: textMap.median,
-              value: median,
+              value: sample.value.median,
               marker: 'circle',
             },
             {
               ...sample,
               name: textMap.q1,
               title: textMap.q1,
-              value: q1,
+              value: sample.value.q1,
               marker: 'circle',
             },
             {
               ...sample,
               name: textMap.min,
               title: textMap.min,
-              value: min,
+              value: sample.value.min,
               marker: 'circle',
             },
           ];
         },
       },
       // 用户的配置
-      tooltip
+      options.tooltip
     )
   );
 

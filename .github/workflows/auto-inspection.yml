@@ -1,4 +1,4 @@
-name: auto inspection
+name: 🔂 Auto Inspection
 
 on:
   pull_request:
@@ -6,21 +6,18 @@ on:
       - master
 
 jobs:
-  copy-file:
+  preview:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Ready for inspection
-        uses: dmnemec/copy_file_to_another_repo_action@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v2
+      - uses: lxfu1/surge-preview@v1
+        id: preview_step
         with:
-          source_file: 'CHANGELOG.md'
-          destination_repo: 'lxfu1/release-inspection-of-antv'
-          destination_folder: 'changelog/g2plot'
-          user_email: '954055752@qq.com'
-          user_name: 'lxfu1'
-          commit_message: 'g2plot start inspection'
-          destination_branch: 'master'
+          project_name: 'G2Plot'
+          project_branch: 'master'
+          surge_token: ${{ secrets.SURGE_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          build: |
+            npm install
+      - name: Get the preview url
+        run: echo "url => ${{ steps.preview_step.outputs.preview_url }}"

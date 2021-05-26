@@ -63,6 +63,8 @@ function violinView(params: Params<ViolinOptions>): Params<ViolinOptions> {
       },
       violin: {
         style: violinStyle,
+        color,
+        shape,
       },
     },
   });

@@ -1,5 +1,6 @@
 export const version = '2.3.21';
 
+// 无用改动
 // G2 自定义能力透出
 import * as G2 from '@antv/g2';
 export { G2 };

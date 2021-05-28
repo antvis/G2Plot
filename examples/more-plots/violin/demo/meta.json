@@ -1,0 +1,40 @@
+{
+  "title": {
+    "zh": "小提琴图",
+    "en": "Violin"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "基础小提琴图",
+        "en": "Basic violin plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*mBJ1Rqh72ScAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "group.ts",
+      "title": {
+        "zh": "分组小提琴图",
+        "en": "Grouped violin plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*eb3AQ6CiBLwAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "shape.ts",
+      "title": {
+        "zh": "平滑/空心小提琴图",
+        "en": "Smooth/Hollow violin plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*0nOgSohp4QAAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "tooltip.ts",
+      "title": {
+        "zh": "自定义Tooltip文案",
+        "en": "Customize tooltip texts"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*IsxHQYqkeEsAAAAAAAAAAAAAARQnAQ"
+    }
+  ]
+}

@@ -49,6 +49,20 @@ type KdeOptions = {
 
 `markdown:docs/common/meta.en.md`
 
+小提琴图内置的箱线图配置。设置为 `false` 时不渲染箱线图。
+
+箱线图的统计数据分别为：
+
+- high: 数据中的最大值，作为箱线图的最高点；
+- low: 数据中的最小值，作为箱线图的最低点；
+- q3: 上四分位，即 25% 的数据大于该数，作为箱线图中箱子的高点；
+- q1: 下四分位，即 25% 的数据小于该数，作为箱线图中箱子的低点；
+- median: 数据的中位数，在箱线图中用圆点表示。
+
+可以通过 `meta` 来设置字段的元信息
+
+<playground path="more-plots/violin/demo/tooltip.ts" rid="tooltip-meta"></playground>
+
 ### Graphic Style
 
 #### shape
@@ -64,40 +78,6 @@ The shape of violin geometry. Could be 'smooth', 'hollow' or 'hollow-smooth'. De
 Violin graphic style.
 
 `markdown:docs/common/shape-style.en.md`
-
-### box
-
-<description>**optional** _false | object_</description>
-
-Options to render inner box plot. Set `false` to avoid rendering box plot.
-
-The statistical data of inner box plot includes:
-
-- max: The maximum value, rendered as the highest point in the box plot.
-- min: The minimum value, rendered as the lowest point in the box plot.
-- q3: The 3rd quartile, rendered as box top.
-- q1: The 1st quartile, rendered as box bottom.
-- median: The median value, rendered as a little circle.
-
-You can specify these texts in `box.textMap`.
-
-```ts
-type BoxOptions = false | {
-  /** Text of the box plot. */
-  textMap?: {
-    /** Max value label. */
-    max: string;
-    /** Min value label. */
-    min: string;
-    /** 1st quantile value label. */
-    q1: string;
-    /** 3rd quantile value label. */
-    q3: string;
-    /** Median value label. */
-    median: string;
-  };
-};
-```
 
 `markdown:docs/common/color.en.md`
 

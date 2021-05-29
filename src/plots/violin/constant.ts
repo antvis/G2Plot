@@ -3,7 +3,6 @@ import { deepAssign } from '../../utils';
 import { ViolinOptions } from './types';
 
 export const X_FIELD = 'x';
-export const SERIES_FIELD = 'series';
 export const VIOLIN_Y_FIELD = 'violinY';
 export const VIOLIN_SIZE_FIELD = 'violinSize';
 export const MIN_MAX_FIELD = 'minMax';
@@ -45,7 +44,7 @@ export const DEFAULT_OPTIONS = deepAssign({}, Plot.getDefaultOptions(), {
     fillOpacity: 0.3,
     strokeOpacity: 0.75,
   },
-
+  // 坐标轴
   xAxis: {
     grid: {
       line: null,
@@ -64,10 +63,14 @@ export const DEFAULT_OPTIONS = deepAssign({}, Plot.getDefaultOptions(), {
       },
     },
   },
+  // 图例
   legend: {
     position: 'top-left',
   },
-
+  // Tooltip
+  tooltip: {
+    showMarkers: false,
+  },
   // 默认区域交互
   // interactions: [{ type: 'active-region' }],
 } as Partial<ViolinOptions>);

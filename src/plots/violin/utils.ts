@@ -6,20 +6,28 @@ import { ViolinOptions } from './types';
 export type ViolinData = {
   /** X轴 */
   x: string;
-  /** 拆分 */
-  series?: string;
 
   /** 小提琴轮廓的 size 通道数据 */
   violinSize: number[];
   /** 小提琴轮廓的 y 通道数据 */
   violinY: number[];
 
+  // 箱线图基础数据
+  /** 最大值 */
+  high: number;
+  /** 最小值 */
+  low: number;
+  /** 上四分位数 */
+  q1: number;
+  /** 下四分位数 */
+  q3: number;
+  /** 箱线图中的中位值 */
+  median: number[];
+
   /** 箱线图中的上线边缘线 */
   minMax: number[];
   /** 箱线图中的上下四分位点 */
   quantile: number[];
-  /** 箱线图中的中位值 */
-  median: number[];
 };
 
 export type PdfOptions = {
@@ -31,9 +39,13 @@ export type PdfOptions = {
 
 export const toBoxValue = (values: number[]) => {
   return {
+    low: min(values),
+    high: max(values),
+    q1: quantile(values, 0.25),
+    q3: quantile(values, 0.75),
+    median: quantile(values, [0.5]),
     minMax: [min(values), max(values)],
     quantile: [quantile(values, 0.25), quantile(values, 0.75)],
-    median: quantile(values, [0.5]),
   };
 };
 
@@ -80,7 +92,7 @@ export const transformViolinData = (options: ViolinOptions): ViolinData[] => {
       const values = records.map((record) => record[yField]);
       resultList.push({
         x: key,
-        series,
+        [seriesField]: series,
         ...toViolinValue(values, pdfOptions),
         ...toBoxValue(values),
       });

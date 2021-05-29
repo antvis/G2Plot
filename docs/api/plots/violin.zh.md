@@ -48,6 +48,28 @@ type KdeOptions = {
 
 `markdown:docs/common/meta.zh.md`
 
+
+### box
+
+<description>**optional** _false | object_</description>
+
+小提琴图内置的箱线图配置。设置为 `false` 时不渲染箱线图。
+
+箱线图的统计数据分别为：
+
+- high: 数据中的最大值，作为箱线图的最高点；
+- low: 数据中的最小值，作为箱线图的最低点；
+- q3: 上四分位，即 25% 的数据大于该数，作为箱线图中箱子的高点；
+- q1: 下四分位，即 25% 的数据小于该数，作为箱线图中箱子的低点；
+- median: 数据的中位数，在箱线图中用圆点表示。
+
+可以通过 `meta` 来设置字段的元信息
+
+<playground path="more-plots/violin/demo/tooltip.ts" rid="tooltip-meta"></playground>
+
+`markdown:docs/common/color.zh.md`
+
+
 ### 图形样式
 
 #### shape
@@ -67,42 +89,6 @@ type KdeOptions = {
 小提琴轮廓样式配置。
 
 `markdown:docs/common/shape-style.zh.md`
-
-### box
-
-<description>**optional** _false | object_</description>
-
-小提琴图内置的箱线图配置。设置为 `false` 时不渲染箱线图。
-
-箱线图的统计数据分别为：
-
-- max: 数据中的最大值，作为箱线图的最高点；
-- min: 数据中的最小值，作为箱线图的最低点；
-- q3: 上四分位，即 25% 的数据大于该数，作为箱线图中箱子的高点；
-- q1: 下四分位，即 25% 的数据小于该数，作为箱线图中箱子的低点；
-- median: 数据的中位数，在箱线图中用圆点表示。
-
-可以在 `box.textMap` 中指定文案。
-
-```ts
-type BoxOptions = false | {
-  /** 箱线图的文案映射 */
-  textMap?: {
-    /** 最大值文案 */
-    max: string;
-    /** 最小值文案 */
-    min: string;
-    /** 下四分位数文案 */
-    q1: string;
-    /** 上四分位数文案 */
-    q3: string;
-    /** 中位数文案 */
-    median: string;
-  };
-};
-```
-
-`markdown:docs/common/color.zh.md`
 
 ### 图表组件
 

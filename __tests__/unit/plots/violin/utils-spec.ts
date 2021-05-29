@@ -13,6 +13,10 @@ describe('violin utils', () => {
     // 随机打乱，不应影响计算结果。
     const shuffled = ordered.slice().sort(() => Math.random() - 0.5);
     expect(toBoxValue(shuffled)).toEqual({
+      high: 100,
+      low: -1,
+      q1: 3,
+      q3: 8,
       minMax: [-1, 100],
       quantile: [3, 8],
       median: [4.4],

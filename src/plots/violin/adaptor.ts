@@ -1,10 +1,9 @@
 import { get, omit, each } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { interaction, animation, theme } from '../../adaptor/common';
+import { interaction, animation, theme, tooltip } from '../../adaptor/common';
 import { interval, point, violin } from '../../adaptor/geometries';
 import { flow, pick, deepAssign, findViewById } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
-import { Datum } from '../../types';
 import { ViolinOptions } from './types';
 import { transformViolinData } from './utils';
 import {
@@ -14,22 +13,13 @@ import {
   MIN_MAX_VIEW_ID,
   QUANTILE_FIELD,
   QUANTILE_VIEW_ID,
-  SERIES_FIELD,
   VIOLIN_SIZE_FIELD,
   VIOLIN_VIEW_ID,
   VIOLIN_Y_FIELD,
   X_FIELD,
 } from './constant';
 
-const ALL_FIELDS = [
-  X_FIELD,
-  SERIES_FIELD,
-  VIOLIN_Y_FIELD,
-  VIOLIN_SIZE_FIELD,
-  MIN_MAX_FIELD,
-  QUANTILE_FIELD,
-  MEDIAN_FIELD,
-];
+const TOOLTIP_FIELDS = ['low', 'high', 'q1', 'q3', 'median'];
 
 const adjustCfg = [
   {
@@ -56,10 +46,10 @@ function violinView(params: Params<ViolinOptions>): Params<ViolinOptions> {
     options: {
       xField: X_FIELD,
       yField: VIOLIN_Y_FIELD,
-      seriesField: seriesField ? SERIES_FIELD : X_FIELD,
+      seriesField: seriesField ? seriesField : X_FIELD,
       sizeField: VIOLIN_SIZE_FIELD,
       tooltip: {
-        fields: ALL_FIELDS,
+        fields: TOOLTIP_FIELDS,
         ...tooltip,
       },
       violin: {
@@ -77,10 +67,10 @@ function violinView(params: Params<ViolinOptions>): Params<ViolinOptions> {
 /** 箱线 */
 function boxView(params: Params<ViolinOptions>): Params<ViolinOptions> {
   const { chart, options } = params;
-  const { seriesField, color, box, tooltip } = options;
+  const { seriesField, color, tooltip } = options;
 
-  // 如果配置 `box` 为 false ，不渲染内部箱线图
-  if (!box) return params;
+  // 如果配置 `box` 为 false ，不渲染内部箱线图 (暂时不开放 关闭)
+  // if (!box) return params;
 
   // 边缘线
   const minMaxView = chart.createView({ id: MIN_MAX_VIEW_ID });
@@ -89,9 +79,9 @@ function boxView(params: Params<ViolinOptions>): Params<ViolinOptions> {
     options: {
       xField: X_FIELD,
       yField: MIN_MAX_FIELD,
-      seriesField: seriesField ? SERIES_FIELD : X_FIELD,
+      seriesField: seriesField ? seriesField : X_FIELD,
       tooltip: {
-        fields: ALL_FIELDS,
+        fields: TOOLTIP_FIELDS,
         ...tooltip,
       },
       interval: {
@@ -112,9 +102,9 @@ function boxView(params: Params<ViolinOptions>): Params<ViolinOptions> {
     options: {
       xField: X_FIELD,
       yField: QUANTILE_FIELD,
-      seriesField: seriesField ? SERIES_FIELD : X_FIELD,
+      seriesField: seriesField ? seriesField : X_FIELD,
       tooltip: {
-        fields: ALL_FIELDS,
+        fields: TOOLTIP_FIELDS,
         ...tooltip,
       },
       interval: {
@@ -135,9 +125,9 @@ function boxView(params: Params<ViolinOptions>): Params<ViolinOptions> {
     options: {
       xField: X_FIELD,
       yField: MEDIAN_FIELD,
-      seriesField: seriesField ? SERIES_FIELD : X_FIELD,
+      seriesField: seriesField ? seriesField : X_FIELD,
       tooltip: {
-        fields: ALL_FIELDS,
+        fields: TOOLTIP_FIELDS,
         ...tooltip,
       },
       point: {
@@ -241,89 +231,13 @@ function legend(params: Params<ViolinOptions>): Params<ViolinOptions> {
   if (legend === false) {
     chart.legend(false);
   } else {
-    const legendField = seriesField ? SERIES_FIELD : X_FIELD;
+    const legendField = seriesField ? seriesField : X_FIELD;
     chart.legend(legendField, omit(legend as any, ['selected']));
     // 特殊的处理 fixme G2 层得解决这个问题
     if (get(legend, 'selected')) {
       each(chart.views, (view) => view.legend(legendField, legend));
     }
   }
-
-  return params;
-}
-
-function tooltip(params: Params<ViolinOptions>): Params<ViolinOptions> {
-  const { chart, options } = params;
-  const { box } = options;
-  if (!box) return params;
-
-  const textMap = box.textMap;
-  chart.tooltip(
-    deepAssign(
-      {},
-      // 内置的配置
-      {
-        showMarkers: false,
-        // 默认 formatter 把 datum 转换为 { value: { min, max, q1, q3, median } } 的结构体。
-        formatter: (datum: Datum) => {
-          return {
-            value: {
-              min: datum.minMax[0],
-              max: datum.minMax[1],
-              q1: datum.quantile[0],
-              q3: datum.quantile[1],
-              median: datum.median[0],
-            },
-          };
-        },
-        // 默认 customItems 消费上述结构体。
-        customItems: (originalItems) => {
-          const sample = originalItems?.[0];
-          if (!sample) return [];
-
-          return [
-            {
-              ...sample,
-              name: textMap.max,
-              title: textMap.max,
-              value: sample.value.max,
-              marker: 'circle',
-            },
-            {
-              ...sample,
-              name: textMap.q3,
-              title: textMap.q3,
-              value: sample.value.q3,
-              marker: 'circle',
-            },
-            {
-              ...sample,
-              name: textMap.median,
-              title: textMap.median,
-              value: sample.value.median,
-              marker: 'circle',
-            },
-            {
-              ...sample,
-              name: textMap.q1,
-              title: textMap.q1,
-              value: sample.value.q1,
-              marker: 'circle',
-            },
-            {
-              ...sample,
-              name: textMap.min,
-              title: textMap.min,
-              value: sample.value.min,
-              marker: 'circle',
-            },
-          ];
-        },
-      },
-      // 用户的配置
-      options.tooltip
-    )
-  );
 
   return params;
 }

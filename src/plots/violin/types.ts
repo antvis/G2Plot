@@ -30,22 +30,4 @@ export interface ViolinOptions extends Options {
     /** 核函数的带宽。带宽越大产生的曲线越平滑（越模糊），带宽越小产生的曲线越陡峭。默认3。 */
     width?: number;
   } /* | { type: 'gaussian', } ⬅️ 像这样添加新的核函数支持 */;
-  /** 内部箱线图配置，false 为不显示。 */
-  readonly box?:
-    | false
-    | {
-        /** 箱线图的文案映射 */
-        textMap?: {
-          /** 最大值文案 */
-          max: string;
-          /** 最小值文案 */
-          min: string;
-          /** 下四分位数文案 */
-          q1: string;
-          /** 上四分位数文案 */
-          q3: string;
-          /** 中位数文案 */
-          median: string;
-        };
-      };
 }

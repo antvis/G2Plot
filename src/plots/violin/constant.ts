@@ -46,6 +46,28 @@ export const DEFAULT_OPTIONS = deepAssign({}, Plot.getDefaultOptions(), {
     strokeOpacity: 0.75,
   },
 
+  xAxis: {
+    grid: {
+      line: null,
+    },
+    tickLine: {
+      alignTick: false,
+    },
+  },
+  yAxis: {
+    grid: {
+      line: {
+        style: {
+          lineWidth: 0.5,
+          lineDash: [4, 4],
+        },
+      },
+    },
+  },
+  legend: {
+    position: 'top-left',
+  },
+
   // 默认区域交互
   // interactions: [{ type: 'active-region' }],
 } as Partial<ViolinOptions>);

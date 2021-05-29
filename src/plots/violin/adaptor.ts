@@ -1,7 +1,8 @@
+import { get, omit, each } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme } from '../../adaptor/common';
 import { interval, point, violin } from '../../adaptor/geometries';
-import { flow, pick, deepAssign } from '../../utils';
+import { flow, pick, deepAssign, findViewById } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { Datum } from '../../types';
 import { ViolinOptions } from './types';
@@ -69,26 +70,6 @@ function violinView(params: Params<ViolinOptions>): Params<ViolinOptions> {
     },
   });
   view.geometries[0].adjust(adjustCfg);
-
-  view.axis(VIOLIN_Y_FIELD, {
-    grid: {
-      line: null,
-    },
-    tickLine: {
-      alignTick: false,
-    },
-  });
-  view.axis(VIOLIN_Y_FIELD, {
-    grid: {
-      line: {
-        style: {
-          lineWidth: 0.5,
-          // TODO: 为什么是 dash ？
-          lineDash: [4, 4],
-        },
-      },
-    },
-  });
 
   return params;
 }
@@ -226,16 +207,47 @@ function meta(params: Params<ViolinOptions>): Params<ViolinOptions> {
  */
 function axis(params: Params<ViolinOptions>): Params<ViolinOptions> {
   const { chart, options } = params;
-  const { xAxis, yAxis, xField, yField, tooltip } = options;
+  const { xAxis, yAxis } = options;
+
+  const view = findViewById(chart, VIOLIN_VIEW_ID);
 
   // 为 false 则是不显示轴
   if (xAxis === false) {
-    chart.axis(xField, false);
+    view.axis(X_FIELD, false);
   } else {
-    chart.axis(xField, xAxis);
+    view.axis(X_FIELD, xAxis);
   }
 
-  chart.axis(yField, yAxis);
+  if (yAxis === false) {
+    view.axis(VIOLIN_Y_FIELD, false);
+  } else {
+    view.axis(VIOLIN_Y_FIELD, yAxis);
+  }
+
+  chart.axis(false);
+
+  return params;
+}
+
+/**
+ *
+ * @param params
+ * @returns
+ */
+function legend(params: Params<ViolinOptions>): Params<ViolinOptions> {
+  const { chart, options } = params;
+  const { legend, seriesField } = options;
+
+  if (legend === false) {
+    chart.legend(false);
+  } else {
+    const legendField = seriesField ? SERIES_FIELD : X_FIELD;
+    chart.legend(legendField, omit(legend, ['selected']));
+    // 特殊的处理 fixme G2 层得解决这个问题
+    if (get(legend, 'selected')) {
+      each(chart.views, (view) => view.legend(legendField, legend));
+    }
+  }
 
   return params;
 }
@@ -321,5 +333,5 @@ function tooltip(params: Params<ViolinOptions>): Params<ViolinOptions> {
  * @param params
  */
 export function adaptor(params: Params<ViolinOptions>) {
-  return flow(data, violinView, boxView, meta, tooltip, axis, interaction, animation, theme)(params);
+  return flow(data, violinView, boxView, meta, tooltip, axis, legend, interaction, animation, theme)(params);
 }

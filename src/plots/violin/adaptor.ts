@@ -242,7 +242,7 @@ function legend(params: Params<ViolinOptions>): Params<ViolinOptions> {
     chart.legend(false);
   } else {
     const legendField = seriesField ? SERIES_FIELD : X_FIELD;
-    chart.legend(legendField, omit(legend, ['selected']));
+    chart.legend(legendField, omit(legend as any, ['selected']));
     // 特殊的处理 fixme G2 层得解决这个问题
     if (get(legend, 'selected')) {
       each(chart.views, (view) => view.legend(legendField, legend));

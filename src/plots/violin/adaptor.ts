@@ -171,6 +171,16 @@ function boxView(params: Params<ViolinOptions>): Params<ViolinOptions> {
   });
   medianView.geometries[0].adjust(adjustCfg);
 
+  // 关闭辅助 view 的轴
+  quantileView.axis(false);
+  minMaxView.axis(false);
+  medianView.axis(false);
+
+  // 关闭辅助 view 的图例
+  medianView.legend(false);
+  minMaxView.legend(false);
+  quantileView.legend(false);
+
   return params;
 }
 
@@ -189,19 +199,19 @@ function meta(params: Params<ViolinOptions>): Params<ViolinOptions> {
       ...pick(xAxis, AXIS_META_CONFIG_KEYS),
     },
     [VIOLIN_Y_FIELD]: {
-      sync: 'y',
+      sync: true,
       ...pick(yAxis, AXIS_META_CONFIG_KEYS),
     },
     [MIN_MAX_FIELD]: {
-      sync: 'y',
+      sync: VIOLIN_Y_FIELD,
       ...pick(yAxis, AXIS_META_CONFIG_KEYS),
     },
     [QUANTILE_FIELD]: {
-      sync: 'y',
+      sync: VIOLIN_Y_FIELD,
       ...pick(yAxis, AXIS_META_CONFIG_KEYS),
     },
     [MEDIAN_FIELD]: {
-      sync: 'y',
+      sync: VIOLIN_Y_FIELD,
       ...pick(yAxis, AXIS_META_CONFIG_KEYS),
     },
   });

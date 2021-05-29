@@ -16,6 +16,8 @@ export const QUANTILE_VIEW_ID = 'quantile_view';
 export const MEDIAN_VIEW_ID = 'median_view';
 
 export const DEFAULT_OPTIONS = deepAssign({}, Plot.getDefaultOptions(), {
+  // 多 view 组成，一定要设置 view padding 同步
+  syncViewPadding: true,
   // 默认核函数
   kde: {
     type: 'triangular',

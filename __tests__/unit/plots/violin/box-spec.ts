@@ -25,14 +25,15 @@ describe('violin', () => {
     violin.destroy();
   });
 
-  it("should not render box views when 'box' set to false.", () => {
+  // 暂时不开放 box 配置
+  it.skip("should not render box views when 'box' set to false.", () => {
     const violin = new Violin(createDiv(), {
       width: 400,
       height: 500,
       data: BASE_VIOLIN_DATA,
       xField: 'type',
       yField: 'value',
-      box: false,
+      // box: false,
     });
 
     violin.render();
@@ -43,33 +44,6 @@ describe('violin', () => {
     expect(minMaxView).toBeUndefined();
     expect(quantileView).toBeUndefined();
     expect(medianView).toBeUndefined();
-
-    violin.destroy();
-  });
-
-  it('should not render box with custom textMap.', () => {
-    const textMap = {
-      max: '最大值',
-      min: '最小值',
-      median: '中位值',
-      q1: '上四分位点',
-      q3: '下四分位点',
-    };
-    const violin = new Violin(createDiv(), {
-      width: 400,
-      height: 500,
-      data: BASE_VIOLIN_DATA,
-      xField: 'type',
-      yField: 'value',
-      box: {
-        textMap,
-      },
-    });
-
-    violin.render();
-
-    // @ts-ignore
-    expect(violin.options.box.textMap).toEqual(textMap);
 
     violin.destroy();
   });

@@ -13,7 +13,7 @@
  * @example
  * quantileSorted([3, 6, 7, 8, 8, 9, 10, 13, 15, 16, 20], 0.5); // => 9
  */
-function quantileSorted(x, p) {
+export function quantileSorted(x: number[], p: number) {
   const idx = x.length * p;
   if (x.length === 0) {
     throw new Error('quantile requires at least one data point.');
@@ -39,7 +39,13 @@ function quantileSorted(x, p) {
   }
 }
 
-function swap(arr, i, j) {
+/**
+ * 交换数组位置
+ * @param arr T[]
+ * @param i number
+ * @param j number
+ */
+export function swap<T = any>(arr: T[], i: number, j: number): void {
   const tmp = arr[i];
   arr[i] = arr[j];
   arr[j] = tmp;
@@ -61,7 +67,7 @@ function swap(arr, i, j) {
  * quickselect(arr, 8);
  * // = [39, 28, 28, 33, 21, 12, 22, 50, 53, 56, 59, 65, 90, 77, 95]
  */
-function quickselect(arr, k, left, right) {
+export function quickselect(arr: number[], k, left?: number, right?: number): void {
   left = left || 0;
   right = right || arr.length - 1;
 

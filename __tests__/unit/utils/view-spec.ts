@@ -25,12 +25,15 @@ describe('utils of view', () => {
   it('getViews', () => {
     const views = plot.chart.views;
     expect(getViews(views[0])).toEqual(views);
+    expect(getViews(plot.chart)).toEqual([]);
   });
 
   it('getSiblingViews', () => {
     const views = plot.chart.views;
     expect(getSiblingViews(views[0]).length).toBe(1);
     expect(getSiblingViews(views[0])).toEqual([views[1]]);
+    expect(getSiblingViews(plot.chart).length).toBe(0);
+    expect(getSiblingViews(plot.chart)).toEqual([]);
   });
 
   afterAll(() => {

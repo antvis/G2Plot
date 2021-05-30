@@ -1,5 +1,5 @@
 import { Mix } from '../../../src';
-import { findViewById, getViews, getSilbingViews } from '../../../src/utils/view';
+import { findViewById, getViews, getSiblingViews } from '../../../src/utils/view';
 import { createDiv } from '../../utils/dom';
 
 describe('utils of view', () => {
@@ -27,10 +27,10 @@ describe('utils of view', () => {
     expect(getViews(views[0])).toEqual(views);
   });
 
-  it('getSilbingViews', () => {
+  it('getSiblingViews', () => {
     const views = plot.chart.views;
-    expect(getSilbingViews(views[0]).length).toBe(1);
-    expect(getSilbingViews(views[0])).toEqual([views[1]]);
+    expect(getSiblingViews(views[0]).length).toBe(1);
+    expect(getSiblingViews(views[0])).toEqual([views[1]]);
   });
 
   afterAll(() => {

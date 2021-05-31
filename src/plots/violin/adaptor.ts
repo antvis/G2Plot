@@ -1,6 +1,7 @@
+import { Geometry } from '@antv/g2';
 import { get, omit, each } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { interaction, animation, theme, tooltip } from '../../adaptor/common';
+import { interaction, theme, tooltip, annotation as baseAnnotation } from '../../adaptor/common';
 import { interval, point, violin } from '../../adaptor/geometries';
 import { flow, pick, deepAssign, findViewById } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
@@ -243,9 +244,60 @@ function legend(params: Params<ViolinOptions>): Params<ViolinOptions> {
 }
 
 /**
- * 箱型图适配器
+ * annotation, apply to violin view.
+ * @param params
+ * @returns
+ */
+function annotation(params: Params<ViolinOptions>): Params<ViolinOptions> {
+  const { chart } = params;
+
+  const violinView = findViewById(chart, VIOLIN_VIEW_ID);
+  baseAnnotation()({ ...params, chart: violinView });
+
+  return params;
+}
+
+/**
+ * 动画
+ * @param params
+ */
+export function animation(params: Params<ViolinOptions>): Params<ViolinOptions> {
+  const { chart, options } = params;
+  const { animation } = options;
+
+  // 所有的 Geometry 都使用同一动画（各个图形如有区别，自行覆盖）
+  each(chart.views, (view) => {
+    // 同时设置整个 view 动画选项
+    if (typeof animation === 'boolean') {
+      view.animate(animation);
+    } else {
+      view.animate(true);
+    }
+
+    each(view.geometries, (g: Geometry) => {
+      g.animate(animation);
+    });
+  });
+
+  return params;
+}
+
+/**
+ * 小提琴图适配器
  * @param params
  */
 export function adaptor(params: Params<ViolinOptions>) {
-  return flow(data, violinView, boxView, meta, tooltip, axis, legend, interaction, animation, theme)(params);
+  return flow(
+    theme,
+    data,
+    violinView,
+    boxView,
+    meta,
+    tooltip,
+    axis,
+    legend,
+    interaction,
+    annotation,
+    animation
+  )(params);
 }

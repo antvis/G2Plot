@@ -1,4 +1,5 @@
 import { Violin } from '../../../../src';
+import { X_FIELD } from '../../../../src/plots/violin/constant';
 import { BASE_VIOLIN_DATA } from '../../../data/violin';
 import { createDiv } from '../../../utils/dom';
 
@@ -113,5 +114,28 @@ describe('violin legend', () => {
     expect(legendComponent.get('items')).toBeUndefined();
 
     violin.destroy();
+  });
+
+  it('除了 view0, 其他没有图例', () => {
+    const violin = new Violin(createDiv(), {
+      width: 400,
+      height: 500,
+      data: BASE_VIOLIN_DATA,
+      xField: 'type',
+      yField: 'value',
+    });
+
+    violin.render();
+
+    violin.chart.views.forEach((view, idx) => {
+      if (idx !== 0) {
+        // @ts-ignore
+        expect(view.options.legends).toBe(false);
+      }
+    });
+
+    violin.update({ legend: { position: 'left', marker: { style: { fill: 'red' } } } });
+    // @ts-ignore
+    expect(violin.chart.options.legends[X_FIELD]).toEqual({ position: 'left', marker: { style: { fill: 'red' } } });
   });
 });

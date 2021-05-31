@@ -26,6 +26,6 @@ export function getViews(view: View): View[] {
  * @returns 同一级的 views
  * @ignore
  */
-export function getSilbingViews(view: View): View[] {
+export function getSiblingViews(view: View): View[] {
   return getViews(view).filter((sub) => sub !== view);
 }

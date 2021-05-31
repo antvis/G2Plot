@@ -1,6 +1,6 @@
 import { each, get, map, isArray } from '@antv/util';
 import { registerAction, registerInteraction, View, Element, Action } from '@antv/g2';
-import { getAllElements, getViews, getSilbingViews } from '../../../utils';
+import { getAllElements, getViews, getSiblingViews } from '../../../utils';
 import { clearHighlight, getElementValue } from './utils';
 
 type EventItem = { element: Element; view: View; active: boolean; inactive: boolean };
@@ -69,7 +69,7 @@ class Association extends Action {
    * 所有同一层级的 tooltip 显示
    */
   public showTooltip(params?: ActionParams) {
-    const siblings = getSilbingViews(this.context.view);
+    const siblings = getSiblingViews(this.context.view);
     const elements = this.getAssociationItems(siblings, params);
 
     each(elements, (ele) => {
@@ -84,7 +84,7 @@ class Association extends Action {
    * 隐藏同一层级的 tooltip
    */
   public hideTooltip() {
-    const siblings = getSilbingViews(this.context.view);
+    const siblings = getSiblingViews(this.context.view);
     each(siblings, (sibling) => {
       sibling.hideTooltip();
     });

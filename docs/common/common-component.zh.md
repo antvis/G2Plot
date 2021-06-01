@@ -11,6 +11,8 @@ xAxis、yAxis 配置相同。**注意**：由于 DualAxes(双轴图) 和 Bidirec
 
 #### label
 
+> 小提琴图暂时不支持 label 展示，可以使用 annnotation 进行替代
+
 `markdown:docs/common/label.zh.md`
 
 

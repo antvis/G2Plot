@@ -11,6 +11,8 @@ xAxis、yAxis 配置相同。**注意**：由于 DualAxes(双轴图) 和 Bidirec
 
 #### label
 
+> Label configuration is not supported in violin，you can use `annnotation` to replace it.
+
 `markdown:docs/common/label.en.md`
 
 

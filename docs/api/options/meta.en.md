@@ -60,9 +60,9 @@ Input field, definition field.
 
 ### MetaOption.formatter
 
-<description> _(v: any, k?: number) => any_ **optional**</description>
+<description> _(value: any, index?: number) => any_ **optional**</description>
 
-The tick formatting function, inputs value and value index, returns formatted value, affects the display of data on Axis, Legend, and Tooltip.
+The tick formatting function affects the display of data on Axis, Legend, and Tooltip.
 
 ### MetaOption.range
 

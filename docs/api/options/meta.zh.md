@@ -44,7 +44,7 @@ _MetaOption_ 配置如下：
 | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 分类度量 | - cat: 分类度量 <br /> - timeCat: 时间分类度量                                                                                                                                                                      |
 | 连续度量 | - linear: 线性度量 <br /> - time：连续的时间度量 <br /> - log: log 度量 <br /> - pow: pow 度量 <br /> - quantize：分段度量，用户可以指定不均匀的分段 <br /> - quantile: 等分度量，根据数据的分布自动计算分段 <br /> |
-| 常量度量 | - identity: 常量度量                                                                                                                                          
+| 常量度量 | - identity: 常量度量                                                                                                                                                                                                |
 ### MetaOption.alias
 
 <description> _string_ **optional**</description>
@@ -59,9 +59,9 @@ _MetaOption_ 配置如下：
 
 ### MetaOption.formatter
 
-<description> _(v: any, k?: number) => any_ **optional**</description>
+<description> _(value: any, index?: number) => any_ **optional**</description>
 
-tick 格式化函数，入参为数据和数据索引，返回值为格式化后的数据，影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。
+tick 格式化函数，影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。
 
 ### MetaOption.range
 

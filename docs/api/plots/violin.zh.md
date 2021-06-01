@@ -85,7 +85,7 @@ type KdeOptions = {
 
 ### 图表组件
 
-`markdown:docs/common/component.zh.md`
+`markdown:docs/common/common-component.zh.md`
 
 ### 图表事件
 

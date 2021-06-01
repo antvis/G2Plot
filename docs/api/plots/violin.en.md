@@ -1,5 +1,5 @@
 ---
-title: Box
+title: Violin
 order: 31
 ---
 
@@ -81,7 +81,7 @@ Violin graphic style.
 
 ### Plot Components
 
-`markdown:docs/common/component.en.md`
+`markdown:docs/common/common-component.en.md`
 
 ### Plot Event
 

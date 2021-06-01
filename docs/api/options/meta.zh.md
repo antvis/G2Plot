@@ -61,7 +61,7 @@ _MetaOption_ 配置如下：
 
 <description> _(v: any, k?: number) => any_ **optional**</description>
 
-tick 格式化函数，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。
+tick 格式化函数，入参为数据和数据索引，返回值为格式化后的数据，影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。
 
 ### MetaOption.range
 

@@ -1,5 +1,5 @@
 import { Geometry } from '@antv/g2';
-import { get, omit, each } from '@antv/util';
+import { get, set, omit, each } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { interaction, theme, tooltip, annotation as baseAnnotation } from '../../adaptor/common';
 import { interval, point, violin } from '../../adaptor/geometries';
@@ -227,13 +227,20 @@ function axis(params: Params<ViolinOptions>): Params<ViolinOptions> {
  */
 function legend(params: Params<ViolinOptions>): Params<ViolinOptions> {
   const { chart, options } = params;
-  const { legend, seriesField } = options;
+  const { legend, seriesField, shape } = options;
 
   if (legend === false) {
     chart.legend(false);
   } else {
     const legendField = seriesField ? seriesField : X_FIELD;
-    chart.legend(legendField, omit(legend as any, ['selected']));
+    // fixme 暂不明为啥有描边
+    const legendOptions = omit(legend as any, ['selected']);
+    if (!shape || !shape.startsWith('hollow')) {
+      if (!get(legendOptions, ['marker', 'style', 'lineWidth'])) {
+        set(legendOptions, ['marker', 'style', 'lineWidth'], 0);
+      }
+    }
+    chart.legend(legendField, legendOptions);
     // 特殊的处理 fixme G2 层得解决这个问题
     if (get(legend, 'selected')) {
       each(chart.views, (view) => view.legend(legendField, legend));

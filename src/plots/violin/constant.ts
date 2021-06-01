@@ -24,20 +24,6 @@ export const DEFAULT_OPTIONS = deepAssign({}, Plot.getDefaultOptions(), {
     width: 3,
   },
 
-  // 默认平滑
-  smooth: true,
-
-  // 默认显示箱线图
-  box: {
-    textMap: {
-      max: 'Max',
-      min: 'Min',
-      q1: 'Q1',
-      q3: 'Q3',
-      median: 'Median',
-    },
-  },
-
   // 默认小提琴轮廓样式
   violinStyle: {
     lineWidth: 1,

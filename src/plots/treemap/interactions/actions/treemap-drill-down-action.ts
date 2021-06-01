@@ -11,7 +11,7 @@ const PADDING_TOP = 5;
 // 面包屑默认配置
 const DEFAULT_BREAD_CRUMB_CONFIG = {
   name: 'treemap-bread-crumb',
-  rootText: '初始',
+  rootText: 'root',
   dividerText: '/',
   textStyle: {
     fontSize: 12,
@@ -34,7 +34,9 @@ export class TreemapDrillDownAction extends Action {
    * 获取 mix 默认的配置和用户配置
    */
   private getButtonCfg() {
-    return deepAssign(this.breadCrumbCfg, this.cfg);
+    const { view } = this.context;
+    const breadCrumbConfig = get(view, ['interactions', 'treemap-drill-down', 'cfg', 'breadCrumbConfig'], {});
+    return deepAssign(this.breadCrumbCfg, breadCrumbConfig, this.cfg);
   }
 
   /**

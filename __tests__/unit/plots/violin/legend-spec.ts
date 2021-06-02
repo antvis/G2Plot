@@ -136,6 +136,9 @@ describe('violin legend', () => {
 
     violin.update({ legend: { position: 'left', marker: { style: { fill: 'red' } } } });
     // @ts-ignore
-    expect(violin.chart.options.legends[X_FIELD]).toEqual({ position: 'left', marker: { style: { fill: 'red' } } });
+    expect(violin.chart.options.legends[X_FIELD]).toMatchObject({
+      position: 'left',
+      marker: { style: { fill: 'red' } },
+    });
   });
 });

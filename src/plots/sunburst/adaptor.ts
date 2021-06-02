@@ -1,9 +1,13 @@
+import { isFunction, get } from '@antv/util';
+import { Types } from '@antv/g2';
 import { Params } from '../../core/adaptor';
 import { polygon as polygonAdaptor } from '../../adaptor/geometries';
 import { interaction, animation, theme, annotation } from '../../adaptor/common';
 import { flow, findGeometry, transformLabel, deepAssign } from '../../utils';
-import { transformData, getTooltipTemplate } from './utils';
+import { Datum } from '../../types';
+import { transformData } from './utils';
 import { SunburstOptions } from './types';
+import { RAW_FIELDS, SUNBURST_ANCESTOR_FIELD, SUNBURST_PATH_FIELD } from './constant';
 
 /**
  * geometry 配置处理
@@ -11,9 +15,23 @@ import { SunburstOptions } from './types';
  */
 function geometry(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart, options } = params;
-  const { color, colorField, sunburstStyle } = options;
+  const { color, colorField = SUNBURST_ANCESTOR_FIELD, sunburstStyle } = options;
   const data = transformData(options);
   chart.data(data);
+
+  // 特殊处理下样式，如果没有设置 fillOpacity 的时候，默认根据层级进行填充透明度
+  let style;
+  if (sunburstStyle) {
+    style = (datum: Datum) => {
+      return deepAssign(
+        {},
+        {
+          fillOpacity: 0.85 ** datum.depth,
+        },
+        isFunction(sunburstStyle) ? sunburstStyle(datum) : sunburstStyle
+      );
+    };
+  }
 
   // geometry
   polygonAdaptor(
@@ -22,9 +40,10 @@ function geometry(params: Params<SunburstOptions>): Params<SunburstOptions> {
         xField: 'x',
         yField: 'y',
         seriesField: colorField,
+        rawFields: [...(options.rawFields || []), ...RAW_FIELDS],
         polygon: {
           color,
-          style: sunburstStyle,
+          style,
         },
       },
     })
@@ -44,11 +63,13 @@ export function axis(params: Params<SunburstOptions>): Params<SunburstOptions> {
 }
 
 /**
- * legend 配置
+ * legend 配置（旭日图暂时不支持图例，后续需要支持的话，得自定义数据筛选）
  * @param params
+ * @returns
  */
-export function legend(params: Params<SunburstOptions>): Params<SunburstOptions> {
+function legend(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart } = params;
+
   chart.legend(false);
   return params;
 }
@@ -59,7 +80,7 @@ export function legend(params: Params<SunburstOptions>): Params<SunburstOptions>
  */
 function label(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart, options } = params;
-  const { label, seriesField } = options;
+  const { label } = options;
 
   const geometry = findGeometry(chart, 'polygon');
 
@@ -67,12 +88,8 @@ function label(params: Params<SunburstOptions>): Params<SunburstOptions> {
   if (!label) {
     geometry.label(false);
   } else {
-    const { callback, ...cfg } = label;
-    geometry.label({
-      fields: [seriesField],
-      callback,
-      cfg: transformLabel(cfg),
-    });
+    //   const { callback, ...cfg } = label;
+    geometry.label(label);
   }
 
   return params;
@@ -122,23 +139,24 @@ function scale(params: Params<SunburstOptions>): Params<SunburstOptions> {
  */
 export function tooltip(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart, options } = params;
-  const { tooltip, seriesField, colorField } = options;
+  const { tooltip } = options;
 
-  if (tooltip) {
-    chart.tooltip({
-      ...tooltip,
-      customContent:
-        tooltip && tooltip.customContent
-          ? tooltip.customContent
-          : (value: string, items: any[]) => {
-              return getTooltipTemplate({
-                value,
-                items,
-                formatter: tooltip && tooltip?.formatter,
-                fields: (tooltip && tooltip.fields) || [seriesField, colorField],
-              });
-            },
-    });
+  if (tooltip === false) {
+    chart.tooltip(false);
+  } else {
+    let tooltipOptions = tooltip;
+    // 设置了 fields，就不进行 customItems 了
+    if (!get(tooltip, 'fields')) {
+      tooltipOptions = deepAssign(
+        {},
+        {
+          customItems: (items: Types.TooltipItem[]) =>
+            items.map((item) => ({ ...item, name: item.data[SUNBURST_PATH_FIELD], value: item.data.value })),
+        },
+        tooltipOptions
+      );
+    }
+    chart.tooltip(tooltipOptions);
   }
 
   return params;

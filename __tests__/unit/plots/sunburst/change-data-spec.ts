@@ -3,12 +3,13 @@ import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
 import { SUNBRUST_DATA } from '../../../data/sunburst';
 
-describe('sunburst', () => {
-  it('init: change data', async () => {
+describe.skip('sunburst', () => {
+  it('旧版本', async () => {
     const sunburstPlot = new Sunburst(createDiv(), {
       width: 400,
       height: 400,
       data: [],
+      // @ts-ignore
       seriesField: 'sum',
       colorField: 'value',
       color: ['#BAE7FF', '#1890FF', '#0050B3'],
@@ -42,11 +43,12 @@ describe('sunburst', () => {
     sunburstPlot.destroy();
   });
 
-  it('init: update', async () => {
+  it('旧版本: update', async () => {
     const sunburstPlot = new Sunburst(createDiv(), {
       width: 400,
       height: 400,
       data: SUNBRUST_DATA,
+      // @ts-ignore
       seriesField: 'sum',
       innerRadius: 0.3,
       radius: 1,

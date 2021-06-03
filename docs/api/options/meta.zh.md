@@ -59,9 +59,9 @@ _MetaOption_ 配置如下：
 
 ### MetaOption.formatter
 
-<description> _(v: any, k?: number) => any_ **optional**</description>
+<description> _(value: any, index?: number) => any_ **optional**</description>
 
-tick 格式化函数，会影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。
+tick 格式化函数，影响数据在坐标轴 axis、图例 legend、tooltip 上的显示。
 
 ### MetaOption.range
 

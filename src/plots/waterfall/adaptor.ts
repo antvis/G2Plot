@@ -4,11 +4,30 @@ import { Datum } from '../../types';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme, state, scale, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
+import { getLocale } from '../../core/locale';
 import { findGeometry, flow, transformLabel, deepAssign } from '../../utils';
 import { Y_FIELD, ABSOLUTE_FIELD, DIFF_FIELD, IS_TOTAL } from './constant';
 import { WaterfallOptions } from './types';
 import { transformData } from './utils';
 import './shape';
+
+/**
+ *  处理默认配置项
+ * @param params
+ * @returns
+ */
+function defaultOptions(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
+  const { locale, total } = params.options;
+
+  const localeTotalLabel = getLocale(locale).get(['waterfall', 'total']);
+
+  if (total && typeof total.label !== 'string' && localeTotalLabel) {
+    // @ts-ignore
+    params.options.total.label = localeTotalLabel;
+  }
+
+  return params;
+}
 
 /**
  * 字段
@@ -109,23 +128,26 @@ function axis(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
  */
 function legend(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
   const { chart, options } = params;
-  const { legend, total, risingFill, fallingFill } = options;
+  const { legend, total, risingFill, fallingFill, locale } = options;
+
+  const i18n = getLocale(locale);
 
   if (legend === false) {
     chart.legend(false);
   } else {
     const items = [
       {
-        name: '增加',
+        name: i18n.get(['general', 'increase']),
         value: 'increase',
         marker: { symbol: 'square', style: { r: 5, fill: risingFill } },
       },
       {
-        name: '减少',
+        name: i18n.get(['general', 'decrease']),
         value: 'decrease',
         marker: { symbol: 'square', style: { r: 5, fill: fallingFill } },
       },
     ];
+
     if (total) {
       items.push({
         name: total.label || '',
@@ -209,5 +231,18 @@ export function tooltip(params: Params<WaterfallOptions>): Params<WaterfallOptio
  * @param params
  */
 export function adaptor(params: Params<WaterfallOptions>) {
-  return flow(geometry, meta, axis, legend, tooltip, label, state, theme, interaction, animation, annotation())(params);
+  return flow(
+    defaultOptions,
+    theme,
+    geometry,
+    meta,
+    axis,
+    legend,
+    tooltip,
+    label,
+    state,
+    interaction,
+    animation,
+    annotation()
+  )(params);
 }

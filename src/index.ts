@@ -4,6 +4,19 @@ export const version = '2.3.21';
 import * as G2 from '@antv/g2';
 export { G2 };
 
+// 国际化处理
+import { registerLocale } from './core/locale';
+import { EN_US_LOCALE } from './locales/en_US';
+import { ZH_CN_LOCALE } from './locales/zh_CN';
+/** default locale register */
+registerLocale('en-US', EN_US_LOCALE);
+registerLocale('zh-CN', ZH_CN_LOCALE);
+/** 透出 国际化 工具函数，便于使用 */
+export { registerLocale };
+
+/** 全局变量 */
+export { GLOBAL, setGlobal } from './core/global';
+
 /** G2Plot 的 Plot 基类 */
 export { Plot } from './core/plot';
 

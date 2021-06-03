@@ -1,5 +1,6 @@
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme, scale, annotation, tooltip } from '../../adaptor/common';
+import { getLocale } from '../../core/locale';
 import { flow, deepAssign } from '../../utils';
 import { conversionTagFormatter } from '../../utils/conversion';
 import { FunnelOptions } from './types';
@@ -24,7 +25,9 @@ import { FUNNEL_CONVERSATION, FUNNEL_MAPPING_VALUE, FUNNEL_PERCENT } from './con
  */
 function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { options } = params;
-  const { compareField, xField, yField } = options;
+  const { compareField, xField, yField, locale } = options;
+  const i18n = getLocale(locale);
+
   const defaultOption = {
     minSize: 0,
     maxSize: 1,
@@ -68,7 +71,10 @@ function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
       offsetY: 0,
       style: {},
       // conversionTag 的计算和显示逻辑统一保持一致
-      formatter: (datum) => `转化率: ${conversionTagFormatter(...(datum[FUNNEL_CONVERSATION] as [number, number]))}`,
+      formatter: (datum) =>
+        `${i18n.get(['conversionTag', 'label'])}: ${conversionTagFormatter(
+          ...(datum[FUNNEL_CONVERSATION] as [number, number])
+        )}`,
     },
   };
 

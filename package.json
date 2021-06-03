@@ -113,7 +113,8 @@
     "testEnvironment": "jest-electron/environment",
     "testTimeout": 30000,
     "setupFilesAfterEnv": [
-      "jest-extended"
+      "jest-extended",
+      "./jest.setup.js"
     ],
     "preset": "ts-jest",
     "collectCoverage": false,

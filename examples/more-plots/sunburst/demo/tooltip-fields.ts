@@ -1,19 +1,24 @@
 import { Sunburst } from '@antv/g2plot';
 
-fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json')
-  .then((res) => res.json())
+fetch('https://gw.alipayobjects.com/os/antfincdn/kdE4M3gm1D/coffee.json')
+  .then((data) => data.json())
   .then((data) => {
     const plot = new Sunburst('container', {
-      // 旭日图升级
-      version: 2,
       data,
       innerRadius: 0.3,
       interactions: [{ type: 'element-active' }],
-      hierarchyConfig: {
-        field: 'sum',
+      rawFields: ['symbol'],
+      meta: {
+        symbol: {
+          alias: '国家',
+        },
       },
       tooltip: {
-        fields: ['name', 'value'],
+        fields: ['path', 'symbol', 'value'],
+        formatter: (datum) => ({
+          name: datum.symbol ? `${datum.symbol} ${datum.path}` : datum.path,
+          value: datum.value,
+        }),
       },
     });
     plot.render();

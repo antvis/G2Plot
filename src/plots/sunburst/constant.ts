@@ -7,6 +7,7 @@ import { SunburstOptions } from './types';
  */
 export const SUNBURST_ANCESTOR_FIELD = 'ancestor-node';
 export const SUNBURST_X_FIELD = 'name';
+export const SUNBURST_Y_FIELD = 'value';
 export const SUNBURST_PATH_FIELD = 'path';
 
 /** 默认的源字段 */
@@ -17,6 +18,7 @@ export const RAW_FIELDS = [SUNBURST_X_FIELD, SUNBURST_PATH_FIELD, 'depth', 'heig
  */
 export const DEFAULT_OPTIONS: Partial<SunburstOptions> = deepAssign({}, Plot.getDefaultOptions(), {
   innerRadius: 0,
+  radius: 0.85,
 
   // 分层配置
   hierarchyConfig: {

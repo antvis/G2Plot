@@ -2,12 +2,12 @@ import { isFunction, get } from '@antv/util';
 import { Types } from '@antv/g2';
 import { Params } from '../../core/adaptor';
 import { polygon as polygonAdaptor } from '../../adaptor/geometries';
-import { interaction, animation, theme, annotation } from '../../adaptor/common';
+import { interaction, animation, theme, annotation, scale } from '../../adaptor/common';
 import { flow, findGeometry, transformLabel, deepAssign } from '../../utils';
 import { Datum } from '../../types';
+import { RAW_FIELDS, SUNBURST_ANCESTOR_FIELD, SUNBURST_PATH_FIELD, SUNBURST_Y_FIELD } from './constant';
 import { transformData } from './utils';
 import { SunburstOptions } from './types';
-import { RAW_FIELDS, SUNBURST_ANCESTOR_FIELD, SUNBURST_PATH_FIELD } from './constant';
 
 /**
  * geometry 配置处理
@@ -84,12 +84,16 @@ function label(params: Params<SunburstOptions>): Params<SunburstOptions> {
 
   const geometry = findGeometry(chart, 'polygon');
 
-  // label 为 false, 空 则不显示 label
+  // 默认不展示，undefined 也不展示
   if (!label) {
     geometry.label(false);
   } else {
-    //   const { callback, ...cfg } = label;
-    geometry.label(label);
+    const { callback, ...cfg } = label;
+    geometry.label({
+      fields: ['name'],
+      callback,
+      cfg: transformLabel(cfg),
+    });
   }
 
   return params;
@@ -116,21 +120,22 @@ function coordinate(params: Params<SunburstOptions>): Params<SunburstOptions> {
 
   return params;
 }
-
 /**
- * scale 配置
+ * meta 配置
  * @param params
  */
-function scale(params: Params<SunburstOptions>): Params<SunburstOptions> {
-  const { chart, options } = params;
-  const { meta } = options;
+export function meta(params: Params<SunburstOptions>): Params<SunburstOptions> {
+  const { options } = params;
+  const { hierarchyConfig, meta } = options;
 
-  if (meta) {
-    // @ts-ignore
-    chart.scale(meta);
-  }
-
-  return params;
+  return flow(
+    scale(
+      {},
+      {
+        [SUNBURST_Y_FIELD]: get(meta, get(hierarchyConfig, ['field'], 'value')),
+      }
+    )
+  )(params);
 }
 
 /**
@@ -145,13 +150,22 @@ export function tooltip(params: Params<SunburstOptions>): Params<SunburstOptions
     chart.tooltip(false);
   } else {
     let tooltipOptions = tooltip;
-    // 设置了 fields，就不进行 customItems 了
+    // 设置了 fields，就不进行 customItems 了; 设置 formatter 时，需要搭配 fields
     if (!get(tooltip, 'fields')) {
       tooltipOptions = deepAssign(
         {},
         {
           customItems: (items: Types.TooltipItem[]) =>
-            items.map((item) => ({ ...item, name: item.data[SUNBURST_PATH_FIELD], value: item.data.value })),
+            items.map((item) => {
+              const scales = get(chart.getOptions(), 'scales');
+              const pathFormatter = get(scales, [SUNBURST_PATH_FIELD, 'formatter'], (v) => v);
+              const valueFormatter = get(scales, [SUNBURST_Y_FIELD, 'formatter'], (v) => v);
+              return {
+                ...item,
+                name: pathFormatter(item.data[SUNBURST_PATH_FIELD]),
+                value: valueFormatter(item.data.value),
+              };
+            }),
         },
         tooltipOptions
       );
@@ -170,10 +184,10 @@ export function tooltip(params: Params<SunburstOptions>): Params<SunburstOptions
 export function adaptor(params: Params<SunburstOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
-    geometry,
     theme,
+    geometry,
     axis,
-    scale,
+    meta,
     legend,
     coordinate,
     tooltip,

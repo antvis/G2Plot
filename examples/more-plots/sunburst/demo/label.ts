@@ -5,20 +5,15 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json')
   .then((data) => {
     const plot = new Sunburst('container', {
       data,
-      innerRadius: 0.3,
+      innerRadius: 0.2,
+      radius: 1,
+      interactions: [{ type: 'element-active' }],
       hierarchyConfig: {
         field: 'sum',
       },
-      // 取色来自于：http://zhongguose.com/
-      color: ['#f26b1f', '#fc8c23', '#f97d1c'],
-      interactions: [{ type: 'element-active' }],
-      state: {
-        active: {
-          style: {
-            stroke: '#fff',
-            lineWidth: 2,
-          },
-        },
+      label: {
+        // label layout: limit label in shape, which means the labels out of shape will be hide
+        layout: [{ type: 'limit-in-shape' }],
       },
     });
     plot.render();

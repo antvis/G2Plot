@@ -21,6 +21,14 @@
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/yBxQkbPBXF/2a71c7de-1971-4651-bcba-dd18ddd8732e.png"
     },
     {
+      "filename": "label.ts",
+      "title": {
+        "zh": "设置标签布局",
+        "en": "Set label layout"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/nUWhQ3lWeT/ab0dd09f-f735-41ab-bb13-f38e3354ed62.png"
+    },
+    {
       "filename": "color-field.ts",
       "title": {
         "zh": "自定义颜色通道",
@@ -49,7 +57,7 @@
         "zh": "自定义 Tooltip fields",
         "en": "Custom tooltip fields"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/yBxQkbPBXF/2a71c7de-1971-4651-bcba-dd18ddd8732e.png"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/IGdW4zjTce/e515a753-d3a2-49d7-90e0-89786501db82.png"
     },
     {
       "filename": "custom-tooltip-items.ts",

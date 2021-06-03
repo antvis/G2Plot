@@ -88,9 +88,9 @@ function label(params: Params<SunburstOptions>): Params<SunburstOptions> {
   if (!label) {
     geometry.label(false);
   } else {
-    const { callback, ...cfg } = label;
+    const { fields = ['name'], callback, ...cfg } = label;
     geometry.label({
-      fields: ['name'],
+      fields,
       callback,
       cfg: transformLabel(cfg),
     });

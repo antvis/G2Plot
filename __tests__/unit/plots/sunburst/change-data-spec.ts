@@ -3,7 +3,7 @@ import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
 import { SUNBRUST_DATA } from '../../../data/sunburst';
 
-describe.skip('sunburst', () => {
+describe('sunburst', () => {
   it('旧版本', async () => {
     const sunburstPlot = new Sunburst(createDiv(), {
       width: 400,
@@ -31,7 +31,8 @@ describe.skip('sunburst', () => {
       labelOption: { fields, cfg },
       coordinate,
     } = geometry;
-    expect(fields).toEqual(['sum']);
+    // 默认展示 name（不进行兼容））
+    expect(fields).toEqual(['name']);
     expect(cfg.position).toBe('middle');
     const positionFields = geometry.getAttribute('position').getFields();
     expect(geometry.elements.length).toBe(geometry.data.length);
@@ -65,7 +66,8 @@ describe.skip('sunburst', () => {
       labelOption: { fields },
       coordinate,
     } = geometry;
-    expect(fields).toEqual(['sum']);
+    // 默认展示 name（不进行兼容））
+    expect(fields).toEqual(['name']);
     expect(coordinate.innerRadius).toBe(0.3);
     // @ts-ignore
     sunburstPlot.update({

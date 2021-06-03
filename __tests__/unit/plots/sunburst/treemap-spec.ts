@@ -2,6 +2,7 @@ import { clone } from '@antv/util';
 import { Sunburst } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { mobile } from '../../../data/mobile';
+import { SUNBRUST_DATA } from '../../../data/sunburst';
 
 const MOBILE_DATA = clone(mobile);
 MOBILE_DATA.forEach((m) => {
@@ -9,7 +10,34 @@ MOBILE_DATA.forEach((m) => {
 });
 
 // 目前已经不支持 treemap 旭日图，暂时为了兼容旧版本，继续保留
-describe.skip('treemap sunburst', () => {
+describe('treemap sunburst', () => {
+  it('旧版本', async () => {
+    const sunburstPlot = new Sunburst(createDiv(), {
+      width: 400,
+      height: 400,
+      data: SUNBRUST_DATA,
+      // @ts-ignore
+      seriesField: 'sum',
+      colorField: 'value',
+      color: ['#BAE7FF', '#1890FF', '#0050B3'],
+      innerRadius: 0.3,
+      radius: 1,
+      interactions: [{ type: 'element-active' }],
+    });
+    sunburstPlot.render();
+    const geometry = sunburstPlot.chart.geometries[0];
+    expect(geometry.type).toBe('polygon');
+    const { coordinate } = geometry;
+    const positionFields = geometry.getAttribute('position').getFields();
+    expect(geometry.elements.length).toBe(geometry.data.length);
+    expect(positionFields).toHaveLength(2);
+    expect(positionFields).toEqual(['x', 'y']);
+    expect(coordinate.innerRadius).toBe(0.3);
+    expect(coordinate.radius).toBe(1);
+
+    sunburstPlot.destroy();
+  });
+
   it('init: type treemap', async () => {
     const data = {
       name: 'root',
@@ -91,21 +119,10 @@ describe.skip('treemap sunburst', () => {
     expect(coordinate.type).toBe('polar');
     // @ts-ignore
     expect(coordinate.isReflectY).toBeTruthy();
-    // expect(styleOption.cfg).toMatchObject({
-    //   lineWidth: 1,
-    //   stroke: '#fff',
-    // });
     const transformData = geometry.data[0];
-    expect(transformData.ext).toEqual({
+    expect(transformData.ext).toMatchObject({
       size: [1, 0.1],
     });
-    const elements = geometry.elements;
-    const bbox = elements[elements.length - 1].getBBox();
-    sunburstPlot.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
-    expect(
-      document.getElementById('sunburst-id-one').getElementsByClassName('g2-tooltip-list-item-value')[0].innerHTML
-    ).toBe('0.0211');
-    sunburstPlot.chart.hideTooltip();
 
     sunburstPlot.destroy();
   });
@@ -154,20 +171,10 @@ describe.skip('treemap sunburst', () => {
     expect(coordinate.type).toBe('polar');
     // @ts-ignore
     expect(coordinate.isReflectY).toBeTruthy();
-    // expect(styleOption.cfg).toMatchObject({
-    //   lineWidth: 1,
-    //   stroke: '#fff',
-    // });
     const transformData = geometry.data[0];
-    expect(transformData.ext).toEqual({
+    expect(transformData.ext).toMatchObject({
       size: [1, 0.1],
     });
-    const elements = geometry.elements;
-    const bbox = elements[elements.length - 1].getBBox();
-    sunburstPlot.chart.showTooltip({ x: bbox.maxX, y: bbox.maxY });
-    expect(
-      document.getElementById('sunburset-id').getElementsByClassName('g2-tooltip-list-item-value')[0].innerHTML
-    ).toBe('123');
     sunburstPlot.chart.hideTooltip();
 
     sunburstPlot.destroy();

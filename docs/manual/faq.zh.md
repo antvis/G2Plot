@@ -36,7 +36,7 @@ var line = new G2Plot.Line({
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*NAvlTZ66qzMAAAAAAAAAAAAAARQnAQ" alt="faq">
 
-横轴的范范是可配置的，在 meta 里面配置即可，range 可选范围是 0~1。
+横轴的范围是可配置的，在 meta 里面配置即可，range 可选范围是 0~1。
 
 ```ts
 meta: {

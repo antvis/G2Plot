@@ -1,4 +1,4 @@
-import { isArray } from '@antv/util';
+import { isArray, findIndex, get } from '@antv/util';
 import { Types, View } from '@antv/g2';
 import { normalPadding } from '../../utils/padding';
 import { Interaction } from '../../types/interaction';
@@ -19,6 +19,17 @@ export function enableInteraction(interactions: TreemapOptions['interactions'], 
   return interaction && interaction.enable !== false;
 }
 
+/**
+ * 是否允许下钻交互
+ * @param interactions
+ * @param interactionType
+ * @returns
+ */
+export function enableDrillInteraction(options: TreemapOptions): boolean {
+  const { interactions, drilldown } = options;
+  return get(drilldown, 'enabled') || enableInteraction(interactions, 'treemap-drill-down');
+}
+
 export function resetDrillDown(chart: View) {
   const drillDownInteraction = chart.interactions['treemap-drill-down'];
 
@@ -30,24 +41,22 @@ export function resetDrillDown(chart: View) {
   drillDownAction.reset();
 }
 
-export function getFommatInteractions(
-  interactions: TreemapOptions['interactions'],
-  hierarchyConfig: TreemapOptions['hierarchyConfig']
-): TreemapOptions['interactions'] {
-  const drillDownInteraction = findInteraction(interactions, 'treemap-drill-down');
-  if (drillDownInteraction) {
-    return interactions.map((i) => {
-      if (i.type === 'treemap-drill-down') {
-        return deepAssign({}, i, {
-          cfg: {
-            hierarchyConfig,
-          },
-        });
-      }
-      return i;
+export function getFommatInteractions(options: TreemapOptions): TreemapOptions['interactions'] {
+  const enableDrillDown = enableDrillInteraction(options);
+  const { hierarchyConfig, drilldown } = options;
+
+  if (enableDrillDown) {
+    const interactions = [...(options.interactions || [])];
+    const index = findIndex(interactions, (i) => i.type === 'treemap-drill-down');
+    // 🚓 这不是一个规范的 API，后续会变更。慎重参考
+    const interaction = deepAssign({}, interactions[index], {
+      type: 'treemap-drill-down',
+      cfg: { hierarchyConfig, drillDownConfig: drilldown },
     });
+    interactions.splice(index, 1, interaction);
+    return interactions;
   }
-  return interactions;
+  return options.interactions;
 }
 
 interface TransformDataOptions {

@@ -1,5 +1,6 @@
 import { Action, IGroup, Util } from '@antv/g2';
 import { get, isArray } from '@antv/util';
+import { DrillDownCfg } from '../../../../types/drill-down';
 import { deepAssign } from '../../../../utils/deep-assign';
 import { transformData } from '../../utils';
 
@@ -9,16 +10,15 @@ const PADDING = 4;
 const PADDING_LEFT = 0;
 const PADDING_TOP = 5;
 // 面包屑默认配置
-const DEFAULT_BREAD_CRUMB_CONFIG = {
-  name: 'treemap-bread-crumb',
-  rootText: '初始',
+const DEFAULT_BREAD_CRUMB_CONFIG: DrillDownCfg['breadCrumb'] = {
+  rootText: 'Root',
   dividerText: '/',
   textStyle: {
     fontSize: 12,
     fill: 'rgba(0, 0, 0, 0.65)',
     cursor: 'pointer',
   },
-  activeStyle: {
+  activeTextStyle: {
     fill: '#87B5FF',
   },
 };
@@ -28,13 +28,16 @@ export class TreemapDrillDownAction extends Action {
   // 面包屑 group
   private breadCrumbGroup: IGroup = null;
   // 面包屑基础配置
-  private breadCrumbCfg = DEFAULT_BREAD_CRUMB_CONFIG;
+  private breadCrumbCfg = { name: 'treemap-bread-crumb', ...DEFAULT_BREAD_CRUMB_CONFIG };
 
   /**
    * 获取 mix 默认的配置和用户配置
    */
   private getButtonCfg() {
-    return deepAssign(this.breadCrumbCfg, this.cfg);
+    const { view } = this.context;
+    const drillDownConfig: DrillDownCfg = get(view, ['interactions', 'treemap-drill-down', 'cfg', 'drillDownConfig']);
+
+    return deepAssign(this.breadCrumbCfg, drillDownConfig?.breadCrumb, this.cfg);
   }
 
   /**
@@ -127,7 +130,7 @@ export class TreemapDrillDownAction extends Action {
 
       // active 效果内置
       textShape.on('mouseenter', () => {
-        textShape.attr(config.activeStyle);
+        textShape.attr(config.activeTextStyle);
       });
       textShape.on('mouseleave', () => {
         textShape.attr(config.textStyle);

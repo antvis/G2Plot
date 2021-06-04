@@ -258,4 +258,82 @@ describe('drill-down intera', () => {
 
     treemapPlot.destroy();
   });
+
+  it('options: enableDrillDown', async () => {
+    const treemapPlot = new Treemap(createDiv(), {
+      data,
+      colorField: 'name',
+      drilldown: { enabled: true },
+      legend: false,
+    });
+
+    treemapPlot.render();
+
+    const context = new InteractionContext(treemapPlot.chart);
+    const drillDownAction = new TreemapDrillDownAction(context);
+
+    // 模拟一次点击
+    context.event = {
+      type: 'custom',
+      data: {
+        data: data.children[0],
+      },
+    };
+
+    drillDownAction.click();
+
+    drillDownAction.reset();
+
+    expect(drillDownAction.historyCache).toBeNull();
+    // @ts-ignore
+    expect(drillDownAction.breadCrumbGroup.cfg.visible).toBeFalsy();
+    expect(treemapPlot.chart.foregroundGroup.findAllByName('treemap-bread-crumb')[0].cfg.visible).toBe(false);
+
+    drillDownAction.click();
+
+    expect(treemapPlot.chart.foregroundGroup.findAllByName('treemap-bread-crumb').length).toBe(1);
+
+    drillDownAction.destroy();
+
+    expect(treemapPlot.chart.foregroundGroup.findAllByName('treemap-bread-crumb').length).toBe(0);
+
+    treemapPlot.destroy();
+  });
+
+  it('options: drillDownConfig', async () => {
+    const treemapPlot = new Treemap(createDiv(), {
+      data,
+      colorField: 'name',
+      drilldown: { enabled: true, breadCrumb: { rootText: '面包根', textStyle: { fontSize: 28, fill: 'red' } } },
+      legend: false,
+    });
+
+    treemapPlot.render();
+
+    const context = new InteractionContext(treemapPlot.chart);
+    const drillDownAction = new TreemapDrillDownAction(context);
+
+    // 模拟一次点击
+    context.event = {
+      type: 'custom',
+      data: {
+        data: data.children[0],
+      },
+    };
+
+    drillDownAction.click();
+
+    const treemapBreadCrumb = treemapPlot.chart.foregroundGroup.findAllByName('treemap-bread-crumb')[0];
+    // @ts-ignore
+    const breadCrumbRoot = treemapBreadCrumb.getChildByIndex(0);
+    expect(breadCrumbRoot.attr('text')).toBe('面包根');
+    expect(breadCrumbRoot.attr('fontSize')).toBe(28);
+    expect(breadCrumbRoot.attr('fill')).toBe('red');
+
+    drillDownAction.destroy();
+
+    expect(treemapPlot.chart.foregroundGroup.findAllByName('treemap-bread-crumb').length).toBe(0);
+
+    treemapPlot.destroy();
+  });
 });

@@ -290,36 +290,42 @@ describe('treemap transformData', () => {
   });
 
   it('getFommatInteractions', () => {
-    expect(getFommatInteractions(undefined, undefined)).toEqual(undefined);
+    expect(getFommatInteractions({ interactions: undefined })).toEqual(undefined);
     expect(
-      getFommatInteractions(undefined, {
-        tile: 'treemapSlice',
+      getFommatInteractions({
+        interactions: undefined,
+        hierarchyConfig: {
+          tile: 'treemapSlice',
+        },
       })
     ).toEqual(undefined);
     expect(
-      getFommatInteractions([], {
-        tile: 'treemapSlice',
+      getFommatInteractions({
+        interactions: [],
+        hierarchyConfig: {
+          tile: 'treemapSlice',
+        },
       })
     ).toEqual([]);
     expect(
-      getFommatInteractions(
-        [
+      getFommatInteractions({
+        interactions: [
           {
             type: 'treemap',
           },
         ],
-        {
+        hierarchyConfig: {
           tile: 'treemapSlice',
-        }
-      )
+        },
+      })
     ).toEqual([
       {
         type: 'treemap',
       },
     ]);
     expect(
-      getFommatInteractions(
-        [
+      getFommatInteractions({
+        interactions: [
           {
             type: 'treemap',
           },
@@ -327,10 +333,10 @@ describe('treemap transformData', () => {
             type: 'treemap-drill-down',
           },
         ],
-        {
+        hierarchyConfig: {
           tile: 'treemapSlice',
-        }
-      )
+        },
+      })
     ).toEqual([
       {
         type: 'treemap',
@@ -346,8 +352,8 @@ describe('treemap transformData', () => {
     ]);
 
     expect(
-      getFommatInteractions(
-        [
+      getFommatInteractions({
+        interactions: [
           {
             type: 'treemap',
           },
@@ -355,8 +361,7 @@ describe('treemap transformData', () => {
             type: 'treemap-drill-down',
           },
         ],
-        undefined
-      )
+      })
     ).toEqual([
       {
         type: 'treemap',

@@ -23,11 +23,6 @@ fetch('https://gw.alipayobjects.com/os/basement_prod/c2589761-62d6-411d-9d51-794
       legend: {
         position: 'top-left',
       },
-      interactions: [
-        {
-          type: 'treemap-drill-down',
-        },
-      ],
       tooltip: {
         formatter: (v) => {
           const root = v.path[v.path.length - 1];
@@ -35,6 +30,13 @@ fetch('https://gw.alipayobjects.com/os/basement_prod/c2589761-62d6-411d-9d51-794
             name: v.name,
             value: `${v.value}(总占比${((v.value / root.value) * 100).toFixed(2)}%)`,
           };
+        },
+      },
+      // use `drilldown: { enabled: true }` to replace `interactions: [{ type: 'treemap-drill-down' }]`
+      drilldown: {
+        enabled: true,
+        breadCrumb: {
+          rootText: '初始',
         },
       },
     });

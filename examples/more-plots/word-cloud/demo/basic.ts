@@ -1,6 +1,6 @@
 import { WordCloud } from '@antv/g2plot';
 
-fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/world-population.json')
+fetch('https://gw.alipayobjects.com/os/antfincdn/jPKbal7r9r/mock.json')
   .then((res) => res.json())
   .then((data) => {
     const wordCloud = new WordCloud('container', {

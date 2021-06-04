@@ -18,8 +18,6 @@ describe('Stock', () => {
 
     k.render();
 
-    const geometry = k.chart.geometries[0];
-
     // 图形元素个数
     expect(k.chart.geometries[0].elements[0].shape.attr('stroke')).toBe('red');
     expect(k.chart.geometries[0].elements[0].shape.attr('lineWidth')).toBe(2);

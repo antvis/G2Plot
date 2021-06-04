@@ -21,7 +21,7 @@ describe('facet', () => {
     data,
     type: 'rect',
     fields: ['type'],
-    eachView: (view, facet) => {
+    eachView: () => {
       return {
         geometries: [
           { type: 'interval', xField: 'date', yField: 'value', colorField: 'name', mapping: {} },

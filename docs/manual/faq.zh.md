@@ -71,3 +71,7 @@ meta: {
 ### 水波图无法设置透明或者图片背景
 
 因为水波图需要支持 distance 和通过 path 来自定义 shape，所以目前没有办法设置透明或者图片背景。
+
+### 旭日图不再支持配置 seriesField
+
+在旭日图中, seriesField 字段主要代表的是节点权重映射的数值字段，但从更合理的角度看：seriesField 应该代表的是分组字段。在 > 2.3.20 版本之后，我们将其配置使用 `hierarchyConfig.field` 进行替代。详细见旭日图 [API]((/zh/docs/api/plots/sunburst)) 文档

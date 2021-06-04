@@ -7,6 +7,19 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/kdE4M3gm1D/coffee.json')
       data,
       innerRadius: 0.3,
       interactions: [{ type: 'element-active' }],
+      rawFields: ['symbol'],
+      meta: {
+        symbol: {
+          alias: '国家',
+        },
+      },
+      tooltip: {
+        fields: ['path', 'symbol', 'value'],
+        formatter: (datum) => ({
+          name: datum.symbol ? `${datum.symbol} ${datum.path}` : datum.path,
+          value: datum.value,
+        }),
+      },
     });
     plot.render();
   });

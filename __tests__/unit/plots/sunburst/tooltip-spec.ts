@@ -60,7 +60,7 @@ describe('sunburst', () => {
     plot.update({
       tooltip: {
         fields: ['name', 'value', 'path'],
-        formatter: (datum) => ({ name: 'xx-name', value: 'xx-value' }),
+        formatter: () => ({ name: 'xx-name', value: 'xx-value' }),
       },
     });
     const tooltipController = plot.chart.getController('tooltip');

@@ -1,4 +1,4 @@
-import { isFunction, get } from '@antv/util';
+import { isFunction, get, uniq } from '@antv/util';
 import { Types } from '@antv/g2';
 import { Params } from '../../core/adaptor';
 import { polygon as polygonAdaptor } from '../../adaptor/geometries';
@@ -15,7 +15,7 @@ import { SunburstOptions } from './types';
  */
 function geometry(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart, options } = params;
-  const { color, colorField = SUNBURST_ANCESTOR_FIELD, sunburstStyle } = options;
+  const { color, colorField = SUNBURST_ANCESTOR_FIELD, sunburstStyle, rawFields = [] } = options;
   const data = transformData(options);
   chart.data(data);
 
@@ -40,7 +40,7 @@ function geometry(params: Params<SunburstOptions>): Params<SunburstOptions> {
         xField: 'x',
         yField: 'y',
         seriesField: colorField,
-        rawFields: [...(options.rawFields || []), ...RAW_FIELDS],
+        rawFields: uniq([...RAW_FIELDS, ...rawFields]),
         polygon: {
           color,
           style,

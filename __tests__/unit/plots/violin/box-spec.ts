@@ -26,14 +26,14 @@ describe('violin', () => {
   });
 
   // 暂时不开放 box 配置
-  it.skip("should not render box views when 'box' set to false.", () => {
+  it("should not render box views when 'box' set to false.", () => {
     const violin = new Violin(createDiv(), {
       width: 400,
       height: 500,
       data: BASE_VIOLIN_DATA,
       xField: 'type',
       yField: 'value',
-      // box: false,
+      box: false,
     });
 
     violin.render();

@@ -65,6 +65,12 @@ type KdeOptions = {
 
 ### 图形样式
 
+#### box
+
+<description>**optional** _boolean_</description>
+
+是否展示内部箱线图。默认展示，设置为 'false' 关闭箱线图。
+
 #### shape
 
 <description>**optional** _'smooth'|'hollow'|'hollow-smooth'_</description>

@@ -7,6 +7,8 @@ export interface ViolinOptions extends Options {
   readonly yField: string;
   /** 拆分字段映射，默认是分组情况，颜色作为视觉通道 */
   readonly seriesField?: string;
+  /** 内部箱线图配置，false 为不显示。 */
+  readonly box?: boolean;
   /**
    * 小提琴的形状。
    * 默认: 非平滑、实心

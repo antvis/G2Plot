@@ -68,10 +68,10 @@ function violinView(params: Params<ViolinOptions>): Params<ViolinOptions> {
 /** 箱线 */
 function boxView(params: Params<ViolinOptions>): Params<ViolinOptions> {
   const { chart, options } = params;
-  const { seriesField, color, tooltip } = options;
+  const { seriesField, color, tooltip, box } = options;
 
-  // 如果配置 `box` 为 false ，不渲染内部箱线图 (暂时不开放 关闭)
-  // if (!box) return params;
+  // 如果配置 `box` 为 false ，不渲染内部箱线图
+  if (box === false) return params;
 
   // 边缘线
   const minMaxView = chart.createView({ id: MIN_MAX_VIEW_ID });

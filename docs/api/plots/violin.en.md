@@ -63,6 +63,12 @@ type KdeOptions = {
 
 ### Graphic Style
 
+#### box
+
+<description>**optional** _boolean_</description>
+
+Whether to show box plot. Default show box plot, you could hide box plot by setting `box: false`.
+
 #### shape
 
 <description>**optional** _'smooth'|'hollow'|'hollow-smooth'_</description>

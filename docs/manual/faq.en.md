@@ -73,3 +73,7 @@ More details to see [API](/en/docs/api/advanced-plots/mix)  of Mix Plot.
 ### Liquid cannot be with transparently or picture background
 
 Currently the abilities to support `distance` and custom `shape` options disable transparently or picture background technically.
+
+### SeriesField is not supported in Sunburst Plot anymore
+
+In the version bigger than 2.3.20, you can use `hierarchyConfig.field` to replace `seriesField` config. More details to see [API]((/zh/docs/api/plots/sunburst)) of Sunburst Plot.

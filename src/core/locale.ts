@@ -23,7 +23,7 @@ export function getLocale(locale: string) {
   return {
     get: (key: string | string[], obj?: Record<string, any>) => {
       return template(
-        get(LocaleMap[locale], key) || get(LocaleMap[GLOBAL.locale], key) || get(LocaleMap['en-US'], key) || '',
+        get(LocaleMap[locale], key) || get(LocaleMap[GLOBAL.locale], key) || get(LocaleMap['en-US'], key) || key,
         obj
       );
     },

@@ -85,6 +85,10 @@ export type { HeatmapOptions } from './plots/heatmap';
 export { Box } from './plots/box';
 export type { BoxOptions } from './plots/box';
 
+// 小提琴图及类型定义
+export { Violin } from './plots/violin';
+export type { ViolinOptions } from './plots/violin';
+
 // K线图及类型定义 | author by [jhwong](https://github.com/jinhuiWong)
 export { Stock } from './plots/stock';
 export type { StockOptions } from './plots/stock';

@@ -12,3 +12,5 @@ export { edge } from './edge';
 export type { EdgeGeometryOptions } from './edge';
 export { schema } from './schema';
 export type { SchemaGeometryOptions } from './schema';
+export { violin } from './violin';
+export type { ViolinGeometryOptions } from './violin';

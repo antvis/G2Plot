@@ -22,7 +22,7 @@ describe('facet', () => {
     data,
     type: 'rect',
     fields: ['type'],
-    eachView: (view, facet) => {
+    eachView: () => {
       return { geometries: [{ type: 'interval', xField: 'date', yField: 'value', colorField: 'name', mapping: {} }] };
     },
     theme: {
@@ -62,7 +62,7 @@ describe('facet', () => {
       meta: { name: { sync: true, values: ['d', 'c', 'b', 'a'] } },
     });
 
-    const [view0, view1, view2, view3] = plot.chart.views;
+    const [view0, , view2, view3] = plot.chart.views;
     expect(view0.geometries[0].elements[0].getModel().color).toBe('red');
     const data0 = view0.geometries[0].elements[0].getModel().data as any;
     const data1 = view0.geometries[0].elements[1].getModel().data as any;
@@ -167,7 +167,7 @@ describe('facet', () => {
     expect(element1.shape.attr('stroke')).not.toBe('#000');
 
     plot.update({
-      eachView: (view, facet) => {
+      eachView: () => {
         return {
           geometries: [{ type: 'interval', xField: 'date', yField: 'value', colorField: 'name', mapping: {} }],
           interactions: [{ type: 'element-active', enable: false }],

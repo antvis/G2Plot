@@ -143,7 +143,7 @@ describe('#2572', () => {
   it('堆叠分组柱状图 tooltip 更新 formatter', () => {
     plot.update({
       tooltip: {
-        formatter: (datum) => ({ name: 'xx', value: 100 }),
+        formatter: () => ({ name: 'xx', value: 100 }),
       },
     });
     plot.chart.showTooltip(point);

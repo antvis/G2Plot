@@ -60,6 +60,13 @@ meta: {
 
 颜色映射字段。默认为：`Sunburst.SUNBURST_ANCESTOR_FIELD`，即节点的祖先节点，颜色透明度逐渐减小（可以通过 sunburstStyle 回调来控制填充透明度）
 
+#### rawFields
+
+<description>**optional** _string[]_</description>
+
+额外的原始字段。配置之后，可以在 tooltip，sunburstStyle 等回调函数的 datum 参数中，获取到更多额外的原始数据。
+
+
 ### 图形样式
 
 #### hierarchyConfig ✨

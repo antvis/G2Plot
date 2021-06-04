@@ -2,9 +2,6 @@ import { ColorAttr, Options, StyleAttr } from '../../types';
 import { HierarchyOption } from '../../utils/hierarchy/types';
 
 export interface SunburstOptions extends Omit<Options, 'data' | 'legend' | 'slider' | 'scrollbar' | 'xAxis' | 'yAxis'> {
-  /** 版本情况 */
-  readonly version?: number;
-
   /** 旭日图数据 */
   readonly data: any;
   /** 径向类型 */

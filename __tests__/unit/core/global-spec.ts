@@ -1,4 +1,4 @@
-import { GLOBAL, setGlobal } from '../../../src';
+import { GLOBAL, setGlobal } from '../../../src/core/global';
 
 describe('global variables', () => {
   it('global locale', () => {

@@ -1,4 +1,4 @@
-import { GLOBAL, setGlobal } from '../../../src';
+import { GLOBAL, setGlobal } from '../../../src/core/global';
 import { getLocale, registerLocale } from '../../../src/core/locale';
 import { EN_US_LOCALE } from '../../../src/locales/en_US';
 import { ZH_CN_LOCALE } from '../../../src/locales/zh_CN';

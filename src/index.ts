@@ -15,7 +15,7 @@ registerLocale('zh-CN', ZH_CN_LOCALE);
 export { registerLocale };
 
 /** 全局变量 */
-export { GLOBAL, setGlobal } from './core/global';
+export { setGlobal } from './core/global';
 
 /** G2Plot 的 Plot 基类 */
 export { Plot } from './core/plot';

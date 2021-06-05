@@ -3,8 +3,7 @@ import { Adaptor } from '../../core/adaptor';
 import { TreemapOptions } from './types';
 import { adaptor } from './adaptor';
 import { transformData, enableInteraction, resetDrillDown } from './utils';
-import './interactions/treemap-drill-down';
-import '../scatter/interaction';
+import './interactions';
 
 export type { TreemapOptions };
 

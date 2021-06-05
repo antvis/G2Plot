@@ -19,6 +19,7 @@ export type PickOptions = Pick<
   | 'syncViewPadding'
   | 'supportCSSTransform'
   | 'limitInPlot'
+  | 'locale'
 >;
 
 const SOURCE_ATTRIBUTE_NAME = 'data-chart-source-type';

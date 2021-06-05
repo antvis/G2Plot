@@ -6,3 +6,4 @@ export * from './statistic';
 export * from './meta';
 export * from './axis';
 export * from './interaction';
+export * from './locale';

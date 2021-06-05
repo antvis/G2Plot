@@ -3,6 +3,7 @@ import { Params } from '../../core/adaptor';
 import { legend, animation, theme, state, annotation } from '../../adaptor/common';
 import { getMappingFunction } from '../../adaptor/geometries/base';
 import { interval } from '../../adaptor/geometries';
+import { getLocale } from '../../core/locale';
 import { Interaction } from '../../types/interaction';
 import { flow, template, transformLabel, deepAssign, renderStatistic, processIllegalData } from '../../utils';
 import { Data, Datum } from '../../types';
@@ -176,7 +177,9 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
  * 2. 默认使用 meta 的 formatter
  */
 export function transformStatisticOptions(options: PieOptions): PieOptions {
-  const { innerRadius, statistic, angleField, colorField, meta } = options;
+  const { innerRadius, statistic, angleField, colorField, meta, locale } = options;
+
+  const i18n = getLocale(locale);
 
   if (innerRadius && statistic) {
     let { title: titleOpt, content: contentOpt } = deepAssign({}, DEFAULT_OPTIONS.statistic, statistic);
@@ -189,7 +192,7 @@ export function transformStatisticOptions(options: PieOptions): PieOptions {
             if (datum) {
               return datum[colorField];
             }
-            return !isNil(titleOpt.content) ? titleOpt.content : '总计';
+            return !isNil(titleOpt.content) ? titleOpt.content : i18n.get(['statistic', 'total']);
           },
         },
         titleOpt

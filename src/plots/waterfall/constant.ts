@@ -19,7 +19,6 @@ export const DEFAULT_OPTIONS = {
   },
   /** default: show total */
   total: {
-    label: '总计',
     style: {
       fill: 'rgba(0, 0, 0, 0.25)',
     },

@@ -113,7 +113,8 @@
     "testEnvironment": "jest-electron/environment",
     "testTimeout": 30000,
     "setupFilesAfterEnv": [
-      "jest-extended"
+      "jest-extended",
+      "./jest.setup.js"
     ],
     "preset": "ts-jest",
     "collectCoverage": false,
@@ -138,7 +139,7 @@
   "limit-size": [
     {
       "path": "dist/g2plot.min.js",
-      "limit": "910 Kb"
+      "limit": "920 Kb"
     },
     {
       "path": "dist/g2plot.min.js",

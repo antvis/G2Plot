@@ -85,6 +85,9 @@ export type Options = {
   /** 是否同步子 view 的 padding */
   readonly syncViewPadding?: boolean | Types.SyncViewPaddingFn;
 
+  /** 国际化 */
+  readonly locale?: string;
+
   // G 相关
   /** 渲染引擎 */
   readonly renderer?: 'svg' | 'canvas';

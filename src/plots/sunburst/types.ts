@@ -1,4 +1,5 @@
 import { ColorAttr, Options, StyleAttr } from '../../types';
+import { DrillDownCfg } from '../../types/drill-down';
 import { HierarchyOption } from '../../utils/hierarchy/types';
 
 export interface SunburstOptions extends Omit<Options, 'data' | 'legend' | 'slider' | 'scrollbar' | 'xAxis' | 'yAxis'> {
@@ -28,4 +29,6 @@ export interface SunburstOptions extends Omit<Options, 'data' | 'legend' | 'slid
   // 其他
   /** 额外的原始字段 */
   readonly rawFields?: string[];
+  /** 下钻交互 */
+  readonly drilldown?: DrillDownCfg;
 }

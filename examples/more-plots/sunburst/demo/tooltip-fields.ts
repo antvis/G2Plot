@@ -1,6 +1,6 @@
 import { Sunburst } from '@antv/g2plot';
 
-fetch('https://gw.alipayobjects.com/os/antfincdn/kdE4M3gm1D/coffee.json')
+fetch('https://gw.alipayobjects.com/os/antfincdn/ryp44nvUYZ/coffee.json')
   .then((data) => data.json())
   .then((data) => {
     const plot = new Sunburst('container', {

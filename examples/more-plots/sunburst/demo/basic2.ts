@@ -10,6 +10,11 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json')
       hierarchyConfig: {
         field: 'sum',
       },
+      drilldown: {
+        breadCrumb: {
+          rootText: '起始',
+        },
+      },
     });
     plot.render();
   });

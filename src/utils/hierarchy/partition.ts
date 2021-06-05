@@ -63,6 +63,10 @@ export function partition(data: any, options: Options): any[] {
   root.each((node) => {
     node[x] = [node.x0, node.x1, node.x1, node.x0];
     node[y] = [node.y1, node.y1, node.y0, node.y0];
+    // 旭日图兼容下 旧版本
+    node.name = node.name || node.data?.name || node.data?.label;
+    node.data.name = node.name;
+
     ['x0', 'x1', 'y0', 'y1'].forEach((prop) => {
       if (as.indexOf(prop) === -1) {
         delete node[prop];

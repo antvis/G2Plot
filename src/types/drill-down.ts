@@ -5,6 +5,8 @@ export type DrillDownCfg = {
   enabled?: boolean;
   /** 面包屑相关配置 */
   breadCrumb?: {
+    /** 位置 */
+    position: 'top-left' | 'bottom-left';
     /** 根文本 */
     rootText?: string;
     /** 分割线文本 */

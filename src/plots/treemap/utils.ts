@@ -27,31 +27,31 @@ export function enableInteraction(interactions: TreemapOptions['interactions'], 
  */
 export function enableDrillInteraction(options: TreemapOptions): boolean {
   const { interactions, drilldown } = options;
-  return get(drilldown, 'enabled') || enableInteraction(interactions, 'treemap-drill-down');
+  return get(drilldown, 'enabled') || enableInteraction(interactions, 'drill-down');
 }
 
 export function resetDrillDown(chart: View) {
-  const drillDownInteraction = chart.interactions['treemap-drill-down'];
+  const drillDownInteraction = chart.interactions['drill-down'];
 
   if (!drillDownInteraction) return;
 
   // @ts-ignore
-  const drillDownAction = drillDownInteraction.context.actions.find((i) => i.name === 'treemap-drill-down-action');
+  const drillDownAction = drillDownInteraction.context.actions.find((i) => i.name === 'drill-down-action');
 
   drillDownAction.reset();
 }
 
 export function getFommatInteractions(options: TreemapOptions): TreemapOptions['interactions'] {
   const enableDrillDown = enableDrillInteraction(options);
-  const { hierarchyConfig, drilldown } = options;
+  const { drilldown } = options;
 
   if (enableDrillDown) {
     const interactions = [...(options.interactions || [])];
-    const index = findIndex(interactions, (i) => i.type === 'treemap-drill-down');
+    const index = findIndex(interactions, (i) => i.type === 'drill-down');
     // 🚓 这不是一个规范的 API，后续会变更。慎重参考
     const interaction = deepAssign({}, interactions[index], {
-      type: 'treemap-drill-down',
-      cfg: { hierarchyConfig, drillDownConfig: drilldown },
+      type: 'drill-down',
+      cfg: { transformData, drillDownConfig: drilldown },
     });
     interactions.splice(index, 1, interaction);
     return interactions;
@@ -102,21 +102,23 @@ export function transformData(options: TransformDataOptions) {
     // 在下钻树图中，每次绘制的是当前层级信息，将父元素的层级信息（data.path) 做一层拼接。
     const path = enableDrillDown && isArray(data.path) ? curPath.concat(data.path.slice(1)) : curPath;
 
-    const eachNode = Object.assign({}, node.data, {
+    const nodeInfo = Object.assign({}, node.data, {
       x: node.x,
       y: node.y,
       depth: node.depth,
       value: node.value,
       path,
+      ...node,
     });
     if (!node.data[colorField] && node.parent) {
       const ancestorNode = node.ancestors().find((n) => n.data[colorField]);
-      eachNode[colorField] = ancestorNode?.data[colorField];
+      nodeInfo[colorField] = ancestorNode?.data[colorField];
     } else {
-      eachNode[colorField] = node.data[colorField];
+      nodeInfo[colorField] = node.data[colorField];
     }
 
-    result.push(eachNode);
+    nodeInfo.ext = { hierarchyConfig, colorField, enableDrillDown };
+    result.push(nodeInfo);
   });
   return result;
 }

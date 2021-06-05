@@ -1,0 +1,1 @@
+import '../../../interactions/drag-move';

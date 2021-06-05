@@ -194,6 +194,11 @@ function adaptorInteraction(options: SunburstOptions): SunburstOptions {
   return options;
 }
 
+/**
+ * 交互配置
+ * @param params
+ * @returns
+ */
 function interaction(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart, options } = params;
 

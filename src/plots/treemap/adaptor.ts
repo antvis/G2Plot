@@ -52,6 +52,7 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
         drilldown: {
           enabled: false,
           breadCrumb: {
+            position: 'bottom-left',
             rootText: '初始',
             dividerText: '/',
             textStyle: {

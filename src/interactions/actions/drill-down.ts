@@ -82,10 +82,18 @@ export class DrillDownAction extends Action {
   public resetPosition() {
     // 当在第一层级未绘制面包屑，此时 changedata 触发 resetPosition 函数，需判断 this.breadCrumbGroup 是否存在
     if (!this.breadCrumbGroup) return;
+    const coordinate = this.context.view.getCoordinate();
     const breadCrumbGroup = this.breadCrumbGroup;
     const bbox = breadCrumbGroup.getBBox();
-    // 左上角直接出发
-    const point = { x: 0, y: 0 };
+
+    const { position } = this.getButtonCfg();
+
+    // 默认，左上角直接出发
+    let point = { x: 0, y: 0 };
+    if (position === 'bottom-left') {
+      point = coordinate.isPolar ? { x: 0, y: coordinate.getHeight() } : coordinate.convert({ x: 0, y: 1 });
+    }
+
     const matrix = Util.transform(null, [['t', point.x + PADDING_LEFT, point.y + bbox.height + PADDING_TOP]]);
     breadCrumbGroup.setMatrix(matrix);
   }

@@ -2,13 +2,7 @@ import { polygon as basePolygon } from '../../adaptor/geometries/polygon';
 import { Params } from '../../core/adaptor';
 import { interaction as commonInteraction, animation, theme, legend, annotation, tooltip } from '../../adaptor/common';
 import { flow, deepAssign } from '../../utils';
-import {
-  transformData,
-  findInteraction,
-  getAdjustAppendPadding,
-  enableDrillInteraction,
-  enableInteraction,
-} from './utils';
+import { transformData, findInteraction, getAdjustAppendPadding, enableDrillInteraction } from './utils';
 import { TreemapOptions } from './types';
 
 /**

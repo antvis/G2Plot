@@ -1,3 +1,4 @@
+import { HIERARCHY_DATA_TRANSFORM_PARAMS } from '../../interactions/actions/drill-down';
 import { pick } from '../../utils';
 import { partition } from '../../utils/hierarchy/partition';
 import { treemap } from '../../utils/hierarchy/treemap';
@@ -55,7 +56,8 @@ export function transformData(options: Pick<SunburstOptions, 'data' | 'colorFiel
     if (colorField) {
       nodeInfo[colorField] = node.data[colorField] || node.parent?.data?.[colorField];
     }
-    nodeInfo.ext = { hierarchyConfig, colorField, rawFields };
+    nodeInfo.ext = hierarchyConfig;
+    nodeInfo[HIERARCHY_DATA_TRANSFORM_PARAMS] = { hierarchyConfig, colorField, rawFields };
     result.push(nodeInfo);
   });
 

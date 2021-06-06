@@ -1,7 +1,8 @@
 import { isArray, findIndex, get } from '@antv/util';
 import { Types, View } from '@antv/g2';
-import { normalPadding } from '../../utils/padding';
+import { HIERARCHY_DATA_TRANSFORM_PARAMS } from '../../interactions/actions/drill-down';
 import { Interaction } from '../../types/interaction';
+import { normalPadding } from '../../utils/padding';
 import { treemap } from '../../utils/hierarchy/treemap';
 import { deepAssign } from '../../utils';
 import { TreemapOptions } from './types';
@@ -27,7 +28,8 @@ export function enableInteraction(interactions: TreemapOptions['interactions'], 
  */
 export function enableDrillInteraction(options: TreemapOptions): boolean {
   const { interactions, drilldown } = options;
-  return get(drilldown, 'enabled') || enableInteraction(interactions, 'drill-down');
+  // 兼容旧版本, treemap-drill-down
+  return get(drilldown, 'enabled') || enableInteraction(interactions, 'treemap-drill-down');
 }
 
 export function resetDrillDown(chart: View) {
@@ -39,24 +41,6 @@ export function resetDrillDown(chart: View) {
   const drillDownAction = drillDownInteraction.context.actions.find((i) => i.name === 'drill-down-action');
 
   drillDownAction.reset();
-}
-
-export function getFommatInteractions(options: TreemapOptions): TreemapOptions['interactions'] {
-  const enableDrillDown = enableDrillInteraction(options);
-  const { drilldown } = options;
-
-  if (enableDrillDown) {
-    const interactions = [...(options.interactions || [])];
-    const index = findIndex(interactions, (i) => i.type === 'drill-down');
-    // 🚓 这不是一个规范的 API，后续会变更。慎重参考
-    const interaction = deepAssign({}, interactions[index], {
-      type: 'drill-down',
-      cfg: { transformData, drillDownConfig: drilldown },
-    });
-    interactions.splice(index, 1, interaction);
-    return interactions;
-  }
-  return options.interactions;
 }
 
 interface TransformDataOptions {
@@ -117,7 +101,7 @@ export function transformData(options: TransformDataOptions) {
       nodeInfo[colorField] = node.data[colorField];
     }
 
-    nodeInfo.ext = { hierarchyConfig, colorField, enableDrillDown };
+    nodeInfo[HIERARCHY_DATA_TRANSFORM_PARAMS] = { hierarchyConfig, colorField, enableDrillDown };
     result.push(nodeInfo);
   });
   return result;

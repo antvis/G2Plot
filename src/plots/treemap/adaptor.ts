@@ -5,9 +5,9 @@ import { flow, deepAssign } from '../../utils';
 import {
   transformData,
   findInteraction,
-  getFommatInteractions,
   getAdjustAppendPadding,
   enableDrillInteraction,
+  enableInteraction,
 } from './utils';
 import { TreemapOptions } from './types';
 
@@ -22,47 +22,13 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
   return deepAssign(
     {
       options: {
-        // 默认按照 name 字段对颜色进行分类
-        colorField: 'name',
-        rectStyle: {
-          lineWidth: 1,
-          stroke: '#fff',
-        },
-        hierarchyConfig: {
-          tile: 'treemapSquarify',
-        },
-        label: {
-          fields: ['name'],
-          layout: {
-            type: 'limit-in-shape',
-          },
-        },
         tooltip: {
-          showMarkers: false,
-          showTitle: false,
           fields: ['name', 'value', colorField, 'path'],
           formatter: (data) => {
             return {
               name: data.name,
               value: data.value,
             };
-          },
-        },
-        // 下钻交互配置，默认不开启
-        drilldown: {
-          enabled: false,
-          breadCrumb: {
-            position: 'bottom-left',
-            rootText: '初始',
-            dividerText: '/',
-            textStyle: {
-              fontSize: 12,
-              fill: 'rgba(0, 0, 0, 0.65)',
-              cursor: 'pointer',
-            },
-            activeTextStyle: {
-              fill: '#87B5FF',
-            },
           },
         },
       },
@@ -120,6 +86,25 @@ function axis(params: Params<TreemapOptions>): Params<TreemapOptions> {
   return params;
 }
 
+function adaptorInteraction(options: TreemapOptions): TreemapOptions {
+  const { drilldown, interactions = [] } = options;
+
+  const enableDrillDown = enableDrillInteraction(options);
+  if (enableDrillDown) {
+    return deepAssign({}, options, {
+      interactions: [
+        ...interactions,
+        {
+          type: 'drill-down',
+          // 🚓 这不是一个规范的 API，后续会变更。慎重参考
+          cfg: { drillDownConfig: drilldown, transformData },
+        },
+      ],
+    });
+  }
+  return options;
+}
+
 /**
  * Interaction 配置
  * @param params
@@ -130,9 +115,7 @@ export function interaction(params: Params<TreemapOptions>): Params<TreemapOptio
 
   commonInteraction({
     chart,
-    options: {
-      interactions: getFommatInteractions(options),
-    },
+    options: adaptorInteraction(options),
   });
 
   // 适配 view-zoom
@@ -165,5 +148,5 @@ export function interaction(params: Params<TreemapOptions>): Params<TreemapOptio
  * @param options
  */
 export function adaptor(params: Params<TreemapOptions>) {
-  return flow(defaultOptions, geometry, axis, theme, legend, tooltip, interaction, animation, annotation())(params);
+  return flow(defaultOptions, theme, geometry, axis, legend, tooltip, interaction, animation, annotation())(params);
 }

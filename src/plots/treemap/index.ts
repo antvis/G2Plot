@@ -2,12 +2,21 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { TreemapOptions } from './types';
 import { adaptor } from './adaptor';
+import { DEFAULT_OPTIONS } from './constant';
 import { transformData, enableInteraction, resetDrillDown } from './utils';
 import './interactions';
 
 export type { TreemapOptions };
 
 export class Treemap extends Plot<TreemapOptions> {
+  /**
+   * 获取 矩阵树图 默认配置项
+   * 供外部使用
+   */
+  static getDefaultOptions(): Partial<TreemapOptions> {
+    return DEFAULT_OPTIONS;
+  }
+
   /** 图表类型 */
   public type: string = 'treemap';
 
@@ -26,6 +35,13 @@ export class Treemap extends Plot<TreemapOptions> {
     this.chart.changeData(transData);
 
     resetDrillDown(this.chart);
+  }
+
+  /**
+   * 获取 矩阵树图 默认配置
+   */
+  protected getDefaultOptions() {
+    return Treemap.getDefaultOptions();
   }
 
   protected getSchemaAdaptor(): Adaptor<TreemapOptions> {

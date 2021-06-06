@@ -11,10 +11,12 @@ const PADDING_LEFT = 0;
 const PADDING_TOP = 5;
 
 /** Group name of breadCrumb: 面包屑 */
-const BREAD_CRUMB_NAME = 'drilldown-bread-crumb';
+export const BREAD_CRUMB_NAME = 'drilldown-bread-crumb';
 
 // 面包屑默认配置
 export const DEFAULT_BREAD_CRUMB_CONFIG: DrillDownCfg['breadCrumb'] = {
+  /** 位置，默认：左上角 */
+  position: 'top-left',
   dividerText: '/',
   textStyle: {
     fontSize: 12,
@@ -27,20 +29,24 @@ export const DEFAULT_BREAD_CRUMB_CONFIG: DrillDownCfg['breadCrumb'] = {
 };
 
 /**
+ * hierarchy 数据转换的参数
+ */
+export const HIERARCHY_DATA_TRANSFORM_PARAMS = 'hierarchy-data-transform-params';
+
+/**
  * Hierarchy plot 节点的数据
  */
 export type HierarchyNode<N = any /** 节点 */> = {
   /** 节点的原始数据，树型结构（todo 是否更正 key 为 origin） */
   data: { name: string; value?: any; children: { name: string; value?: any }[] };
   /** 在构建节点数据时候，增加的扩展配置, 用于存储 transformData 的入参配置 */
-  ext: object;
+  [HIERARCHY_DATA_TRANSFORM_PARAMS]: object;
   /** 当前的层级结构，每一次下钻都会更新. 不是 unique */
   depth: number;
   /** 当前所处高度，depth + height = 总的层级 */
   height: number;
   parent: N;
   children: N[];
-  [key: string]: any;
 };
 
 type HistoryCache = {
@@ -99,6 +105,15 @@ export class DrillDownAction extends Action {
   }
 
   /**
+   * 重置
+   */
+  public reset(): void {
+    // 清空
+    this.historyCache = [];
+    this.hideCrumbGroup();
+  }
+
+  /**
    * 下钻数据并更新 view 显示层
    * @param nodeInfo 下钻数据
    */
@@ -107,7 +122,7 @@ export class DrillDownAction extends Action {
     const transformData = get(view, ['interactions', 'drill-down', 'cfg', 'transformData'], (v) => v);
 
     // 重新 update 数据
-    const drillData = transformData({ data: nodeInfo.data, ...nodeInfo.ext });
+    const drillData = transformData({ data: nodeInfo.data, ...nodeInfo[HIERARCHY_DATA_TRANSFORM_PARAMS] });
     view.changeData(drillData);
 
     // 存储历史记录
@@ -120,7 +135,7 @@ export class DrillDownAction extends Action {
         id: `${nodeData.name}_${node.height}_${node.depth}`,
         name: nodeData.name,
         // children 是实际数据
-        children: transformData({ data: nodeData, ...nodeInfo.ext }),
+        children: transformData({ data: nodeData, ...nodeInfo[HIERARCHY_DATA_TRANSFORM_PARAMS] }),
       });
       node = node.parent;
     }
@@ -145,9 +160,7 @@ export class DrillDownAction extends Action {
       this.historyCache = historyCache;
       this.drawBreadCrumb();
     } else {
-      // 清空
-      this.historyCache = [];
-      this.hideCrumbGroup();
+      this.reset();
     }
   }
 

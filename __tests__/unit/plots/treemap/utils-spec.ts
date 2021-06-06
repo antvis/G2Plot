@@ -2,7 +2,6 @@ import {
   transformData,
   findInteraction,
   enableInteraction,
-  getFommatInteractions,
   getAdjustAppendPadding,
   resetDrillDown,
 } from '../../../../src/plots/treemap/utils';
@@ -287,92 +286,6 @@ describe('treemap transformData', () => {
     });
 
     expect(childData[0].path.length).toBe(3);
-  });
-
-  it('getFommatInteractions', () => {
-    expect(getFommatInteractions({ interactions: undefined })).toEqual(undefined);
-    expect(
-      getFommatInteractions({
-        interactions: undefined,
-        hierarchyConfig: {
-          tile: 'treemapSlice',
-        },
-      })
-    ).toEqual(undefined);
-    expect(
-      getFommatInteractions({
-        interactions: [],
-        hierarchyConfig: {
-          tile: 'treemapSlice',
-        },
-      })
-    ).toEqual([]);
-    expect(
-      getFommatInteractions({
-        interactions: [
-          {
-            type: 'treemap',
-          },
-        ],
-        hierarchyConfig: {
-          tile: 'treemapSlice',
-        },
-      })
-    ).toEqual([
-      {
-        type: 'treemap',
-      },
-    ]);
-    expect(
-      getFommatInteractions({
-        interactions: [
-          {
-            type: 'treemap',
-          },
-          {
-            type: 'treemap-drill-down',
-          },
-        ],
-        hierarchyConfig: {
-          tile: 'treemapSlice',
-        },
-      })
-    ).toEqual([
-      {
-        type: 'treemap',
-      },
-      {
-        type: 'treemap-drill-down',
-        cfg: {
-          hierarchyConfig: {
-            tile: 'treemapSlice',
-          },
-        },
-      },
-    ]);
-
-    expect(
-      getFommatInteractions({
-        interactions: [
-          {
-            type: 'treemap',
-          },
-          {
-            type: 'treemap-drill-down',
-          },
-        ],
-      })
-    ).toEqual([
-      {
-        type: 'treemap',
-      },
-      {
-        type: 'treemap-drill-down',
-        cfg: {
-          hierarchyConfig: undefined,
-        },
-      },
-    ]);
   });
 
   it('getAdjustAppendPadding', () => {

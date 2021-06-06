@@ -1,15 +1,15 @@
-import { isTopParentNode } from '../../../../../src/plots/treemap/interactions/util';
+import { isParentNode } from '../../../src/interactions/drill-down';
 
-describe('treemap interactions utl', () => {
-  it('isTopParentNode', () => {
-    expect(isTopParentNode(undefined)).toBeFalsy();
+describe('drill-down interaction', () => {
+  it('utils: is-parent-node', () => {
+    expect(isParentNode(undefined)).toBeFalsy();
     expect(
-      isTopParentNode({
+      isParentNode({
         event: undefined,
       })
     ).toBeFalsy();
     expect(
-      isTopParentNode({
+      isParentNode({
         event: {
           data: {
             data: {
@@ -20,7 +20,7 @@ describe('treemap interactions utl', () => {
       })
     ).toBeFalsy();
     expect(
-      isTopParentNode({
+      isParentNode({
         event: {
           data: {
             data: {
@@ -34,9 +34,9 @@ describe('treemap interactions utl', () => {
           },
         },
       })
-    ).toBeFalsy();
+    ).toBeTruthy();
     expect(
-      isTopParentNode({
+      isParentNode({
         event: {
           data: {
             data: {

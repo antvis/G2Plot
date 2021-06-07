@@ -155,14 +155,21 @@ Default configuration:
 
 Radial type, not recommended in special cases. 在旭日图中，不可使用 `reflect: 'x'` 进行 x 轴反转，使用 `reflect: 'y'` 进行 y 轴反转后，祖先节点在最外层，从外至内依次：父节点 - 孩子节点 - 孙子节点
 
-
 ### Plot Components
 
 `markdown:docs/common/component-polygon.en.md`
 
-#### annotations
+### Plot Interactions
 
-`markdown:docs/common/annotations.en.md`
+Built-in interactions of Sunburst are as follows:
+
+| Interaction        | Description                  | Configuration    |
+| ---|---|---|
+| drill-down | 用于下钻交互，配置该交互后，矩形树图默认显示深度为 1 的节点，点击后下钻。| `drilldown: { enabled: true }`  |
+
+`markdown:docs/common/drill-down.zh.md`
+
+`markdown:docs/common/interactions.zh.md`
 
 ### Plot Event
 
@@ -175,7 +182,3 @@ Radial type, not recommended in special cases. 在旭日图中，不可使用 `r
 ### Plot Theme
 
 `markdown:docs/common/theme.en.md`
-
-### Plot Interactions
-
-`markdown:docs/common/interactions.en.md`

@@ -99,41 +99,21 @@ Default configuration:
 Hierarchical layout configuration, such as' tile ', etc., refer to detailed configuration [d3-hierarchy](https://github.com/d3/d3-hierarchy#treemap)。
 The default is `{tile: 'treemapSquarify', ratio: 0.5 * (1 + Math.sqrt(5))}` (Golden Section Ratio)
 
-#### drilldown
-
-<description>**optional** _DrillDownCfg_ </description>
-
-Configuration of drilldown interaction.
-
-Types of _DrillDownCfg_ are as follows:
-
-| Properties | Type            | Description                      |
-| ---------- | --------------- | -------------------------------- |
-| enabled | _boolean_ | Whether enable drilldown interaction, default: 'false' |
-| breadCrumb | _BreadCrumbCfg_ | UI configurations of breadCrumb. |
-
-Types of _BreadCrumbCfg_ are as follows:
-
-| Properties  | Type         | Description                           |
-| ----------- | ------------ | ------------------------------------- |
-| rootText    | _string_     | Text content of root, default: 'Root' |
-| dividerText | _string_     | Divider, default: '/'                 |
-| textStyle   | _ShapeAttrs_ | Style of text                         |
-| activeStyle | _ShapeAttrs_ | Style of text when active (hover)     |
-
 ### Plot Components
 
 `markdown:docs/common/component-polygon.en.md`
 
 ### Plot Interactions
 
-Built-in interactions of treemap are as follows:
+Built-in interactions of Treemap are as follows:
 
 | Interaction        | Description                                                                          | Configuration                                                                         |
 | ------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- |
-| treemap-drill-down | 用于下钻交互，配置该交互后，矩形树图默认显示深度为 1 的节点，点击后下钻。            | `enableDrillDown: true`（推荐） 或者 `interactions: [{ type: 'treemap-drill-down' }]` |
+| drill-down | 用于下钻交互，配置该交互后，矩形树图默认显示深度为 1 的节点，点击后下钻。            | `drilldown: { enabled: true }` |
 | view-zoom          | view-zoom 用于放大 view，配置该交互后，canavs 自动识别 zoom 手势，放大或缩小矩形树图 | `interactions: [{ type: 'view-zoom' }]`                                               |
 | drag-move          | drag-move 用于拖拽 view，可和 view-zoom 配套使用，查看矩形树图细节                   | `interactions: [{ type: 'drag-move' }]`                                               |
+
+`markdown:docs/common/drill-down.en.md`
 
 `markdown:docs/common/interactions.en.md`
 

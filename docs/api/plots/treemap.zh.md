@@ -99,28 +99,6 @@ G2 plot 会根据 data 生成以下数据结构：
 层级布局配置，例如 `tile`等，详细配置参考[d3-hierarchy](https://github.com/d3/d3-hierarchy#treemap)。
 默认为 `{tile: 'treemapSquarify', ratio: 0.5 * (1 + Math.sqrt(5))}` (黄金分割纵横比)
 
-#### drilldown
-
-<description>**optional** _DrillDownCfg_</description>
-
-下钻交互配置。
-
-_DrillDownCfg_ 类型定义如下：
-
-| 属性       | 类型            | 描述                     |
-| ---------- | --------------- | ------------------------ |
-| enabled | _boolean_ | 是否开启下钻交互，默认为：'false' |
-| breadCrumb | _BreadCrumbCfg_ | 下钻交互的面包屑 UI 配置 |
-
-_BreadCrumbCfg_ 类型定义如下：
-
-| 属性        | 类型         | 描述                                       |
-| ----------- | ------------ | ------------------------------------------ |
-| rootText    | _string_     | 根节点的文案，默认：'Root'（中文：'初始'） |
-| dividerText | _string_     | 分割线，默认：'/'                          |
-| textStyle   | _ShapeAttrs_ | 字体样式                                   |
-| activeTextStyle | _ShapeAttrs_ | 激活字体样式                               |
-
 ### 图表组件
 
 `markdown:docs/common/component-polygon.zh.md`
@@ -131,9 +109,11 @@ _BreadCrumbCfg_ 类型定义如下：
 
 | 交互 | 描述 | 配置方式 |
 | ---|---|---|
-| treemap-drill-down | 用于下钻交互，配置该交互后，矩形树图默认显示深度为 1 的节点，点击后下钻。| `drilldown: { enabled: true }`（推荐） 或者 `interactions: [{ type: 'treemap-drill-down' }]` |
+| drill-down | 用于下钻交互，配置该交互后，矩形树图默认显示深度为 1 的节点，点击后下钻。| `drilldown: { enabled: true }`  |
 | view-zoom | view-zoom 用于放大 view，配置该交互后，canavs 自动识别 zoom 手势，放大或缩小矩形树图 | `interactions: [{ type: 'view-zoom' }]` |
 | drag-move |drag-move 用于拖拽 view，可和 view-zoom 配套使用，查看矩形树图细节| `interactions: [{ type: 'drag-move' }]` |
+
+`markdown:docs/common/drill-down.zh.md`
 
 `markdown:docs/common/interactions.zh.md`
 

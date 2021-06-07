@@ -154,9 +154,17 @@ meta: {
 
 `markdown:docs/common/component-polygon.zh.md`
 
-#### 图表标注 - annotations
+### 图表交互
 
-`markdown:docs/common/annotations.zh.md`
+旭日图内置了一些交互，列表如下:
+
+| 交互 | 描述 | 配置方式 |
+| ---|---|---|
+| drill-down | 用于下钻交互，配置该交互后，矩形树图默认显示深度为 1 的节点，点击后下钻。| `drilldown: { enabled: true }`  |
+
+`markdown:docs/common/drill-down.zh.md`
+
+`markdown:docs/common/interactions.zh.md`
 
 ### 图表事件
 
@@ -169,7 +177,3 @@ meta: {
 ### 图表主题
 
 `markdown:docs/common/theme.zh.md`
-
-### 图表交互
-
-`markdown:docs/common/interactions.zh.md`

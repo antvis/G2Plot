@@ -1,10 +1,9 @@
-import { isArray, findIndex, get } from '@antv/util';
+import { isArray, get } from '@antv/util';
 import { Types, View } from '@antv/g2';
 import { HIERARCHY_DATA_TRANSFORM_PARAMS } from '../../interactions/actions/drill-down';
 import { Interaction } from '../../types/interaction';
 import { normalPadding } from '../../utils/padding';
 import { treemap } from '../../utils/hierarchy/treemap';
-import { deepAssign } from '../../utils';
 import { TreemapOptions } from './types';
 
 export function findInteraction(

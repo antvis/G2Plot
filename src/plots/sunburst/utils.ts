@@ -10,7 +10,7 @@ import { SunburstOptions } from './types';
  * @param options
  */
 export function transformData(options: Pick<SunburstOptions, 'data' | 'colorField' | 'rawFields' | 'hierarchyConfig'>) {
-  const { data, colorField, rawFields, hierarchyConfig } = options;
+  const { data, colorField, rawFields, hierarchyConfig = {} } = options;
   const transform = {
     partition: partition,
     treemap: treemap,
@@ -45,7 +45,6 @@ export function transformData(options: Pick<SunburstOptions, 'data' | 'colorFiel
     const nodeInfo = {
       ...pick(node.data, [...(rawFields || []), hierarchyConfig.field]),
       [SUNBURST_PATH_FIELD]: path,
-      // 可以覆盖 colorField
       [SUNBURST_ANCESTOR_FIELD]: ancestorNode.data.name,
       ...node,
     };

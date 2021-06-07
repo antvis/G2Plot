@@ -8,7 +8,7 @@ import { deepAssign } from '../../utils/deep-assign';
 const PADDING = 4;
 // 面包屑位置距离树图的距离
 const PADDING_LEFT = 0;
-const PADDING_TOP = 5;
+export const PADDING_TOP = 5;
 
 /** Group name of breadCrumb: 面包屑 */
 export const BREAD_CRUMB_NAME = 'drilldown-bread-crumb';
@@ -99,7 +99,7 @@ export class DrillDownAction extends Action {
     if (position === 'bottom-left') {
       point = coordinate.isPolar ? { x: 0, y: coordinate.getHeight() } : coordinate.convert({ x: 0, y: 1 });
     }
-
+    /** PADDING_LEFT, PADDING_TOP 与画布边缘的距离 */
     const matrix = Util.transform(null, [['t', point.x + PADDING_LEFT, point.y + bbox.height + PADDING_TOP]]);
     breadCrumbGroup.setMatrix(matrix);
   }
@@ -108,6 +108,9 @@ export class DrillDownAction extends Action {
    * 重置
    */
   public reset(): void {
+    if (this.historyCache[0]) {
+      this.back(this.historyCache.slice(0, 1));
+    }
     // 清空
     this.historyCache = [];
     this.hideCrumbGroup();
@@ -160,7 +163,9 @@ export class DrillDownAction extends Action {
       this.historyCache = historyCache;
       this.drawBreadCrumb();
     } else {
-      this.reset();
+      // 清空
+      this.historyCache = [];
+      this.hideCrumbGroup();
     }
   }
 

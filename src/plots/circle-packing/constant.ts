@@ -1,3 +1,6 @@
+/** 默认的源字段 */
+export const RAW_FIELDS = ['x', 'y', 'r', 'name', 'value', 'path', 'depth'];
+
 export const DEFAULT_OPTIONS = {
   // 默认按照 name 字段对颜色进行分类
   colorField: 'name',
@@ -10,9 +13,15 @@ export const DEFAULT_OPTIONS = {
     padding: 0,
   },
   label: {
-    fields: ['x'],
+    fields: ['name'],
     layout: {
       type: 'limit-in-shape',
     },
   },
+  tooltip: {
+    showMarkers: false,
+    showTitle: false,
+  },
+  // 默认可以下钻
+  drilldown: { enabled: true },
 };

@@ -1,4 +1,5 @@
 import { ColorAttr, Options, SizeAttr, StyleAttr } from '../../types';
+import { DrillDownCfg } from '../../types/drill-down';
 import { HierarchyOption } from '../../utils/hierarchy/types';
 
 export interface CirclePackingOptions extends Omit<Options, 'data'> {
@@ -25,4 +26,8 @@ export interface CirclePackingOptions extends Omit<Options, 'data'> {
 
   /** 图形样式 */
   readonly pointStyle?: StyleAttr;
+
+  // 交互
+  /** 下钻交互 */
+  readonly drilldown?: DrillDownCfg;
 }

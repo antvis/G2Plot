@@ -294,17 +294,3 @@ _ContinueLegendHandlerCfg_ 配置如下：
 | ------ | -------- | ------ | ----------------------------------------------------------- |
 | size   | _number_ | -      | 滑块的大小，默认：10                                                  |
 | style  | _object_ | -      | 滑块的样式设置，参考 [绘图属性](/zh/docs/api/graphic-style) |
-
-##### animate
-
-<description>**optional** _boolean_ _default:_ `false`</description>
-
-是否开启动画开关。
-
-##### animateOption
-
-<description>**optional** _ComponentAnimateOption_ </description>
-
-动画参数配置，当且仅当 animate 属性为 true，即动画开启时生效。动画配置详情如下：
-
-`markdown:docs/common/animate-option.zh.md`

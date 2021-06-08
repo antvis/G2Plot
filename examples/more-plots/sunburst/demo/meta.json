@@ -18,7 +18,8 @@
         "zh": "自定义 hierarchy field",
         "en": "Custom hierarchy field of value"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/yBxQkbPBXF/2a71c7de-1971-4651-bcba-dd18ddd8732e.png"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/yBxQkbPBXF/2a71c7de-1971-4651-bcba-dd18ddd8732e.png",
+      "new": true
     },
     {
       "filename": "label.ts",
@@ -26,7 +27,8 @@
         "zh": "设置标签布局",
         "en": "Set label layout"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/nUWhQ3lWeT/ab0dd09f-f735-41ab-bb13-f38e3354ed62.png"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/nUWhQ3lWeT/ab0dd09f-f735-41ab-bb13-f38e3354ed62.png",
+      "new": true
     },
     {
       "filename": "color-field.ts",
@@ -34,14 +36,17 @@
         "zh": "自定义颜色通道",
         "en": "Color of sunburst plot"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/DCwOWeZD5T/cbbbe84d-a0ff-4602-ab3e-22429e6a1719.png"
-    },   {
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/DCwOWeZD5T/cbbbe84d-a0ff-4602-ab3e-22429e6a1719.png",
+      "new": true
+    },
+    {
       "filename": "color.ts",
       "title": {
         "zh": "自定义旭日图颜色",
         "en": "Color of sunburst plot"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/IvLI4di5ww/7faf7005-44f2-4832-bbca-227b039f4260.png"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/IvLI4di5ww/7faf7005-44f2-4832-bbca-227b039f4260.png",
+      "new": true
     },
     {
       "filename": "style.ts",
@@ -49,7 +54,8 @@
         "zh": "自定义旭日图样式",
         "en": "Style of sunburst plot"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/aAO3F8JuLP/83d5b6fe-e789-4395-a48b-6992259eb872.png"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/aAO3F8JuLP/83d5b6fe-e789-4395-a48b-6992259eb872.png",
+      "new": true
     },
     {
       "filename": "tooltip-fields.ts",
@@ -57,7 +63,8 @@
         "zh": "自定义 Tooltip fields",
         "en": "Custom tooltip fields"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/IGdW4zjTce/e515a753-d3a2-49d7-90e0-89786501db82.png"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/IGdW4zjTce/e515a753-d3a2-49d7-90e0-89786501db82.png",
+      "new": true
     },
     {
       "filename": "custom-tooltip-items.ts",
@@ -65,7 +72,8 @@
         "zh": "自定义 Tooltip items",
         "en": "Custom tooltip items"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/yBxQkbPBXF/2a71c7de-1971-4651-bcba-dd18ddd8732e.png"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/yBxQkbPBXF/2a71c7de-1971-4651-bcba-dd18ddd8732e.png",
+      "new": true
     }
   ]
 }

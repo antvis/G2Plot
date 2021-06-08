@@ -127,8 +127,6 @@ _**CoordinateCfg**_ 坐标系配置项，目前常用于极坐标：
 
 `markdown:docs/common/state-style.en.md`
 
-## 图表组件
-
 ### 图表组件
 
 `markdown:docs/common/component.zh.md`

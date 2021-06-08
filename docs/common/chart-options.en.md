@@ -45,3 +45,10 @@ Set the pixel ratio of the chart.
 <description>**optional** _boolean_</description>
 
 Whether clip the Geometry beyond the coordinate system。
+
+<!-- 先插入到这里 -->
+#### locale
+
+<description>**optional** _string_</description>
+
+Specify the locale. There are two built-in locales: 'zh-CN' and 'en-US'. Or you can use `G2Plot.registerLocale` to register a new locale. Go [src/locales/en_US.ts](https://github.com/antvis/G2Plot/blob/master/src/locales/en_US.ts) to see the format.

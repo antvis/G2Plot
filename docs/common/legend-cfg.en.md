@@ -287,17 +287,3 @@ _ContinueLegendHandlerCfg_ is configured as follows:
 | ---------- | -------- | ------- | --------------------------------------------------------------------------- |
 | size       | _number_ | -       | Slider size, default: 10                                                             |
 | style      | _object_ | -       | Slider configuration, reference [Graphic Style](/zh/docs/api/graphic-style) |
-
-##### animate
-
-<description>**optional** _boolean_  _default:_ `false`</description>
-
-Whether to turn on the animation switch.
-
-##### animateOption
-
-<description>**optional** _ComponentAnimateOption_ </description>
-
-Animation parameter configuration, which takes effect if and only if the animate property is true, that is, when the animation is turned on. Animation configuration details are as follows:
-
-`markdown:docs/common/animate-option.en.md`

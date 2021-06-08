@@ -1,8 +1,9 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { CirclePackingOptions } from './types';
 import { adaptor } from './adaptor';
 import { DEFAULT_OPTIONS } from './constant';
+import { CirclePackingOptions } from './types';
+import './interactions';
 
 export type { CirclePackingOptions };
 
@@ -19,7 +20,7 @@ export class CirclePacking extends Plot<CirclePackingOptions> {
     return DEFAULT_OPTIONS;
   }
   /** 图表类型 */
-  public type: string = 'circlePacking';
+  public type: string = 'circle-packing';
 
   protected getDefaultOptions() {
     return CirclePacking.getDefaultOptions();

@@ -1,9 +1,12 @@
 import { pack } from '../../utils/hierarchy/pack';
-import { deepAssign } from '../../utils';
+import { deepAssign, pick } from '../../utils';
+import { HIERARCHY_DATA_TRANSFORM_PARAMS } from '../../interactions/actions/drill-down';
 import { CirclePackingOptions } from './types';
 
 interface TransformDataOptions {
   data: CirclePackingOptions['data'];
+  rawFields: CirclePackingOptions['rawFields'];
+  enableDrillDown: boolean;
   hierarchyConfig: CirclePackingOptions['hierarchyConfig'];
 }
 
@@ -12,7 +15,7 @@ interface TransformDataOptions {
  * @param options
  */
 export function transformData(options: TransformDataOptions) {
-  const { data, hierarchyConfig } = options;
+  const { data, hierarchyConfig, rawFields = [], enableDrillDown } = options;
 
   const nodes = pack(data, {
     ...hierarchyConfig,
@@ -20,17 +23,34 @@ export function transformData(options: TransformDataOptions) {
     as: ['x', 'y', 'r'],
   });
 
-  return nodes.map((node) => {
-    const eachNode = deepAssign({}, node.data, {
-      hasChildren: !!(node.data.children && node.data.children.length),
-      name: node.data.name.split(/(?=[A-Z][^A-Z])/g).join('\n'),
-      value: node.value,
-      depth: node.depth,
-      x: node.x,
-      y: node.y,
-      r: node.r,
+  const result = [];
+  nodes.forEach((node) => {
+    let path = node.data.name;
+    let ancestorNode = { ...node };
+    while (ancestorNode.depth > 1) {
+      path = `${ancestorNode.parent.data?.name} / ${path}`;
+      ancestorNode = ancestorNode.parent;
+    }
+
+    console.log('node', node);
+
+    // 开启下钻，仅加载 depth <= 2 的数据 (加载两层)
+    if (enableDrillDown && node.depth > 2) {
+      return null;
+    }
+
+    const nodeInfo = deepAssign({}, node.data, {
+      ...pick(node.data, rawFields),
+      path,
+      // 以下字段，必备: x, y, r, name, depth, height
+      ...node,
     });
 
-    return eachNode;
+    nodeInfo.ext = hierarchyConfig;
+    nodeInfo[HIERARCHY_DATA_TRANSFORM_PARAMS] = { hierarchyConfig, rawFields };
+
+    result.push(nodeInfo);
   });
+
+  return result;
 }

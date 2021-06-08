@@ -1,7 +1,7 @@
 import { Sunburst } from '../../../../src';
 import { createDiv, removeDom } from '../../../utils/dom';
 import { SIMPLE_SUNBURST_DATA } from '../../../data/sunburst';
-import { DEFAULT_OPTIONS } from '../../../../src/plots/sunburst/constant';
+import { DEFAULT_OPTIONS, SUNBURST_PATH_FIELD } from '../../../../src/plots/sunburst/constant';
 
 describe('sunburst', () => {
   const div = createDiv();
@@ -20,7 +20,29 @@ describe('sunburst', () => {
     expect(plot.chart.getController('tooltip').isVisible()).toBe(true);
   });
 
+  it('meta', () => {
+    // 注意数据降序
+    plot.update({
+      meta: { [SUNBURST_PATH_FIELD]: { formatter: (v) => `路径：${v}` }, value: { formatter: (v) => `${v} 万` } },
+    });
+    const tooltipController = plot.chart.getController('tooltip');
+    const box = plot.chart.geometries[0].elements[0].shape.getBBox();
+    const point = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+
+    const items = tooltipController.getTooltipItems(point);
+    expect(items.length).toBe(1);
+    expect(items[0].name).toBe('中南美洲');
+
+    plot.chart.showTooltip(point);
+    expect(div.querySelectorAll('.g2-tooltip-list-item').length).toBe(1);
+    expect((div.querySelector('.g2-tooltip-name') as HTMLElement).innerText).toBe(`路径：中南美洲`);
+    expect((div.querySelector('.g2-tooltip-name') as HTMLElement).innerText).toBe(`路径：中南美洲`);
+    expect((div.querySelector('.g2-tooltip-value') as HTMLElement).innerText).toBe(`6 万`);
+    plot.chart.hideTooltip();
+  });
+
   it('tooltip: fields', () => {
+    plot.update({ meta: undefined });
     const tooltipController = plot.chart.getController('tooltip');
     const box = plot.chart.geometries[0].elements[0].shape.getBBox();
     const point = { x: box.x + box.width / 2, y: box.y + box.height / 2 };

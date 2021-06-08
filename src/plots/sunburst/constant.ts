@@ -6,12 +6,11 @@ import { SunburstOptions } from './types';
  * 祖先节点，非 root 根节点
  */
 export const SUNBURST_ANCESTOR_FIELD = 'ancestor-node';
-export const SUNBURST_X_FIELD = 'name';
 export const SUNBURST_Y_FIELD = 'value';
 export const SUNBURST_PATH_FIELD = 'path';
 
 /** 默认的源字段 */
-export const RAW_FIELDS = [SUNBURST_X_FIELD, SUNBURST_PATH_FIELD, 'depth', 'height'];
+export const RAW_FIELDS = [SUNBURST_PATH_FIELD, 'name', 'depth', 'height'];
 
 /**
  * 旭日图 默认配置项
@@ -39,4 +38,7 @@ export const DEFAULT_OPTIONS: Partial<SunburstOptions> = deepAssign({}, Plot.get
     lineWidth: 0.5,
     stroke: '#FFF',
   },
+
+  // 默认开启交互
+  drilldown: { enabled: true },
 });

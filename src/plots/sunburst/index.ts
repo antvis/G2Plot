@@ -3,6 +3,7 @@ import { Adaptor } from '../../core/adaptor';
 import { SunburstOptions } from './types';
 import { adaptor } from './adaptor';
 import { DEFAULT_OPTIONS, SUNBURST_ANCESTOR_FIELD, SUNBURST_PATH_FIELD } from './constant';
+import './interactions';
 
 export type { SunburstOptions };
 

@@ -109,7 +109,6 @@ describe('treemap sunburst', () => {
     const {
       attributeOption: { color },
       coordinate,
-      styleOption,
     } = geometry;
     expect(color.fields).toEqual(['brand']);
     const positionFields = geometry.getAttribute('position').getFields();
@@ -160,7 +159,6 @@ describe('treemap sunburst', () => {
     const {
       attributeOption: { color },
       coordinate,
-      styleOption,
     } = geometry;
 
     expect(color.fields).toEqual(['brand']);

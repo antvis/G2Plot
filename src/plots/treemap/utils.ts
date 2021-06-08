@@ -1,9 +1,8 @@
-import { isArray } from '@antv/util';
-import { Types, View } from '@antv/g2';
-import { normalPadding } from '../../utils/padding';
+import { isArray, get } from '@antv/util';
+import { View } from '@antv/g2';
+import { HIERARCHY_DATA_TRANSFORM_PARAMS } from '../../interactions/actions/drill-down';
 import { Interaction } from '../../types/interaction';
 import { treemap } from '../../utils/hierarchy/treemap';
-import { deepAssign } from '../../utils';
 import { TreemapOptions } from './types';
 
 export function findInteraction(
@@ -19,35 +18,27 @@ export function enableInteraction(interactions: TreemapOptions['interactions'], 
   return interaction && interaction.enable !== false;
 }
 
+/**
+ * 是否允许下钻交互
+ * @param interactions
+ * @param interactionType
+ * @returns
+ */
+export function enableDrillInteraction(options: TreemapOptions): boolean {
+  const { interactions, drilldown } = options;
+  // 兼容旧版本, treemap-drill-down
+  return get(drilldown, 'enabled') || enableInteraction(interactions, 'treemap-drill-down');
+}
+
 export function resetDrillDown(chart: View) {
-  const drillDownInteraction = chart.interactions['treemap-drill-down'];
+  const drillDownInteraction = chart.interactions['drill-down'];
 
   if (!drillDownInteraction) return;
 
   // @ts-ignore
-  const drillDownAction = drillDownInteraction.context.actions.find((i) => i.name === 'treemap-drill-down-action');
+  const drillDownAction = drillDownInteraction.context.actions.find((i) => i.name === 'drill-down-action');
 
   drillDownAction.reset();
-}
-
-export function getFommatInteractions(
-  interactions: TreemapOptions['interactions'],
-  hierarchyConfig: TreemapOptions['hierarchyConfig']
-): TreemapOptions['interactions'] {
-  const drillDownInteraction = findInteraction(interactions, 'treemap-drill-down');
-  if (drillDownInteraction) {
-    return interactions.map((i) => {
-      if (i.type === 'treemap-drill-down') {
-        return deepAssign({}, i, {
-          cfg: {
-            hierarchyConfig,
-          },
-        });
-      }
-      return i;
-    });
-  }
-  return interactions;
 }
 
 interface TransformDataOptions {
@@ -93,27 +84,23 @@ export function transformData(options: TransformDataOptions) {
     // 在下钻树图中，每次绘制的是当前层级信息，将父元素的层级信息（data.path) 做一层拼接。
     const path = enableDrillDown && isArray(data.path) ? curPath.concat(data.path.slice(1)) : curPath;
 
-    const eachNode = Object.assign({}, node.data, {
+    const nodeInfo = Object.assign({}, node.data, {
       x: node.x,
       y: node.y,
       depth: node.depth,
       value: node.value,
       path,
+      ...node,
     });
     if (!node.data[colorField] && node.parent) {
       const ancestorNode = node.ancestors().find((n) => n.data[colorField]);
-      eachNode[colorField] = ancestorNode?.data[colorField];
+      nodeInfo[colorField] = ancestorNode?.data[colorField];
     } else {
-      eachNode[colorField] = node.data[colorField];
+      nodeInfo[colorField] = node.data[colorField];
     }
 
-    result.push(eachNode);
+    nodeInfo[HIERARCHY_DATA_TRANSFORM_PARAMS] = { hierarchyConfig, colorField, enableDrillDown };
+    result.push(nodeInfo);
   });
   return result;
-}
-
-export function getAdjustAppendPadding(padding: Types.ViewAppendPadding) {
-  const currentAppendPadding = normalPadding(padding);
-  const BOTTOM = 25;
-  return [currentAppendPadding[0], currentAppendPadding[1], currentAppendPadding[2] + BOTTOM, currentAppendPadding[3]];
 }

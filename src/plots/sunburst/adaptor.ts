@@ -2,8 +2,9 @@ import { isFunction, get, uniq } from '@antv/util';
 import { Types } from '@antv/g2';
 import { Params } from '../../core/adaptor';
 import { polygon as polygonAdaptor } from '../../adaptor/geometries';
-import { interaction, animation, theme, annotation, scale } from '../../adaptor/common';
+import { interaction as baseInteraction, animation, theme, annotation, scale } from '../../adaptor/common';
 import { flow, findGeometry, transformLabel, deepAssign } from '../../utils';
+import { getAdjustAppendPadding } from '../../utils/padding';
 import { Datum } from '../../types';
 import { RAW_FIELDS, SUNBURST_ANCESTOR_FIELD, SUNBURST_PATH_FIELD, SUNBURST_Y_FIELD } from './constant';
 import { transformData } from './utils';
@@ -171,6 +172,47 @@ export function tooltip(params: Params<SunburstOptions>): Params<SunburstOptions
       );
     }
     chart.tooltip(tooltipOptions);
+  }
+
+  return params;
+}
+
+function adaptorInteraction(options: SunburstOptions): SunburstOptions {
+  const { drilldown, interactions = [] } = options;
+
+  if (drilldown?.enabled) {
+    return deepAssign({}, options, {
+      interactions: [
+        ...interactions,
+        {
+          type: 'drill-down',
+          cfg: { drillDownConfig: drilldown, transformData },
+        },
+      ],
+    });
+  }
+  return options;
+}
+
+/**
+ * 交互配置
+ * @param params
+ * @returns
+ */
+function interaction(params: Params<SunburstOptions>): Params<SunburstOptions> {
+  const { chart, options } = params;
+
+  const { drilldown } = options;
+
+  baseInteraction({
+    chart,
+    options: adaptorInteraction(options),
+  });
+
+  // 适应下钻交互面包屑
+  if (drilldown?.enabled) {
+    // 为面包屑留出 25px 的空间
+    chart.appendPadding = getAdjustAppendPadding(chart.appendPadding, get(drilldown, ['breadCrumb', 'position']));
   }
 
   return params;

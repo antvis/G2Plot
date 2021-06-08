@@ -103,6 +103,20 @@ The default is `{tile: 'treemapSquarify', ratio: 0.5 * (1 + Math.sqrt(5))}` (Gol
 
 `markdown:docs/common/component-polygon.en.md`
 
+### Plot Interactions
+
+Built-in interactions of Treemap are as follows:
+
+| Interaction        | Description                                                                          | Configuration                                                                         |
+| ------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- |
+| drill-down | 用于下钻交互，配置该交互后，矩形树图默认显示深度为 1 的节点，点击后下钻。            | `drilldown: { enabled: true }` |
+| view-zoom          | view-zoom 用于放大 view，配置该交互后，canavs 自动识别 zoom 手势，放大或缩小矩形树图 | `interactions: [{ type: 'view-zoom' }]`                                               |
+| drag-move          | drag-move 用于拖拽 view，可和 view-zoom 配套使用，查看矩形树图细节                   | `interactions: [{ type: 'drag-move' }]`                                               |
+
+`markdown:docs/common/drill-down.en.md`
+
+`markdown:docs/common/interactions.en.md`
+
 ### Plot Events
 
 `markdown:docs/common/events.en.md`
@@ -114,50 +128,3 @@ The default is `{tile: 'treemapSquarify', ratio: 0.5 * (1 + Math.sqrt(5))}` (Gol
 ### Plot Theme
 
 `markdown:docs/common/theme.en.md`
-
-### Interactions
-
-#### treemap-drill-down
-
-treemap-drill-down 用于下钻交互，配置该交互后，矩形树图默认显示深度为 1 的节点，点击后下钻。
-
-示例
-
-```plain
-interactions: [
-  {
-    type: 'treemap-drill-down',
-  },
-],
-```
-
-#### view-zoom
-
-view-zoom 用于放大 view，配置该交互后，canavs 自动识别 zoom 手势，放大或缩小矩形树图
-
-示例
-
-```plain
-interactions: [
-  {
-    type: 'view-zoom',
-  },
-],
-```
-
-#### drag-move
-
-drag-move 用于拖拽 view，可和 view-zoom 配套使用，查看矩形树图细节
-
-示例
-
-```plain
-interactions: [
-  {
-    type: 'drag-move',
-  },
-],
-```
-
-
-`markdown:docs/common/interactions.en.md`

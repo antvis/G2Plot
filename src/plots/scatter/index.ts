@@ -4,7 +4,7 @@ import { deepAssign } from '../../utils';
 import { ScatterOptions } from './types';
 import { adaptor, transformOptions, meta } from './adaptor';
 import { DEFAULT_OPTIONS } from './constant';
-import './interaction';
+import './interactions';
 
 export type { ScatterOptions };
 

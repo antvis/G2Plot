@@ -18,7 +18,8 @@
         "zh": "设置字段别名",
         "en": "Set alias of field"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/4EtM9REqIP/8edb0a9e-293e-4b87-bc61-d814e958acbd.png"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/4EtM9REqIP/8edb0a9e-293e-4b87-bc61-d814e958acbd.png",
+      "new": true
     },
     {
       "filename": "custom-color.ts",
@@ -26,7 +27,8 @@
         "zh": "自定义颜色：绿涨红跌",
         "en": "Custom stock color"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/4EtM9REqIP/8edb0a9e-293e-4b87-bc61-d814e958acbd.png"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/4EtM9REqIP/8edb0a9e-293e-4b87-bc61-d814e958acbd.png",
+      "new": true
     },
     {
       "filename": "custom-tooltip.ts",
@@ -34,7 +36,8 @@
         "zh": "自定义 Tooltip 展示字段",
         "en": "Custom tooltip fields"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/4EtM9REqIP/8edb0a9e-293e-4b87-bc61-d814e958acbd.png"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/4EtM9REqIP/8edb0a9e-293e-4b87-bc61-d814e958acbd.png",
+      "new": true
     },
     {
       "filename": "custom-crosshairs.ts",
@@ -42,7 +45,8 @@
         "zh": "自定义 crosshairs 指示器",
         "en": "Custom crosshairs pointer"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/UKHCDVwzFB/stock-crosshairs.png"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/UKHCDVwzFB/stock-crosshairs.png",
+      "new": true
     },
     {
       "filename": "custom-style.ts",
@@ -50,7 +54,8 @@
         "zh": "自定义样式",
         "en": "Custom style"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*-HIwQbCnfFUAAAAAAAAAAAAAARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*-HIwQbCnfFUAAAAAAAAAAAAAARQnAQ",
+      "new": true
     },
     {
       "filename": "slider.ts",
@@ -58,7 +63,17 @@
         "zh": "带缩略轴的股票图",
         "en": "Stock plot with slider"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/H1Rf%26M6wMO/af51e97a-7665-4591-a3f0-9c7931b15b76.png"
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/H1Rf%26M6wMO/af51e97a-7665-4591-a3f0-9c7931b15b76.png",
+      "new": true
+    },
+    {
+      "filename": "large-data.ts",
+      "title": {
+        "zh": "超大数据量的股票图",
+        "en": "Stock plot with large data"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/0q2UxejfIL/f68c60f0-f044-47dd-b217-efa224215145.png",
+      "new": true
     }
   ]
 }

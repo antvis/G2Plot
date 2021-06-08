@@ -1,3 +1,4 @@
+import { Types } from '@antv/g2';
 import { isNumber, isArray } from '@antv/util';
 
 /**
@@ -26,4 +27,24 @@ export function normalPadding(padding: number | number[] | 'auto'): [number, num
   }
 
   return [0, 0, 0, 0];
+}
+
+/**
+ * 获取调整的 appendPadding
+ */
+export function getAdjustAppendPadding(padding: Types.ViewAppendPadding, position = 'bottom', append = 25) {
+  const currentAppendPadding = normalPadding(padding);
+
+  const PADDING = [
+    position.startsWith('top') ? append : 0,
+    position.startsWith('right') ? append : 0,
+    position.startsWith('bottom') ? append : 0,
+    position.startsWith('left') ? append : 0,
+  ];
+  return [
+    currentAppendPadding[0] + PADDING[0],
+    currentAppendPadding[1] + PADDING[1],
+    currentAppendPadding[2] + PADDING[2],
+    currentAppendPadding[3] + PADDING[3],
+  ];
 }

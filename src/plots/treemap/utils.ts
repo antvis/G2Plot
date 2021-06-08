@@ -1,8 +1,7 @@
 import { isArray, get } from '@antv/util';
-import { Types, View } from '@antv/g2';
+import { View } from '@antv/g2';
 import { HIERARCHY_DATA_TRANSFORM_PARAMS } from '../../interactions/actions/drill-down';
 import { Interaction } from '../../types/interaction';
-import { normalPadding } from '../../utils/padding';
 import { treemap } from '../../utils/hierarchy/treemap';
 import { TreemapOptions } from './types';
 
@@ -104,10 +103,4 @@ export function transformData(options: TransformDataOptions) {
     result.push(nodeInfo);
   });
   return result;
-}
-
-export function getAdjustAppendPadding(padding: Types.ViewAppendPadding) {
-  const currentAppendPadding = normalPadding(padding);
-  const BOTTOM = 25;
-  return [currentAppendPadding[0], currentAppendPadding[1], currentAppendPadding[2] + BOTTOM, currentAppendPadding[3]];
 }

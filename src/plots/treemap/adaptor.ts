@@ -1,8 +1,10 @@
+import { get } from '@antv/util';
 import { polygon as basePolygon } from '../../adaptor/geometries/polygon';
 import { Params } from '../../core/adaptor';
 import { interaction as commonInteraction, animation, theme, legend, annotation, tooltip } from '../../adaptor/common';
 import { flow, deepAssign } from '../../utils';
-import { transformData, findInteraction, getAdjustAppendPadding, enableDrillInteraction } from './utils';
+import { getAdjustAppendPadding } from '../../utils/padding';
+import { transformData, findInteraction, enableDrillInteraction } from './utils';
 import { TreemapOptions } from './types';
 
 /**
@@ -105,7 +107,7 @@ function adaptorInteraction(options: TreemapOptions): TreemapOptions {
  */
 export function interaction(params: Params<TreemapOptions>): Params<TreemapOptions> {
   const { chart, options } = params;
-  const { interactions } = options;
+  const { interactions, drilldown } = options;
 
   commonInteraction({
     chart,
@@ -131,7 +133,7 @@ export function interaction(params: Params<TreemapOptions>): Params<TreemapOptio
   const enableDrillDown = enableDrillInteraction(options);
   if (enableDrillDown) {
     // 为面包屑在底部留出 25px 的空间
-    chart.appendPadding = getAdjustAppendPadding(chart.appendPadding);
+    chart.appendPadding = getAdjustAppendPadding(chart.appendPadding, get(drilldown, ['breadCrumb', 'position']));
   }
   return params;
 }

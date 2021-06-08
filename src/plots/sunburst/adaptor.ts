@@ -4,7 +4,7 @@ import { Params } from '../../core/adaptor';
 import { polygon as polygonAdaptor } from '../../adaptor/geometries';
 import { interaction as baseInteraction, animation, theme, annotation, scale } from '../../adaptor/common';
 import { flow, findGeometry, transformLabel, deepAssign } from '../../utils';
-import { normalPadding } from '../../utils/padding';
+import { getAdjustAppendPadding } from '../../utils/padding';
 import { Datum } from '../../types';
 import { RAW_FIELDS, SUNBURST_ANCESTOR_FIELD, SUNBURST_PATH_FIELD, SUNBURST_Y_FIELD } from './constant';
 import { transformData } from './utils';
@@ -211,9 +211,8 @@ function interaction(params: Params<SunburstOptions>): Params<SunburstOptions> {
 
   // 适应下钻交互面包屑
   if (drilldown?.enabled) {
-    const [top, right, bottom, left] = normalPadding(chart.appendPadding);
     // 为面包屑留出 25px 的空间
-    chart.appendPadding = [top + 25, right, bottom, left];
+    chart.appendPadding = getAdjustAppendPadding(chart.appendPadding, get(drilldown, ['breadCrumb', 'position']));
   }
 
   return params;

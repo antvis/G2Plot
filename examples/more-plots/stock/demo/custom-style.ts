@@ -11,7 +11,7 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/qtQ9nYfYJe/stock-data.json')
         // 关闭 tooltip 悬浮内容
         showContent: false,
       },
-      style: {
+      stockStyle: {
         stroke: '#666',
         lineWidth: 0.5,
       },

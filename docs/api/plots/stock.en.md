@@ -40,7 +40,7 @@ Configure the data source. The data source is a collection of objects. For examp
 ];
 ```
 
-#### xField 
+#### xField
 
 <description>**required** _string_</description>
 
@@ -51,7 +51,7 @@ Configure the data source. The data source is a collection of objects. For examp
 - 时间戳，如 1436237115500；
 - 时间字符串： '2015-03-01'，'2015-03-01 12:01:40'，'2015/01/05'，'2015-03-01T16:00:00.000Z'。
 
-#### yField 
+#### yField
 
 <description>**required** _array string_</description>
 
@@ -83,7 +83,7 @@ Falling color configuration.
 
 <playground path="more-plots/stock/demo/custom-color.ts" rid="custom-color"></playground>
 
-#### style
+#### stockStyle
 
 <description>**optional** _StyleAttr | Function_</description>
 

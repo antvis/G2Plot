@@ -14,5 +14,5 @@ export interface StockOptions extends Options {
   readonly fallingFill?: string;
 
   /** 样式配置 */
-  readonly style?: StyleAttr;
+  readonly stockStyle?: StyleAttr;
 }

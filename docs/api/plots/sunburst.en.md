@@ -68,7 +68,6 @@ Color mapping field.
 
 额外的原始字段。配置之后，可以在 tooltip，sunburstStyle 等回调函数的 datum 参数中，获取到更多额外的原始数据。
 
-
 ### Geometry Style
 
 #### hierarchyConfig ✨
@@ -79,14 +78,13 @@ Hierarchy configuration, such as' size ', 'padding', etc., refer to [D3-Hierarch
 
 支持配置属性：
 
-| 属性    | 类型               | 描述 ｜                                                                                                                              |
-| ------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
-| field   | _string_           | 数据节点权重映射字段，默认为：`value`. 当你的节点数据格式不是：`{ name: 'xx', value: 'xx' }`, 可以通过该字段来指定，详细见：图表示例 |
-| padding | _number\|number[]_ | 默认：`0`。参考：[d3-hierarchy#partition_padding](https://github.com/d3/d3-hierarchy#partition_padding)                              |
-| size    | _number[]_         | 默认：`[1, 1]`。参考：[d3-hierarchy#partition_size](https://github.com/d3/d3-hierarchy#partition_size)                               |
-| round   | _boolean_          | 默认：`false`。参考：[d3-hierarchy#partition_round](https://github.com/d3/d3-hierarchy#partition_round)                              |
-| sort    | _Function_         | 数据节点排序方式，默认：降序。参考: [d3-hierarchy#node_sort](https://github.com/d3/d3-hierarchy#node_sort)                           |
-
+| Properties | Type               | Description                                                                                                                          |
+| ---------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| field      | _string_           | 数据节点权重映射字段，默认为：`value`. 当你的节点数据格式不是：`{ name: 'xx', value: 'xx' }`, 可以通过该字段来指定，详细见：图表示例 |
+| padding    | _number\|number[]_ | 默认：`0`。参考：[d3-hierarchy#partition_padding](https://github.com/d3/d3-hierarchy#partition_padding)                              |
+| size       | _number[]_         | 默认：`[1, 1]`。参考：[d3-hierarchy#partition_size](https://github.com/d3/d3-hierarchy#partition_size)                               |
+| round      | _boolean_          | 默认：`false`。参考：[d3-hierarchy#partition_round](https://github.com/d3/d3-hierarchy#partition_round)                              |
+| sort       | _Function_         | 数据节点排序方式，默认：降序。参考: [d3-hierarchy#node_sort](https://github.com/d3/d3-hierarchy#node_sort)                           |
 
 #### radius
 
@@ -101,6 +99,7 @@ Radius, 0~1 of the value.
 Inner radius, 0~1 of the value.
 
 <!-- Color 配置 -->
+
 `markdown:docs/common/color.en.md`
 
 #### sunburstStyle
@@ -163,9 +162,9 @@ Radial type, not recommended in special cases. 在旭日图中，不可使用 `r
 
 Built-in interactions of Sunburst are as follows:
 
-| Interaction        | Description                  | Configuration    |
-| ---|---|---|
-| drill-down | 用于下钻交互，配置该交互后，矩形树图默认显示深度为 1 的节点，点击后下钻。| `drilldown: { enabled: true }`  |
+| Interaction | Description                              | Configuration                  |
+| ----------- | ---------------------------------------- | ------------------------------ |
+| drill-down  | 用于下钻交互，配置该交互后，点击可下钻。 | `drilldown: { enabled: true }` |
 
 `markdown:docs/common/drill-down.zh.md`
 

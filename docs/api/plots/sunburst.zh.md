@@ -43,7 +43,7 @@ type Node = { name: string; value?: number; children: Node[]; }
 meta: {
   [Sunburst.SUNBURST_PATH_FIELD]: {
     alias: '节点路径',
-    formatter: (v) => `🌞 ${v}`,
+    formatter: (v) => `${v}`,
   },
   [Sunburst.SUNBURST_ANCESTOR_FIELD]: {
     alias: '祖先节点',
@@ -66,7 +66,6 @@ meta: {
 
 额外的原始字段。配置之后，可以在 tooltip，sunburstStyle 等回调函数的 datum 参数中，获取到更多额外的原始数据。
 
-
 ### 图形样式
 
 #### hierarchyConfig ✨
@@ -77,13 +76,13 @@ meta: {
 
 支持配置属性：
 
-| 属性    | 类型               | 描述 ｜                                                                                                                              |
-| ------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
-| field   | _string_           | 数据节点权重映射字段，默认为：`value`. 当你的节点数据格式不是：`{ name: 'xx', value: 'xx' }`, 可以通过该字段来指定，详细见：图表示例 |
-| padding | _number\|number[]_ | 默认：`0`。参考：[d3-hierarchy#partition_padding](https://github.com/d3/d3-hierarchy#partition_padding)                              |
-| size    | _number[]_         | 默认：`[1, 1]`。参考：[d3-hierarchy#partition_size](https://github.com/d3/d3-hierarchy#partition_size)                               |
-| round   | _boolean_          | 默认：`false`。参考：[d3-hierarchy#partition_round](https://github.com/d3/d3-hierarchy#partition_round)                              |
-| sort    | _Function_         | 数据节点排序方式，默认：降序。参考: [d3-hierarchy#node_sort](https://github.com/d3/d3-hierarchy#node_sort)                           |
+| Properties | Type               | Description                                                                                                                          |
+| ---------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| field      | _string_           | 数据节点权重映射字段，默认为：`value`. 当你的节点数据格式不是：`{ name: 'xx', value: 'xx' }`, 可以通过该字段来指定，详细见：图表示例 |
+| padding    | _number\|number[]_ | 默认：`0`。参考：[d3-hierarchy#partition_padding](https://github.com/d3/d3-hierarchy#partition_padding)                              |
+| size       | _number[]_         | 默认：`[1, 1]`。参考：[d3-hierarchy#partition_size](https://github.com/d3/d3-hierarchy#partition_size)                               |
+| round      | _boolean_          | 默认：`false`。参考：[d3-hierarchy#partition_round](https://github.com/d3/d3-hierarchy#partition_round)                              |
+| sort       | _Function_         | 数据节点排序方式，默认：降序。参考: [d3-hierarchy#node_sort](https://github.com/d3/d3-hierarchy#node_sort)                           |
 
 #### radius
 
@@ -98,6 +97,7 @@ meta: {
 内径，0 ~ 1。
 
 <!-- Color 配置 -->
+
 `markdown:docs/common/color.zh.md`
 
 #### sunburstStyle
@@ -106,15 +106,15 @@ meta: {
 
 旭日图形样式。旭日图默认随着层级增加，而逐渐减小填充透明度，可以通过 sunburstStyle 回调来控制填充透明度，详细见：[图表示例](/zh/examples/more-plots/sunburst#style)
 
-| 细分配置      | 类型   | 功能描述   |
-| ------------- | ------ | ---------- |
-| fill          | string | 填充颜色   |
-| stroke        | string | 描边颜色   |
-| lineWidth     | number | 线宽       |
-| lineDash      | number | 虚线显示   |
-| opacity       | number | 透明度     |
-| fillOpacity   | number | 填充透明度 |
-| strokeOpacity | number | 描边透明度 |
+| Properties    | Type   | Description           |
+| ------------- | ------ | --------------------- |
+| fill          | string | Fill color            |
+| stroke        | string | Stroke color          |
+| lineWidth     | number | Line width            |
+| lineDash      | number | The dotted lines show |
+| opacity       | number | Transparency          |
+| fillOpacity   | number | Fill transparency     |
+| strokeOpacity | number | Stroke transparency   |
 
 ```ts
 // 直接指定
@@ -158,9 +158,9 @@ meta: {
 
 旭日图内置了一些交互，列表如下:
 
-| 交互 | 描述 | 配置方式 |
-| ---|---|---|
-| drill-down | 用于下钻交互，配置该交互后，矩形树图默认显示深度为 1 的节点，点击后下钻。| `drilldown: { enabled: true }`  |
+| Interaction | Description                              | Configuration                  |
+| ----------- | ---------------------------------------- | ------------------------------ |
+| drill-down  | 用于下钻交互，配置该交互后，点击可下钻。 | `drilldown: { enabled: true }` |
 
 `markdown:docs/common/drill-down.zh.md`
 

@@ -3,14 +3,14 @@ import { createDiv } from '../../../utils/dom';
 import { kdata } from '../../../data/stock';
 
 describe('Stock', () => {
-  it('set style', () => {
+  it('set stock style', () => {
     const k = new Stock(createDiv('x*y'), {
       width: 400,
       height: 500,
       data: kdata,
       xField: 'date',
       yField: ['start', 'end', 'max', 'min'],
-      style: {
+      stockStyle: {
         stroke: 'red',
         lineWidth: 2,
       },

@@ -1,3 +1,45 @@
+#### 2.3.22 (2021-06-08)
+
+##### Chores
+
+*  网站展示实际版本（use real version） ([#2552](https://github.com/antvis/g2plot/pull/2552)) ([627f8f06](https://github.com/antvis/g2plot/commit/627f8f06917d7f32caaef41204ecb6da40ab9e58))
+
+##### Documentation Changes
+
+*  文档 & 公告 ([#2582](https://github.com/antvis/g2plot/pull/2582)) ([86633a84](https://github.com/antvis/g2plot/commit/86633a84fb4bb5bdd7a6931dd5e655073878fae7))
+   - docs: 修复图例文档
+   - feat: 增加公告
+   - docs: 增加小提琴图文档
+   - docs: 增加 setGlobal & locale 相关文档
+* **radar:** 说明 seriesField 的使用 ([#2561](https://github.com/antvis/g2plot/pull/2561)) ([dd22c353](https://github.com/antvis/g2plot/commit/dd22c3531f5b15a06560f8e67b7e6848636be834))
+* **radar:** Radar seriesField 字段修复为非必需 ([#2615](https://github.com/antvis/g2plot/pull/2615)) ([e7e93793](https://github.com/antvis/g2plot/commit/e7e93793201a9160569a3865869548730fe235d5))
+* **faq:** fix typo in the faq.zh.md ([#2607](https://github.com/antvis/g2plot/pull/2607)) ([4a9d83f5](https://github.com/antvis/g2plot/commit/4a9d83f534e91e50391baaca66410a7c3ea8ba03))
+* **faq:** add browser compatibility in FAQ ([#2596](https://github.com/antvis/g2plot/pull/2596)) ([15ef6b97](https://github.com/antvis/g2plot/commit/15ef6b97a66605307b64b519786915d13b27e61a))
+* **faq:** update FAQ for liquid background ([#2543](https://github.com/antvis/g2plot/pull/2543)) ([fbc78513](https://github.com/antvis/g2plot/commit/fbc78513e15bb0f2dc1459a7cd2cf2e2e18a91b0))
+*  修复链接 404 ([#2568](https://github.com/antvis/g2plot/pull/2568)) ([2c8ce437](https://github.com/antvis/g2plot/commit/2c8ce4372b21487dcaef29b8e8cf138219c36971))
+*  使用 mock 数据 ([#2606](https://github.com/antvis/g2plot/pull/2606)) ([afbca087](https://github.com/antvis/g2plot/commit/afbca0879cdc38baa617be4a3f44dd0d8291002f))
+
+##### New Features
+
+*  **locale:** 支持国际化 ([#2605](https://github.com/antvis/g2plot/pull/2605)) ([7d5eebef](https://github.com/antvis/g2plot/commit/7d5eebef8bef0b28d1610c7e3063128f67849368))
+*  **violin:** 新增小提琴图([#2593](https://github.com/antvis/g2plot/pull/2593)) ([10e23bfb](https://github.com/antvis/g2plot/commit/10e23bfbacdc6b348cea2beac36373e81af22dd5))
+*  **facet:** 新增 facet 分面图 ([#2553](https://github.com/antvis/g2plot/pull/2553)) ([c1999edf](https://github.com/antvis/g2plot/commit/c1999edf5d51f8dec65251acb9d9c55a854f25ca))
+* **box:**  箱线图重构和增强 ([#2583](https://github.com/antvis/g2plot/pull/2583)) ([6afc12cc](https://github.com/antvis/g2plot/commit/6afc12cc7f13c0c4c1df391db96b089c2ba2b7a6))
+*  **stock:** 股票图增强 ([#2579](https://github.com/antvis/g2plot/pull/2579)) ([dea171ad](https://github.com/antvis/g2plot/commit/dea171ad75e607109ceb9d55566a363b37802e6b))
+* **sunburst:**  旭日图重构和增强  ([#2603](https://github.com/antvis/g2plot/pull/2603)) ([70bab7cb](https://github.com/antvis/g2plot/commit/70bab7cb642574a531fa33563b677c7a84a00205))
+* **statistic:**  中心统计文本支持 content 设置 ([#2567](https://github.com/antvis/g2plot/pull/2567)) ([b73b2c9d](https://github.com/antvis/g2plot/commit/b73b2c9db0ddbd5b5a1227f6fb1c5e03b8001868))
+*  补充自动巡检 action ([#2564](https://github.com/antvis/g2plot/pull/2564)) ([c4d21c26](https://github.com/antvis/g2plot/commit/c4d21c26114c25ad86e905c594c999ccf893ebc9))
+
+##### Bug Fixes
+
+* **#2572:**  修复堆叠分组状图 tooltip 展示不正常 (只展示第一个小分组的数据) ([#2576](https://github.com/antvis/g2plot/pull/2576)) ([85bbcb24](https://github.com/antvis/g2plot/commit/85bbcb248fb6a51bf7680992f461094af85368c8))
+* **#2573:**  修复雷达图设置 point state 状态样式不生效 ([#2577](https://github.com/antvis/g2plot/pull/2577)) ([50a815ab](https://github.com/antvis/g2plot/commit/50a815aba93fed3f97ada8426f0726911480e940))
+* **issue-2502:**  修复对称条形图 axis 设置 ([#2565](https://github.com/antvis/g2plot/pull/2565)) ([025446be](https://github.com/antvis/g2plot/commit/025446be968f504d8585f0d933919dd490c9299e))
+
+##### Refactors
+
+* **drilldown:** 矩阵树图下钻交互改造，旭日图支持下钻 ([#2608](https://github.com/antvis/g2plot/pull/2608)) ([8c5c3e2a](https://github.com/antvis/g2plot/commit/8c5c3e2a74dc5cf5f42065249b29b542edc5fae7))
+
 #### 2.3.20 (2021-05-13)
 
 ##### Documentation Changes

@@ -57,7 +57,7 @@
 * **sankey:**
   *  桑基图支持配置 rawFields, 在节点和边上获取更多原始数据信息 ([#2533](https://github.com/antvis/g2plot/pull/2533)) ([60ab2f7b](https://github.com/antvis/g2plot/commit/60ab2f7b466b452c0878b45e6fe600fbaf6c3121))
   *  add nodeDraggable interaction configure ([#2521](https://github.com/antvis/g2plot/pull/2521)) ([6ae79bb7](https://github.com/antvis/g2plot/commit/6ae79bb7f82df8d2f05d011666bd05821462cd43))
-* **chord:**  和弦图增加 state 通道 & 文档移除 color 配置 ([#2527](https://gfulti-view: 将多图层图表更名为 Mixithub.com/antvis/g2plot/pull/2527)) ([c23ef6c0](https://github.com/antvis/g2plot/commit/c23ef6c0c1adebb44d2d1bb6523cad5d86e40552))
+* **chord:**  和弦图增加 state 通道 & 文档移除 color 配置 ([#2527](https://github.com/antvis/g2plot/pull/2527)) ([c23ef6c0](https://github.com/antvis/g2plot/commit/c23ef6c0c1adebb44d2d1bb6523cad5d86e40552))
 
 ##### Bug Fixes
 

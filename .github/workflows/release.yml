@@ -28,8 +28,8 @@ jobs:
       - run: |
           cd public
           git init
-          git config --local user.name antv
-          git config --local user.email antv@antfin.com
+          git config --local user.name visiky
+          git config --local user.email 736929286@qq.com
           git add .
           git commit -m "update by release action"
       - uses: ad-m/github-push-action@master

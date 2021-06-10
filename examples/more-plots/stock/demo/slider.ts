@@ -1,6 +1,6 @@
 import { Stock } from '@antv/g2plot';
 
-fetch('https://gw.alipayobjects.com/os/antfincdn/qtQ9nYfYJe/stock-data.json')
+fetch('https://gw.alipayobjects.com/os/antfincdn/ZWgtj7pC%261/stock.json')
   .then((data) => data.json())
   .then((data) => {
     const stockPlot = new Stock('container', {

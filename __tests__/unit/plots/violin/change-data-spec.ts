@@ -27,4 +27,24 @@ describe('violin change data', () => {
 
     violin.destroy();
   });
+
+  it('from empty to have data', () => {
+    const violin = new Violin(createDiv(), {
+      width: 400,
+      height: 500,
+      data: [],
+      xField: 'type',
+      yField: 'value',
+    });
+
+    violin.render();
+    let g = violin.chart.views.find((view) => view.id === VIOLIN_VIEW_ID).geometries[0];
+    expect(g.elements.length).toBe(0);
+
+    violin.changeData(BASE_VIOLIN_DATA);
+    g = violin.chart.views.find((view) => view.id === VIOLIN_VIEW_ID).geometries[0];
+    expect(g.elements.length).toBe(group(BASE_VIOLIN_DATA, 'type').length);
+
+    violin.destroy();
+  });
 });

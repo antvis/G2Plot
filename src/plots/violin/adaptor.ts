@@ -169,6 +169,9 @@ function meta(params: Params<ViolinOptions>): Params<ViolinOptions> {
     [X_FIELD]: {
       sync: true,
       ...pick(xAxis, AXIS_META_CONFIG_KEYS),
+      // fix:  dodge is not support linear attribute, please use category attribute!
+      // 强制 x 轴类型为分类类型
+      type: 'cat',
     },
     [VIOLIN_Y_FIELD]: {
       sync: true,

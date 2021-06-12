@@ -21,8 +21,8 @@ jobs:
       - name: Commit and push if changed
         run: |-
           git diff
-          git config --local user.name antv
-          git config --local user.email antv@antfin.com
+          git config --local user.name visiky
+          git config --local user.email 736929286@qq.com
           git pull
           git add -A
           git commit -m "🤖 Auto update contributors" || exit 0

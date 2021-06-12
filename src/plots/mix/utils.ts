@@ -14,6 +14,7 @@ import { adaptor as ringProgressAdaptor } from '../ring-progress/adaptor';
 import { adaptor as progressAdaptor } from '../progress/adaptor';
 import { adaptor as scatterAdaptor } from '../scatter/adaptor';
 import { adaptor as histogramAdaptor } from '../histogram/adaptor';
+import { adaptor as funnelAdaptor } from '../funnel/adaptor';
 import { Line, LineOptions } from '../line';
 import { Pie, PieOptions } from '../pie';
 import { Bar, BarOptions } from '../bar';
@@ -27,6 +28,7 @@ import { RingProgress, RingProgressOptions } from '../ring-progress';
 import { Progress, ProgressOptions } from '../progress';
 import { Scatter, ScatterOptions } from '../scatter';
 import { Histogram, HistogramOptions } from '../histogram';
+import { Funnel, FunnelOptions } from '../funnel';
 
 /**
  * 移除 options 中的 width、height 设置
@@ -94,6 +96,10 @@ export type IPlotTypes =
   | {
       readonly type: 'scatter';
       readonly options: OmitSize<ScatterOptions>;
+    }
+  | {
+      readonly type: 'funnel';
+      readonly options: OmitSize<FunnelOptions>;
     };
 
 /**
@@ -113,6 +119,7 @@ const PLOT_ADAPTORS = {
   progress: progressAdaptor,
   scatter: scatterAdaptor,
   histogram: histogramAdaptor,
+  funnel: funnelAdaptor,
 };
 
 /**
@@ -133,6 +140,7 @@ const PLOT_CONSTRUCTOR = {
   progress: Progress,
   scatter: Scatter,
   histogram: Histogram,
+  funnel: Funnel,
 };
 
 /**

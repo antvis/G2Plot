@@ -21,6 +21,14 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*19AdR6-BjRgAAAAAAAAAAABkARQnAQ"
     },
     {
+      "filename": "composite-funnel.ts",
+      "title": {
+        "zh": "复合漏斗图",
+        "en": "Composite funnel plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/SbR2Vn52G6/02155166-d38c-4f32-825e-720ec25804e0.png"
+    },
+    {
       "filename": "combo-plot.ts",
       "title": {
         "zh": "组合图表",

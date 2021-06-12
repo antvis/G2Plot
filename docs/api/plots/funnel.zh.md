@@ -45,8 +45,7 @@ order: 9
 
 <description>**optional** _boolean_ _default:_ `false`</description>
 
-是否映射为动态高度。
-
+是否映射为动态高度。当设置为 'true' 时，漏斗图每个条目（图表元素）的高度和 y 轴字段对应数值成正比。
 
 #### maxSize
 

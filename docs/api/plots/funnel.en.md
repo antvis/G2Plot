@@ -23,7 +23,6 @@ Configure the data source. The data source is a collection of objects. For examp
 
 Field for comparing.
 
-
 #### seriesField
 
 <description>**optional** _string_</description>
@@ -46,7 +45,7 @@ Whether the plot is transposed.
 
 <description>**optional** _boolean_ _default:_ `false`</description>
 
-Whether the height is dynamic.
+Whether the height is dynamic. When set to `true`, the height of each elemnet in funnel plot is directly proportional to the corresponding value of yField.
 
 #### maxSize
 

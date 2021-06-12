@@ -39,3 +39,20 @@ export function getAllElementsRecursively(view: View): Element[] {
     getAllElements(view)
   );
 }
+
+/**
+ * 递归获取 View 的 所有 geometries, 包括 View 的子 View
+ */
+export function getAllGeometriesRecursively(view: View): Geometry[] {
+  if (get(view, ['views', 'length'], 0) <= 0) {
+    return view.geometries;
+  }
+
+  return reduce(
+    view.views,
+    (ele: Geometry[], subView: View) => {
+      return ele.concat(subView.geometries);
+    },
+    view.geometries
+  );
+}

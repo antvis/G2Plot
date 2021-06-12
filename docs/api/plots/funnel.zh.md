@@ -29,17 +29,17 @@ order: 9
 
 分组字段。声明此字段时会自动渲染为分组漏斗图
 
-#### isTransposed
-
-<description>**optional** _boolean_ _default:_ `false`</description>
-
-是否转置。
-
 #### meta
 
 `markdown:docs/common/meta.zh.md`
 
 ### 图形样式
+
+#### isTransposed
+
+<description>**optional** _boolean_ _default:_ `false`</description>
+
+是否转置。
 
 #### dynamicHeight
 
@@ -54,7 +54,6 @@ order: 9
 图形最大宽度，为 [0, 1] 之间小数，默认为 1。
 
 注：因动态高度漏斗图将值映射为高度，因此声明 dynamicHeight: true 时，该字段无效
-
 
 #### minSize
 
@@ -105,20 +104,48 @@ order: 9
 
 `markdown:docs/common/theme.zh.md`
 
+### 静态属性
 
-### 静态变量
+漏斗图提供静态属性，以方便用户在实际项目中的使用.
 
-漏斗图提供静态变量，以方便用户在实际项目中的使用，包括
+#### 静态变量
 
+| 字段 key 值 | 说明 |
+| --- | --- |
+| `CONVERSATION_FIELD` | 该字段对应数值为数组，存储漏斗当前和上一项值，例如 [263, 151], 用户可由此计算转化率 |
+| `PERCENT_FIELD` | 该字段对应数值代表的是当前数值和上一项值的转化率百分比 |
+| `TOTAL_PERCENT_FIELD` | 该字段对应数值代表的总转化率百分比 |
+
+**使用示例：**
+
+```javascript
+// 引用
+import { Funnel } from '@antv/g2plot';
+
+// 使用
+{
+  conversionTag: {
+    formatter: (datum) => {
+      return `${(datum[Funnel.CONVERSATION_FIELD][1] / datum[Funnel.CONVERSATION_FIELD][0] * 100).toFixed(2)}%`;
+    },
+  },
+  label: {
+    formatter: (datum) => {
+      return `${(datum[Funnel.PERCENT_FIELD] * 100).toFixed(2)}%`;
+    }
+  }
+}
+```
 
 #### FUNNEL_CONVERSATION_FIELD
+
+> 注意：在最新版本中，您可以直接使用 `Funnel.CONVERSATION_FIELD` 来替代 `FUNNEL_CONVERSATION_FIELD`
 
 FUNNEL_CONVERSATION_FIELD 为数组，存储漏斗当前和上一项值，例如 [263, 151], 用户可由此计算转化率，例如:
 
 ```javascript
 // 引用
 import { FUNNEL_CONVERSATION_FIELD } from '@antv/g2plot';
-
 
 // 使用
 {

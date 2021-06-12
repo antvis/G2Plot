@@ -26,9 +26,9 @@ export interface FunnelOptions extends Options {
   readonly conversionTag?:
     | false
     | {
-        readonly offsetX: number;
-        readonly offsetY: number;
-        readonly style: TextStyle;
-        readonly formatter: string | ((datum?: Datum, data?: Data) => string);
+        readonly offsetX?: number;
+        readonly offsetY?: number;
+        readonly style?: TextStyle;
+        readonly formatter?: string | ((datum?: Datum, data?: Data) => string);
       };
 }

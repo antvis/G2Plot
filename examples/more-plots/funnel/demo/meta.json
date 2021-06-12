@@ -13,6 +13,14 @@
       "screenshot": "https://gw.alicdn.com/tfs/TB158FxuAT2gK0jSZPcXXcKkpXa-646-500.png"
     },
     {
+      "filename": "static-field.ts",
+      "title": {
+        "zh": "漏斗图: 使用静态变量",
+        "en": "Funnel plot - static field"
+      },
+      "screenshot": "https://gw.alicdn.com/tfs/TB158FxuAT2gK0jSZPcXXcKkpXa-646-500.png"
+    },
+    {
       "filename": "dynamic-height.ts",
       "title": {
         "zh": "动态高度漏斗图",

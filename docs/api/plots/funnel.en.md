@@ -29,17 +29,17 @@ Field for comparing.
 
 Field for spliting.
 
-#### isTransposed
-
-<description>**optional** _boolean_ _default:_ `false`</description>
-
-Whether the plot is transposed.
-
 #### meta
 
 `markdown:docs/common/meta.en.md`
 
 ### Graphic Style
+
+#### isTransposed
+
+<description>**optional** _boolean_ _default:_ `false`</description>
+
+Whether the plot is transposed.
 
 #### dynamicHeight
 
@@ -104,20 +104,47 @@ Defalut: `{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$
 
 `markdown:docs/common/theme.en.md`
 
+### Static Properties
 
-### Static Variables
+Funnel plot provides static properties, makes it easy to use.
 
-Funnel plot provides static variables, such as:
+#### Static variables
 
+| Field | Description |
+| --- | --- |
+| `CONVERSATION_FIELD` | The corresponding value of this field is an array, stores the current and previous values of the funnel, for example, [263, 151], from which the user can calculate the conversion rate |
+| `PERCENT_FIELD` | The corresponding value of this field represents the `conversion percentage` between current value and previous value |
+| `TOTAL_PERCENT_FIELD` | The corresponding value of this field represents the percentage of total conversion rate |
+
+**Example:**
+
+```javascript
+import { Funnel } from '@antv/g2plot';
+
+// usage
+{
+  conversionTag: {
+    formatter: (datum) => {
+      return `${(datum[Funnel.CONVERSATION_FIELD][1] / datum[Funnel.CONVERSATION_FIELD][0] * 100).toFixed(2)}%`;
+    },
+  },
+  label: {
+    formatter: (datum) => {
+      return `${(datum[Funnel.PERCENT_FIELD] * 100).toFixed(2)}%`;
+    }
+  }
+}
+```
 
 #### FUNNEL_CONVERSATION_FIELD
+
+> Attention: you can use `Funnel.CONVERSATION_FIELD` to replace `FUNNEL_CONVERSATION_FIELD` in the latest version.
 
 FUNNEL_CONVERSATION_FIELD is an array, stores the current and previous values of the funnel, for example, [263, 151], from which the user can calculate the conversion rate, for example:
 
 ```javascript
 // 引用
 import { FUNNEL_CONVERSATION_FIELD } from '@antv/g2plot';
-
 
 // 使用
 {

@@ -8,7 +8,7 @@ import { basicFunnel } from './geometries/basic';
 import { compareFunnel } from './geometries/compare';
 import { facetFunnel } from './geometries/facet';
 import { dynamicHeightFunnel } from './geometries/dynamic-height';
-import { FUNNEL_CONVERSATION, FUNNEL_MAPPING_VALUE, FUNNEL_PERCENT } from './constant';
+import { FUNNEL_CONVERSATION, FUNNEL_PERCENT } from './constant';
 
 /**
  *
@@ -29,47 +29,24 @@ function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const i18n = getLocale(locale);
 
   const defaultOption = {
-    minSize: 0,
-    maxSize: 1,
-    meta: {
-      [FUNNEL_MAPPING_VALUE]: {
-        min: 0,
-        max: 1,
-        nice: false,
-      },
-    },
     label: compareField
       ? {
           fields: [xField, yField, compareField, FUNNEL_PERCENT, FUNNEL_CONVERSATION],
-          style: {
-            fill: '#fff',
-            fontSize: 12,
-          },
           formatter: (datum) => `${datum[yField]}`,
         }
       : {
           fields: [xField, yField, FUNNEL_PERCENT, FUNNEL_CONVERSATION],
           offset: 0,
           position: 'middle',
-          style: {
-            fill: '#fff',
-            fontSize: 12,
-          },
           formatter: (datum) => `${datum[xField]} ${datum[yField]}`,
         },
     tooltip: {
-      showTitle: false,
-      showMarkers: false,
-      shared: false,
       title: xField,
       formatter: (datum) => {
         return { name: datum[xField], value: datum[yField] };
       },
     },
     conversionTag: {
-      offsetX: 10,
-      offsetY: 0,
-      style: {},
       // conversionTag 的计算和显示逻辑统一保持一致
       formatter: (datum) =>
         `${i18n.get(['conversionTag', 'label'])}: ${conversionTagFormatter(

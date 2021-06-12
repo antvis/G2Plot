@@ -41,6 +41,15 @@ order: 9
 
 是否转置。
 
+#### shape
+
+<description>**optional** _string_ `'funnel' ｜ 'pyramid'` </description>
+
+漏斗图形状。shape 设置为 'pyramid' 时，漏斗图展示为尖底样式（形如：金字塔）。目前只在基础漏斗图中适用。不适用场景：
+
+1. 在对比漏斗图（`compareField` 存在时）不适用
+2. 设置 dynamicHeight: 'true' 时不适用，此时需要设置 shape 为空。
+
 #### dynamicHeight
 
 <description>**optional** _boolean_ _default:_ `false`</description>
@@ -62,15 +71,14 @@ order: 9
 图形最小宽度，为 [0, 1] 之间小数，默认为 0。
 
 注：因动态高度漏斗图将值映射为高度，因此声明 dynamicHeight: true 时，该字段无效
-#### conversionTag
 
-<description>**optional** _false | object_</description>
+#### funnelStyle
 
-配置转化率组件。
+<description>**可选** _object_</description>
 
-默认配置：`{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$percentage$$ * 100 + '%',}`。
+漏斗图样式。可以直接传入 `ShapeStyle` 结构，也可以使用回调函数的方式，针对不同的数据，来返回不同的样式。对于 ShapeStyle 的数据结构，可以参考：
 
-`markdown:docs/common/color.zh.md`
+`markdown:docs/common/shape-style.zh.md`
 
 ### 图表组件
 
@@ -81,6 +89,16 @@ order: 9
 #### label
 
 `markdown:docs/common/label.zh.md`
+
+#### conversionTag
+
+<description>**optional** _false | object_</description>
+
+配置转化率组件。
+
+默认配置：`{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$percentage$$ * 100 + '%',}`。
+
+`markdown:docs/common/color.zh.md`
 
 #### 图例
 
@@ -98,7 +116,6 @@ order: 9
 ### 图表方法
 
 `markdown:docs/common/chart-methods.zh.md`
-
 
 ### 图表主题
 

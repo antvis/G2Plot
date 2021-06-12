@@ -41,6 +41,15 @@ Field for spliting.
 
 Whether the plot is transposed.
 
+#### shape
+
+<description>**optional** _string_ `'funnel' ｜ 'pyramid'` </description>
+
+漏斗图形状。shape 设置为 'pyramid' 时，漏斗图展示为尖底样式（形如：金字塔）。目前只在基础漏斗图中适用。不适用场景：
+
+1. 在对比漏斗图（`compareField` 存在时）不适用
+2. 设置 dynamicHeight: 'true' 时不适用，此时需要设置 shape 为空。
+
 #### dynamicHeight
 
 <description>**optional** _boolean_ _default:_ `false`</description>
@@ -63,15 +72,13 @@ the min size of graphic，is between 0 and 1, default 0。
 
 Tip: when set dynamicHeight to be true, this field is invalid 
 
-#### conversionTag
+#### funnelStyle
 
-<description>**optional** _false | object_</description>
+<description>**optional** _object_</description>
 
-Configure the conversion rate component.
+Graphic style of funnel. You can either pass in the 'shapeStyle' structure directly, or you can use callbacks to return different styles for different data. For the ShapeStyle data structure, see:
 
-Defalut: `{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$percentage$$ * 100 + '%',}`。
-
-`markdown:docs/common/color.en.md`
+`markdown:docs/common/shape-style.en.md`
 
 ### Plot Components
 
@@ -82,6 +89,16 @@ Defalut: `{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$
 #### label
 
 `markdown:docs/common/label.en.md`
+
+#### conversionTag
+
+<description>**optional** _false | object_</description>
+
+Configure the conversion rate component.
+
+Defalut: `{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$percentage$$ * 100 + '%',}`。
+
+`markdown:docs/common/color.en.md`
 
 #### 图例
 

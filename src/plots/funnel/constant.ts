@@ -39,6 +39,9 @@ export const DEFAULT_OPTIONS = {
   conversionTag: {
     offsetX: 10,
     offsetY: 0,
-    style: {},
+    style: {
+      fontSize: 12,
+      fill: 'rgba(0,0,0,0.45)',
+    },
   },
 };

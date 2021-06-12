@@ -33,7 +33,8 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, color, compareField, isTransposed, tooltip, maxSize, minSize, label } = options;
+  const { data, xField, yField, color, compareField, isTransposed, tooltip, maxSize, minSize, label, funnelStyle } =
+    options;
 
   chart.facet('mirror', {
     fields: [compareField],
@@ -83,13 +84,11 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
           colorField: xField,
           tooltipFields: isArray(fields) && fields.concat([FUNNEL_PERCENT, FUNNEL_CONVERSATION]),
           mapping: {
+            // todo 暂时不提供 金字塔 shape，后续需要自定义下形状
             shape: 'funnel',
             tooltip: formatter,
             color,
-            style: {
-              lineWidth: 1,
-              stroke: '#fff',
-            },
+            style: funnelStyle,
           },
           label: label === false ? false : deepAssign({}, defaultFacetLabel, label),
         },

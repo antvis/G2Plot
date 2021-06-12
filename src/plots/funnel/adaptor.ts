@@ -1,6 +1,8 @@
+import { isFunction } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme, scale, annotation, tooltip } from '../../adaptor/common';
 import { getLocale } from '../../core/locale';
+import { Datum } from '../../types';
 import { flow, deepAssign } from '../../utils';
 import { conversionTagFormatter } from '../../utils/conversion';
 import { FunnelOptions } from './types';
@@ -25,7 +27,7 @@ import { FUNNEL_CONVERSATION, FUNNEL_PERCENT } from './constant';
  */
 function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { options } = params;
-  const { compareField, xField, yField, locale } = options;
+  const { compareField, xField, yField, locale, funnelStyle } = options;
   const i18n = getLocale(locale);
 
   const defaultOption = {
@@ -55,12 +57,20 @@ function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
     },
   };
 
-  return deepAssign(
-    {
-      options: defaultOption,
-    },
-    params
-  );
+  // 漏斗图样式
+  let style;
+  if (compareField || funnelStyle) {
+    style = (datum: Datum) => {
+      return deepAssign(
+        {},
+        // 对比漏斗图默认描边
+        compareField && { lineWidth: 1, stroke: '#fff' },
+        isFunction(funnelStyle) ? funnelStyle(datum) : funnelStyle
+      );
+    };
+  }
+
+  return deepAssign({ options: defaultOption }, params, { options: { funnelStyle: style } });
 }
 
 /**

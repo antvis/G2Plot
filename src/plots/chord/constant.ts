@@ -1,3 +1,4 @@
+import { get } from '@antv/util';
 import { Datum } from '../../types';
 
 export const X_FIELD = 'x';
@@ -31,7 +32,13 @@ export const DEFAULT_OPTIONS = {
     },
   },
   tooltip: {
-    fields: ['source', 'target', 'value'],
+    showTitle: false,
+    showMarkers: false,
+    fields: ['source', 'target', 'value', 'isNode'],
+    // 内置：node 不显示 tooltip (业务层自行处理)，edge 显示 tooltip
+    showContent: (items) => {
+      return !get(items, [0, 'data', 'isNode']);
+    },
     formatter: (datum: Datum) => {
       const { source, target, value } = datum;
       return {

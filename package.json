@@ -46,8 +46,7 @@
     "changelog": "generate-changelog",
     "prepublishOnly": "run-s lint test build",
     "analyze": "webpack --profile --json > dist/stats.json && webpack-bundle-analyzer ./dist/stats.json",
-    "contributors:add": "all-contributors add",
-    "contributors:check": "all-contributors check"
+    "contributors:add": "all-contributors add"
   },
   "husky": {
     "hooks": {

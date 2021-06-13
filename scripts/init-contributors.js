@@ -19,14 +19,13 @@ async function queryContributors(owner, repo, page = 1) {
 }
 
 function exec() {
-  // 方式1: Get contributors by run `npm run contributors:check`
+  // 方式1: Get contributors by run `all-contributors check`
   // 方式2: queryContributors
   queryContributors('antvis', 'g2plot').then((contributors) => {
-    shell.echo('contributors', contributors.length);
     contributors
       .sort((a, b) => b.contributions - a.contributions)
       .forEach((contributor) => {
-        shell.exec(`tnpm run contributors:add ${contributor.login} code`);
+        shell.exec(`npm run contributors:add ${contributor.login} code`);
       });
   });
 }

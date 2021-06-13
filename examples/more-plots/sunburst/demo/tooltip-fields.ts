@@ -1,6 +1,6 @@
 import { Sunburst } from '@antv/g2plot';
 
-fetch('https://gw.alipayobjects.com/os/antfincdn/ryp44nvUYZ/coffee.json')
+fetch('https://gw.alipayobjects.com/os/antfincdn/%24ixDFx9%248M/coffee-data.json')
   .then((data) => data.json())
   .then((data) => {
     const plot = new Sunburst('container', {
@@ -12,6 +12,10 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/ryp44nvUYZ/coffee.json')
         symbol: {
           alias: '国家',
         },
+      },
+      hierarchyConfig: {
+        // the weight of parent node depends on itself
+        ignoreParentValue: false,
       },
       tooltip: {
         fields: ['path', 'symbol', 'value'],

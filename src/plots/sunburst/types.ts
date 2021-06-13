@@ -23,7 +23,9 @@ export interface SunburstOptions extends Omit<Options, 'data' | 'legend' | 'slid
   /** 层级布局配置 */
   readonly hierarchyConfig?: Omit<HierarchyOption, 'as' | 'type'> & {
     /** default: 'value', required data to be like: { name: 'xx', [field]: 12, children: [] } */
-    field?: string;
+    readonly field?: string;
+    /** 是否忽略 */
+    readonly ignoreParentValue?: boolean;
   };
 
   // 其他

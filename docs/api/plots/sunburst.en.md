@@ -85,6 +85,7 @@ Hierarchy configuration, such as' size ', 'padding', etc., refer to [D3-Hierarch
 | size       | _number[]_         | 默认：`[1, 1]`。参考：[d3-hierarchy#partition_size](https://github.com/d3/d3-hierarchy#partition_size)                               |
 | round      | _boolean_          | 默认：`false`。参考：[d3-hierarchy#partition_round](https://github.com/d3/d3-hierarchy#partition_round)                              |
 | sort       | _Function_         | 数据节点排序方式，默认：降序。参考: [d3-hierarchy#node_sort](https://github.com/d3/d3-hierarchy#node_sort)                           |
+| ignoreParentValue       | _boolean_         | 是否忽略 parentValue, 默认：true。 当设置为 true 时，父节点的权重由子元素决定  |
 
 #### radius
 

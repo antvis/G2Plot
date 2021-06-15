@@ -2,7 +2,12 @@ import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { FunnelOptions } from './types';
 import { adaptor } from './adaptor';
-import { FUNNEL_CONVERSATION as FUNNEL_CONVERSATION_FIELD } from './constant';
+import {
+  DEFAULT_OPTIONS,
+  FUNNEL_CONVERSATION as FUNNEL_CONVERSATION_FIELD,
+  FUNNEL_PERCENT,
+  FUNNEL_TOTAL_PERCENT,
+} from './constant';
 
 export type { FunnelOptions };
 
@@ -13,10 +18,16 @@ export class Funnel extends Plot<FunnelOptions> {
   public type: string = 'funnel';
 
   static getDefaultOptions(): Partial<FunnelOptions> {
-    return {
-      appendPadding: [0, 80],
-    };
+    return DEFAULT_OPTIONS;
   }
+
+  // 内部变量
+  /** 漏斗 转化率 字段 */
+  static CONVERSATION_FIELD = FUNNEL_CONVERSATION_FIELD;
+  /** 漏斗 百分比 字段 */
+  static PERCENT_FIELD = FUNNEL_PERCENT;
+  /** 漏斗 总转换率百分比 字段 */
+  static TOTAL_PERCENT_FIELD = FUNNEL_TOTAL_PERCENT;
 
   /**
    * 获取 漏斗图 默认配置项

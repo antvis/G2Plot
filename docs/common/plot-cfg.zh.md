@@ -6,7 +6,7 @@ plot 类型，通过传入指定 type 的 plot，可以在图层上渲染 G2Plot
 
 目前开放的图表类型有以下类型：
 
-- **基础图表**：`'line' | 'pie' | 'column' | 'bar' | 'area' | 'gauge' |'scatter' | 'histogram'`
+- **基础图表**：`'line' | 'pie' | 'column' | 'bar' | 'area' | 'gauge' |'scatter' | 'histogram' | 'funnel'`
 - **迷你图表**：`'tiny-line' | 'tiny-column' | 'tiny-area' | 'progress' | 'ring-progress'`
 
 #### IPlot.options

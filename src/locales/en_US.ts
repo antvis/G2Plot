@@ -17,7 +17,7 @@ export const EN_US_LOCALE: Locale = {
   },
   /** conversionTag component */
   conversionTag: {
-    label: 'Conversion rate',
+    label: 'Rate',
   },
   legend: {},
   tooltip: {},

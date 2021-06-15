@@ -33,7 +33,7 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { xField, yField, color, tooltip, label } = options;
+  const { xField, yField, color, tooltip, label, shape = 'funnel', funnelStyle } = options;
 
   const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField]);
 
@@ -46,9 +46,10 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
       colorField: xField,
       tooltipFields: isArray(fields) && fields.concat([FUNNEL_PERCENT, FUNNEL_CONVERSATION]),
       mapping: {
-        shape: 'funnel',
+        shape,
         tooltip: formatter,
         color,
+        style: funnelStyle,
       },
       label,
     },

@@ -85,7 +85,7 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { xField, yField, color, tooltip, label } = options;
+  const { xField, yField, color, tooltip, label, funnelStyle } = options;
 
   const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField]);
   // 绘制漏斗图
@@ -101,6 +101,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
       mapping: {
         tooltip: formatter,
         color,
+        style: funnelStyle,
       },
     },
   });

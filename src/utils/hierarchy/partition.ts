@@ -1,5 +1,5 @@
 import * as d3Hierarchy from 'd3-hierarchy';
-import { assign, isArray, reduce } from '@antv/util';
+import { assign, isArray, reduce, size } from '@antv/util';
 import { getField, getAllNodes } from './util';
 
 const DEFAULT_OPTIONS: Options = {
@@ -10,6 +10,8 @@ const DEFAULT_OPTIONS: Options = {
   // 默认降序
   sort: (a, b) => b.value - a.value,
   as: ['x', 'y'],
+  // 是否忽略 parentValue, 当设置为 true 时，父节点的权重由子元素决定
+  ignoreParentValue: true,
 };
 
 export interface Options {
@@ -20,6 +22,8 @@ export interface Options {
   padding?: number;
   sort?: Function;
   as?: [string, string];
+
+  ignoreParentValue?: boolean;
 }
 
 export function partition(data: any, options: Options): any[] {
@@ -47,7 +51,13 @@ export function partition(data: any, options: Options): any[] {
        */
       d3Hierarchy
         .hierarchy(data)
-        .sum((d) => (d.children ? d[field] - reduce(d.children, (a, b) => a + b[field], 0) : d[field]))
+        .sum((d) =>
+          size(d.children)
+            ? options.ignoreParentValue
+              ? 0
+              : d[field] - reduce(d.children, (a, b) => a + b[field], 0)
+            : d[field]
+        )
         .sort(options.sort)
     );
   const root = partition(data);

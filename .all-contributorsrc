@@ -1,5 +1,5 @@
 {
-  "projectName": "g2plot",
+  "projectName": "G2Plot",
   "projectOwner": "antvis",
   "repoType": "github",
   "repoHost": "https://github.com",
@@ -325,7 +325,17 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "YiSiWang",
+      "name": "14",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20316342?v=4",
+      "profile": "https://github.com/YiSiWang",
+      "contributions": [
+        "code"
+      ]
     }
   ],
-  "contributorsPerLine": 6
+  "contributorsPerLine": 6,
+  "skipCi": true
 }

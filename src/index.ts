@@ -98,11 +98,11 @@ export type { HeatmapOptions } from './plots/heatmap';
 export { Box } from './plots/box';
 export type { BoxOptions } from './plots/box';
 
-// 小提琴图及类型定义
+// 小提琴图及类型定义 | author by [YiSiWang](https://github.com/YiSiWang), [visiky](https://github.com/visiky)
 export { Violin } from './plots/violin';
 export type { ViolinOptions } from './plots/violin';
 
-// K线图及类型定义 | author by [jhwong](https://github.com/jinhuiWong)
+// K线图及类型定义 | author by [jhwong](https://github.com/jinhuiWong), [visiky](https://github.com/visiky)
 export { Stock } from './plots/stock';
 export type { StockOptions } from './plots/stock';
 
@@ -110,7 +110,7 @@ export type { StockOptions } from './plots/stock';
 export { Funnel, FUNNEL_CONVERSATION_FIELD } from './plots/funnel';
 export type { FunnelOptions } from './plots/funnel';
 
-// 水波图及类型定义 | author by [CarisL](https://github.com/CarisL), [hustcc](https://github.com/hustcc)
+// 水波图及类型定义 | author by [CarisL](https://github.com/CarisL), [hustcc](https://github.com/hustcc), [pearmini](https://github.com/pearmini)
 export { Liquid } from './plots/liquid';
 export type { LiquidOptions } from './plots/liquid';
 
@@ -118,7 +118,7 @@ export type { LiquidOptions } from './plots/liquid';
 export { Bullet } from './plots/bullet';
 export type { BulletOptions } from './plots/bullet';
 
-// 旭日图及类型定义 | author by [lxfu1](https://github.com/lxfu1)
+// 旭日图及类型定义 | author by [lxfu1](https://github.com/lxfu1), [visiky](https://github.com/visiky)
 export { Sunburst } from './plots/sunburst';
 export type { SunburstOptions } from './plots/sunburst';
 

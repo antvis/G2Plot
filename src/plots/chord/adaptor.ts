@@ -1,9 +1,11 @@
-import { interaction, animation, theme, state } from '../../adaptor/common';
+import { Geometry } from '@antv/g2';
+import { each } from '@antv/util';
+import { interaction, theme, state } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
-import { flow } from '../../utils';
+import { flow, pick } from '../../utils';
 import { polygon, edge } from '../../adaptor/geometries';
 import { chordLayout } from '../../utils/transform/chord';
-import { transformDataToNodeLinkData } from '../../utils/data';
+import { getAllGeometriesRecursively, transformDataToNodeLinkData } from '../../utils';
 import { ChordOptions } from './types';
 import { X_FIELD, Y_FIELD, NODE_COLOR_FIELD, EDGE_COLOR_FIELD } from './constant';
 
@@ -11,7 +13,7 @@ function transformData(params: Params<ChordOptions>): Params<ChordOptions> {
   // 将弦图数据放到ext中，nodeGeometry edgeGeometry使用
 
   const { options } = params;
-  const { data, sourceField, targetField, weightField, nodePaddingRatio, nodeWidthRatio } = options;
+  const { data, sourceField, targetField, weightField, nodePaddingRatio, nodeWidthRatio, rawFields = [] } = options;
 
   // 将数据转换为node link格式
   const chordLayoutInputData = transformDataToNodeLinkData(data, sourceField, targetField, weightField);
@@ -21,23 +23,19 @@ function transformData(params: Params<ChordOptions>): Params<ChordOptions> {
   // 1. 生成绘制node使用数据
   const nodesData = nodes.map((node) => {
     return {
-      id: node.id,
-      x: node.x,
-      y: node.y,
-      name: node.name,
-      // value: node.value,
+      ...pick(node, ['id', 'x', 'y', 'name', ...rawFields]),
+      isNode: true,
     };
   });
 
-  // 2. 生成edge使用数据
-  // TODO: 对于边的数据暂时只支持两端一致
+  // 2. 生成 edge 使用数据 （同桑基图）
   const edgesData = links.map((link) => {
     return {
       source: link.source.name,
       target: link.target.name,
-      x: link.x,
-      y: link.y,
-      value: link.value,
+      name: link.source.name || link.target.name,
+      ...pick(link, ['x', 'y', 'value', ...rawFields]),
+      isNode: false,
     };
   });
 
@@ -91,11 +89,10 @@ function legend(params: Params<ChordOptions>): Params<ChordOptions> {
  * @param params 参数
  */
 function tooltip(params: Params<ChordOptions>): Params<ChordOptions> {
-  const { chart } = params;
-  chart.tooltip({
-    showTitle: false,
-    showMarkers: false,
-  });
+  const { chart, options } = params;
+  const { tooltip } = options;
+
+  chart.tooltip(tooltip);
   return params;
 }
 
@@ -117,7 +114,7 @@ function nodeGeometry(params: Params<ChordOptions>): Params<ChordOptions> {
   // node view
   const { chart, options } = params;
   const { nodesData } = params.ext.chordData;
-  const { nodeStyle, label } = options;
+  const { nodeStyle, label, tooltip } = options;
 
   const nodeView = chart.createView();
   nodeView.data(nodesData);
@@ -133,7 +130,7 @@ function nodeGeometry(params: Params<ChordOptions>): Params<ChordOptions> {
         style: nodeStyle,
       },
       label,
-      tooltip: false,
+      tooltip,
     },
   });
   return params;
@@ -166,6 +163,25 @@ function edgeGeometry(params: Params<ChordOptions>): Params<ChordOptions> {
     chart: edgeView,
     options: edgeOptions,
   });
+  return params;
+}
+
+function animation(params: Params<ChordOptions>): Params<ChordOptions> {
+  const { chart, options } = params;
+  const { animation } = options;
+
+  // 同时设置整个 view 动画选项
+  if (typeof animation === 'boolean') {
+    chart.animate(animation);
+  } else {
+    chart.animate(true);
+  }
+
+  // 所有的 Geometry 都使用同一动画（各个图形如有区别，自行覆盖）
+  each(getAllGeometriesRecursively(chart), (g: Geometry) => {
+    g.animate(animation);
+  });
+
   return params;
 }
 

@@ -1,5 +1,10 @@
 import { Chart } from '@antv/g2';
-import { findGeometry, getAllElements, getAllElementsRecursively } from '../../../src/utils';
+import {
+  findGeometry,
+  getAllElements,
+  getAllElementsRecursively,
+  getAllGeometriesRecursively,
+} from '../../../src/utils';
 import { createDiv } from '../../utils/dom';
 
 const div = createDiv();
@@ -68,6 +73,47 @@ describe('geometry', () => {
     chart.render();
 
     expect(getAllElementsRecursively(chart).length).toBe(6);
+
+    chart.destroy();
+  });
+  it('get geometries recursively', () => {
+    const chart = new Chart({
+      container: div,
+    });
+
+    const view1 = chart.createView();
+    view1.data(DATA);
+
+    view1.line().position('x*y');
+    view1.interval().position('x*y');
+
+    const view2 = chart.createView();
+    view2.data(DATA);
+
+    view2.line().position('x*y');
+    view2.interval().position('x*y');
+    view2.point().position('x*y');
+
+    chart.render();
+
+    expect(getAllGeometriesRecursively(chart).length).toBe(5);
+
+    const view3 = chart.createView();
+
+    view3.data(DATA);
+    view3.line().position('x*y');
+    view3.interval().position('x*y');
+
+    chart.render();
+
+    expect(getAllGeometriesRecursively(chart).length).toBe(7);
+
+    chart.data(DATA);
+    chart.interval().position('x*y');
+
+    chart.render();
+
+    expect(getAllGeometriesRecursively(chart).length).toBe(8);
 
     chart.destroy();
   });

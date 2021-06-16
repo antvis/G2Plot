@@ -104,7 +104,7 @@ describe('scatter', () => {
     scatter.destroy();
   });
 
-  it('legend: postion options', () => {
+  it('legend: position options', () => {
     const scatter = new Scatter(createDiv(), {
       width: 400,
       height: 300,

@@ -18,13 +18,14 @@ describe('chord: state', () => {
     plot.render();
 
     plot.setState('selected', (data) => (data as any).name === DATA[0].source);
-    expect(plot.getStates().length).toBe(1);
+    const selected = DATA.filter((d) => d.source === DATA[0].source).length + 1; /** 节点名称 */
+    expect(plot.getStates().length).toBe(selected);
 
     plot.chart.views[1].geometries[0].elements[0].setState('selected', false);
-    expect(plot.getStates().length).toBe(0);
+    expect(plot.getStates().length).toBe(selected - 1);
 
     plot.chart.views[1].geometries[0].elements[0].setState('selected', true);
-    expect(plot.getStates().length).toBe(1);
+    expect(plot.getStates().length).toBe(selected);
 
     // 取消 selected
     plot.setState('selected', (data) => (data as any).name === DATA[0].source, false);

@@ -1,3 +1,32 @@
+#### 2.3.24 (2021-06-16)
+
+##### Chores
+
+*  add contributors ([#2635](https://github.com/antvis/g2plot/pull/2635)) ([5a55e73f](https://github.com/antvis/g2plot/commit/5a55e73fb3d582777e8aab8084a5e0e389a9e7d7))
+*  update contributor-helper.yml ([#2631](https://github.com/antvis/g2plot/pull/2631)) ([15b35ee6](https://github.com/antvis/g2plot/commit/15b35ee6b919a3aa12d6fbfaab0df963cda2d971))
+
+##### Documentation Changes
+
+*  add YiSiWang as a contributor for code ([#2641](https://github.com/antvis/g2plot/pull/2641)) ([d2b213be](https://github.com/antvis/g2plot/commit/d2b213bec97f058cfa55febe7d1e6f811b58131b))
+
+##### New Features
+
+* **sunburst:**  旭日图增加 ignoreParentValue 配置 ([#2637](https://github.com/antvis/g2plot/pull/2637)) ([203774f5](https://github.com/antvis/g2plot/commit/203774f556b594ddaf7eed0a11a48497d6387169))
+
+##### Bug Fixes
+
+* **chord:**
+  *  修复单测问题 ([#2643](https://github.com/antvis/g2plot/pull/2643)) ([86c78a02](https://github.com/antvis/g2plot/commit/86c78a02730b2bfad73cf7c4e129daab3174da5b))
+  *  和弦图支持展示节点 tooltip & 修复动画效果不生效 ([#2632](https://github.com/antvis/g2plot/pull/2632)) ([7579638e](https://github.com/antvis/g2plot/commit/7579638e8d9613416a05ebe36dbb914712c3a4f8))
+  *  修复和弦图 state 设置不生效 ([#2633](https://github.com/antvis/g2plot/pull/2633)) ([1b3b07ab](https://github.com/antvis/g2plot/commit/1b3b07ab35630d311d0a1c6ccfac3efedd7dd4cc))
+*  typo in legend-spec.ts ([#2642](https://github.com/antvis/g2plot/pull/2642)) ([ade08c1d](https://github.com/antvis/g2plot/commit/ade08c1d8e46f52ad24228c8ef85bca42cfbe758))
+* **violin:**  修复小提琴图数据为空时，渲染直接抛出 error ([#2626](https://github.com/antvis/g2plot/pull/2626)) ([f398e67c](https://github.com/antvis/g2plot/commit/f398e67c52c28a6d16bbda92c86f5cd40ecf2634))
+* **docs:**  修复文档 demo 无限增大 ([#2625](https://github.com/antvis/g2plot/pull/2625)) ([fa1c2508](https://github.com/antvis/g2plot/commit/fa1c25081ffc8ca3713cecbaa61c666719c0111f))
+
+##### Refactors
+
+* **funnel:**  支持尖底漏斗图以及样式设置 ([#2634](https://github.com/antvis/g2plot/pull/2634)) ([0882b32d](https://github.com/antvis/g2plot/commit/0882b32d386b5f25fc895f43f75f1ea76e67b8b5))
+
 #### 2.3.23 (2021-06-09)
 
 ##### Chores

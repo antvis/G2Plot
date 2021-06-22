@@ -150,6 +150,7 @@ function tooltip(params: Params<CirclePackingOptions>): Params<CirclePackingOpti
         tooltipOptions
       );
     }
+    console.log(tooltipOptions, 'tooltipOptions');
     chart.tooltip(tooltipOptions);
   }
 

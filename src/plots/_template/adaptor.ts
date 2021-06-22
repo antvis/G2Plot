@@ -41,11 +41,11 @@ export function meta(params: Params<TemplateOptions>): Params<TemplateOptions> {
 export function adaptor(params: Params<TemplateOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
+    theme,
     geometry,
     meta,
     interaction,
-    animation,
-    theme
+    animation
     // ... 其他的 adaptor flow
   )(params);
 }

@@ -301,4 +301,41 @@ describe('scatter', () => {
 
     scatter.destroy();
   });
+
+  it('all yValues or xValues of data is equal', () => {
+    const data = [
+      { gender: 'female', height: 161.2, weight: 51.6 },
+      { gender: 'female', height: 111.2, weight: 51.6 },
+      { gender: 'female', height: 161.2, weight: 21.6 },
+    ];
+    const scatter = new Scatter(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data,
+      xField: 'weight',
+      yField: 'height',
+      xAxis: {
+        nice: false,
+      },
+      yAxis: {
+        nice: false,
+      },
+    });
+
+    scatter.render();
+    let yScale = scatter.chart.getScaleByField('height');
+    expect(yScale.max).not.toBe(161.2 * 2);
+
+    scatter.changeData([data[0], data[2]]);
+    yScale = scatter.chart.getScaleByField('height');
+    expect(yScale.min).toBe(0);
+    expect(yScale.max).toBe(161.2 * 2);
+
+    scatter.changeData([data[0], data[1]]);
+    const xScale = scatter.chart.getScaleByField('weight');
+    expect(xScale.max).toBe(51.6 * 2);
+
+    scatter.destroy();
+  });
 });

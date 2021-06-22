@@ -14,7 +14,7 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/%24m0nDoQYqH/basic-packing.json
           return name !== 'root' ? name : '';
         },
         // 偏移
-        offsetY: 0,
+        offsetY: 8,
         style: {
           fontSize: 12,
           textAlign: 'center',

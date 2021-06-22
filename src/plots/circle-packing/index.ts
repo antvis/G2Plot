@@ -43,7 +43,7 @@ export class CirclePacking extends Plot<CirclePackingOptions> {
       this.chart.clear();
       this.execAdaptor(); // 核心：宽高更新之后计算padding
       // 渲染
-      this.chart.render();
+      this.chart.render(true);
     }
   }
 }

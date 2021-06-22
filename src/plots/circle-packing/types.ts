@@ -10,16 +10,18 @@ export interface CirclePackingOptions extends Omit<Options, 'data'> {
 
   /** 颜色字段 */
   readonly colorField?: string;
+
   /** 颜色配置 */
   readonly color?: ColorAttr;
 
   /** 大小字段 */
   readonly sizeField?: string;
-  /** 图形大小 */
-  readonly size?: SizeAttr;
 
   /** 源字段 */
   readonly rawFields?: string[];
+
+  // 暂不提供自定义 size，内部计算
+  // readonly size?: SizeAttr;
 
   // 暂不提供 shape 配置，默认：circle.
   // readonly shape?: string;

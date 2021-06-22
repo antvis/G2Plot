@@ -5,32 +5,21 @@ import { Params } from '../../core/adaptor';
 import { interaction as baseInteraction, animation, theme, legend, annotation, scale } from '../../adaptor/common';
 import { flow, deepAssign } from '../../utils';
 import { getAdjustAppendPadding } from '../../utils/padding';
-import { transformData } from './utils';
+import { transformData, resolvePaddingForCircle, resolveAllPadding } from './utils';
 import { CirclePackingOptions } from './types';
 import { RAW_FIELDS } from './constant';
-import { resolvePaddingForCircle, resolveAllPadding } from './utils';
 
 /**
  * 获取默认 option
  * @param params
  */
 function defaultOptions(params: Params<CirclePackingOptions>): Params<CirclePackingOptions> {
-  const { options, chart } = params;
-  const { colorField } = options;
+  const { chart } = params;
   const diameter = Math.min(chart.viewBBox.width, chart.viewBBox.height);
 
   return deepAssign(
     {
       options: {
-        tooltip: {
-          fields: ['name', 'value', colorField],
-          formatter: (data) => {
-            return {
-              name: data.name,
-              value: data.value,
-            };
-          },
-        },
         size: ({ r }) => r * diameter, // 当autofit：false时，默认给固定半径
       },
     },
@@ -71,7 +60,7 @@ function padding(params: Params<CirclePackingOptions>): Params<CirclePackingOpti
 function geometry(params: Params<CirclePackingOptions>): Params<CirclePackingOptions> {
   const { chart, options } = params;
   const { padding, appendPadding } = chart;
-  const { color, colorField, pointStyle, hierarchyConfig, sizeField, size, rawFields = [], drilldown } = options;
+  const { color, colorField, pointStyle, hierarchyConfig, sizeField, rawFields = [], drilldown } = options;
 
   const data = transformData({
     data: options.data,
@@ -83,7 +72,12 @@ function geometry(params: Params<CirclePackingOptions>): Params<CirclePackingOpt
 
   const containerSize = chart.viewBBox;
   const { finalSize } = resolvePaddingForCircle(padding, appendPadding, containerSize);
-  const circleSize = ({ r }) => r * finalSize;
+  // 有sizeField的时候，例如 value ，可以选择映射 size 函数，自己计算出映射的半径
+  let circleSize = ({ r }) => r * finalSize; // 默认配置
+
+  if (sizeField) {
+    circleSize = (d) => d[sizeField] * finalSize; // 目前只有 r 通道映射效果会正常
+  }
 
   // geometry
   point(
@@ -144,11 +138,11 @@ function tooltip(params: Params<CirclePackingOptions>): Params<CirclePackingOpti
           customItems: (items: Types.TooltipItem[]) =>
             items.map((item) => {
               const scales = get(chart.getOptions(), 'scales');
-              const pathFormatter = get(scales, ['path', 'formatter'], (v) => v);
+              const nameFormatter = get(scales, ['name', 'formatter'], (v) => v);
               const valueFormatter = get(scales, ['value', 'formatter'], (v) => v);
               return {
                 ...item,
-                name: pathFormatter(item.data.value),
+                name: nameFormatter(item.data.name),
                 value: valueFormatter(item.data.value),
               };
             }),

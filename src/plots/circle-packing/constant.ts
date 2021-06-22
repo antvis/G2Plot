@@ -1,7 +1,9 @@
+import { CirclePackingOptions } from './types';
+
 /** 默认的源字段 */
 export const RAW_FIELDS = ['x', 'y', 'r', 'name', 'value', 'path', 'depth'];
 
-export const DEFAULT_OPTIONS = {
+export const DEFAULT_OPTIONS: Partial<CirclePackingOptions> = {
   // 默认按照 name 字段对颜色进行分类
   colorField: 'name',
   autoFit: true,
@@ -9,6 +11,7 @@ export const DEFAULT_OPTIONS = {
     lineWidth: 0,
     stroke: '#fff',
   },
+  legend: false,
   hierarchyConfig: {
     size: [1, 1] as [number, number], // width, height
     padding: 0,

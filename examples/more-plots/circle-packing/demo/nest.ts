@@ -1,20 +1,13 @@
 import { CirclePacking } from '@antv/g2plot';
 
-fetch('https://gw.alipayobjects.com/os/antfincdn/%24m0nDoQYqH/basic-packing.json')
+fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/flare.json')
   .then((data) => data.json())
   .then((data) => {
-    const box = document.getElementById('container').getBoundingClientRect();
-    const diameter = Math.min(box.width, box.height);
-
     const plot = new CirclePacking('container', {
-      // todo 必须 宽高相等（内置处理）
-      width: diameter,
-      height: diameter,
-      autoFit: false,
+      autoFit: true,
       padding: 0,
       data,
       sizeField: 'r',
-      size: ({ r }) => r * diameter,
       // 自定义颜色
       colorField: 'r',
       color: 'rgb(252, 253, 191)-rgb(231, 82, 99)-rgb(183, 55, 121)',

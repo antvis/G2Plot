@@ -35,14 +35,6 @@
         "en": "Custom padding between circles"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/dCP6LawPW0/7ffa2fef-af09-4df4-8db3-b8f1ddbc63a5.png"
-    },
-    {
-      "filename": "custom-shape.ts",
-      "title": {
-        "zh": "自定义形状",
-        "en": "Custom shape"
-      },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/ld0NQtdLO0/mianjitugengxinshuju-after.gif"
     }
   ]
 }

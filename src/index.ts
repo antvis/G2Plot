@@ -184,3 +184,7 @@ export const adaptors = { scale, legend, tooltip, annotation, interaction, theme
 
 /** 对于没有开发完成的图表，可以暂时先放到 Lab 下面，先做体验，稳定后放到根 export */
 export { Lab } from './lab';
+
+// 扩展一些自定义图表
+/** 高性能图表 */
+export { PixelPlot } from './pixels';

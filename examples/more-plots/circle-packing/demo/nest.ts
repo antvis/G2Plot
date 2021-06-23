@@ -18,6 +18,12 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/flare.json')
       },
       label: false,
       legend: false,
+      drilldown: {
+        enabled: true,
+        breadCrumb: {
+          position: 'top-left',
+        },
+      },
     });
 
     plot.render();

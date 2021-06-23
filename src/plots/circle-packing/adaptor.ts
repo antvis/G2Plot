@@ -43,7 +43,7 @@ function padding(params: Params<CirclePackingOptions>): Params<CirclePackingOpti
       chart.appendPadding,
       get(drilldown, ['breadCrumb', 'position'])
     );
-    tempAppendPadding = resolveAllPadding({ paddings: [appendPaddingByDrilldown, appendPadding] });
+    tempAppendPadding = resolveAllPadding([appendPaddingByDrilldown, appendPadding]);
   }
 
   const { finalPadding } = resolvePaddingForCircle(padding, tempAppendPadding, containerSize);
@@ -111,8 +111,8 @@ export function meta(params: Params<CirclePackingOptions>): Params<CirclePacking
       {},
       {
         // 必须强制为 nice
-        x: { nice: true },
-        y: { nice: true },
+        x: { min: 0, max: 1, minLimit: 0, maxLimit: 1, nice: true },
+        y: { min: 0, max: 1, minLimit: 0, maxLimit: 1, nice: true },
       }
     )
   )(params);
@@ -150,7 +150,6 @@ function tooltip(params: Params<CirclePackingOptions>): Params<CirclePackingOpti
         tooltipOptions
       );
     }
-    console.log(tooltipOptions, 'tooltipOptions');
     chart.tooltip(tooltipOptions);
   }
 
@@ -176,7 +175,7 @@ function adaptorInteraction(options: CirclePackingOptions): CirclePackingOptions
         ...interactions,
         {
           type: 'drill-down',
-          cfg: { drillDownConfig: drilldown, transformData },
+          cfg: { drillDownConfig: drilldown, transformData, enableDrillDown: true },
         },
       ],
     });

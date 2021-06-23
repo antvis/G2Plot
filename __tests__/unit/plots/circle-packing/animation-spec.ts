@@ -1,7 +1,6 @@
 import { CirclePacking } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { DATA } from '../../../data/circle-packing';
-import { DEFAULT_OPTIONS } from '../../../../src/plots/circle-packing/constant';
 
 describe('Circle-Packing', () => {
   const div = createDiv();

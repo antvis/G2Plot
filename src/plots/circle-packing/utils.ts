@@ -47,7 +47,7 @@ export function transformData(options: TransformDataOptions) {
     });
 
     nodeInfo.ext = hierarchyConfig;
-    nodeInfo[HIERARCHY_DATA_TRANSFORM_PARAMS] = { hierarchyConfig, rawFields };
+    nodeInfo[HIERARCHY_DATA_TRANSFORM_PARAMS] = { hierarchyConfig, rawFields, enableDrillDown };
 
     result.push(nodeInfo);
   });
@@ -57,20 +57,19 @@ export function transformData(options: TransformDataOptions) {
 
 /**
  * 根据图表的 padding 和 appendPadding 计算出图表的最终 padding
- * @param chart
+ * @param array
  */
-export function resolveAllPadding(options: { paddings: Types.ViewPadding[] }) {
+export function resolveAllPadding(paddings: Types.ViewPadding[]) {
   // 先把数组里的 padding 全部转换成 normal
-  const normalPaddings = options.paddings.map((item) => normalPadding(item));
+  const normalPaddings = paddings.map((item) => normalPadding(item));
   let finalPadding = [0, 0, 0, 0];
   if (normalPaddings.length > 0) {
-    finalPadding = normalPaddings[0].map((item, index) => {
-      let paddingElem = 0;
+    finalPadding = finalPadding.map((item, index) => {
       // 有几个 padding 数组就遍历几次，累加
       normalPaddings.forEach((d, i) => {
-        paddingElem += normalPaddings[i][index];
+        item += normalPaddings[i][index];
       });
-      return paddingElem;
+      return item;
     });
   }
   return finalPadding;
@@ -78,14 +77,14 @@ export function resolveAllPadding(options: { paddings: Types.ViewPadding[] }) {
 
 /**
  * 根据传入的 padding 和 现有的 画布大小， 输出针对圆形视图布局需要的 finalPadding 以及 finalSize
- * @param chart
+ * @param params
  */
 export function resolvePaddingForCircle(
   padding: Types.ViewPadding,
   appendPadding: Types.ViewAppendPadding,
   containerSize: { width: number; height: number }
 ) {
-  const tempPadding = resolveAllPadding({ paddings: [padding, appendPadding] });
+  const tempPadding = resolveAllPadding([padding, appendPadding]);
   const [top, right, bottom, left] = tempPadding; // 没设定，默认是 [0, 0, 0, 0]
   const { width, height } = containerSize;
 

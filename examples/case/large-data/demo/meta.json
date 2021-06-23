@@ -1,0 +1,16 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "pixel-plot.ts",
+      "title": {
+        "zh": "高性能图表 - 像素点图表",
+        "en": "高性能图表 - pixel plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/ykoADQv14q/878022aa-a78a-4226-bdc3-359237192969.png"
+    }
+  ]
+}

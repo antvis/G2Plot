@@ -1,4 +1,4 @@
-import { isNumber } from '@antv/util';
+import { isNumber, min, max } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
 import { point } from '../../adaptor/geometries';
@@ -8,18 +8,36 @@ import { getQuadrantDefaultConfig, getPath, getMeta } from './util';
 import { ScatterOptions } from './types';
 
 /**
- * 散点图 data.length === 1 时居中显示，
+ * 散点图默认美观
+ * ① data.length === 1 ② 所有数据 y 值相等 ③ 所有数据 x 值相等
  * @param params
  * @returns params
  */
 export function transformOptions(options: ScatterOptions): ScatterOptions {
-  const { data = [] } = options;
-  // 仅对 data.length === 1 的情况进行处理
-  if (data.length === 1) {
-    return deepAssign({}, options, {
-      meta: getMeta(options),
-    });
+  const { data = [], xField, yField } = options;
+
+  if (data.length) {
+    const xValues = data.map((d) => d[xField]);
+    const minX = min(xValues);
+    const maxX = max(xValues);
+    const yValues = data.map((d) => d[yField]);
+    const minY = min(yValues);
+    const maxY = max(yValues);
+    if (minX === maxX && minY === maxY) {
+      return deepAssign({}, options, {
+        meta: getMeta(options, ['x', 'y']),
+      });
+    } else if (minX === maxX) {
+      return deepAssign({}, options, {
+        meta: getMeta(options, ['x']),
+      });
+    } else if (minY === maxY) {
+      return deepAssign({}, options, {
+        meta: getMeta(options, ['y']),
+      });
+    }
   }
+
   return options;
 }
 
@@ -84,14 +102,9 @@ function geometry(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 export function meta(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { options } = params;
-  const { data, xAxis, yAxis, xField, yField } = options;
+  const { xAxis, yAxis, xField, yField } = options;
 
-  let newOptions = options;
-  // 仅对 data.length === 1 的情况进行处理
-  if (data.length === 1) {
-    newOptions = transformOptions(deepAssign({}, options, { meta: getMeta(options) }));
-  }
-
+  const newOptions = transformOptions(options);
   return flow(
     scale({
       [xField]: xAxis,

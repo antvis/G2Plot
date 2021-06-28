@@ -13,17 +13,22 @@ describe('scatter', () => {
       yField: 'height',
       sizeField: 'weight',
       size: [5, 10],
+      shape: 'cricle',
       xAxis: {
         nice: true,
       },
+    });
+
+    scatter.render();
+    expect(scatter.chart.geometries[0].elements[0].shape.attr('fill')).toBe('#FFFFFF');
+
+    scatter.update({
       pointStyle: {
         fill: 'red',
         stroke: 'yellow',
         opacity: 0.8,
       },
     });
-
-    scatter.render();
 
     const geometry = scatter.chart.geometries[0];
     const elements = geometry.elements;

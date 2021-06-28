@@ -3,6 +3,48 @@ import { data } from '../../../data/gender';
 import { createDiv } from '../../../utils/dom';
 
 describe('scatter', () => {
+  it('default', () => {
+    const scatter = new Scatter(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data,
+      xField: 'weight',
+      yField: 'height',
+      sizeField: 'gender',
+      xAxis: {
+        nice: true,
+      },
+    });
+
+    scatter.render();
+
+    let geometry = scatter.chart.geometries[0];
+
+    // @ts-ignore
+    expect(geometry.attributeOption.size.values.length).toBe(2);
+    // @ts-ignore
+    expect(geometry.attributeOption.size.values).toEqual([4, 4]);
+
+    // 不能设置 size 为 0（一定吗？可以后续斟酌下）
+    scatter.update({ size: 0 });
+    geometry = scatter.chart.geometries[0];
+    // @ts-ignore
+    expect(geometry.attributeOption.size.values).toEqual([2, 8]);
+
+    scatter.update({ size: [3, 9] });
+    geometry = scatter.chart.geometries[0];
+    // @ts-ignore
+    expect(geometry.attributeOption.size.values).toEqual([3, 9]);
+
+    scatter.update({ size: null });
+    geometry = scatter.chart.geometries[0];
+    // @ts-ignore
+    expect(geometry.attributeOption.size.values).toEqual([2, 8]);
+
+    scatter.destroy();
+  });
+
   it('size: number options', () => {
     const scatter = new Scatter(createDiv(), {
       width: 400,

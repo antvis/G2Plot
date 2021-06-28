@@ -89,7 +89,7 @@ export function meta(params: Params<ScatterOptions>): Params<ScatterOptions> {
   let newOptions = options;
   // 仅对 data.length === 1 的情况进行处理
   if (data.length === 1) {
-    newOptions = transformOptions(deepAssign({}, options, { meta: getMeta(options) }));
+    newOptions = deepAssign({}, options, { meta: getMeta(options) });
   }
 
   return flow(

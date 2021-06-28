@@ -18,7 +18,7 @@ export class Scatter extends Plot<ScatterOptions> {
   }
 
   /** 图表类型 */
-  public type: string = 'point';
+  public type: string = 'scatter';
 
   /**
    * @override

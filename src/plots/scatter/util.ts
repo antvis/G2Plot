@@ -170,35 +170,54 @@ export const getMeta = (options: ScatterOptions): ScatterOptions['meta'] => {
   const xIsPositiveNumber = xFieldValue > 0;
   const yIsPositiveNumber = yFieldValue > 0;
 
-  const getValue = (field: string, type: 'min' | 'max', axis: 'x' | 'y') => {
-    const customValue = get(meta, [field, type]);
-    if (isNumber(customValue)) {
-      return customValue;
+  /**
+   * 获得对应字段的 min max scale 配置
+   */
+  function getMetaMinMax(field: string, axis: 'x' | 'y') {
+    const fieldMeta = get(meta, [field]);
+
+    function getCustomValue(type: 'min' | 'max') {
+      return get(fieldMeta, type);
     }
+
+    const range = {};
+
     if (axis === 'x') {
-      const rangeX = {
-        min: xIsPositiveNumber ? 0 : xFieldValue * 2,
-        max: xIsPositiveNumber ? xFieldValue * 2 : 0,
-      };
-      return rangeX[type];
+      if (isNumber(xFieldValue)) {
+        if (!isNumber(getCustomValue('min'))) {
+          range['min'] = xIsPositiveNumber ? 0 : xFieldValue * 2;
+        }
+
+        if (!isNumber(getCustomValue('max'))) {
+          range['max'] = xIsPositiveNumber ? xFieldValue * 2 : 0;
+        }
+      }
+
+      return range;
     }
-    const rangeY = {
-      min: yIsPositiveNumber ? 0 : yFieldValue * 2,
-      max: yIsPositiveNumber ? yFieldValue * 2 : 0,
-    };
-    return rangeY[type];
-  };
+
+    if (isNumber(yFieldValue)) {
+      if (!isNumber(getCustomValue('min'))) {
+        range['min'] = yIsPositiveNumber ? 0 : yFieldValue * 2;
+      }
+
+      if (!isNumber(getCustomValue('max'))) {
+        range['max'] = yIsPositiveNumber ? yFieldValue * 2 : 0;
+      }
+    }
+
+    return range;
+  }
+
   return {
     ...meta,
     [xField]: {
       ...meta[xField],
-      min: getValue(xField, 'min', 'x'),
-      max: getValue(xField, 'max', 'x'),
+      ...getMetaMinMax(xField, 'x'),
     },
     [yField]: {
       ...meta[yField],
-      min: getValue(yField, 'min', 'y'),
-      max: getValue(yField, 'max', 'y'),
+      ...getMetaMinMax(xField, 'y'),
     },
   };
 };

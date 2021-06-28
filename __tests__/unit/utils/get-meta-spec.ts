@@ -143,5 +143,20 @@ describe('getMeta', () => {
         max: 0,
       },
     });
+
+    // x 分类
+    expect(
+      getMeta({
+        data: [{ gender: 'female', weight: 'a', height: 160 }],
+        xField: 'weight',
+        yField: 'height',
+      })
+    ).toEqual({
+      weight: {},
+      height: {
+        min: 0,
+        max: 320,
+      },
+    });
   });
 });

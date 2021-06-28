@@ -31,5 +31,7 @@ describe('#2651', () => {
     expect(scatter.chart.getScaleByField('x').min).toEqual(0);
     expect(scatter.chart.getScaleByField('x').max).toEqual(1);
     expect(scatter.chart.getScaleByField('x').range).toEqual([0.5, 1]);
+
+    scatter.destroy();
   });
 });

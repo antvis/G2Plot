@@ -1,6 +1,6 @@
 import { isNumber } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow, deepAssign } from '../../utils';
+import { flow, deepAssign, pick } from '../../utils';
 import { point } from '../../adaptor/geometries';
 import { interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { findGeometry, transformLabel } from '../../utils';
@@ -8,18 +8,50 @@ import { getQuadrantDefaultConfig, getPath, getMeta } from './util';
 import { ScatterOptions } from './types';
 
 /**
- * 散点图 data.length === 1 时居中显示，
+ * 散点图默认美观
+ * ① data.length === 1 ② 所有数据 y 值相等 ③ 所有数据 x 值相等
  * @param params
  * @returns params
  */
 export function transformOptions(options: ScatterOptions): ScatterOptions {
-  const { data = [] } = options;
-  // 仅对 data.length === 1 的情况进行处理
-  if (data.length === 1) {
-    return deepAssign({}, options, {
-      meta: getMeta(options),
-    });
+  const { data = [], xField, yField } = options;
+
+  if (data.length) {
+    // x y 字段知否只有一个值，如果只有一个值，则进行优化
+    let isOneX = true;
+    let isOneY = true;
+
+    let prev = data[0];
+    let curr;
+
+    for (let i = 1; i < data.length; i++) {
+      curr = data[i];
+
+      if (prev[xField] !== curr[xField]) {
+        isOneX = false;
+      }
+
+      if (prev[yField] !== curr[yField]) {
+        isOneY = false;
+      }
+
+      // 如果都不是 oneValue，那么可提前跳出循环
+      if (!isOneX && !isOneY) {
+        break;
+      }
+
+      prev = curr;
+    }
+
+    const keys = [];
+    isOneX && keys.push(xField);
+    isOneY && keys.push(yField);
+
+    const meta = pick(getMeta(options), keys);
+
+    return deepAssign({}, options, { meta });
   }
+
   return options;
 }
 
@@ -84,14 +116,9 @@ function geometry(params: Params<ScatterOptions>): Params<ScatterOptions> {
  */
 export function meta(params: Params<ScatterOptions>): Params<ScatterOptions> {
   const { options } = params;
-  const { data, xAxis, yAxis, xField, yField } = options;
+  const { xAxis, yAxis, xField, yField } = options;
 
-  let newOptions = options;
-  // 仅对 data.length === 1 的情况进行处理
-  if (data.length === 1) {
-    newOptions = deepAssign({}, options, { meta: getMeta(options) });
-  }
-
+  const newOptions = transformOptions(options);
   return flow(
     scale({
       [xField]: xAxis,

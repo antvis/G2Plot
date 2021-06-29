@@ -162,8 +162,15 @@ export const getPath = (config: RenderOptions) => {
   return splinePath(pathData, config);
 };
 
-// 散点图data.length === 1时调整 meta: {min, max}
-export const getMeta = (options: ScatterOptions): ScatterOptions['meta'] => {
+/**
+ * 调整散点图 meta: { min, max } ① data.length === 1 ② 所有数据 y 值相等 ③ 所有数据 x 值相等
+ * @param options
+ * @returns
+ */
+export const getMeta = (
+  options: Pick<ScatterOptions, 'meta' | 'xField' | 'yField' | 'data'>
+  // dims: string[] = ['x', 'y']
+): ScatterOptions['meta'] => {
   const { meta = {}, xField, yField, data } = options;
   const xFieldValue = data[0][xField];
   const yFieldValue = data[0][yField];
@@ -217,7 +224,7 @@ export const getMeta = (options: ScatterOptions): ScatterOptions['meta'] => {
     },
     [yField]: {
       ...meta[yField],
-      ...getMetaMinMax(xField, 'y'),
+      ...getMetaMinMax(yField, 'y'),
     },
   };
 };

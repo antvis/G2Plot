@@ -95,9 +95,10 @@ export class DrillDownAction extends Action {
     const { position } = this.getButtonCfg();
 
     // 默认，左上角直接出发
-    let point = { x: 0, y: 0 };
+    let point = coordinate.convert({ x: 0, y: 1 });
     if (position === 'bottom-left') {
-      point = coordinate.isPolar ? { x: 0, y: coordinate.getHeight() } : coordinate.convert({ x: 0, y: 1 });
+      // 涉及到坐标反转的问题
+      point = coordinate.convert({ x: 0, y: 0 });
     }
     /** PADDING_LEFT, PADDING_TOP 与画布边缘的距离 */
     const matrix = Util.transform(null, [['t', point.x + PADDING_LEFT, point.y + bbox.height + PADDING_TOP]]);
@@ -156,7 +157,7 @@ export class DrillDownAction extends Action {
     }
 
     const { view } = this.context;
-    const data = last(historyCache).children;
+    const data = last(historyCache).children; // 处理后的数组
     view.changeData(data);
 
     if (historyCache.length > 1) {

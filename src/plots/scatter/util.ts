@@ -168,8 +168,7 @@ export const getPath = (config: RenderOptions) => {
  * @returns
  */
 export const getMeta = (
-  options: Pick<ScatterOptions, 'meta' | 'xField' | 'yField' | 'data'>,
-  dims: string[] = ['x', 'y']
+  options: Pick<ScatterOptions, 'meta' | 'xField' | 'yField' | 'data'>
 ): ScatterOptions['meta'] => {
   const { meta = {}, xField, yField, data } = options;
   const xFieldValue = data[0][xField];
@@ -177,39 +176,54 @@ export const getMeta = (
   const xIsPositiveNumber = xFieldValue > 0;
   const yIsPositiveNumber = yFieldValue > 0;
 
-  const getValue = (field: string, type: 'min' | 'max', axis: 'x' | 'y') => {
-    const customValue = get(meta, [field, type]);
-    if (isNumber(customValue)) {
-      return customValue;
+  /**
+   * 获得对应字段的 min max scale 配置
+   */
+  function getMetaMinMax(field: string, axis: 'x' | 'y') {
+    const fieldMeta = get(meta, [field]);
+
+    function getCustomValue(type: 'min' | 'max') {
+      return get(fieldMeta, type);
     }
+
+    const range = {};
+
     if (axis === 'x') {
-      const rangeX = {
-        min: xIsPositiveNumber ? 0 : xFieldValue * 2,
-        max: xIsPositiveNumber ? xFieldValue * 2 : 0,
-      };
-      return rangeX[type];
+      if (isNumber(xFieldValue)) {
+        if (!isNumber(getCustomValue('min'))) {
+          range['min'] = xIsPositiveNumber ? 0 : xFieldValue * 2;
+        }
+
+        if (!isNumber(getCustomValue('max'))) {
+          range['max'] = xIsPositiveNumber ? xFieldValue * 2 : 0;
+        }
+      }
+
+      return range;
     }
-    const rangeY = {
-      min: yIsPositiveNumber ? 0 : yFieldValue * 2,
-      max: yIsPositiveNumber ? yFieldValue * 2 : 0,
-    };
-    return rangeY[type];
-  };
+
+    if (isNumber(yFieldValue)) {
+      if (!isNumber(getCustomValue('min'))) {
+        range['min'] = yIsPositiveNumber ? 0 : yFieldValue * 2;
+      }
+
+      if (!isNumber(getCustomValue('max'))) {
+        range['max'] = yIsPositiveNumber ? yFieldValue * 2 : 0;
+      }
+    }
+
+    return range;
+  }
+
   return {
     ...meta,
-    [xField]: dims.includes('x')
-      ? {
-          ...meta[xField],
-          min: getValue(xField, 'min', 'x'),
-          max: getValue(xField, 'max', 'x'),
-        }
-      : {},
-    [yField]: dims.includes('y')
-      ? {
-          ...meta[yField],
-          min: getValue(yField, 'min', 'y'),
-          max: getValue(yField, 'max', 'y'),
-        }
-      : {},
+    [xField]: {
+      ...meta[xField],
+      ...getMetaMinMax(xField, 'x'),
+    },
+    [yField]: {
+      ...meta[yField],
+      ...getMetaMinMax(yField, 'y'),
+    },
   };
 };

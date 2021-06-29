@@ -19,7 +19,7 @@ export class Scatter extends Plot<ScatterOptions> {
   }
 
   /** 图表类型 */
-  public type: string = 'point';
+  public type: string = 'scatter';
 
   constructor(container: string | HTMLElement, options: ScatterOptions) {
     super(container, options);

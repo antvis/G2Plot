@@ -1,6 +1,6 @@
-import { isNumber, min, max } from '@antv/util';
+import { isNumber } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { flow, deepAssign } from '../../utils';
+import { flow, deepAssign, pick } from '../../utils';
 import { point } from '../../adaptor/geometries';
 import { interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { findGeometry, transformLabel } from '../../utils';
@@ -17,25 +17,39 @@ export function transformOptions(options: ScatterOptions): ScatterOptions {
   const { data = [], xField, yField } = options;
 
   if (data.length) {
-    const xValues = data.map((d) => d[xField]);
-    const minX = min(xValues);
-    const maxX = max(xValues);
-    const yValues = data.map((d) => d[yField]);
-    const minY = min(yValues);
-    const maxY = max(yValues);
-    if (minX === maxX && minY === maxY) {
-      return deepAssign({}, options, {
-        meta: getMeta(options, ['x', 'y']),
-      });
-    } else if (minX === maxX) {
-      return deepAssign({}, options, {
-        meta: getMeta(options, ['x']),
-      });
-    } else if (minY === maxY) {
-      return deepAssign({}, options, {
-        meta: getMeta(options, ['y']),
-      });
+    // x y 字段知否只有一个值，如果只有一个值，则进行优化
+    let isOneX = true;
+    let isOneY = true;
+
+    let prev = data[0];
+    let curr;
+
+    for (let i = 1; i < data.length; i++) {
+      curr = data[i];
+
+      if (prev[xField] !== curr[xField]) {
+        isOneX = false;
+      }
+
+      if (prev[yField] !== curr[yField]) {
+        isOneY = false;
+      }
+
+      // 如果都不是 oneValue，那么可提前跳出循环
+      if (!isOneX && !isOneY) {
+        break;
+      }
+
+      prev = curr;
     }
+
+    const keys = [];
+    isOneX && keys.push(xField);
+    isOneY && keys.push(yField);
+
+    const meta = pick(getMeta(options), keys);
+
+    return deepAssign({}, options, { meta });
   }
 
   return options;

@@ -83,11 +83,15 @@ order: 3
 
 ### 图表组件
 
-`markdown:docs/common/component.zh.md`
+`markdown:docs/common/common-component.zh.md`
+
+#### 缩略轴
+
+`markdown:docs/common/slider.zh.md`
 
 #### 滚动条
 
-`markdown:docs/common/slider.zh.md`
+`markdown:docs/common/scrollbar.zh.md`
 
 #### 转化标签
 

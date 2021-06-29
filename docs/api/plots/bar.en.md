@@ -83,7 +83,15 @@ The ratio of spacing between columns in groups( Range:[0-1] ), only for Grouped 
 
 ### Plot Components
 
-`markdown:docs/common/component.en.md`
+`markdown:docs/common/common-component.zh.md`
+
+#### Slider
+
+`markdown:docs/common/slider.zh.md`
+
+#### Scrollbar
+
+`markdown:docs/common/scrollbar.zh.md`
 
 #### Conversion Tag
 

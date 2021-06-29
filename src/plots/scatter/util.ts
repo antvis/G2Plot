@@ -169,7 +169,6 @@ export const getPath = (config: RenderOptions) => {
  */
 export const getMeta = (
   options: Pick<ScatterOptions, 'meta' | 'xField' | 'yField' | 'data'>
-  // dims: string[] = ['x', 'y']
 ): ScatterOptions['meta'] => {
   const { meta = {}, xField, yField, data } = options;
   const xFieldValue = data[0][xField];

@@ -1,3 +1,20 @@
+#### 2.3.25 (2021-06-30)
+
+##### Documentation Changes
+
+*  文档修整，slider 对应缩略轴 ([#2662](https://github.com/antvis/g2plot/pull/2662)) ([94bfdf01](https://github.com/antvis/g2plot/commit/94bfdf019e77183f51513e5c040bec6611019b51))
+
+##### New Features
+
+* **drill-down:**  优化下下钻的面包屑位置 ([#2664](https://github.com/antvis/g2plot/pull/2664)) ([81beae66](https://github.com/antvis/g2plot/commit/81beae66c2d33a319358c86664a6f76bd0726dad))
+
+##### Bug Fixes
+
+* **scatter:**  when scatter data length = 1 and x is cat ([#2661](https://github.com/antvis/g2plot/pull/2661)) ([dba879ac](https://github.com/antvis/g2plot/commit/dba879ac3abcd8b2c3ceea86c375cced4870f7a6))
+* **scatter:**  散点图刷选交互之后的 scale 处理 ([#2649](https://github.com/antvis/g2plot/pull/2649)) ([17e8f082](https://github.com/antvis/g2plot/commit/17e8f0829bbab2748b3427b2358d67a48d65da0f))
+*  **funnel:** funnel with empty data, [#2616](https://github.com/antvis/g2plot/pull/2616) ([#2658](https://github.com/antvis/g2plot/pull/2658)) ([ef797330](https://github.com/antvis/g2plot/commit/ef797330d51cac8e91245f4414a3f7f938cec047))
+* **bullet:**  修复轴组件添加 max 时，子弹图 scale 呈现不正确问题 ([#2639](https://github.com/antvis/g2plot/pull/2639)) ([dd23da52](https://github.com/antvis/g2plot/commit/dd23da5204fa1be985797625682aa875bd07449e))
+
 #### 2.3.24 (2021-06-16)
 
 ##### Chores

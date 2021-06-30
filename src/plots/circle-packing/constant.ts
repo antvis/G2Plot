@@ -11,6 +11,7 @@ export const DEFAULT_OPTIONS: Partial<CirclePackingOptions> = {
     lineWidth: 0,
     stroke: '#fff',
   },
+  // 默认不开启图例
   legend: false,
   hierarchyConfig: {
     size: [1, 1] as [number, number], // width, height

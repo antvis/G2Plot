@@ -2,14 +2,12 @@ import { CirclePacking } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { DATA } from '../../../data/circle-packing';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/circle-packing/constant';
-import { getContainerSize } from '../../../../src/utils';
 
 describe('Circle-Packing', () => {
   const div = createDiv();
   const plot = new CirclePacking(div, {
     padding: 0,
     data: DATA,
-    legend: false,
     hierarchyConfig: {
       sort: (a, b) => b.depth - a.depth,
     },

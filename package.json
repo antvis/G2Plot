@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "@antv/data-set": "^0.11.5",
-    "@antv/gatsby-theme-antv": "^1.1.2",
+    "@antv/gatsby-theme-antv": "1.1.6-beta.2",
     "@babel/core": "^7.10.4",
     "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.10.4",
@@ -141,7 +141,7 @@
   "limit-size": [
     {
       "path": "dist/g2plot.min.js",
-      "limit": "920 Kb"
+      "limit": "925 Kb"
     },
     {
       "path": "dist/g2plot.min.js",

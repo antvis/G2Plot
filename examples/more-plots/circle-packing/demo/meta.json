@@ -10,6 +10,7 @@
         "zh": "Circle packing",
         "en": "Circle packing"
       },
+      "new": "true",
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/AF1%24co0stf/7db34ba1-5adc-4fca-ab40-fdeb45195ffb.png"
     },
     {
@@ -18,6 +19,7 @@
         "zh": "多层 circle packing",
         "en": "Nest circle packing"
       },
+      "new": "true",
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/WllYxjrsTq/0bd24155-db51-4c5c-9f82-e77761227d4d.png"
     },
     {
@@ -26,6 +28,7 @@
         "zh": "展示数据标签",
         "en": "Display label"
       },
+      "new": "true",
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/o6c3MPudxC/c7ec18d6-ae65-46ea-857f-c499684c9fc5.png"
     },
     {
@@ -34,6 +37,7 @@
         "zh": "自定义圆圈之间的 padding 距离",
         "en": "Custom padding between circles"
       },
+      "new": "true",
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/dCP6LawPW0/7ffa2fef-af09-4df4-8db3-b8f1ddbc63a5.png"
     }
   ]

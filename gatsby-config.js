@@ -308,8 +308,8 @@ module.exports = {
       indexName: 'antv_g2plot',
     },
     announcement: {
-      zh: '1. 上新图表啦！请前往「教程 - 图表指引」查看「分面图、小提琴图」介绍。2.「旭日图」支持下钻！3.「国际化」来了。4. 更多内容请前往 G2Plot 可视化圈子：https://www.yuque.com/antv/g2plot/v2.3.22 🔎 查看',
-      en: '1. 上新图表啦！请前往「教程 - 图表指引」查看「分面图、小提琴图」介绍。2.「旭日图」支持下钻！3.「国际化」来了。4. 更多内容请前往 G2Plot 可视化圈子：https://www.yuque.com/antv/g2plot/v2.3.22 🔎 查看',
+      zh: '1. 上新图表啦！请「图表示例 - 更多图表」查看「Circle Packing」图表示例',
+      en: '1. 上新图表啦！请「图表示例 - 更多图表」查看「Circle Packing」图表示例',
     }
   },
 };

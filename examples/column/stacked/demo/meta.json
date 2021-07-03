@@ -13,6 +13,14 @@
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/KLJB0t7S9W/93ca0482-9d1d-42e9-b99c-c70d87517888.png"
     },
     {
+      "filename": "connect-area.ts",
+      "title": {
+        "zh": "自定义联通区域样式柱状图",
+        "en": "Stacked column plot with connectedArea"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/KLJB0t7S9W/93ca0482-9d1d-42e9-b99c-c70d87517888.png"
+    },
+    {
       "filename": "column-background.ts",
       "title": {
         "zh": "设置柱状图背景色",

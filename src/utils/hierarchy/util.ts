@@ -1,4 +1,11 @@
-import { isArray, isString } from '@antv/util';
+import { isArray, isString, filter } from '@antv/util';
+import { pick } from '../pick';
+
+/** export 一些字段常量 */
+/** 在同层级，同一父节点下的节点索引顺序 */
+export const NODE_INDEX_FIELD = 'nodeIndex';
+/** child 节点数量 */
+export const CHILD_NODE_COUNT = 'childNodeCount';
 
 const INVALID_FIELD_ERR_MSG = 'Invalid field: it must be a string!';
 
@@ -32,9 +39,31 @@ export function getField(options: Options, defaultField?: string): string {
 export function getAllNodes(root: any) {
   const nodes: any[] = [];
   if (root && root.each) {
-    // d3-hierarchy
+    let parent;
+    let index;
+    // d3-hierarchy: Invokes the specified function for node and each descendant in **breadth-first order**
     root.each((node: any) => {
-      nodes.push(node);
+      if (node.parent !== parent) {
+        parent = node.parent;
+        index = 0;
+      } else {
+        index += 1;
+      }
+      const ancestors = filter(
+        node.ancestors().map((d) =>
+          pick(
+            nodes.find((n) => n.name === d.name),
+            ['name', 'depth', NODE_INDEX_FIELD, CHILD_NODE_COUNT]
+          )
+        ),
+        ({ depth }) => depth > 0
+      );
+      nodes.push({
+        ...node,
+        ancestors,
+        [CHILD_NODE_COUNT]: node.children?.length || 0,
+        [NODE_INDEX_FIELD]: index,
+      });
     });
   } else if (root && root.eachNode) {
     // @antv/hierarchy

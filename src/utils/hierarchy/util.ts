@@ -51,7 +51,7 @@ export function getAllNodes(root: any) {
         index += 1;
       }
       const ancestors = filter(
-        node.ancestors().map((d) => nodes.find((n) => n.name === d.name) || d),
+        (node.ancestors?.() || []).map((d: any) => nodes.find((n) => n.name === d.name) || d),
         ({ depth }) => depth > 0 && depth < node.depth
       );
 

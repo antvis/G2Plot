@@ -18,13 +18,15 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/k5SYI%24mOo1/treemap.json')
           };
         },
       },
-      // use `drilldown: { enabled: true }` to replace `interactions: [{ type: 'treemap-drill-down' }]`
-      drilldown: {
-        enabled: true,
-        breadCrumb: {
-          rootText: '初始',
-        },
-      },
+      // use `drilldown: { enabled: true }` to
+      // replace `interactions: [{ type: 'treemap-drill-down' }]`
+      interactions: [{ type: 'treemap-drill-down' }],
+      // drilldown: {
+      //   enabled: true,
+      //   breadCrumb: {
+      //     rootText: '初始',
+      //   },
+      // },
       // 开启动画
       animation: {},
     });

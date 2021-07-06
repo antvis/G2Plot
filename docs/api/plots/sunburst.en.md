@@ -41,7 +41,8 @@ type Node = { name: string; value?: number; children: Node[]; }
 ｜ --- ｜ --- ｜ --- ｜
 ｜`Sunburst.SUNBURST_PATH_FIELD`| Path of current node, up the tree to the least common ancestor, and back down to the given node |_string_ |
 ｜`Sunburst.SUNBURST_ANCESTOR_FIELD`| Ancestor node of current node | _string_ |
-｜`Sunburst.NODE_INDEX_FIELD`| Index of nodes at the same level |_number_ |
+｜`Sunburst.NODE_ANCESTORS_FIELD`| Ancestor nodes of current node |_object[]_ |
+｜`nodeIndex`| Index of nodes at the same level |_number_ |
 | `childNodeCount` | Counts of current node's childNodes  |_number_ |
 ｜`depth`| |_number_ |
 ｜`height`| | _number_ |

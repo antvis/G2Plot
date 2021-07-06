@@ -1,6 +1,6 @@
 import { Plot } from '../../core/plot';
 import { deepAssign } from '../../utils';
-import { CHILD_NODE_COUNT, NODE_INDEX_FIELD } from '../../utils/hierarchy/util';
+import { CHILD_NODE_COUNT, NODE_ANCESTORS_FIELD, NODE_INDEX_FIELD } from '../../utils/hierarchy/util';
 import { SunburstOptions } from './types';
 
 /**
@@ -14,11 +14,11 @@ export const SUNBURST_PATH_FIELD = 'path';
 export const RAW_FIELDS = [
   SUNBURST_PATH_FIELD,
   NODE_INDEX_FIELD,
+  NODE_ANCESTORS_FIELD,
   CHILD_NODE_COUNT,
   'name',
   'depth',
   'height',
-  'ancestors',
 ];
 
 /**

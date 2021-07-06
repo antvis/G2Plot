@@ -12,10 +12,10 @@ describe('sunburst: 字段信', () => {
   it('节点位置索引：nodeIndex', () => {
     const data = plot.chart.getData();
 
-    expect(data[0][Sunburst.NODE_INDEX_FIELD]).toBe(0);
-    expect(data[1][Sunburst.NODE_INDEX_FIELD]).toBe(1);
+    expect(data[0].nodeIndex).toBe(0);
+    expect(data[1].nodeIndex).toBe(1);
 
-    expect(data[3][Sunburst.NODE_INDEX_FIELD]).toBe(0);
+    expect(data[3].nodeIndex).toBe(0);
   });
 
   it('儿子节点数量：childNodeCount', () => {
@@ -29,8 +29,8 @@ describe('sunburst: 字段信', () => {
   it('组件节点: ancestors', () => {
     const data = plot.chart.getData();
 
-    expect(data[0].ancestors.length).toBe(0);
-    expect(data[3].ancestors.length).toBe(1);
+    expect(data[0][Sunburst.NODE_ANCESTORS_FIELD].length).toBe(0);
+    expect(data[3][Sunburst.NODE_ANCESTORS_FIELD].length).toBe(1);
   });
 
   afterAll(() => {

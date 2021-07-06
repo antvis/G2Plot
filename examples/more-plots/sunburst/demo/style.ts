@@ -39,15 +39,15 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/sunburst.json')
       },
       sunburstStyle: (datum) => {
         const depth = datum.depth;
-        const nodeIndex = datum[Sunburst.NODE_INDEX_FIELD];
+        const nodeIndex = datum.nodeIndex;
 
-        const ancestorIndex = last(datum['ancestors'])?.[Sunburst.NODE_INDEX_FIELD] || 0;
+        const ancestorIndex = last(datum[Sunburst.NODE_ANCESTORS_FIELD])?.nodeIndex || 0;
 
         const colorIndex = depth === 1 ? nodeIndex : ancestorIndex;
         let color = colors[colorIndex % colors.length];
 
         if (depth > 1) {
-          const newColors = getPaletteByColor(color, last(datum['ancestors'])?.childNodeCount);
+          const newColors = getPaletteByColor(color, last(datum[Sunburst.NODE_ANCESTORS_FIELD])?.childNodeCount);
           color = newColors[nodeIndex % colors.length];
         }
 

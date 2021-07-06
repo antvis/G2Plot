@@ -1,11 +1,12 @@
 import { isArray, isString, filter } from '@antv/util';
-import { pick } from '../pick';
 
 /** export 一些字段常量 */
 /** 在同层级，同一父节点下的节点索引顺序 */
 export const NODE_INDEX_FIELD = 'nodeIndex';
 /** child 节点数量 */
 export const CHILD_NODE_COUNT = 'childNodeCount';
+/** 节点的祖先节点 */
+export const NODE_ANCESTORS_FIELD = 'nodeAncestor';
 
 const INVALID_FIELD_ERR_MSG = 'Invalid field: it must be a string!';
 
@@ -50,20 +51,15 @@ export function getAllNodes(root: any) {
         index += 1;
       }
       const ancestors = filter(
-        node.ancestors().map((d) =>
-          pick(
-            nodes.find((n) => n.name === d.name),
-            ['name', 'depth', NODE_INDEX_FIELD, CHILD_NODE_COUNT]
-          )
-        ),
-        ({ depth }) => depth > 0
+        node.ancestors().map((d) => nodes.find((n) => n.name === d.name) || d),
+        ({ depth }) => depth > 0 && depth < node.depth
       );
-      nodes.push({
-        ...node,
-        ancestors,
-        [CHILD_NODE_COUNT]: node.children?.length || 0,
-        [NODE_INDEX_FIELD]: index,
-      });
+
+      node[NODE_ANCESTORS_FIELD] = ancestors;
+      node[CHILD_NODE_COUNT] = node.children?.length || 0;
+      node[NODE_INDEX_FIELD] = index;
+
+      nodes.push(node);
     });
   } else if (root && root.eachNode) {
     // @antv/hierarchy

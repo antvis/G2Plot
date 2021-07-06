@@ -41,7 +41,8 @@ type Node = { name: string; value?: number; children: Node[]; }
 ｜ --- ｜ --- ｜ --- ｜
 ｜`Sunburst.SUNBURST_PATH_FIELD`| 节点的路径信息 |_string_ |
 ｜`Sunburst.SUNBURST_ANCESTOR_FIELD`| 当前节点的祖先节点 | _string_ |
-｜`Sunburst.NODE_INDEX_FIELD`| 当前节点在同一父节点下的所有节点中的索引顺序 |_number_ |
+｜`Sunburst.NODE_ANCESTORS_FIELD`| 当前节点的祖先节点列表 |_object[]_ |
+｜`nodeIndex`| 当前节点在同一父节点下的所有节点中的索引顺序 |_number_ |
 | `childNodeCount` | 当前节点的儿子节点数  |_number_ |
 ｜`depth`| |_number_ |
 ｜`height`| | _number_ |

@@ -1,3 +1,18 @@
+#### 2.3.26 (2021-07-07)
+
+##### Documentation Changes
+
+* **column:** fix-2669, 新增堆叠的柱状图展示总数 label 的 demo ([#2681](https://github.com/antvis/g2plot/pull/2681)) ([1ab8c3a3](https://github.com/antvis/g2plot/commit/1ab8c3a303fb2b668b5ec06b95f0147e93de0bb0))
+
+##### New Features
+
+* **sunburst:**  旭日图增加一些字段元信息,如 同层级节点位置索引,祖先节点,儿子节点数量等 ([#2679](https://github.com/antvis/g2plot/pull/2679)) ([8c31012f](https://github.com/antvis/g2plot/commit/8c31012f2d16439d59fd4681f87db829221cba04))
+* **connected-area:**  联通区域支持样式配置 ([#2667](https://github.com/antvis/g2plot/pull/2667)) ([9a8e1e68](https://github.com/antvis/g2plot/commit/9a8e1e681059838afc2d5b2258bca9984b444e36))
+
+##### Bug Fixes
+
+- **legend:** 修复 legend marker 回调设置，spacing 不生效([#2671](https://github.com/antvis/g2plot/pull/2671)) ([026f5eb](https://github.com/antvis/component/commit/026f5eb69af83866646b1405a1ecee33d0674f5a))
+
 #### 2.3.25 (2021-06-30)
 
 ##### Documentation Changes

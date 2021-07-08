@@ -13,7 +13,7 @@ export function getScaleMax(maxAngle: number, yField: string, data: Data): numbe
 // 获取isStack 下的最大值
 export function getScaleIsStackMax(maxAngle: number, yField: string, xField: string, data: Data) {
   const newData: Data = [];
-  data.forEach(item => {
+  data.forEach((item) => {
     const valueItem = newData.find((v) => v[xField] === item[xField]);
     if (valueItem) {
       valueItem[yField] += item[yField];
@@ -22,4 +22,4 @@ export function getScaleIsStackMax(maxAngle: number, yField: string, xField: str
     }
   });
   return getScaleMax(maxAngle, yField, newData);
-};
+}

@@ -55,7 +55,10 @@ export function meta(params: Params<RadialBarOptions>): Params<RadialBarOptions>
     scale({
       [yField]: {
         min: 0,
-        max: isStack && !isGroup && colorField ? getScaleIsStackMax(maxAngle, yField, xField, processData) : getScaleMax(maxAngle, yField, processData),
+        max:
+          isStack && !isGroup && colorField
+            ? getScaleIsStackMax(maxAngle, yField, xField, processData)
+            : getScaleMax(maxAngle, yField, processData),
       },
     })
   )(params);

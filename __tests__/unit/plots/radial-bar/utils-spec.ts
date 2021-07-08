@@ -28,16 +28,17 @@ describe('utils of radial-bar', () => {
     expect(getScaleMax(360, yField, [])).toBe(0);
   });
 
-
-  const popArr = popData.reduce((value, item) => {
-    const valueItem = value.find((v) => v[popField.xField] === item[popField.xField]);
-    if (valueItem) {
-      valueItem[popField.yField] += item[popField.yField];
-    } else {
-      value.push({ ...item });
-    }
-    return value;
-  }, []).map((item) => item[popField.yField]);
+  const popArr = popData
+    .reduce((value, item) => {
+      const valueItem = value.find((v) => v[popField.xField] === item[popField.xField]);
+      if (valueItem) {
+        valueItem[popField.yField] += item[popField.yField];
+      } else {
+        value.push({ ...item });
+      }
+      return value;
+    }, [])
+    .map((item) => item[popField.yField]);
 
   const isStackMaxValue = Math.max(...popArr);
 
@@ -48,8 +49,12 @@ describe('utils of radial-bar', () => {
   });
 
   it('getScaleIsStackMax: existed nil value', () => {
-    expect(getScaleIsStackMax(-300, popField.yField, popField.xField, [...popData, { source: 'c', value: undefined }])).toBe((isStackMaxValue * 360) / 300);
-    expect(getScaleIsStackMax(-300, popField.yField, popField.xField, [...popData, { source: 'c', value: null }])).toBe((isStackMaxValue * 360) / 300);
+    expect(
+      getScaleIsStackMax(-300, popField.yField, popField.xField, [...popData, { source: 'c', value: undefined }])
+    ).toBe((isStackMaxValue * 360) / 300);
+    expect(getScaleIsStackMax(-300, popField.yField, popField.xField, [...popData, { source: 'c', value: null }])).toBe(
+      (isStackMaxValue * 360) / 300
+    );
   });
 
   it('getScaleIsStackMax: empty array', () => {

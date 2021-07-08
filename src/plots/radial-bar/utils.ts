@@ -10,16 +10,18 @@ export function getScaleMax(maxAngle: number, yField: string, data: Data): numbe
   return (maxValue * 360) / formatRadian;
 }
 
-// 获取isStack 下的最大值
-export function getScaleIsStackMax(maxAngle: number, yField: string, xField: string, data: Data) {
-  const newData: Data = [];
+/**
+ * 获取堆叠之后的数据
+ */
+export function getStackedData(data: Data, xField: string, yField: string) {
+  const stackedData: Data = [];
   data.forEach((item) => {
-    const valueItem = newData.find((v) => v[xField] === item[xField]);
+    const valueItem = stackedData.find((v) => v[xField] === item[xField]);
     if (valueItem) {
-      valueItem[yField] += item[yField];
+      valueItem[yField] += item[yField] || null;
     } else {
-      newData.push({ ...item });
+      stackedData.push({ ...item });
     }
   });
-  return getScaleMax(maxAngle, yField, newData);
+  return stackedData;
 }

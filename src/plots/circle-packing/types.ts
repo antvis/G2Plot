@@ -1,4 +1,4 @@
-import { ColorAttr, Options, SizeAttr, StyleAttr } from '../../types';
+import { ColorAttr, Options, StyleAttr } from '../../types';
 import { DrillDownCfg } from '../../types/drill-down';
 import { HierarchyOption } from '../../utils/hierarchy/types';
 

@@ -19,7 +19,6 @@
         "en": "Custom hierarchy field of value"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/yBxQkbPBXF/2a71c7de-1971-4651-bcba-dd18ddd8732e.png"
-      
     },
     {
       "filename": "label.ts",
@@ -28,7 +27,6 @@
         "en": "Set label layout"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/nUWhQ3lWeT/ab0dd09f-f735-41ab-bb13-f38e3354ed62.png"
-      
     },
     {
       "filename": "color-field.ts",
@@ -37,7 +35,6 @@
         "en": "Color of sunburst plot"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/DCwOWeZD5T/cbbbe84d-a0ff-4602-ab3e-22429e6a1719.png"
-      
     },
     {
       "filename": "color.ts",
@@ -46,7 +43,6 @@
         "en": "Color of sunburst plot"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/IvLI4di5ww/7faf7005-44f2-4832-bbca-227b039f4260.png"
-      
     },
     {
       "filename": "style.ts",
@@ -54,17 +50,16 @@
         "zh": "自定义旭日图样式",
         "en": "Style of sunburst plot"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/aAO3F8JuLP/83d5b6fe-e789-4395-a48b-6992259eb872.png"
-      
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/hWIcBgVYMI/d265c8b0-2184-48aa-8610-173cb0b065a8.png",
+      "new": true
     },
     {
       "filename": "tooltip-fields.ts",
       "title": {
-        "zh": "自定义 Tooltip fields",
-        "en": "Custom tooltip fields"
+        "zh": "指定父节点权重",
+        "en": "Specify weight of parentNode"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/IGdW4zjTce/e515a753-d3a2-49d7-90e0-89786501db82.png"
-      
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/D6hdl%24%26RiT/72411396-daf0-4d9e-bb54-d117f159cb44.png"
     },
     {
       "filename": "custom-tooltip-items.ts",
@@ -73,7 +68,6 @@
         "en": "Custom tooltip items"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/yBxQkbPBXF/2a71c7de-1971-4651-bcba-dd18ddd8732e.png"
-      
     }
   ]
 }

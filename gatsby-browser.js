@@ -5,5 +5,6 @@ window.G = require('@antv/g-canvas');
 window.react = require('react');
 window.reactDom = require('react-dom');
 window.antd = require('antd');
+window.chromaJs = require('chroma-js');
 
 require('antd/lib/alert/style/index.css');

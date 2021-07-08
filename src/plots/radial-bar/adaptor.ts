@@ -4,7 +4,7 @@ import { flow, deepAssign, findGeometry, transformLabel } from '../../utils';
 import { interval, point } from '../../adaptor/geometries';
 import { processIllegalData } from '../../utils';
 import { RadialBarOptions } from './types';
-import { getScaleMax } from './utils';
+import { getScaleMax, getScaleIsStackMax } from './utils';
 
 /**
  * geometry 处理
@@ -49,14 +49,16 @@ function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
  */
 export function meta(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   const { options } = params;
-  const { yField, maxAngle, data } = options;
-
+  const { yField, xField, data, isStack, isGroup, colorField, maxAngle } = options;
   const processData = processIllegalData(data, yField);
   return flow(
     scale({
       [yField]: {
         min: 0,
-        max: getScaleMax(maxAngle, yField, processData),
+        max:
+          isStack && !isGroup && colorField
+            ? getScaleIsStackMax(maxAngle, yField, xField, processData)
+            : getScaleMax(maxAngle, yField, processData),
       },
     })
   )(params);

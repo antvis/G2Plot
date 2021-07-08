@@ -49,14 +49,13 @@ function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
  */
 export function meta(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   const { options } = params;
-  const { yField, maxAngle, data } = options;
-
+  const { yField, data } = options;
   const processData = processIllegalData(data, yField);
   return flow(
     scale({
       [yField]: {
         min: 0,
-        max: getScaleMax(maxAngle, yField, processData),
+        max: getScaleMax(processData, options),
       },
     })
   )(params);

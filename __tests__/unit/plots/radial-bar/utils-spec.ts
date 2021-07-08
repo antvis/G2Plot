@@ -1,7 +1,13 @@
-import { getScaleMax } from '../../../../src/plots/radial-bar/utils';
+import { getScaleMax, getScaleIsStackMax } from '../../../../src/plots/radial-bar/utils';
 import { antvStar } from '../../../data/antv-star';
+import { populationMovementData as popData } from '../../../data/chord-population';
 
 const yField = 'star';
+
+const popField = {
+  yField: 'value',
+  xField: 'source',
+};
 
 describe('utils of radial-bar', () => {
   const starArr = antvStar.map((item) => item[yField]);
@@ -20,5 +26,33 @@ describe('utils of radial-bar', () => {
 
   it('getScaleMax: empty array', () => {
     expect(getScaleMax(360, yField, [])).toBe(0);
+  });
+
+
+  const popArr = popData.reduce((value, item) => {
+    const valueItem = value.find((v) => v[popField.xField] === item[popField.xField]);
+    if (valueItem) {
+      valueItem[popField.yField] += item[popField.yField];
+    } else {
+      value.push({ ...item });
+    }
+    return value;
+  }, []).map((item) => item[popField.yField]);
+
+  const isStackMaxValue = Math.max(...popArr);
+
+  it('getScaleIsStackMax: normal', () => {
+    expect(getScaleIsStackMax(360, popField.yField, popField.xField, popData)).toBe(isStackMaxValue);
+    expect(getScaleIsStackMax(-300, popField.yField, popField.xField, popData)).toBe((isStackMaxValue * 360) / 300);
+    expect(getScaleIsStackMax(660, popField.yField, popField.xField, popData)).toBe((isStackMaxValue * 360) / 300);
+  });
+
+  it('getScaleIsStackMax: existed nil value', () => {
+    expect(getScaleIsStackMax(-300, popField.yField, popField.xField, [...popData, { source: 'c', value: undefined }])).toBe((isStackMaxValue * 360) / 300);
+    expect(getScaleIsStackMax(-300, popField.yField, popField.xField, [...popData, { source: 'c', value: null }])).toBe((isStackMaxValue * 360) / 300);
+  });
+
+  it('getScaleIsStackMax: empty array', () => {
+    expect(getScaleIsStackMax(360, popField.yField, popField.xField, [])).toBe(0);
   });
 });

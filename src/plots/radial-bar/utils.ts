@@ -6,13 +6,14 @@ type Option = {
   maxAngle?: number;
   isStack?: boolean;
   isGroup?: boolean;
+  colorField?: string;
 };
 
 export function getScaleMax(data: Data, option: Option): number {
-  const { xField, yField, maxAngle, isStack, isGroup } = option;
+  const { xField, yField, maxAngle, isStack, isGroup, colorField } = option;
   // 有堆叠并且没有分组 则叠加数据
   const newData =
-    isStack && !isGroup
+    isStack && !isGroup && colorField
       ? data.reduce((value: Data, item) => {
           const valueItem = value.find((v) => v[xField] === item[xField]);
           if (valueItem) {

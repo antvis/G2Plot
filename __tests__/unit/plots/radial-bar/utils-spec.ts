@@ -1,6 +1,5 @@
 import { getScaleMax, getStackedData } from '../../../../src/plots/radial-bar/utils';
 import { antvStar } from '../../../data/antv-star';
-import { populationMovementData as popData } from '../../../data/chord-population';
 
 const yField = 'star';
 

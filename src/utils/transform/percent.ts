@@ -11,7 +11,6 @@ import { isRealNumber } from '../number';
  */
 export function percent(data: Data, measure: string, groupField: string, as: string) {
   // 1. 先计算每一个分组的 max 值
-  console.log(data);
   const sumMap = reduce(
     data,
     (map, datum: Datum) => {

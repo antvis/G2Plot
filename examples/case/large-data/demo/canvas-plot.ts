@@ -4,8 +4,9 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/eMjWBsbpkV/renderPixelsData.jso
   .then((data) => data.json())
   .then((data) => {
     const plot = new PixelPlot('container', {
-      width: 1000,
-      height: 500,
+      width: 1100,
+      height: 600,
+      padding: 50,
       data,
     });
 

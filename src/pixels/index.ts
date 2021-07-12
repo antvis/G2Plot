@@ -14,8 +14,6 @@ export class PixelPlot extends CanvasPlot<Options> {
   public options: Options;
   /** plot 绘制的 dom */
   public readonly container: HTMLElement;
-  /** canvas 实例 */
-  public canvas: HTMLCanvasElement;
 
   protected tooltipController: TooltipController;
 
@@ -30,11 +28,13 @@ export class PixelPlot extends CanvasPlot<Options> {
    */
   public render() {
     this.clear();
-    const { width, height, data } = this.options;
+    const { data } = this.options;
+    const { width, height } = this.pixelBBox;
+
     console.time(`render ${data.length / 4} 条数据`);
 
     if (size(data)) {
-      const ctx = this.canvas.getContext('2d');
+      const ctx = this.midCanvas.getContext('2d');
 
       for (let j = 0; j < height; j++) {
         for (let i = 0; i < width; i++) {
@@ -58,25 +58,15 @@ export class PixelPlot extends CanvasPlot<Options> {
   }
 
   /**
-   * 生命周期：销毁 canvas
-   * @returns void
-   */
-  public destroy() {
-    if (this.canvas) {
-      this.canvas.remove();
-    }
-  }
-
-  /**
    * 绑定事件
    */
   protected bindEvents() {
-    if (this.canvas) {
-      this.canvas.addEventListener('mousemove', (evt) => {
+    if (this.foreCanvas) {
+      this.foreCanvas.on('mousemove', (evt) => {
         this.tooltipController.show(evt);
       });
 
-      this.canvas.addEventListener('mouseleave', (evt) => {
+      this.foreCanvas.on('mouseleave', (evt) => {
         this.tooltipController.hide();
       });
     }
@@ -86,18 +76,20 @@ export class PixelPlot extends CanvasPlot<Options> {
    * 绘制图表组件
    */
   private initComponents() {
-    this.tooltipController = new TooltipController(this.container, this.options);
+    this.tooltipController = new TooltipController(this);
   }
 
   /**
-   * 生命周期：清空图表上所有的绘制内容，但是不销毁图表. canvas 仍可使用。
+   * 生命周期：清空图表上所有的绘制内容，但是不销毁图表.
    * @returns void
    */
   private clear() {
-    if (this.canvas) {
+    if (this.midCanvas) {
       const { width, height } = this.options;
-      const ctx = this.canvas.getContext('2d');
+      const ctx = this.midCanvas.getContext('2d');
       ctx.clearRect(0, 0, width, height);
     }
+    if (this.bgCanvas) this.bgCanvas.clear();
+    if (this.foreCanvas) this.foreCanvas.clear();
   }
 }

@@ -10,7 +10,7 @@ export type Options = {
   /** 图表数据, data 像素 rgba 值 */
   readonly data: number[];
   /** 容器 内边距 */
-  readonly padding: number | number[]; // 暂时不处理 auto
+  readonly padding?: number | number[]; // 暂时不处理 auto
 };
 
 // 以左上角为原点，平移原生 canvas 画布

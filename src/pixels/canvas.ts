@@ -1,16 +1,19 @@
 import { Canvas } from '@antv/g-canvas';
+import { deepMix } from '@antv/util';
 import { DEFAULT_OPTIONS } from './constant';
-import { getPaddingInfo } from './utils';
+import { getPaddingInfo, setCanvasPosition } from './utils';
 
 export type Options = {
   /** 容器 宽度 */
   readonly width: number;
   /** 容器 高度 */
   readonly height: number;
-  /** 图表数据, data 像素 rgba 值 */
-  readonly data: number[];
   /** 容器 内边距 */
   readonly padding?: number | number[]; // 暂时不处理 auto
+  /** 原始数据 */
+  rawData: Record<string, any>[];
+  /** 像素数据，后期内置 */
+  pixelData: number[];
 };
 
 // 以左上角为原点，平移原生 canvas 画布
@@ -26,37 +29,35 @@ export type PixelBBox = {
  */
 export abstract class CanvasPlot<O extends Options> {
   public readonly type = 'canvas-plot';
-
   /** plot 的 schema 配置 */
   public options: O;
   /** plot 绘制的 dom */
   public readonly container: HTMLElement;
   /** 用于存放 antv/components 的图层：如 axes、grid、背景 */
-  public bgCanvas: Canvas;
+  public backgroundCanvas: Canvas;
   /** 原生canvas，用于绘制像素图 */
-  public midCanvas: HTMLCanvasElement;
+  public middleCanvas: HTMLCanvasElement;
   /** 用于存放 antv/components（legend、slider等） + 交互（brush、hover等）的图层 */
-  public foreCanvas: Canvas;
+  public foregroundCanvas: Canvas;
   /** 像素图包围盒 */
   public pixelBBox: PixelBBox;
 
   constructor(container: string | HTMLElement, options: O) {
     this.container = typeof container === 'string' ? document.getElementById(container) : container;
-    this.options = { ...DEFAULT_OPTIONS, ...options };
+    this.options = deepMix({}, DEFAULT_OPTIONS, options);
 
     this.init();
   }
 
-  public init(): void {
+  protected init() {
     this.calculatePixelBBox();
 
     this.initBgCanvas();
     this.initMidCanvas();
-    this.initForeCanvas();
+    this.initFgCanvas();
 
     this.bindEvents();
   }
-
   /**
    * 初始化背景层：initBgCanvas
    */
@@ -64,12 +65,12 @@ export abstract class CanvasPlot<O extends Options> {
     const { width, height } = this.options;
     this.container.style.position = 'relative';
 
-    this.bgCanvas = new Canvas({
+    this.backgroundCanvas = new Canvas({
       container: this.container,
       width,
       height,
     });
-    this.bgCanvas.cfg.el.id = 'bg-canvas';
+    this.backgroundCanvas.get('el').id = 'bg-canvas';
   }
 
   /**
@@ -80,37 +81,32 @@ export abstract class CanvasPlot<O extends Options> {
     const { x, y, width, height } = this.pixelBBox;
 
     const canvas = document.createElement('canvas');
-    this.container.appendChild(canvas);
-
-    this.midCanvas = canvas;
-    this.midCanvas.id = 'mid-canvas';
-
+    canvas.id = 'mid-canvas';
     canvas.setAttribute('width', `${width}`);
     canvas.setAttribute('height', `${height}`);
 
-    const midCanvasStyle = this.midCanvas.style;
-    midCanvasStyle.position = 'absolute';
-    midCanvasStyle.top = `${y}px`;
-    midCanvasStyle.left = `${x}px`;
+    setCanvasPosition(canvas, x, y);
+
+    this.container.appendChild(canvas);
+
+    this.middleCanvas = canvas;
   }
 
   /**
    * 初始化前景层 initForeCanvas
    */
-  private initForeCanvas() {
+  private initFgCanvas() {
     const { width, height } = this.options;
 
-    this.foreCanvas = new Canvas({
+    this.foregroundCanvas = new Canvas({
       container: this.container,
       width,
       height,
     });
-    this.foreCanvas.cfg.el.id = 'fore-canvas';
+    this.foregroundCanvas.get('el').id = 'fg-canvas';
 
-    const foreCanvasStyle = this.foreCanvas.cfg.el.style;
-    foreCanvasStyle.position = 'absolute';
-    foreCanvasStyle.top = '0px';
-    foreCanvasStyle.left = '0px';
+    const fgCanvas = this.foregroundCanvas.get('el');
+    setCanvasPosition(fgCanvas, 0, 0);
   }
 
   /**
@@ -129,6 +125,11 @@ export abstract class CanvasPlot<O extends Options> {
   }
 
   /**
+   * 初始化组件
+   */
+  protected abstract initComponents();
+
+  /**
    * 生命周期: 渲染 canvas
    */
   public abstract render();
@@ -137,12 +138,17 @@ export abstract class CanvasPlot<O extends Options> {
    * 更新数据
    * @param data
    */
-  public abstract changeData(data: O['data']): void;
+  public abstract changeData(data: O['rawData']): void;
 
   /**
    * 绑定事件
    */
   protected abstract bindEvents();
+
+  /**
+   * 清空画布
+   */
+  public abstract clear();
 
   /**
    * 生命周期: 销毁 container 中的所有 canvas

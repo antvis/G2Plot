@@ -2,5 +2,8 @@
  * 默认配置项
  */
 export const DEFAULT_OPTIONS = {
-  // padding: 50,
+  xField: 'date',
+  yField: 'high',
+  seriesField: 'name',
+  meta: {},
 };

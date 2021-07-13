@@ -1,6 +1,7 @@
 import { PixelPlot } from '../../../../src/pixels';
 import { createDiv } from '../../../utils/dom';
 import { PIXEL_DATA } from '../../../data/pixels';
+import { LARGE_DATA } from '../../../data/large-data';
 
 describe('pixel-plot', () => {
   const div = createDiv();
@@ -12,7 +13,8 @@ describe('pixel-plot', () => {
     const plot = new PixelPlot(div, {
       width,
       height,
-      data: PIXEL_DATA,
+      rawData: LARGE_DATA,
+      pixelData: PIXEL_DATA,
     });
 
     plot.render();
@@ -20,9 +22,9 @@ describe('pixel-plot', () => {
     expect(plot.type).toBe('canvas-plot');
     const bgCanvas = document.getElementById('bg-canvas');
     const midCanvas = document.getElementById('mid-canvas');
-    const foreCanvas = document.getElementById('fore-canvas');
+    const fgCanvas = document.getElementById('fg-canvas');
     expect(bgCanvas.style.width).toEqual('1000px');
-    expect(foreCanvas.style.width).toEqual('1000px');
+    expect(fgCanvas.style.width).toEqual('1000px');
     expect(midCanvas.getAttribute('width')).toEqual('1000');
 
     plot.destroy();
@@ -32,7 +34,8 @@ describe('pixel-plot', () => {
     const plot = new PixelPlot(div, {
       width,
       height,
-      data: PIXEL_DATA,
+      rawData: LARGE_DATA,
+      pixelData: PIXEL_DATA,
       padding,
     });
 

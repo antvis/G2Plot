@@ -1,17 +1,19 @@
-import { size, isNil } from '@antv/util';
+import { size, isNil, deepMix, min, max } from '@antv/util';
 import { getScale } from '@antv/scale';
-import { CanvasPlot, Options as CanvasPlotOptions } from './canvas';
+import { CanvasPlot } from './canvas';
 import { TooltipController } from './components/tooltip';
 import { AxisController } from './components/axis';
-import { PixelPlotOptions } from './type';
+import { PixelPlotOptions, Datum, Meta } from './type';
+import { getDefaultMetaType } from './util/scale';
 
 /**
  * 像素点绘制图表
  */
 export class PixelPlot extends CanvasPlot<PixelPlotOptions> {
-  private tooltipController: TooltipController;
-
-  private axisController: AxisController;
+  /** tooltip组件控制器 */
+  public tooltipController: TooltipController;
+  /** axis组件控制器 */
+  public axisController: AxisController;
 
   protected init(): void {
     super.init();
@@ -23,7 +25,15 @@ export class PixelPlot extends CanvasPlot<PixelPlotOptions> {
    * 渲染
    */
   public render() {
-    this.clear();
+    // this.clear(); todo 渲染流程相关
+    this.paintMidCanvas();
+    this.renderComponents();
+  }
+
+  /**
+   * 渲染像素图
+   */
+  private paintMidCanvas() {
     const { pixelData } = this.options;
     const { width, height } = this.pixelBBox;
 
@@ -69,11 +79,19 @@ export class PixelPlot extends CanvasPlot<PixelPlotOptions> {
   }
 
   /**
-   * 绘制图表组件
+   * 初始化图表组件
    */
   protected initComponents() {
     this.tooltipController = new TooltipController(this);
-    // this.axisController = new AxisController(this);
+    this.axisController = new AxisController(this);
+  }
+
+  /**
+   * 渲染组件
+   */
+  protected renderComponents() {
+    if (this.tooltipController) this.tooltipController.render();
+    if (this.axisController) this.axisController.render();
   }
 
   /**
@@ -88,5 +106,42 @@ export class PixelPlot extends CanvasPlot<PixelPlotOptions> {
     }
     if (this.backgroundCanvas) this.backgroundCanvas.clear();
     if (this.foregroundCanvas) this.foregroundCanvas.clear();
+  }
+
+  /**
+   * 创建比例尺
+   */
+  public createScale(field: string) {
+    const { meta, rawData } = this.options;
+    const scaleCfg = this.getScaleCfg(meta, field, rawData);
+
+    // 输入配置，创建比例尺
+    const Scale = getScale(scaleCfg.type);
+    const scale = new Scale(scaleCfg);
+
+    return scale;
+  }
+
+  /**
+   * 获取比例尺配置
+   */
+  private getScaleCfg(meta: Record<string, Meta>, field: string, data: Datum[]) {
+    // 给定默认值： type、values、range
+    const type = meta[field]?.type || getDefaultMetaType(field, data); // 根据数据类型，给定默认的 type
+    const range = meta[field]?.range || [0, 1]; // range默认 [0, 1]
+    const values = data.map((item) => item[field]);
+
+    // 如果类型是 time，获取日期的最大最小值. 直接使用 values 有问题
+    let minValue = null,
+      maxValue = null;
+    if (type === 'time') {
+      const timeData = data.map((item) => new Date(item[field]).getTime());
+      minValue = min(timeData);
+      maxValue = max(timeData);
+    }
+
+    const cfg = { type, values, range, min: minValue, max: maxValue };
+
+    return deepMix({}, cfg, meta[field]);
   }
 }

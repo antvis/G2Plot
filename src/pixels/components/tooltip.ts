@@ -1,7 +1,7 @@
 import { Tooltip } from '@antv/component';
 import { Types } from '@antv/g2';
 import { PixelPlot } from '../index';
-import { isInPixelBBox } from '../utils';
+import { isInPixelBBox } from '../util/interaction';
 
 type Options = {
   width: number;
@@ -10,7 +10,7 @@ type Options = {
 
 export class TooltipController {
   /** tooltipController 配置 */
-  protected options: Options;
+  public options: Options;
   /** tooltip 相对图表容器 */
   public pixelPlot: PixelPlot;
   /** tooltip 实例 */
@@ -36,7 +36,7 @@ export class TooltipController {
       ],
     });
     tooltip.init();
-    tooltip.render();
+    // tooltip.render();
     this.tooltip = tooltip;
   }
 
@@ -69,6 +69,10 @@ export class TooltipController {
     if (this.tooltip) {
       this.tooltip.hide();
     }
+  }
+
+  public render() {
+    if (this.tooltip) this.tooltip.render();
   }
 
   public destroy() {

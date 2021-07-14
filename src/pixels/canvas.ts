@@ -1,7 +1,8 @@
 import { Canvas } from '@antv/g-canvas';
 import { deepMix } from '@antv/util';
 import { DEFAULT_OPTIONS } from './constant';
-import { getPaddingInfo, setCanvasPosition } from './utils';
+import { getPaddingInfo, setCanvasPosition } from './util/canvas';
+import { PixelBBox, Meta } from './type';
 
 export type Options = {
   /** 容器 宽度 */
@@ -14,14 +15,6 @@ export type Options = {
   rawData: Record<string, any>[];
   /** 像素数据，后期内置 */
   pixelData: number[];
-};
-
-// 以左上角为原点，平移原生 canvas 画布
-export type PixelBBox = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
 };
 
 /**

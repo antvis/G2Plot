@@ -13,11 +13,23 @@ function fetchPixelData() {
 
 Promise.all([fetchRawData(), fetchPixelData()]).then(([rawData, pixelData]) => {
   const plot = new PixelPlot('container', {
+    rawData,
+    pixelData, // 暂时以外部方式请求拿到 pixels数据，接口内置后取消该写法
     width: 1100,
     height: 600,
     padding: 50,
-    rawData,
-    pixelData, // 暂时以外部方式请求拿到 pixels数据，接口内置后取消该写法
+    xField: 'date',
+    yField: 'high',
+    seriesField: 'name',
+    meta: {
+      date: {
+        type: 'time',
+        nice: true,
+      },
+      high: {
+        nice: true,
+      },
+    },
   });
 
   plot.render();

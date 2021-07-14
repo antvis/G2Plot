@@ -15,7 +15,7 @@ export interface PixelPlotOptions extends CanvasPlotOptions {
   meta?: Record<string, Meta>;
 }
 /** 数据字段比例尺 */
-type Meta = {
+export type Meta = {
   /** 比例尺的类型：'cat' | 'timeCat' | 'linear' | 'time' */
   type: string;
   /** 定义域的最小值，d3为domain，gplot2为limits，分类型下无效 */
@@ -49,4 +49,20 @@ type ShapeStyle = {
   lineWidth?: number;
   // 是否虚线，待讨论
   lineDash?: number[];
+};
+
+/** 轴的四个方向 */
+export enum DIRECTION {
+  BOTTOM = 'bottom',
+  LEFT = 'left',
+  TOP = 'top',
+  RIGHT = 'right',
+}
+
+/** 像素图 PixelBBox */
+export type PixelBBox = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 };

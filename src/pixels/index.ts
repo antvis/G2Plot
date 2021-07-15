@@ -1,5 +1,6 @@
 import { size, isNil, deepMix, min, max } from '@antv/util';
 import { getScale } from '@antv/scale';
+import { Scale } from '@antv/g2';
 import { CanvasPlot } from './canvas';
 import { TooltipController } from './components/tooltip';
 import { AxisController } from './components/axis';
@@ -111,7 +112,7 @@ export class PixelPlot extends CanvasPlot<PixelPlotOptions> {
   /**
    * 创建比例尺
    */
-  public createScale(field: string) {
+  public createScale(field: string): Scale {
     const { meta, rawData } = this.options;
     const scaleCfg = this.getScaleCfg(meta, field, rawData);
 

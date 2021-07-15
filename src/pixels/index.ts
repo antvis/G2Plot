@@ -85,6 +85,7 @@ export class PixelPlot extends CanvasPlot<PixelPlotOptions> {
   protected initComponents() {
     this.tooltipController = new TooltipController(this);
     this.axisController = new AxisController(this);
+    ///lifecircle
   }
 
   /**

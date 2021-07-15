@@ -1,5 +1,7 @@
 import { Tooltip } from '@antv/component';
 import { Types } from '@antv/g2';
+import { PixelPlot } from '../index';
+import { isInPixelBBox } from '../util/interaction';
 
 type Options = {
   width: number;
@@ -7,28 +9,22 @@ type Options = {
 };
 
 export class TooltipController {
+  /** tooltipController 配置 */
+  public options: Options;
   /** tooltip 相对图表容器 */
-  protected container: HTMLElement;
-
-  protected options: Options;
-
+  public pixelPlot: PixelPlot;
+  /** tooltip 实例 */
   private tooltip: Tooltip.Html;
 
-  constructor(container: string | HTMLElement, options: Options) {
-    this.container = typeof container === 'string' ? document.getElementById(container) : container;
-    this.options = options;
+  constructor(pixelPlot: PixelPlot) {
+    this.pixelPlot = pixelPlot;
     this.init();
   }
 
   public init(): void {
-    const { width, height } = this.options;
-    const region = {
-      start: { x: 0, y: 0 },
-      end: { x: width, y: height },
-    };
     const tooltip = new Tooltip.Html({
       // 默认挂载在 body 上，而不是 container
-      parent: this.container,
+      parent: this.pixelPlot.container,
       // region,
       ...this.getTooltipCfg(),
       visible: false,
@@ -40,7 +36,7 @@ export class TooltipController {
       ],
     });
     tooltip.init();
-    tooltip.render();
+    // tooltip.render();
     this.tooltip = tooltip;
   }
 
@@ -49,19 +45,34 @@ export class TooltipController {
   public unlock() {}
 
   public show(evt: MouseEvent) {
-    this.tooltip.update({
-      items: [{ name: '23456', value: '111', color: 'red' }],
-      title: `测试: (${evt.x}, ${evt.y})`,
-      x: evt.offsetX + 20 /** offset */,
-      y: evt.offsetY + 20 /** offset */,
-      visible: true,
-    });
+    const { x, y } = this.pixelPlot.pixelBBox;
+
+    const isInBox = isInPixelBBox(evt.x, evt.y, this.pixelPlot.pixelBBox);
+    // 限定交互区域为 pixelBBox
+    if (isInBox) {
+      // 获取 hover 像素点坐标
+      const pos = {
+        x: evt.x - x,
+        y: evt.y - y,
+      };
+      this.tooltip.update({
+        items: [{ name: '23456', value: '111', color: 'red' }],
+        title: `测试: (${pos.x}, ${pos.y})`,
+        x: evt.x + 20 /** offset */,
+        y: evt.y + 20 /** offset */,
+        visible: true,
+      });
+    }
   }
 
   public hide() {
     if (this.tooltip) {
       this.tooltip.hide();
     }
+  }
+
+  public render() {
+    if (this.tooltip) this.tooltip.render();
   }
 
   public destroy() {

@@ -1,9 +1,9 @@
-import { DIRECTION, PixelBBox } from '../type';
+import { DIRECTION, BBox } from '../type';
 
 /**
  * 获取轴的位置范围
  */
-export function getAxisRegion(pixelBBox: PixelBBox, direction: string) {
+export function getAxisRegion(pixelBBox: BBox, direction: string) {
   let start = null,
     end = null;
   const { x, y, width, height } = pixelBBox;

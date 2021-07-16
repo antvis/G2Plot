@@ -4,8 +4,9 @@ import { DIRECTION } from '../type';
 import { Axis as AxisOption } from '../../types/axis';
 import { PixelPlot } from '../index';
 import { getAxisRegion, getVerticalFactor } from '../util/axis';
+import { Controller } from './base';
 
-export class AxisController {
+export class AxisController extends Controller<AxisOption> {
   /** 轴的配置项 */
   public options: AxisOption;
   /** 横竖轴 */
@@ -14,12 +15,7 @@ export class AxisController {
   /** 整个plot */
   public pixelPlot: PixelPlot;
 
-  constructor(pixelPlot: PixelPlot) {
-    this.pixelPlot = pixelPlot;
-    this.init();
-  }
-
-  public init(): void {
+  protected init(): void {
     const { xField, yField } = this.pixelPlot.options;
 
     const xAxis = this.createLineAxis(xField, DIRECTION.BOTTOM);

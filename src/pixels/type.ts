@@ -1,6 +1,28 @@
-import { Options as CanvasPlotOptions } from './canvas';
+import { Axis } from '../types/axis';
+import { Tooltip } from '../types/tooltip';
 
-export interface PixelPlotOptions extends CanvasPlotOptions {
+export type Options = {
+  /** 容器 宽度 */
+  width: number;
+  /** 容器 高度 */
+  height: number;
+  /** 容器 内边距 */
+  padding?: number | number[]; // 暂时不处理 auto
+  /** 原始数据 */
+  rawData: Record<string, any>[];
+  /** 像素数据，后期内置 */
+  pixelData: number[];
+  /** meta数据预处理 */
+  meta?: Record<string, Meta>;
+  /** xAxis 的配置项 */
+  xAxis?: Axis;
+  /** yAxis 的配置项 */
+  yAxis?: Axis;
+  /** tooltip 的配置项 */
+  tooltip?: Tooltip;
+};
+
+export interface PixelPlotOptions extends Options {
   /** x 轴字段 */
   xField?: string;
   /** y 轴字段 */
@@ -11,9 +33,8 @@ export interface PixelPlotOptions extends CanvasPlotOptions {
   isStack?: boolean;
   /** 折线图形样式 */
   lineStyle?: StyleAttr;
-  /** meta数据预处理 */
-  meta?: Record<string, Meta>;
 }
+
 /** 数据字段比例尺 */
 export type Meta = {
   /** 比例尺的类型：'cat' | 'timeCat' | 'linear' | 'time' */
@@ -60,7 +81,7 @@ export enum DIRECTION {
 }
 
 /** 像素图 PixelBBox */
-export type PixelBBox = {
+export type BBox = {
   x: number;
   y: number;
   width: number;

@@ -1,3 +1,4 @@
+import { Scale, ScaleConfig } from '@antv/g2';
 import { Axis } from '../types/axis';
 import { Tooltip } from '../types/tooltip';
 
@@ -13,7 +14,7 @@ export type Options = {
   /** 像素数据，后期内置 */
   pixelData: number[];
   /** meta数据预处理 */
-  meta?: Record<string, Meta>;
+  meta?: Record<string, ScaleOption>;
   /** xAxis 的配置项 */
   xAxis?: Axis;
   /** yAxis 的配置项 */
@@ -36,20 +37,23 @@ export interface PixelPlotOptions extends Options {
 }
 
 /** 数据字段比例尺 */
-export type Meta = {
-  /** 比例尺的类型：'cat' | 'timeCat' | 'linear' | 'time' */
-  type: string;
-  /** 定义域的最小值，d3为domain，gplot2为limits，分类型下无效 */
-  min?: any;
-  /** 定义域的最大值，分类型下无效 */
-  max?: any;
-  /** 定义域 */
-  values?: any[];
-  /** 值域 */
-  range?: number[]; // 默认[0, 1] 范围
-  /** 自动调整min、max */
-  nice?: boolean;
+export type ScaleOption = ScaleConfig & {
+  /** 比例尺的类型：'cat' | 'timeCat' | 'linear' | 'time' 等，针对密度折线图，暂时 */
+  type?: ScaleType;
 };
+
+export type ScaleType =
+  | 'linear'
+  | 'cat'
+  | 'category'
+  | 'identity'
+  | 'log'
+  | 'pow'
+  | 'time'
+  | 'timeCat'
+  | 'quantize'
+  | 'quantile';
+
 /** 一条数据记录 */
 export type Datum = Record<string, any>;
 
@@ -86,4 +90,10 @@ export type BBox = {
   y: number;
   width: number;
   height: number;
+};
+
+/** 因为Scale和ScaleOption的接口信息不一致，融合起来 */
+export type ScaleMeta = {
+  scale: Scale;
+  scaleOption: ScaleOption;
 };

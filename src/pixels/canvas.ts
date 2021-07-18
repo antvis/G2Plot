@@ -1,18 +1,20 @@
 import { Canvas } from '@antv/g-canvas';
 import { getScale } from '@antv/scale';
 import { Scale } from '@antv/g2';
-import { deepMix, min, max } from '@antv/util';
+import { deepMix, min, max, uniqueId } from '@antv/util';
 import { DEFAULT_OPTIONS } from './constant';
 import { setCanvasPosition } from './util/canvas';
 import { getPaddingInfo } from './util/canvas';
 import { getDefaultMetaType } from './util/scale';
-import { BBox, Datum, Meta, Options } from './type';
+import { BBox, Datum, Options, ScaleMeta, ScaleOption } from './type';
 
 /**
  * 基于原生 canvas 绘制的 plot
  */
 export abstract class CanvasPlot<O extends Options> {
   public readonly type = 'canvas-plot';
+  /** plot 的唯一id */
+  public readonly id = uniqueId('canvas-plot');
   /** plot 的配置 */
   public options: O;
   /** plot 绘制的 dom */
@@ -28,7 +30,7 @@ export abstract class CanvasPlot<O extends Options> {
   /** 像素图包围盒：viewBBox - padding */
   public pixelBBox: BBox;
   /** 存储所有的scale */
-  public scales: Map<string, Scale>;
+  public scales = new Map<string, ScaleMeta>();
 
   constructor(container: string | HTMLElement, options: O) {
     this.container = typeof container === 'string' ? document.getElementById(container) : container;
@@ -171,11 +173,19 @@ export abstract class CanvasPlot<O extends Options> {
    */
   public createScale(field: string): Scale {
     const { meta, rawData } = this.options;
-    const scaleCfg = this.getScaleCfg(meta, field, rawData);
+    const scaleOption = this.getScaleCfg(meta, field, rawData);
 
     // 输入配置，创建比例尺
-    const Scale = getScale(scaleCfg.type);
-    const scale = new Scale(scaleCfg);
+    const Scale = getScale(scaleOption.type);
+    const scale = new Scale(scaleOption);
+
+    const scaleMeta = {
+      scale,
+      scaleOption,
+    };
+
+    // 存入scales中
+    this.scales.set(field, scaleMeta);
 
     return scale;
   }
@@ -183,7 +193,7 @@ export abstract class CanvasPlot<O extends Options> {
   /**
    * 获取比例尺配置
    */
-  private getScaleCfg(meta: Record<string, Meta>, field: string, data: Datum[]) {
+  private getScaleCfg(meta: Record<string, ScaleOption>, field: string, data: Datum[]) {
     // 给定默认值： type、values、range
     const type = meta[field]?.type || getDefaultMetaType(field, data); // 根据数据类型，给定默认的 type
     const range = meta[field]?.range || [0, 1]; // range默认 [0, 1]

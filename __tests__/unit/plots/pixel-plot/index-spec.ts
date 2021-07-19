@@ -40,11 +40,7 @@ describe('pixel-plot', () => {
     });
 
     plot.render();
-    // mid canvas 的位置平移， 更新画布宽高
-    const midCanvas = document.getElementById('mid-canvas');
-    expect(midCanvas.style.top).toEqual('40px');
-    expect(midCanvas.style.left).toEqual('50px');
-    expect(midCanvas.getAttribute('width')).toEqual(`${width - padding[1] - padding[3]}`);
-    expect(midCanvas.getAttribute('height')).toEqual(`${height - padding[0] - padding[2]}`);
+    const bbox = { x: 50, y: 40, width: width - padding[1] - padding[3], height: height - padding[0] - padding[2] };
+    expect(plot.pixelBBox).toEqual(bbox);
   });
 });

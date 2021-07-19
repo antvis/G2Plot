@@ -25,9 +25,9 @@ export type Options = {
 
 export interface PixelPlotOptions extends Options {
   /** x 轴字段 */
-  xField?: string;
+  xField: string;
   /** y 轴字段 */
-  yField?: string;
+  yField: string;
   /** 分组字段 */
   seriesField?: string;
   /** 是否堆积 */

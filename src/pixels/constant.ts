@@ -3,4 +3,6 @@
  */
 export const DEFAULT_OPTIONS = {
   meta: {},
+  xAxis: {},
+  yAxis: {},
 };

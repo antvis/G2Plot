@@ -2,6 +2,7 @@ import { PixelPlot } from '../../../../src/pixels';
 import { createDiv } from '../../../utils/dom';
 import { PIXEL_DATA } from '../../../data/pixels';
 import { LARGE_DATA } from '../../../data/large-data';
+import { IS_TOTAL } from '../../../../src/plots/waterfall/constant';
 
 describe('pixel-plot', () => {
   const div = createDiv();

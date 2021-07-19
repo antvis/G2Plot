@@ -423,7 +423,7 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
 }
 
 /**
- * slider 配置
+ * 双轴图 slider 适配器
  * @param params
  */
 export function slider(params: Params<DualAxesOptions>): Params<DualAxesOptions> {

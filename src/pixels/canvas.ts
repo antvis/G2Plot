@@ -79,10 +79,7 @@ export abstract class CanvasPlot<O extends Options> {
    * 初始化中间层：像素图 initMidCanvas
    */
   private initMidCanvas() {
-    // 初始化中间层 midCanvas, 根据padding得出的 -> pixelBBox 平移和确定宽高
-    // const { x, y, width, height } = this.pixelBBox;
     const { width, height } = this.options;
-
     const canvas = document.createElement('canvas');
     canvas.id = 'mid-canvas';
     canvas.setAttribute('width', `${width}`);

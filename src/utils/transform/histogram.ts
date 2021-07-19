@@ -10,7 +10,11 @@ type StatisticBin = {
 };
 
 // 进行转换得到值所在的 range
-function getBinKey(value: number, binWidth: number): [number, number] {
+function getBinKey(value: number, binWidth: number, binNumber?: number): [number, number] {
+  // 做一点特殊处理
+  if (binNumber === 1) {
+    return [0, binWidth];
+  }
   const index = Math.floor(value / binWidth);
   return [binWidth * index, binWidth * (index + 1)];
 }
@@ -41,7 +45,7 @@ export function binHistogram(data: Data, binField: string, binWidth: number, bin
   // 计算分箱，直方图分箱的计算基于 binWidth，如配置了 binNumber 则将其转为 binWidth 进行计算
   let _binWidth = binWidth;
   if (!binWidth && binNumber) {
-    _binWidth = rangeWidth / binNumber;
+    _binWidth = binNumber > 1 ? rangeWidth / (binNumber - 1) : range.max;
   }
   // 当 binWidth 和 binNumber 都没有指定的情况，采用 Sturges formula 自动生成 binWidth
   if (!binWidth && !binNumber) {
@@ -55,7 +59,7 @@ export function binHistogram(data: Data, binField: string, binWidth: number, bin
   if (isEmpty(groups)) {
     each(originData_copy, (data: any) => {
       const value = data[binField];
-      const bin = getBinKey(value, _binWidth);
+      const bin = getBinKey(value, _binWidth, binNumber);
       const binKey = `${bin[0]}-${bin[1]}`;
       if (!hasKey(bins, binKey)) {
         bins[binKey] = { range: bin, count: 0 };
@@ -66,7 +70,7 @@ export function binHistogram(data: Data, binField: string, binWidth: number, bin
     Object.keys(groups).forEach((groupKey: string) => {
       each(groups[groupKey], (data: any) => {
         const value = data[binField];
-        const bin = getBinKey(value, _binWidth);
+        const bin = getBinKey(value, _binWidth, binNumber);
         const binKey = `${bin[0]}-${bin[1]}`;
         const groupKeyBinKey = `${binKey}-${groupKey}`;
         if (!hasKey(bins, groupKeyBinKey)) {

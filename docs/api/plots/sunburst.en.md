@@ -35,7 +35,7 @@ type Node = { name: string; value?: number; children: Node[]; }
 
 `markdown:docs/common/meta.en.md`
 
-旭日图内含的数据字段有：
+Built-in fields of Sunburst:
 
 | Field key | Description of field | Type of value |
 ｜ --- ｜ --- ｜ --- ｜

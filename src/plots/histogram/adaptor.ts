@@ -5,6 +5,7 @@ import { flow, transformLabel } from '../../utils';
 import { interval } from '../../adaptor/geometries';
 import { binHistogram } from '../../utils/transform/histogram';
 import { HistogramOptions } from './types';
+import { HISTOGRAM_X_FIELD, HISTOGRAM_Y_FIELD } from './constant';
 
 /**
  * geometry 处理
@@ -21,8 +22,8 @@ function geometry(params: Params<HistogramOptions>): Params<HistogramOptions> {
 
   const p = deepAssign({}, params, {
     options: {
-      xField: 'range',
-      yField: 'count',
+      xField: HISTOGRAM_X_FIELD,
+      yField: HISTOGRAM_Y_FIELD,
       seriesField: stackField,
       isStack: true,
       interval: {
@@ -52,8 +53,8 @@ function meta(params: Params<HistogramOptions>): Params<HistogramOptions> {
 
   return flow(
     scale({
-      range: xAxis,
-      count: yAxis,
+      [HISTOGRAM_X_FIELD]: xAxis,
+      [HISTOGRAM_Y_FIELD]: yAxis,
     })
   )(params);
 }
@@ -68,15 +69,15 @@ function axis(params: Params<HistogramOptions>): Params<HistogramOptions> {
 
   // 为 false 则是不显示轴
   if (xAxis === false) {
-    chart.axis('range', false);
+    chart.axis(HISTOGRAM_X_FIELD, false);
   } else {
-    chart.axis('range', xAxis);
+    chart.axis(HISTOGRAM_X_FIELD, xAxis);
   }
 
   if (yAxis === false) {
-    chart.axis('count', false);
+    chart.axis(HISTOGRAM_Y_FIELD, false);
   } else {
-    chart.axis('count', yAxis);
+    chart.axis(HISTOGRAM_Y_FIELD, yAxis);
   }
 
   return params;
@@ -97,7 +98,7 @@ function label(params: Params<HistogramOptions>): Params<HistogramOptions> {
   } else {
     const { callback, ...cfg } = label;
     geometry.label({
-      fields: ['count'],
+      fields: [HISTOGRAM_Y_FIELD],
       callback,
       cfg: transformLabel(cfg),
     });

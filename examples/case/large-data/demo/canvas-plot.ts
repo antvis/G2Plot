@@ -24,11 +24,13 @@ Promise.all([fetchRawData(), fetchPixelData()]).then(([rawData, pixelData]) => {
     meta: {
       date: {
         type: 'time',
-        nice: true,
       },
-      high: {
-        nice: true,
-      },
+    },
+    xAxis: {
+      top: true,
+    },
+    yAxis: {
+      top: true,
     },
   });
 

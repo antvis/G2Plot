@@ -1,57 +1,54 @@
 import { Axis } from '@antv/component';
-import { deepMix } from '@antv/util';
+import { deepMix, get } from '@antv/util';
 import { DIRECTION } from '../type';
 import { Axis as AxisOption } from '../../types/axis';
 import { PixelPlot } from '../index';
 import { getAxisRegion, getVerticalFactor } from '../util/axis';
+import { Controller } from './base';
 
-export class AxisController {
+export class AxisController extends Controller<AxisOption> {
   /** 轴的配置项 */
   public options: AxisOption;
   /** 横竖轴 */
-  public xAxis: Axis.Line; // 暂定line类型
-  public yAxis: Axis.Line;
+  public xAxisComponent: Axis.Line; // 暂定line类型
+  public yAxisComponent: Axis.Line;
   /** 整个plot */
   public pixelPlot: PixelPlot;
 
-  constructor(pixelPlot: PixelPlot) {
-    this.pixelPlot = pixelPlot;
-    this.init();
-  }
+  protected init(): void {
+    const { xField, yField, xAxis, yAxis } = this.pixelPlot.options;
 
-  public init(): void {
-    const { xField, yField } = this.pixelPlot.options;
+    const xAxisComponent = this.createLineAxis(xField, xAxis, DIRECTION.BOTTOM);
+    xAxisComponent.init();
 
-    const xAxis = this.createLineAxis(xField, DIRECTION.BOTTOM);
-    xAxis.init();
-    const yAxis = this.createLineAxis(yField, DIRECTION.LEFT);
-    yAxis.init();
+    const yAxisComponent = this.createLineAxis(yField, yAxis, DIRECTION.LEFT);
+    yAxisComponent.init();
 
-    this.xAxis = xAxis;
-    this.yAxis = yAxis;
+    this.xAxisComponent = xAxisComponent;
+    this.yAxisComponent = yAxisComponent;
   }
 
   /**
    * 渲染所有轴
    */
   public render() {
-    if (this.xAxis) this.xAxis.render();
-    if (this.yAxis) this.yAxis.render();
+    if (this.xAxisComponent) this.xAxisComponent.render();
+    if (this.yAxisComponent) this.yAxisComponent.render();
   }
 
   /**
    * 销毁所有轴
    */
   public destroy() {
-    if (this.xAxis) this.xAxis.destroy();
-    if (this.yAxis) this.yAxis.destroy();
+    if (this.xAxisComponent) this.xAxisComponent.destroy();
+    if (this.yAxisComponent) this.yAxisComponent.destroy();
   }
 
   /**
    * 创建轴方法
    */
-  private createLineAxis(field: string, direction: string) {
-    const axisCfg = this.getAxisCfg(field, direction);
+  private createLineAxis(field: string, axisOption: AxisOption, direction: string) {
+    const axisCfg = this.getAxisCfg(field, axisOption, direction);
 
     return new Axis.Line(axisCfg);
   }
@@ -59,27 +56,28 @@ export class AxisController {
   /**
    * 获取轴的配置
    */
-  protected getAxisCfg(field: string, direction: string) {
+  protected getAxisCfg(field: string, axisOption: AxisOption, direction: string) {
     const pixelBBox = this.pixelPlot.pixelBBox;
+    // 默认渲染在背景层
+    const canvas = axisOption['top'] ? 'foregroundCanvas' : 'backgroundCanvas';
     // 根据字段生成对应的比例尺, 以生成 ticks
     const scale = this.pixelPlot.createScale(field);
+    // 确定轴的方向：x或y
+    const dir = get(axisOption, 'position', direction);
     // 轴的刻度和文字方向
-    const verticalFactor = getVerticalFactor(direction);
+    const verticalFactor = getVerticalFactor(dir);
     // 轴的位置
-    const region = getAxisRegion(pixelBBox, direction);
+    const region = getAxisRegion(pixelBBox, dir);
     // 融合配置
     const cfg = deepMix(
-      {},
       {
         id: field,
-        container: this.pixelPlot.backgroundCanvas.addGroup(),
+        container: this.pixelPlot[canvas].addGroup(),
         ...region,
         ticks: scale.getTicks().map((item) => ({ id: item.value, name: item.text, value: item.value })),
         verticalFactor,
-        label: {
-          offset: 10,
-        },
-      }
+      },
+      axisOption
     );
 
     return cfg;
@@ -90,7 +88,7 @@ export class AxisController {
    */
   public update() {
     // todo 拿到关于轴的新配置后，update
-    if (this.xAxis) this.xAxis.update({});
-    if (this.yAxis) this.yAxis.update({});
+    if (this.xAxisComponent) this.xAxisComponent.update({});
+    if (this.yAxisComponent) this.yAxisComponent.update({});
   }
 }

@@ -1,25 +1,14 @@
 import { Tooltip } from '@antv/component';
 import { Types } from '@antv/g2';
-import { PixelPlot } from '../index';
+import { Tooltip as ToolOptions } from '../../types/tooltip';
 import { isInPixelBBox } from '../util/interaction';
+import { Controller } from './base';
 
-type Options = {
-  width: number;
-  height: number;
-};
-
-export class TooltipController {
+export class TooltipController extends Controller<ToolOptions> {
   /** tooltipController 配置 */
-  public options: Options;
-  /** tooltip 相对图表容器 */
-  public pixelPlot: PixelPlot;
+  public options: ToolOptions;
   /** tooltip 实例 */
   private tooltip: Tooltip.Html;
-
-  constructor(pixelPlot: PixelPlot) {
-    this.pixelPlot = pixelPlot;
-    this.init();
-  }
 
   public init(): void {
     const tooltip = new Tooltip.Html({
@@ -74,6 +63,8 @@ export class TooltipController {
   public render() {
     if (this.tooltip) this.tooltip.render();
   }
+
+  public update() {}
 
   public destroy() {
     if (this.tooltip) {

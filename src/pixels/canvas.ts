@@ -197,18 +197,19 @@ export abstract class CanvasPlot<O extends Options> {
     // 给定默认值： type、values、range
     const type = meta[field]?.type || getDefaultMetaType(field, data); // 根据数据类型，给定默认的 type
     const range = meta[field]?.range || [0, 1]; // range默认 [0, 1]
-    const values = data.map((item) => item[field]);
+    const values = meta[field]?.values || data.map((item) => item[field]);
 
-    // 如果类型是 time，获取日期的最大最小值. 直接使用 values 有问题
+    // 如果类型是 time，获取日期的最大最小值：min、max，暂不建议 values
+    // minLimit、maxLimit支持 linear 比例尺，对 time 无效
     let minValue = null,
       maxValue = null;
     if (type === 'time') {
-      const timeData = data.map((item) => new Date(item[field]).getTime());
+      const timeData = values.map((item) => new Date(item).getTime());
       minValue = min(timeData);
       maxValue = max(timeData);
     }
 
-    const cfg = { type, values, range, min: minValue, max: maxValue };
+    const cfg = { type, values, range, min: minValue, max: maxValue, nice: true };
 
     return deepMix({}, cfg, meta[field]);
   }

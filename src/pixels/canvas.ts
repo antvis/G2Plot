@@ -2,12 +2,13 @@ import { Canvas } from '@antv/g-canvas';
 import { getScale } from '@antv/scale';
 import { Scale } from '@antv/g2';
 import { deepMix, min, max, uniqueId, debounce } from '@antv/util';
-import { getContainerSize } from '../utils';
-import { DEFAULT_OPTIONS } from './constant';
-import { setCanvasPosition } from './util/canvas';
-import { getPaddingInfo, changeCanvasSize } from './util/canvas';
-import { getDefaultMetaType } from './util/scale';
+import { getContainerSize, pick } from '../utils';
+import { Axis as AxisOption } from '../types/axis';
+import { AXIS_META_CONFIG_KEYS } from '../constant';
 import { BBox, Datum, Options, ScaleMeta, ScaleOption } from './type';
+import { DEFAULT_OPTIONS } from './constant';
+import { getPaddingInfo, changeCanvasSize, setCanvasPosition } from './util/canvas';
+import { getDefaultMetaType } from './util/scale';
 
 /**
  * 基于原生 canvas 绘制的 plot
@@ -237,9 +238,12 @@ export abstract class CanvasPlot<O extends Options> {
   /**
    * 创建比例尺
    */
-  public createScale(field: string): Scale {
+  public createScale(field: string, option: AxisOption): Scale {
     const { meta, rawData } = this.options;
-    const scaleOption = this.getScaleCfg(meta, field, rawData);
+    // 在 axis 的配置中，融合 meta 的部分属性
+    const axisMetaOption = pick(option, AXIS_META_CONFIG_KEYS);
+
+    const scaleOption = deepMix(this.getScaleCfg(meta, field, rawData), axisMetaOption);
 
     // 输入配置，创建比例尺
     const Scale = getScale(scaleOption.type);

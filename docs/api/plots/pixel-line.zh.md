@@ -182,10 +182,145 @@ interface AxisLabelAutoHideCfg {
 
 ##### verticalLimitLength
 
-<description>**optional** _number_</description>
+<description>**可选** _number_</description>
 
 配置坐标轴垂直方向的最大限制长度，对文本自适应有很大影响。
 
+##### line
 
+<description>**可选** _object_</description>
+
+坐标轴线的配置项，null 表示不展示。
+
+> **注意:** 线条样式的完整配置是 `{ style: { stroke: '#ddd', ... } }`.
+
+| 属性名        | 类型              | 介绍                                                                                                   |
+| ------------- | ----------------- | ------------------------------------------------------------------------------------------------------ |
+| stroke        | _string_          | 线的颜色                                                                                               |
+| lineWidth     | _number_          | 线宽                                                                                                   |
+| lineDash      | _[number,number]_ | 虚线配置，第一个值为虚线每个分段的长度，第二个值为分段间隔的距离。lineDash 设为[0,0]的效果为没有描边。 |
+| opacity       | _number_          | 透明度                                                                                                 |
+| shadowColor   | _string_          | 阴影颜色                                                                                               |
+| shadowBlur    | _number_          | 高斯模糊系数                                                                                           |
+| shadowOffsetX | _number_          | 设置阴影距图形的水平距离                                                                               |
+| shadowOffsetY | _number_          | 设置阴影距图形的垂直距离                                                                               |
+| cursor        | _string_          | 鼠标样式。同 css 的鼠标样式,默认 'default'。                                                           |
+
+
+##### tickLine
+
+<description>**可选** _object_</description>
+
+坐标轴刻度线的配置项，null 表示不展示。
+
+| 细分配置项名称 | 类型                               | 功能描述                     |
+| -------------- | ---------------------------------- | ---------------------------- |
+| style          | _ShapeAttrs \| ShapeAttrsCallback_ | 坐标轴刻度线的样式。         |
+| alignTick      | _boolean_                          | 坐标轴刻度线是否同 tick 对齐 |
+| length         | _number_                           | 坐标轴刻度线长度             |
+
+关于 _ShapeAttrs_ 详细查看 [ShapeAttrs](/zh/docs/api/graphic-style) 文档。_ShapeAttrsCallback_ 回调参数如下：
+
+```ts
+type ShapeAttrsCallback = (item: any, index: number, items: any[]) => ShapeAttrs;
+```
+
+##### subTickLine
+
+<description>**可选** _object_</description>
+
+坐标轴子刻度线的配置项，null 表示不展示。
+
+| 细分配置项名称 | 类型                               | 功能描述               |
+| -------------- | ---------------------------------- | ---------------------- |
+| style          | _ShapeAttrs \| ShapeAttrsCallback_ | 坐标轴子刻度线的样式。 |
+| count          | _number_                           | 子刻度个数             |
+| length         | _number_                           | 坐标轴子刻度线长度     |
+
+关于 _ShapeAttrs_ 详细查看 [ShapeAttrs](/zh/docs/api/graphic-style) 文档。_ShapeAttrsCallback_ 回调参数如下：
+
+```ts
+type ShapeAttrsCallback = (item: any, index: number, items: any[]) => ShapeAttrs;
+```
+
+##### nice
+
+<description>**可选** _boolean_ _default:_ `true`</description>
+
+是否美化。
+
+##### min
+
+<description>**可选** _number_ _default:_ `0`</description>
+
+坐标轴最小值。
+
+##### max
+
+<description>**可选** _number_</description>
+
+坐标轴最大值。
+
+##### minLimit
+
+<description>**可选** _number_</description>
+
+最小值限定。
+
+##### maxLimit
+
+<description>**可选** _number_</description>
+
+最大值限定。
+
+##### tickCount
+
+<description>**可选** _number_</description>
+
+期望的坐标轴刻度数量，非最终结果。
+
+##### tickInterval
+
+<description>**可选** _number_</description>
+
+坐标轴刻度间隔。
+
+##### tickMethod
+
+<description>**可选** _string | Function_ _default:_ `false`</description>
+
+指定 tick 计算方法，或自定义计算 tick 的方法，内置 tick 计算方法包括 `cat`、`time-cat`、 `wilkinson-extended`、`r-pretty`、`time`、`time-pretty`、`log`、`pow`、`quantile`、`d3-linear`。
+
+##### animate
+
+<description>**可选** _boolean_ _default:_ `true`</description>
+
+动画开关，默认开启。
+
+##### animateOption
+
+<description>**可选** _object_</description>
+
+动画参数配置。
+
+```ts
+interface ComponentAnimateCfg {
+  /** 动画执行时间 */
+  readonly duration?: number;
+  /** 动画缓动函数 */
+  readonly easing?: string;
+  /** 动画延迟时间 */
+  readonly delay?: number;
+}
+// 配置参考
+{
+  animateOption: {
+    appear: ComponentAnimateCfg;
+    update: ComponentAnimateCfg;
+    enter: ComponentAnimateCfg;
+    leave: ComponentAnimateCfg;
+  }
+}
+```
 
 

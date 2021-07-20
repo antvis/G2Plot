@@ -61,7 +61,7 @@ export class AxisController extends Controller<AxisOption> {
     // 默认渲染在背景层
     const canvas = axisOption['top'] ? 'foregroundCanvas' : 'backgroundCanvas';
     // 根据字段生成对应的比例尺, 以生成 ticks
-    const scale = this.pixelPlot.createScale(field);
+    const scale = this.pixelPlot.createScale(field, axisOption);
     // 确定轴的方向：x或y
     const dir = get(axisOption, 'position', direction);
     // 轴的刻度和文字方向

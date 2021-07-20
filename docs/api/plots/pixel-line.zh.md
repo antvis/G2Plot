@@ -7,13 +7,13 @@ order: 0
 
 #### width
 
-<description>**可选** _number_ 800</description>
+<description>**可选** _number_ _default:_ `800`</description>
 
 设置图表宽度。
 
 #### height
 
-<description>**可选** _number_ 400</description>
+<description>**可选** _number_ _default:_ `400`</description>
 
 设置图表高度。
 
@@ -21,7 +21,13 @@ order: 0
 
 <description>**可选** _number[] | number_ </description>
 
-图表是否自适应容器宽高。当 autoFit 设置为 true 时，width 和 height 的设置将失效。
+画布的 `padding` 值，代表图表在上右下左的间距，可以为单个数字 `16`，或者数组 `[16, 8, 16, 8]` 代表四个方向。
+
+#### autoFit
+
+<description>**可选** boolean _default:_ `false`</description>
+
+图表是否自适应容器宽高。当 `autoFit` 设置为 true 时，`width` 和 `height` 的设置将失效。
 
 ### 数据映射
 
@@ -61,7 +67,17 @@ const data = [
 ];
 ```
 
-`markdown:docs/common/xy-field.zh.md`
+#### xField
+
+<description>**必选** _string_</description>
+
+图形在 x 方向对应的数据字段名，一般是横向的坐标轴对应的字段。比如：要看不同班级的人数情况，那么班级字段就是对应的 xField。
+
+#### yField
+
+<description>**必选** _string_</description>
+
+图形在 y 方向对应的数据字段名，一般是纵向的坐标轴对应的字段。比如：要看不同班级的人数情况，那么人数字段就是对应的 yField。
 
 #### seriesField
 

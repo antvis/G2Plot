@@ -4,9 +4,11 @@ import { Tooltip } from '../types/tooltip';
 
 export type Options = {
   /** 容器 宽度 */
-  width: number;
+  width?: number;
   /** 容器 高度 */
-  height: number;
+  height?: number;
+  /** 容器 自适应 */
+  autoFit?: boolean;
   /** 容器 内边距 */
   padding?: number | number[]; // 暂时不处理 auto
   /** 原始数据 */

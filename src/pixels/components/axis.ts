@@ -76,6 +76,10 @@ export class AxisController extends Controller<AxisOption> {
         ...region,
         ticks: scale.getTicks().map((item) => ({ id: item.value, name: item.text, value: item.value })),
         verticalFactor,
+        animate: true,
+        label: {
+          autoHide: true,
+        },
       },
       axisOption
     );
@@ -87,8 +91,17 @@ export class AxisController extends Controller<AxisOption> {
    * 更新所有轴
    */
   public update() {
+    const { xAxis, yAxis } = this.pixelPlot.options;
+    const pixelBBox = this.pixelPlot.pixelBBox;
+
+    const xAxisDir = get(xAxis, 'position', DIRECTION.BOTTOM);
+    const xRegion = getAxisRegion(pixelBBox, xAxisDir);
+
+    const yAxisDir = get(yAxis, 'position', DIRECTION.LEFT);
+    const yRegion = getAxisRegion(pixelBBox, yAxisDir);
+
     // todo 拿到关于轴的新配置后，update
-    if (this.xAxisComponent) this.xAxisComponent.update({});
-    if (this.yAxisComponent) this.yAxisComponent.update({});
+    if (this.xAxisComponent) this.xAxisComponent.update(xRegion);
+    if (this.yAxisComponent) this.yAxisComponent.update(yRegion);
   }
 }

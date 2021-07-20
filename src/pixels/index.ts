@@ -26,13 +26,19 @@ export class PixelPlot extends CanvasPlot<PixelPlotOptions> {
     if (this.axisController) this.axisController.render();
   }
 
+  protected updateComponents() {
+    if (this.tooltipController) this.tooltipController.update();
+    if (this.axisController) this.axisController.update();
+  }
+
   /**
    * 处理像素图所需数据：pixelData
    */
   protected processData() {}
 
   /** 绘制像素图 */
-  protected paintMidCanvas() {
+  protected renderMidCanvas() {
+    this.clearMidCanvas();
     const { pixelData } = this.options;
     const { x, y, width, height } = this.pixelBBox;
 
@@ -78,12 +84,16 @@ export class PixelPlot extends CanvasPlot<PixelPlotOptions> {
    * @returns void
    */
   public clear() {
-    if (this.middleCanvas) {
-      const { width, height } = this.options;
-      const ctx = this.middleCanvas.getContext('2d');
-      ctx.clearRect(0, 0, width, height);
-    }
+    this.clearMidCanvas();
     if (this.backgroundCanvas) this.backgroundCanvas.clear();
     if (this.foregroundCanvas) this.foregroundCanvas.clear();
+  }
+
+  public clearMidCanvas() {
+    if (this.middleCanvas) {
+      const { x, y, width, height } = this.viewBBox;
+      const ctx = this.middleCanvas.getContext('2d');
+      ctx.clearRect(x, y, width, height);
+    }
   }
 }

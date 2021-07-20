@@ -1,10 +1,11 @@
 import { Canvas } from '@antv/g-canvas';
 import { getScale } from '@antv/scale';
 import { Scale } from '@antv/g2';
-import { deepMix, min, max, uniqueId } from '@antv/util';
+import { deepMix, min, max, uniqueId, debounce } from '@antv/util';
+import { getContainerSize } from '../utils';
 import { DEFAULT_OPTIONS } from './constant';
 import { setCanvasPosition } from './util/canvas';
-import { getPaddingInfo } from './util/canvas';
+import { getPaddingInfo, changeCanvasSize } from './util/canvas';
 import { getDefaultMetaType } from './util/scale';
 import { BBox, Datum, Options, ScaleMeta, ScaleOption } from './type';
 
@@ -40,13 +41,16 @@ export abstract class CanvasPlot<O extends Options> {
   }
 
   protected init() {
-    // 计算viewBBox，如果是autofit，会拿到实际的容器大小
+    // 计算 viewBBox
     this.calculateViewBBox();
 
     // 生成三层画布
     this.initBgCanvas();
     this.initMidCanvas();
     this.initFgCanvas();
+
+    // 计算画布大小 和 组件位置
+    this.calculateLayout();
 
     // 绑定交互所需的事件
     this.bindEvents();
@@ -58,19 +62,40 @@ export abstract class CanvasPlot<O extends Options> {
   /**
    * 计算 viewBBox
    */
-  private calculateViewBBox() {}
+  private calculateViewBBox() {
+    const { autoFit } = this.options;
+    let w, h;
+    // 如果是自适应的话，获取容器的宽高
+    if (autoFit) {
+      const { width, height } = getContainerSize(this.container);
+      w = width;
+      h = height;
+    } else {
+      const { width, height } = this.options;
+      w = width || 800;
+      h = height || 400;
+    }
+
+    this.viewBBox = {
+      x: 0,
+      y: 0,
+      width: w,
+      height: h,
+    };
+  }
 
   /**
    * 初始化背景层：initBgCanvas
    */
   private initBgCanvas() {
-    const { width, height } = this.options;
+    const { width, height } = this.viewBBox;
     this.container.style.position = 'relative';
 
     this.backgroundCanvas = new Canvas({
       container: this.container,
       width,
       height,
+      localRefresh: false,
     });
     this.backgroundCanvas.get('el').id = 'bg-canvas';
   }
@@ -79,7 +104,7 @@ export abstract class CanvasPlot<O extends Options> {
    * 初始化中间层：像素图 initMidCanvas
    */
   private initMidCanvas() {
-    const { width, height } = this.options;
+    const { width, height } = this.viewBBox;
     const canvas = document.createElement('canvas');
     canvas.id = 'mid-canvas';
     canvas.setAttribute('width', `${width}`);
@@ -96,12 +121,13 @@ export abstract class CanvasPlot<O extends Options> {
    * 初始化前景层 initForeCanvas
    */
   private initFgCanvas() {
-    const { width, height } = this.options;
+    const { width, height } = this.viewBBox;
 
     this.foregroundCanvas = new Canvas({
       container: this.container,
       width,
       height,
+      localRefresh: false,
     });
     this.foregroundCanvas.get('el').id = 'fg-canvas';
 
@@ -109,10 +135,51 @@ export abstract class CanvasPlot<O extends Options> {
     setCanvasPosition(fgCanvas, 0, 0);
   }
 
+  private calculateLayout(isUpdate = false) {
+    this.calculatePixelBBox();
+
+    if (isUpdate) {
+      this.updateComponents();
+    } else {
+      this.initComponents();
+    }
+  }
+
   /**
    * 图表响应式
    */
-  protected bindAutoFit() {}
+  protected bindAutoFit() {
+    const { autoFit } = this.options;
+
+    if (autoFit) {
+      window.addEventListener('resize', this.onChangeSize);
+    }
+  }
+
+  /**
+   * 窗口改变的响应函数
+   */
+  private onChangeSize = debounce(() => {
+    // 更改 canvas大小
+    this.changeCanvasSize();
+    // 更新 ViewBBox
+    this.calculateViewBBox();
+    // 布局：像素画布区，组件布局
+    this.calculateLayout(true);
+    // 绘制：像素图 和 组件
+    this.render();
+  }, 300);
+
+  /**
+   * 改变三层canvas画布的大小
+   */
+  private changeCanvasSize() {
+    const { width, height } = getContainerSize(this.container);
+
+    changeCanvasSize(this.middleCanvas, width, height);
+    this.backgroundCanvas.changeSize(width, height);
+    this.foregroundCanvas.changeSize(width, height);
+  }
 
   /**
    * 处理像素图所需的数据，密度趋势图有单独处理的算法
@@ -130,10 +197,16 @@ export abstract class CanvasPlot<O extends Options> {
   protected abstract renderComponents();
 
   /**
+   * 更新组件
+   */
+  protected abstract updateComponents();
+
+  /**
    * 计算 pixelBBox
    */
   protected calculatePixelBBox() {
-    const { padding, width, height } = this.options;
+    const { width, height } = this.viewBBox;
+    const { padding } = this.options;
     const paddingInfo = getPaddingInfo(padding);
 
     this.pixelBBox = {
@@ -147,7 +220,7 @@ export abstract class CanvasPlot<O extends Options> {
   /**
    * 密度趋势图有单独的绘制方法
    */
-  protected abstract paintMidCanvas();
+  protected abstract renderMidCanvas();
 
   /**
    * 渲染
@@ -156,12 +229,8 @@ export abstract class CanvasPlot<O extends Options> {
     // 处理render前所需的data：像素图数据pixelData
     this.processData();
 
-    // 布局：布局组件位置、确定像素图绘制区域
-    this.calculatePixelBBox();
-    this.initComponents();
-
     // 绘制：画布和组件
-    this.paintMidCanvas();
+    this.renderMidCanvas();
     this.renderComponents();
   }
 

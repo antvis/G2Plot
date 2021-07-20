@@ -1,6 +1,4 @@
-import { GroupComponent, HtmlComponent } from '@antv/component';
 import { PixelPlot } from '../index';
-import { Options } from '../type';
 /**
  * Component Controller 的抽象基本类
  */

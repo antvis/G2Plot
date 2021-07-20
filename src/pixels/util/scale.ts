@@ -8,6 +8,6 @@ export function getDefaultMetaType(field: string, data: any[]) {
   let type = 'linear';
   if (isNumber(value)) type = 'linear';
   if (isString(value)) type = 'cat';
-  if (isDate(value) || Date.parse(value)) type = 'time';
+  if (isDate(value) || !isNaN(Date.parse(value))) type = 'time';
   return type;
 }

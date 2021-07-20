@@ -41,7 +41,7 @@ export abstract class CanvasPlot<O extends Options> {
   }
 
   protected init() {
-    // 计算 viewBBox
+    // 计算viewBBox，如果是autofit，会拿到实际的容器大小
     this.calculateViewBBox();
 
     // 生成三层画布

@@ -94,11 +94,11 @@ const data = [[{ time: '1991'，value: 20 }], [{ time: '1992', count: 20 }]];
 
 ### 图表组件
 
-#### tooltip
+#### 悬浮提示 - tooltip
 
 `markdown:docs/common/tooltip.zh.md`
 
-#### axis
+#### 坐标轴 - axis
 
 xAxis、yAxis 配置相同，由于 DualAxes 是双轴， yAxis 类型是对象类型，形式为{左轴字段: 左轴配置，右轴字段: 右轴配置}。例如
 
@@ -164,7 +164,7 @@ xAxis、yAxis 配置相同，由于 DualAxes 是双轴， annotations 类型是�
 
 `markdown:docs/common/annotations.zh.md`
 
-#### legend
+#### 图例 - legend
 
 `markdown:docs/common/legend.zh.md`
 
@@ -172,7 +172,7 @@ xAxis、yAxis 配置相同，由于 DualAxes 是双轴， annotations 类型是�
 
 `markdown:docs/common/theme.zh.md`
 
-#### 滚动条
+#### 缩略轴
 
 `markdown:docs/common/slider.zh.md`
 

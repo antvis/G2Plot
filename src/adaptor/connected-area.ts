@@ -1,9 +1,11 @@
-import { registerInteraction } from '@antv/g2';
+import { registerInteraction, ShapeAttrs, Element } from '@antv/g2';
 import { Params } from '../core/adaptor';
 
 export interface ConnectedAreaOptions {
   /** 触发方式, 默认 hover */
   trigger?: 'hover' | 'click';
+  /** 自定义样式 */
+  style?: ShapeAttrs | ((style: ShapeAttrs, element: Element) => ShapeAttrs);
 }
 
 /** 联通区域组件：使用于堆叠柱形图、堆叠条形图 */
@@ -16,14 +18,34 @@ const INTERACTION_MAP = {
   click: '__interval-connected-area-click__',
 };
 
+const getStartStages = (trigger: string, style?: ConnectedAreaOptions['style']) => {
+  if (trigger === 'hover') {
+    return [
+      {
+        trigger: `interval:mouseenter`,
+        action: ['element-highlight-by-color:highlight', 'element-link-by-color:link'],
+        arg: [null, { style }],
+      },
+    ];
+  }
+  return [
+    {
+      trigger: `interval:click`,
+      action: [
+        'element-highlight-by-color:clear',
+        'element-highlight-by-color:highlight',
+        'element-link-by-color:clear',
+        'element-link-by-color:unlink',
+        'element-link-by-color:link',
+      ],
+      arg: [null, null, null, null, { style }],
+    },
+  ];
+};
+
 /** hover 触发的连通区域交互 */
 registerInteraction(INTERACTION_MAP.hover, {
-  start: [
-    {
-      trigger: `interval:mouseenter`,
-      action: ['element-highlight-by-color:highlight', 'element-link-by-color:link'],
-    },
-  ],
+  start: getStartStages(INTERACTION_MAP.hover),
   end: [
     {
       trigger: 'interval:mouseleave',
@@ -34,18 +56,7 @@ registerInteraction(INTERACTION_MAP.hover, {
 
 /** click 触发的联通区域交互 */
 registerInteraction(INTERACTION_MAP.click, {
-  start: [
-    {
-      trigger: `interval:click`,
-      action: [
-        'element-highlight-by-color:clear',
-        'element-highlight-by-color:highlight',
-        'element-link-by-color:clear',
-        'element-link-by-color:unlink',
-        'element-link-by-color:link',
-      ],
-    },
-  ],
+  start: getStartStages(INTERACTION_MAP.click),
   end: [
     {
       trigger: 'document:mousedown',
@@ -71,7 +82,9 @@ export function connectedArea<O extends OptionWithConnectedArea>(disable = false
     if (!disable && connectedArea) {
       const trigger = connectedArea.trigger || 'hover';
       clear();
-      chart.interaction(INTERACTION_MAP[trigger]);
+      chart.interaction(INTERACTION_MAP[trigger], {
+        start: getStartStages(trigger, connectedArea.style),
+      });
     } else {
       clear();
     }

@@ -1,4 +1,4 @@
-export const version = '2.3.23';
+export const version = '2.3.26';
 
 // G2 自定义能力透出
 import * as G2 from '@antv/g2';
@@ -164,6 +164,10 @@ export type { MixOptions } from './plots/mix';
 // 分面图及类型定义 | author by [visiky](https://github.com/visiky)
 export { Facet } from './plots/facet';
 export type { FacetOptions } from './plots/facet';
+
+// 分面图及类型定义 | author by [visiky](https://github.com/visiky), [Angeli](https://github.com/Angelii)
+export { CirclePacking } from './plots/circle-packing';
+export type { CirclePackingOptions } from './plots/circle-packing';
 
 /** 开发 adaptor 可能会用到的方法或一些工具方法，不强制使用 */
 export { flow, measureTextWidth } from './utils';

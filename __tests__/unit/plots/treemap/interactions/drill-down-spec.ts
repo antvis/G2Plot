@@ -152,7 +152,6 @@ describe('sunburst: drill-down', () => {
 
     expect(breadCrumb.getBBox().x).toBe(0);
     expect(breadCrumb.getBBox().y).toBe(-32 /** font-size */);
-    expect(breadCrumb.getCanvasBBox().y).toBe(PADDING_TOP);
     // activeTextStyle
     // @ts-ignore
     const textShape: IShape = breadCrumb.getChildren()[0];

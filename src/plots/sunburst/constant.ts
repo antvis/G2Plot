@@ -1,5 +1,6 @@
 import { Plot } from '../../core/plot';
 import { deepAssign } from '../../utils';
+import { CHILD_NODE_COUNT, NODE_ANCESTORS_FIELD, NODE_INDEX_FIELD } from '../../utils/hierarchy/util';
 import { SunburstOptions } from './types';
 
 /**
@@ -10,7 +11,15 @@ export const SUNBURST_Y_FIELD = 'value';
 export const SUNBURST_PATH_FIELD = 'path';
 
 /** 默认的源字段 */
-export const RAW_FIELDS = [SUNBURST_PATH_FIELD, 'name', 'depth', 'height'];
+export const RAW_FIELDS = [
+  SUNBURST_PATH_FIELD,
+  NODE_INDEX_FIELD,
+  NODE_ANCESTORS_FIELD,
+  CHILD_NODE_COUNT,
+  'name',
+  'depth',
+  'height',
+];
 
 /**
  * 旭日图 默认配置项

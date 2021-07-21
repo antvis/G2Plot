@@ -51,6 +51,10 @@ describe('rose', () => {
     expect(geometry.getAdjust('stack')).toBeUndefined();
     expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
 
+    // legend 默认不进行 offset
+    // @ts-ignore
+    expect(rose.chart.getController('legend').components[0].component.get('offsetX')).not.toBeGreaterThan(0);
+
     rose.destroy();
   });
 

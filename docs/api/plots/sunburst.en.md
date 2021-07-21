@@ -35,7 +35,19 @@ type Node = { name: string; value?: number; children: Node[]; }
 
 `markdown:docs/common/meta.en.md`
 
-旭日图内含的数据字段有：Sunburst.SUNBURST_PATH_FIELD, Sunburst.SUNBURST_ANCESTOR_FIELD, depth, height，这些字段可以在元数据中获取（tooltip、style 回调中使用）.
+旭日图内含的数据字段有：
+
+| Field key | Description of field | Type of value |
+｜ --- ｜ --- ｜ --- ｜
+｜`Sunburst.SUNBURST_PATH_FIELD`| Path of current node, up the tree to the least common ancestor, and back down to the given node |_string_ |
+｜`Sunburst.SUNBURST_ANCESTOR_FIELD`| Ancestor node of current node | _string_ |
+｜`Sunburst.NODE_ANCESTORS_FIELD`| Ancestor nodes of current node |_object[]_ |
+｜`nodeIndex`| Index of nodes at the same level |_number_ |
+| `childNodeCount` | Counts of current node's childNodes  |_number_ |
+｜`depth`| |_number_ |
+｜`height`| | _number_ |
+
+这些字段可以在元数据中获取（tooltip、style 回调中使用）.
 
 可以通过下面的方式来设置字段的元信息：
 
@@ -78,14 +90,14 @@ Hierarchy configuration, such as' size ', 'padding', etc., refer to [D3-Hierarch
 
 支持配置属性：
 
-| Properties | Type               | Description                                                                                                                          |
-| ---------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
-| field      | _string_           | 数据节点权重映射字段，默认为：`value`. 当你的节点数据格式不是：`{ name: 'xx', value: 'xx' }`, 可以通过该字段来指定，详细见：图表示例 |
-| padding    | _number\|number[]_ | 默认：`0`。参考：[d3-hierarchy#partition_padding](https://github.com/d3/d3-hierarchy#partition_padding)                              |
-| size       | _number[]_         | 默认：`[1, 1]`。参考：[d3-hierarchy#partition_size](https://github.com/d3/d3-hierarchy#partition_size)                               |
-| round      | _boolean_          | 默认：`false`。参考：[d3-hierarchy#partition_round](https://github.com/d3/d3-hierarchy#partition_round)                              |
-| sort       | _Function_         | 数据节点排序方式，默认：降序。参考: [d3-hierarchy#node_sort](https://github.com/d3/d3-hierarchy#node_sort)                           |
-| ignoreParentValue       | _boolean_         | 是否忽略 parentValue, 默认：true。 当设置为 true 时，父节点的权重由子元素决定  |
+| Properties        | Type               | Description                                                                                                                          |
+| ----------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| field             | _string_           | 数据节点权重映射字段，默认为：`value`. 当你的节点数据格式不是：`{ name: 'xx', value: 'xx' }`, 可以通过该字段来指定，详细见：图表示例 |
+| padding           | _number\|number[]_ | 默认：`0`。参考：[d3-hierarchy#partition_padding](https://github.com/d3/d3-hierarchy#partition_padding)                              |
+| size              | _number[]_         | 默认：`[1, 1]`。参考：[d3-hierarchy#partition_size](https://github.com/d3/d3-hierarchy#partition_size)                               |
+| round             | _boolean_          | 默认：`false`。参考：[d3-hierarchy#partition_round](https://github.com/d3/d3-hierarchy#partition_round)                              |
+| sort              | _Function_         | 数据节点排序方式，默认：降序。参考: [d3-hierarchy#node_sort](https://github.com/d3/d3-hierarchy#node_sort)                           |
+| ignoreParentValue | _boolean_          | 是否忽略 parentValue, 默认：true。 当设置为 true 时，父节点的权重由子元素决定                                                        |
 
 #### radius
 

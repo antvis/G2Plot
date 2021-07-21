@@ -1,5 +1,9 @@
 #### 2.3.27 (2021-07-21)
 
+##### Documentation Changes
+
+* **legend:** 图例 itemName, itemValue 增加 style 回调 ([#2712](https://github.com/antvis/g2plot/pull/2712)) ([1b039b0b8](https://github.com/antvis/G2Plot/commit/1b039b0b865dc84a01370c9f701b2c2a8792e23d))
+
 ##### Bug Fixes
 
 * **histogram:**  binNumber 设置出错 ([#2708](https://github.com/antvis/g2plot/pull/2708)) ([46d27699](https://github.com/antvis/g2plot/commit/46d276995839610a3d0fc196eedd1b13366ecf47))
@@ -7,7 +11,8 @@
 * 修复 玉珏图没有考虑 isStack 的情况 重新计算最大值 ([#2685](https://github.com/antvis/g2plot/pull/2685)) ([397d8641](https://github.com/antvis/g2plot/commit/397d86415ce399ada0b23c2fd32ecd3a0a2f9e12))
 * **rose:**  玫瑰图 legend 默认配置，不进行 offset 偏移 ([#2683](https://github.com/antvis/g2plot/pull/2683)) ([86e23094](https://github.com/antvis/g2plot/commit/86e2309461e7627527f343039f674da1f0e0cb0c))
 * **bullet:** 修复子弹图 状态量 中 设置 fill 为渐变色时，报错 ([#791](https://github.com/antvis/g/pull/791)) ([70083c2d1](https://github.com/antvis/g/commit/70083c2d1454528f2534ba9c6bedf0345d6913ec))
-* **legend:** 修复图例容器无法设置问题  ([#2711](https://github.com/antvis/g2plot/pull/2711)) ([3fb32f087](https://github.com/antvis/g/commit/3fb32f0874dc71a2700e84c86e455fc005fbbad6))
+* **legend:** 修复图例容器大小无法设置问题  ([#2711](https://github.com/antvis/g2plot/pull/2711)) ([3fb32f087](https://github.com/antvis/g/commit/3fb32f0874dc71a2700e84c86e455fc005fbbad6))
+
 ##### Refactors
 
 *  函数命名修正 ([#2698](https://github.com/antvis/g2plot/pull/2698)) ([128de436](https://github.com/antvis/g2plot/commit/128de436f26c7fedcb930f491dc1054916e68c19))

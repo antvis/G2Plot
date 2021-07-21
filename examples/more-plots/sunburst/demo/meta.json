@@ -50,8 +50,7 @@
         "zh": "自定义旭日图样式",
         "en": "Style of sunburst plot"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/hWIcBgVYMI/d265c8b0-2184-48aa-8610-173cb0b065a8.png",
-      "new": true
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/hWIcBgVYMI/d265c8b0-2184-48aa-8610-173cb0b065a8.png"
     },
     {
       "filename": "tooltip-fields.ts",

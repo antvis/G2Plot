@@ -307,9 +307,6 @@ module.exports = {
       apiKey: '0d19588d7661a81faa8b75f6ade80321',
       indexName: 'antv_g2plot',
     },
-    announcement: {
-      zh: '1. 上新图表啦！请「图表示例 - 更多图表」查看「Circle Packing」图表示例',
-      en: '1. 上新图表啦！请「图表示例 - 更多图表」查看「Circle Packing」图表示例',
-    }
+    announcement: {}
   },
 };

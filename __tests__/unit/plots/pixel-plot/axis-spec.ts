@@ -37,8 +37,8 @@ describe('pixel-plot', () => {
 
     const yAxis = plot.axisController.yAxisComponent;
 
-    expect(plot.scales.get('date').scaleOption.min).toBe('2004-01-01');
-    expect(plot.scales.get('date').scaleOption.max).toBe('2014-01-01');
+    expect(plot.scales.get('date').scale.min).toEqual(new Date('2004/01/01').getTime());
+    expect(plot.scales.get('date').scale.max).toEqual(new Date('2014/01/01').getTime());
     expect(plot.scales.get('date').scaleOption.nice).toBe(false);
 
     expect(plot.scales.get('high').scale.min).toBe(0);

@@ -65,23 +65,14 @@ export abstract class CanvasPlot<O extends Options> {
    */
   private calculateViewBBox() {
     const { autoFit } = this.options;
-    let w, h;
     // 如果是自适应的话，获取容器的宽高
-    if (autoFit) {
-      const { width, height } = getContainerSize(this.container);
-      w = width;
-      h = height;
-    } else {
-      const { width, height } = this.options;
-      w = width || 800;
-      h = height || 400;
-    }
+    const { width = 800, height = 400 } = autoFit ? getContainerSize(this.container) : this.options;
 
     this.viewBBox = {
       x: 0,
       y: 0,
-      width: w,
-      height: h,
+      width,
+      height,
     };
   }
 
@@ -269,17 +260,7 @@ export abstract class CanvasPlot<O extends Options> {
     const range = meta[field]?.range || [0, 1]; // range默认 [0, 1]
     const values = meta[field]?.values || data.map((item) => item[field]);
 
-    // 如果类型是 time，获取日期的最大最小值：min、max，暂不建议 values
-    // minLimit、maxLimit支持 linear 比例尺，对 time 无效
-    let minValue = null,
-      maxValue = null;
-    if (type === 'time') {
-      const timeData = values.map((item) => new Date(item).getTime());
-      minValue = min(timeData);
-      maxValue = max(timeData);
-    }
-
-    const cfg = { type, values, range, min: minValue, max: maxValue, nice: true };
+    const cfg = { type, values, range, nice: true };
 
     return deepMix({}, cfg, meta[field]);
   }

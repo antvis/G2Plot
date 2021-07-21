@@ -157,6 +157,24 @@ Apply to <tag color="green" text="Classification legend">Classification legend</
 
 `markdown:docs/common/marker.en.md`
 
+##### maxItemWidth
+
+<description> _number_ **optional** </description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大宽度设置。
+
+##### maxWidthRatio
+
+<description> _number_ **optional**. 取值范围：[0, 1], 默认: 0.25</description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项容器最大宽度比例（以 view 的 bbox 容器大小为参照）设置，如果不需要该配置，可以设置为 `null`。
+
+##### maxHeightRatio
+
+<description> _number_ **optional**. 取值范围：[0, 1], 默认: 0.25</description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项容器最大高度比例（以 view 的 bbox 容器大小为参照）设置，如果不需要该配置，可以设置为 `null`。
+
 ##### maxWidth
 
 <description>**optional** _number_ </description>

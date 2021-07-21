@@ -129,9 +129,34 @@ pageNavigator: {
 
 | 参数名    | 类型       | 默认值  | 描述                                                                |
 | --------- | ---------- | ------- | ------------------------------------------------------------------- |
-| style     | _object_   | -       | 文本样式配置项，参考  [绘图属性](/zh/docs/api/graphic-style)        |
-| spacing   | _number_   | `false` | 图例项 marker 同后面 name 的间距                                    |
-| formatter | _function_ | -       | 格式化函数, `(text: string, item: ListItem, index: number) => any;` |
+| style     | _((item: ListItem, index: number, items: ListItem[]) => ShapeAttrs) \| ShapeAttrs_             |          | -      | 文本样式配置项                   |
+| spacing   | number                                                  |          | -      | 图例项 marker 同后面 name 的间距 |
+| formatter | `(text: string, item: ListItem, index: number) => any;` |          |        | 格式化函数                       |
+
+其中, `ShapeAttrs` 详细配置见：[文档](/zh/docs/api/shape/shape-attrs)；`ListItem` 配置如下：
+
+```ts
+type ListItem = {
+  /**
+   * 名称 {string}
+   */
+  name: string;
+  /**
+   * 值 {any}
+   */
+  value: any;
+  /**
+   * 图形标记 {object|string}
+   */
+  marker?: Marker | string;
+}
+
+type Marker = {
+  symbol? string;
+  style?: ShapeAttrs;
+  spacing?: number;
+};
+```
 
 ##### itemValue
 
@@ -141,9 +166,34 @@ pageNavigator: {
 
 | 参数名     | 类型       | 默认值  | 描述                                                                |
 | ---------- | ---------- | ------- | ------------------------------------------------------------------- |
-| style      | _object_   | -       | 文本样式配置项，详见  [绘图属性](/zh/docs/api/graphic-style)        |
 | alignRight | _boolean_  | `false` | 是否右对齐，默认为 false，仅当设置图例项宽度时生效                  |
 | formatter  | _function_ | -       | 格式化函数, `(text: string, item: ListItem, index: number) => any;` |
+| style     | _((item: ListItem, index: number, items: ListItem[]) => ShapeAttrs) \| ShapeAttrs_             |          | -      | 文本样式配置项                   |
+
+其中, `ShapeAttrs` 详细配置见：[文档](/zh/docs/api/shape/shape-attrs)；`ListItem` 配置如下：
+
+```ts
+type ListItem = {
+  /**
+   * 名称 {string}
+   */
+  name: string;
+  /**
+   * 值 {any}
+   */
+  value: any;
+  /**
+   * 图形标记 {object|string}
+   */
+  marker?: Marker | string;
+}
+
+type Marker = {
+  symbol? string;
+  style?: ShapeAttrs;
+  spacing?: number;
+};
+```
 
 <playground path="component/legend/demo/legend-item-value.ts" rid="legend-item-value"></playground>
 

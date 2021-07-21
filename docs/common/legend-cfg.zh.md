@@ -175,17 +175,45 @@ pageNavigator: {
 
 `markdown:docs/common/marker.zh.md`
 
+##### maxItemWidth
+
+<description> _number_ **optional** </description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大宽度设置。
+
+##### maxWidthRatio
+
+<description> _number_ **optional**. 取值范围：[0, 1], 默认: 0.25</description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项容器最大宽度比例（以 view 的 bbox 容器大小为参照）设置，如果不需要该配置，可以设置为 `null`。
+
+##### maxHeightRatio
+
+<description> _number_ **optional**. 取值范围：[0, 1], 默认: 0.25</description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项容器最大高度比例（以 view 的 bbox 容器大小为参照）设置，如果不需要该配置，可以设置为 `null`。
+
 ##### maxWidth
 
 <description>**optional** _number_ </description>
 
-适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大宽度设置。当 layout 等于 'horizontal' 时，生效，当图例项横向排布，超过最大宽度时，会结合 `flipPage: true` 进行分页。
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项容器最大宽度设置。当 layout 等于 'horizontal' 时，生效，当图例项横向排布，超过最大宽度时，会结合 `flipPage: true` 进行分页。实际上，图例项容器最大宽度的计算如下：
+
+```sign
+const viewBBox = this.view.viewBBox;
+const maxWidth = Math.min(maxWidth, maxWidthRatio * viewBBox.width);
+```
 
 ##### maxHeight
 
 <description>**optional** _number_ </description>
 
-适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大高度设置。当 layout 等于 'vertical' 时，生效，当图例项纵向排布，超过最大高度时，会结合 `flipPage: true` 进行分页。
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项容器最大高度设置。当 layout 等于 'vertical' 时，生效，当图例项纵向排布，超过最大高度时，会结合 `flipPage: true` 进行分页。实际上，图例项容器最大宽度的计算如下：
+
+```sign
+const viewBBox = this.view.viewBBox;
+const maxHeight = Math.min(maxHeight, maxHeightRatio * viewBBox.height);
+```
 
 ##### reversed
 

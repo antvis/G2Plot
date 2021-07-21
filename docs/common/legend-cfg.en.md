@@ -121,25 +121,75 @@ Apply to <tag color="green" text="Classification legend">Classification legend</
 
 <description>**optional** _LegendItemNameCfg_ </description>
 
-Apply to <tag color="green" text="Classification legend">Classification legend</tag>, configure the legend item name text. _LegendItemNameCfg_ is configured as follows：
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项 name 文本的配置。_LegendItemNameCfg_ 配置如下：
 
-| Properties | Type       | Default | Description                                                                      |
-| ---------- | ---------- | ------- | -------------------------------------------------------------------------------- |
-| style      | _object_   | -       | Text style configuration, referecnce [Graphic Style](/zh/docs/api/graphic-style) |
-| spacing    | _number_   | `false` | The spacing between legend item marker and the following name                    |
-| formatter  | _function_ | -       | Format function, `(text: string, item: ListItem, index: number) => any;`         |
+| 参数名    | 类型       | 默认值  | 描述                                                                |
+| --------- | ---------- | ------- | ------------------------------------------------------------------- |
+| style     | _((item: ListItem, index: number, items: ListItem[]) => ShapeAttrs) \| ShapeAttrs_             |          | -      | 文本样式配置项                   |
+| spacing   | number                                                  |          | -      | 图例项 marker 同后面 name 的间距 |
+| formatter | `(text: string, item: ListItem, index: number) => any;` |          |        | 格式化函数                       |
+
+其中, `ShapeAttrs` 详细配置见：[文档](/zh/docs/api/shape/shape-attrs)；`ListItem` 配置如下：
+
+```ts
+type ListItem = {
+  /**
+   * 名称 {string}
+   */
+  name: string;
+  /**
+   * 值 {any}
+   */
+  value: any;
+  /**
+   * 图形标记 {object|string}
+   */
+  marker?: Marker | string;
+}
+
+type Marker = {
+  symbol? string;
+  style?: ShapeAttrs;
+  spacing?: number;
+};
+```
 
 ##### itemValue
 
 <description>**optional** _LegendItemValueCfg_ </description>
 
-Apply to <tag color="green" text="Classification legend">Classification legend</tag>, configuration item of legend item Value added value. _LegendItemValueCfg_ Configuration is as follows:
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项 value 附加值的配置项。_LegendItemValueCfg_ 配置如下：
 
-| Properties | Type       | Default | Description                                                                          |
-| ---------- | ---------- | ------- | ------------------------------------------------------------------------------------ |
-| style      | _object_   | -       | Text style configuration item, reference [Graphic Style](/zh/docs/api/graphic-style) |
-| alignRight | _boolean_  | `false` | Right-align, false by default, only when setting legend item width.                  |
-| formatter  | _function_ | -       | Format function, `(text: string, item: ListItem, index: number) => any;`             |
+| 参数名     | 类型       | 默认值  | 描述                                                                |
+| ---------- | ---------- | ------- | ------------------------------------------------------------------- |
+| alignRight | _boolean_  | `false` | 是否右对齐，默认为 false，仅当设置图例项宽度时生效                  |
+| formatter  | _function_ | -       | 格式化函数, `(text: string, item: ListItem, index: number) => any;` |
+| style     | _((item: ListItem, index: number, items: ListItem[]) => ShapeAttrs) \| ShapeAttrs_             |          | -      | 文本样式配置项                   |
+
+其中, `ShapeAttrs` 详细配置见：[文档](/zh/docs/api/shape/shape-attrs)；`ListItem` 配置如下：
+
+```ts
+type ListItem = {
+  /**
+   * 名称 {string}
+   */
+  name: string;
+  /**
+   * 值 {any}
+   */
+  value: any;
+  /**
+   * 图形标记 {object|string}
+   */
+  marker?: Marker | string;
+}
+
+type Marker = {
+  symbol? string;
+  style?: ShapeAttrs;
+  spacing?: number;
+};
+```
 
 <playground path="component/legend/demo/legend-item-value.ts" rid="legend-item-value"></playground>
 

@@ -1,4 +1,4 @@
-import { isNumber, isString } from '@antv/util';
+import { isNumber, isString, isDate } from '@antv/util';
 
 /**
  * 根据字段判断类型
@@ -8,6 +8,6 @@ export function getDefaultMetaType(field: string, data: any[]) {
   let type = 'linear';
   if (isNumber(value)) type = 'linear';
   if (isString(value)) type = 'cat';
-  // todo 日期的正则 type = 'time'
+  if (isDate(value) || !isNaN(Date.parse(value))) type = 'time';
   return type;
 }

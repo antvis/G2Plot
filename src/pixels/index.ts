@@ -1,11 +1,8 @@
-import { size, isNil, deepMix, min, max } from '@antv/util';
-import { getScale } from '@antv/scale';
-import { Scale } from '@antv/g2';
+import { size, isNil } from '@antv/util';
 import { CanvasPlot } from './canvas';
+import { PixelPlotOptions } from './type';
 import { TooltipController } from './components/tooltip';
 import { AxisController } from './components/axis';
-import { PixelPlotOptions, Datum, Meta } from './type';
-import { getDefaultMetaType } from './util/scale';
 
 /**
  * 像素点绘制图表
@@ -16,51 +13,54 @@ export class PixelPlot extends CanvasPlot<PixelPlotOptions> {
   /** axis组件控制器 */
   public axisController: AxisController;
 
-  protected init(): void {
-    super.init();
+  /**
+   * 暂时把图表所需组件放置在子类中
+   */
+  protected initComponents() {
+    this.tooltipController = new TooltipController(this);
+    this.axisController = new AxisController(this);
+  }
 
-    this.initComponents();
+  protected renderComponents() {
+    if (this.tooltipController) this.tooltipController.render();
+    if (this.axisController) this.axisController.render();
+  }
+
+  protected updateComponents() {
+    if (this.tooltipController) this.tooltipController.update();
+    if (this.axisController) this.axisController.update();
   }
 
   /**
-   * 渲染
+   * 处理像素图所需数据：pixelData
    */
-  public render() {
-    // this.clear(); todo 渲染流程相关
-    this.paintMidCanvas();
-    this.renderComponents();
-  }
+  protected processData() {}
 
-  /**
-   * 渲染像素图
-   */
-  private paintMidCanvas() {
+  /** 绘制像素图 */
+  protected renderMidCanvas() {
+    this.clearMidCanvas();
     const { pixelData } = this.options;
-    const { width, height } = this.pixelBBox;
+    const { x, y, width, height } = this.pixelBBox;
 
-    console.time(`render ${pixelData.length / 4} 条数据`);
-
+    // 像素图数据
     if (size(pixelData)) {
       const ctx = this.middleCanvas.getContext('2d');
-
       for (let j = 0; j < height; j++) {
         for (let i = 0; i < width; i++) {
           const idx = j * width + i;
-          // 这里可以修改
           const [r, g, b, a] = pixelData.slice(idx * 4, (idx + 1) * 4);
           if (!(isNil(r) || isNil(g) || isNil(b || isNil(a)))) {
             ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${a})`;
-            ctx.fillRect(i, j, 1, 1);
+            ctx.fillRect(i + x, j + y, 1, 1);
           }
         }
       }
     }
-
-    console.timeEnd(`render ${pixelData.length / 4} 条数据`);
   }
 
   public changeData(rawData: PixelPlotOptions['rawData']) {
     this.options = { ...this.options, rawData };
+    this.clear();
     this.render();
   }
 
@@ -80,69 +80,20 @@ export class PixelPlot extends CanvasPlot<PixelPlotOptions> {
   }
 
   /**
-   * 初始化图表组件
-   */
-  protected initComponents() {
-    this.tooltipController = new TooltipController(this);
-    this.axisController = new AxisController(this);
-  }
-
-  /**
-   * 渲染组件
-   */
-  protected renderComponents() {
-    if (this.tooltipController) this.tooltipController.render();
-    if (this.axisController) this.axisController.render();
-  }
-
-  /**
    * 生命周期：清空图表上所有的绘制内容，但是不销毁图表.
    * @returns void
    */
   public clear() {
-    if (this.middleCanvas) {
-      const { width, height } = this.options;
-      const ctx = this.middleCanvas.getContext('2d');
-      ctx.clearRect(0, 0, width, height);
-    }
+    this.clearMidCanvas();
     if (this.backgroundCanvas) this.backgroundCanvas.clear();
     if (this.foregroundCanvas) this.foregroundCanvas.clear();
   }
 
-  /**
-   * 创建比例尺
-   */
-  public createScale(field: string): Scale {
-    const { meta, rawData } = this.options;
-    const scaleCfg = this.getScaleCfg(meta, field, rawData);
-
-    // 输入配置，创建比例尺
-    const Scale = getScale(scaleCfg.type);
-    const scale = new Scale(scaleCfg);
-
-    return scale;
-  }
-
-  /**
-   * 获取比例尺配置
-   */
-  private getScaleCfg(meta: Record<string, Meta>, field: string, data: Datum[]) {
-    // 给定默认值： type、values、range
-    const type = meta[field]?.type || getDefaultMetaType(field, data); // 根据数据类型，给定默认的 type
-    const range = meta[field]?.range || [0, 1]; // range默认 [0, 1]
-    const values = data.map((item) => item[field]);
-
-    // 如果类型是 time，获取日期的最大最小值. 直接使用 values 有问题
-    let minValue = null,
-      maxValue = null;
-    if (type === 'time') {
-      const timeData = data.map((item) => new Date(item[field]).getTime());
-      minValue = min(timeData);
-      maxValue = max(timeData);
+  public clearMidCanvas() {
+    if (this.middleCanvas) {
+      const { x, y, width, height } = this.viewBBox;
+      const ctx = this.middleCanvas.getContext('2d');
+      ctx.clearRect(x, y, width, height);
     }
-
-    const cfg = { type, values, range, min: minValue, max: maxValue };
-
-    return deepMix({}, cfg, meta[field]);
   }
 }

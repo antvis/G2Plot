@@ -2,6 +2,7 @@ import { PixelPlot } from '../../../../src/pixels';
 import { createDiv } from '../../../utils/dom';
 import { PIXEL_DATA } from '../../../data/pixels';
 import { LARGE_DATA } from '../../../data/large-data';
+import { getContainerSize } from '../../../../src/utils';
 
 describe('pixel-plot', () => {
   const div = createDiv();
@@ -9,12 +10,16 @@ describe('pixel-plot', () => {
     height = 500,
     padding = [40, 50, 30, 50];
 
-  it('default', () => {
+  it('default padding', () => {
     const plot = new PixelPlot(div, {
       width,
       height,
+      padding,
       rawData: LARGE_DATA,
       pixelData: PIXEL_DATA,
+      xField: 'date',
+      yField: 'high',
+      seriesField: 'name',
     });
 
     plot.render();
@@ -27,24 +32,48 @@ describe('pixel-plot', () => {
     expect(fgCanvas.style.width).toEqual('1000px');
     expect(midCanvas.getAttribute('width')).toEqual('1000');
 
+    // 轴存在，有默认类型
+    const xAxis = plot.axisController.xAxisComponent;
+    const yAxis = plot.axisController.yAxisComponent;
+    expect(xAxis.cfg.visible).toBe(true);
+    expect(yAxis.cfg.visible).toBe(true);
+    expect(xAxis.cfg.type).toBe('line');
+    expect(yAxis.cfg.type).toBe('line');
+
+    // 轴存在，具有默认比例尺
+    expect(plot.scales.get('date').scale.type).toBe('time');
+    expect(plot.scales.get('high').scale.type).toBe('linear');
+    expect(plot.scales.get('date').scaleOption.nice).toBe(true);
+    expect(plot.scales.get('high').scaleOption.nice).toBe(true);
+
+    const bbox = { x: 50, y: 40, width: width - padding[1] - padding[3], height: height - padding[0] - padding[2] };
+    expect(plot.pixelBBox).toEqual(bbox);
+
     plot.destroy();
   });
 
-  it('default padding', () => {
+  it('autoFit', () => {
+    div.style.width = '500px';
+    div.style.height = '400px';
+
     const plot = new PixelPlot(div, {
-      width,
-      height,
+      // width,
+      // height,
+      padding,
+      autoFit: true,
       rawData: LARGE_DATA,
       pixelData: PIXEL_DATA,
-      padding,
+      xField: 'date',
+      yField: 'high',
+      seriesField: 'name',
     });
 
     plot.render();
-    // mid canvas 的位置平移， 更新画布宽高
-    const midCanvas = document.getElementById('mid-canvas');
-    expect(midCanvas.style.top).toEqual('40px');
-    expect(midCanvas.style.left).toEqual('50px');
-    expect(midCanvas.getAttribute('width')).toEqual(`${width - padding[1] - padding[3]}`);
-    expect(midCanvas.getAttribute('height')).toEqual(`${height - padding[0] - padding[2]}`);
+
+    const { width, height } = getContainerSize(div);
+    const bbox = { x: 50, y: 40, width: width - padding[1] - padding[3], height: height - padding[0] - padding[2] };
+    expect(plot.pixelBBox).toEqual(bbox);
+
+    plot.destroy();
   });
 });

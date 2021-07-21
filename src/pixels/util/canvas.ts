@@ -21,3 +21,8 @@ export function setCanvasPosition(canvas: HTMLCanvasElement, left: number, top: 
   canvas.style.top = `${top}px`;
   canvas.style.left = `${left}px`;
 }
+
+export function changeCanvasSize(canvas: HTMLCanvasElement, width: number, height: number) {
+  canvas.setAttribute('width', `${width}`);
+  canvas.setAttribute('height', `${height}`);
+}

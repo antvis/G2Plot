@@ -119,4 +119,12 @@ order: 2
 
 ### 图表交互
 
+柱状图内置了一些交互，列表如下:
+
+| 交互       | 描述                                     | 配置                           |
+| ----------- | ---------------------------------------- | ------------------------------ |
+| brush | 用于刷选交互，配置该交互后，可进行刷选。 | `brush: { enabled: true }` |
+
+`markdown:docs/common/brush.zh.md`
+
 `markdown:docs/common/interactions.zh.md`

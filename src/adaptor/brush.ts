@@ -2,19 +2,19 @@ import { filter } from '@antv/util';
 import { Params } from '../core/adaptor';
 import { getInteractionCfg } from '../interactions/brush';
 import { deepAssign } from '../utils';
-import { Options, BrushCfg, Interaction, Writable } from '../types';
+import { Options as BaseOptions, BrushCfg, Interaction, Writable } from '../types';
 
 /** 先引入brush 交互 */
 import '../interactions/brush';
 
-type O = Options & { brush?: BrushCfg };
+type Options = Pick<BaseOptions, 'interactions'> & { brush?: BrushCfg };
 
 const BRUSH_TYPES = ['brush', 'brush-x', 'brush-y', 'brush-highlight'];
 
 /**
  * brush 交互
  */
-export function brushInteraction(params: Params<O>): Params<O> {
+export function brushInteraction<O extends Options = Options>(params: Params<O>): Params<O> {
   const { options } = params;
 
   const { brush } = options;

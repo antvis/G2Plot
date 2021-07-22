@@ -1,5 +1,5 @@
 import { ShapeAttrs } from '@antv/g2';
-import { Options, StyleAttr } from '../../types';
+import { BrushCfg, Options, StyleAttr } from '../../types';
 import { OptionWithConversionTag } from '../../adaptor/conversion-tag';
 import { OptionWithConnectedArea } from '../../adaptor/connected-area';
 import { IntervalGeometryOptions } from '../../adaptor/geometries/interval';
@@ -39,4 +39,7 @@ export interface ColumnOptions
   readonly columnStyle?: StyleAttr;
   /** 分组字段，优先级高于 seriesField , isGroup: true 时会根据 groupField 进行分组。*/
   readonly groupField?: string;
+
+  // 图表交互
+  readonly brush?: BrushCfg;
 }

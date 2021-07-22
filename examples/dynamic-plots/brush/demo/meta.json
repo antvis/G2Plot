@@ -17,10 +17,37 @@
       "filename": "scatter-brush-x.ts",
       "title": {
         "zh": "散点图 x 方向刷选",
-        "en": "Brush on x positiion of scatter"
+        "en": "Brush on x position of scatter"
       },
       "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/x6%24CDJpPny/brush-x.gif"
+    },
+    {
+      "filename": "column-brush.ts",
+      "title": {
+        "zh": "柱状图刷选高亮",
+        "en": "Brush highlight of column"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*JZUGSok0y9gAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "column-brush-y.ts",
+      "title": {
+        "zh": "柱状图 y 方向刷选",
+        "en": "Brush on y position of column"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*JZUGSok0y9gAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "bar-brush.ts",
+      "title": {
+        "zh": "条形图刷选高亮",
+        "en": "Brush highlight of bar"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*JZUGSok0y9gAAAAAAAAAAABkARQnAQ"
     }
   ]
 }

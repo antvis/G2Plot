@@ -59,10 +59,19 @@
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/hksereLMdK/bar-brush-highlight.gif"
     },
     {
-      "filename": "advanced-brush-usage.ts",
+      "filename": "advanced-brush1.ts",
       "title": {
-        "zh": "刷选高级用法",
-        "en": "Advanced usage of brush"
+        "zh": "刷选高级用法1",
+        "en": "Advanced usage1 of brush"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/2wHu3BD2s%26/brush-advanced-usage.gif"
+    },
+    {
+      "filename": "advanced-brush2.ts",
+      "title": {
+        "zh": "刷选高级用法2",
+        "en": "Advanced usage2 of brush"
       },
       "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/2wHu3BD2s%26/brush-advanced-usage.gif"

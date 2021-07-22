@@ -23,29 +23,28 @@ Types of _MaskCfg_ are as follows:
 
 ##### Events
 
-Events of brush interaction, example:
+1. List of vents of `brush-filter` interaction,
 
-```ts
-// addEventListener of brush filter
-plot.on(G2.VIEW_LIFE_CIRCLE.BEFORE_RENDER, (evt) => {
-  if (evt.data?.source === G2.BRUSH_FILTER_EVENTS.FILTER) {
-    // 可以对 plot.chart 进行访问和操作
-    console.log('before brush filter');
-  }
+| Event Name                                             | Description |
+| -------------------------------------- | ---- |
+| `G2.BRUSH_FILTER_EVENTS.BEFORE_FILTER` |      |
+| `G2.BRUSH_FILTER_EVENTS.AFTER_FILTER`  |      |
+| `G2.BRUSH_FILTER_EVENTS.BEFORE_RESET`  |      |
+| `G2.BRUSH_FILTER_EVENTS.AFTER_RESET`   |      |
 
-  if (evt.data?.source === G2.BRUSH_FILTER_EVENTS.RESET) {
-    console.log('before brush filter reset');
-  }
-});
+example:
 
-plot.on(G2.VIEW_LIFE_CIRCLE.AFTER_RENDER, (evt) => {
-  if (evt.data?.source === G2.BRUSH_FILTER_EVENTS.FILTER) {
-    // 可以对 plot.chart 进行访问和操作
-    console.log('after brush filter');
-  }
+<playground path="dynamic-plots/brush/demo/advanced-brush1.ts" rid="brush-filter-event"></playground>
 
-  if (evt.data?.source === G2.BRUSH_FILTER_EVENTS.RESET) {
-    console.log('after brush filter reset');
-  }
-});
-```
+2. List of vents of `brush-highlight` interaction,
+
+| Event Name                                             | Description |
+| ---------------------------------------------------- | ---- |
+| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.BEFORE_HIGHLIGHT` |      |
+| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.AFTER_HIGHLIGHT`  |      |
+| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.BEFORE_CLEAR`     |      |
+| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.AFTER_CLEAR`      |      |
+
+example:
+
+<playground path="dynamic-plots/brush/demo/advanced-brush2.ts" rid="brush-highlight-event"></playground>

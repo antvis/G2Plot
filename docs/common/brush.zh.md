@@ -23,29 +23,30 @@ _MaskCfg_ 类型定义如下：
 
 ##### 事件
 
-brush 交互相关事件监听, 示例:
+brush 交互相关事件:
 
-```ts
-// 监听 brush filter 事件
-plot.on(G2.VIEW_LIFE_CIRCLE.BEFORE_RENDER, (evt) => {
-  if (evt.data?.source === G2.BRUSH_FILTER_EVENTS.FILTER) {
-    // 可以对 plot.chart 进行访问和操作
-    console.log('before brush filter');
-  }
+1. `brush-filter`, 事件列表：
 
-  if (evt.data?.source === G2.BRUSH_FILTER_EVENTS.RESET) {
-    console.log('before brush filter reset');
-  }
-});
+| 事件名称                               | 描述 |
+| -------------------------------------- | ---- |
+| `G2.BRUSH_FILTER_EVENTS.BEFORE_FILTER` |      |
+| `G2.BRUSH_FILTER_EVENTS.AFTER_FILTER`  |      |
+| `G2.BRUSH_FILTER_EVENTS.BEFORE_RESET`  |      |
+| `G2.BRUSH_FILTER_EVENTS.AFTER_RESET`   |      |
 
-plot.on(G2.VIEW_LIFE_CIRCLE.AFTER_RENDER, (evt) => {
-  if (evt.data?.source === G2.BRUSH_FILTER_EVENTS.FILTER) {
-    // 可以对 plot.chart 进行访问和操作
-    console.log('after brush filter');
-  }
+示例:
 
-  if (evt.data?.source === G2.BRUSH_FILTER_EVENTS.RESET) {
-    console.log('after brush filter reset');
-  }
-});
-```
+<playground path="dynamic-plots/brush/demo/advanced-brush1.ts" rid="brush-filter-event"></playground>
+
+2. `brush-highlight`, 事件列表：
+
+| 事件名称                                             | 描述 |
+| ---------------------------------------------------- | ---- |
+| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.BEFORE_HIGHLIGHT` |      |
+| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.AFTER_HIGHLIGHT`  |      |
+| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.BEFORE_CLEAR`     |      |
+| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.AFTER_CLEAR`      |      |
+
+示例:
+
+<playground path="dynamic-plots/brush/demo/advanced-brush2.ts" rid="brush-highlight-event"></playground>

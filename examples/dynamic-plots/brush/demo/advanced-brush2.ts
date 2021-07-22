@@ -62,7 +62,6 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/v6MvZBUBsQ/column-data.json')
       yField: 'count',
       yAxis: false,
       tooltip: {
-        position: 'top',
         containerTpl: '<div class="g2-tooltip"><div class="g2-tooltip-list"></div></div>',
         itemTpl: '<span>{value}</span>',
         domStyles: {
@@ -82,24 +81,17 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/v6MvZBUBsQ/column-data.json')
     plot2.render();
 
     // 监听状态变化
-    plot2.on('element:statechange', (evt) => {
-      const { event } = evt;
+    plot2.on(G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.AFTER_HIGHLIGHT, (evt) => {
+      const { highlightElements = [] } = evt.data;
 
-      if (event?.state === 'active') {
-        // active
-        let datum = event?.element?.data;
+      // active
+      const artists = highlightElements.map((ele) => ele.getData()?.artist).filter((d) => !!d);
+      plot1.setState('active', (datum) => artists.includes(datum.artist));
+      plot1.setState('active', (datum) => !artists.includes(datum.artist), false);
+    });
 
-        if (!Array.isArray(datum)) {
-          datum = [datum];
-        }
-        const artists = datum.map((d) => d.artist);
-        console.log('event', event, artists);
-
-        plot1.setState('active', (datum) => artists.includes(datum.artist));
-        plot1.setState('active', (datum) => !artists.includes(datum.artist), false);
-      } else {
-        // 取消激活
-        plot1.setState('active', () => true, false);
-      }
+    plot2.on(G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.AFTER_CLEAR, () => {
+      // 取消激活
+      plot1.setState('active', () => true, false);
     });
   });

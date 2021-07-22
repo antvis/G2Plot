@@ -50,39 +50,44 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/v6MvZBUBsQ/column-data.json')
 
     plot1.render();
 
-    // 可以用于筛选 “唱片发行总量高”的作家，然后对 plot1 进行高亮，发掘和“唱片发行年份”的关系
-    const data2 = [];
-    each(groupBy(data, 'artist'), (v, artist) => {
-      data2.push({ artist, count: v.reduce((a, b) => a + b.count, 0) });
-    });
-    data2.sort((a, b) => a.count - b.count);
     const plot2 = new Column('container2', {
-      data: data2,
-      xField: 'artist',
-      yField: 'count',
+      data,
+      xField: 'release',
+      yField: 'rank',
       yAxis: false,
+      appendPadding: [0, 0, 0, 20],
+      tooltip: {
+        containerTpl: '<div class="g2-tooltip"><div class="g2-tooltip-list"></div></div>',
+        itemTpl: '<span>{value}</span>',
+        domStyles: {
+          'g2-tooltip': {
+            padding: '2px 4px',
+            fontSize: '10px',
+          },
+        },
+      },
       brush: {
         enabled: true,
-        type: 'y',
+        mask: {
+          style: {
+            fill: 'rgba(0,0,0,0.2)',
+          },
+        },
       },
       interactions: [{ type: 'active-region', enable: false }],
     });
 
     plot2.render();
 
-    plot2.on(G2.VIEW_LIFE_CIRCLE.AFTER_RENDER, (evt) => {
-      if (evt.data?.source === G2.BRUSH_FILTER_EVENTS.FILTER) {
-        // after brush filter
-        const filteredData = plot2.chart.getData();
-        const artists = filteredData.map((d) => d.artist);
-        plot1.setState('active', (datum) => artists.includes(datum.artist));
-        plot1.setState('active', (datum) => !artists.includes(datum.artist), false);
-      }
+    plot2.on(G2.BRUSH_FILTER_EVENTS.AFTER_FILTER, () => {
+      // after brush filter
+      const filteredData = plot2.chart.getData();
+      const releases = filteredData.map((d) => d.release);
+      plot1.changeData(data.filter((datum) => releases.includes(datum.release)));
+    });
 
-      if (evt.data?.source === G2.BRUSH_FILTER_EVENTS.RESET) {
-        // after brush filter reset
-        // 取消激活
-        plot1.setState('active', () => true, false);
-      }
+    plot2.on(G2.BRUSH_FILTER_EVENTS.AFTER_RESET, () => {
+      // after brush filter reset
+      plot1.changeData(data);
     });
   });

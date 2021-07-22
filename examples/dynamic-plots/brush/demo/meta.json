@@ -41,6 +41,15 @@
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/Rf1WzUaySB/column-brush-y.gif"
     },
     {
+      "filename": "column-brush-y-highlight.ts",
+      "title": {
+        "zh": "柱状图 y 方向刷选高亮",
+        "en": "Brush highlight on y position of column"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/Rf1WzUaySB/column-brush-y.gif"
+    },
+    {
       "filename": "bar-brush.ts",
       "title": {
         "zh": "条形图刷选高亮",

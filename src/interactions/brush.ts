@@ -129,6 +129,57 @@ export function getInteractionCfg(interactionType: string, maskStyle?: any) {
         ],
         rollback: [{ trigger: 'dblclick', action: ['brush-x:reset'] }],
       };
+    case 'brush-x-highlight':
+      return {
+        showEnable: [
+          { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
+          { trigger: 'mask:mouseenter', action: 'cursor:move' },
+          { trigger: 'plot:mouseleave', action: 'cursor:default' },
+          { trigger: 'mask:mouseleave', action: 'cursor:crosshair' },
+        ],
+        start: [
+          {
+            trigger: 'plot:mousedown',
+            isEnable(context) {
+              // 不要点击在 mask 上重新开始
+              return !context.isInShape('mask');
+            },
+            action: ['x-rect-mask:start', 'x-rect-mask:show'],
+            // 对应第 1 个action的参数
+            arg: [{ maskStyle }],
+          },
+          {
+            trigger: 'mask:dragstart',
+            action: ['x-rect-mask:moveStart'],
+          },
+        ],
+        processing: [
+          {
+            trigger: 'plot:mousemove',
+            action: ['x-rect-mask:resize'],
+          },
+          {
+            trigger: 'mask:drag',
+            action: ['x-rect-mask:move'],
+          },
+          {
+            trigger: 'mask:change',
+            action: ['element-range-highlight:highlight'],
+          },
+        ],
+        end: [
+          { trigger: 'plot:mouseup', action: ['x-rect-mask:end'] },
+          { trigger: 'mask:dragend', action: ['x-rect-mask:moveEnd'] },
+          {
+            trigger: 'document:mouseup',
+            isEnable(context) {
+              return !context.isInPlot();
+            },
+            action: ['element-range-highlight:clear', 'x-rect-mask:end', 'x-rect-mask:hide'],
+          },
+        ],
+        rollback: [{ trigger: 'dblclick', action: ['element-range-highlight:clear', 'x-rect-mask:hide'] }],
+      };
     case 'brush-y':
       return {
         showEnable: [
@@ -160,6 +211,57 @@ export function getInteractionCfg(interactionType: string, maskStyle?: any) {
         ],
         rollback: [{ trigger: 'dblclick', action: ['brush-y:reset'] }],
       };
+    case 'brush-y-highlight':
+      return {
+        showEnable: [
+          { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
+          { trigger: 'mask:mouseenter', action: 'cursor:move' },
+          { trigger: 'plot:mouseleave', action: 'cursor:default' },
+          { trigger: 'mask:mouseleave', action: 'cursor:crosshair' },
+        ],
+        start: [
+          {
+            trigger: 'plot:mousedown',
+            isEnable(context) {
+              // 不要点击在 mask 上重新开始
+              return !context.isInShape('mask');
+            },
+            action: ['y-rect-mask:start', 'y-rect-mask:show'],
+            // 对应第 1 个action的参数
+            arg: [{ maskStyle }],
+          },
+          {
+            trigger: 'mask:dragstart',
+            action: ['y-rect-mask:moveStart'],
+          },
+        ],
+        processing: [
+          {
+            trigger: 'plot:mousemove',
+            action: ['y-rect-mask:resize'],
+          },
+          {
+            trigger: 'mask:drag',
+            action: ['y-rect-mask:move'],
+          },
+          {
+            trigger: 'mask:change',
+            action: ['element-range-highlight:highlight'],
+          },
+        ],
+        end: [
+          { trigger: 'plot:mouseup', action: ['y-rect-mask:end'] },
+          { trigger: 'mask:dragend', action: ['y-rect-mask:moveEnd'] },
+          {
+            trigger: 'document:mouseup',
+            isEnable(context) {
+              return !context.isInPlot();
+            },
+            action: ['element-range-highlight:clear', 'y-rect-mask:end', 'y-rect-mask:hide'],
+          },
+        ],
+        rollback: [{ trigger: 'dblclick', action: ['element-range-highlight:clear', 'y-rect-mask:hide'] }],
+      };
 
     default:
       return {};
@@ -174,3 +276,7 @@ registerInteraction('brush-highlight', getInteractionCfg('brush-highlight'));
 registerInteraction('brush-x', getInteractionCfg('brush-x'));
 // 复写
 registerInteraction('brush-y', getInteractionCfg('brush-y'));
+// 新增, x 框选高亮
+registerInteraction('brush-x-highlight', getInteractionCfg('brush-x-highlight'));
+// 新增, y 框选高亮
+registerInteraction('brush-y-highlight', getInteractionCfg('brush-y-highlight'));

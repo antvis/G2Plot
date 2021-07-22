@@ -9,7 +9,7 @@ import '../interactions/brush';
 
 type Options = Pick<BaseOptions, 'interactions'> & { brush?: BrushCfg };
 
-const BRUSH_TYPES = ['brush', 'brush-x', 'brush-y', 'brush-highlight'];
+const BRUSH_TYPES = ['brush', 'brush-x', 'brush-y', 'brush-highlight', 'brush-x-highlight', 'brush-y-highlight'];
 
 /**
  * brush 交互
@@ -28,10 +28,10 @@ export function brushInteraction<O extends Options = Options>(params: Params<O>)
       let enable = false;
       switch (brush.type) {
         case 'x':
-          enable = type === 'brush-x';
+          enable = type === (brush.action === 'highlight' ? 'brush-x-highlight' : 'brush-x');
           break;
         case 'y':
-          enable = type === 'brush-y';
+          enable = type === (brush.action === 'highlight' ? 'brush-y-highlight' : 'brush-y');
           break;
         default:
           enable = type === (brush.action === 'highlight' ? 'brush-highlight' : 'brush');

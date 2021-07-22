@@ -25,7 +25,7 @@ order: 23
 
 <description>**可选** _polygon | density_ _default:_ `polygon`</description>
 
-密度热力图需要指定为 density。
+密度热力图需要指定为 density。注意：由于密度热力图的特殊性，颜色配置不支持条件映射，因此当 `type='desity'` 时，color、heatmapStyle 回调不可用，state 状态样式也不可用。
 
 #### colorField
 

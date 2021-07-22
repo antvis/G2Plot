@@ -1,35 +1,17 @@
-import { getInteraction } from '@antv/g2';
-import { Scatter } from '../../../../src';
+import { Column } from '../../../../src';
+import { salesByArea } from '../../../data/sales';
 import { createDiv } from '../../../utils/dom';
-import { data } from '../../../data/gender';
 
-describe('scatter: register interaction', () => {
-  const plot = new Scatter(createDiv(), {
+describe('column interaction', () => {
+  const plot = new Column(createDiv('x*y'), {
     width: 400,
     height: 300,
-    appendPadding: 10,
-    data,
-    xField: 'weight',
-    yField: 'height',
-    sizeField: 'weight',
-    size: [5, 10],
-    colorField: 'gender',
-    xAxis: {
-      nice: true,
-    },
-    interactions: [
-      {
-        type: 'drag-move',
-      },
-    ],
+    data: salesByArea,
+    xField: 'area',
+    yField: 'sales',
   });
 
   plot.render();
-
-  it('define: drag-move', () => {
-    const statisticInteraction = getInteraction('drag-move');
-    expect(statisticInteraction).toBeDefined();
-  });
 
   it('brush', () => {
     plot.update({

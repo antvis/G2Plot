@@ -57,6 +57,15 @@
       },
       "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/hksereLMdK/bar-brush-highlight.gif"
+    },
+    {
+      "filename": "advanced-brush-usage.ts",
+      "title": {
+        "zh": "刷选高级用法",
+        "en": "Advanced usage of brush"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/2wHu3BD2s%26/brush-advanced-usage.gif"
     }
   ]
 }

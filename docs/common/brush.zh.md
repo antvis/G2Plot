@@ -4,6 +4,8 @@
 
 刷选交互配置。
 
+##### 配置项
+
 _BrushCfg_ 类型定义如下：
 
 | 属性    | 类型      | 描述                                                                                          |
@@ -18,3 +20,32 @@ _MaskCfg_ 类型定义如下：
 | 属性  | 类型         | 描述      |
 | ----- | ------------ | --------- |
 | style | _ShapeAttrs_ | mask 样式 |
+
+##### 事件
+
+brush 交互相关事件监听, 示例:
+
+```ts
+// 监听 brush filter 事件
+plot.on(G2.VIEW_LIFE_CIRCLE.BEFORE_RENDER, (evt) => {
+  if (evt.data?.source === G2.BRUSH_FILTER_EVENTS.FILTER) {
+    // 可以对 plot.chart 进行访问和操作
+    console.log('before brush filter');
+  }
+
+  if (evt.data?.source === G2.BRUSH_FILTER_EVENTS.RESET) {
+    console.log('before brush filter reset');
+  }
+});
+
+plot.on(G2.VIEW_LIFE_CIRCLE.AFTER_RENDER, (evt) => {
+  if (evt.data?.source === G2.BRUSH_FILTER_EVENTS.FILTER) {
+    // 可以对 plot.chart 进行访问和操作
+    console.log('after brush filter');
+  }
+
+  if (evt.data?.source === G2.BRUSH_FILTER_EVENTS.RESET) {
+    console.log('after brush filter reset');
+  }
+});
+```

@@ -27,10 +27,10 @@ export function brushInteraction<O extends Options = Options>(params: Params<O>)
     BRUSH_TYPES.forEach((type) => {
       let enable = false;
       switch (brush.type) {
-        case 'x':
+        case 'x-rect':
           enable = type === (brush.action === 'highlight' ? 'brush-x-highlight' : 'brush-x');
           break;
-        case 'y':
+        case 'y-rect':
           enable = type === (brush.action === 'highlight' ? 'brush-y-highlight' : 'brush-y');
           break;
         default:
@@ -38,8 +38,9 @@ export function brushInteraction<O extends Options = Options>(params: Params<O>)
           break;
       }
       const obj: Writable<Interaction> = { type, enable };
-      if (brush.mask?.style) {
-        obj.cfg = getInteractionCfg(type, brush.mask?.style);
+
+      if (brush.mask?.style || brush.type) {
+        obj.cfg = getInteractionCfg(type, brush.type, brush.mask);
       }
       interactions.push(obj);
     });

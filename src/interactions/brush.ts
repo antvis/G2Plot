@@ -1,4 +1,5 @@
 import { registerInteraction } from '@antv/g2';
+import { BrushCfg } from '../types';
 
 /**
  * G2 已经内置了 brush、brush-x、brush-y 等交互，其它：
@@ -14,7 +15,9 @@ function isPointInView(context) {
 /**
  * 获取 交互 start 阶段的相关配置
  */
-export function getInteractionCfg(interactionType: string, maskStyle?: any) {
+export function getInteractionCfg(interactionType: string, brushType?: string, mask?: BrushCfg['mask']) {
+  const maskType = brushType || 'rect';
+
   switch (interactionType) {
     case 'brush':
       return {
@@ -26,23 +29,23 @@ export function getInteractionCfg(interactionType: string, maskStyle?: any) {
           {
             trigger: 'mousedown',
             isEnable: isPointInView,
-            action: ['brush:start', 'rect-mask:start', 'rect-mask:show'],
+            action: ['brush:start', `${maskType}-mask:start`, `${maskType}-mask:show`],
             // 对应第二个action的参数
-            arg: [null, { maskStyle }],
+            arg: [null, { maskStyle: mask?.style }],
           },
         ],
         processing: [
           {
             trigger: 'mousemove',
             isEnable: isPointInView,
-            action: ['rect-mask:resize'],
+            action: [`${maskType}-mask:resize`],
           },
         ],
         end: [
           {
             trigger: 'mouseup',
             isEnable: isPointInView,
-            action: ['brush:filter', 'brush:end', 'rect-mask:end', 'rect-mask:hide', 'reset-button:show'],
+            action: ['brush:filter', 'brush:end', `${maskType}-mask:end`, `${maskType}-mask:hide`, 'reset-button:show'],
           },
         ],
         rollback: [{ trigger: 'reset-button:click', action: ['brush:reset', 'reset-button:hide', 'cursor:crosshair'] }],
@@ -62,23 +65,23 @@ export function getInteractionCfg(interactionType: string, maskStyle?: any) {
               // 不要点击在 mask 上重新开始
               return !context.isInShape('mask');
             },
-            action: ['rect-mask:start', 'rect-mask:show'],
+            action: [`${maskType}-mask:start`, `${maskType}-mask:show`],
             // 对应第 1 个action的参数
-            arg: [{ maskStyle }],
+            arg: [{ maskStyle: mask?.style }],
           },
           {
             trigger: 'mask:dragstart',
-            action: ['rect-mask:moveStart'],
+            action: [`${maskType}-mask:moveStart`],
           },
         ],
         processing: [
           {
             trigger: 'plot:mousemove',
-            action: ['rect-mask:resize'],
+            action: [`${maskType}-mask:resize`],
           },
           {
             trigger: 'mask:drag',
-            action: ['rect-mask:move'],
+            action: [`${maskType}-mask:move`],
           },
           {
             trigger: 'mask:change',
@@ -86,17 +89,17 @@ export function getInteractionCfg(interactionType: string, maskStyle?: any) {
           },
         ],
         end: [
-          { trigger: 'plot:mouseup', action: ['rect-mask:end'] },
-          { trigger: 'mask:dragend', action: ['rect-mask:moveEnd'] },
+          { trigger: 'plot:mouseup', action: [`${maskType}-mask:end`] },
+          { trigger: 'mask:dragend', action: [`${maskType}-mask:moveEnd`] },
           {
             trigger: 'document:mouseup',
             isEnable(context) {
               return !context.isInPlot();
             },
-            action: ['element-range-highlight:clear', 'rect-mask:end', 'rect-mask:hide'],
+            action: ['element-range-highlight:clear', `${maskType}-mask:end`, `${maskType}-mask:hide`],
           },
         ],
-        rollback: [{ trigger: 'dblclick', action: ['element-range-highlight:clear', 'rect-mask:hide'] }],
+        rollback: [{ trigger: 'dblclick', action: ['element-range-highlight:clear', `${maskType}-mask:hide`] }],
       };
     case 'brush-x':
       return {
@@ -108,23 +111,23 @@ export function getInteractionCfg(interactionType: string, maskStyle?: any) {
           {
             trigger: 'mousedown',
             isEnable: isPointInView,
-            action: ['brush-x:start', 'x-rect-mask:start', 'x-rect-mask:show'],
+            action: ['brush-x:start', `${maskType}-mask:start`, `${maskType}-mask:show`],
             // 对应第二个action的参数
-            arg: [null, { maskStyle }],
+            arg: [null, { maskStyle: mask?.style }],
           },
         ],
         processing: [
           {
             trigger: 'mousemove',
             isEnable: isPointInView,
-            action: ['x-rect-mask:resize'],
+            action: [`${maskType}-mask:resize`],
           },
         ],
         end: [
           {
             trigger: 'mouseup',
             isEnable: isPointInView,
-            action: ['brush-x:filter', 'brush-x:end', 'x-rect-mask:end', 'x-rect-mask:hide'],
+            action: ['brush-x:filter', 'brush-x:end', `${maskType}-mask:end`, `${maskType}-mask:hide`],
           },
         ],
         rollback: [{ trigger: 'dblclick', action: ['brush-x:reset'] }],
@@ -144,23 +147,23 @@ export function getInteractionCfg(interactionType: string, maskStyle?: any) {
               // 不要点击在 mask 上重新开始
               return !context.isInShape('mask');
             },
-            action: ['x-rect-mask:start', 'x-rect-mask:show'],
+            action: [`${maskType}-mask:start`, `${maskType}-mask:show`],
             // 对应第 1 个action的参数
-            arg: [{ maskStyle }],
+            arg: [{ maskStyle: mask?.style }],
           },
           {
             trigger: 'mask:dragstart',
-            action: ['x-rect-mask:moveStart'],
+            action: [`${maskType}-mask:moveStart`],
           },
         ],
         processing: [
           {
             trigger: 'plot:mousemove',
-            action: ['x-rect-mask:resize'],
+            action: [`${maskType}-mask:resize`],
           },
           {
             trigger: 'mask:drag',
-            action: ['x-rect-mask:move'],
+            action: [`${maskType}-mask:move`],
           },
           {
             trigger: 'mask:change',
@@ -168,17 +171,17 @@ export function getInteractionCfg(interactionType: string, maskStyle?: any) {
           },
         ],
         end: [
-          { trigger: 'plot:mouseup', action: ['x-rect-mask:end'] },
-          { trigger: 'mask:dragend', action: ['x-rect-mask:moveEnd'] },
+          { trigger: 'plot:mouseup', action: [`${maskType}-mask:end`] },
+          { trigger: 'mask:dragend', action: [`${maskType}-mask:moveEnd`] },
           {
             trigger: 'document:mouseup',
             isEnable(context) {
               return !context.isInPlot();
             },
-            action: ['element-range-highlight:clear', 'x-rect-mask:end', 'x-rect-mask:hide'],
+            action: ['element-range-highlight:clear', `${maskType}-mask:end`, `${maskType}-mask:hide`],
           },
         ],
-        rollback: [{ trigger: 'dblclick', action: ['element-range-highlight:clear', 'x-rect-mask:hide'] }],
+        rollback: [{ trigger: 'dblclick', action: ['element-range-highlight:clear', `${maskType}-mask:hide`] }],
       };
     case 'brush-y':
       return {
@@ -190,23 +193,23 @@ export function getInteractionCfg(interactionType: string, maskStyle?: any) {
           {
             trigger: 'mousedown',
             isEnable: isPointInView,
-            action: ['brush-y:start', 'y-rect-mask:start', 'y-rect-mask:show'],
+            action: ['brush-y:start', `${maskType}-mask:start`, `${maskType}-mask:show`],
             // 对应第二个action的参数
-            arg: [null, { maskStyle }],
+            arg: [null, { maskStyle: mask?.style }],
           },
         ],
         processing: [
           {
             trigger: 'mousemove',
             isEnable: isPointInView,
-            action: ['y-rect-mask:resize'],
+            action: [`${maskType}-mask:resize`],
           },
         ],
         end: [
           {
             trigger: 'mouseup',
             isEnable: isPointInView,
-            action: ['brush-y:filter', 'brush-y:end', 'y-rect-mask:end', 'y-rect-mask:hide'],
+            action: ['brush-y:filter', 'brush-y:end', `${maskType}-mask:end`, `${maskType}-mask:hide`],
           },
         ],
         rollback: [{ trigger: 'dblclick', action: ['brush-y:reset'] }],
@@ -226,23 +229,23 @@ export function getInteractionCfg(interactionType: string, maskStyle?: any) {
               // 不要点击在 mask 上重新开始
               return !context.isInShape('mask');
             },
-            action: ['y-rect-mask:start', 'y-rect-mask:show'],
+            action: [`${maskType}-mask:start`, `${maskType}-mask:show`],
             // 对应第 1 个action的参数
-            arg: [{ maskStyle }],
+            arg: [{ maskStyle: mask?.style }],
           },
           {
             trigger: 'mask:dragstart',
-            action: ['y-rect-mask:moveStart'],
+            action: [`${maskType}-mask:moveStart`],
           },
         ],
         processing: [
           {
             trigger: 'plot:mousemove',
-            action: ['y-rect-mask:resize'],
+            action: [`${maskType}-mask:resize`],
           },
           {
             trigger: 'mask:drag',
-            action: ['y-rect-mask:move'],
+            action: [`${maskType}-mask:move`],
           },
           {
             trigger: 'mask:change',
@@ -250,17 +253,17 @@ export function getInteractionCfg(interactionType: string, maskStyle?: any) {
           },
         ],
         end: [
-          { trigger: 'plot:mouseup', action: ['y-rect-mask:end'] },
-          { trigger: 'mask:dragend', action: ['y-rect-mask:moveEnd'] },
+          { trigger: 'plot:mouseup', action: [`${maskType}-mask:end`] },
+          { trigger: 'mask:dragend', action: [`${maskType}-mask:moveEnd`] },
           {
             trigger: 'document:mouseup',
             isEnable(context) {
               return !context.isInPlot();
             },
-            action: ['element-range-highlight:clear', 'y-rect-mask:end', 'y-rect-mask:hide'],
+            action: ['element-range-highlight:clear', `${maskType}-mask:end`, `${maskType}-mask:hide`],
           },
         ],
-        rollback: [{ trigger: 'dblclick', action: ['element-range-highlight:clear', 'y-rect-mask:hide'] }],
+        rollback: [{ trigger: 'dblclick', action: ['element-range-highlight:clear', `${maskType}-mask:hide`] }],
       };
 
     default:
@@ -273,10 +276,10 @@ registerInteraction('brush', getInteractionCfg('brush'));
 // 复写 element-range-highlight interaction
 registerInteraction('brush-highlight', getInteractionCfg('brush-highlight'));
 // 复写
-registerInteraction('brush-x', getInteractionCfg('brush-x'));
+registerInteraction('brush-x', getInteractionCfg('brush-x', 'x-rect'));
 // 复写
-registerInteraction('brush-y', getInteractionCfg('brush-y'));
+registerInteraction('brush-y', getInteractionCfg('brush-y', 'y-rect'));
 // 新增, x 框选高亮
-registerInteraction('brush-x-highlight', getInteractionCfg('brush-x-highlight'));
+registerInteraction('brush-x-highlight', getInteractionCfg('brush-x-highlight', 'x-rect'));
 // 新增, y 框选高亮
-registerInteraction('brush-y-highlight', getInteractionCfg('brush-y-highlight'));
+registerInteraction('brush-y-highlight', getInteractionCfg('brush-y-highlight', 'y-rect'));

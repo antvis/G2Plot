@@ -19,7 +19,7 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/v6MvZBUBsQ/column-data.json')
       },
       brush: {
         enabled: true,
-        type: 'y',
+        type: 'y-rect',
       },
     });
 

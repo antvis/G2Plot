@@ -4,7 +4,7 @@
 
 Configuration of brush interaction.
 
-##### Properties
+**Properties**
 
 Types of _BrushCfg_ are as follows:
 
@@ -21,7 +21,7 @@ Types of _MaskCfg_ are as follows:
 | ---------- | ------------ | ----------- |
 | style      | _ShapeAttrs_ | mask 样式   |
 
-##### Events
+**Events**
 
 1. List of vents of `brush-filter` interaction,
 

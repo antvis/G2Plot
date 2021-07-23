@@ -125,7 +125,7 @@ xAxis、yAxis 配置相同，由于 DualAxes 是双轴， annotations 类型是�
 ```ts
 {
   yField: ['pv', 'uv'],
-  yAxis: {
+  annotations: {
     pv: [
       {
         type: 'line',

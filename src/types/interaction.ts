@@ -1,4 +1,5 @@
 import { ShapeAttrs } from '@antv/g2';
+import { ButtonCfg } from './button';
 
 export type Interaction = {
   readonly type: string;
@@ -20,4 +21,6 @@ export type BrushCfg = {
     /** mask 蒙层样式 */
     style?: ShapeAttrs;
   };
+  /** brush button 的配置, 只在 action: 'filter' 的情况下适用 */
+  readonly button?: ButtonCfg;
 };

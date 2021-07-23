@@ -8,18 +8,47 @@ Configuration of brush interaction.
 
 Types of _BrushCfg_ are as follows:
 
-| Properties | Type      | Description                                                                                      |
-| ---------- | --------- | ------------------------------------------------------------------------------------------------ |
-| enabled    | _boolean_ | 是否开启 brush 刷选交互，默认为：'false'                                                         |
-| type       | _string_  | brush 类型，可选项：'rect' \| 'x-rect' \| 'y-rect' \| 'cirlce' \| 'path' (polygon). 默认: 'rect' |
-| action     | _string_  | brush action, options: 'filter' \| 'highlight'. Default: 'filter'                                |
-| mask       | _MaskCfg_ | Configuration of mask.                                                                           |
+| Properties | Type        | Description                                                                                      |
+| ---------- | ----------- | ------------------------------------------------------------------------------------------------ |
+| enabled    | _boolean_   | 是否开启 brush 刷选交互，默认为：'false'                                                         |
+| type       | _string_    | brush 类型，可选项：'rect' \| 'x-rect' \| 'y-rect' \| 'cirlce' \| 'path' (polygon). 默认: 'rect' |
+| action     | _string_    | brush action, options: 'filter' \| 'highlight'. Default: 'filter'                                |
+| mask       | _MaskCfg_   | Configuration of mask.                                                                           |
+| button     | _ButtonCfg_ | Configuration of rRset Button，works when action is equal to 'filter'                            |
 
 Types of _MaskCfg_ are as follows:
 
 | Properties | Type         | Description |
 | ---------- | ------------ | ----------- |
 | style      | _ShapeAttrs_ | mask 样式   |
+
+Types of _ButtonCfg_ are as follows:
+
+```ts
+export type ButtonCfg = {
+  /**
+   * padding of button
+   */
+  padding?: number | number[];
+  /**
+   * text of button
+   */
+  text?: string;
+  /**
+   * custom style of text
+   */
+  textStyle?: {
+    default?: ShapeAttrs;
+  };
+  /**
+   * custom style of button
+   */
+  buttonStyle?: {
+    default?: ShapeAttrs;
+    active?: ShapeAttrs;
+  };
+};
+```
 
 **Events**
 

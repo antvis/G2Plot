@@ -7,6 +7,7 @@ export * from './meta';
 export * from './axis';
 export * from './interaction';
 export * from './locale';
+export * from './button';
 
 /** 去除 readonly 修饰 */
 export type Writable<T> = { -readonly [P in keyof T]: T[P] };

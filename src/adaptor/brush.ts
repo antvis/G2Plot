@@ -44,6 +44,16 @@ export function brushInteraction<O extends Options = Options>(params: Params<O>)
       }
       interactions.push(obj);
     });
+
+    // 塞入 button 配置 (G2Plot 的封装)
+    if (brush?.action !== 'highlight') {
+      interactions.push({
+        type: 'filter-action',
+        cfg: {
+          buttonConfig: brush.button,
+        },
+      });
+    }
   }
   return deepAssign({}, params, { options: { interactions } });
 }

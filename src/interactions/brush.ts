@@ -1,5 +1,12 @@
-import { registerInteraction } from '@antv/g2';
+import { registerAction, registerInteraction } from '@antv/g2';
 import { BrushCfg } from '../types';
+import { ButtonAction } from './actions/reset-button';
+
+registerAction('brush-reset-button', ButtonAction, {
+  name: 'brush-reset-button',
+});
+
+registerInteraction('filter-action', {});
 
 /**
  * G2 已经内置了 brush、brush-x、brush-y 等交互，其它：
@@ -45,10 +52,21 @@ export function getInteractionCfg(interactionType: string, brushType?: string, m
           {
             trigger: 'mouseup',
             isEnable: isPointInView,
-            action: ['brush:filter', 'brush:end', `${maskType}-mask:end`, `${maskType}-mask:hide`, 'reset-button:show'],
+            action: [
+              'brush:filter',
+              'brush:end',
+              `${maskType}-mask:end`,
+              `${maskType}-mask:hide`,
+              'brush-reset-button:show',
+            ],
           },
         ],
-        rollback: [{ trigger: 'reset-button:click', action: ['brush:reset', 'reset-button:hide', 'cursor:crosshair'] }],
+        rollback: [
+          {
+            trigger: 'brush-reset-button:click',
+            action: ['brush:reset', 'brush-reset-button:hide', 'cursor:crosshair'],
+          },
+        ],
       };
     case 'brush-highlight':
       return {

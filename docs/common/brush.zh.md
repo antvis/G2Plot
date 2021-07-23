@@ -27,12 +27,12 @@ brush 交互相关事件:
 
 1. `brush-filter`, 事件列表：
 
-| 事件名称                               | 描述 |
-| -------------------------------------- | ---- |
-| `G2.BRUSH_FILTER_EVENTS.BEFORE_FILTER` |      |
-| `G2.BRUSH_FILTER_EVENTS.AFTER_FILTER`  |      |
-| `G2.BRUSH_FILTER_EVENTS.BEFORE_RESET`  |      |
-| `G2.BRUSH_FILTER_EVENTS.AFTER_RESET`   |      |
+| 事件名称                               | 描述                                              |
+| -------------------------------------- | ------------------------------------------------- |
+| `G2.BRUSH_FILTER_EVENTS.BEFORE_FILTER` | Brush 事件触发 “filter” 发生之前的钩子            |
+| `G2.BRUSH_FILTER_EVENTS.AFTER_FILTER`  | Brush 事件触发 “filter” 发生之后的钩子            |
+| `G2.BRUSH_FILTER_EVENTS.BEFORE_RESET`  | Brush 事件触发筛选(filter) “reset” 发生之前的钩子 |
+| `G2.BRUSH_FILTER_EVENTS.AFTER_RESET`   | Brush 事件触发筛选(filter) “reset” 发生之后的钩子 |
 
 示例:
 
@@ -40,12 +40,12 @@ brush 交互相关事件:
 
 2. `brush-highlight`, 事件列表：
 
-| 事件名称                                             | 描述 |
-| ---------------------------------------------------- | ---- |
-| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.BEFORE_HIGHLIGHT` |      |
-| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.AFTER_HIGHLIGHT`  |      |
-| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.BEFORE_CLEAR`     |      |
-| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.AFTER_CLEAR`      |      |
+| 事件名称                                             | 描述                                                            |
+| ---------------------------------------------------- | --------------------------------------------------------------- |
+| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.BEFORE_HIGHLIGHT` | 事件触发元素区间范围 (“element-range”) 发生“高亮”之前的钩子     |
+| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.AFTER_HIGHLIGHT`  | 事件触发元素区间范围 (“element-range”) 发生“高亮”之后的钩子     |
+| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.BEFORE_CLEAR`     | 事件触发元素区间范围 (“element-range”) 发生高亮“重置”之前的钩子 |
+| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.AFTER_CLEAR`      | 事件触发元素区间范围 (“element-range”) 发生高亮“重置”之后的钩子 |
 
 示例:
 

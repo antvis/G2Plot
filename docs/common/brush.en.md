@@ -6,7 +6,7 @@ Configuration of brush interaction.
 
 ##### Properties
 
-Types of _DrillDownCfg_ are as follows:
+Types of _BrushCfg_ are as follows:
 
 | Properties | Type      | Description                                                                                |
 | ---------- | --------- | ------------------------------------------------------------------------------------------ |
@@ -25,12 +25,12 @@ Types of _MaskCfg_ are as follows:
 
 1. List of vents of `brush-filter` interaction,
 
-| Event Name                                             | Description |
-| -------------------------------------- | ---- |
-| `G2.BRUSH_FILTER_EVENTS.BEFORE_FILTER` |      |
-| `G2.BRUSH_FILTER_EVENTS.AFTER_FILTER`  |      |
-| `G2.BRUSH_FILTER_EVENTS.BEFORE_RESET`  |      |
-| `G2.BRUSH_FILTER_EVENTS.AFTER_RESET`   |      |
+| Event Name                             | Description                                        |
+| -------------------------------------- | -------------------------------------------------- |
+| `G2.BRUSH_FILTER_EVENTS.BEFORE_FILTER` | Hook before brush event to trigger `filter` append |
+| `G2.BRUSH_FILTER_EVENTS.AFTER_FILTER`  | Hook after brush event to trigger `filter` append  |
+| `G2.BRUSH_FILTER_EVENTS.BEFORE_RESET`  | Hook before brush event to trigger filter `reset` append  |
+| `G2.BRUSH_FILTER_EVENTS.AFTER_RESET`   | Hook after brush event to trigger filter `reset` append   |
 
 example:
 
@@ -38,12 +38,12 @@ example:
 
 2. List of vents of `brush-highlight` interaction,
 
-| Event Name                                             | Description |
-| ---------------------------------------------------- | ---- |
-| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.BEFORE_HIGHLIGHT` |      |
-| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.AFTER_HIGHLIGHT`  |      |
-| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.BEFORE_CLEAR`     |      |
-| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.AFTER_CLEAR`      |      |
+| Event Name                                           | Description                                                         |
+| ---------------------------------------------------- | ------------------------------------------------------------------- |
+| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.BEFORE_HIGHLIGHT` | Hook before event to trigger element-range `highlight` append       |
+| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.AFTER_HIGHLIGHT`  | Hook after event to trigger element-range `highlight` append        |
+| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.BEFORE_CLEAR`     | Hook before event to trigger element-range-highlight `reset` append |
+| `G2.ELEMENT_RANGE_HIGHLIGHT_EVENTS.AFTER_CLEAR`      | Hook after event to trigger element-range-highlight `reset` append  |
 
 example:
 

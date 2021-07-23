@@ -5,19 +5,19 @@
   },
   "demos": [
     {
-      "filename": "scatter-brush.ts",
+      "filename": "scatter-brush.jsx",
       "title": {
-        "zh": "散点图刷选",
-        "en": "Brush of scatter"
+        "zh": "散点图刷选高亮",
+        "en": "Brush highlight of scatter"
       },
       "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/BlpX0yZrRH/brush-highlight.gif"
     },
     {
-      "filename": "scatter-brush-x.ts",
+      "filename": "scatter-brush-filter.ts",
       "title": {
-        "zh": "散点图 x 方向刷选",
-        "en": "Brush on x position of scatter"
+        "zh": "散点图刷选",
+        "en": "Brush of scatter"
       },
       "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/x6%24CDJpPny/brush-x.gif"

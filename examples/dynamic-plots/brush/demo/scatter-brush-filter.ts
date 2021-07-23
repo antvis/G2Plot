@@ -15,8 +15,6 @@ fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/scatter.json')
       },
       brush: {
         enabled: true,
-        // 圈选类型，默认: 'rect', 也可以设置 'y-rect', 'circle', 'path'
-        type: 'x-rect',
         mask: {
           style: {
             fill: 'rgba(255,0,0,0.15)',

@@ -21,20 +21,27 @@ describe('column interaction', () => {
     });
     expect(plot.chart.interactions['brush']).toBeDefined();
 
-    plot.update({ brush: { type: 'x' } });
+    plot.update({ brush: { type: 'circle' } });
+    expect(plot.chart.interactions['brush']).toBeDefined();
+
+    plot.update({ brush: { type: 'x-rect' } });
     // 不同 brush 是互斥的
     expect(plot.chart.interactions['brush']).not.toBeDefined();
     expect(plot.chart.interactions['brush-x']).toBeDefined();
 
-    plot.update({ brush: { type: 'y' } });
+    plot.update({ brush: { type: 'path' } });
+    expect(plot.chart.interactions['brush-x']).not.toBeDefined();
+    expect(plot.chart.interactions['brush']).toBeDefined();
+
+    plot.update({ brush: { type: 'y-rect' } });
     expect(plot.chart.interactions['brush-x']).not.toBeDefined();
     expect(plot.chart.interactions['brush-y']).toBeDefined();
 
-    plot.update({ brush: { type: 'y', action: 'highlight' } });
+    plot.update({ brush: { type: 'y-rect', action: 'highlight' } });
     expect(plot.chart.interactions['brush-y']).not.toBeDefined();
     expect(plot.chart.interactions['brush-y-highlight']).toBeDefined();
 
-    plot.update({ brush: { type: 'x', action: 'highlight' } });
+    plot.update({ brush: { type: 'x-rect', action: 'highlight' } });
     expect(plot.chart.interactions['brush-x']).not.toBeDefined();
     expect(plot.chart.interactions['brush-y-highlight']).not.toBeDefined();
     expect(plot.chart.interactions['brush-x-highlight']).toBeDefined();

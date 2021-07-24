@@ -6,4 +6,10 @@ export const DEFAULT_OPTIONS = {
   meta: {},
   xAxis: {},
   yAxis: {},
+  tooltip: {
+    fields: [],
+    showTitle: true,
+    offset: 20,
+    follow: true,
+  },
 };

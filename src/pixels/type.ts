@@ -94,8 +94,26 @@ export type BBox = {
   height: number;
 };
 
+/** 像素图 Region */
+export type Region = {
+  start: {
+    x: number;
+    y: number;
+  };
+  end: {
+    x: number;
+    y: number;
+  };
+};
+
 /** 因为Scale和ScaleOption的接口信息不一致，融合起来 */
 export type ScaleMeta = {
   scale: Scale;
   scaleOption: ScaleOption;
+};
+
+/** 点位置 */
+export type Point = {
+  x: number;
+  y: number;
 };

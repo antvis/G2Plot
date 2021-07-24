@@ -126,7 +126,7 @@ The configuration for Xaxis and Yaxis is the same, since DualAxes are biaxes, an
 ```ts
 {
   yField: ['pv', 'uv'],
-  yAxis: {
+  annotations: {
     pv: [
       {
         type: 'line',

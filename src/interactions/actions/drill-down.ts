@@ -8,6 +8,7 @@ import { deepAssign } from '../../utils/deep-assign';
 const PADDING = 4;
 // 面包屑位置距离树图的距离
 const PADDING_LEFT = 0;
+// 面包屑位置距离树图的顶部距离
 export const PADDING_TOP = 5;
 
 /** Group name of breadCrumb: 面包屑 */
@@ -57,6 +58,7 @@ type HistoryCache = {
 
 /**
  * @description 下钻交互的 action
+ * @author liuzhenying
  *
  * 适用于：hierarchy plot
  */

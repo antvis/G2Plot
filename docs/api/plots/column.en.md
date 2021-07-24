@@ -117,4 +117,12 @@ Applicable to base bar charts and base bar charts, the Conversion Rate component
 
 ### Plot Interactions
 
+Built-in interactions of scatter are as follows:
+
+| Interaction | Description                              | Configuration                  |
+| ----------- | ---------------------------------------- | ------------------------------ |
+| brush | 用于刷选交互，配置该交互后，可进行刷选。 | `brush: { enabled: true }` |
+
+`markdown:docs/common/brush.en.md`
+
 `markdown:docs/common/interactions.en.md`

@@ -43,7 +43,7 @@ type Node = { name: string; value?: number; children: Node[]; }
 ｜`Sunburst.SUNBURST_ANCESTOR_FIELD`| 当前节点的祖先节点 | _string_ |
 ｜`Sunburst.NODE_ANCESTORS_FIELD`| 当前节点的祖先节点列表 |_object[]_ |
 ｜`nodeIndex`| 当前节点在同一父节点下的所有节点中的索引顺序 |_number_ |
-| `childNodeCount` | 当前节点的儿子节点数  |_number_ |
+| `childNodeCount` | 当前节点的儿子节点数 |_number_ |
 ｜`depth`| |_number_ |
 ｜`height`| | _number_ |
 
@@ -86,14 +86,14 @@ meta: {
 
 支持配置属性：
 
-| Properties | Type               | Description                                                                                                                          |
-| ---------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
-| field      | _string_           | 数据节点权重映射字段，默认为：`value`. 当你的节点数据格式不是：`{ name: 'xx', value: 'xx' }`, 可以通过该字段来指定，详细见：图表示例 |
-| padding    | _number\|number[]_ | 默认：`0`。参考：[d3-hierarchy#partition_padding](https://github.com/d3/d3-hierarchy#partition_padding)                              |
-| size       | _number[]_         | 默认：`[1, 1]`。参考：[d3-hierarchy#partition_size](https://github.com/d3/d3-hierarchy#partition_size)                               |
-| round      | _boolean_          | 默认：`false`。参考：[d3-hierarchy#partition_round](https://github.com/d3/d3-hierarchy#partition_round)                              |
-| sort       | _Function_         | 数据节点排序方式，默认：降序。参考: [d3-hierarchy#node_sort](https://github.com/d3/d3-hierarchy#node_sort)                           |
-| ignoreParentValue       | _boolean_         | 是否忽略 parentValue, 默认：true。 当设置为 true 时，父节点的权重由子元素决定  |
+| Properties        | Type               | Description                                                                                                                          |
+| ----------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| field             | _string_           | 数据节点权重映射字段，默认为：`value`. 当你的节点数据格式不是：`{ name: 'xx', value: 'xx' }`, 可以通过该字段来指定，详细见：图表示例 |
+| padding           | _number\|number[]_ | 默认：`0`。参考：[d3-hierarchy#partition_padding](https://github.com/d3/d3-hierarchy#partition_padding)                              |
+| size              | _number[]_         | 默认：`[1, 1]`。参考：[d3-hierarchy#partition_size](https://github.com/d3/d3-hierarchy#partition_size)                               |
+| round             | _boolean_          | 默认：`false`。参考：[d3-hierarchy#partition_round](https://github.com/d3/d3-hierarchy#partition_round)                              |
+| sort              | _Function_         | 数据节点排序方式，默认：降序。参考: [d3-hierarchy#node_sort](https://github.com/d3/d3-hierarchy#node_sort)                           |
+| ignoreParentValue | _boolean_          | 是否忽略 parentValue, 默认：true。 当设置为 true 时，父节点的权重由子元素决定                                                        |
 
 #### radius
 
@@ -169,9 +169,9 @@ meta: {
 
 旭日图内置了一些交互，列表如下:
 
-| Interaction | Description                              | Configuration                  |
-| ----------- | ---------------------------------------- | ------------------------------ |
-| drill-down  | 用于下钻交互，配置该交互后，点击可下钻。 | `drilldown: { enabled: true }` |
+| 交互       | 描述                                     | 配置                           |
+| ---------- | ---------------------------------------- | ------------------------------ |
+| drill-down | 用于下钻交互，配置该交互后，点击可下钻。 | `drilldown: { enabled: true }` |
 
 `markdown:docs/common/drill-down.zh.md`
 

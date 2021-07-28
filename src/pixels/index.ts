@@ -17,18 +17,18 @@ export class PixelPlot extends CanvasPlot<PixelPlotOptions> {
    * 暂时把图表所需组件放置在子类中
    */
   protected initComponents() {
-    this.tooltipController = new TooltipController(this);
     this.axisController = new AxisController(this);
+    this.tooltipController = new TooltipController(this);
   }
 
   protected renderComponents() {
-    if (this.tooltipController) this.tooltipController.render();
     if (this.axisController) this.axisController.render();
+    if (this.tooltipController) this.tooltipController.render();
   }
 
   protected updateComponents() {
-    if (this.tooltipController) this.tooltipController.update();
     if (this.axisController) this.axisController.update();
+    if (this.tooltipController) this.tooltipController.update();
   }
 
   /**

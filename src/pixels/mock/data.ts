@@ -1,3 +1,4 @@
+// 高亮的三条线的基于x的数据，至少需要返回原始数据
 export const tooltipInfo = [
   {
     x: 100,
@@ -15,6 +16,6 @@ export const tooltipInfo = [
     x: 100,
     y: 150,
     color: '#FAA219',
-    data: { date: '2003-01-24', high: 12.2, open: 48, name: 'as.er.txt' },
+    data: { date: '2003-01-24', high: 42.2, open: 48, name: 'as.er.txt' },
   },
 ];

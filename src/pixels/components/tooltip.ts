@@ -1,11 +1,11 @@
 import { Tooltip, Crosshair } from '@antv/component';
 import { IGroup } from '@antv/g-canvas';
-import { deepMix } from '@antv/util';
+import { deepMix, get, isFunction } from '@antv/util';
 import { Tooltip as ToolOptions } from '../../types/tooltip';
-import { isInPixelBBox } from '../util/interaction';
-import { BBox, Point } from '../type';
-import { tooltipInfo } from '../mock/data';
 import { getRegionFromBBox } from '../util/canvas';
+import { isInPixelBBox } from '../util/interaction';
+import { Point } from '../type';
+import { tooltipInfo } from '../mock/data';
 import { Controller } from './base';
 
 export class TooltipController extends Controller<ToolOptions> {
@@ -14,7 +14,8 @@ export class TooltipController extends Controller<ToolOptions> {
   /** tooltip 实例 */
   public tooltip: Tooltip.Html;
   /** crosshair 实例 */
-  public crosshair: Crosshair.Line;
+  public xCrosshair: Crosshair.Line;
+  public yCrosshair: Crosshair.Line;
   /** tooltipMarker group */
   public tooltipMarkerGroup: IGroup;
 
@@ -24,11 +25,14 @@ export class TooltipController extends Controller<ToolOptions> {
     tooltip.init();
 
     // 初始化crosshair
-    const crosshair = this.createCrosshair();
-    crosshair.init();
+    const xCrosshair = this.createCrosshairs();
+    xCrosshair.init();
+    const yCrosshair = this.createCrosshairs();
+    yCrosshair.init();
 
-    this.crosshair = crosshair;
     this.tooltip = tooltip;
+    this.xCrosshair = xCrosshair;
+    this.yCrosshair = yCrosshair;
   }
 
   public lock() {}
@@ -37,10 +41,12 @@ export class TooltipController extends Controller<ToolOptions> {
 
   /**
    * 显示和更新 tooltip、crosshairs、tooltipMarkers
+   * 只处理是否显示这些组件的逻辑
    */
   public show(point: Point) {
     const pixelBBox = this.pixelPlot.pixelBBox;
     const isInBox = isInPixelBBox(point.x, point.y, pixelBBox);
+    const { tooltip } = this.pixelPlot.options;
 
     // 限定交互区域为 pixelBBox
     if (isInBox) {
@@ -50,30 +56,43 @@ export class TooltipController extends Controller<ToolOptions> {
         y: point.y - pixelBBox.y,
       };
 
-      this.showTooltip(point, pixelPoint);
+      if (tooltip['showContent']) this.showTooltip(point, pixelPoint);
 
-      this.showCrosshair(point, pixelBBox);
+      if (tooltip['showCrosshairs']) {
+        const type = get(tooltip, ['crosshairs', 'type'], 'x');
+        if (type === 'y') {
+          this.showXCrosshairs(point);
+        } else if (type === 'xy') {
+          this.showXCrosshairs(point);
+          this.showYCrosshairs(point);
+        } else {
+          this.showXCrosshairs(point);
+        }
+      }
 
-      this.showCrossMarkers(point);
+      if (tooltip['showMarkers']) this.showCrossMarkers(point);
     }
   }
 
   public hide() {
     if (this.tooltip) this.tooltip.hide();
-    if (this.crosshair) this.crosshair.hide();
+    if (this.xCrosshair) this.xCrosshair.hide();
+    if (this.yCrosshair) this.yCrosshair.hide();
     if (this.tooltipMarkerGroup) this.tooltipMarkerGroup.hide();
   }
 
   public render() {
     if (this.tooltip) this.tooltip.render();
-    if (this.crosshair) this.crosshair.render();
+    if (this.xCrosshair) this.xCrosshair.render();
+    if (this.yCrosshair) this.yCrosshair.render();
   }
 
   public update() {}
 
   public destroy() {
     if (this.tooltip) this.tooltip.destroy();
-    if (this.crosshair) this.crosshair.destroy();
+    if (this.xCrosshair) this.xCrosshair.destroy();
+    if (this.yCrosshair) this.yCrosshair.destroy();
   }
 
   /**
@@ -95,15 +114,9 @@ export class TooltipController extends Controller<ToolOptions> {
   /**
    * 创建 辅助线
    */
-  private createCrosshair() {
+  private createCrosshairs() {
     const crossHairCfg = {
       container: this.pixelPlot.foregroundCanvas.addGroup(),
-      line: {
-        style: {
-          stroke: '#999',
-          lineWidth: 0.5,
-        },
-      },
       start: { x: 0, y: 0 },
       end: { x: 0, y: 0 },
     };
@@ -116,19 +129,25 @@ export class TooltipController extends Controller<ToolOptions> {
    */
   private showTooltip(point: Point, pixelPoint: Point) {
     const { tooltip, xField } = this.pixelPlot.options;
+
+    if (tooltip === false) return;
+
+    const { follow, customItems } = tooltip;
     // mock tooltipInfo, 为KDBox.getCrossPointsByLines(pixelPoint)返回的数据
     const title = this.getTooltipInfo()[0]['data'][xField]; // 默认获取当前 横轴字段 的值
     // 处理 tooltip items
     const items = this.getTooltipItems(point);
     // 根据传过来的 follow 控制 point
-    const pos = tooltip['follow'] ? point : {};
+    const pos = follow ? point : {};
+    // 处理 customItems 的回调
+    const customItemsFn = customItems ? customItems : (d) => d;
 
     // 更新 tooltip 位置和信息
     this.tooltip.update(
       deepMix(
         {
           title,
-          items,
+          items: customItemsFn(items),
           ...pos,
           visible: true,
         },
@@ -138,28 +157,62 @@ export class TooltipController extends Controller<ToolOptions> {
   }
 
   /**
-   * 显示 辅助线
+   * 显示 垂直于x轴的辅助线
+   * @param point 鼠标实际坐标
    */
-  private showCrosshair(point: Point, pixelBBox: BBox) {
+  private showXCrosshairs(point: Point) {
+    const { options, pixelBBox } = this.pixelPlot;
+    const crosshairOption = get(options, ['tooltip', 'crosshairs'], {});
+
     // 更新 辅助线 位置
-    this.crosshair.update({
-      start: { x: point.x, y: pixelBBox.height + pixelBBox.y },
-      end: { x: point.x, y: pixelBBox.y },
-    });
+    this.xCrosshair.update(
+      deepMix(
+        {
+          start: { x: point.x, y: pixelBBox.height + pixelBBox.y },
+          end: { x: point.x, y: pixelBBox.y },
+        },
+        crosshairOption,
+        this.getCrosshairText('x', point) // 处理text 中 content 的 默认文本 和 回调
+      )
+    );
     // 绘制 辅助线
-    this.crosshair.render();
-    this.crosshair.show();
+    this.xCrosshair.render();
+    this.xCrosshair.show();
+  }
+
+  /**
+   * 显示 垂直于y轴的辅助线
+   */
+  private showYCrosshairs(point: Point) {
+    const { options, pixelBBox } = this.pixelPlot;
+    const crosshairOption = get(options, ['tooltip', 'crosshairs'], {});
+
+    this.yCrosshair.update(
+      deepMix(
+        {
+          start: { x: pixelBBox.x, y: point.y },
+          end: { x: pixelBBox.x + pixelBBox.width, y: point.y },
+        },
+        crosshairOption,
+        this.getCrosshairText('y', point)
+      )
+    );
+
+    this.yCrosshair.render();
+    this.yCrosshair.show();
   }
 
   /**
    * 显示 辅助线标记点
    */
   private showCrossMarkers(point: Point) {
+    const { options } = this.pixelPlot;
+    const markerOption = get(options, ['tooltip', 'marker'], {});
+
     // 添加 markerGroup，以绘制 markers
     if (this.tooltipMarkerGroup) this.tooltipMarkerGroup.destroy();
     this.tooltipMarkerGroup = this.pixelPlot.foregroundCanvas.addGroup();
 
-    // mock tooltipInfo = KDBox.getCrossPointsByLines(point)返回的数据
     // 获取原始 tooltip 数据
     const items = this.getTooltipInfo();
 
@@ -171,12 +224,16 @@ export class TooltipController extends Controller<ToolOptions> {
       lineWidth: 2,
     };
     for (const item of items) {
-      const attrs = deepMix(defaultMarkerAttrs, {
-        x: point.x, // item.x
-        y: item.y,
-        shadowColor: item['color'],
-        fill: item['color'],
-      });
+      const attrs = deepMix(
+        defaultMarkerAttrs,
+        {
+          x: point.x, // item.x
+          y: item.y,
+          shadowColor: item['color'],
+          fill: item['color'],
+        },
+        markerOption
+      );
       this.tooltipMarkerGroup.addShape('marker', { attrs });
     }
   }
@@ -186,12 +243,13 @@ export class TooltipController extends Controller<ToolOptions> {
    */
   private getTooltipItems(pixelPoint: Point) {
     const { tooltip, seriesField, yField } = this.pixelPlot.options;
-    const fields = tooltip?.['fields']; // 例如：['name', 'date', 'open' , ...]
+
+    const fields = get(tooltip, 'fields', []); // 例如：['name', 'date', 'open' , ...]
 
     // mock tooltipInfo, 为KDBox.getCrossPointsByLines(pixelPoint)返回的数据
-    const items = [];
+    let items = [];
     for (const item of tooltipInfo) {
-      if (fields.length > 0) {
+      if (fields?.length > 0) {
         for (const field of fields) {
           items.push({
             name: field,
@@ -208,7 +266,38 @@ export class TooltipController extends Controller<ToolOptions> {
         });
       }
     }
+
+    // 格式化每个 item
+    const formatterFn = get(tooltip, 'formatter', (d) => d);
+
+    items = items.map((item) => ({ ...item, ...formatterFn(item) }));
+
     return items;
+  }
+
+  /**
+   * 处理 crosshair 的文本
+   */
+  private getCrosshairText(type: string, point: Point) {
+    const { options } = this.pixelPlot;
+    const { tooltip } = options;
+
+    // mock tooltipInfo，模拟KDBox.getCrossPointsByLines(point)返回的数据
+    const items = this.getTooltipInfo();
+    // 设置 text 默认的 content
+    const datum = items[0]['data'];
+    const field = options[type + 'Field'];
+    const content = datum[field];
+    // 设置 用户自定义 的 text content
+    let textOption = get(tooltip, ['crosshairs', 'text'], { content });
+    // 处理 content 的回调
+    if (isFunction(textOption)) {
+      textOption = textOption(type, content, items, point);
+    }
+
+    return {
+      text: textOption,
+    };
   }
 
   public getTooltipInfo() {

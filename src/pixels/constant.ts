@@ -7,9 +7,21 @@ export const DEFAULT_OPTIONS = {
   xAxis: {},
   yAxis: {},
   tooltip: {
-    fields: [],
-    showTitle: true,
-    offset: 20,
     follow: true,
+    offset: 20,
+    showTitle: true,
+    showContent: true,
+    showCrosshairs: true,
+    showMarkers: true,
+    crosshairs: {
+      type: 'x',
+      text: false,
+      line: {
+        style: {
+          stroke: '#999',
+          lineWidth: 0.5,
+        },
+      },
+    },
   },
 };

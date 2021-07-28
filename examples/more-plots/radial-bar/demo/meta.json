@@ -29,6 +29,24 @@
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/l6uP5%26MiT7/385e3f80-52ec-49e9-9dfe-bd447e63203f.png"
     },
     {
+      "filename": "stacked.ts",
+      "title": {
+        "zh": "堆叠玉珏图",
+        "en": "Stacked Radial-Bar plot"
+      },
+      
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/tft60hEBvN/594d5cfc-8da0-441b-89dd-81eb4f5657b6.png"
+    },
+    {
+      "filename": "grouped.ts",
+      "title": {
+        "zh": "分组玉珏图",
+        "en": "Grouped Radial-Bar plot"
+      },
+      
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/M2EJJVBmHE/8984eee5-da51-4afb-8e81-34a8aaab47c0.png"
+    },
+    {
       "filename": "background.ts",
       "title": {
         "zh": "带柱子背景的玉珏图",

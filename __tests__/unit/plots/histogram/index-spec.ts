@@ -52,7 +52,7 @@ describe('histogram', () => {
     histogram.destroy();
   });
 
-  it('binNumber', () => {
+  it('binNumber: shape 数量等于 分箱数量', () => {
     const histogram = new Histogram(createDiv(), {
       width: 400,
       height: 300,
@@ -67,7 +67,7 @@ describe('histogram', () => {
     const geometry = histogram.chart.geometries[0];
     const shapes = geometry.getShapes();
 
-    expect(shapes.length - 1).toBe(4);
+    expect(shapes.length).toBe(4);
 
     histogram.destroy();
   });

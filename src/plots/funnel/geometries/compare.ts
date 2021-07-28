@@ -33,8 +33,20 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, color, compareField, isTransposed, tooltip, maxSize, minSize, label, funnelStyle } =
-    options;
+  const {
+    data,
+    xField,
+    yField,
+    color,
+    compareField,
+    isTransposed,
+    tooltip,
+    maxSize,
+    minSize,
+    label,
+    funnelStyle,
+    state,
+  } = options;
 
   chart.facet('mirror', {
     fields: [compareField],
@@ -91,6 +103,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
             style: funnelStyle,
           },
           label: label === false ? false : deepAssign({}, defaultFacetLabel, label),
+          state,
         },
       });
     },
@@ -106,7 +119,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
 function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
   const { conversionTag, isTransposed } = options;
-
+  // @ts-ignore
   chart.once('beforepaint', () => {
     chart.views.forEach((view, viewIndex) => {
       const getLineCoordinate = (

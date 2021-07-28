@@ -21,6 +21,15 @@
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/KL9rDFTlDt/64abafb6-8e4e-48ff-9a79-cb84883a3bef.png"
     },
     {
+      "filename": "legend-item-cfg.ts",
+      "title": {
+        "zh": "图例项配置",
+        "en": "Configuration of legend item"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/Bn1qWqQlkG/2d3c80e3-acde-4d13-afc5-83063f684ade.png"
+    },
+    {
       "filename": "legend-focus.ts",
       "title": {
         "zh": "图例项默认不选中",

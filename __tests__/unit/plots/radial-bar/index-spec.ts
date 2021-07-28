@@ -56,6 +56,56 @@ describe('radial-bar', () => {
     bar.destroy();
   });
 
+  it('stacked', () => {
+    const bar = new RadialBar(createDiv(), {
+      data: [
+        {
+          year: '1991',
+          value: 10,
+          type: 'Lon',
+        },
+        {
+          year: '1998',
+          value: 9,
+          type: 'Lon',
+        },
+        {
+          year: '1999',
+          value: 13,
+          type: 'Lon',
+        },
+        {
+          year: '1991',
+          value: 3,
+          type: 'Bor',
+        },
+        {
+          year: '1998',
+          value: 5,
+          type: 'Bor',
+        },
+        {
+          year: '1999',
+          value: 10,
+          type: 'Bor',
+        },
+      ],
+      maxAngle: 270,
+      isStack: true,
+      xField: 'year',
+      yField: 'value',
+      colorField: 'type',
+    });
+    bar.render();
+
+    // 270度 在中心位置
+    expect(bar.chart.geometries[0].elements[bar.options.data.length - 1].shape.getBBox().y).toBeCloseTo(
+      bar.chart.getCoordinate().getCenter().y
+    );
+
+    bar.destroy();
+  });
+
   it('xField*yField*type', () => {
     const bar = new RadialBar(createDiv(), {
       width: 400,

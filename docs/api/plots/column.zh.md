@@ -85,11 +85,15 @@ order: 2
 
 ### 图表组件
 
-`markdown:docs/common/component.zh.md`
+`markdown:docs/common/common-component.zh.md`
+
+#### 缩略轴
+
+`markdown:docs/common/slider.zh.md`
 
 #### 滚动条
 
-`markdown:docs/common/slider.zh.md`
+`markdown:docs/common/scrollbar.zh.md`
 
 #### 转化标签
 
@@ -114,5 +118,13 @@ order: 2
 `markdown:docs/common/theme.zh.md`
 
 ### 图表交互
+
+柱状图内置了一些交互，列表如下:
+
+| 交互       | 描述                                     | 配置                           |
+| ----------- | ---------------------------------------- | ------------------------------ |
+| brush | 用于刷选交互，配置该交互后，可进行刷选。 | `brush: { enabled: true }` |
+
+`markdown:docs/common/brush.zh.md`
 
 `markdown:docs/common/interactions.zh.md`

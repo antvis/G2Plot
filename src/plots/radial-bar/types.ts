@@ -24,4 +24,8 @@ export interface RadialBarOptions extends Options, Pick<BarOptions, 'barBackgrou
   readonly colorField?: string;
   /** 类型 */
   readonly type?: string;
+  /** 叠加 */
+  readonly isStack?: boolean;
+  /** 分组 */
+  readonly isGroup?: boolean;
 }

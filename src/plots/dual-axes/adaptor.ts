@@ -16,7 +16,7 @@ import { findViewById } from '../../utils/view';
 import { isColumn, getYAxisWithDefault, getGeometryOption, transformObjectToArray } from './util/option';
 import { getViewLegendItems } from './util/legend';
 import { drawSingleGeometry } from './util/geometry';
-import { renderSlider } from './util/render-sider';
+import { doSliderFilter } from './util/render-sider';
 import { DualAxesOptions, AxisType, DualAxesGeometry } from './types';
 import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
 
@@ -423,7 +423,7 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
 }
 
 /**
- * slider 配置
+ * 双轴图 slider 适配器
  * @param params
  */
 export function slider(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
@@ -442,14 +442,14 @@ export function slider(params: Params<DualAxesOptions>): Params<DualAxesOptions>
       if (isEqual(value, originValue)) {
         return;
       }
-      renderSlider(rightView, value);
+      doSliderFilter(rightView, value);
     });
     chart.once('afterpaint', () => {
       // 初始化数据，配置默认值时需要同步
       if (!isBoolean(slider)) {
         const { start, end } = slider;
         if (start || end) {
-          renderSlider(rightView, [start, end]);
+          doSliderFilter(rightView, [start, end]);
         }
       }
     });

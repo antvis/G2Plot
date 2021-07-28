@@ -67,7 +67,7 @@ describe('hierarchy/util', () => {
 
     expect(getAllNodes({ a: 1 })).toEqual([]);
 
-    const nodes = ['a', 'b', 'c'];
+    const nodes = [{ name: 'a' }, { name: 'b' }, { name: 'c' }];
     expect(
       getAllNodes({
         each: (loop) => nodes.forEach(loop),

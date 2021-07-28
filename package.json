@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "2.3.23",
+  "version": "2.3.27",
   "description": "An interactive and responsive charting library",
   "keywords": [
     "chart",
@@ -56,7 +56,7 @@
   },
   "dependencies": {
     "@antv/event-emitter": "^0.1.2",
-    "@antv/g2": "^4.1.0",
+    "@antv/g2": "^4.1.19",
     "d3-hierarchy": "^2.0.0",
     "d3-regression": "^1.3.5",
     "pdfast": "^0.2.0",
@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "@antv/data-set": "^0.11.5",
-    "@antv/gatsby-theme-antv": "^1.1.2",
+    "@antv/gatsby-theme-antv": "1.1.6-beta.6",
     "@babel/core": "^7.10.4",
     "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.10.4",
@@ -78,6 +78,7 @@
     "all-contributors-cli": "^6.20.0",
     "antd": "^4.8.4",
     "babel-loader": "^8.1.0",
+    "chroma-js": "^2.1.2",
     "conventional-changelog-cli": "^2.0.34",
     "cross-env": "^7.0.2",
     "eslint": "^6.1.0",
@@ -141,11 +142,11 @@
   "limit-size": [
     {
       "path": "dist/g2plot.min.js",
-      "limit": "940 Kb"
+      "limit": "950 Kb"
     },
     {
       "path": "dist/g2plot.min.js",
-      "limit": "250 Kb",
+      "limit": "260 Kb",
       "gzip": true
     }
   ],

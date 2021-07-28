@@ -1,4 +1,4 @@
-export const version = '2.3.23';
+export const version = '2.3.27';
 
 // G2 自定义能力透出
 import * as G2 from '@antv/g2';
@@ -78,7 +78,7 @@ export type { TinyColumnOptions } from './plots/tiny-column';
 export { TinyArea } from './plots/tiny-area';
 export type { TinyAreaOptions } from './plots/tiny-area';
 
-// 直方图及类型定义 | author by [arcsin1](https://github.com/arcsin1)
+// 直方图及类型定义 | author by [arcsin1](https://github.com/arcsin1), [visiky](https://github.com/visiky)
 export { Histogram } from './plots/histogram';
 export type { HistogramOptions } from './plots/histogram';
 
@@ -149,6 +149,10 @@ export type { SankeyOptions } from './plots/sankey';
 // 弦图及类型定义 | author by [MrSmallLiu](https://github.com/MrSmallLiu), [visiky](https://github.com/visiky)
 export { Chord } from './plots/chord';
 export type { ChordOptions } from './plots/chord';
+
+// circle-packing 及类型定义 | author by [visiky](https://github.com/visiky), [Angeli](https://github.com/Angelii)
+export { CirclePacking } from './plots/circle-packing';
+export type { CirclePackingOptions } from './plots/circle-packing';
 
 // 以下开放自定义图表开发的能力（目前仅仅是孵化中）
 /** 所有开放图表都使用 G2Plot.P 作为入口开发，理论上官方的所有图表都可以走 G2Plot.P 的入口（暂时不处理） */

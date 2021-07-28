@@ -129,9 +129,34 @@ pageNavigator: {
 
 | 参数名    | 类型       | 默认值  | 描述                                                                |
 | --------- | ---------- | ------- | ------------------------------------------------------------------- |
-| style     | _object_   | -       | 文本样式配置项，参考  [绘图属性](/zh/docs/api/graphic-style)        |
-| spacing   | _number_   | `false` | 图例项 marker 同后面 name 的间距                                    |
-| formatter | _function_ | -       | 格式化函数, `(text: string, item: ListItem, index: number) => any;` |
+| style     | _((item: ListItem, index: number, items: ListItem[]) => ShapeAttrs) \| ShapeAttrs_             |          | -      | 文本样式配置项                   |
+| spacing   | number                                                  |          | -      | 图例项 marker 同后面 name 的间距 |
+| formatter | `(text: string, item: ListItem, index: number) => any;` |          |        | 格式化函数                       |
+
+其中, `ShapeAttrs` 详细配置见：[文档](/zh/docs/api/shape/shape-attrs)；`ListItem` 配置如下：
+
+```ts
+type ListItem = {
+  /**
+   * 名称 {string}
+   */
+  name: string;
+  /**
+   * 值 {any}
+   */
+  value: any;
+  /**
+   * 图形标记 {object|string}
+   */
+  marker?: Marker | string;
+}
+
+type Marker = {
+  symbol? string;
+  style?: ShapeAttrs;
+  spacing?: number;
+};
+```
 
 ##### itemValue
 
@@ -141,9 +166,34 @@ pageNavigator: {
 
 | 参数名     | 类型       | 默认值  | 描述                                                                |
 | ---------- | ---------- | ------- | ------------------------------------------------------------------- |
-| style      | _object_   | -       | 文本样式配置项，详见  [绘图属性](/zh/docs/api/graphic-style)        |
 | alignRight | _boolean_  | `false` | 是否右对齐，默认为 false，仅当设置图例项宽度时生效                  |
 | formatter  | _function_ | -       | 格式化函数, `(text: string, item: ListItem, index: number) => any;` |
+| style     | _((item: ListItem, index: number, items: ListItem[]) => ShapeAttrs) \| ShapeAttrs_             |          | -      | 文本样式配置项                   |
+
+其中, `ShapeAttrs` 详细配置见：[文档](/zh/docs/api/shape/shape-attrs)；`ListItem` 配置如下：
+
+```ts
+type ListItem = {
+  /**
+   * 名称 {string}
+   */
+  name: string;
+  /**
+   * 值 {any}
+   */
+  value: any;
+  /**
+   * 图形标记 {object|string}
+   */
+  marker?: Marker | string;
+}
+
+type Marker = {
+  symbol? string;
+  style?: ShapeAttrs;
+  spacing?: number;
+};
+```
 
 <playground path="component/legend/demo/legend-item-value.ts" rid="legend-item-value"></playground>
 
@@ -175,17 +225,45 @@ pageNavigator: {
 
 `markdown:docs/common/marker.zh.md`
 
+##### maxItemWidth
+
+<description> _number_ **optional** </description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大宽度设置。
+
+##### maxWidthRatio
+
+<description> _number_ **optional**. 取值范围：[0, 1], 默认: 0.25</description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项容器最大宽度比例（以 view 的 bbox 容器大小为参照）设置，如果不需要该配置，可以设置为 `null`。
+
+##### maxHeightRatio
+
+<description> _number_ **optional**. 取值范围：[0, 1], 默认: 0.25</description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项容器最大高度比例（以 view 的 bbox 容器大小为参照）设置，如果不需要该配置，可以设置为 `null`。
+
 ##### maxWidth
 
 <description>**optional** _number_ </description>
 
-适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大宽度设置。当 layout 等于 'horizontal' 时，生效，当图例项横向排布，超过最大宽度时，会结合 `flipPage: true` 进行分页。
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项容器最大宽度设置。当 layout 等于 'horizontal' 时，生效，当图例项横向排布，超过最大宽度时，会结合 `flipPage: true` 进行分页。实际上，图例项容器最大宽度的计算如下：
+
+```sign
+const viewBBox = this.view.viewBBox;
+const maxWidth = Math.min(maxWidth, maxWidthRatio * viewBBox.width);
+```
 
 ##### maxHeight
 
 <description>**optional** _number_ </description>
 
-适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大高度设置。当 layout 等于 'vertical' 时，生效，当图例项纵向排布，超过最大高度时，会结合 `flipPage: true` 进行分页。
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项容器最大高度设置。当 layout 等于 'vertical' 时，生效，当图例项纵向排布，超过最大高度时，会结合 `flipPage: true` 进行分页。实际上，图例项容器最大宽度的计算如下：
+
+```sign
+const viewBBox = this.view.viewBBox;
+const maxHeight = Math.min(maxHeight, maxHeightRatio * viewBBox.height);
+```
 
 ##### reversed
 

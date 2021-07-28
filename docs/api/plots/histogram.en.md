@@ -21,6 +21,29 @@ Configure the data source. The data source is a collection of objects. For examp
 
 Sets the fields drawn by the histogram.
 
+#### stackField
+
+<description>**optional** _number_</description>
+
+Specifies cascading fields by which the column will be divided into sections, separated by color.
+
+#### meta
+
+`markdown:docs/common/meta.en.md`
+
+Built-in fields of Histogram:
+
+| Field Key | Description of field | Type of the value of the field |
+｜ --- ｜ --- ｜ --- ｜
+｜`range`| 分箱之后，所处分箱的区间范围 |_number[]_ |
+｜`count`| 分箱之后，所处分箱的计数数量 | _number_ |
+
+Example:
+
+<playground path="more-plots/histogram/demo/binWidth.ts" rid="histogram-meta"></playground>
+
+### Geometry Style
+
 #### binWidth
 
 <description>**optional** _string_</description>
@@ -32,18 +55,6 @@ Set the box width of the histogram. BinWidth affects how many boxes the histogra
 <description>**optional** _number_</description>
 
 Set the number of histogram boxes. BinNumber affects the width of each column after histogram boxes.
-
-#### stackField
-
-<description>**optional** _number_</description>
-
-Specifies cascading fields by which the column will be divided into sections, separated by color.
-
-#### meta
-
-`markdown:docs/common/meta.en.md`
-
-### Geometry Style
 
 #### columnStyle
 

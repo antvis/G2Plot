@@ -1,3 +1,84 @@
+#### 2.3.27 (2021-07-21)
+
+##### Documentation Changes
+
+* **legend:** 图例 itemName, itemValue 增加 style 回调 ([#2712](https://github.com/antvis/g2plot/pull/2712)) ([1b039b0b8](https://github.com/antvis/G2Plot/commit/1b039b0b865dc84a01370c9f701b2c2a8792e23d))
+
+##### Bug Fixes
+
+* **histogram:**  binNumber 设置出错 ([#2708](https://github.com/antvis/g2plot/pull/2708)) ([46d27699](https://github.com/antvis/g2plot/commit/46d276995839610a3d0fc196eedd1b13366ecf47))
+* **percentage stacked column:**  修复 百分比堆叠分组柱状 展示不对 的问题 ([#2688](https://github.com/antvis/g2plot/pull/2688)) ([08e17224](https://github.com/antvis/g2plot/commit/08e1722474d36e0e038c398339d7502dc443a6de))
+* 修复 玉珏图没有考虑 isStack 的情况 重新计算最大值 ([#2685](https://github.com/antvis/g2plot/pull/2685)) ([397d8641](https://github.com/antvis/g2plot/commit/397d86415ce399ada0b23c2fd32ecd3a0a2f9e12))
+* **rose:**  玫瑰图 legend 默认配置，不进行 offset 偏移 ([#2683](https://github.com/antvis/g2plot/pull/2683)) ([86e23094](https://github.com/antvis/g2plot/commit/86e2309461e7627527f343039f674da1f0e0cb0c))
+* **bullet:** 修复子弹图 状态量 中 设置 fill 为渐变色时，报错 ([#791](https://github.com/antvis/g/pull/791)) ([70083c2d1](https://github.com/antvis/g/commit/70083c2d1454528f2534ba9c6bedf0345d6913ec))
+* **legend:** 修复图例容器大小无法设置问题  ([#2711](https://github.com/antvis/g2plot/pull/2711)) ([3fb32f087](https://github.com/antvis/g/commit/3fb32f0874dc71a2700e84c86e455fc005fbbad6))
+
+##### Refactors
+
+*  函数命名修正 ([#2698](https://github.com/antvis/g2plot/pull/2698)) ([128de436](https://github.com/antvis/g2plot/commit/128de436f26c7fedcb930f491dc1054916e68c19))
+*  优化下玉珏图处理 stack 的代码 ([#2687](https://github.com/antvis/g2plot/pull/2687)) ([871b3c5f](https://github.com/antvis/g2plot/commit/3fb32f0874dc71a2700e84c86e455fc005fbbad6))
+
+#### 2.3.26 (2021-07-07)
+
+##### Documentation Changes
+
+* **column:** fix-2669, 新增堆叠的柱状图展示总数 label 的 demo ([#2681](https://github.com/antvis/g2plot/pull/2681)) ([1ab8c3a3](https://github.com/antvis/g2plot/commit/1ab8c3a303fb2b668b5ec06b95f0147e93de0bb0))
+
+##### New Features
+
+* **sunburst:**  旭日图增加一些字段元信息,如 同层级节点位置索引,祖先节点,儿子节点数量等 ([#2679](https://github.com/antvis/g2plot/pull/2679)) ([8c31012f](https://github.com/antvis/g2plot/commit/8c31012f2d16439d59fd4681f87db829221cba04))
+* **connected-area:**  联通区域支持样式配置 ([#2667](https://github.com/antvis/g2plot/pull/2667)) ([9a8e1e68](https://github.com/antvis/g2plot/commit/9a8e1e681059838afc2d5b2258bca9984b444e36))
+
+##### Bug Fixes
+
+- **legend:** 修复 legend marker 回调设置，spacing 不生效([#2671](https://github.com/antvis/g2plot/pull/2671)) ([026f5eb](https://github.com/antvis/component/commit/026f5eb69af83866646b1405a1ecee33d0674f5a))
+
+#### 2.3.25 (2021-06-30)
+
+##### Documentation Changes
+
+*  文档修整，slider 对应缩略轴 ([#2662](https://github.com/antvis/g2plot/pull/2662)) ([94bfdf01](https://github.com/antvis/g2plot/commit/94bfdf019e77183f51513e5c040bec6611019b51))
+
+##### New Features
+
+* **drill-down:**  优化下下钻的面包屑位置 ([#2664](https://github.com/antvis/g2plot/pull/2664)) ([81beae66](https://github.com/antvis/g2plot/commit/81beae66c2d33a319358c86664a6f76bd0726dad))
+
+##### Bug Fixes
+
+* **scatter:**  when scatter data length = 1 and x is cat ([#2661](https://github.com/antvis/g2plot/pull/2661)) ([dba879ac](https://github.com/antvis/g2plot/commit/dba879ac3abcd8b2c3ceea86c375cced4870f7a6))
+* **scatter:**  散点图刷选交互之后的 scale 处理 ([#2649](https://github.com/antvis/g2plot/pull/2649)) ([17e8f082](https://github.com/antvis/g2plot/commit/17e8f0829bbab2748b3427b2358d67a48d65da0f))
+*  **funnel:** funnel with empty data, [#2616](https://github.com/antvis/g2plot/pull/2616) ([#2658](https://github.com/antvis/g2plot/pull/2658)) ([ef797330](https://github.com/antvis/g2plot/commit/ef797330d51cac8e91245f4414a3f7f938cec047))
+* **bullet:**  修复轴组件添加 max 时，子弹图 scale 呈现不正确问题 ([#2639](https://github.com/antvis/g2plot/pull/2639)) ([dd23da52](https://github.com/antvis/g2plot/commit/dd23da5204fa1be985797625682aa875bd07449e))
+
+#### 2.3.24 (2021-06-16)
+
+##### Chores
+
+*  add contributors ([#2635](https://github.com/antvis/g2plot/pull/2635)) ([5a55e73f](https://github.com/antvis/g2plot/commit/5a55e73fb3d582777e8aab8084a5e0e389a9e7d7))
+*  update contributor-helper.yml ([#2631](https://github.com/antvis/g2plot/pull/2631)) ([15b35ee6](https://github.com/antvis/g2plot/commit/15b35ee6b919a3aa12d6fbfaab0df963cda2d971))
+
+##### Documentation Changes
+
+*  add YiSiWang as a contributor for code ([#2641](https://github.com/antvis/g2plot/pull/2641)) ([d2b213be](https://github.com/antvis/g2plot/commit/d2b213bec97f058cfa55febe7d1e6f811b58131b))
+
+##### New Features
+
+* **sunburst:**  旭日图增加 ignoreParentValue 配置 ([#2637](https://github.com/antvis/g2plot/pull/2637)) ([203774f5](https://github.com/antvis/g2plot/commit/203774f556b594ddaf7eed0a11a48497d6387169))
+
+##### Bug Fixes
+
+* **chord:**
+  *  修复单测问题 ([#2643](https://github.com/antvis/g2plot/pull/2643)) ([86c78a02](https://github.com/antvis/g2plot/commit/86c78a02730b2bfad73cf7c4e129daab3174da5b))
+  *  和弦图支持展示节点 tooltip & 修复动画效果不生效 ([#2632](https://github.com/antvis/g2plot/pull/2632)) ([7579638e](https://github.com/antvis/g2plot/commit/7579638e8d9613416a05ebe36dbb914712c3a4f8))
+  *  修复和弦图 state 设置不生效 ([#2633](https://github.com/antvis/g2plot/pull/2633)) ([1b3b07ab](https://github.com/antvis/g2plot/commit/1b3b07ab35630d311d0a1c6ccfac3efedd7dd4cc))
+*  typo in legend-spec.ts ([#2642](https://github.com/antvis/g2plot/pull/2642)) ([ade08c1d](https://github.com/antvis/g2plot/commit/ade08c1d8e46f52ad24228c8ef85bca42cfbe758))
+* **violin:**  修复小提琴图数据为空时，渲染直接抛出 error ([#2626](https://github.com/antvis/g2plot/pull/2626)) ([f398e67c](https://github.com/antvis/g2plot/commit/f398e67c52c28a6d16bbda92c86f5cd40ecf2634))
+* **docs:**  修复文档 demo 无限增大 ([#2625](https://github.com/antvis/g2plot/pull/2625)) ([fa1c2508](https://github.com/antvis/g2plot/commit/fa1c25081ffc8ca3713cecbaa61c666719c0111f))
+
+##### Refactors
+
+* **funnel:**  支持尖底漏斗图以及样式设置 ([#2634](https://github.com/antvis/g2plot/pull/2634)) ([0882b32d](https://github.com/antvis/g2plot/commit/0882b32d386b5f25fc895f43f75f1ea76e67b8b5))
+
 #### 2.3.23 (2021-06-09)
 
 ##### Chores

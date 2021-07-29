@@ -1,3 +1,19 @@
+#### 2.3.28 (2021-07-29)
+
+##### Documentation Changes
+
+* **heatmap:**  热力图补充密度热力图🇭说明：color、style callback 以及 state 不可用 ([#2718](https://github.com/antvis/g2plot/pull/2718)) ([d0055e1b](https://github.com/antvis/g2plot/commit/d0055e1b38e20eb3310b00381b4337446c06751f))
+*  更新官网公告 & demo ([ed3375b9](https://github.com/antvis/g2plot/commit/ed3375b981319fe791df247d653d2d443ad845a8))
+
+##### New Features
+
+* **interaction:**  内置封装 brush 交互 ([#2719](https://github.com/antvis/g2plot/pull/2719)) ([abc45844](https://github.com/antvis/g2plot/commit/abc45844a77fede2f4480e0a026eefddaa9592df))
+
+##### Bug Fixes
+
+* **funnel:**  漏斗图增加状态样式设置 ([#2725](https://github.com/antvis/g2plot/pull/2725)) ([e217c190](https://github.com/antvis/g2plot/commit/e217c19012d44c2c3dfffb07332ce592a56a3ad3))
+* **dual-axes:**  修改双轴图 annotations 文档 ([#2726](https://github.com/antvis/g2plot/pull/2726)) ([9aeaf31d](https://github.com/antvis/g2plot/commit/9aeaf31d271634b052174f2a2f9624b1ce3d7b19))
+
 #### 2.3.27 (2021-07-21)
 
 ##### Documentation Changes

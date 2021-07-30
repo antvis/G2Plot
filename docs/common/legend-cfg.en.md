@@ -53,6 +53,12 @@ Background box configuration item. _LegendBackgroundCFG_ is configured as follow
 
 Apply to <tag color="green" text="Classification legend">Classification legend</tag>,whether to page when there are too many legend items. (⚠️ 暂不支持多行展示分页)
 
+### maxRow
+
+<description> _number_ **optional** </description>
+
+Apply to <tag color="green" text="Classification legend">Classification legend</tag>. You can set the maximum number of rows when legend items is flip-paged, (only applicable to 'layout:' horizontal '),default: 1.
+
 ##### pageNavigator
 
 <description>**optional** _object_ </description>

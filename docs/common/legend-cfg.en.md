@@ -53,7 +53,7 @@ Background box configuration item. _LegendBackgroundCFG_ is configured as follow
 
 Apply to <tag color="green" text="Classification legend">Classification legend</tag>,whether to page when there are too many legend items. (⚠️ 暂不支持多行展示分页)
 
-### maxRow
+##### maxRow
 
 <description> _number_ **optional** </description>
 
@@ -110,6 +110,8 @@ pageNavigator: {
   },
 },
 ```
+
+<playground path="component/legend/demo/legend-flippage.ts" rid="page-navigator"></playground>
 
 ##### itemHeight
 

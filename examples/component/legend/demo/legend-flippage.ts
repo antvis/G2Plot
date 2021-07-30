@@ -11,7 +11,15 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/P14mCvkybz/large-datra.json')
       isGroup: 'true',
       legend: {
         flipPage: true,
+        // 两行分页
         maxRow: 2,
+        pageNavigator: {
+          marker: {
+            style: {
+              fill: 'rgba(0,0,0,0.65)',
+            },
+          },
+        },
       },
     });
 

@@ -41,9 +41,10 @@
       "filename": "legend-flippage.ts",
       "title": {
         "zh": "图例项分页设置",
-        "en": "Configuration of legend when flip-page"
+        "en": "Legend flip-page configuration"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/KL9rDFTlDt/64abafb6-8e4e-48ff-9a79-cb84883a3bef.png"
+      "new": "true",
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/ClED4WyJF%26/2e5cd632-9cc7-4809-b944-469d62bd74b1.png"
     }
   ]
 }

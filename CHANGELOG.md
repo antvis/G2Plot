@@ -1,4 +1,4 @@
-#### 2.3.28 (2021-07-29)
+#### 2.3.28 (2021-07-30)
 
 ##### Documentation Changes
 
@@ -8,6 +8,7 @@
 ##### New Features
 
 * **interaction:**  内置封装 brush 交互 ([#2719](https://github.com/antvis/g2plot/pull/2719)) ([abc45844](https://github.com/antvis/g2plot/commit/abc45844a77fede2f4480e0a026eefddaa9592df))
+* **legend:**  图例支持多行分页 ([36149724](https://github.com/antvis/g2plot/commit/36149724676d8b66ba4f1ef16ae481b64c4981c6))
 
 ##### Bug Fixes
 

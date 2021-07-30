@@ -55,11 +55,15 @@
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，当图例项过多时是否进行分页。(⚠️ 暂不支持多行展示分页)
 
+##### maxRow
+
+<description> _number_ **optional** </description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，当图例项过多分页时，可以设置最大行数（仅适用于 `layout: 'horizontal'`），默认为：1。
+
 ##### pageNavigator
 
 <description>**optional** _object_ </description>
-
-<!-- todo 补充分页器的图文介绍 -->
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，图例分页导航器的主题样式设置。_LegendPageNavigatorCfg_ 配置如下：
 
@@ -108,6 +112,8 @@ pageNavigator: {
   },
 },
 ```
+
+<playground path="component/legend/demo/legend-flippage.ts" rid="page-navigator"></playground>
 
 ##### itemHeight
 

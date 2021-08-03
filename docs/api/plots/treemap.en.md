@@ -48,6 +48,11 @@ Among them, you can get the path parameter in the formatter function of label (t
 
 Color mapping field name.
 
+#### rawFields
+
+<description>**optional** _string[]_</description>
+
+Extra original fields. Once configured, you can retrieve additional raw data in the datum parameter of callback functions such as color.
 ### Geometry Style
 
 `markdown:docs/common/color.en.md`

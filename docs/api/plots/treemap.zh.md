@@ -48,6 +48,12 @@ G2 plot 会根据 data 生成以下数据结构：
 
 颜色映射字段名。
 
+#### rawFields
+
+<description>**optional** _string[]_</description>
+
+额外的原始字段。配置之后，可以在 color 等回调函数的 datum 参数中，获取到更多额外的原始数据。
+
 ### 图形样式
 
 `markdown:docs/common/color.zh.md`

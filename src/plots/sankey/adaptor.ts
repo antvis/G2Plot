@@ -15,16 +15,20 @@ function defaultOptions(params: Params<SankeyOptions>): Params<SankeyOptions> {
   const { options } = params;
   const { rawFields = [] } = options;
 
-  return deepAssign({}, {
-    options: {
-      tooltip: {
-        fields: uniq(['name', 'source', 'target', 'value', 'isNode', ...rawFields]),
+  return deepAssign(
+    {},
+    {
+      options: {
+        tooltip: {
+          fields: uniq(['name', 'source', 'target', 'value', 'isNode', ...rawFields]),
+        },
+        label: {
+          fields: uniq(['x', 'name', ...rawFields]),
+        },
       },
-      label: {
-        fields: uniq(['x', 'name', ...rawFields]),
-      },
-    }
-  }, params);
+    },
+    params
+  );
 }
 
 /**

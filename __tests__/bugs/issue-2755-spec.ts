@@ -21,7 +21,7 @@ describe('sankey', () => {
 
   const dom = createDiv();
   const sankey = new Sankey(dom, {
-    data: data.map(d => ({ ...d, append: 'hello' })),
+    data: data.map((d) => ({ ...d, append: 'hello' })),
     sourceField: 'source',
     targetField: 'target',
     weightField: 'value',
@@ -33,20 +33,20 @@ describe('sankey', () => {
 
   sankey.render();
 
-  it('label', () => { 
+  it('label', () => {
     sankey.update({ label: { formatter: () => 'HELLO' } });
     expect(sankey.chart.views[1].geometries[0].labelsContainer.getChildByIndex(0).cfg.children[0].attr('text')).toBe(
-      "HELLO"
+      'HELLO'
     );
     // with rawFields
     sankey.update({ label: { formatter: ({ append }) => append } });
     expect(sankey.chart.views[1].geometries[0].labelsContainer.getChildByIndex(0).cfg.children[0].attr('text')).toBe(
-      "hello"
+      'hello'
     );
   });
 
   afterAll(() => {
     sankey.destroy();
     removeDom(dom);
-  })
+  });
 });

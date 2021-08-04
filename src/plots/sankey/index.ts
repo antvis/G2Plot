@@ -105,11 +105,11 @@ export class Sankey extends Plot<SankeyOptions> {
   }
 
   /**
- * 设置状态
- * @param type 状态类型，支持 'active' | 'inactive' | 'selected' 三种
- * @param conditions 条件，支持数组
- * @param status 是否激活，默认 true
- */
+   * 设置状态
+   * @param type 状态类型，支持 'active' | 'inactive' | 'selected' 三种
+   * @param conditions 条件，支持数组
+   * @param status 是否激活，默认 true
+   */
   public setState(type: StateName, condition: StateCondition, status: boolean = true) {
     const elements = getAllElementsRecursively(this.chart);
 

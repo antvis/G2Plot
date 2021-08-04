@@ -56,8 +56,8 @@ export interface SankeyOptions extends Omit<Options, 'xField' | 'yField' | 'xAxi
    */
   readonly nodeStyle?: StyleAttr;
   /**
- * 节点状态样式
- */
+   * 节点状态样式
+   */
   readonly nodeState?: State;
   /**
    * 边样式

@@ -49,11 +49,27 @@ Raw fields of original data. With the 'rawsFields' definition, you can get the o
 
 Sankey diagram node style configuration.
 
+#### nodeState
+
+<description>**optional** _StyleAttr | Function_</description>
+
+State style configuration of Sankey node.
+
+`markdown:docs/common/state-style.zh.md`
+
 #### edgeStyle
 
 <description>**optional** _StyleAttr | Function_</description>
 
 Sankey diagram variable style configuration.
+
+#### edgeState
+
+<description>**optional** _StyleAttr | Function_</description>
+
+State style configuration of Sankey edge.
+
+`markdown:docs/common/state-style.zh.md`
 
 `markdown:docs/common/color.en.md`
 

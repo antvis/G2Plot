@@ -49,6 +49,14 @@ order: 27
 
 桑基图节点样式的配置。
 
+#### nodeState
+
+<description>**optional** _StyleAttr | Function_</description>
+
+桑基图节点状态样式的配置。
+
+`markdown:docs/common/state-style.zh.md`
+
 #### edgeStyle
 
 <description>**optional** _StyleAttr | Function_</description>
@@ -56,6 +64,14 @@ order: 27
 桑基图变样式的配置。
 
 `markdown:docs/common/color.en.md`
+
+#### edgeState
+
+<description>**optional** _StyleAttr | Function_</description>
+
+桑基图边状态样式的配置。
+
+`markdown:docs/common/state-style.zh.md`
 
 #### nodeWidthRatio
 

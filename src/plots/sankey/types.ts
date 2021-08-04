@@ -1,4 +1,4 @@
-import { Data, Options, StyleAttr } from '../../types';
+import { Data, Options, State, StyleAttr } from '../../types';
 import { NodeDepth, NodeSort } from './layout';
 
 /** 配置类型定义 */
@@ -56,9 +56,17 @@ export interface SankeyOptions extends Omit<Options, 'xField' | 'yField' | 'xAxi
    */
   readonly nodeStyle?: StyleAttr;
   /**
+ * 节点状态样式
+ */
+  readonly nodeState?: State;
+  /**
    * 边样式
    */
   readonly edgeStyle?: StyleAttr;
+  /**
+   * 边状态样式
+   */
+  readonly edgeState?: State;
   /**
    * 节点位置是否可以拖拽，默认为 false
    */

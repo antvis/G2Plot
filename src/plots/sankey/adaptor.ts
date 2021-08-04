@@ -1,10 +1,31 @@
+import { uniq } from '@antv/util';
 import { interaction, theme } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
-import { flow } from '../../utils';
+import { deepAssign, flow } from '../../utils';
 import { polygon, edge } from '../../adaptor/geometries';
+import { transformToViewsData } from './helper';
 import { SankeyOptions } from './types';
 import { X_FIELD, Y_FIELD, COLOR_FIELD, EDGES_VIEW_ID, NODES_VIEW_ID } from './constant';
-import { transformToViewsData } from './helper';
+
+/**
+ * 默认配置项 处理
+ * @param params
+ */
+function defaultOptions(params: Params<SankeyOptions>): Params<SankeyOptions> {
+  const { options } = params;
+  const { rawFields = [] } = options;
+
+  return deepAssign({}, {
+    options: {
+      tooltip: {
+        fields: uniq(['name', 'source', 'target', 'value', 'isNode', ...rawFields]),
+      },
+      label: {
+        fields: uniq(['x', 'name', ...rawFields]),
+      },
+    }
+  }, params);
+}
 
 /**
  * geometry 处理
@@ -135,6 +156,7 @@ export function nodeDraggable(params: Params<SankeyOptions>): Params<SankeyOptio
 export function adaptor(params: Params<SankeyOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
+    defaultOptions,
     geometry,
     interaction,
     nodeDraggable,

@@ -33,8 +33,8 @@ export class Sankey extends Plot<SankeyOptions> {
         lineWidth: 0,
       },
       label: {
-        fields: ['x', 'name'],
-        callback: (x: number[], name: string) => {
+        formatter: ({ name }) => name,
+        callback: (x: number[]) => {
           const isLast = x[1] === 1; // 最后一列靠边的节点
           return {
             style: {
@@ -42,7 +42,6 @@ export class Sankey extends Plot<SankeyOptions> {
               textAlign: isLast ? 'end' : 'start',
             },
             offsetX: isLast ? -8 : 8,
-            content: name,
           };
         },
         layout: [
@@ -55,7 +54,6 @@ export class Sankey extends Plot<SankeyOptions> {
         showTitle: false,
         showMarkers: false,
         shared: false,
-        fields: ['name', 'source', 'target', 'value', 'isNode'],
         // 内置：node 不显示 tooltip，edge 显示 tooltip
         showContent: (items) => {
           return !get(items, [0, 'data', 'isNode']);

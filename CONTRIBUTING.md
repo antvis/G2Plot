@@ -24,7 +24,7 @@ $ git checkout -b branch-name
 # Run the test after you finish your modification. Add new test cases or change old ones if you feel necessary
 $ npm test
 
-# If your modification pass the tests, congradulations it's time to push your work back to us. Notice that the commit message should be wirtten in the following format.
+# If your modification pass the tests, congradulations it's time to push your work back to us. Notice that the commit message should be written in the following format.
 $ git add . # git add -u to delete files
 $ git commit -m "fix(role): role.use must xxx"
 $ git push origin branch-name
@@ -32,7 +32,7 @@ $ git push origin branch-name
 
 Then you can create a Pull Request at [g2plot](https:// github.com/antvis/g2plot/pulls).
 
-No one can garantee how much will be remembered about certain PR after some time. To make sure we can easily recap what happened previously, please provide the following information in your PR.
+No one can guarantee how much will be remembered about certain PR after some time. To make sure we can easily recap what happened previously, please provide the following information in your PR.
 
 1. Need: What function you want to achieve (Generally, please point out which issue is related).
 2. Updating Reason: Different with issue. Briefly describe your reason and logic about why you need to make such modification.
@@ -79,7 +79,7 @@ Use succinct words to describe what did you do { in the } commit change.
 
 （4）body
 
-Feel free to add more content in the body, if you { think } subject is not self-explanatory enough, such as what it is the purpose or reasone of you commit.
+Feel free to add more content in the body, if you { think } subject is not self-explanatory enough, such as what it is the purpose or reason of you commit.
 
 （5）footer
 

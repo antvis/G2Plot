@@ -9,7 +9,7 @@ import { Annotation } from './annotation';
 import { State } from './state';
 import { Slider } from './slider';
 import { Scrollbar } from './scrollbar';
-import { ColorAttr } from './attr';
+import { ColorAttr, PatternAttr } from './attr';
 import { Meta } from './meta';
 
 /** annotation position */
@@ -109,6 +109,8 @@ export type Options = {
   readonly theme?: string | object;
   /** 颜色色板 */
   readonly color?: ColorAttr;
+  /** pattern 配置 */
+  readonly pattern?: PatternAttr;
   /** xAxis 的配置项 */
   readonly xAxis?: Axis;
   /** yAxis 的配置项 */

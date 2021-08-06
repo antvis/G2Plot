@@ -1,11 +1,14 @@
 import { ShapeAttrs } from '@antv/g-base';
+import { PatternStyle } from '../plugin/pattern/index';
 import { Datum } from './common';
 
 /** 图形属性 */
 export type ShapeStyle = ShapeAttrs;
 
 /** 颜色映射 */
-export type ColorAttr = string | string[] | ((datum: Datum) => string);
+export type ColorAttr = string | string[] | ((datum: Datum) => string) | object;
+/** pattern 映射*/
+export type PatternAttr = string | PatternStyle | ((datum: Datum) => CanvasPattern) | CanvasPattern;
 /** 尺寸大小映射 */
 export type SizeAttr = number | [number, number] | ((datum: Datum) => number);
 /** 图形 shape 映射 */

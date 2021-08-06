@@ -1,33 +1,37 @@
-import { Pattern, PatternCfg } from './pattern';
+import { isObjectLike } from '@antv/util';
+import { deepAssign } from '../../utils';
+import { Pattern, PatternCfg } from './base';
 
 export type LineCfg = PatternCfg & {
-  spacing: number;
+  spacing?: number;
+  rotate?: number;
   //...
 };
 
 export class LinePattern extends Pattern<LineCfg> {
+  private static defaultCfg = {
+    rotate: 45,
+    spacing: 10,
+    bgColor: '#FFE869',
+    opacity: 1,
+    padding: 5,
+    stroke: '#F7B32D',
+    strokeWidth: 2,
+  };
+
   protected init() {
-    const patternContext = this.patternCanvas.getContext('2d');
+    //...
+  }
 
-    const { size, bgColor } = this.options;
-
-    this.patternCanvas.width = size[0];
-    this.patternCanvas.height = size[1];
-
-    patternContext.fillStyle = bgColor;
-    patternContext.fillRect(0, 0, this.patternCanvas.width, this.patternCanvas.height);
-
-    patternContext.fillStyle = '#fff';
-    patternContext.beginPath();
-    patternContext.arc(size[0] / 2, size[0] / 2, size[0] / 4, 0, 2 * Math.PI);
-    patternContext.fill();
+  private drawLine(start, end) {
+    //...
   }
 
   protected initOptions(options?: LineCfg) {
-    // 给定默认的 cfg
-    return {
-      size: [10, 20],
-      bgColor: 'pink',
-    };
+    let cfg = {};
+    if (isObjectLike(options)) {
+      cfg = options;
+    }
+    return deepAssign({}, LinePattern.defaultCfg, cfg);
   }
 }

@@ -1,7 +1,6 @@
 import { isFunction, isString, isNil, get, isArray, isNumber, each, toString, isEmpty, isObjectLike } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { legend, animation, theme, state, annotation } from '../../adaptor/common';
-import { PatternShape, PatternStyle, createPattern } from '../../plugin/pattern/index';
 import { getMappingFunction } from '../../adaptor/geometries/base';
 import { interval } from '../../adaptor/geometries';
 import { pattern } from '../../adaptor/pattern';
@@ -317,7 +316,7 @@ export function interaction(params: Params<PieOptions>): Params<PieOptions> {
 export function adaptor(params: Params<PieOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow<Params<PieOptions>>(
-    pattern('pieStyle'),
+    pattern,
     geometry,
     meta,
     theme,

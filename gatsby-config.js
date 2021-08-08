@@ -17,6 +17,8 @@ module.exports = {
     description: 'A collection of charts made with the Grammar of Graphics',
     siteUrl: 'https://g2plot.antv.vision',
     githubUrl: repository.url,
+    showGithubStar: true,
+    showGithubCorner: false,
     versions: {
       [version]: 'https://g2plot.antv.vision',
       '1.x': 'https://g2plot-v1.antv.vision',

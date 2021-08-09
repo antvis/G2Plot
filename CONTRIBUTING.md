@@ -88,7 +88,7 @@ Feel free to add more content in the body, if you { think } subject is not self-
 
 e.g.
 
-```
+```plain
 fix($compile): [BREAKING_CHANGE] couple of unit tests for IE9
 
 Older IEs serialize html uppercased, but IE9 does not...

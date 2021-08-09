@@ -158,6 +158,9 @@ export type { CirclePackingOptions } from './plots/circle-packing';
 /** 所有开放图表都使用 G2Plot.P 作为入口开发，理论上官方的所有图表都可以走 G2Plot.P 的入口（暂时不处理） */
 export { P } from './plugin';
 
+/** 开放 createPattern 方法 */
+export { createPattern } from './plugin/pattern';
+
 // 已经废弃，更名为 Mix
 export { Mix as MultiView } from './plots/mix';
 export type { MixOptions as MultiViewOptions } from './plots/mix';

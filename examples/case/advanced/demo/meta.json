@@ -10,6 +10,7 @@
         "zh": "联动 Tooltip (饼图)",
         "en": "Associate Tooltip for Pie plot"
       },
+      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/VoiPvFL%26U5/pie-tooltip.gif"
     },
     {
@@ -18,6 +19,7 @@
         "zh": "联动筛选",
         "en": "Associate Filter"
       },
+      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/tHF3bgalmB/association-filter.gif"
     }
   ]

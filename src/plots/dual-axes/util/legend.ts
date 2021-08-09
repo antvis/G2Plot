@@ -1,6 +1,6 @@
-import { reduce, get } from '@antv/util';
+import { reduce, get, isEmpty, isFunction } from '@antv/util';
 import { View, Util } from '@antv/g2';
-import { findGeometry } from '../../../utils';
+import { deepAssign, findGeometry } from '../../../utils';
 import { GeometryOption } from '../types';
 import { Legend } from '../../../types/legend';
 import { isLine } from './option';
@@ -24,7 +24,19 @@ export function getViewLegendItems(params: {
     const color = colorAttribute.values[0];
 
     const marker =
-      userMarker ||
+      (isFunction(userMarker)
+        ? userMarker
+        : !isEmpty(userMarker) &&
+          deepAssign(
+            {},
+            {
+              style: {
+                stroke: color,
+                fill: color,
+              },
+            },
+            userMarker
+          )) ||
       (isLine(geometryOption)
         ? {
             symbol: (x: number, y: number, r: number) => {

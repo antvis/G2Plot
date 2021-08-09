@@ -391,6 +391,34 @@ describe('Legend', () => {
       xField: 'date',
       yField: ['pv', 'uv'],
       legend: {
+        marker: {
+          symbol: 'diamond',
+        },
+      },
+    });
+
+    dualAxes.render();
+
+    const legendController = dualAxes.chart.getController('legend');
+    const legendComponent = legendController.getComponents()[0];
+    const cfg = legendComponent.component.cfg;
+
+    expect(cfg.items[0].marker.symbol).toBe('diamond');
+    expect(cfg.items[1].marker.symbol).toBe('diamond');
+    expect(cfg.items[0].marker.style.fill).toBe('#5B8FF9');
+    expect(cfg.items[1].marker.style.fill).toBe('#5AD8A6');
+
+    dualAxes.destroy();
+  });
+
+  it('Legend custom', () => {
+    const dualAxes = new DualAxes(createDiv('Legend custom '), {
+      width: 400,
+      height: 500,
+      data: [PV_DATA, UV_DATA],
+      xField: 'date',
+      yField: ['pv', 'uv'],
+      legend: {
         custom: true,
         layout: 'vertical',
         position: 'right',

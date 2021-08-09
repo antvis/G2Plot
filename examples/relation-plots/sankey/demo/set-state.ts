@@ -27,14 +27,14 @@ const sankey = new Sankey('container', {
   nodeState: {
     active: {
       style: {
-        linewidth: 1.5
-      }
-    }
+        linewidth: 1.5,
+      },
+    },
   },
-  tooltip: { showTitle: true }
+  tooltip: { showTitle: true },
 });
 
 sankey.render();
 sankey.setState('active', (datum) => {
-  return datum.isNode && datum.name === '首次打开'
+  return datum.isNode && datum.name === '首次打开';
 });

@@ -24,6 +24,15 @@ const piePlot = new Pie('container', {
       textAlign: 'center',
     },
   },
+  pattern: {
+    type: 'dot',
+    cfg: {
+      radius: 2,
+      padding: 10,
+      isStagger: true,
+      mode: 'repeat',
+    },
+  },
   interactions: [{ type: 'element-active' }],
 });
 

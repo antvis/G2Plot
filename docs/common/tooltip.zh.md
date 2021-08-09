@@ -190,7 +190,7 @@ tooltip 偏移量。
 
 <description>**可选** _Function_</description>
 
-支持自定义模板。
+支持自定义模板。[在线示例](/zh/examples/case/customize#customize-tooltip)
 
 ```ts
 {
@@ -202,6 +202,3 @@ tooltip 偏移量。
 }
 ```
 
-尝试一下：
-
-<playground path="case/customize/demo/customize-tooltip.ts" rid="customize-tooltip"></playground>

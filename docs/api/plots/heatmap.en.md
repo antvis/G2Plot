@@ -25,7 +25,7 @@ Configure the data source. The data source is a collection of objects. For examp
 
 <description>**optional** _polygon | density_ _default:_ `polygon`</description>
 
-The density heat map needs to be specified as Density.
+The Density Heatmap needs to be specified as Density. Attention：Because of the particularity of Density Heatmap，Conditional color mapping is not supported. So when config `type='desity'`, `color callback`, `heatmapStyle` and style of `state` are not available.
 
 #### colorField
 

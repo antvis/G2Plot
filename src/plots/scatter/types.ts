@@ -7,6 +7,7 @@ import {
   StyleAttr,
   ShapeAttr,
   SizeAttr,
+  BrushCfg,
 } from '../../types';
 
 interface Labels extends Omit<TextOption, 'position'> {
@@ -60,8 +61,13 @@ export interface ScatterOptions extends Options {
   readonly pointStyle?: StyleAttr;
   /** 点颜色映射对应的数据字段名 */
   readonly colorField?: string;
+
+  // 图表标注组件
   /** 四象限组件 */
   readonly quadrant?: QuadrantOptions;
   /** 归曲线 */
   readonly regressionLine?: RegressionLineOptions;
+
+  // 图表交互
+  readonly brush?: BrushCfg;
 }

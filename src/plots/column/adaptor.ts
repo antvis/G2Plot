@@ -18,6 +18,7 @@ import { interval } from '../../adaptor/geometries';
 import { flow, transformLabel, deepAssign, findGeometry, adjustYMetaByZero, pick } from '../../utils';
 import { getDataWhetherPecentage, getDeepPercent } from '../../utils/transform/percent';
 import { Datum } from '../../types';
+import { brushInteraction } from '../../adaptor/brush';
 import { ColumnOptions } from './types';
 
 /**
@@ -295,6 +296,7 @@ export function adaptor(params: Params<ColumnOptions>, isBar = false) {
     slider,
     scrollbar,
     label,
+    brushInteraction,
     interaction,
     animation,
     annotation(),

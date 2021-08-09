@@ -1,8 +1,9 @@
-import { get } from '@antv/util';
+import { get, each } from '@antv/util';
+import { Element } from '@antv/g2';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { Data, Datum } from '../../types';
-import { findViewById } from '../../utils';
+import { Data, Datum, StateCondition, StateName, StateObject } from '../../types';
+import { findViewById, getAllElementsRecursively } from '../../utils';
 import { SankeyOptions } from './types';
 import { adaptor } from './adaptor';
 import { transformToViewsData } from './helper';
@@ -32,9 +33,17 @@ export class Sankey extends Plot<SankeyOptions> {
         opacity: 0.3,
         lineWidth: 0,
       },
+      edgeState: {
+        active: {
+          style: {
+            opacity: 0.8,
+            lineWidth: 0,
+          },
+        },
+      },
       label: {
-        fields: ['x', 'name'],
-        callback: (x: number[], name: string) => {
+        formatter: ({ name }) => name,
+        callback: (x: number[]) => {
           const isLast = x[1] === 1; // 最后一列靠边的节点
           return {
             style: {
@@ -42,7 +51,6 @@ export class Sankey extends Plot<SankeyOptions> {
               textAlign: isLast ? 'end' : 'start',
             },
             offsetX: isLast ? -8 : 8,
-            content: name,
           };
         },
         layout: [
@@ -55,7 +63,6 @@ export class Sankey extends Plot<SankeyOptions> {
         showTitle: false,
         showMarkers: false,
         shared: false,
-        fields: ['name', 'source', 'target', 'value', 'isNode'],
         // 内置：node 不显示 tooltip，edge 显示 tooltip
         showContent: (items) => {
           return !get(items, [0, 'data', 'isNode']);
@@ -95,6 +102,40 @@ export class Sankey extends Plot<SankeyOptions> {
 
     nodesView.changeData(nodes);
     edgesView.changeData(edges);
+  }
+
+  /**
+   * 设置状态
+   * @param type 状态类型，支持 'active' | 'inactive' | 'selected' 三种
+   * @param conditions 条件，支持数组
+   * @param status 是否激活，默认 true
+   */
+  public setState(type: StateName, condition: StateCondition, status: boolean = true) {
+    const elements = getAllElementsRecursively(this.chart);
+
+    each(elements, (ele: Element) => {
+      if (condition(ele.getData())) {
+        ele.setState(type, status);
+      }
+    });
+  }
+
+  /**
+   * 获取状态
+   */
+  public getStates(): StateObject[] {
+    const elements = getAllElementsRecursively(this.chart);
+
+    const stateObjects: StateObject[] = [];
+    each(elements, (element: Element) => {
+      const data = element.getData();
+      const states = element.getStates();
+      each(states, (state) => {
+        stateObjects.push({ data, state, geometry: element.geometry, element });
+      });
+    });
+
+    return stateObjects;
   }
 
   /**

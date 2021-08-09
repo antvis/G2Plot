@@ -18,6 +18,7 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
   return deepAssign(
     {
       options: {
+        rawFields: ['value'],
         tooltip: {
           fields: ['name', 'value', colorField, 'path'],
           formatter: (data) => {
@@ -39,7 +40,7 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
  */
 function geometry(params: Params<TreemapOptions>): Params<TreemapOptions> {
   const { chart, options } = params;
-  const { color, colorField, rectStyle, hierarchyConfig } = options;
+  const { color, colorField, rectStyle, hierarchyConfig, rawFields } = options;
 
   const data = transformData({
     data: options.data,
@@ -57,7 +58,7 @@ function geometry(params: Params<TreemapOptions>): Params<TreemapOptions> {
         xField: 'x',
         yField: 'y',
         seriesField: colorField,
-        rawFields: ['value'],
+        rawFields: rawFields,
         polygon: {
           color,
           style: rectStyle,

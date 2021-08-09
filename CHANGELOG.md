@@ -1,3 +1,40 @@
+#### 2.3.28 (2021-07-30)
+
+##### Documentation Changes
+
+* **heatmap:**  热力图补充密度热力图🇭说明：color、style callback 以及 state 不可用 ([#2718](https://github.com/antvis/g2plot/pull/2718)) ([d0055e1b](https://github.com/antvis/g2plot/commit/d0055e1b38e20eb3310b00381b4337446c06751f))
+*  更新官网公告 & demo ([ed3375b9](https://github.com/antvis/g2plot/commit/ed3375b981319fe791df247d653d2d443ad845a8))
+
+##### New Features
+
+* **interaction:**  内置封装 brush 交互 ([#2719](https://github.com/antvis/g2plot/pull/2719)) ([abc45844](https://github.com/antvis/g2plot/commit/abc45844a77fede2f4480e0a026eefddaa9592df))
+* **legend:**  图例支持多行分页 ([36149724](https://github.com/antvis/g2plot/commit/36149724676d8b66ba4f1ef16ae481b64c4981c6))
+
+##### Bug Fixes
+
+* **funnel:**  漏斗图增加状态样式设置 ([#2725](https://github.com/antvis/g2plot/pull/2725)) ([e217c190](https://github.com/antvis/g2plot/commit/e217c19012d44c2c3dfffb07332ce592a56a3ad3))
+* **dual-axes:**  修改双轴图 annotations 文档 ([#2726](https://github.com/antvis/g2plot/pull/2726)) ([9aeaf31d](https://github.com/antvis/g2plot/commit/9aeaf31d271634b052174f2a2f9624b1ce3d7b19))
+
+#### 2.3.27 (2021-07-21)
+
+##### Documentation Changes
+
+* **legend:** 图例 itemName, itemValue 增加 style 回调 ([#2712](https://github.com/antvis/g2plot/pull/2712)) ([1b039b0b8](https://github.com/antvis/G2Plot/commit/1b039b0b865dc84a01370c9f701b2c2a8792e23d))
+
+##### Bug Fixes
+
+* **histogram:**  binNumber 设置出错 ([#2708](https://github.com/antvis/g2plot/pull/2708)) ([46d27699](https://github.com/antvis/g2plot/commit/46d276995839610a3d0fc196eedd1b13366ecf47))
+* **percentage stacked column:**  修复 百分比堆叠分组柱状 展示不对 的问题 ([#2688](https://github.com/antvis/g2plot/pull/2688)) ([08e17224](https://github.com/antvis/g2plot/commit/08e1722474d36e0e038c398339d7502dc443a6de))
+* 修复 玉珏图没有考虑 isStack 的情况 重新计算最大值 ([#2685](https://github.com/antvis/g2plot/pull/2685)) ([397d8641](https://github.com/antvis/g2plot/commit/397d86415ce399ada0b23c2fd32ecd3a0a2f9e12))
+* **rose:**  玫瑰图 legend 默认配置，不进行 offset 偏移 ([#2683](https://github.com/antvis/g2plot/pull/2683)) ([86e23094](https://github.com/antvis/g2plot/commit/86e2309461e7627527f343039f674da1f0e0cb0c))
+* **bullet:** 修复子弹图 状态量 中 设置 fill 为渐变色时，报错 ([#791](https://github.com/antvis/g/pull/791)) ([70083c2d1](https://github.com/antvis/g/commit/70083c2d1454528f2534ba9c6bedf0345d6913ec))
+* **legend:** 修复图例容器大小无法设置问题  ([#2711](https://github.com/antvis/g2plot/pull/2711)) ([3fb32f087](https://github.com/antvis/g/commit/3fb32f0874dc71a2700e84c86e455fc005fbbad6))
+
+##### Refactors
+
+*  函数命名修正 ([#2698](https://github.com/antvis/g2plot/pull/2698)) ([128de436](https://github.com/antvis/g2plot/commit/128de436f26c7fedcb930f491dc1054916e68c19))
+*  优化下玉珏图处理 stack 的代码 ([#2687](https://github.com/antvis/g2plot/pull/2687)) ([871b3c5f](https://github.com/antvis/g2plot/commit/3fb32f0874dc71a2700e84c86e455fc005fbbad6))
+
 #### 2.3.26 (2021-07-07)
 
 ##### Documentation Changes

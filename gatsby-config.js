@@ -17,6 +17,8 @@ module.exports = {
     description: 'A collection of charts made with the Grammar of Graphics',
     siteUrl: 'https://g2plot.antv.vision',
     githubUrl: repository.url,
+    showGithubStar: true,
+    showGithubCorner: false,
     versions: {
       [version]: 'https://g2plot.antv.vision',
       '1.x': 'https://g2plot-v1.antv.vision',
@@ -307,9 +309,6 @@ module.exports = {
       apiKey: '0d19588d7661a81faa8b75f6ade80321',
       indexName: 'antv_g2plot',
     },
-    announcement: {
-      zh: '1. 上新图表啦！请「图表示例 - 更多图表」查看「Circle Packing」图表示例',
-      en: '1. 上新图表啦！请「图表示例 - 更多图表」查看「Circle Packing」图表示例',
-    }
+    announcement: {}
   },
 };

@@ -99,6 +99,19 @@ describe('treemap color', () => {
     expect(elements[5].model.color).toBe('#0f0');
   });
 
+  it('color rawFields', () => {
+    treemapPlot.update({
+      rawFields: ['value', 'ext'],
+      color: (v) => {
+        return v.ext ? '#f00' : '#0f0';
+      },
+    });
+
+    const elements = treemapPlot.chart.geometries[0].elements;
+    expect(elements[1].model.color).toBe('#f00');
+    expect(elements[5].model.color).toBe('#f00');
+  });
+
   it('multi nest treemap', () => {
     treemapPlot.update({
       data: data,

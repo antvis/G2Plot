@@ -28,6 +28,8 @@ module.exports = {
     showAPIDoc: true, // 是否在demo页展示API文档
     themeSwitcher: 'g2plot',
     playground: {
+      extraLib: '',
+      container: '<div id="container"><div id="container1"></div><div id="container2"></div></div>', // 定义演示的渲染节点，默认 <div id="container" />
       devDependencies: {
         typescript: 'latest',
       },

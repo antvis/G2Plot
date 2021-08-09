@@ -1,3 +1,22 @@
+#### 2.3.29 (2021-08-09)
+
+##### Documentation Changes
+
+*  Fix a few typos ([#2764](https://github.com/antvis/g2plot/pull/2764)) ([e7d98c76](https://github.com/antvis/g2plot/commit/e7d98c76b520fbfdfa3db17c61962bd475ce5afa))
+*  richer demos ([#2768](https://github.com/antvis/g2plot/pull/2768)) ([349127f7](https://github.com/antvis/g2plot/commit/349127f7acd996aa7006bf6fad5803ae074413db))
+*  fix: 修复 custom tooltip 导致容器无限增大 ([#2769](https://github.com/antvis/g2plot/pull/2769)) ([83740b15](https://github.com/antvis/g2plot/commit/83740b159cd949a4e00d648143fd7544742a3763))
+
+##### New Features
+
+* **sankey:**  桑基图支持 state 配置 ([#2757](https://github.com/antvis/g2plot/pull/2757)) ([44770b44](https://github.com/antvis/g2plot/commit/44770b447cfe881f46a8230a2d1f3bb733669368))
+
+##### Bug Fixes
+
+*  修复错误 & 更新官网展示 github ([#2767](https://github.com/antvis/g2plot/pull/2767)) ([cc96c741](https://github.com/antvis/g2plot/commit/cc96c741d90ffea003507f74c1ad993cf560e2a6))
+* **sankey:**  修复桑基图 rawFields 在 label & tooltip 处不生效 ([#2756](https://github.com/antvis/g2plot/pull/2756)) ([669f881d](https://github.com/antvis/g2plot/commit/669f881d7b390d2a9866c2323837c77c1839c327))
+*  **treemap** 矩阵树图支持 color 回调中使用 rawFields (color function apply rawFields) ([#2750](https://github.com/antvis/g2plot/pull/2750)) ([e1c5974d](https://github.com/antvis/g2plot/commit/e1c5974d0eeed9bc79c010d51a75ff61e97a67a9))
+*  **line** 修复折线图 smooth 状态下，最高点有时会绘制不正确 ([#3546](https://github.com/antvis/g2plot/pull/2750))([daf3b8a8](https://github.com/antvis/G2/commit/daf3b8a81ffb10d93875250e1128542af59d3618))
+
 #### 2.3.28 (2021-07-30)
 
 ##### Documentation Changes

@@ -1,8 +1,9 @@
-import { size, isNil } from '@antv/util';
+import { size, isNil, sortBy } from '@antv/util';
 import { CanvasPlot } from './canvas';
 import { PixelPlotOptions } from './type';
 import { TooltipController } from './components/tooltip';
 import { AxisController } from './components/axis';
+import { BrushZoom } from './interactions/brush-zoom';
 
 /**
  * 像素点绘制图表
@@ -34,14 +35,16 @@ export class PixelPlot extends CanvasPlot<PixelPlotOptions> {
   /**
    * 处理像素图所需数据：pixelData
    */
-  protected processData() {}
+  protected processData() {
+    // 暂时外置
+    // 模拟 const { pixelData } = KD.getPixelData(option);
+    const { pixelData } = this.options;
+    this.pixelData = pixelData;
+  }
 
   /** 绘制像素图 */
-  protected renderMidCanvas() {
-    this.clearMidCanvas();
-    const { pixelData } = this.options;
+  protected renderMidCanvas(pixelData: number[]) {
     const { x, y, width, height } = this.pixelBBox;
-
     // 像素图数据
     if (size(pixelData)) {
       const ctx = this.middleCanvas.getContext('2d');
@@ -68,15 +71,12 @@ export class PixelPlot extends CanvasPlot<PixelPlotOptions> {
    * 绑定事件
    */
   protected bindEvents() {
-    if (this.foregroundCanvas) {
-      this.foregroundCanvas.on('mousemove', (evt) => {
-        this.tooltipController.show(evt);
-      });
+    // 添加 brush 交互
+    const bf = new BrushZoom(this);
+    bf.bind();
 
-      this.foregroundCanvas.on('mouseleave', (evt) => {
-        this.tooltipController.hide();
-      });
-    }
+    // 添加 tooltip 交互
+    this.tooltipAction();
   }
 
   /**
@@ -85,15 +85,36 @@ export class PixelPlot extends CanvasPlot<PixelPlotOptions> {
    */
   public clear() {
     this.clearMidCanvas();
-    if (this.backgroundCanvas) this.backgroundCanvas.clear();
-    if (this.foregroundCanvas) this.foregroundCanvas.clear();
+    // clear 画布会 destroy 掉组件，所以直接执行组件的 clear 即可
+    if (this.axisController) this.axisController.clear();
+    if (this.tooltipController) this.tooltipController.clear();
   }
 
+  public changeFilterPixelData(data: number[]) {
+    this.filterPixelData = data;
+  }
+
+  /**
+   * 清空 mid 原生canvas 图层
+   */
   public clearMidCanvas() {
     if (this.middleCanvas) {
       const { x, y, width, height } = this.viewBBox;
       const ctx = this.middleCanvas.getContext('2d');
       ctx.clearRect(x, y, width, height);
     }
+  }
+
+  /**
+   * tooltip 交互
+   */
+  private tooltipAction() {
+    this.foregroundCanvas.on('mousemove', (evt: MouseEvent) => {
+      this.tooltipController.show(evt);
+    });
+
+    this.foregroundCanvas.on('mouseleave', (evt: MouseEvent) => {
+      this.tooltipController.hide();
+    });
   }
 }

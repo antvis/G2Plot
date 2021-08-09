@@ -36,7 +36,20 @@ export interface PixelPlotOptions extends Options {
   isStack?: boolean;
   /** 折线图形样式 */
   lineStyle?: StyleAttr;
+  /** brushZoom */
+  brushZoom?: Brush | false;
+  /** brushFilter */
+  brushFilter?: BrushFilter | false;
 }
+
+export type Brush = {
+  type: string;
+  enabled: boolean;
+};
+
+export type BrushFilter = Brush & {
+  isKeepSelection: boolean;
+};
 
 /** 数据字段比例尺 */
 export type ScaleOption = ScaleConfig & {

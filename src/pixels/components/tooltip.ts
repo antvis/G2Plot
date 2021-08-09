@@ -87,6 +87,12 @@ export class TooltipController extends Controller<ToolOptions> {
     if (this.yCrosshair) this.yCrosshair.render();
   }
 
+  public clear() {
+    if (this.tooltip) this.tooltip.clear();
+    if (this.xCrosshair) this.xCrosshair.clear();
+    if (this.yCrosshair) this.yCrosshair.clear();
+  }
+
   public update() {}
 
   public destroy() {

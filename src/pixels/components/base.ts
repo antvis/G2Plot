@@ -27,7 +27,7 @@ export abstract class Controller<O = unknown> {
   /**
    * 清除控制器
    */
-  public abstract update();
+  public abstract clear();
 
   /**
    * 销毁控制器

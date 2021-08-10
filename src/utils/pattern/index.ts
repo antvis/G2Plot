@@ -1,10 +1,9 @@
+import { createDotPattern } from './dot';
 import { LinePattern, LineCfg } from './line';
-import { DotPattern, DotCfg } from './dot';
 
 // 注册 pattern shape
 const PATTERN_SHAPE = {
   line: LinePattern,
-  dot: DotPattern,
   // square: SquarePattern,
 };
 
@@ -15,19 +14,22 @@ export type PatternShape = 'dot' | 'square' | 'line'; //...
 
 export type PatternStyle = {
   type?: PatternShape;
-  cfg?: LineCfg | DotCfg; // DotCfg | SquareCfg ...
+  cfg?: LineCfg; // DotCfg | SquareCfg ...
 };
 
 // 用户外部可调用的 createPattern 方法
-export function createPattern(options: PatternOptions) {
+export function createPattern(options: PatternOptions): CanvasPattern {
   const { type, cfg } = options as PatternStyle;
-  const patternCanvas = document.createElement('canvas');
-  const patternContext = patternCanvas.getContext('2d');
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
 
-  const Shape = PATTERN_SHAPE[type];
-  const shape = new Shape(cfg).getCanvas(); // cfg可传可不传，给定默认的
+  let patternCanvas;
 
-  const pattern = patternContext.createPattern(shape, cfg?.mode || 'repeat');
+  if (type === 'dot') {
+    patternCanvas = createDotPattern(cfg);
+  } else if (PATTERN_SHAPE[type]) {
+    patternCanvas = new PATTERN_SHAPE[type](cfg).getCanvas(); // cfg可传可不传，给定默认的
+  }
 
-  return pattern;
+  return ctx.createPattern(patternCanvas, cfg?.mode || 'repeat');
 }

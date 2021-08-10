@@ -5,6 +5,8 @@ import { Pattern, PatternCfg } from './base';
 export type DotCfg = PatternCfg & {
   radius?: number;
   padding?: number;
+  fillOpacity?: number;
+  /** 是否交错，默认: true. 即 staggered dots. */
   isStagger?: boolean;
   fill?: string;
   //...
@@ -13,17 +15,18 @@ export type DotCfg = PatternCfg & {
 export class DotPattern extends Pattern<DotCfg> {
   private static defaultCfg = {
     radius: 20,
-    bgColor: '#FFE869',
+    bgColor: 'transparent',
     opacity: 1,
-    fill: '#F7B32D',
+    fill: '#FFF',
+    fillOpacity: 1,
     padding: 5,
-    stroke: '#F7B32D',
+    stroke: 'transparent',
     strokeWidth: 0,
     isStagger: true,
   };
 
   protected init() {
-    const { radius, bgColor, padding, opacity, isStagger } = this.options;
+    const { radius, bgColor, padding, isStagger, opacity } = this.options;
     const ctx = this.patternContext;
     let size = (radius + padding) * 2;
     if (isStagger) {
@@ -51,10 +54,11 @@ export class DotPattern extends Pattern<DotCfg> {
   }
 
   private drawDot(x: number, y: number) {
-    const { radius, fill, strokeWidth, stroke } = this.options;
+    const { radius, fill, strokeWidth, stroke, fillOpacity } = this.options;
     const ctx = this.patternContext;
 
     ctx.beginPath();
+    ctx.globalAlpha = fillOpacity;
     ctx.fillStyle = fill;
     ctx.strokeStyle = stroke;
     ctx.lineWidth = strokeWidth;
@@ -64,11 +68,8 @@ export class DotPattern extends Pattern<DotCfg> {
   }
 
   protected initOptions(options?: DotCfg) {
-    let cfg = {};
     // 如果option是字符串，给定默认的 cfg；如果是对象，就更新 cfg
-    if (isObjectLike(options)) {
-      cfg = options;
-    }
+    const cfg = isObjectLike(options) ? options : {};
     return deepAssign({}, DotPattern.defaultCfg, cfg);
   }
 }

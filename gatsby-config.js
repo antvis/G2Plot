@@ -28,6 +28,8 @@ module.exports = {
     showAPIDoc: true, // 是否在demo页展示API文档
     themeSwitcher: 'g2plot',
     playground: {
+      extraLib: '',
+      container: '<div id="container"><div id="container1"></div><div id="container2"></div></div>', // 定义演示的渲染节点，默认 <div id="container" />
       devDependencies: {
         typescript: 'latest',
       },
@@ -309,6 +311,9 @@ module.exports = {
       apiKey: '0d19588d7661a81faa8b75f6ade80321',
       indexName: 'antv_g2plot',
     },
-    announcement: {}
+    announcement: {
+      zh: "图表实例：新增了一些「高级用法」，可以前往查看如果通过高级用法，来进行图表之间的联动交互",
+      en: "Examples of advanced usage have been added, you can go for to see how to make interactions between plots",
+    }
   },
 };

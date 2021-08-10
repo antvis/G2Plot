@@ -1,0 +1,71 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "pie-pattern.ts",
+      "title": {
+        "zh": "带贴图图案的饼图",
+        "en": "Pie plot with pattern"
+      },
+      "new": true,
+      "screenshot": ""
+    },
+    {
+      "filename": "pie-pattern-callback.ts",
+      "title": {
+        "zh": "带贴图图案的饼图(回调方式)",
+        "en": "Pie plot with pattern callback"
+      },
+      "new": true,
+      "screenshot": ""
+    },
+    {
+      "filename": "column-pattern.ts",
+      "title": {
+        "zh": "带贴图图案的柱状图",
+        "en": "Column plot with pattern"
+      },
+      "new": true,
+      "screenshot": ""
+    },
+    {
+      "filename": "group-column-pattern.ts",
+      "title": {
+        "zh": "带贴图图案的分组柱状图",
+        "en": "Grouped column plot with pattern"
+      },
+      "new": true,
+      "screenshot": ""
+    },
+    {
+      "filename": "bar-pattern.ts",
+      "title": {
+        "zh": "带贴图图案的条形图",
+        "en": "Bar plot with pattern"
+      },
+      "new": true,
+      "screenshot": ""
+    },
+    {
+      "filename": "pie-pattern-callback.ts",
+      "title": {
+        "zh": "带贴图图案的饼图(回调方式)",
+        "en": "Pie plot with pattern callback"
+      },
+      "new": true,
+      "screenshot": ""
+    },
+    {
+      "filename": "radial-bar-pattern.ts",
+      "title": {
+        "zh": "带贴图图案的玉珏图",
+        "en": "Radial-bar plot with pattern"
+      },
+      "new": true,
+      "screenshot": ""
+    }
+  ]
+}

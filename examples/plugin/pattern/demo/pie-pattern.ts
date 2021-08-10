@@ -9,7 +9,7 @@ const data = [
   { type: '其他', value: 5 },
 ];
 
-const piePlot = new Pie('container', {
+const plot = new Pie('container', {
   appendPadding: 10,
   data,
   angleField: 'value',
@@ -24,7 +24,15 @@ const piePlot = new Pie('container', {
       textAlign: 'center',
     },
   },
+  pattern: {
+    type: 'dot',
+    cfg: {
+      radius: 2,
+      padding: 10,
+      mode: 'repeat',
+    },
+  },
   interactions: [{ type: 'element-active' }],
 });
 
-piePlot.render();
+plot.render();

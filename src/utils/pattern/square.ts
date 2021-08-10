@@ -1,7 +1,7 @@
-import { SquarePatternOptions } from '../../types/pattern';
+import { SquarePatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
 
-export function createSquarePattern(options: SquarePatternOptions): HTMLCanvasElement {
+export function createSquarePattern(cfg: SquarePatternCfg): HTMLCanvasElement {
   const squareOptions = deepAssign(
     {},
     {
@@ -16,7 +16,7 @@ export function createSquarePattern(options: SquarePatternOptions): HTMLCanvasEl
       strokeWidth: 0,
       isStagger: true,
     },
-    options
+    cfg
   );
 
   const canvas = document.createElement('canvas');
@@ -40,7 +40,7 @@ export function createSquarePattern(options: SquarePatternOptions): HTMLCanvasEl
   return canvas;
 }
 
-function drawBackground(options: SquarePatternOptions, canvas: HTMLCanvasElement, unitSize: number) {
+function drawBackground(options: SquarePatternCfg, canvas: HTMLCanvasElement, unitSize: number) {
   const { bgColor, opacity } = options;
   const ctx = canvas.getContext('2d');
 
@@ -51,7 +51,7 @@ function drawBackground(options: SquarePatternOptions, canvas: HTMLCanvasElement
   ctx.fillRect(0, 0, unitSize, unitSize);
 }
 
-function drawSquare(options: SquarePatternOptions, canvas: HTMLCanvasElement, x: number, y: number) {
+function drawSquare(options: SquarePatternCfg, canvas: HTMLCanvasElement, x: number, y: number) {
   const { stroke, size, fill, strokeWidth, fillOpacity } = options;
   const ctx = canvas.getContext('2d');
   const rotate = options.rotate % 360;

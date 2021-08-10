@@ -1,18 +1,6 @@
 import { DotPatternOptions } from '../../types/pattern';
 import { deepAssign } from '../../utils';
 
-function drawDot(options: DotPatternOptions, ctx: CanvasRenderingContext2D, x: number, y: number) {
-  const { radius, fill, strokeWidth, stroke, fillOpacity } = options;
-  ctx.beginPath();
-  ctx.globalAlpha = fillOpacity;
-  ctx.fillStyle = fill;
-  ctx.strokeStyle = stroke;
-  ctx.lineWidth = strokeWidth;
-  ctx.arc(x, y, radius, 0, 2 * Math.PI);
-  ctx.fill();
-  ctx.stroke();
-}
-
 export function createDotPattern(options: DotPatternOptions): HTMLCanvasElement {
   const dotOptions = deepAssign(
     {},
@@ -31,16 +19,17 @@ export function createDotPattern(options: DotPatternOptions): HTMLCanvasElement 
   );
 
   const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-
-  const { radius, bgColor, padding, isStagger, opacity } = dotOptions;
-  let size = (radius + padding) * 2;
-  if (isStagger) {
-    size = (radius + padding) * 4;
-  }
-
-  canvas.width = size;
-  canvas.height = size;
+  const { radius, padding, isStagger } = dotOptions;
+  const unitSize = isStagger ? (radius + padding) * 4 : (radius + padding) * 2;
+  const dots = isStagger
+    ? [
+        [(unitSize / 4) * 1, (unitSize / 4) * 1],
+        [(unitSize / 4) * 3, (unitSize / 4) * 1],
+        [(unitSize / 4) * 0, (unitSize / 4) * 3],
+        [(unitSize / 4) * 2, (unitSize / 4) * 3],
+        [(unitSize / 4) * 4, (unitSize / 4) * 3],
+      ]
+    : [[unitSize / 2, unitSize / 2]];
 
   // 后续再行测试
   // const dpr = window.devicePixelRatio;
@@ -54,20 +43,37 @@ export function createDotPattern(options: DotPatternOptions): HTMLCanvasElement 
 
   // console.info('dpr', dpr)
 
-  // 贴图背景：颜色+大小
-  ctx.globalAlpha = opacity;
-  ctx.fillStyle = bgColor;
-  ctx.fillRect(0, 0, size, size);
-  // 图案
-  if (isStagger) {
-    drawDot(dotOptions, ctx, (size / 4) * 1, (size / 4) * 1);
-    drawDot(dotOptions, ctx, (size / 4) * 3, (size / 4) * 1);
-    drawDot(dotOptions, ctx, (size / 4) * 0, (size / 4) * 3);
-    drawDot(dotOptions, ctx, (size / 4) * 2, (size / 4) * 3);
-    drawDot(dotOptions, ctx, (size / 4) * 4, (size / 4) * 3);
-  } else {
-    drawDot(dotOptions, ctx, size / 2, size / 2);
+  drawBackground(dotOptions, canvas, unitSize);
+  // 绘制图案
+  for (const [x, y] of dots) {
+    drawDot(dotOptions, canvas, x, y);
   }
 
   return canvas;
+}
+
+function drawBackground(options: DotPatternOptions, canvas: HTMLCanvasElement, unitSize: number) {
+  const { bgColor, opacity } = options;
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = unitSize;
+  canvas.height = unitSize;
+  ctx.globalAlpha = opacity;
+  ctx.globalAlpha = opacity;
+  ctx.fillStyle = bgColor;
+  ctx.fillRect(0, 0, unitSize, unitSize);
+}
+
+function drawDot(options: DotPatternOptions, canvas: HTMLCanvasElement, x: number, y: number) {
+  const { radius, fill, strokeWidth, stroke, fillOpacity } = options;
+  const ctx = canvas.getContext('2d');
+
+  ctx.beginPath();
+  ctx.globalAlpha = fillOpacity;
+  ctx.fillStyle = fill;
+  ctx.strokeStyle = stroke;
+  ctx.lineWidth = strokeWidth;
+  ctx.arc(x, y, radius, 0, 2 * Math.PI);
+  ctx.fill();
+  ctx.stroke();
 }

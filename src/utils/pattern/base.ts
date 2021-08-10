@@ -1,8 +1,8 @@
 export type PatternCfg = {
   opacity: number; // 整个贴图透明
   stroke?: string;
-  strokeWidth?: number;
-  bgColor?: string | 'inherit';
+  lineWidth?: number;
+  backgroundColor?: string | 'inherit';
   mode?: 'repeat' | 'no-repeat' | 'repeat-x' | 'repeat-y';
 };
 

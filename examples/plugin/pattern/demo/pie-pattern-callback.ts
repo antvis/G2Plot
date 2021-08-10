@@ -1,4 +1,4 @@
-import { Pie, createPattern } from '@antv/g2plot';
+import { Pie, getCanvasPattern } from '@antv/g2plot';
 
 const data = [
   { type: '分类一', value: 27 },
@@ -10,14 +10,14 @@ const data = [
 ];
 
 const pattern = (datum, color) =>
-  createPattern({
+  getCanvasPattern({
     type: 'dot',
     cfg: {
       radius: datum.type === '其他' ? 1 : 2,
       padding: 4,
       mode: 'repeat',
       stroke: 'transparent',
-      bgColor: datum.type === '其他' ? '#014c63' : color,
+      backgroundColor: datum.type === '其他' ? '#014c63' : color,
     },
   });
 

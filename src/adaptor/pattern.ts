@@ -48,7 +48,7 @@ export function pattern(key: string) {
       // 2. 如果 pattern 不是 CanvasPattern，则进一步处理，否则直接赋予给 fill
       if (pattern instanceof CanvasPattern === false) {
         // 通过 createPattern(PatternStyle) 转换为 CanvasPattern
-        pattern = getCanvasPattern(deepAssign({}, { cfg: { bgColor: color } }, pattern));
+        pattern = getCanvasPattern(deepAssign({}, { cfg: { backgroundColor: color } }, pattern));
       }
 
       const styleOption = options[key] as StyleAttr;

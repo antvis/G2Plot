@@ -6,14 +6,14 @@ export function createSquarePattern(cfg: SquarePatternCfg): HTMLCanvasElement {
     {},
     {
       size: 7,
-      bgColor: 'transparent',
+      backgroundColor: 'transparent',
       opacity: 1,
-      rotate: 45,
+      rotation: 45,
       fill: '#FFF',
       fillOpacity: 1,
       padding: 10,
       stroke: 'transparent',
-      strokeWidth: 0,
+      lineWidth: 0,
       isStagger: true,
     },
     cfg
@@ -41,25 +41,25 @@ export function createSquarePattern(cfg: SquarePatternCfg): HTMLCanvasElement {
 }
 
 function drawBackground(options: SquarePatternCfg, canvas: HTMLCanvasElement, unitSize: number) {
-  const { bgColor, opacity } = options;
+  const { backgroundColor, opacity } = options;
   const ctx = canvas.getContext('2d');
 
   canvas.width = unitSize;
   canvas.height = unitSize;
   ctx.globalAlpha = opacity;
-  ctx.fillStyle = bgColor;
+  ctx.fillStyle = backgroundColor;
   ctx.fillRect(0, 0, unitSize, unitSize);
 }
 
 function drawSquare(options: SquarePatternCfg, canvas: HTMLCanvasElement, x: number, y: number) {
-  const { stroke, size, fill, strokeWidth, fillOpacity } = options;
+  const { stroke, size, fill, lineWidth, fillOpacity } = options;
   const ctx = canvas.getContext('2d');
-  const rotate = options.rotate % 360;
-  const radians = rotate * (Math.PI / 180);
+  const rotation = options.rotation % 360;
+  const radians = rotation * (Math.PI / 180);
 
   ctx.globalAlpha = fillOpacity;
   ctx.strokeStyle = stroke;
-  ctx.lineWidth = strokeWidth;
+  ctx.lineWidth = lineWidth;
   ctx.translate(x, y);
   ctx.rotate(radians);
   ctx.translate(-x, -y);

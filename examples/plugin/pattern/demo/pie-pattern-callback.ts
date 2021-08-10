@@ -1,4 +1,4 @@
-import { Pie } from '@antv/g2plot';
+import { Pie, createPattern } from '@antv/g2plot';
 
 const data = [
   { type: '分类一', value: 27 },
@@ -8,6 +8,18 @@ const data = [
   { type: '分类五', value: 10 },
   { type: '其他', value: 5 },
 ];
+
+const pattern = (datum, color) =>
+  createPattern({
+    type: 'dot',
+    cfg: {
+      radius: datum.type === '其他' ? 1 : 2,
+      padding: 4,
+      mode: 'repeat',
+      stroke: 'transparent',
+      bgColor: datum.type === '其他' ? '#014c63' : color,
+    },
+  });
 
 const plot = new Pie('container', {
   appendPadding: 10,
@@ -19,18 +31,18 @@ const plot = new Pie('container', {
   pieStyle: {
     lineWidth: 1,
   },
-  pattern: (datum, color) => {
-    return {
-      type: 'dot',
-      cfg: {
-        radius: datum.type === '其他' ? 4 : 2,
-        padding: 10,
-        mode: 'repeat',
-        bgColor: datum.type === '其他' ? '#B8E1FF' : color,
-        fill: datum.type === '其他' ? color : 'transparent',
-      },
-    };
+  legend: {
+    // 缺少文档
+    marker: (text, index, item) => {
+      const color = item.style.fill;
+      return {
+        style: {
+          fill: text === '其他' ? pattern({ type: text }, color) : color,
+        },
+      };
+    },
   },
+  pattern,
   interactions: [{ type: 'element-active' }],
 });
 

@@ -31,9 +31,9 @@ export function pattern(key: string) {
     /** ~~~~~~~ 进行贴图图案处理 ~~~~~~~ */
 
     const style: StyleAttr = (datum?: Datum, ...args: any[]) => {
-      let color = params.chart.getTheme().defaultColor;
+      let color = chart.getTheme().defaultColor;
 
-      const colorMapping = chart.geometries[0].attributes.color?.callback;
+      const colorMapping = chart.geometries[0].getAttribute('color')?.callback;
       if (typeof colorMapping === 'function') {
         color = colorMapping(datum?.[colorField] || datum?.[seriesField]);
       }

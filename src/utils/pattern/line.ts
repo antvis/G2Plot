@@ -1,7 +1,7 @@
-import { LinePatternOptions } from '../../types/pattern';
+import { LinePatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
 
-export function createLinePattern(options: LinePatternOptions): HTMLCanvasElement {
+export function createLinePattern(cfg: LinePatternCfg): HTMLCanvasElement {
   const lineOptions = deepAssign(
     {},
     {
@@ -13,7 +13,7 @@ export function createLinePattern(options: LinePatternOptions): HTMLCanvasElemen
       stroke: '#FFF',
       strokeWidth: 1,
     },
-    options
+    cfg
   );
 
   const canvas = document.createElement('canvas');
@@ -74,7 +74,7 @@ export function createLinePattern(options: LinePatternOptions): HTMLCanvasElemen
   return canvas;
 }
 
-function drawBackground(options: LinePatternOptions, canvas: HTMLCanvasElement, w: number, h: number) {
+function drawBackground(options: LinePatternCfg, canvas: HTMLCanvasElement, w: number, h: number) {
   const { bgColor, opacity } = options;
   const ctx = canvas.getContext('2d');
 
@@ -86,7 +86,7 @@ function drawBackground(options: LinePatternOptions, canvas: HTMLCanvasElement, 
   ctx.fill();
 }
 
-function drawLine(options: LinePatternOptions, canvas: HTMLCanvasElement, d: string) {
+function drawLine(options: LinePatternCfg, canvas: HTMLCanvasElement, d: string) {
   const { stroke, strokeWidth, strokeOpacity } = options;
   const path = new Path2D(d);
   const ctx = canvas.getContext('2d');

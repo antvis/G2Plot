@@ -17,3 +17,18 @@ export type DotPatternOptions = PatternOptions & {
   isStagger?: boolean;
   fill?: string;
 };
+
+export type LinePatternOptions = PatternOptions & {
+  spacing?: number;
+  rotate?: number;
+  strokeOpacity?: number;
+};
+
+export type SquarePatternOptions = PatternOptions & {
+  size?: number;
+  rotate?: number;
+  padding?: number;
+  fill?: string;
+  fillOpacity?: number;
+  isStagger?: boolean;
+};

@@ -159,7 +159,7 @@ export type { CirclePackingOptions } from './plots/circle-packing';
 export { P } from './plugin';
 
 /** 开放 createPattern 方法 */
-export { createPattern } from './plugin/pattern';
+export { createPattern } from './utils/pattern';
 
 // 已经废弃，更名为 Mix
 export { Mix as MultiView } from './plots/mix';

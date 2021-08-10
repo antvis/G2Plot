@@ -15,10 +15,11 @@ import {
 import { conversionTag } from '../../adaptor/conversion-tag';
 import { connectedArea } from '../../adaptor/connected-area';
 import { interval } from '../../adaptor/geometries';
+import { pattern } from '../../adaptor/pattern';
+import { brushInteraction } from '../../adaptor/brush';
 import { flow, transformLabel, deepAssign, findGeometry, adjustYMetaByZero, pick } from '../../utils';
 import { getDataWhetherPecentage, getDeepPercent } from '../../utils/transform/percent';
 import { Datum } from '../../types';
-import { brushInteraction } from '../../adaptor/brush';
 import { ColumnOptions } from './types';
 
 /**
@@ -287,6 +288,7 @@ export function adaptor(params: Params<ColumnOptions>, isBar = false) {
   return flow(
     defaultOptions, // 处理默认配置
     theme, // theme 需要在 geometry 之前
+    pattern('columnStyle'),
     state,
     geometry,
     meta,

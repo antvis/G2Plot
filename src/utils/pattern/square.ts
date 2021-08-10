@@ -60,11 +60,11 @@ function drawSquare(options: SquarePatternOptions, canvas: HTMLCanvasElement, x:
   ctx.globalAlpha = fillOpacity;
   ctx.strokeStyle = stroke;
   ctx.lineWidth = strokeWidth;
-  ctx.strokeRect(x - size / 2, y - size / 2, size, size);
-  ctx.fillStyle = fill;
   ctx.translate(x, y);
   ctx.rotate(radians);
   ctx.translate(-x, -y);
+  ctx.strokeRect(x - size / 2, y - size / 2, size, size);
+  ctx.fillStyle = fill;
   ctx.fillRect(x - size / 2, y - size / 2, size, size);
   // reset to identity matrix 重制成单位矩阵
   ctx.setTransform(1, 0, 0, 1, 0, 0);

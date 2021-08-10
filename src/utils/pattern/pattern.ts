@@ -3,11 +3,11 @@ export type PatternCfg = {
   padding?: number;
   fill?: string;
   stroke?: string;
-  strokeWidth?: number;
+  lineWidth?: number;
   opacity?: number;
   rotate?: number;
   isStagger?: boolean;
-  bgColor?: string | 'inherit';
+  backgroundColor?: string | 'inherit';
   mode?: 'repeat' | 'no-repeat' | 'repeat-x' | 'repeat-y';
 };
 

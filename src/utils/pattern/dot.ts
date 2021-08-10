@@ -5,14 +5,14 @@ export function createDotPattern(cfg: DotPatternCfg): HTMLCanvasElement {
   const dotOptions = deepAssign(
     {},
     {
-      radius: 20,
-      bgColor: 'transparent',
+      radius: 4,
+      padding: 4,
+      backgroundColor: 'transparent',
       opacity: 1,
       fill: '#FFF',
       fillOpacity: 1,
-      padding: 5,
       stroke: 'transparent',
-      strokeWidth: 0,
+      lineWidth: 0,
       isStagger: true,
     },
     cfg
@@ -53,26 +53,26 @@ export function createDotPattern(cfg: DotPatternCfg): HTMLCanvasElement {
 }
 
 function drawBackground(options: DotPatternCfg, canvas: HTMLCanvasElement, unitSize: number) {
-  const { bgColor, opacity } = options;
+  const { backgroundColor, opacity } = options;
   const ctx = canvas.getContext('2d');
 
   canvas.width = unitSize;
   canvas.height = unitSize;
   ctx.globalAlpha = opacity;
   ctx.globalAlpha = opacity;
-  ctx.fillStyle = bgColor;
+  ctx.fillStyle = backgroundColor;
   ctx.fillRect(0, 0, unitSize, unitSize);
 }
 
 function drawDot(options: DotPatternCfg, canvas: HTMLCanvasElement, x: number, y: number) {
-  const { radius, fill, strokeWidth, stroke, fillOpacity } = options;
+  const { radius, fill, lineWidth, stroke, fillOpacity } = options;
   const ctx = canvas.getContext('2d');
 
   ctx.beginPath();
   ctx.globalAlpha = fillOpacity;
   ctx.fillStyle = fill;
   ctx.strokeStyle = stroke;
-  ctx.lineWidth = strokeWidth;
+  ctx.lineWidth = lineWidth;
   ctx.arc(x, y, radius, 0, 2 * Math.PI);
   ctx.fill();
   ctx.stroke();

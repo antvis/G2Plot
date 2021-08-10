@@ -1,7 +1,7 @@
-import { DotPatternOptions } from '../../types/pattern';
+import { DotPatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
 
-export function createDotPattern(options: DotPatternOptions): HTMLCanvasElement {
+export function createDotPattern(cfg: DotPatternCfg): HTMLCanvasElement {
   const dotOptions = deepAssign(
     {},
     {
@@ -15,7 +15,7 @@ export function createDotPattern(options: DotPatternOptions): HTMLCanvasElement 
       strokeWidth: 0,
       isStagger: true,
     },
-    options
+    cfg
   );
 
   const canvas = document.createElement('canvas');
@@ -52,7 +52,7 @@ export function createDotPattern(options: DotPatternOptions): HTMLCanvasElement 
   return canvas;
 }
 
-function drawBackground(options: DotPatternOptions, canvas: HTMLCanvasElement, unitSize: number) {
+function drawBackground(options: DotPatternCfg, canvas: HTMLCanvasElement, unitSize: number) {
   const { bgColor, opacity } = options;
   const ctx = canvas.getContext('2d');
 
@@ -64,7 +64,7 @@ function drawBackground(options: DotPatternOptions, canvas: HTMLCanvasElement, u
   ctx.fillRect(0, 0, unitSize, unitSize);
 }
 
-function drawDot(options: DotPatternOptions, canvas: HTMLCanvasElement, x: number, y: number) {
+function drawDot(options: DotPatternCfg, canvas: HTMLCanvasElement, x: number, y: number) {
   const { radius, fill, strokeWidth, stroke, fillOpacity } = options;
   const ctx = canvas.getContext('2d');
 

@@ -1,4 +1,4 @@
-export type PatternOptions = {
+export type PatternCfg = {
   opacity: number; // 整个贴图透明
   stroke?: string;
   strokeWidth?: number;
@@ -9,7 +9,7 @@ export type PatternOptions = {
 /**
  * dot pattern
  */
-export type DotPatternOptions = PatternOptions & {
+export type DotPatternCfg = PatternCfg & {
   radius?: number;
   padding?: number;
   fillOpacity?: number;
@@ -18,13 +18,13 @@ export type DotPatternOptions = PatternOptions & {
   fill?: string;
 };
 
-export type LinePatternOptions = PatternOptions & {
+export type LinePatternCfg = PatternCfg & {
   spacing?: number;
   rotate?: number;
   strokeOpacity?: number;
 };
 
-export type SquarePatternOptions = PatternOptions & {
+export type SquarePatternCfg = PatternCfg & {
   size?: number;
   rotate?: number;
   padding?: number;

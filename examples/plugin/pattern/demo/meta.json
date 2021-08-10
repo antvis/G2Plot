@@ -10,6 +10,7 @@
         "zh": "带贴图图案的饼图",
         "en": "Pie plot with pattern"
       },
+      "new": true,
       "screenshot": ""
     },
     {
@@ -18,6 +19,7 @@
         "zh": "带贴图图案的饼图(回调方式)",
         "en": "Pie plot with pattern callback"
       },
+      "new": true,
       "screenshot": ""
     },
     {
@@ -26,6 +28,7 @@
         "zh": "带贴图图案的柱状图",
         "en": "Column plot with pattern"
       },
+      "new": true,
       "screenshot": ""
     },
     {
@@ -34,6 +37,7 @@
         "zh": "带贴图图案的分组柱状图",
         "en": "Grouped column plot with pattern"
       },
+      "new": true,
       "screenshot": ""
     },
     {
@@ -42,6 +46,7 @@
         "zh": "带贴图图案的条形图",
         "en": "Bar plot with pattern"
       },
+      "new": true,
       "screenshot": ""
     },
     {
@@ -50,6 +55,7 @@
         "zh": "带贴图图案的饼图(回调方式)",
         "en": "Pie plot with pattern callback"
       },
+      "new": true,
       "screenshot": ""
     },
     {
@@ -58,6 +64,7 @@
         "zh": "带贴图图案的玉珏图",
         "en": "Radial-bar plot with pattern"
       },
+      "new": true,
       "screenshot": ""
     }
   ]

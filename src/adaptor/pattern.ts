@@ -20,7 +20,7 @@ type OptionsRequiredInPattern = Options & {
  */
 export function pattern(key: string) {
   return <O extends OptionsRequiredInPattern = OptionsRequiredInPattern>(params: Params<O>): Params<O> => {
-    const { options } = params;
+    const { options, chart } = params;
     const { pattern: patternOption, colorField, seriesField } = options;
 
     // 没有 pattern 配置，则直接返回
@@ -32,8 +32,10 @@ export function pattern(key: string) {
 
     const style: StyleAttr = (datum?: Datum, ...args: any[]) => {
       let color = params.chart.getTheme().defaultColor;
-      if (params.chart.geometries[0].attributes.color?.callback) {
-        color = params.chart.geometries[0].attributes.color.callback(datum?.[colorField] || datum?.[seriesField]);
+
+      const colorMapping = chart.geometries[0].attributes.color?.callback;
+      if (typeof colorMapping === 'function') {
+        color = colorMapping(datum?.[colorField] || datum?.[seriesField]);
       }
 
       let pattern: CanvasPattern = patternOption as CanvasPattern;
@@ -46,22 +48,13 @@ export function pattern(key: string) {
       // 2. 如果 pattern 不是 CanvasPattern，则进一步处理，否则直接赋予给 fill
       if (pattern instanceof CanvasPattern === false) {
         // 通过 createPattern(PatternStyle) 转换为 CanvasPattern
-        pattern = createPattern(
-          deepAssign(
-            {},
-            {
-              cfg: {
-                bgColor: color,
-                stroke: color,
-              },
-            },
-            pattern
-          )
-        );
+        pattern = createPattern(deepAssign({}, { cfg: { bgColor: color, stroke: color } }, pattern));
       }
 
+      const styleOption = options[key] as StyleAttr;
+
       return {
-        ...(typeof options[key] === 'function' ? options[key].call(this, datum, ...args) : options[key] || {}),
+        ...(typeof styleOption === 'function' ? styleOption.call(this, datum, ...args) : styleOption || {}),
         fill: pattern,
       };
     };

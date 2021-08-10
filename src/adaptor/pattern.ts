@@ -1,4 +1,4 @@
-import { createPattern } from '../plugin/pattern';
+import { createPattern } from '../utils/pattern';
 import { Params } from '../core/adaptor';
 import { Datum, Options, StyleAttr } from '../types';
 import { deepAssign } from '../utils';
@@ -48,7 +48,7 @@ export function pattern(key: string) {
       // 2. 如果 pattern 不是 CanvasPattern，则进一步处理，否则直接赋予给 fill
       if (pattern instanceof CanvasPattern === false) {
         // 通过 createPattern(PatternStyle) 转换为 CanvasPattern
-        pattern = createPattern(deepAssign({}, { cfg: { bgColor: color, stroke: color } }, pattern));
+        pattern = createPattern(deepAssign({}, { cfg: { bgColor: color } }, pattern));
       }
 
       const styleOption = options[key] as StyleAttr;

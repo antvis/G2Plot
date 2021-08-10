@@ -8,7 +8,11 @@ export type ShapeStyle = ShapeAttrs;
 /** 颜色映射 */
 export type ColorAttr = string | string[] | ((datum: Datum) => string) | object;
 /** pattern 映射*/
-export type PatternAttr = PatternShape | PatternStyle | ((datum: Datum) => CanvasPattern) | CanvasPattern;
+export type PatternAttr =
+  | PatternShape
+  | PatternStyle
+  | ((datum: Datum, color: string /** inherit color */) => CanvasPattern)
+  | CanvasPattern;
 /** 尺寸大小映射 */
 export type SizeAttr = number | [number, number] | ((datum: Datum) => number);
 /** 图形 shape 映射 */

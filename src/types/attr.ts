@@ -1,5 +1,5 @@
 import { ShapeAttrs } from '@antv/g-base';
-import { PatternShape, PatternStyle } from '../plugin/pattern/index';
+import { PatternShape, PatternStyle } from '../utils/pattern/index';
 import { Datum } from './common';
 
 /** 图形属性 */

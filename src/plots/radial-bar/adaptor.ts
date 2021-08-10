@@ -2,6 +2,7 @@ import { interaction, animation, theme, scale, tooltip, legend, annotation } fro
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign, findGeometry, transformLabel } from '../../utils';
 import { interval, point } from '../../adaptor/geometries';
+import { pattern } from '../../adaptor/pattern';
 import { processIllegalData } from '../../utils';
 import { RadialBarOptions } from './types';
 import { getScaleMax, getStackedData } from './utils';
@@ -131,6 +132,7 @@ function label(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
  */
 export function adaptor(params: Params<RadialBarOptions>) {
   return flow(
+    pattern('barStyle'),
     geometry,
     meta,
     axis,

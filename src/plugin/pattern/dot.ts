@@ -5,6 +5,7 @@ import { Pattern, PatternCfg } from './base';
 export type DotCfg = PatternCfg & {
   radius?: number;
   padding?: number;
+  /** 是否交错，默认: true. 即 staggered dots. */
   isStagger?: boolean;
   fill?: string;
   //...
@@ -13,12 +14,12 @@ export type DotCfg = PatternCfg & {
 export class DotPattern extends Pattern<DotCfg> {
   private static defaultCfg = {
     radius: 20,
-    bgColor: '#FFE869',
+    bgColor: 'transparent',
     opacity: 1,
-    fill: '#F7B32D',
+    fill: '#FFF',
     padding: 5,
-    stroke: '#F7B32D',
-    strokeWidth: 0,
+    stroke: '#FFF',
+    lineWidth: 0,
     isStagger: true,
   };
 

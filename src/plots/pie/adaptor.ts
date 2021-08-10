@@ -316,7 +316,7 @@ export function interaction(params: Params<PieOptions>): Params<PieOptions> {
 export function adaptor(params: Params<PieOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow<Params<PieOptions>>(
-    pattern,
+    pattern('pieStyle'),
     geometry,
     meta,
     theme,

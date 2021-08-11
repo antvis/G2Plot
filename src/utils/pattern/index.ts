@@ -22,17 +22,28 @@ export type PatternOption =
  * @param options
  * @returns
  */
-export function getCanvasPattern(options: PatternOption): CanvasPattern {
+export function getCanvasPattern(options: PatternOption): CanvasPattern | undefined {
   const { type, cfg } = options;
+
+  let pattern;
 
   switch (type) {
     case 'dot':
-      return createDotPattern(cfg);
+      pattern = createDotPattern(cfg);
+      break;
     case 'line':
-      return createLinePattern(cfg);
+      pattern = createLinePattern(cfg);
+      break;
     case 'square':
-      return createSquarePattern(cfg);
+      pattern = createSquarePattern(cfg);
+      break;
     default:
-      return;
+      break;
   }
+  if (pattern) {
+    const dpr = window?.devicePixelRatio || 2;
+    pattern.setTransform({ a: 1 / dpr, b: 0, c: 0, d: 1 / dpr, e: 0, f: 0 });
+  }
+
+  return pattern;
 }

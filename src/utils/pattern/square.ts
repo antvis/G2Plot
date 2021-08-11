@@ -7,7 +7,8 @@ import { getUnitPatternSize, initCanvas, drawBackground, getSymbolsPosition } fr
  */
 export const defaultSquarePatternCfg = {
   size: 4,
-  padding: 4,
+  padding: 1,
+  isStagger: true,
   backgroundColor: 'transparent',
   opacity: 1,
   rotation: 0,
@@ -15,7 +16,6 @@ export const defaultSquarePatternCfg = {
   fillOpacity: 1,
   stroke: 'transparent',
   lineWidth: 0,
-  isStagger: true,
   mode: 'repeat',
 };
 
@@ -35,15 +35,15 @@ function drawSquare(context: CanvasRenderingContext2D, cfg: SquarePatternCfg, x:
   context.lineWidth = lineWidth;
   context.fillStyle = fill;
 
-  // 控制旋转
-  context.translate(x, y);
-  context.rotate(radians);
-  context.translate(-x, -y);
+  // todo-suyun 控制旋转
+  // context.translate(x, y);
+  // context.rotate(radians);
+  // context.translate(-x, -y);
   context.strokeRect(x - size / 2, y - size / 2, size, size);
   // 因为正方形绘制从左上角开始，所以x，y做个偏移
   context.fillRect(x - size / 2, y - size / 2, size, size);
   // reset to identity matrix 重制成单位矩阵
-  context.setTransform(1, 0, 0, 1, 0, 0);
+  // context.setTransform(1, 0, 0, 1, 0, 0);
 }
 
 /**

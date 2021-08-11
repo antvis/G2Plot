@@ -1,8 +1,8 @@
 import { DotPatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
 
-export function drawRect(options: DotPatternCfg, canvas: HTMLCanvasElement, width: number, height?: number) {
-  const { backgroundColor, opacity } = options;
+export function drawRect(canvas: HTMLCanvasElement, cfg: DotPatternCfg, width: number, height: number = width) {
+  const { backgroundColor, opacity } = cfg;
   const ctx = canvas.getContext('2d');
 
   const w = width;
@@ -18,21 +18,20 @@ export function drawRect(options: DotPatternCfg, canvas: HTMLCanvasElement, widt
   ctx.closePath();
 }
 
-function drawDot(options: DotPatternCfg, canvas: HTMLCanvasElement, x: number, y: number) {
-  const { radius, fill, lineWidth, stroke, fillOpacity } = options;
-  const ctx = canvas.getContext('2d');
+function drawDot(cfg: DotPatternCfg, context: CanvasRenderingContext2D, x: number, y: number) {
+  const { radius, fill, lineWidth, stroke, fillOpacity } = cfg;
 
-  ctx.beginPath();
-  ctx.globalAlpha = fillOpacity;
-  ctx.fillStyle = fill;
-  ctx.strokeStyle = stroke;
-  ctx.lineWidth = lineWidth;
-  ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
-  ctx.fill();
+  context.beginPath();
+  context.globalAlpha = fillOpacity;
+  context.fillStyle = fill;
+  context.strokeStyle = stroke;
+  context.lineWidth = lineWidth;
+  context.arc(x, y, radius, 0, 2 * Math.PI, false);
+  context.fill();
   if (lineWidth) {
-    ctx.stroke();
+    context.stroke();
   }
-  ctx.closePath();
+  context.closePath();
 }
 
 /**
@@ -42,7 +41,7 @@ function drawDot(options: DotPatternCfg, canvas: HTMLCanvasElement, x: number, y
  * @returns HTMLCanvasElement
  */
 export function createDotPattern(cfg: DotPatternCfg): CanvasPattern {
-  const pixelRatio = typeof window === 'object' && window.devicePixelRatio ? window.devicePixelRatio : 1;
+  const pixelRatio = window?.devicePixelRatio || 2;
 
   const dotCfg = deepAssign(
     {},
@@ -85,10 +84,10 @@ export function createDotPattern(cfg: DotPatternCfg): CanvasPattern {
   canvas.style.height = `${logicalHeight}px`;
   // ~~~ 后续再行测试 ~~~
 
-  drawRect(dotCfg, canvas, size);
+  drawRect(canvas, dotCfg, size);
   // 绘制图案
   for (const [x, y] of dots) {
-    drawDot(dotCfg, canvas, x, y);
+    drawDot(dotCfg, ctx, x, y);
   }
 
   return ctx.createPattern(canvas, cfg.mode || 'repeat');

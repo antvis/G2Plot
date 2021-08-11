@@ -2,16 +2,15 @@ import { SquarePatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
 import { drawRect } from './dot';
 
-function drawSquare(options: SquarePatternCfg, canvas: HTMLCanvasElement, x: number, y: number) {
+function drawSquare(options: SquarePatternCfg, context: CanvasRenderingContext2D, x: number, y: number) {
   const { stroke, size, fill, lineWidth, fillOpacity, rotation } = options;
-  const ctx = canvas.getContext('2d');
   const radians = (rotation % 360) * (Math.PI / 180);
 
-  ctx.globalAlpha = fillOpacity;
-  ctx.strokeStyle = stroke;
-  ctx.lineWidth = lineWidth;
-  ctx.fillStyle = fill;
-  ctx.fillRect(x, y, size, size);
+  context.globalAlpha = fillOpacity;
+  context.strokeStyle = stroke;
+  context.lineWidth = lineWidth;
+  context.fillStyle = fill;
+  context.fillRect(x, y, size, size);
 
   // todo 控制旋转
   // ctx.translate(x, y);
@@ -53,9 +52,9 @@ export function createSquarePattern(cfg: SquarePatternCfg): CanvasPattern {
     unitSize *= 2;
   }
 
-  drawRect(squareCfg, canvas, unitSize);
+  drawRect(canvas, squareCfg, unitSize);
   for (const [x, y] of squares) {
-    drawSquare(squareCfg, canvas, x, y);
+    drawSquare(squareCfg, ctx, x, y);
   }
   return ctx.createPattern(canvas, cfg.mode || 'repeat');
 }

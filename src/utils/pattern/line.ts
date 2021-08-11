@@ -2,16 +2,15 @@ import { LinePatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
 import { drawRect } from './dot';
 
-function drawLine(options: LinePatternCfg, canvas: HTMLCanvasElement, d: string) {
+function drawLine(options: LinePatternCfg, context: CanvasRenderingContext2D, d: string) {
   const { stroke, lineWidth, strokeOpacity } = options;
   const path = new Path2D(d);
-  const ctx = canvas.getContext('2d');
 
-  ctx.globalAlpha = strokeOpacity;
-  ctx.lineCap = 'square';
-  ctx.strokeStyle = stroke;
-  ctx.lineWidth = lineWidth;
-  ctx.stroke(path);
+  context.globalAlpha = strokeOpacity;
+  context.lineCap = 'square';
+  context.strokeStyle = stroke;
+  context.lineWidth = lineWidth;
+  context.stroke(path);
 }
 
 export function createLinePattern(cfg: LinePatternCfg): CanvasPattern {
@@ -83,8 +82,8 @@ export function createLinePattern(cfg: LinePatternCfg): CanvasPattern {
     }
   }
 
-  drawRect(lineCfg, canvas, w, h);
-  drawLine(lineCfg, canvas, d);
+  drawRect(canvas, lineCfg, w, h);
+  drawLine(lineCfg, ctx, d);
 
   return ctx.createPattern(canvas, cfg.mode || 'repeat');
 }

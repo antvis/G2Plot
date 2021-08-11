@@ -11,9 +11,10 @@ export type PatternCfg = {
   strokeOpacity?: number;
   /** lines thickness. 描边粗细 */
   lineWidth?: number;
-
+  /** 图案以及背景色 */
+  opacity?: number; // 整个贴图透明
+  /** 贴图模式 */
   mode?: 'repeat' | 'no-repeat' | 'repeat-x' | 'repeat-y';
-  opacity: number; // 整个贴图透明
 };
 
 /**

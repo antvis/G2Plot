@@ -10,18 +10,19 @@ function drawSquare(context: CanvasRenderingContext2D, cfg: SquarePatternCfg, x:
   context.strokeStyle = stroke;
   context.lineWidth = lineWidth;
   context.fillStyle = fill;
-  context.fillRect(x, y, size, size);
 
   // todo 控制旋转
-  // ctx.translate(x, y);
-  // ctx.rotate(radians);
-  // ctx.translate(-x, -y);
-  // ctx.strokeRect(x - size / 2, y - size / 2, size, size);
-  // // reset to identity matrix 重制成单位矩阵
-  // ctx.setTransform(1, 0, 0, 1, 0, 0);
+  context.translate(x, y);
+  context.rotate(radians);
+  context.translate(-x, -y);
+  context.strokeRect(x - size / 2, y - size / 2, size, size);
+  // 因为正方形绘制从左上角开始，所以x，y做个偏移
+  context.fillRect(x - size / 2, y - size / 2, size, size);
+  // reset to identity matrix 重制成单位矩阵
+  context.setTransform(1, 0, 0, 1, 0, 0);
 }
 
-export function createSquarePattern(cfg: SquarePatternCfg): CanvasPattern {
+export function createSquarePattern(cfg?: SquarePatternCfg): CanvasPattern {
   const squareCfg = deepAssign(
     {},
     {
@@ -35,6 +36,7 @@ export function createSquarePattern(cfg: SquarePatternCfg): CanvasPattern {
       stroke: 'transparent',
       lineWidth: 0,
       isStagger: true,
+      mode: 'repeat',
     },
     cfg
   );
@@ -43,19 +45,22 @@ export function createSquarePattern(cfg: SquarePatternCfg): CanvasPattern {
   const ctx = canvas.getContext('2d');
 
   const { size, padding, isStagger } = squareCfg;
-  const squares = [[padding / 2, padding / 2]];
 
   let unitSize = size + padding;
-  // 如果交错, size 放大两倍 交错绘制 dot
+
+  const squareCenterPos = unitSize / 2;
+  const squares = [[squareCenterPos, squareCenterPos]];
+
+  // 如果交错, size 放大两倍 交错绘制 square
   if (isStagger) {
-    squares.push([unitSize + padding / 2, unitSize + padding / 2]);
+    squares.push([squareCenterPos * 3, squareCenterPos * 3]);
     unitSize *= 2;
   }
 
-  initCanvas(canvas, size, unitSize);
+  initCanvas(canvas, unitSize, unitSize);
   drawBackground(ctx, squareCfg, unitSize);
   for (const [x, y] of squares) {
     drawSquare(ctx, squareCfg, x, y);
   }
-  return ctx.createPattern(canvas, cfg.mode || 'repeat');
+  return ctx.createPattern(canvas, squareCfg.mode || 'repeat');
 }

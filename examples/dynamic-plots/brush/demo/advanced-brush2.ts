@@ -2,15 +2,6 @@ import { Column, G2 } from '@antv/g2plot';
 import { each, groupBy } from '@antv/util';
 import insertCss from 'insert-css';
 
-const div1 = document.createElement('div');
-div1.id = 'container1';
-const div2 = document.createElement('div');
-div2.id = 'container2';
-
-const container = document.querySelector('#container');
-container.appendChild(div1);
-container.appendChild(div2);
-
 insertCss(`
 #container {
   display: flex;
@@ -21,7 +12,7 @@ insertCss(`
   flex: 1;
 }
 #container2 {
-    padding-top: 12px;
+  padding-top: 12px;
   height: 120px;
 }
 `);

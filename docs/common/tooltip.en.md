@@ -189,7 +189,7 @@ Tooltip offset.
 
 <description>**optional** _Function_</description>
 
-Support for custom templates.
+Support for custom templates. [Live demo](/en/examples/case/customize#customize-tooltip)
 
 ```ts
 {
@@ -200,7 +200,3 @@ Support for custom templates.
   }
 }
 ```
-
-Try it:
-
-<playground path="case/customize/demo/customize-tooltip.ts" rid="customize-tooltip"></playground>

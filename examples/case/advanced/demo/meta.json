@@ -1,0 +1,26 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "associate-pie-tooltip.ts",
+      "title": {
+        "zh": "联动 Tooltip (饼图)",
+        "en": "Associate Tooltip for Pie plot"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/VoiPvFL%26U5/pie-tooltip.gif"
+    },
+    {
+      "filename": "associate-filter.ts",
+      "title": {
+        "zh": "联动筛选",
+        "en": "Associate Filter"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/tHF3bgalmB/association-filter.gif"
+    }
+  ]
+}

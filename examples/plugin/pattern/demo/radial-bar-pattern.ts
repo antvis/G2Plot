@@ -28,10 +28,9 @@ const plot = new RadialBar('container', {
     type: 'dot',
     cfg: {
       radius: 2,
-      padding: 2,
+      padding: 8,
       // dot 不进行交错
       isStagger: false,
-      mode: 'repeat',
     },
   },
 });

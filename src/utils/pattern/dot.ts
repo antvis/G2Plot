@@ -1,8 +1,47 @@
 import { DotPatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
 
-export function createDotPattern(cfg: DotPatternCfg): HTMLCanvasElement {
-  const dotOptions = deepAssign(
+function drawRect(options: DotPatternCfg, canvas: HTMLCanvasElement, unitSize: number) {
+  const { backgroundColor, opacity } = options;
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = unitSize;
+  canvas.height = unitSize;
+  ctx.globalAlpha = opacity;
+  ctx.fillStyle = backgroundColor;
+
+  ctx.beginPath();
+  ctx.fillRect(0, 0, unitSize, unitSize);
+  ctx.closePath();
+}
+
+function drawDot(options: DotPatternCfg, canvas: HTMLCanvasElement, x: number, y: number) {
+  const { radius, fill, lineWidth, stroke, fillOpacity } = options;
+  const ctx = canvas.getContext('2d');
+
+  ctx.beginPath();
+  ctx.globalAlpha = fillOpacity;
+  ctx.fillStyle = fill;
+  ctx.strokeStyle = stroke;
+  ctx.lineWidth = lineWidth;
+  ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
+  ctx.fill();
+  if (lineWidth) {
+    ctx.stroke();
+  }
+  ctx.closePath();
+}
+
+/**
+ * 创建 dot pattern，返回 HTMLCanvasElement
+ *
+ * @param cfg
+ * @returns HTMLCanvasElement
+ */
+export function createDotPattern(cfg: DotPatternCfg): CanvasPattern {
+  const pixelRatio = typeof window === 'object' && window.devicePixelRatio ? window.devicePixelRatio : 1;
+
+  const dotCfg = deepAssign(
     {},
     {
       radius: 4,
@@ -18,62 +57,36 @@ export function createDotPattern(cfg: DotPatternCfg): HTMLCanvasElement {
     cfg
   );
 
-  const canvas = document.createElement('canvas');
-  const { radius, padding, isStagger } = dotOptions;
-  const unitSize = isStagger ? (radius + padding) * 4 : (radius + padding) * 2;
-  const dots = isStagger
-    ? [
-        [(unitSize / 4) * 1, (unitSize / 4) * 1],
-        [(unitSize / 4) * 3, (unitSize / 4) * 1],
-        [(unitSize / 4) * 0, (unitSize / 4) * 3],
-        [(unitSize / 4) * 2, (unitSize / 4) * 3],
-        [(unitSize / 4) * 4, (unitSize / 4) * 3],
-      ]
-    : [[unitSize / 2, unitSize / 2]];
+  /** 大小 */
+  const { radius, padding, isStagger } = dotCfg;
+  const dots = [[padding / 2 + radius, padding / 2 + radius]];
 
-  // 后续再行测试
-  // const dpr = window.devicePixelRatio;
-  // const logicalWidth = size / 2
-  // const logicalHeight = size / 2
-  // canvas.width = logicalWidth * dpr;
-  // canvas.height = logicalHeight * dpr;
-  // canvas.style.width = logicalWidth + 'px';
-  // canvas.style.height = logicalHeight + 'px';
-  // ctx.scale(dpr, dpr);
-
-  // console.info('dpr', dpr)
-
-  drawBackground(dotOptions, canvas, unitSize);
-  // 绘制图案
-  for (const [x, y] of dots) {
-    drawDot(dotOptions, canvas, x, y);
+  let size = radius * 2 + padding;
+  // 如果交错, size 放大两倍 交错绘制 dot
+  if (isStagger) {
+    dots.push([size + radius, size + radius]);
+    size *= 2;
   }
 
-  return canvas;
-}
-
-function drawBackground(options: DotPatternCfg, canvas: HTMLCanvasElement, unitSize: number) {
-  const { backgroundColor, opacity } = options;
+  const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
 
-  canvas.width = unitSize;
-  canvas.height = unitSize;
-  ctx.globalAlpha = opacity;
-  ctx.globalAlpha = opacity;
-  ctx.fillStyle = backgroundColor;
-  ctx.fillRect(0, 0, unitSize, unitSize);
-}
+  // ~~~ 后续再行测试 ~~~
+  const logicalWidth = size;
+  const logicalHeight = size;
+  // 画布尺寸
+  canvas.width = logicalWidth * pixelRatio;
+  canvas.height = logicalHeight * pixelRatio;
+  // 显示尺寸
+  canvas.style.width = `${logicalWidth}px`;
+  canvas.style.height = `${logicalHeight}px`;
+  // ~~~ 后续再行测试 ~~~
 
-function drawDot(options: DotPatternCfg, canvas: HTMLCanvasElement, x: number, y: number) {
-  const { radius, fill, lineWidth, stroke, fillOpacity } = options;
-  const ctx = canvas.getContext('2d');
+  drawRect(dotCfg, canvas, size);
+  // 绘制图案
+  for (const [x, y] of dots) {
+    drawDot(dotCfg, canvas, x, y);
+  }
 
-  ctx.beginPath();
-  ctx.globalAlpha = fillOpacity;
-  ctx.fillStyle = fill;
-  ctx.strokeStyle = stroke;
-  ctx.lineWidth = lineWidth;
-  ctx.arc(x, y, radius, 0, 2 * Math.PI);
-  ctx.fill();
-  ctx.stroke();
+  return ctx.createPattern(canvas, cfg.mode || 'repeat');
 }

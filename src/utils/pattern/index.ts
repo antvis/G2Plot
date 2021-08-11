@@ -32,8 +32,7 @@ export function getCanvasPattern(options: PatternOption): CanvasPattern {
 
   switch (type) {
     case 'dot':
-      patternCanvas = createDotPattern(cfg);
-      break;
+      return createDotPattern(cfg);
     case 'line':
       patternCanvas = createLinePattern(cfg);
       break;

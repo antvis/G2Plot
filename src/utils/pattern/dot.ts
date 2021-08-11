@@ -1,17 +1,20 @@
 import { DotPatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
 
-export function drawRect(options: DotPatternCfg, canvas: HTMLCanvasElement, unitSize: number) {
+export function drawRect(options: DotPatternCfg, canvas: HTMLCanvasElement, width: number, height?: number) {
   const { backgroundColor, opacity } = options;
   const ctx = canvas.getContext('2d');
 
-  canvas.width = unitSize;
-  canvas.height = unitSize;
+  const w = width;
+  const h = height || width;
+
+  canvas.width = w;
+  canvas.height = h;
   ctx.globalAlpha = opacity;
   ctx.fillStyle = backgroundColor;
 
   ctx.beginPath();
-  ctx.fillRect(0, 0, unitSize, unitSize);
+  ctx.fillRect(0, 0, w, h);
   ctx.closePath();
 }
 

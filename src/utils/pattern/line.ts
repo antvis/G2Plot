@@ -1,8 +1,20 @@
 import { LinePatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
+import { drawBackground, initCanvas } from './dot';
 
-export function createLinePattern(cfg: LinePatternCfg): HTMLCanvasElement {
-  const lineOptions = deepAssign(
+function drawLine(context: CanvasRenderingContext2D, cfg: LinePatternCfg, d: string) {
+  const { stroke, lineWidth, strokeOpacity } = cfg;
+  const path = new Path2D(d);
+
+  context.globalAlpha = strokeOpacity;
+  context.lineCap = 'square';
+  context.strokeStyle = stroke;
+  context.lineWidth = lineWidth;
+  context.stroke(path);
+}
+
+export function createLinePattern(cfg: LinePatternCfg): CanvasPattern {
+  const lineCfg = deepAssign(
     {},
     {
       rotation: 45,
@@ -17,8 +29,10 @@ export function createLinePattern(cfg: LinePatternCfg): HTMLCanvasElement {
   );
 
   const canvas = document.createElement('canvas');
-  const { spacing } = lineOptions;
-  const rotation = lineOptions.rotation % 360;
+  const ctx = canvas.getContext('2d');
+
+  const { spacing } = lineCfg;
+  const rotation = lineCfg.rotation % 360;
   const radians = rotation * (Math.PI / 180);
   // w, h 画布宽高
   let w = Math.floor(Math.abs(spacing / Math.sin(radians)));
@@ -68,32 +82,9 @@ export function createLinePattern(cfg: LinePatternCfg): HTMLCanvasElement {
     }
   }
 
-  drawBackground(lineOptions, canvas, w, h);
-  drawLine(lineOptions, canvas, d);
+  initCanvas(canvas, w, h);
+  drawBackground(ctx, lineCfg, w, h);
+  drawLine(ctx, lineCfg, d);
 
-  return canvas;
-}
-
-function drawBackground(options: LinePatternCfg, canvas: HTMLCanvasElement, w: number, h: number) {
-  const { backgroundColor, opacity } = options;
-  const ctx = canvas.getContext('2d');
-
-  canvas.width = w;
-  canvas.height = h;
-  ctx.globalAlpha = opacity;
-  ctx.fillStyle = backgroundColor;
-  ctx.fillRect(0, 0, w, h);
-  ctx.fill();
-}
-
-function drawLine(options: LinePatternCfg, canvas: HTMLCanvasElement, d: string) {
-  const { stroke, lineWidth, strokeOpacity } = options;
-  const path = new Path2D(d);
-  const ctx = canvas.getContext('2d');
-
-  ctx.globalAlpha = strokeOpacity;
-  ctx.lineCap = 'square';
-  ctx.strokeStyle = stroke;
-  ctx.lineWidth = lineWidth;
-  ctx.stroke(path);
+  return ctx.createPattern(canvas, cfg.mode || 'repeat');
 }

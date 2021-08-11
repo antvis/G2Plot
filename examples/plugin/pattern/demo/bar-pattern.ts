@@ -16,14 +16,7 @@ const plot = new Bar('container', {
   // 可不设置
   // seriesField: 'type',
   pattern: {
-    type: 'dot',
-    cfg: {
-      radius: 2,
-      padding: 10,
-      // dot 不进行交错
-      isStagger: false,
-      mode: 'repeat',
-    },
+    type: 'square',
   },
 });
 

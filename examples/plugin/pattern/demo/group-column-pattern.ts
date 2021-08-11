@@ -26,12 +26,7 @@ const plot = new Column('container', {
   seriesField: 'name',
   isGroup: true,
   pattern: {
-    type: 'dot',
-    cfg: {
-      radius: 2,
-      padding: 10,
-      mode: 'repeat',
-    },
+    type: 'line',
   },
 });
 

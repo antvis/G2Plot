@@ -16,8 +16,6 @@ const plot = new Column('container', {
   pattern: {
     type: 'dot',
     cfg: {
-      radius: 2,
-      padding: 10,
       mode: 'repeat',
     },
   },

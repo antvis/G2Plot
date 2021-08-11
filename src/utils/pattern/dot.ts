@@ -1,4 +1,4 @@
-import { DotPatternCfg } from '../../types/pattern';
+import { DotPatternCfg, SquarePatternCfg, LinePatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
 
 /**
@@ -33,7 +33,7 @@ export function initCanvas(width: number, height: number = width): HTMLCanvasEle
  */
 export function drawBackground(
   context: CanvasRenderingContext2D,
-  cfg: DotPatternCfg,
+  cfg: DotPatternCfg | LinePatternCfg | SquarePatternCfg,
   width: number,
   height: number = width
 ) {
@@ -47,7 +47,45 @@ export function drawBackground(
   context.closePath();
 }
 
-function drawDot(context: CanvasRenderingContext2D, cfg: DotPatternCfg, x: number, y: number) {
+/**
+ * dotPattern的默认配置
+ */
+export const defaultDotPatternCfg = {
+  radius: 4,
+  padding: 4,
+  backgroundColor: 'transparent',
+  opacity: 1,
+  fill: '#FFF',
+  fillOpacity: 1,
+  stroke: 'transparent',
+  lineWidth: 0,
+  isStagger: true,
+  mode: 'repeat',
+};
+
+/**
+ * 计算贴图单元大小
+ *
+ * @param radius 圆点半径
+ * @param padding 圆点间隔
+ * @param isStagger 是否交错
+ * @reutrn 返回贴图单元大小
+ */
+export function getUnitPatternSize(radius: number, padding: number, isStagger: boolean): number {
+  // 如果交错, unitSize 放大两倍
+  const unitSize = radius * 2 + padding;
+  return isStagger ? unitSize * 2 : unitSize;
+}
+
+/**
+ * 绘制圆点
+ *
+ * @param context
+ * @param cfg
+ * @param x 圆点中心坐标x
+ * @param y 圆点中心坐标y
+ */
+export function drawDot(context: CanvasRenderingContext2D, cfg: DotPatternCfg, x: number, y: number) {
   const { radius, fill, lineWidth, stroke, fillOpacity } = cfg;
 
   context.beginPath();
@@ -64,47 +102,44 @@ function drawDot(context: CanvasRenderingContext2D, cfg: DotPatternCfg, x: numbe
 }
 
 /**
+ * 计算圆点坐标
+ *
+ * @param unitSize 贴图单元大小
+ * @param isStagger 是否交错
+ * @reutrn 圆点中心坐标 x,y 数组集合
+ */
+export function getDots(unitSize: number, isStagger: boolean): number[][] {
+  // 如果交错, 交错绘制 dot
+  const dots = isStagger
+    ? [
+        [unitSize * (1 / 4), unitSize * (1 / 4)],
+        [unitSize * (3 / 4), unitSize * (3 / 4)],
+      ]
+    : [[unitSize * (1 / 2), unitSize * (1 / 2)]];
+  return dots;
+}
+
+/**
  * 创建 dot pattern，返回 HTMLCanvasElement
  *
  * @param cfg
  * @returns HTMLCanvasElement
  */
 export function createDotPattern(cfg?: DotPatternCfg): CanvasPattern {
-  const dotCfg = deepAssign(
-    {
-      radius: 4,
-      padding: 4,
-      backgroundColor: 'transparent',
-      opacity: 1,
-      fill: '#FFF',
-      fillOpacity: 1,
-      stroke: 'transparent',
-      lineWidth: 0,
-      isStagger: true,
-      mode: 'repeat',
-    },
-    cfg
-  );
+  const dotCfg = deepAssign({}, defaultDotPatternCfg, cfg);
 
-  /** 大小 */
   const { radius, padding, isStagger } = dotCfg;
 
-  let unitSize = radius * 2 + padding;
+  // 计算 画布大小，dots的位置
+  const unitSize = getUnitPatternSize(radius, padding, isStagger);
+  const dots = getDots(unitSize, isStagger);
 
-  const dotCenterPos = unitSize / 2;
-  const dots = [[dotCenterPos, dotCenterPos]];
-
-  // 如果交错, size 放大两倍 交错绘制 dot
-  if (isStagger) {
-    dots.push([dotCenterPos * 3, dotCenterPos * 3]);
-    unitSize *= 2;
-  }
-
+  // 初始化 patternCanvas
   const canvas = initCanvas(unitSize, unitSize);
   const ctx = canvas.getContext('2d');
 
+  // 绘制 background，dots
   drawBackground(ctx, dotCfg, unitSize);
-  // 绘制图案
   for (const [x, y] of dots) {
     drawDot(ctx, dotCfg, x, y);
   }

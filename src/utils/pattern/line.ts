@@ -2,6 +2,27 @@ import { LinePatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
 import { drawBackground, initCanvas } from './dot';
 
+/**
+ * linePattern 的 默认配置
+ */
+export const defaultLinePatternCfg = {
+  rotation: 45,
+  spacing: 10,
+  opacity: 1,
+  backgroundColor: 'transparent',
+  strokeOpacity: 1,
+  stroke: '#FFF',
+  lineWidth: 1,
+  mode: 'repeat',
+};
+
+/**
+ * 绘制line
+ *
+ * @param context canvasContext
+ * @param cfg linePattern 的配置
+ * @param d 绘制 path 所需的 d
+ */
 function drawLine(context: CanvasRenderingContext2D, cfg: LinePatternCfg, d: string) {
   const { stroke, lineWidth, strokeOpacity } = cfg;
   const path = new Path2D(d);
@@ -13,33 +34,15 @@ function drawLine(context: CanvasRenderingContext2D, cfg: LinePatternCfg, d: str
   context.stroke(path);
 }
 
-export function createLinePattern(cfg?: LinePatternCfg): CanvasPattern {
-  const lineCfg = deepAssign(
-    {
-      rotation: 45,
-      spacing: 10,
-      opacity: 1,
-      backgroundColor: 'transparent',
-      strokeOpacity: 1,
-      stroke: '#FFF',
-      lineWidth: 1,
-      mode: 'repeat',
-    },
-    cfg
-  );
-
-  const { spacing } = lineCfg;
-  const rotation = lineCfg.rotation % 360;
-  const radians = rotation * (Math.PI / 180);
-  // w, h 画布宽高
-  let w = Math.floor(Math.abs(spacing / Math.sin(radians)));
-  let h = Math.floor(Math.abs(spacing / Math.sin(Math.PI / 2 - radians)));
-
-  // 画布大小遇到特殊角度，特殊处理
-  if (Math.abs(rotation) === 90 || Math.abs(rotation) === 0) {
-    (w = spacing), (h = spacing);
-  }
-
+/**
+ * 计算 linePath 所需的 d
+ *
+ * @param rotation
+ * @param w
+ * @param h
+ * @return 返回绘制 path 所需的 d
+ */
+function getLinePath(rotation: number, w: number, h: number): string {
   let d;
   // 遇到特殊角度，绘线方向特殊处理
   if (Math.abs(rotation) === 90 || Math.abs(rotation) === 270) {
@@ -78,12 +81,51 @@ export function createLinePattern(cfg?: LinePatternCfg): CanvasPattern {
       `;
     }
   }
+  return d;
+}
 
-  const canvas = initCanvas(w, h);
+/**
+ * 计算 unit贴图单元的size
+ *
+ * @param rotation
+ * @param rotation 旋转角度
+ * @param spacing 两条线之间的间隔
+ * @return 返回 { width, height  }
+ */
+function getUnitPatternSize(rotation: number, spacing: number) {
+  const radians = rotation * (Math.PI / 180);
+  // w, h 画布宽高
+  let width = Math.floor(Math.abs(spacing / Math.sin(radians)));
+  let height = Math.floor(Math.abs(spacing / Math.sin(Math.PI / 2 - radians)));
+
+  // 画布大小遇到特殊角度，特殊处理
+  if (Math.abs(rotation) === 90 || Math.abs(rotation) === 0) {
+    (width = spacing), (height = spacing);
+  }
+  return { width, height };
+}
+
+/**
+ * 创建 linePattern
+ */
+export function createLinePattern(cfg?: LinePatternCfg): CanvasPattern {
+  const lineCfg = deepAssign({}, defaultLinePatternCfg, cfg);
+
+  const { spacing } = lineCfg;
+  const rotation = lineCfg.rotation % 360;
+
+  // 计算 pattern 画布的大小， path 所需的 d
+  const { width, height } = getUnitPatternSize(rotation, spacing);
+  const d = getLinePath(rotation, width, height);
+
+  // 初始化 patternCanvas
+  const canvas = initCanvas(width, height);
   const ctx = canvas.getContext('2d');
 
-  drawBackground(ctx, lineCfg, w, h);
+  // 绘制 background，line
+  drawBackground(ctx, lineCfg, width, height);
   drawLine(ctx, lineCfg, d);
 
+  // 返回 Pattern 对象
   return ctx.createPattern(canvas, lineCfg.mode);
 }

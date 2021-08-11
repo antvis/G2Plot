@@ -1,5 +1,6 @@
+import { isFunction, get } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme, scale, state, legend } from '../../adaptor/common';
+import { tooltip, interaction, animation, theme, scale, state } from '../../adaptor/common';
 import { flow, deepAssign } from '../../utils';
 import { point } from '../../adaptor/geometries';
 import { WordCloudOptions } from './types';
@@ -21,6 +22,7 @@ function geometry(params: Params<WordCloudOptions>): Params<WordCloudOptions> {
       xField: 'x',
       yField: 'y',
       seriesField: colorField && 'color',
+      rawFields: isFunction(color) && [...get(options, 'rawFields', []), 'datum'],
       point: {
         color,
         shape: 'word-cloud',
@@ -48,6 +50,23 @@ function meta(params: Params<WordCloudOptions>): Params<WordCloudOptions> {
       y: { nice: false },
     })
   )(params);
+}
+
+/**
+ * 词云图 legend 配置
+ * @param params
+ */
+export function legend(params: Params<WordCloudOptions>): Params<WordCloudOptions> {
+  const { chart, options } = params;
+  const { legend, colorField } = options;
+
+  if (legend === false) {
+    chart.legend(false);
+  } else if (colorField) {
+    chart.legend('color', legend);
+  }
+
+  return params;
 }
 
 /**

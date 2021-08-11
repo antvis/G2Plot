@@ -1,7 +1,31 @@
 import { SquarePatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
-import { drawBackground, initCanvas } from './dot';
+import { getUnitPatternSize, initCanvas, drawBackground, getSymbolsPosition } from './util';
 
+/**
+ * squarePattern 的 默认配置
+ */
+export const defaultSquarePatternCfg = {
+  size: 4,
+  padding: 4,
+  backgroundColor: 'transparent',
+  opacity: 1,
+  rotation: 0,
+  fill: '#FFF',
+  fillOpacity: 1,
+  stroke: 'transparent',
+  lineWidth: 0,
+  isStagger: true,
+  mode: 'repeat',
+};
+
+/**
+ * 绘制square
+ *
+ * @param context canvasContext
+ * @param cfg squarePattern 的配置
+ * @param x和y square的中心位置
+ */
 function drawSquare(context: CanvasRenderingContext2D, cfg: SquarePatternCfg, x: number, y: number) {
   const { stroke, size, fill, lineWidth, fillOpacity, rotation } = cfg;
   const radians = (rotation % 360) * (Math.PI / 180);
@@ -11,7 +35,7 @@ function drawSquare(context: CanvasRenderingContext2D, cfg: SquarePatternCfg, x:
   context.lineWidth = lineWidth;
   context.fillStyle = fill;
 
-  // todo 控制旋转
+  // 控制旋转
   context.translate(x, y);
   context.rotate(radians);
   context.translate(-x, -y);
@@ -22,45 +46,27 @@ function drawSquare(context: CanvasRenderingContext2D, cfg: SquarePatternCfg, x:
   context.setTransform(1, 0, 0, 1, 0, 0);
 }
 
+/**
+ * 创建 squarePattern
+ */
 export function createSquarePattern(cfg?: SquarePatternCfg): CanvasPattern {
-  const squareCfg = deepAssign(
-    {},
-    {
-      size: 4,
-      padding: 4,
-      backgroundColor: 'transparent',
-      opacity: 1,
-      rotation: 0,
-      fill: '#FFF',
-      fillOpacity: 1,
-      stroke: 'transparent',
-      lineWidth: 0,
-      isStagger: true,
-      mode: 'repeat',
-    },
-    cfg
-  );
-
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
+  const squareCfg = deepAssign(defaultSquarePatternCfg, cfg);
 
   const { size, padding, isStagger } = squareCfg;
 
-  let unitSize = size + padding;
+  // 计算 画布大小，squares的位置
+  const unitSize = getUnitPatternSize(size, padding, isStagger);
+  const squares = getSymbolsPosition(unitSize, isStagger); // 计算方法与 dots 一样
 
-  const squareCenterPos = unitSize / 2;
-  const squares = [[squareCenterPos, squareCenterPos]];
+  // 初始化 patternCanvas
+  const canvas = initCanvas(unitSize, unitSize);
+  const ctx = canvas.getContext('2d');
 
-  // 如果交错, size 放大两倍 交错绘制 square
-  if (isStagger) {
-    squares.push([squareCenterPos * 3, squareCenterPos * 3]);
-    unitSize *= 2;
-  }
-
-  initCanvas(canvas, unitSize, unitSize);
+  // 绘制 background，squares
   drawBackground(ctx, squareCfg, unitSize);
   for (const [x, y] of squares) {
     drawSquare(ctx, squareCfg, x, y);
   }
-  return ctx.createPattern(canvas, squareCfg.mode || 'repeat');
+
+  return ctx.createPattern(canvas, squareCfg.mode);
 }

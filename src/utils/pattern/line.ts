@@ -1,6 +1,6 @@
 import { LinePatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
-import { drawBackground, initCanvas } from './dot';
+import { initCanvas, drawBackground } from './util';
 
 /**
  * linePattern 的 默认配置

@@ -1,6 +1,6 @@
 import { SquarePatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
-import { drawBackground, initCanvas, getDots } from './dot';
+import { getUnitPatternSize, initCanvas, drawBackground, getSymbolsPosition } from './util';
 
 /**
  * squarePattern 的 默认配置
@@ -18,20 +18,6 @@ export const defaultSquarePatternCfg = {
   isStagger: true,
   mode: 'repeat',
 };
-
-/**
- * 计算贴图单元大小
- *
- * @param size 正方形的长
- * @param padding 圆点间隔
- * @param isStagger 是否交错
- * @reutrn 返回贴图单元大小
- */
-export function getUnitPatternSize(size: number, padding: number, isStagger: boolean): number {
-  // 如果交错, unitSize 放大两倍
-  const unitSize = size + padding;
-  return isStagger ? unitSize * 2 : unitSize;
-}
 
 /**
  * 绘制square
@@ -70,7 +56,7 @@ export function createSquarePattern(cfg?: SquarePatternCfg): CanvasPattern {
 
   // 计算 画布大小，squares的位置
   const unitSize = getUnitPatternSize(size, padding, isStagger);
-  const squares = getDots(unitSize, isStagger); // 计算方法与 dots 一样
+  const squares = getSymbolsPosition(unitSize, isStagger); // 计算方法与 dots 一样
 
   // 初始化 patternCanvas
   const canvas = initCanvas(unitSize, unitSize);

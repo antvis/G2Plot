@@ -65,9 +65,16 @@ type KdeOptions = {
 
 #### box
 
-<description>**optional** _boolean_</description>
+<description>**optional** _boolean | BoxOption_</description>
 
-Whether to show box plot. Default show box plot, you could hide box plot by setting `box: false`.
+Whether to show box plot. Default show box plot, you can custom box plot with _BoxOption_. In addition, you could also hide box plot by setting `box: false`.
+
+```ts
+type BoxOption = {
+  // configuration of state style of box, more detail to see: `state`
+  state: State;
+}
+```
 
 #### shape
 
@@ -84,6 +91,12 @@ Violin graphic style.
 `markdown:docs/common/shape-style.en.md`
 
 `markdown:docs/common/color.en.md`
+
+#### state
+
+<description>**optional** _object_</description>
+
+`markdown:docs/common/state-style.en.md`
 
 ### Plot Components
 

@@ -39,7 +39,7 @@ function data(params: Params<ViolinOptions>): Params<ViolinOptions> {
 /** 小提琴轮廓 */
 function violinView(params: Params<ViolinOptions>): Params<ViolinOptions> {
   const { chart, options } = params;
-  const { seriesField, color, shape = 'violin', violinStyle, tooltip } = options;
+  const { seriesField, color, shape = 'violin', violinStyle, tooltip, state } = options;
 
   const view = chart.createView({ id: VIOLIN_VIEW_ID });
   violin({
@@ -58,6 +58,7 @@ function violinView(params: Params<ViolinOptions>): Params<ViolinOptions> {
         color,
         shape,
       },
+      state,
     },
   });
   view.geometries[0].adjust(adjustCfg);
@@ -85,6 +86,7 @@ function boxView(params: Params<ViolinOptions>): Params<ViolinOptions> {
         fields: TOOLTIP_FIELDS,
         ...tooltip,
       },
+      state: typeof box === 'object' ? box.state : {},
       interval: {
         color,
         size: 1,
@@ -108,6 +110,7 @@ function boxView(params: Params<ViolinOptions>): Params<ViolinOptions> {
         fields: TOOLTIP_FIELDS,
         ...tooltip,
       },
+      state: typeof box === 'object' ? box.state : {},
       interval: {
         color,
         size: 8,
@@ -131,6 +134,7 @@ function boxView(params: Params<ViolinOptions>): Params<ViolinOptions> {
         fields: TOOLTIP_FIELDS,
         ...tooltip,
       },
+      state: typeof box === 'object' ? box.state : {},
       point: {
         color,
         size: 1,

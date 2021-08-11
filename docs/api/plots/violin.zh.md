@@ -60,16 +60,20 @@ type KdeOptions = {
 
 <playground path="more-plots/violin/demo/tooltip.ts" rid="tooltip-meta"></playground>
 
-`markdown:docs/common/color.zh.md`
-
-
 ### 图形样式
 
 #### box
 
-<description>**optional** _boolean_</description>
+<description>**optional** _boolean | BoxOption_</description>
 
-是否展示内部箱线图。默认展示，设置为 'false' 关闭箱线图。
+是否展示内部箱线图。默认展示，可对箱线图进行配置，配置类型为：_BoxOption_。设置为 'false' 关闭箱线图。
+
+```ts
+type BoxOption = {
+  // 箱线图的状态样式设置，详细参考: state
+  state: State;
+}
+```
 
 #### shape
 
@@ -88,6 +92,14 @@ type KdeOptions = {
 小提琴轮廓样式配置。
 
 `markdown:docs/common/shape-style.zh.md`
+
+`markdown:docs/common/color.zh.md`
+
+#### state
+
+<description>**可选** _object_</description>
+
+`markdown:docs/common/state-style.zh.md`
 
 ### 图表组件
 

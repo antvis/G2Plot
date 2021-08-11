@@ -1,9 +1,9 @@
 import { SquarePatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
-import { drawRect } from './dot';
+import { drawBackground, initCanvas } from './dot';
 
-function drawSquare(options: SquarePatternCfg, context: CanvasRenderingContext2D, x: number, y: number) {
-  const { stroke, size, fill, lineWidth, fillOpacity, rotation } = options;
+function drawSquare(context: CanvasRenderingContext2D, cfg: SquarePatternCfg, x: number, y: number) {
+  const { stroke, size, fill, lineWidth, fillOpacity, rotation } = cfg;
   const radians = (rotation % 360) * (Math.PI / 180);
 
   context.globalAlpha = fillOpacity;
@@ -52,9 +52,10 @@ export function createSquarePattern(cfg: SquarePatternCfg): CanvasPattern {
     unitSize *= 2;
   }
 
-  drawRect(canvas, squareCfg, unitSize);
+  initCanvas(canvas, size, unitSize);
+  drawBackground(ctx, squareCfg, unitSize);
   for (const [x, y] of squares) {
-    drawSquare(squareCfg, ctx, x, y);
+    drawSquare(ctx, squareCfg, x, y);
   }
   return ctx.createPattern(canvas, cfg.mode || 'repeat');
 }

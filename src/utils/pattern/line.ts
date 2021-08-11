@@ -1,9 +1,9 @@
 import { LinePatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
-import { drawRect } from './dot';
+import { drawBackground, initCanvas } from './dot';
 
-function drawLine(options: LinePatternCfg, context: CanvasRenderingContext2D, d: string) {
-  const { stroke, lineWidth, strokeOpacity } = options;
+function drawLine(context: CanvasRenderingContext2D, cfg: LinePatternCfg, d: string) {
+  const { stroke, lineWidth, strokeOpacity } = cfg;
   const path = new Path2D(d);
 
   context.globalAlpha = strokeOpacity;
@@ -82,8 +82,9 @@ export function createLinePattern(cfg: LinePatternCfg): CanvasPattern {
     }
   }
 
-  drawRect(canvas, lineCfg, w, h);
-  drawLine(lineCfg, ctx, d);
+  initCanvas(canvas, w, h);
+  drawBackground(ctx, lineCfg, w, h);
+  drawLine(ctx, lineCfg, d);
 
   return ctx.createPattern(canvas, cfg.mode || 'repeat');
 }

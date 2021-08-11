@@ -5,19 +5,17 @@ import { PatternCfg } from '../../types/pattern';
  */
 export function initCanvas(width: number, height: number = width): HTMLCanvasElement {
   const canvas = document.createElement('canvas');
-  // ~~~ 后续再行测试 ~~~
-  // const pixelRatio = window?.devicePixelRatio || 2;
-  // const logicalWidth = width;
-  // const logicalHeight = height;
+
+  const pixelRatio = window?.devicePixelRatio || 2;
   // 画布尺寸
-  // canvas.width = logicalWidth * pixelRatio;
-  // canvas.height = logicalHeight * pixelRatio;
+  canvas.width = width * pixelRatio;
+  canvas.height = height * pixelRatio;
   // 显示尺寸
-  // canvas.style.width = `${logicalWidth}px`;
-  // canvas.style.height = `${logicalHeight}px`;
-  // ~~~ 后续再行测试 ~~~
-  canvas.width = width;
-  canvas.height = height;
+  canvas.style.width = `${width}px`;
+  canvas.style.height = `${height}px`;
+
+  const ctx = canvas.getContext('2d');
+  ctx.scale(pixelRatio, pixelRatio);
 
   return canvas;
 }

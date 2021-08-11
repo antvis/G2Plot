@@ -45,7 +45,7 @@ describe('Bidirectional', () => {
       return data.country === '巴西';
     });
 
-    expect(plot.getStates().length).toBe(2);
+    expect(plot.getStates().length).toBe(4);
     expect(
       plot.chart.views[0].geometries[0].elements
         .find((ele) => (ele.getModel().data as any).country === '巴西')

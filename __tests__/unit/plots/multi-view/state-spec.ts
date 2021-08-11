@@ -137,13 +137,13 @@ describe('mix', () => {
     });
     // @ts-ignore
     plot.chart.views[0].geometries[0].elements
-      .filter((ele) => ele.getModel().data.cut === 'Fair')
+      .filter((ele) => (ele.getModel().data as any).cut === 'Fair')
       .forEach((ele) => {
         expect(ele.shape.attr('stroke')).toBe('red');
       });
     // @ts-ignore
     plot.chart.views[1].geometries[0].elements
-      .filter((ele) => ele.getModel().data.cut === 'Fair')
+      .filter((ele) => (ele.getModel().data as any).cut === 'Fair')
       .forEach((ele) => {
         expect(ele.shape.attr('stroke')).toBe('yellow');
       });

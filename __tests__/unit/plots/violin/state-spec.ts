@@ -36,29 +36,29 @@ describe('violin', () => {
       // @ts-ignore
       return data.x === 'SepalLength';
     });
-    expect(plot.getStates().length).toBe(plot.views.length);
+    expect(plot.getStates().length).toBe(plot.chart.views.length);
     // @ts-ignore
     expect(
       plot.chart.views[0].geometries[0].elements
-        .find((ele) => ele.getModel().data.x === 'SepalLength')
+        .find((ele) => (ele.getModel().data as any).x === 'SepalLength')
         .shape.attr('stroke')
     ).toBe('blue');
     // @ts-ignore
     expect(
       plot.chart.views[1].geometries[0].elements
-        .find((ele) => ele.getModel().data.x === 'SepalLength')
+        .find((ele) => (ele.getModel().data as any).x === 'SepalLength')
         .shape.attr('stroke')
     ).toBe('green');
     // @ts-ignore
     expect(
       plot.chart.views[2].geometries[0].elements
-        .find((ele) => ele.getModel().data.x === 'SepalLength')
+        .find((ele) => (ele.getModel().data as any).x === 'SepalLength')
         .shape.attr('stroke')
     ).toBe('green');
     // @ts-ignore
     expect(
       plot.chart.views[3].geometries[0].elements
-        .find((ele) => ele.getModel().data.x === 'SepalLength')
+        .find((ele) => (ele.getModel().data as any).x === 'SepalLength')
         .shape.attr('stroke')
     ).toBe('green');
 
@@ -66,7 +66,7 @@ describe('violin', () => {
       // @ts-ignore
       return data.x === 'SepalLength';
     });
-    expect(plot.getStates().length).toBe(plot.views.length * 2);
+    expect(plot.getStates().length).toBe(plot.chart.views.length * 2);
   });
 
   afterAll(() => {

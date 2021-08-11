@@ -1,4 +1,4 @@
-import { getCanvasPattern, PatternOption } from '../../../../src/utils/pattern/index';
+import { getCanvasPattern, PatternOption } from '../../../../src/utils/pattern';
 
 describe('getCanvasPattern', () => {
   it('dot-pattern without cfg', () => {
@@ -12,9 +12,6 @@ describe('getCanvasPattern', () => {
       cfg: {
         radius: 4,
         padding: 6,
-        fill: '#FFF',
-        isStagger: true,
-        mode: 'repeat',
       },
     } as PatternOption;
     const pattern = getCanvasPattern(patternOption);
@@ -33,8 +30,6 @@ describe('getCanvasPattern', () => {
         rotation: 0,
         spacing: 12,
         stroke: '#FFF',
-        lineWidth: 1,
-        mode: 'repeat',
       },
     } as PatternOption;
     const pattern = getCanvasPattern(patternOption);
@@ -54,10 +49,6 @@ describe('getCanvasPattern', () => {
         padding: 10,
         backgroundColor: 'transparent',
         fill: 'transparent',
-        stroke: '#fff',
-        lineWidth: 1,
-        isStagger: true,
-        mode: 'repeat',
       },
     } as PatternOption;
     const pattern = getCanvasPattern(patternOption);

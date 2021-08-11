@@ -3,8 +3,6 @@ import { createDotPattern } from './dot';
 import { createLinePattern } from './line';
 import { createSquarePattern } from './square';
 
-export type PatternShape = 'dot' | 'square' | 'line'; //...
-
 export type PatternOption =
   | {
       type: 'dot';
@@ -26,23 +24,15 @@ export type PatternOption =
  */
 export function getCanvasPattern(options: PatternOption): CanvasPattern {
   const { type, cfg } = options;
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-  let patternCanvas;
 
   switch (type) {
     case 'dot':
-      patternCanvas = createDotPattern(cfg);
-      break;
+      return createDotPattern(cfg);
     case 'line':
-      patternCanvas = createLinePattern(cfg);
-      break;
+      return createLinePattern(cfg);
     case 'square':
-      patternCanvas = createSquarePattern(cfg);
-      break;
+      return createSquarePattern(cfg);
     default:
       return;
   }
-
-  return ctx.createPattern(patternCanvas, cfg?.mode || 'repeat');
 }

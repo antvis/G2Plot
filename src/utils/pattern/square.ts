@@ -1,17 +1,37 @@
 import { SquarePatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
+import { drawBackground, initCanvas } from './dot';
 
-export function createSquarePattern(cfg: SquarePatternCfg): HTMLCanvasElement {
-  const squareOptions = deepAssign(
+function drawSquare(context: CanvasRenderingContext2D, cfg: SquarePatternCfg, x: number, y: number) {
+  const { stroke, size, fill, lineWidth, fillOpacity, rotation } = cfg;
+  const radians = (rotation % 360) * (Math.PI / 180);
+
+  context.globalAlpha = fillOpacity;
+  context.strokeStyle = stroke;
+  context.lineWidth = lineWidth;
+  context.fillStyle = fill;
+  context.fillRect(x, y, size, size);
+
+  // todo 控制旋转
+  // ctx.translate(x, y);
+  // ctx.rotate(radians);
+  // ctx.translate(-x, -y);
+  // ctx.strokeRect(x - size / 2, y - size / 2, size, size);
+  // // reset to identity matrix 重制成单位矩阵
+  // ctx.setTransform(1, 0, 0, 1, 0, 0);
+}
+
+export function createSquarePattern(cfg: SquarePatternCfg): CanvasPattern {
+  const squareCfg = deepAssign(
     {},
     {
-      size: 7,
+      size: 4,
+      padding: 4,
       backgroundColor: 'transparent',
       opacity: 1,
-      rotation: 45,
+      rotation: 0,
       fill: '#FFF',
       fillOpacity: 1,
-      padding: 10,
       stroke: 'transparent',
       lineWidth: 0,
       isStagger: true,
@@ -20,52 +40,22 @@ export function createSquarePattern(cfg: SquarePatternCfg): HTMLCanvasElement {
   );
 
   const canvas = document.createElement('canvas');
-  const { size, padding, isStagger } = squareOptions;
-  // 计算 贴图单元的大小
-  const unitSize = isStagger ? (size + padding * 2) * 2 : size + padding * 2;
-  const squares = isStagger
-    ? [
-        [(unitSize / 4) * 1, (unitSize / 4) * 1],
-        [(unitSize / 4) * 3, (unitSize / 4) * 1],
-        [(unitSize / 4) * 0, (unitSize / 4) * 3],
-        [(unitSize / 4) * 2, (unitSize / 4) * 3],
-        [(unitSize / 4) * 4, (unitSize / 4) * 3],
-      ]
-    : [[unitSize / 2, unitSize / 2]];
+  const ctx = canvas.getContext('2d');
 
-  drawBackground(squareOptions, canvas, unitSize);
-  for (const [x, y] of squares) {
-    drawSquare(squareOptions, canvas, x, y);
+  const { size, padding, isStagger } = squareCfg;
+  const squares = [[padding / 2, padding / 2]];
+
+  let unitSize = size + padding;
+  // 如果交错, size 放大两倍 交错绘制 dot
+  if (isStagger) {
+    squares.push([unitSize + padding / 2, unitSize + padding / 2]);
+    unitSize *= 2;
   }
-  return canvas;
-}
 
-function drawBackground(options: SquarePatternCfg, canvas: HTMLCanvasElement, unitSize: number) {
-  const { backgroundColor, opacity } = options;
-  const ctx = canvas.getContext('2d');
-
-  canvas.width = unitSize;
-  canvas.height = unitSize;
-  ctx.globalAlpha = opacity;
-  ctx.fillStyle = backgroundColor;
-  ctx.fillRect(0, 0, unitSize, unitSize);
-}
-
-function drawSquare(options: SquarePatternCfg, canvas: HTMLCanvasElement, x: number, y: number) {
-  const { stroke, size, fill, lineWidth, fillOpacity } = options;
-  const ctx = canvas.getContext('2d');
-  const rotation = options.rotation % 360;
-  const radians = rotation * (Math.PI / 180);
-
-  ctx.globalAlpha = fillOpacity;
-  ctx.strokeStyle = stroke;
-  ctx.lineWidth = lineWidth;
-  ctx.translate(x, y);
-  ctx.rotate(radians);
-  ctx.translate(-x, -y);
-  ctx.strokeRect(x - size / 2, y - size / 2, size, size);
-  ctx.fillStyle = fill;
-  ctx.fillRect(x - size / 2, y - size / 2, size, size);
-  // reset to identity matrix 重制成单位矩阵
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  initCanvas(canvas, size, unitSize);
+  drawBackground(ctx, squareCfg, unitSize);
+  for (const [x, y] of squares) {
+    drawSquare(ctx, squareCfg, x, y);
+  }
+  return ctx.createPattern(canvas, cfg.mode || 'repeat');
 }

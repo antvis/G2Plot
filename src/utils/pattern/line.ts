@@ -13,7 +13,7 @@ function drawLine(context: CanvasRenderingContext2D, cfg: LinePatternCfg, d: str
   context.stroke(path);
 }
 
-export function createLinePattern(cfg: LinePatternCfg): CanvasPattern {
+export function createLinePattern(cfg?: LinePatternCfg): CanvasPattern {
   const lineCfg = deepAssign(
     {},
     {
@@ -24,6 +24,7 @@ export function createLinePattern(cfg: LinePatternCfg): CanvasPattern {
       strokeOpacity: 1,
       stroke: '#FFF',
       lineWidth: 1,
+      mode: 'repeat',
     },
     cfg
   );
@@ -86,5 +87,5 @@ export function createLinePattern(cfg: LinePatternCfg): CanvasPattern {
   drawBackground(ctx, lineCfg, w, h);
   drawLine(ctx, lineCfg, d);
 
-  return ctx.createPattern(canvas, cfg.mode || 'repeat');
+  return ctx.createPattern(canvas, lineCfg.mode || 'repeat');
 }

@@ -37,8 +37,7 @@ export function getCanvasPattern(options: PatternOption): CanvasPattern {
       patternCanvas = createLinePattern(cfg);
       break;
     case 'square':
-      patternCanvas = createSquarePattern(cfg);
-      break;
+      return createSquarePattern(cfg);
     default:
       return;
   }

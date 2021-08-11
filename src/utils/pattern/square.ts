@@ -24,7 +24,6 @@ function drawSquare(context: CanvasRenderingContext2D, cfg: SquarePatternCfg, x:
 
 export function createSquarePattern(cfg?: SquarePatternCfg): CanvasPattern {
   const squareCfg = deepAssign(
-    {},
     {
       size: 4,
       padding: 4,
@@ -41,9 +40,6 @@ export function createSquarePattern(cfg?: SquarePatternCfg): CanvasPattern {
     cfg
   );
 
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-
   const { size, padding, isStagger } = squareCfg;
 
   let unitSize = size + padding;
@@ -56,11 +52,12 @@ export function createSquarePattern(cfg?: SquarePatternCfg): CanvasPattern {
     squares.push([squareCenterPos * 3, squareCenterPos * 3]);
     unitSize *= 2;
   }
+  const canvas = initCanvas(unitSize, unitSize);
+  const ctx = canvas.getContext('2d');
 
-  initCanvas(canvas, unitSize, unitSize);
   drawBackground(ctx, squareCfg, unitSize);
   for (const [x, y] of squares) {
     drawSquare(ctx, squareCfg, x, y);
   }
-  return ctx.createPattern(canvas, squareCfg.mode || 'repeat');
+  return ctx.createPattern(canvas, squareCfg.mode);
 }

@@ -15,7 +15,6 @@ function drawLine(context: CanvasRenderingContext2D, cfg: LinePatternCfg, d: str
 
 export function createLinePattern(cfg?: LinePatternCfg): CanvasPattern {
   const lineCfg = deepAssign(
-    {},
     {
       rotation: 45,
       spacing: 10,
@@ -28,9 +27,6 @@ export function createLinePattern(cfg?: LinePatternCfg): CanvasPattern {
     },
     cfg
   );
-
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
 
   const { spacing } = lineCfg;
   const rotation = lineCfg.rotation % 360;
@@ -83,9 +79,11 @@ export function createLinePattern(cfg?: LinePatternCfg): CanvasPattern {
     }
   }
 
-  initCanvas(canvas, w, h);
+  const canvas = initCanvas(w, h);
+  const ctx = canvas.getContext('2d');
+
   drawBackground(ctx, lineCfg, w, h);
   drawLine(ctx, lineCfg, d);
 
-  return ctx.createPattern(canvas, lineCfg.mode || 'repeat');
+  return ctx.createPattern(canvas, lineCfg.mode);
 }

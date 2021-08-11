@@ -4,7 +4,8 @@ import { deepAssign } from '../../utils';
 /**
  * 初始化 cavnas，设置宽高等
  */
-export function initCanvas(canvas: HTMLCanvasElement, width: number, height: number = width) {
+export function initCanvas(width: number, height: number = width): HTMLCanvasElement {
+  const canvas = document.createElement('canvas');
   // ~~~ 后续再行测试 ~~~
   // const pixelRatio = window?.devicePixelRatio || 2;
   // const logicalWidth = width;
@@ -18,6 +19,8 @@ export function initCanvas(canvas: HTMLCanvasElement, width: number, height: num
   // ~~~ 后续再行测试 ~~~
   canvas.width = width;
   canvas.height = height;
+
+  return canvas;
 }
 
 /**
@@ -68,7 +71,6 @@ function drawDot(context: CanvasRenderingContext2D, cfg: DotPatternCfg, x: numbe
  */
 export function createDotPattern(cfg?: DotPatternCfg): CanvasPattern {
   const dotCfg = deepAssign(
-    {},
     {
       radius: 4,
       padding: 4,
@@ -98,15 +100,14 @@ export function createDotPattern(cfg?: DotPatternCfg): CanvasPattern {
     unitSize *= 2;
   }
 
-  const canvas = document.createElement('canvas');
+  const canvas = initCanvas(unitSize, unitSize);
   const ctx = canvas.getContext('2d');
 
-  initCanvas(canvas, unitSize);
   drawBackground(ctx, dotCfg, unitSize);
   // 绘制图案
   for (const [x, y] of dots) {
     drawDot(ctx, dotCfg, x, y);
   }
 
-  return ctx.createPattern(canvas, dotCfg.mode || 'repeat');
+  return ctx.createPattern(canvas, dotCfg.mode);
 }

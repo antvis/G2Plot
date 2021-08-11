@@ -380,6 +380,13 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
       );
     });
 
+    if (geometryOptions[0].seriesField) {
+      leftView.legend(geometryOptions[0].seriesField, legend);
+    }
+    if (geometryOptions[1].seriesField) {
+      rightView.legend(geometryOptions[1].seriesField, legend);
+    }
+
     // 自定义图例交互
     chart.on('legend-item:click', (evt) => {
       const delegateObject = get(evt, 'gEvent.delegateObject', {});

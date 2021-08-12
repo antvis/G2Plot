@@ -1,6 +1,6 @@
 import { DotPatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
-import { getUnitPatternSize, initCanvas, drawBackground, getSymbolsPosition, transformPattern } from './util';
+import { getUnitPatternSize, initCanvas, drawBackground, getSymbolsPosition, transformMatrix } from './util';
 
 /**
  * dotPattern的默认配置
@@ -72,7 +72,8 @@ export function createDotPattern(cfg?: DotPatternCfg): CanvasPattern {
 
   if (pattern) {
     const dpr = window?.devicePixelRatio || 2;
-    transformPattern(pattern, dpr, rotation);
+    const matrix = transformMatrix(dpr, rotation);
+    pattern.setTransform(matrix);
   }
 
   return pattern;

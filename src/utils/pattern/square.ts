@@ -1,6 +1,6 @@
 import { SquarePatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
-import { getUnitPatternSize, initCanvas, drawBackground, getSymbolsPosition, transformPattern } from './util';
+import { getUnitPatternSize, initCanvas, drawBackground, getSymbolsPosition, transformMatrix } from './util';
 
 /**
  * squarePattern 的 默认配置
@@ -64,7 +64,8 @@ export function createSquarePattern(cfg?: SquarePatternCfg): CanvasPattern {
 
   if (pattern) {
     const dpr = window?.devicePixelRatio || 2;
-    transformPattern(pattern, dpr, rotation);
+    const matrix = transformMatrix(dpr, rotation);
+    pattern.setTransform(matrix);
   }
 
   return pattern;

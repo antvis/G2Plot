@@ -83,9 +83,9 @@ export function getSymbolsPosition(unitSize: number, isStagger: boolean): number
  * @param dpr  设备像素比
  * @param rotation 旋转角度
  */
-export function transformPattern(pattern: CanvasPattern, dpr: number, rotation: number) {
+export function transformMatrix(dpr: number, rotation: number) {
   const matrix = new DOMMatrix();
   matrix.scaleSelf(1 / dpr); // 解决精度问题
   matrix.rotateSelf(rotation);
-  pattern.setTransform(matrix);
+  return matrix;
 }

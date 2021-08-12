@@ -40,10 +40,6 @@ export function getCanvasPattern(options: PatternOption): CanvasPattern | undefi
     default:
       break;
   }
-  if (pattern) {
-    const dpr = window?.devicePixelRatio || 2;
-    pattern.setTransform({ a: 1 / dpr, b: 0, c: 0, d: 1 / dpr, e: 0, f: 0 });
-  }
 
   return pattern;
 }

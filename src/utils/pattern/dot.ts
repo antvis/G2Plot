@@ -1,6 +1,6 @@
 import { DotPatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
-import { getUnitPatternSize, initCanvas, drawBackground, getSymbolsPosition } from './util';
+import { getUnitPatternSize, initCanvas, drawBackground, getSymbolsPosition, transformPattern } from './util';
 
 /**
  * dotPattern的默认配置
@@ -10,6 +10,7 @@ export const defaultDotPatternCfg = {
   padding: 4,
   backgroundColor: 'transparent',
   opacity: 1,
+  rotation: 0,
   fill: '#FFF',
   fillOpacity: 1,
   stroke: 'transparent',
@@ -51,7 +52,7 @@ export function drawDot(context: CanvasRenderingContext2D, cfg: DotPatternCfg, x
 export function createDotPattern(cfg?: DotPatternCfg): CanvasPattern {
   const dotCfg = deepAssign({}, defaultDotPatternCfg, cfg);
 
-  const { radius, padding, isStagger } = dotCfg;
+  const { radius, padding, isStagger, rotation } = dotCfg;
 
   // 计算 画布大小，dots的位置
   const unitSize = getUnitPatternSize(radius * 2, padding, isStagger);
@@ -67,5 +68,11 @@ export function createDotPattern(cfg?: DotPatternCfg): CanvasPattern {
     drawDot(ctx, dotCfg, x, y);
   }
 
-  return ctx.createPattern(canvas, dotCfg.mode);
+  const pattern = ctx.createPattern(canvas, dotCfg.mode);
+
+  if (pattern) {
+    transformPattern(pattern, rotation);
+  }
+
+  return pattern;
 }

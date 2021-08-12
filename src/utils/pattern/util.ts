@@ -75,3 +75,17 @@ export function getSymbolsPosition(unitSize: number, isStagger: boolean): number
     : [[unitSize * (1 / 2), unitSize * (1 / 2)]];
   return symbolsPos;
 }
+
+/**
+ * 给整个 pattern贴图 做变换, 目前支持旋转
+ *
+ * @param pattern 整个贴图
+ * @param rotation 旋转角度
+ */
+export function transformPattern(pattern: CanvasPattern, rotation: number) {
+  const dpr = window?.devicePixelRatio || 2;
+  const matrix = new DOMMatrix();
+  matrix.scaleSelf(1 / dpr); // 解决精度问题
+  matrix.rotateSelf(rotation);
+  pattern.setTransform(matrix);
+}

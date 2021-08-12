@@ -26,7 +26,7 @@ export const defaultSquarePatternCfg = {
  * @param cfg squarePattern 的配置
  * @param x和y square的中心位置
  */
-function drawSquare(context: CanvasRenderingContext2D, cfg: SquarePatternCfg, x: number, y: number) {
+export function drawSquare(context: CanvasRenderingContext2D, cfg: SquarePatternCfg, x: number, y: number) {
   const { stroke, size, fill, lineWidth, fillOpacity } = cfg;
 
   context.globalAlpha = fillOpacity;

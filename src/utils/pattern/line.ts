@@ -61,7 +61,8 @@ export function createLinePattern(cfg?: LinePatternCfg): CanvasPattern {
   const pattern = ctx.createPattern(canvas, lineCfg.mode);
 
   if (pattern) {
-    transformPattern(pattern, rotation);
+    const dpr = window?.devicePixelRatio || 2;
+    transformPattern(pattern, dpr, rotation);
   }
 
   // 返回 Pattern 对象

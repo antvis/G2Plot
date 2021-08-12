@@ -80,10 +80,10 @@ export function getSymbolsPosition(unitSize: number, isStagger: boolean): number
  * 给整个 pattern贴图 做变换, 目前支持旋转
  *
  * @param pattern 整个贴图
+ * @param dpr  设备像素比
  * @param rotation 旋转角度
  */
-export function transformPattern(pattern: CanvasPattern, rotation: number) {
-  const dpr = window?.devicePixelRatio || 2;
+export function transformPattern(pattern: CanvasPattern, dpr: number, rotation: number) {
   const matrix = new DOMMatrix();
   matrix.scaleSelf(1 / dpr); // 解决精度问题
   matrix.rotateSelf(rotation);

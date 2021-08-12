@@ -63,7 +63,8 @@ export function createSquarePattern(cfg?: SquarePatternCfg): CanvasPattern {
   const pattern = ctx.createPattern(canvas, squareCfg.mode);
 
   if (pattern) {
-    transformPattern(pattern, rotation);
+    const dpr = window?.devicePixelRatio || 2;
+    transformPattern(pattern, dpr, rotation);
   }
 
   return pattern;

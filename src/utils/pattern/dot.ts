@@ -71,7 +71,8 @@ export function createDotPattern(cfg?: DotPatternCfg): CanvasPattern {
   const pattern = ctx.createPattern(canvas, dotCfg.mode);
 
   if (pattern) {
-    transformPattern(pattern, rotation);
+    const dpr = window?.devicePixelRatio || 2;
+    transformPattern(pattern, dpr, rotation);
   }
 
   return pattern;

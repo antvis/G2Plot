@@ -65,7 +65,6 @@ describe('utils: dot pattern', () => {
     });
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawDot(ctx, cfg as DotPatternCfg, width / 2, height / 2);
-    console.log(cfg.radius, 'cfg.radius');
     // 传入的是呈现的位置
     expect(getPixelColor(canvas, width / 2, height / 2).hex).toEqual('#ff0000');
     expect(getPixelColor(canvas, width / 2 + cfg.radius, height / 2).hex).toEqual('#00ff00');

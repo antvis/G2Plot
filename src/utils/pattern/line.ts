@@ -23,7 +23,7 @@ export const defaultLinePatternCfg = {
  * @param cfg linePattern 的配置
  * @param d 绘制 path 所需的 d
  */
-function drawLine(context: CanvasRenderingContext2D, cfg: LinePatternCfg, d: string) {
+export function drawLine(context: CanvasRenderingContext2D, cfg: LinePatternCfg, d: string) {
   const { stroke, lineWidth, strokeOpacity } = cfg;
   const path = new Path2D(d);
 

@@ -6,8 +6,8 @@ import { getUnitPatternSize, initCanvas, drawBackground, getSymbolsPosition, tra
  * dotPattern的默认配置
  */
 export const defaultDotPatternCfg = {
-  radius: 4,
-  padding: 4,
+  size: 4,
+  padding: 2,
   backgroundColor: 'transparent',
   opacity: 1,
   rotation: 0,
@@ -16,7 +16,6 @@ export const defaultDotPatternCfg = {
   stroke: 'transparent',
   lineWidth: 0,
   isStagger: true,
-  mode: 'repeat',
 };
 
 /**
@@ -28,14 +27,14 @@ export const defaultDotPatternCfg = {
  * @param y 圆点中心坐标y
  */
 export function drawDot(context: CanvasRenderingContext2D, cfg: DotPatternCfg, x: number, y: number) {
-  const { radius, fill, lineWidth, stroke, fillOpacity } = cfg;
+  const { size, fill, lineWidth, stroke, fillOpacity } = cfg;
 
   context.beginPath();
   context.globalAlpha = fillOpacity;
   context.fillStyle = fill;
   context.strokeStyle = stroke;
   context.lineWidth = lineWidth;
-  context.arc(x, y, radius, 0, 2 * Math.PI, false);
+  context.arc(x, y, size / 2, 0, 2 * Math.PI, false);
   context.fill();
   if (lineWidth) {
     context.stroke();
@@ -52,10 +51,10 @@ export function drawDot(context: CanvasRenderingContext2D, cfg: DotPatternCfg, x
 export function createDotPattern(cfg?: DotPatternCfg): CanvasPattern {
   const dotCfg = deepAssign({}, defaultDotPatternCfg, cfg);
 
-  const { radius, padding, isStagger, rotation } = dotCfg;
+  const { size, padding, isStagger, rotation } = dotCfg;
 
   // 计算 画布大小，dots的位置
-  const unitSize = getUnitPatternSize(radius * 2, padding, isStagger);
+  const unitSize = getUnitPatternSize(size, padding, isStagger);
   const dots = getSymbolsPosition(unitSize, isStagger);
 
   // 初始化 patternCanvas
@@ -68,7 +67,7 @@ export function createDotPattern(cfg?: DotPatternCfg): CanvasPattern {
     drawDot(ctx, dotCfg, x, y);
   }
 
-  const pattern = ctx.createPattern(canvas, dotCfg.mode);
+  const pattern = ctx.createPattern(canvas, 'repeat');
 
   if (pattern) {
     const dpr = window?.devicePixelRatio || 2;

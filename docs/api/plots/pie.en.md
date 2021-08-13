@@ -91,6 +91,8 @@ Configure the end Angle of the coordinate system.
 
 `markdown:docs/common/color.en.md`
 
+`markdown:docs/common/pattern.en.md`
+
 #### pieStyle
 
 <description>**optional** _object_</description>

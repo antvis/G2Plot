@@ -91,9 +91,19 @@ export function transformOptions(params: Params<DualAxesOptions>): Params<DualAx
  * @param params
  */
 function createViews(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
-  const { chart } = params;
+  const { chart, options } = params;
+  const { geometryOptions } = options;
 
-  [LEFT_AXES_VIEW, RIGHT_AXES_VIEW].forEach((id) => chart.createView({ id }));
+  const SORT_MAP = { line: 0, column: 1 };
+
+  // 包含配置，id，数据的结构
+  const geometries = [
+    { type: geometryOptions[0]?.geometry, id: LEFT_AXES_VIEW },
+    { type: geometryOptions[1]?.geometry, id: RIGHT_AXES_VIEW },
+  ];
+
+  // 将线的 view 放置在更上一层，防止线柱遮挡。先柱后先
+  geometries.sort((a, b) => -SORT_MAP[a.type] + SORT_MAP[b.type]).forEach((g) => chart.createView({ id: g.id }));
 
   return params;
 }
@@ -106,45 +116,40 @@ function geometry(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
   const { chart, options } = params;
   const { xField, yField, geometryOptions, data, tooltip } = options;
 
-  const SORT_MAP = { line: 0, column: 1 };
-
   // 包含配置，id，数据的结构
   const geometries = [
     { ...geometryOptions[0], id: LEFT_AXES_VIEW, data: data[0], yField: yField[0] },
     { ...geometryOptions[1], id: RIGHT_AXES_VIEW, data: data[1], yField: yField[1] },
   ];
 
-  // 将线的 view 放置在更上一层，防止线柱遮挡。先柱后先
-  geometries
-    .sort((a, b) => -SORT_MAP[a.geometry] + SORT_MAP[b.geometry])
-    .forEach((geometry) => {
-      const { id, data, yField } = geometry;
-      // 百分比柱状图需要额外处理一次数据
-      const isPercent = isColumn(geometry) && geometry.isPercent;
-      const formatData = isPercent ? percent(data, yField, xField, yField) : data;
-      const view = findViewById(chart, id).data(formatData);
+  geometries.forEach((geometry) => {
+    const { id, data, yField } = geometry;
+    // 百分比柱状图需要额外处理一次数据
+    const isPercent = isColumn(geometry) && geometry.isPercent;
+    const formatData = isPercent ? percent(data, yField, xField, yField) : data;
+    const view = findViewById(chart, id).data(formatData);
 
-      const tooltipOptions = isPercent
-        ? {
-            formatter: (datum: Datum) => ({
-              name: datum[geometry.seriesField] || yField,
-              value: (Number(datum[yField]) * 100).toFixed(2) + '%',
-            }),
-            ...tooltip,
-          }
-        : tooltip;
+    const tooltipOptions = isPercent
+      ? {
+          formatter: (datum: Datum) => ({
+            name: datum[geometry.seriesField] || yField,
+            value: (Number(datum[yField]) * 100).toFixed(2) + '%',
+          }),
+          ...tooltip,
+        }
+      : tooltip;
 
-      // 绘制图形
-      drawSingleGeometry({
-        chart: view,
-        options: {
-          xField,
-          yField,
-          tooltip: tooltipOptions,
-          geometryOption: geometry,
-        },
-      });
+    // 绘制图形
+    drawSingleGeometry({
+      chart: view,
+      options: {
+        xField,
+        yField,
+        tooltip: tooltipOptions,
+        geometryOption: geometry,
+      },
     });
+  });
   return params;
 }
 

@@ -11,8 +11,10 @@ export type PatternCfg = {
   strokeOpacity?: number;
   /** lines thickness. 描边粗细 */
   lineWidth?: number;
-  /** 图案以及背景色 */
+  /** 整个pattern 透明度 */
   opacity?: number;
+  /** 整个pattern 的旋转角度 */
+  rotation?: number;
   /** 贴图模式 */
   mode?: 'repeat' | 'no-repeat' | 'repeat-x' | 'repeat-y';
 };
@@ -35,17 +37,15 @@ export type DotPatternCfg = PatternCfg & {
 export type LinePatternCfg = PatternCfg & {
   /** pacing between lines. 线之间的距离 */
   spacing?: number;
-  /** lines rotation. */
-  rotation?: number;
 };
 
 /**
  * square pattern
  */
 export type SquarePatternCfg = PatternCfg & {
-  /** rotation */
-  rotation?: number;
+  /** 矩形的大小 */
   size?: number;
+  /** 矩形之间的间隔 */
   padding?: number;
   /** 是否交错，默认: true. 即 staggered squares. */
   isStagger?: boolean;

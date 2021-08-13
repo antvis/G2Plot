@@ -71,6 +71,20 @@ describe('basic funnel', () => {
     });
   });
 
+  describe('pyramid', () => {
+    test('transpose', () => {
+      funnel.update({
+        ...funnelOption,
+        shape: 'pyramid',
+      });
+
+      const geometry = funnel.chart.geometries[0];
+      expect(geometry.labelOption.cfg.layout.type).toBe('interval-adjust-position');
+      const shapeFields = geometry.getAttribute('shape').getFields();
+      expect(shapeFields[0]).toBe('pyramid');
+    });
+  });
+
   describe('transpose', () => {
     test('transpose', () => {
       funnel.update({

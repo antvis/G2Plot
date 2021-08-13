@@ -75,3 +75,23 @@ export function getSymbolsPosition(unitSize: number, isStagger: boolean): number
     : [[unitSize * (1 / 2), unitSize * (1 / 2)]];
   return symbolsPos;
 }
+
+/**
+ * 给整个 pattern贴图 做变换, 目前支持旋转
+ *
+ * @param pattern 整个贴图
+ * @param dpr  设备像素比
+ * @param rotation 旋转角度
+ */
+export function transformMatrix(dpr: number, rotation: number) {
+  const radian = (rotation * Math.PI) / 180;
+  const matrix = {
+    a: Math.cos(radian) * (1 / dpr),
+    b: Math.sin(radian) * (1 / dpr),
+    c: -Math.sin(radian) * (1 / dpr),
+    d: Math.cos(radian) * (1 / dpr),
+    e: 0,
+    f: 0,
+  };
+  return matrix;
+}

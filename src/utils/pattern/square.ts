@@ -1,6 +1,6 @@
 import { SquarePatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
-import { getUnitPatternSize, initCanvas, drawBackground, getSymbolsPosition } from './util';
+import { getUnitPatternSize, initCanvas, drawBackground, getSymbolsPosition, transformMatrix } from './util';
 
 /**
  * squarePattern 的 默认配置
@@ -26,24 +26,16 @@ export const defaultSquarePatternCfg = {
  * @param cfg squarePattern 的配置
  * @param x和y square的中心位置
  */
-function drawSquare(context: CanvasRenderingContext2D, cfg: SquarePatternCfg, x: number, y: number) {
-  const { stroke, size, fill, lineWidth, fillOpacity, rotation } = cfg;
-  const radians = (rotation % 360) * (Math.PI / 180);
+export function drawSquare(context: CanvasRenderingContext2D, cfg: SquarePatternCfg, x: number, y: number) {
+  const { stroke, size, fill, lineWidth, fillOpacity } = cfg;
 
   context.globalAlpha = fillOpacity;
   context.strokeStyle = stroke;
   context.lineWidth = lineWidth;
   context.fillStyle = fill;
-
-  // todo-suyun 控制旋转
-  // context.translate(x, y);
-  // context.rotate(radians);
-  // context.translate(-x, -y);
-  context.strokeRect(x - size / 2, y - size / 2, size, size);
   // 因为正方形绘制从左上角开始，所以x，y做个偏移
+  context.strokeRect(x - size / 2, y - size / 2, size, size);
   context.fillRect(x - size / 2, y - size / 2, size, size);
-  // reset to identity matrix 重制成单位矩阵
-  // context.setTransform(1, 0, 0, 1, 0, 0);
 }
 
 /**
@@ -52,7 +44,7 @@ function drawSquare(context: CanvasRenderingContext2D, cfg: SquarePatternCfg, x:
 export function createSquarePattern(cfg?: SquarePatternCfg): CanvasPattern {
   const squareCfg = deepAssign(defaultSquarePatternCfg, cfg);
 
-  const { size, padding, isStagger } = squareCfg;
+  const { size, padding, isStagger, rotation } = squareCfg;
 
   // 计算 画布大小，squares的位置
   const unitSize = getUnitPatternSize(size, padding, isStagger);
@@ -68,5 +60,13 @@ export function createSquarePattern(cfg?: SquarePatternCfg): CanvasPattern {
     drawSquare(ctx, squareCfg, x, y);
   }
 
-  return ctx.createPattern(canvas, squareCfg.mode);
+  const pattern = ctx.createPattern(canvas, squareCfg.mode);
+
+  if (pattern) {
+    const dpr = window?.devicePixelRatio || 2;
+    const matrix = transformMatrix(dpr, rotation);
+    pattern.setTransform(matrix);
+  }
+
+  return pattern;
 }

@@ -84,8 +84,14 @@ export function getSymbolsPosition(unitSize: number, isStagger: boolean): number
  * @param rotation 旋转角度
  */
 export function transformMatrix(dpr: number, rotation: number) {
-  const matrix = new DOMMatrix();
-  matrix.scaleSelf(1 / dpr); // 解决精度问题
-  matrix.rotateSelf(rotation);
+  const radian = (rotation * Math.PI) / 180;
+  const matrix = {
+    a: Math.cos(radian) * (1 / dpr),
+    b: Math.sin(radian) * (1 / dpr),
+    c: -Math.sin(radian) * (1 / dpr),
+    d: Math.cos(radian) * (1 / dpr),
+    e: 0,
+    f: 0,
+  };
   return matrix;
 }

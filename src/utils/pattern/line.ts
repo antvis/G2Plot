@@ -7,13 +7,12 @@ import { initCanvas, drawBackground, transformMatrix } from './util';
  */
 export const defaultLinePatternCfg = {
   rotation: 45,
-  spacing: 10,
+  spacing: 5,
   opacity: 1,
   backgroundColor: 'transparent',
   strokeOpacity: 1,
   stroke: '#FFF',
   lineWidth: 1,
-  mode: 'repeat',
 };
 
 /**
@@ -58,7 +57,7 @@ export function createLinePattern(cfg?: LinePatternCfg): CanvasPattern {
   drawBackground(ctx, lineCfg, width, height);
   drawLine(ctx, lineCfg, d);
 
-  const pattern = ctx.createPattern(canvas, lineCfg.mode);
+  const pattern = ctx.createPattern(canvas, 'repeat');
 
   if (pattern) {
     const dpr = window?.devicePixelRatio || 2;

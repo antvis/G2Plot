@@ -15,16 +15,14 @@ export type PatternCfg = {
   opacity?: number;
   /** 整个pattern 的旋转角度 */
   rotation?: number;
-  /** 贴图模式 */
-  mode?: 'repeat' | 'no-repeat' | 'repeat-x' | 'repeat-y';
 };
 
 /**
  * dot pattern
  */
 export type DotPatternCfg = PatternCfg & {
-  /** 点的半径大小, 默认: 4 */
-  radius?: number;
+  /** 点的大小, 默认: 4 */
+  size?: number;
   /** padding between dots, 默认: 4 */
   padding?: number;
   /** 是否交错，默认: true. 即 staggered dots. */

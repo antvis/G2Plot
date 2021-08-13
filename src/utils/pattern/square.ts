@@ -7,7 +7,7 @@ import { getUnitPatternSize, initCanvas, drawBackground, getSymbolsPosition, tra
  */
 export const defaultSquarePatternCfg = {
   size: 4,
-  padding: 1,
+  padding: 0,
   isStagger: true,
   backgroundColor: 'transparent',
   opacity: 1,
@@ -16,7 +16,6 @@ export const defaultSquarePatternCfg = {
   fillOpacity: 1,
   stroke: 'transparent',
   lineWidth: 0,
-  mode: 'repeat',
 };
 
 /**
@@ -60,7 +59,7 @@ export function createSquarePattern(cfg?: SquarePatternCfg): CanvasPattern {
     drawSquare(ctx, squareCfg, x, y);
   }
 
-  const pattern = ctx.createPattern(canvas, squareCfg.mode);
+  const pattern = ctx.createPattern(canvas, 'repeat');
 
   if (pattern) {
     const dpr = window?.devicePixelRatio || 2;

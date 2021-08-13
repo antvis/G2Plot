@@ -1,6 +1,6 @@
 import { Types } from '@antv/g2';
 import { isArray } from '@antv/util';
-import { flow, findGeometry } from '../../../utils';
+import { flow, findGeometry, deepAssign } from '../../../utils';
 import { getTooltipMapping } from '../../../utils/tooltip';
 import { Params } from '../../../core/adaptor';
 import { Datum, Data } from '../../../types/common';
@@ -51,7 +51,15 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
         color,
         style: funnelStyle,
       },
-      label,
+      // 使用 Interval 绘制的漏斗图，默认使用 'interval-adjust-position', 否则尖底漏斗图最后一行 label 错位
+      label: deepAssign(
+        {
+          layout: {
+            type: 'interval-adjust-position',
+          },
+        },
+        label
+      ),
       state,
     },
   });

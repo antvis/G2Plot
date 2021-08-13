@@ -12,7 +12,7 @@ export const defaultDotPatternCfg = {
   opacity: 1,
   rotation: 0,
   fill: '#FFF',
-  fillOpacity: 1,
+  fillOpacity: 0.5,
   stroke: 'transparent',
   lineWidth: 0,
   isStagger: true,

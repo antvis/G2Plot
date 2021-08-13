@@ -7,13 +7,13 @@ import { getUnitPatternSize, initCanvas, drawBackground, getSymbolsPosition, tra
  */
 export const defaultSquarePatternCfg = {
   size: 4,
-  padding: 0,
-  isStagger: true,
+  padding: 1,
+  isStagger: false,
   backgroundColor: 'transparent',
   opacity: 1,
   rotation: 0,
   fill: '#FFF',
-  fillOpacity: 1,
+  fillOpacity: 0.5,
   stroke: 'transparent',
   lineWidth: 0,
 };

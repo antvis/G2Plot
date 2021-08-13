@@ -25,8 +25,16 @@ const plot = new Column('container', {
   xField: '月份',
   seriesField: 'name',
   isGroup: true,
-  pattern: {
-    type: 'line',
+  pattern: ({ name }) => {
+    if (name === 'London') {
+      return {
+        type: 'line',
+      };
+    } else {
+      return {
+        type: 'dot',
+      };
+    }
   },
 });
 

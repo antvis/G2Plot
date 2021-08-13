@@ -72,7 +72,7 @@ describe('mix', () => {
   });
 
   it('views, setState', () => {
-    const plot = new Mix('container', {
+    const plot = new Mix(createDiv(), {
       tooltip: false,
       views: [
         {

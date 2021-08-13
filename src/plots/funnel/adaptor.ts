@@ -41,9 +41,6 @@ function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
           offset: 0,
           position: 'middle',
           formatter: (datum) => `${datum[xField]} ${datum[yField]}`,
-          layout: {
-            type: 'interval-adjust-position',
-          },
         },
     tooltip: {
       title: xField,

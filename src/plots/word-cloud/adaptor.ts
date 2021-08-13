@@ -6,6 +6,7 @@ import { point } from '../../adaptor/geometries';
 import { WordCloudOptions } from './types';
 import { transform } from './utils';
 import { WORD_CLOUD_COLOR_FIELD } from './constant';
+
 /**
  * geometry 配置处理
  * @param params

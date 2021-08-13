@@ -87,6 +87,18 @@ export function transformOptions(params: Params<DualAxesOptions>): Params<DualAx
 }
 
 /**
+ * 创建 双轴图 中绘制图形的 view，提前创建是因为 theme 适配器的需要
+ * @param params
+ */
+function createViews(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
+  const { chart } = params;
+
+  [LEFT_AXES_VIEW, RIGHT_AXES_VIEW].forEach((id) => chart.createView({ id }));
+
+  return params;
+}
+
+/**
  * 绘制图形
  * @param params
  */
@@ -110,7 +122,7 @@ function geometry(params: Params<DualAxesOptions>): Params<DualAxesOptions> {
       // 百分比柱状图需要额外处理一次数据
       const isPercent = isColumn(geometry) && geometry.isPercent;
       const formatData = isPercent ? percent(data, yField, xField, yField) : data;
-      const view = chart.createView({ id }).data(formatData);
+      const view = findViewById(chart, id).data(formatData);
 
       const tooltipOptions = isPercent
         ? {
@@ -474,6 +486,9 @@ export function adaptor(params: Params<DualAxesOptions>): Params<DualAxesOptions
   // transformOptions 一定在最前面处理；color legend 使用了 beforepaint，为便于理解放在最后面
   return flow(
     transformOptions,
+    createViews,
+    // 主题靠前设置，作为最低优先级
+    theme,
     geometry,
     meta,
     axis,
@@ -481,7 +496,6 @@ export function adaptor(params: Params<DualAxesOptions>): Params<DualAxesOptions
     tooltip,
     interaction,
     annotation,
-    theme,
     animation,
     color,
     legend,

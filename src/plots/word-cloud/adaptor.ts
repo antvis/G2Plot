@@ -5,7 +5,7 @@ import { flow, deepAssign } from '../../utils';
 import { point } from '../../adaptor/geometries';
 import { WordCloudOptions } from './types';
 import { transform } from './utils';
-
+import { WORD_CLOUD_COLOR_FIELD } from './constant';
 /**
  * geometry 配置处理
  * @param params
@@ -21,7 +21,7 @@ function geometry(params: Params<WordCloudOptions>): Params<WordCloudOptions> {
     options: {
       xField: 'x',
       yField: 'y',
-      seriesField: colorField && 'color',
+      seriesField: colorField && WORD_CLOUD_COLOR_FIELD,
       rawFields: isFunction(color) && [...get(options, 'rawFields', []), 'datum'],
       point: {
         color,
@@ -63,7 +63,7 @@ export function legend(params: Params<WordCloudOptions>): Params<WordCloudOption
   if (legend === false) {
     chart.legend(false);
   } else if (colorField) {
-    chart.legend('color', legend);
+    chart.legend(WORD_CLOUD_COLOR_FIELD, legend);
   }
 
   return params;

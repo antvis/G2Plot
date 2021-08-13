@@ -2,8 +2,11 @@ import { Plot } from '../../core/plot';
 import { Datum } from '../../types';
 import { deepAssign } from '../../utils';
 
+/** 词云图 color 通道映射字段 */
+export const WORD_CLOUD_COLOR_FIELD = 'color';
+
 /**
- * 旭日图 默认配置项
+ * 词云图 默认配置项
  */
 export const DEFAULT_OPTIONS = deepAssign({}, Plot.getDefaultOptions(), {
   timeInterval: 2000,
@@ -12,7 +15,7 @@ export const DEFAULT_OPTIONS = deepAssign({}, Plot.getDefaultOptions(), {
     showTitle: false,
     showMarkers: false,
     showCrosshairs: false,
-    fields: ['text', 'value', 'color'],
+    fields: ['text', 'value', WORD_CLOUD_COLOR_FIELD],
     formatter: (datum: Datum) => {
       return { name: datum.text, value: datum.value };
     },

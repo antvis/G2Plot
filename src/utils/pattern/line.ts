@@ -1,6 +1,6 @@
 import { LinePatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
-import { initCanvas, drawBackground, transformMatrix } from './util';
+import { initCanvas, drawBackground, transformMatrix, getPixelRatio } from './util';
 
 /**
  * linePattern 的 默认配置
@@ -60,7 +60,7 @@ export function createLinePattern(cfg?: LinePatternCfg): CanvasPattern {
   const pattern = ctx.createPattern(canvas, 'repeat');
 
   if (pattern) {
-    const dpr = window?.devicePixelRatio || 2;
+    const dpr = getPixelRatio();
     const matrix = transformMatrix(dpr, rotation);
     pattern.setTransform(matrix);
   }

@@ -14,10 +14,10 @@
       "screenshot": ""
     },
     {
-      "filename": "pie-pattern-callback.ts",
+      "filename": "legend-marker-with-pattern.ts",
       "title": {
-        "zh": "带贴图图案的饼图(回调方式)",
-        "en": "Pie plot with pattern callback"
+        "zh": "图例 marker 设置贴图图案",
+        "en": "Custom legend marker with pattern"
       },
       "new": true,
       "screenshot": ""

@@ -11,12 +11,8 @@ const data = [
 
 const pattern = (datum, color) =>
   getCanvasPattern({
-    type: 'dot',
+    type: datum.type === '其他' ? 'dot' : 'line',
     cfg: {
-      radius: datum.type === '其他' ? 1 : 2,
-      padding: 4,
-      mode: 'repeat',
-      stroke: 'transparent',
       backgroundColor: datum.type === '其他' ? '#014c63' : color,
     },
   });
@@ -26,8 +22,15 @@ const plot = new Pie('container', {
   data,
   angleField: 'value',
   colorField: 'type',
-  radius: 0.9,
-  label: false,
+  radius: 0.6,
+  label: {
+    type: 'outer',
+    offset: '20%',
+    content: ({ percent }) => `${(percent * 100).toFixed(0)}%`,
+    style: {
+      fontSize: 12,
+    },
+  },
   pieStyle: {
     lineWidth: 1,
   },
@@ -37,7 +40,7 @@ const plot = new Pie('container', {
       const color = item.style.fill;
       return {
         style: {
-          fill: text === '其他' ? pattern({ type: text }, color) : color,
+          fill: pattern({ type: text }, color),
         },
       };
     },

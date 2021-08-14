@@ -10,7 +10,7 @@ export const defaultLinePatternCfg = {
   spacing: 5,
   opacity: 1,
   backgroundColor: 'transparent',
-  strokeOpacity: 1,
+  strokeOpacity: 0.5,
   stroke: '#FFF',
   lineWidth: 1,
 };

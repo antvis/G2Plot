@@ -16,7 +16,7 @@ const plot = new RadialBar('container', {
   xField: 'name',
   yField: 'star',
   // color 字段，可不设置
-  // colorField: 'name',
+  colorField: 'name',
   radius: 0.8,
   innerRadius: 0.2,
   tooltip: {
@@ -27,10 +27,10 @@ const plot = new RadialBar('container', {
   pattern: {
     type: 'dot',
     cfg: {
-      radius: 2,
-      padding: 8,
+      size: 4,
+      padding: 2,
       // dot 不进行交错
-      isStagger: false,
+      isStagger: true,
     },
   },
 });

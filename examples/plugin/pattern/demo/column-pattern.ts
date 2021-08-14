@@ -14,9 +14,12 @@ const plot = new Column('container', {
   yField: 'value',
   xField: 'type',
   pattern: {
-    type: 'dot',
+    type: 'line',
     cfg: {
-      mode: 'repeat',
+      spacing: 6,
+      lineWidth: 2,
+      strokeOpacity: 0.5,
+      rotation: 45,
     },
   },
 });

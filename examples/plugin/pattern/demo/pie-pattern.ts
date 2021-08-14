@@ -14,22 +14,13 @@ const plot = new Pie('container', {
   data,
   angleField: 'value',
   colorField: 'type',
-  radius: 0.9,
-  label: {
-    type: 'inner',
-    offset: '-30%',
-    content: ({ percent }) => `${(percent * 100).toFixed(0)}%`,
-    style: {
-      fontSize: 14,
-      textAlign: 'center',
-    },
-  },
+  radius: 0.6,
+  label: false,
   pattern: {
     type: 'dot',
     cfg: {
-      radius: 2,
-      padding: 10,
-      mode: 'repeat',
+      size: 4,
+      padding: 5,
     },
   },
   interactions: [{ type: 'element-active' }],

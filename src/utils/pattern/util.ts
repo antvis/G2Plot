@@ -1,12 +1,19 @@
 import { PatternCfg } from '../../types/pattern';
 
 /**
+ * 获取设备像素比
+ */
+export function getPixelRatio(): number {
+  return typeof window === 'object' ? window?.devicePixelRatio : 2;
+}
+
+/**
  * 初始化 cavnas，设置宽高等
  */
 export function initCanvas(width: number, height: number = width): HTMLCanvasElement {
   const canvas = document.createElement('canvas');
 
-  const pixelRatio = window?.devicePixelRatio || 2;
+  const pixelRatio = getPixelRatio();
   // 画布尺寸
   canvas.width = width * pixelRatio;
   canvas.height = height * pixelRatio;

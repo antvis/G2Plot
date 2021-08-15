@@ -13,9 +13,9 @@ import {
  * squarePattern 的 默认配置
  */
 export const defaultSquarePatternCfg = {
-  size: 4,
-  padding: 1,
-  isStagger: false,
+  size: 5,
+  padding: 0,
+  isStagger: true,
   backgroundColor: 'transparent',
   opacity: 1,
   rotation: 0,

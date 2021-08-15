@@ -497,9 +497,9 @@ describe('color callback', () => {
   plot.render();
 
   it('color callback apply to multi-column, and single line', () => {
-    // @ts-ignore
     const markers = plot.chart
       .getController('legend')
+      // @ts-ignore
       .components[0].component.get('container')
       .findAllByName('legend-item-marker');
     expect(markers[0].attr('fill')).toBe('red');

@@ -33,9 +33,9 @@ describe('DualAxes: color callback will cause marker stroke error', () => {
   plot.render();
 
   it('no seriesField', async () => {
-    // @ts-ignore
     const markers = plot.chart
       .getController('legend')
+      // @ts-ignore
       .components[0].component.get('container')
       .findAllByName('legend-item-marker');
     expect(markers[0].attr('stroke')).toBe('green');

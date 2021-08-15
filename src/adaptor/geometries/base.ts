@@ -69,7 +69,7 @@ export function getMappingField(
   field: 'color' | 'shape' | 'size' | 'style'
 ): {
   mappingFields: string[];
-  tileMappingFields: string;
+  tileMappingField: string;
 } {
   const { type, xField, yField, colorField, shapeField, sizeField, styleField, rawFields = [] } = o;
 
@@ -103,11 +103,11 @@ export function getMappingField(
    * eg:
    *   geometry.color(xField, ()=> '#f24')
    */
-  const tileMappingFields =
+  const tileMappingField =
     type === 'line' && [xField, yField].includes(mappingFields.join('*')) ? '' : mappingFields.join('*');
   return {
     mappingFields,
-    tileMappingFields,
+    tileMappingField,
   };
 }
 
@@ -162,8 +162,8 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
   if (isString(color)) {
     colorField ? geometry.color(colorField, color) : geometry.color(color);
   } else if (isFunction(color)) {
-    const { mappingFields, tileMappingFields } = getMappingField(options, 'color');
-    geometry.color(tileMappingFields, getMappingFunction(mappingFields, color));
+    const { mappingFields, tileMappingField } = getMappingField(options, 'color');
+    geometry.color(tileMappingField, getMappingFunction(mappingFields, color));
   } else {
     colorField && geometry.color(colorField, color);
   }
@@ -178,8 +178,8 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
   if (isString(shape)) {
     shapeField ? geometry.shape(shapeField, [shape]) : geometry.shape(shape); // [shape] 需要在 G2 做掉
   } else if (isFunction(shape)) {
-    const { mappingFields, tileMappingFields } = getMappingField(options, 'shape');
-    geometry.shape(tileMappingFields, getMappingFunction(mappingFields, shape));
+    const { mappingFields, tileMappingField } = getMappingField(options, 'shape');
+    geometry.shape(tileMappingField, getMappingFunction(mappingFields, shape));
   } else {
     shapeField && geometry.shape(shapeField, shape);
   }
@@ -194,8 +194,8 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
   if (isNumber(size)) {
     sizeField ? geometry.size(sizeField, size) : geometry.size(size);
   } else if (isFunction(size)) {
-    const { mappingFields, tileMappingFields } = getMappingField(options, 'size');
-    geometry.size(tileMappingFields, getMappingFunction(mappingFields, size));
+    const { mappingFields, tileMappingField } = getMappingField(options, 'size');
+    geometry.size(tileMappingField, getMappingFunction(mappingFields, size));
   } else {
     sizeField && geometry.size(sizeField, size);
   }
@@ -206,8 +206,8 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
    * g.style('x*y*color', (x, y, color) => ({ fill: 'red' }));
    */
   if (isFunction(style)) {
-    const { mappingFields, tileMappingFields } = getMappingField(options, 'style');
-    geometry.style(tileMappingFields, getMappingFunction(mappingFields, style));
+    const { mappingFields, tileMappingField } = getMappingField(options, 'style');
+    geometry.style(tileMappingField, getMappingFunction(mappingFields, style));
   } else if (isObject(style)) {
     geometry.style(style);
   }

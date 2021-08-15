@@ -6,7 +6,7 @@ import { deepAssign } from '../utils';
 /**
  * 使用 Pattern 通道的 options，要求有 colorField、seriesField 作为分类字段（进行颜色映射）
  */
-type OptionsRequiredInPattern = Options & {
+type OptionsRequiredInPattern = Omit<Options, 'data'> & {
   colorField?: string;
   seriesField?: string;
 };
@@ -33,7 +33,7 @@ export function pattern(key: string) {
     const style: StyleAttr = (datum?: Datum, ...args: any[]) => {
       let color = chart.getTheme().defaultColor;
 
-      const colorMapping = chart.geometries[0].getAttribute('color')?.callback;
+      const colorMapping = chart.geometries?.[0]?.getAttribute('color')?.callback;
       if (typeof colorMapping === 'function') {
         color = colorMapping(datum?.[colorField] || datum?.[seriesField]);
       }

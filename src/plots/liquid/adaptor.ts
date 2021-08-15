@@ -1,6 +1,7 @@
 import { Geometry } from '@antv/g2';
 import { get, isNil } from '@antv/util';
 import { interaction, animation, theme, scale } from '../../adaptor/common';
+import { pattern } from '../../adaptor/pattern';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign, renderStatistic } from '../../utils';
 import { interval } from '../../adaptor/geometries';
@@ -97,5 +98,5 @@ export function statistic(params: Params<LiquidOptions>, updated?: boolean): Par
  */
 export function adaptor(params: Params<LiquidOptions>) {
   // flow 的方式处理所有的配置到 G2 API (主题前置，会影响绘制的取色)
-  return flow(theme, geometry, statistic, scale({}), animation, interaction)(params);
+  return flow(theme, pattern('liquidStyle'), geometry, statistic, scale({}), animation, interaction)(params);
 }

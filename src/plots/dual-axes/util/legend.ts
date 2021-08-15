@@ -17,11 +17,13 @@ export function getViewLegendItems(params: {
 }) {
   const { view, geometryOption, yField, legend } = params;
   const userMarker = get(legend, 'marker');
+
   const geometry = findGeometry(view, isLine(geometryOption) ? 'line' : 'interval');
   if (!geometryOption.seriesField) {
+    const legendItemName = get(view, `options.scales.${yField}.alias`) || yField;
     // 返回 g2 设置的图例
     const colorAttribute = geometry.getAttribute('color');
-    const color = colorAttribute.values[0];
+    const color = Util.getMappingValue(colorAttribute, legendItemName, colorAttribute.values[0]);
 
     const marker =
       (isFunction(userMarker)
@@ -60,7 +62,7 @@ export function getViewLegendItems(params: {
     return [
       {
         value: yField,
-        name: get(view, `options.scales.${yField}.alias`) || yField,
+        name: legendItemName,
         marker,
         isGeometry: true,
         viewId: view.id,

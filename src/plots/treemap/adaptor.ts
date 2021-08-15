@@ -2,6 +2,7 @@ import { get } from '@antv/util';
 import { polygon as basePolygon } from '../../adaptor/geometries/polygon';
 import { Params } from '../../core/adaptor';
 import { interaction as commonInteraction, animation, theme, legend, annotation, tooltip } from '../../adaptor/common';
+import { pattern } from '../../adaptor/pattern';
 import { flow, deepAssign } from '../../utils';
 import { getAdjustAppendPadding } from '../../utils/padding';
 import { transformData, findInteraction, enableDrillInteraction } from './utils';
@@ -145,5 +146,16 @@ export function interaction(params: Params<TreemapOptions>): Params<TreemapOptio
  * @param options
  */
 export function adaptor(params: Params<TreemapOptions>) {
-  return flow(defaultOptions, theme, geometry, axis, legend, tooltip, interaction, animation, annotation())(params);
+  return flow(
+    defaultOptions,
+    theme,
+    pattern('rectStyle'),
+    geometry,
+    axis,
+    legend,
+    tooltip,
+    interaction,
+    animation,
+    annotation()
+  )(params);
 }

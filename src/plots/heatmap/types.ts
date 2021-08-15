@@ -16,10 +16,14 @@ export interface HeatmapOptions extends Options {
   readonly shape?: string;
   /** 热力格子中图形的尺寸比例，可选，只有当 shape 和 sizeField 至少指定一项后才生效 */
   readonly sizeRatio?: number;
-  /** 热力图形样式 */
-  readonly heatmapStyle?: StyleAttr;
   /** 坐标轴映射 */
   readonly reflect?: 'x' | 'y';
   /** 极坐标属性 */
   readonly coordinate?: Types.CoordinateOption;
+
+  // 样式相关
+  /** 热力图形样式 */
+  readonly heatmapStyle?: StyleAttr;
+  /** 贴图图案, 在 type="density" 时不支持 */
+  readonly pattern?: Options['pattern'];
 }

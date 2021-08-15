@@ -8,7 +8,15 @@
       "filename": "basic-column.ts",
       "title": {
         "zh": "基础迷你柱形图",
-        "en": "Basic column plot"
+        "en": "Tiny column plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*tLNqQpXbZWgAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "tiny-column-pattern.ts",
+      "title": {
+        "zh": "带贴图迷你柱形图",
+        "en": "Tiny column plot with pattern"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*tLNqQpXbZWgAAAAAAAAAAAAAARQnAQ"
     },

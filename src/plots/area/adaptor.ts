@@ -1,6 +1,6 @@
 import { Geometry } from '@antv/g2';
 import { each } from '@antv/util';
-import { tooltip, slider, interaction, animation, theme, annotation, limitInPlot } from '../../adaptor/common';
+import { tooltip, slider, interaction, animation, theme, annotation, limitInPlot, pattern } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
 import { Params } from '../../core/adaptor';
 import { area, point, line } from '../../adaptor/geometries';
@@ -134,10 +134,11 @@ function adjust(params: Params<AreaOptions>): Params<AreaOptions> {
 export function adaptor(params: Params<AreaOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
+    theme,
+    pattern('areaStyle'),
     geometry,
     meta,
     adjust,
-    theme,
     axis,
     legend,
     tooltip,

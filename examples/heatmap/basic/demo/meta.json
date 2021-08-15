@@ -13,6 +13,14 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*55KOQI2EhVUAAAAAAAAAAAAAARQnAQ"
     },
     {
+      "filename": "pattern.ts",
+      "title": {
+        "zh": "带贴图热力图",
+        "en": "Basic heatmap plot with pattern"
+      },
+      "screenshot": ""
+    },
+    {
       "filename": "shape.ts",
       "title": {
         "zh": "热力形状图",

@@ -48,7 +48,7 @@ export function drawSquare(context: CanvasRenderingContext2D, cfg: SquarePattern
  * 创建 squarePattern
  */
 export function createSquarePattern(cfg?: SquarePatternCfg): CanvasPattern {
-  const squareCfg = deepAssign(defaultSquarePatternCfg, cfg);
+  const squareCfg = deepAssign({}, defaultSquarePatternCfg, cfg);
 
   const { size, padding, isStagger, rotation } = squareCfg;
 

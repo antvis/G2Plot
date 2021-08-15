@@ -26,6 +26,7 @@ module.exports = {
     galleryMenuCloseAll: true,
     showChartResize: true, // 是否在demo页展示图表视图切换
     showAPIDoc: true, // 是否在demo页展示API文档
+    showExampleDemoTitle: true, // demo 页截图展示 title
     themeSwitcher: 'g2plot',
     playground: {
       extraLib: '',

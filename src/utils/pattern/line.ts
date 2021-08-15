@@ -7,7 +7,7 @@ import { initCanvas, drawBackground, transformMatrix, getPixelRatio } from './ut
  */
 export const defaultLinePatternCfg = {
   rotation: 45,
-  spacing: 5,
+  spacing: 4,
   opacity: 1,
   backgroundColor: 'transparent',
   strokeOpacity: 0.5,
@@ -28,7 +28,7 @@ export function drawLine(context: CanvasRenderingContext2D, cfg: LinePatternCfg,
 
   context.globalAlpha = strokeOpacity;
   context.lineCap = 'square';
-  context.strokeStyle = stroke;
+  context.strokeStyle = lineWidth ? stroke : 'transparent';
   context.lineWidth = lineWidth;
   context.stroke(path);
 }
@@ -39,11 +39,11 @@ export function drawLine(context: CanvasRenderingContext2D, cfg: LinePatternCfg,
 export function createLinePattern(cfg?: LinePatternCfg): CanvasPattern {
   const lineCfg = deepAssign({}, defaultLinePatternCfg, cfg);
 
-  const { spacing, rotation } = lineCfg;
+  const { spacing, rotation, lineWidth } = lineCfg;
 
   // 计算 pattern 画布的大小， path 所需的 d
-  const width = spacing;
-  const height = spacing;
+  const width = spacing + lineWidth || 1;
+  const height = spacing + lineWidth || 1;
   const d = `
             M 0 0 L ${width} 0
             M 0 ${height} L ${width} ${height}

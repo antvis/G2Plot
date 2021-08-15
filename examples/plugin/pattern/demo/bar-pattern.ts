@@ -14,12 +14,6 @@ const PATTERN_MAP = {
   },
   分类二: {
     type: 'square',
-    cfg: {
-      size: 5,
-      padding: 0,
-      rotation: 0,
-      isStagger: true,
-    },
   },
   分类三: {
     type: 'line',
@@ -27,7 +21,7 @@ const PATTERN_MAP = {
   分类四: {
     type: 'square',
     cfg: {
-      size: 5,
+      size: 4,
       padding: 1,
       rotation: 45,
       isStagger: false,
@@ -36,7 +30,7 @@ const PATTERN_MAP = {
   分类五: {
     type: 'line',
     cfg: {
-      spacing: 6,
+      spacing: 3,
       lineWidth: 2,
       rotation: 90,
     },

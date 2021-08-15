@@ -60,13 +60,14 @@ describe('utils: square pattern', () => {
       size: 15,
       fill: '#ff0000',
       stroke: '#00ff00',
-      lineWidth: 2,
+      lineWidth: 4,
     });
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawSquare(ctx, cfg as SquarePatternCfg, width / 2, height / 2);
     // 传入的是呈现的位置
     expect(getPixelColor(canvas, width / 2, height / 2).hex).toEqual('#ff0000');
-    expect(getPixelColor(canvas, width / 2 + cfg.size / 2, height / 2).hex).toEqual('#00ff00');
+    // 描边
+    expect(getPixelColor(canvas, width / 2 + cfg.size / 2 + 1, height / 2).hex).toEqual('#00ff00');
     expect(getPixelColor(canvas, width / 2 + cfg.size / 2 + 5, height / 2 + cfg.size / 2).hex).toEqual('#000000');
   });
 });

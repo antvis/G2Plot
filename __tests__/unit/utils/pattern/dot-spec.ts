@@ -18,19 +18,19 @@ describe('utils: dot pattern', () => {
 
   it('dotUnitPattern with fill', () => {
     const cfg = deepAssign(defaultDotPatternCfg, {
-      // radius: 4, // 默认
+      // size: 4, // 默认
       fill: '#898989',
-    });
+    }) as DotPatternCfg;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawDot(ctx, cfg as DotPatternCfg, width / 2, height / 2);
     // 传入的是呈现的位置
     expect(getPixelColor(canvas, width / 2, height / 2).hex).toEqual('#898989');
-    expect(getPixelColor(canvas, width / 2 + cfg.radius, height / 2 + cfg.radius).hex).toEqual('#000000'); // 超出圆范围, 像素点在右下方
+    expect(getPixelColor(canvas, width / 2 + cfg.size / 2, height / 2 + cfg.size / 2).hex).toEqual('#000000'); // 超出圆范围, 像素点在右下方
   });
 
   it('dotUnitPattern with fillOpacity', () => {
     const cfg = deepAssign(defaultDotPatternCfg, {
-      // radius: 4, // 默认
+      // size: 4, // 默认
       fill: '#898989',
       fillOpacity: 0.5,
     });
@@ -38,27 +38,29 @@ describe('utils: dot pattern', () => {
     drawDot(ctx, cfg as DotPatternCfg, width / 2, height / 2);
     // 传入的是呈现的位置
     expect(getPixelColor(canvas, width / 2, height / 2).alpha.toPrecision(1)).toEqual(`${0.5}`);
-    expect(getPixelColor(canvas, width / 2 + cfg.radius, height / 2 + cfg.radius).alpha.toPrecision(1)).toEqual(`${0}`); // 透明度为0
+    expect(getPixelColor(canvas, width / 2 + cfg.size / 2, height / 2 + cfg.size / 2).alpha.toPrecision(1)).toEqual(
+      `${0}`
+    ); // 透明度为0
   });
 
-  it('dotUnitPattern with radius', () => {
-    const radius = 15;
+  it('dotUnitPattern with size', () => {
+    const size = 30;
     const cfg = deepAssign(defaultDotPatternCfg, {
       fill: '#ff0000',
       fillOpacity: 1,
-      radius,
+      size,
     });
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawDot(ctx, cfg as DotPatternCfg, width / 2, height / 2);
     // 传入的是呈现的位置
     expect(getPixelColor(canvas, width / 2, height / 2).hex).toEqual('#ff0000');
-    expect(getPixelColor(canvas, width / 2 + radius - 1, height / 2).hex).toEqual('#ff0000'); // 圆的边界
-    expect(getPixelColor(canvas, width / 2 + radius, height / 2).hex).toEqual('#000000');
+    expect(getPixelColor(canvas, width / 2 + size / 2 - 1, height / 2).hex).toEqual('#ff0000'); // 圆的边界
+    expect(getPixelColor(canvas, width / 2 + size / 2, height / 2).hex).toEqual('#000000');
   });
 
   it('dotUnitPattern with stroke and lineWidth', () => {
     const cfg = deepAssign(defaultDotPatternCfg, {
-      radius: 10,
+      size: 20,
       fill: '#ff0000',
       stroke: '#00ff00',
       lineWidth: 2,
@@ -67,7 +69,7 @@ describe('utils: dot pattern', () => {
     drawDot(ctx, cfg as DotPatternCfg, width / 2, height / 2);
     // 传入的是呈现的位置
     expect(getPixelColor(canvas, width / 2, height / 2).hex).toEqual('#ff0000');
-    expect(getPixelColor(canvas, width / 2 + cfg.radius, height / 2).hex).toEqual('#00ff00');
-    expect(getPixelColor(canvas, width / 2 + cfg.radius, height / 2 + cfg.radius).hex).toEqual('#000000');
+    expect(getPixelColor(canvas, width / 2 + cfg.size / 2, height / 2).hex).toEqual('#00ff00');
+    expect(getPixelColor(canvas, width / 2 + cfg.size / 2, height / 2 + cfg.size / 2).hex).toEqual('#000000');
   });
 });

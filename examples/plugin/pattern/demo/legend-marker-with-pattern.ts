@@ -35,7 +35,6 @@ const plot = new Pie('container', {
     lineWidth: 1,
   },
   legend: {
-    // 缺少文档
     marker: (text, index, item) => {
       const color = item.style.fill;
       return {

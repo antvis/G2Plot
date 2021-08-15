@@ -1,4 +1,5 @@
-import { Bar } from '@antv/g2plot';
+import { Bar, getCanvasPattern } from '@antv/g2plot';
+import { deepMix } from '@antv/util';
 
 const data = [
   { type: '分类一', value: 27 },
@@ -41,12 +42,25 @@ const PATTERN_MAP = {
     },
   },
 };
+const pattern = ({ type }, color) =>
+  getCanvasPattern(deepMix({}, PATTERN_MAP[type], { cfg: { backgroundColor: color } }));
+
 const plot = new Bar('container', {
   data,
   xField: 'value',
   yField: 'type',
   // 可不设置
   seriesField: 'type',
+  legend: {
+    marker: (text, index, item) => {
+      const color = item.style.fill;
+      return {
+        style: {
+          fill: pattern({ type: text }, color),
+        },
+      };
+    },
+  },
   pattern: ({ type }) => {
     return PATTERN_MAP[type] || { type: 'dot' };
   },

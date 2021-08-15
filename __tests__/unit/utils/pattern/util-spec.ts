@@ -16,8 +16,10 @@ describe('utils', () => {
   it('initCanvas', () => {
     canvas = initCanvas(width, height);
     document.body.appendChild(canvas);
-    expect(canvas.width).toBe(60);
-    expect(canvas.height).toBe(60);
+
+    const dpr = window?.devicePixelRatio || 1;
+    expect(canvas.width).toBe(dpr * 30);
+    expect(canvas.height).toBe(dpr * 30);
   });
 
   it('getPixelColor', () => {

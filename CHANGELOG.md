@@ -1,3 +1,10 @@
+#### 2.3.31 (2021-08-16)
+
+##### Bug Fixes
+
+* **dual-axes:**  修复双轴图使用 color 回调时，legend marker 颜色丢失 ([#2800](https://github.com/antvis/g2plot/pull/2800)) ([a45dbdb4](https://github.com/antvis/g2plot/commit/a45dbdb448deb0017ef460ca7d4f9dd3dd900ead))
+*  **line:** 修复无拆分时折线图 color 回调报错 ([#2751](https://github.com/antvis/g2plot/pull/2751)) ([4215408f](https://github.com/antvis/g2plot/commit/4215408f5ff2b31123ea9affd8310cfc7d7395b9))
+
 #### 2.3.30 (2021-08-13)
 
 ##### Documentation Changes

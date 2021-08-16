@@ -61,6 +61,8 @@ Whether the plot is Percent Bar. When isPercent is `true`, isStack must be `true
 
 `markdown:docs/common/color.en.md`
 
+`markdown:docs/common/pattern.en.md`
+
 `markdown:docs/common/bar-style.en.md`
 
 #### barWidthRatio

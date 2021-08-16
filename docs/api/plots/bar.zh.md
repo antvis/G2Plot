@@ -61,6 +61,8 @@ order: 3
 
 `markdown:docs/common/color.zh.md`
 
+`markdown:docs/common/pattern.zh.md`
+
 `markdown:docs/common/bar-style.en.md`
 
 #### barWidthRatio

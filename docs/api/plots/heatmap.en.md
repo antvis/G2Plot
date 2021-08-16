@@ -49,6 +49,8 @@ Axis mapping.
 
 `markdown:docs/common/color.en.md`
 
+`markdown:docs/common/pattern.en.md`
+
 #### shape
 
 <description>**optional** _rect | square | circle_</description>

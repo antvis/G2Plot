@@ -49,6 +49,8 @@ order: 23
 
 `markdown:docs/common/color.zh.md`
 
+`markdown:docs/common/pattern.zh.md`
+
 #### shape
 
 <description>**可选** _rect | square | circle_</description>

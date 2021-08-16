@@ -66,6 +66,8 @@ Column style configuration.
 
 `markdown:docs/common/color.en.md`
 
+`markdown:docs/common/pattern.en.md`
+
 #### state
 
 <description>**optional** _object_</description>

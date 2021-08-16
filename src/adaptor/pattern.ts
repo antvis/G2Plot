@@ -1,3 +1,4 @@
+import { isArray } from '@antv/util';
 import { getCanvasPattern } from '../utils/pattern';
 import { Params } from '../core/adaptor';
 import { Datum, Options, StyleAttr } from '../types';
@@ -38,6 +39,9 @@ export function pattern(key: string) {
         color = colorMapping(datum?.[colorField] || datum?.[seriesField]);
       }
 
+      // 处理color返回为数组的情况
+      color = isArray(color) ? color[0] : color;
+
       let pattern: CanvasPattern = patternOption as CanvasPattern;
 
       // 1. 如果 patternOption 是一个回调，则获取回调结果。`(datum: Datum, color: string) => CanvasPattern`
@@ -50,7 +54,6 @@ export function pattern(key: string) {
         // 通过 createPattern(PatternStyle) 转换为 CanvasPattern
         pattern = getCanvasPattern(deepAssign({}, { cfg: { backgroundColor: color } }, pattern));
       }
-      console.log(pattern, ' pattern');
 
       const styleOption = options[key] as StyleAttr;
 

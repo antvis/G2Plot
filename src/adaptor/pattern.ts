@@ -50,12 +50,13 @@ export function pattern(key: string) {
         // 通过 createPattern(PatternStyle) 转换为 CanvasPattern
         pattern = getCanvasPattern(deepAssign({}, { cfg: { backgroundColor: color } }, pattern));
       }
+      console.log(pattern, ' pattern');
 
       const styleOption = options[key] as StyleAttr;
 
       return {
         ...(typeof styleOption === 'function' ? styleOption.call(this, datum, ...args) : styleOption || {}),
-        fill: pattern,
+        fill: pattern || color,
       };
     };
 

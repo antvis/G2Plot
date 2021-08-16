@@ -61,6 +61,8 @@ Whether to percent columns, if isPercent is true, isStack also needs to be true.
 
 `markdown:docs/common/color.en.md`
 
+`markdown:docs/common/pattern.en.md`
+
 `markdown:docs/common/column-style.en.md`
 
 #### columnWidthRatio

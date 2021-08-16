@@ -63,6 +63,8 @@ order: 2
 
 `markdown:docs/common/color.zh.md`
 
+`markdown:docs/common/pattern.zh.md`
+
 `markdown:docs/common/column-style.zh.md`
 
 #### columnWidthRatio

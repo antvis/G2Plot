@@ -185,4 +185,46 @@ describe('color', () => {
     });
     dualAxes.destroy();
   });
+
+  it('seriesField:null , color: callback or array ', () => {
+    // 缺少分组时 color 为数组或回调
+
+    const data = [
+      { time: '2019-03', value: 350, count: 800 },
+      { time: '2019-04', value: 900, count: 600 },
+      { time: '2019-05', value: 300, count: 400 },
+      { time: '2019-06', value: 450, count: 380 },
+      { time: '2019-07', value: 470, count: 220 },
+    ];
+
+    const dualAxes = new DualAxes(createDiv('color: userOption'), {
+      width: 400,
+      height: 500,
+      data: [data, data],
+      xField: 'time',
+      yField: ['value', 'count'],
+      geometryOptions: [
+        {
+          geometry: 'column',
+          color: (data) => {
+            return data.time === '2019-03' ? 'red' : 'yellow';
+          },
+        },
+        {
+          geometry: 'line',
+        },
+      ],
+    });
+    dualAxes.render();
+
+    const markers = dualAxes.chart
+      .getController('legend')
+      // @ts-ignore
+      .components[0].component.get('container')
+      .findAllByName('legend-item-marker');
+    expect(markers[0].attr('fill')).toBe('red');
+    expect(markers[1].attr('fill')).toBe('yellow');
+
+    dualAxes.destroy();
+  });
 });

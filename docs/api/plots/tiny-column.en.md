@@ -37,6 +37,8 @@ Bar chart graphic styles.
 
 `markdown:docs/common/color.en.md`
 
+`markdown:docs/common/pattern.en.md`
+
 ### Plot Component
 
 `markdown:docs/common/component-tiny.en.md`

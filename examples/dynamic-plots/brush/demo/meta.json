@@ -10,7 +10,6 @@
         "zh": "散点图刷选高亮",
         "en": "Brush highlight of scatter"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/BlpX0yZrRH/brush-highlight.gif"
     },
     {
@@ -19,7 +18,6 @@
         "zh": "散点图刷选",
         "en": "Brush of scatter"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/x6%24CDJpPny/brush-x.gif"
     },
     {
@@ -28,7 +26,6 @@
         "zh": "柱状图刷选高亮",
         "en": "Brush highlight of column"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/svUh77%263iZ/column-brush-highlight.gif"
     },
     {
@@ -37,7 +34,6 @@
         "zh": "柱状图 y 方向刷选",
         "en": "Brush on y position of column"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/Rf1WzUaySB/column-brush-y.gif"
     },
     {
@@ -46,7 +42,6 @@
         "zh": "柱状图 y 方向刷选高亮",
         "en": "Brush highlight on y position of column"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/cKc4Q6lOXQ/y-brush-column.gif"
     },
     {
@@ -55,7 +50,6 @@
         "zh": "条形图刷选高亮",
         "en": "Brush highlight of bar"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/hksereLMdK/bar-brush-highlight.gif"
     },
     {
@@ -64,7 +58,6 @@
         "zh": "刷选高级用法1",
         "en": "Advanced usage1 of brush"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/OLOyP6XI0e/brush-advanced-usage1.gif"
     },
     {
@@ -73,7 +66,6 @@
         "zh": "刷选高级用法2",
         "en": "Advanced usage2 of brush"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/2wHu3BD2s%26/brush-advanced-usage.gif"
     }
   ]

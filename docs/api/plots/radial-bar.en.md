@@ -65,6 +65,8 @@ Display type of plot. You can specify `type: 'line'` to display a `Radial-Line` 
 
 `markdown:docs/common/color.en.md`
 
+`markdown:docs/common/pattern.en.md`
+
 ### Plot Components
 
 `markdown:docs/common/component.en.md`

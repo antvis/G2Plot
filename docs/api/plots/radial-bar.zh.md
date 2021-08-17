@@ -66,6 +66,8 @@ order: 25
 
 `markdown:docs/common/color.zh.md`
 
+`markdown:docs/common/pattern.zh.md`
+
 ### 图表组件
 
 `markdown:docs/common/component.zh.md`

@@ -105,6 +105,8 @@ Inner radius, 0~1 of the value. -->
 <!-- Color 配置 -->
 `markdown:docs/common/color.en.md`
 
+`markdown:docs/common/pattern.en.md`
+
 #### pointStyle
 
 <description>**optional** _object_</description>

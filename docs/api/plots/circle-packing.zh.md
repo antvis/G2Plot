@@ -105,6 +105,8 @@ meta: {
 <!-- Color 配置 -->
 `markdown:docs/common/color.zh.md`
 
+`markdown:docs/common/pattern.zh.md`
+
 #### pointStyle
 
 <description>**optional** _object_</description>

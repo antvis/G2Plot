@@ -2,7 +2,15 @@ import { get } from '@antv/util';
 import { Types } from '@antv/g2';
 import { point } from '../../adaptor/geometries/point';
 import { Params } from '../../core/adaptor';
-import { interaction as baseInteraction, animation, theme, legend, annotation, scale } from '../../adaptor/common';
+import {
+  interaction as baseInteraction,
+  animation,
+  theme,
+  legend,
+  annotation,
+  scale,
+  pattern,
+} from '../../adaptor/common';
 import { flow, deepAssign } from '../../utils';
 import { getAdjustAppendPadding } from '../../utils/padding';
 import { transformData, resolvePaddingForCircle, resolveAllPadding } from './utils';
@@ -206,6 +214,7 @@ function interaction(params: Params<CirclePackingOptions>): Params<CirclePacking
  */
 export function adaptor(params: Params<CirclePackingOptions>) {
   return flow(
+    pattern('pointStyle'),
     defaultOptions,
     padding,
     theme,

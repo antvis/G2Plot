@@ -1,3 +1,28 @@
+#### 2.3.31 (2021-08-16)
+
+##### Bug Fixes
+
+* **dual-axes:**  修复双轴图使用 color 回调时，legend marker 颜色丢失 ([#2800](https://github.com/antvis/g2plot/pull/2800)) ([a45dbdb4](https://github.com/antvis/g2plot/commit/a45dbdb448deb0017ef460ca7d4f9dd3dd900ead))
+*  **line:** 修复无拆分时折线图 color 回调报错 ([#2751](https://github.com/antvis/g2plot/pull/2751)) ([4215408f](https://github.com/antvis/g2plot/commit/4215408f5ff2b31123ea9affd8310cfc7d7395b9))
+
+#### 2.3.30 (2021-08-13)
+
+##### Documentation Changes
+
+*  增加 demo 上新提示 ([c80f072c](https://github.com/antvis/g2plot/commit/c80f072cb7e47d316ce439f347792f64a4c32ba9))
+
+##### New Features
+
+* **state:**  支持多 view 图表，如：对称条形图、箱型图、小提琴图、mix 多图层图表等的状态设置和获取 ([#2773](https://github.com/antvis/g2plot/pull/2773)) ([c64270ea](https://github.com/antvis/g2plot/commit/c64270ea874beea4db04dea755f89104a5aabc42))
+
+##### Bug Fixes
+
+*  **funnel:** 修复尖底漏斗图最后一排错位 ([#2793](https://github.com/antvis/g2plot/pull/2793)) ([603d533f](https://github.com/antvis/g2plot/commit/603d533ff4a6192b6805f0821a6b58878f5106b1))
+*  **dual-axes:** 修复双轴图 theme 设置覆盖 columnWidthRatio 设置 ([#2791](https://github.com/antvis/g2plot/pull/2791)) ([2dc2d962](https://github.com/antvis/g2plot/commit/2dc2d9621445a556fbd129cb5cda3a44854b57fb))
+*  **word-cloud:** 修复词云图 legend 配置不起效 修复 词云图 color 回调缺少其他数据 ([#2787](https://github.com/antvis/g2plot/pull/2787)) ([ec47b760](https://github.com/antvis/g2plot/commit/ec47b760140393b2df1884d634b1ae360f049628))
+* **dual-axes:**  configure legend selected ([#2784](https://github.com/antvis/g2plot/pull/2784)) ([25fbe901](https://github.com/antvis/g2plot/commit/25fbe901427582fac789cf388434d1e14fb11a45))
+* **dual-axes:** 双轴图图例 legend 使用 symbol 的时候，颜色不能自动调整 ([#2776](https://github.com/antvis/g2plot/pull/2776)) ([93000e50](https://github.com/antvis/g2plot/commit/93000e50a375b3bd07d91c82fc87d51ef60699c5))
+
 #### 2.3.29 (2021-08-09)
 
 ##### Documentation Changes

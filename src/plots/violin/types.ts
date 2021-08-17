@@ -1,4 +1,4 @@
-import { Options, StyleAttr } from '../../types';
+import { Options, State, StyleAttr } from '../../types';
 
 export interface ViolinOptions extends Options {
   /** X 轴映射 */
@@ -8,7 +8,12 @@ export interface ViolinOptions extends Options {
   /** 拆分字段映射，默认是分组情况，颜色作为视觉通道 */
   readonly seriesField?: string;
   /** 内部箱线图配置，false 为不显示。 */
-  readonly box?: boolean;
+  readonly box?:
+    | boolean
+    | {
+        /** 箱线图 状态样式设置 */
+        state: State;
+      };
   /**
    * 小提琴的形状。
    * 默认: 非平滑、实心

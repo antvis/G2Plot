@@ -1,4 +1,4 @@
-import { each, findIndex, get, find, isObject, every, isEqual, isBoolean, isFunction, isArray, map } from '@antv/util';
+import { each, findIndex, get, find, isObject, every, isEqual, isBoolean } from '@antv/util';
 import { Scale, Types, Event } from '@antv/g2';
 import {
   theme as commonTheme,
@@ -37,15 +37,6 @@ export function transformOptions(params: Params<DualAxesOptions>): Params<DualAx
     geometryOptions,
     ({ geometry }) => geometry === DualAxesGeometry.Line || geometry === undefined
   );
-
-  const transformGeometryOptions = map(geometryOptions, (geometryOption) => ({
-    seriesField:
-      geometryOption.geometry === 'column' &&
-      (isFunction(geometryOption.color) || isArray(geometryOption.color)) &&
-      xField,
-    ...geometryOption,
-  }));
-
   return deepAssign(
     {},
     {
@@ -85,8 +76,8 @@ export function transformOptions(params: Params<DualAxesOptions>): Params<DualAx
         yAxis: transformObjectToArray(yField, options.yAxis),
         // geometryOptions
         geometryOptions: [
-          getGeometryOption(xField, yField[0], transformGeometryOptions[0]),
-          getGeometryOption(xField, yField[1], transformGeometryOptions[1]),
+          getGeometryOption(xField, yField[0], geometryOptions[0]),
+          getGeometryOption(xField, yField[1], geometryOptions[1]),
         ],
         // annotations
         annotations: transformObjectToArray(yField, options.annotations),

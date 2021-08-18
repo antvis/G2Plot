@@ -1,4 +1,4 @@
-import { get, isArray } from '@antv/util';
+import { get, isArray, isFunction } from '@antv/util';
 import { Axis } from '../../../types/axis';
 import { deepAssign } from '../../../utils';
 import {
@@ -46,7 +46,10 @@ export function getGeometryOption(xField: string, yField: string, geometryOption
                 }
               : undefined,
         },
-        geometryOption
+        {
+          seriesField: (isFunction(geometryOption.color) || isArray(geometryOption.color)) && xField,
+          ...geometryOption,
+        }
       )
     : {
         geometry: DualAxesGeometry.Line,

@@ -1,7 +1,3 @@
-#### pattern ✨
-
-<description>**optional** _object | Function_</description>
-
 设置图形的贴图样式。
 
 - 配置项：由`type`和`cfg`组成，`type`目前包括三种类型：`dot`、`line`、`square`，`cfg`为可选项。

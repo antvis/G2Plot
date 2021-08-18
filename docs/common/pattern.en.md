@@ -1,7 +1,3 @@
-#### pattern ✨
-
-<description>**optional** _object | Function_</description>
-
 Set the pattern style of the geometries.
 - PatternOption: consists of `type` and `cfg`, `type` includes: `dot`, `line`, `square`, `cfg` is optional.
 - Features: pattern will override the `style` of geometry (such as pieStyle, columnStyle, etc.).

@@ -66,6 +66,10 @@ order: 25
 
 `markdown:docs/common/color.zh.md`
 
+#### pattern ✨
+
+<description>**optional** _object | Function_</description>
+
 `markdown:docs/common/pattern.zh.md`
 
 ### 图表组件

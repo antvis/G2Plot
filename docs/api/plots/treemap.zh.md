@@ -58,6 +58,10 @@ G2 plot 会根据 data 生成以下数据结构：
 
 `markdown:docs/common/color.zh.md`
 
+#### pattern ✨
+
+<description>**optional** _object | Function_</description>
+
 `markdown:docs/common/pattern.zh.md`
 
 #### rectStyle

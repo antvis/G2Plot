@@ -57,6 +57,10 @@ Extra original fields. Once configured, you can retrieve additional raw data in 
 
 `markdown:docs/common/color.en.md`
 
+#### pattern ✨
+
+<description>**optional** _object | Function_</description>
+
 `markdown:docs/common/pattern.en.md`
 
 #### rectStyle

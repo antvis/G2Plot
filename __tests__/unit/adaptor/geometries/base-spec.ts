@@ -188,13 +188,13 @@ describe('adaptor - geometry', () => {
         },
       },
     });
-    expect(plot.chart.geometries[0].getAttribute('size').getFields()).toEqual(['date']);
+    expect(plot.chart.geometries[0].getAttribute('size').getFields()).toEqual(['']);
 
-    expect(plot.chart.geometries[0].getAttribute('size').values).toEqual([]);
+    expect(plot.chart.geometries[0].getAttribute('size').values).toEqual(['']);
     expect(plot.chart.geometries[0].getAttribute('size').callback).toBeDefined();
 
     expect(p).toEqual({
-      date: '25/01/2018',
+      date: [''],
     });
 
     plot.destroy();
@@ -234,13 +234,13 @@ describe('adaptor - geometry', () => {
         },
       },
     });
-    expect(plot.chart.geometries[0].getAttribute('size').getFields()).toEqual(['value']);
+    expect(plot.chart.geometries[0].getAttribute('size').getFields()).toEqual(['']);
 
-    expect(plot.chart.geometries[0].getAttribute('size').values).toEqual([]);
+    expect(plot.chart.geometries[0].getAttribute('size').values).toEqual(['']);
     expect(plot.chart.geometries[0].getAttribute('size').callback).toBeDefined();
 
     expect(p).toEqual({
-      value: 1800,
+      value: [''],
     });
 
     plot.destroy();

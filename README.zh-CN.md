@@ -169,7 +169,7 @@ bar.render();
 
 钉钉群组号码: 30233731
 
-<img src="https://gw.alipayobjects.com/zos/antfincdn/9sHnl5k%26u4/dingdingqun.png" width="200" height="266" />
+<img src="https://user-images.githubusercontent.com/15646325/129832484-e1f090db-7358-45ed-af0a-1f55f8d52d34.pn" width="200" height="266" />
 
 ## 🔗 相关链接
 

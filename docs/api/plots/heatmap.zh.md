@@ -49,6 +49,12 @@ order: 23
 
 `markdown:docs/common/color.zh.md`
 
+#### pattern ✨
+
+<description>**optional** _object | Function_</description>
+
+`markdown:docs/common/pattern.zh.md`
+
 #### shape
 
 <description>**可选** _rect | square | circle_</description>

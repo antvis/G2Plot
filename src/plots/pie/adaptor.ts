@@ -1,4 +1,4 @@
-import { isFunction, isString, isNil, get, isArray, isNumber, each, toString, isEmpty, isObjectLike } from '@antv/util';
+import { isFunction, isString, isNil, get, isArray, isNumber, each, toString, isEmpty } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { legend, animation, theme, state, annotation } from '../../adaptor/common';
 import { getMappingFunction } from '../../adaptor/geometries/base';

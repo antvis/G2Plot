@@ -100,14 +100,17 @@ export function getMappingField(
   const mappingFields = uniq(fields.filter((f) => !!f));
   /**
    * 修复 line geometry 无拆分时 color 回调错误
-   * 修复 interval geometry 无拆分时 color 回调正确，但是会导致 tooltip 映射错误
    * eg:
    *   geometry.color(xField, ()=> '#f24')
    */
-  const tileMappingField =
-    (type === 'line' || type === 'interval') && [xField, yField].includes(mappingFields.join('*'))
-      ? ''
-      : mappingFields.join('*');
+  let tileMappingField =
+    type === 'line' && [xField, yField].includes(mappingFields.join('*')) ? '' : mappingFields.join('*');
+  /**
+   * 修复 interval geometry 无拆分时 color 回调正确，但是会导致 tooltip 映射错误
+   */
+  if (type === 'interval' && !colorField) {
+    tileMappingField = [xField, yField].includes(mappingFields.join('*')) ? '' : mappingFields.join('*');
+  }
   return {
     mappingFields,
     tileMappingField,
@@ -166,6 +169,8 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
     colorField ? geometry.color(colorField, color) : geometry.color(color);
   } else if (isFunction(color)) {
     const { mappingFields, tileMappingField } = getMappingField(options, 'color');
+    console.log(' mappingFields, tileMappingField', mappingFields, tileMappingField);
+
     geometry.color(tileMappingField, getMappingFunction(mappingFields, color));
   } else {
     colorField && geometry.color(colorField, color);

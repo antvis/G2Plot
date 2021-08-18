@@ -5,16 +5,17 @@ import { Datum, Options, StyleAttr } from '../types';
 import { deepAssign } from '../utils';
 
 /**
- * 使用 Pattern 通道的 options，要求有 colorField、seriesField 作为分类字段（进行颜色映射）
+ * 使用 Pattern 通道的 options，要求有 colorField/seriesField/stackField 作为分类字段（进行颜色映射）
  */
 type OptionsRequiredInPattern = Omit<Options, 'data'> & {
   colorField?: string;
   seriesField?: string;
+  stackField?: string;
 };
 
 /**
  * Pattern 通道，处理图案填充
- * 🚀 目前支持图表类型：饼图、柱状图、条形图、玉珏图（不支持在多 view 图表中，后续按需扩展）
+ * 🚀 目前支持图表类型：饼图、柱状图、条形图、玉珏图等（不支持在多 view 图表中，后续按需扩展）
  *
  * @param key key of style property
  * @returns
@@ -22,7 +23,7 @@ type OptionsRequiredInPattern = Omit<Options, 'data'> & {
 export function pattern(key: string) {
   return <O extends OptionsRequiredInPattern = OptionsRequiredInPattern>(params: Params<O>): Params<O> => {
     const { options, chart } = params;
-    const { pattern: patternOption, colorField, seriesField } = options;
+    const { pattern: patternOption, colorField, seriesField, stackField } = options;
 
     // 没有 pattern 配置，则直接返回
     if (!patternOption) {
@@ -36,7 +37,7 @@ export function pattern(key: string) {
 
       const colorMapping = chart.geometries?.[0]?.getAttribute('color')?.callback;
       if (typeof colorMapping === 'function') {
-        color = colorMapping(datum?.[colorField] || datum?.[seriesField]);
+        color = colorMapping(datum?.[colorField] || datum?.[seriesField] || datum?.[stackField]);
       }
 
       // 处理color返回为数组的情况

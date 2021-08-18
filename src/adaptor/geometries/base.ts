@@ -100,11 +100,14 @@ export function getMappingField(
   const mappingFields = uniq(fields.filter((f) => !!f));
   /**
    * 修复 line geometry 无拆分时 color 回调错误
+   * 修复 interval geometry 无拆分时 color 回调正确，但是会导致 tooltip 映射错误
    * eg:
    *   geometry.color(xField, ()=> '#f24')
    */
   const tileMappingField =
-    type === 'line' && [xField, yField].includes(mappingFields.join('*')) ? '' : mappingFields.join('*');
+    (type === 'line' || type === 'interval') && [xField, yField].includes(mappingFields.join('*'))
+      ? ''
+      : mappingFields.join('*');
   return {
     mappingFields,
     tileMappingField,

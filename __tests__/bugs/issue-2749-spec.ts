@@ -1,4 +1,4 @@
-import { Line, DualAxes } from '../../src';
+import { Line } from '../../src';
 import { createDiv } from '../utils/dom';
 
 describe('#2749', () => {

@@ -21,6 +21,24 @@
       },
       "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/tHF3bgalmB/association-filter.gif"
+    },
+    {
+      "filename": "conversion-analysis-bar.ts",
+      "title": {
+        "zh": "带跳转转化分析图",
+        "en": "Conversion analysis bar"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/p8r96Xc9o0/conversion-analysis-bar.gif"
+    },
+    {
+      "filename": "conversion-analysis.ts",
+      "title": {
+        "zh": "带跳转转化分析图2",
+        "en": "Conversion analysis bar2"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/PojoRGFBN4/conversion-analysis-2.gif"
     }
   ]
 }

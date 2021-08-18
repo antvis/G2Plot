@@ -53,6 +53,12 @@ Background box configuration item. _LegendBackgroundCFG_ is configured as follow
 
 Apply to <tag color="green" text="Classification legend">Classification legend</tag>,whether to page when there are too many legend items. (⚠️ 暂不支持多行展示分页)
 
+##### maxRow
+
+<description> _number_ **optional** </description>
+
+Apply to <tag color="green" text="Classification legend">Classification legend</tag>. You can set the maximum number of rows when legend items is flip-paged, (only applicable to 'layout:' horizontal '),default: 1.
+
 ##### pageNavigator
 
 <description>**optional** _object_ </description>
@@ -105,6 +111,8 @@ pageNavigator: {
 },
 ```
 
+<playground path="component/legend/demo/legend-flippage.ts" rid="page-navigator"></playground>
+
 ##### itemHeight
 
 <description>**optional** _number_ _default:_ `null`</description>
@@ -121,25 +129,75 @@ Apply to <tag color="green" text="Classification legend">Classification legend</
 
 <description>**optional** _LegendItemNameCfg_ </description>
 
-Apply to <tag color="green" text="Classification legend">Classification legend</tag>, configure the legend item name text. _LegendItemNameCfg_ is configured as follows：
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项 name 文本的配置。_LegendItemNameCfg_ 配置如下：
 
-| Properties | Type       | Default | Description                                                                      |
-| ---------- | ---------- | ------- | -------------------------------------------------------------------------------- |
-| style      | _object_   | -       | Text style configuration, referecnce [Graphic Style](/zh/docs/api/graphic-style) |
-| spacing    | _number_   | `false` | The spacing between legend item marker and the following name                    |
-| formatter  | _function_ | -       | Format function, `(text: string, item: ListItem, index: number) => any;`         |
+| 参数名    | 类型       | 默认值  | 描述                                                                |
+| --------- | ---------- | ------- | ------------------------------------------------------------------- |
+| style     | _((item: ListItem, index: number, items: ListItem[]) => ShapeAttrs) \| ShapeAttrs_             |          | -      | 文本样式配置项                   |
+| spacing   | number                                                  |          | -      | 图例项 marker 同后面 name 的间距 |
+| formatter | `(text: string, item: ListItem, index: number) => any;` |          |        | 格式化函数                       |
+
+其中, `ShapeAttrs` 详细配置见：[文档](/zh/docs/api/shape/shape-attrs)；`ListItem` 配置如下：
+
+```ts
+type ListItem = {
+  /**
+   * 名称 {string}
+   */
+  name: string;
+  /**
+   * 值 {any}
+   */
+  value: any;
+  /**
+   * 图形标记 {object|string}
+   */
+  marker?: Marker | string;
+}
+
+type Marker = {
+  symbol? string;
+  style?: ShapeAttrs;
+  spacing?: number;
+};
+```
 
 ##### itemValue
 
 <description>**optional** _LegendItemValueCfg_ </description>
 
-Apply to <tag color="green" text="Classification legend">Classification legend</tag>, configuration item of legend item Value added value. _LegendItemValueCfg_ Configuration is as follows:
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项 value 附加值的配置项。_LegendItemValueCfg_ 配置如下：
 
-| Properties | Type       | Default | Description                                                                          |
-| ---------- | ---------- | ------- | ------------------------------------------------------------------------------------ |
-| style      | _object_   | -       | Text style configuration item, reference [Graphic Style](/zh/docs/api/graphic-style) |
-| alignRight | _boolean_  | `false` | Right-align, false by default, only when setting legend item width.                  |
-| formatter  | _function_ | -       | Format function, `(text: string, item: ListItem, index: number) => any;`             |
+| 参数名     | 类型       | 默认值  | 描述                                                                |
+| ---------- | ---------- | ------- | ------------------------------------------------------------------- |
+| alignRight | _boolean_  | `false` | 是否右对齐，默认为 false，仅当设置图例项宽度时生效                  |
+| formatter  | _function_ | -       | 格式化函数, `(text: string, item: ListItem, index: number) => any;` |
+| style     | _((item: ListItem, index: number, items: ListItem[]) => ShapeAttrs) \| ShapeAttrs_             |          | -      | 文本样式配置项                   |
+
+其中, `ShapeAttrs` 详细配置见：[文档](/zh/docs/api/shape/shape-attrs)；`ListItem` 配置如下：
+
+```ts
+type ListItem = {
+  /**
+   * 名称 {string}
+   */
+  name: string;
+  /**
+   * 值 {any}
+   */
+  value: any;
+  /**
+   * 图形标记 {object|string}
+   */
+  marker?: Marker | string;
+}
+
+type Marker = {
+  symbol? string;
+  style?: ShapeAttrs;
+  spacing?: number;
+};
+```
 
 <playground path="component/legend/demo/legend-item-value.ts" rid="legend-item-value"></playground>
 
@@ -156,6 +214,24 @@ Apply to <tag color="green" text="Classification legend">Classification legend</
 Apply to <tag color="green" text="Classification legend">Classification legend</tag>, the configuration of the Marker icon of the legend item.
 
 `markdown:docs/common/marker.en.md`
+
+##### maxItemWidth
+
+<description> _number_ **optional** </description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大宽度设置。
+
+##### maxWidthRatio
+
+<description> _number_ **optional**. 取值范围：[0, 1], 默认: 0.25</description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项容器最大宽度比例（以 view 的 bbox 容器大小为参照）设置，如果不需要该配置，可以设置为 `null`。
+
+##### maxHeightRatio
+
+<description> _number_ **optional**. 取值范围：[0, 1], 默认: 0.25</description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项容器最大高度比例（以 view 的 bbox 容器大小为参照）设置，如果不需要该配置，可以设置为 `null`。
 
 ##### maxWidth
 
@@ -212,7 +288,7 @@ Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, sel
 
 Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, 当前选中的范围.
 
-##### legendOption.selected ✨ 🆕
+##### selected ✨ 🆕
 
 <description> _object_ **optional** </description>
 
@@ -287,17 +363,3 @@ _ContinueLegendHandlerCfg_ is configured as follows:
 | ---------- | -------- | ------- | --------------------------------------------------------------------------- |
 | size       | _number_ | -       | Slider size, default: 10                                                             |
 | style      | _object_ | -       | Slider configuration, reference [Graphic Style](/zh/docs/api/graphic-style) |
-
-##### animate
-
-<description>**optional** _boolean_  _default:_ `false`</description>
-
-Whether to turn on the animation switch.
-
-##### animateOption
-
-<description>**optional** _ComponentAnimateOption_ </description>
-
-Animation parameter configuration, which takes effect if and only if the animate property is true, that is, when the animation is turned on. Animation configuration details are as follows:
-
-`markdown:docs/common/animate-option.en.md`

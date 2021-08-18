@@ -74,17 +74,15 @@ true 表示合并当前点对应的所有数据并展示，false 表示只展示
 
 | 细分配置项名称 | 类型                  | 功能描述                                                            |
 | -------------- | --------------------- | ------------------------------------------------------------------- |
-| type           | _`x` \| `y` \| `xy`_  | crosshairs 的类型: `x` 表示 x 轴上的辅助线，`y` 表示 y 轴上的辅助项 |
+| type           | _'x' \| 'y' \| 'xy'_  | crosshairs 的类型: `x` 表示 x 轴上的辅助线，`y` 表示 y 轴上的辅助项 |
 | line           | _lineStyle_           | 线的配置项，详细可见 [_ShapeAttrs_](/zh/docs/api/graphic-style#configure-line-styles)                          |
-| text           | _textStyle_           | 辅助线文本配置，支持回调                                            |
-| textBackground | _textBackgroundStyle_ | 辅助线文本背景配置                                                  |
+| text           | _TooltipCrosshairsText \| TooltipCrosshairsTextCallback_             | 辅助线文本配置，支持回调                                            |
+| textBackground | _TextBackgroundStyle_ | 辅助线文本背景配置                                                  |
 | follow         | _boolean_             | 辅助线是否跟随鼠标移动，默认为 false，即定位到数据点                |
 
-**_textStyle_**
+`markdown:docs/common/crosshairs-text.zh.md`
 
-`markdown:docs/common/text-style.zh.md`
-
-**_textBackgroundStyle_**
+**_TextBackgroundStyle_**
 
 | 细分配置项名称 | 类型                 | 功能描述           |
 | -------------- | -------------------- | ------------------ |
@@ -192,7 +190,7 @@ tooltip 偏移量。
 
 <description>**可选** _Function_</description>
 
-支持自定义模板。
+支持自定义模板。[在线示例](/zh/examples/case/customize#customize-tooltip)
 
 ```ts
 {
@@ -204,6 +202,3 @@ tooltip 偏移量。
 }
 ```
 
-尝试一下：
-
-<playground path="case/customize/demo/customize-tooltip.ts" rid="customize-tooltip"></playground>

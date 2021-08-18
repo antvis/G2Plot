@@ -83,7 +83,15 @@ The ratio of spacing between columns in groups( Range:[0-1] ), only for Grouped 
 
 ### Plot Components
 
-`markdown:docs/common/component.en.md`
+`markdown:docs/common/common-component.zh.md`
+
+#### Slider
+
+`markdown:docs/common/slider.zh.md`
+
+#### Scrollbar
+
+`markdown:docs/common/scrollbar.zh.md`
 
 #### Conversion Tag
 
@@ -108,5 +116,13 @@ Applicable to base bar charts and base bar charts, the Conversion Rate component
 `markdown:docs/common/theme.en.md`
 
 ### Plot Interactions
+
+Built-in interactions of scatter are as follows:
+
+| Interaction | Description                              | Configuration                  |
+| ----------- | ---------------------------------------- | ------------------------------ |
+| brush | 用于刷选交互，配置该交互后，可进行刷选。 | `brush: { enabled: true }` |
+
+`markdown:docs/common/brush.en.md`
 
 `markdown:docs/common/interactions.en.md`

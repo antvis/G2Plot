@@ -1,11 +1,4 @@
-import {
-  transformData,
-  findInteraction,
-  enableInteraction,
-  getFommatInteractions,
-  getAdjustAppendPadding,
-  resetDrillDown,
-} from '../../../../src/plots/treemap/utils';
+import { transformData, findInteraction, enableInteraction, resetDrillDown } from '../../../../src/plots/treemap/utils';
 
 const data1 = {
   name: 'root',
@@ -287,96 +280,6 @@ describe('treemap transformData', () => {
     });
 
     expect(childData[0].path.length).toBe(3);
-  });
-
-  it('getFommatInteractions', () => {
-    expect(getFommatInteractions(undefined, undefined)).toEqual(undefined);
-    expect(
-      getFommatInteractions(undefined, {
-        tile: 'treemapSlice',
-      })
-    ).toEqual(undefined);
-    expect(
-      getFommatInteractions([], {
-        tile: 'treemapSlice',
-      })
-    ).toEqual([]);
-    expect(
-      getFommatInteractions(
-        [
-          {
-            type: 'treemap',
-          },
-        ],
-        {
-          tile: 'treemapSlice',
-        }
-      )
-    ).toEqual([
-      {
-        type: 'treemap',
-      },
-    ]);
-    expect(
-      getFommatInteractions(
-        [
-          {
-            type: 'treemap',
-          },
-          {
-            type: 'treemap-drill-down',
-          },
-        ],
-        {
-          tile: 'treemapSlice',
-        }
-      )
-    ).toEqual([
-      {
-        type: 'treemap',
-      },
-      {
-        type: 'treemap-drill-down',
-        cfg: {
-          hierarchyConfig: {
-            tile: 'treemapSlice',
-          },
-        },
-      },
-    ]);
-
-    expect(
-      getFommatInteractions(
-        [
-          {
-            type: 'treemap',
-          },
-          {
-            type: 'treemap-drill-down',
-          },
-        ],
-        undefined
-      )
-    ).toEqual([
-      {
-        type: 'treemap',
-      },
-      {
-        type: 'treemap-drill-down',
-        cfg: {
-          hierarchyConfig: undefined,
-        },
-      },
-    ]);
-  });
-
-  it('getAdjustAppendPadding', () => {
-    expect(getAdjustAppendPadding(undefined)).toStrictEqual([0, 0, 25, 0]);
-    expect(getAdjustAppendPadding(10)).toStrictEqual([10, 10, 35, 10]);
-    expect(getAdjustAppendPadding([10])).toStrictEqual([10, 10, 35, 10]);
-    expect(getAdjustAppendPadding([10, 20])).toStrictEqual([10, 20, 35, 20]);
-    expect(getAdjustAppendPadding([10, 20, 30])).toStrictEqual([10, 20, 55, 20]);
-    expect(getAdjustAppendPadding([10, 20, 30, 40])).toStrictEqual([10, 20, 55, 40]);
   });
 
   it('resetDrillDown', () => {

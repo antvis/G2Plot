@@ -7,22 +7,38 @@ export const TREND_FIELD = 'trend';
 export const TREND_UP = 'up';
 export const TREND_DOWN = 'down';
 
-export const TREND_COLOR = ['#ef5350', '#26a69a'];
-
 /** tooltip 配置 */
 export const DEFAULT_TOOLTIP_OPTIONS = {
-  showTitle: false,
   showMarkers: false,
   showCrosshairs: true,
   shared: true,
   crosshairs: {
     type: 'xy',
     follow: true,
+    text: (type, defaultContent, items) => {
+      let textContent;
+      if (type === 'x') {
+        const item = items[0];
+        textContent = item ? item.title : defaultContent;
+      } else {
+        textContent = defaultContent;
+      }
+      return {
+        position: type === 'y' ? 'start' : 'end',
+        content: textContent,
+        style: {
+          fill: '#dfdfdf',
+        },
+      };
+    },
+    // 自定义 crosshairs textBackground 样式
+    textBackground: {
+      padding: [2, 4],
+      style: {
+        fill: '#666',
+      },
+    },
   },
-  itemTpl:
-    '<li class="g2-tooltip-list-item" data-index={index}>' +
-    '<span style="background-color:{color};" class="g2-tooltip-marker"></span>' +
-    '{name}{value}</li>',
 };
 
 /**
@@ -35,4 +51,6 @@ export const DEFAULT_OPTIONS = deepAssign({}, Plot.getDefaultOptions(), {
   legend: {
     position: 'top-left',
   },
+  risingFill: '#ef5350',
+  fallingFill: '#26a69a',
 });

@@ -5,7 +5,10 @@ import { reduce } from '@antv/util';
  * @param string
  * @param options
  */
-export function template(source: string, data: object): string {
+export function template(source: string, data?: object): string {
+  if (!data) {
+    return source;
+  }
   return reduce(
     // @ts-ignore
     data,

@@ -1,6 +1,7 @@
 import { Datum, Chord } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
 import { populationMovementData } from '../../../data/chord-population';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/chord/constant';
 
 describe('chord', () => {
   it('chord', () => {
@@ -13,6 +14,10 @@ describe('chord', () => {
     });
 
     chord.render();
+
+    expect(chord.type).toBe('chord');
+    // @ts-ignore
+    expect(chord.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
 
     // nodeStyle 默认值
     expect(chord.options.nodeStyle).toEqual({
@@ -36,7 +41,7 @@ describe('chord', () => {
     // edge
     expect(chord.chart.views[0].geometries[0].type).toBe('edge');
     expect(chord.chart.views[0].geometries[0].data.length).toBe(13);
-    expect(chord.chart.views[0].geometries[0].data[0]).toEqual({
+    expect(chord.chart.views[0].geometries[0].data[0]).toMatchObject({
       source: '北京',
       target: '天津',
       value: 30,
@@ -47,7 +52,7 @@ describe('chord', () => {
     // node
     expect(chord.chart.views[1].geometries[0].type).toBe('polygon');
     expect(chord.chart.views[1].geometries[0].data.length).toBe(8);
-    expect(chord.chart.views[1].geometries[0].data[0]).toEqual({
+    expect(chord.chart.views[1].geometries[0].data[0]).toMatchObject({
       id: 0,
       name: '北京',
       x: [0.00625, 0.24959442595673875, 0.24959442595673875, 0.00625],
@@ -62,15 +67,6 @@ describe('chord', () => {
     expect(chord.chart.views[1].geometries[0].labelsContainer.getChildByIndex(0).cfg.children[0].attr('text')).toBe(
       '北京'
     );
-
-    // tooltip
-    const edgeView = chord.chart.views[0];
-    const edgeElementIdx = edgeView.getData().findIndex((d) => d.source === '北京' && d.target === '天津');
-    const element = edgeView.geometries[0].elements[edgeElementIdx];
-    const path = element.shape.attr('path');
-    chord.chart.showTooltip({ x: path[0][1], y: path[0][2] });
-    expect(document.querySelector('.g2-tooltip-name').textContent).toBe('北京 -> 天津');
-    expect(document.querySelector('.g2-tooltip-value').textContent).toBe('30');
 
     chord.destroy();
   });
@@ -113,5 +109,9 @@ describe('chord', () => {
     });
 
     chord.destroy();
+  });
+
+  it('defaultOptions 保持从 constant 中获取', () => {
+    expect(Chord.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });
 });

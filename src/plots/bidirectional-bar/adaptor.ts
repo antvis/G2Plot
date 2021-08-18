@@ -168,8 +168,14 @@ function axis(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarO
 
   const firstView = findViewById(chart, FIRST_AXES_VIEW);
   const secondView = findViewById(chart, SECOND_AXES_VIEW);
-  // 第二个 view axis 始终隐藏
-  secondView.axis(xField, false);
+  // 第二个 view axis 始终隐藏; 注意 bottom 的时候，只隐藏 label，其他共用配置
+  // @ts-ignore
+  if (xAxis?.position === 'bottom') {
+    // fixme 直接设置 label: null 会导致 tickLine 无法显示
+    secondView.axis(xField, { ...xAxis, label: { formatter: () => '' } });
+  } else {
+    secondView.axis(xField, false);
+  }
 
   // 为 false 则是不显示 firstView 轴
   if (xAxis === false) {

@@ -55,11 +55,15 @@
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，当图例项过多时是否进行分页。(⚠️ 暂不支持多行展示分页)
 
+##### maxRow
+
+<description> _number_ **optional** </description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，当图例项过多分页时，可以设置最大行数（仅适用于 `layout: 'horizontal'`），默认为：1。
+
 ##### pageNavigator
 
 <description>**optional** _object_ </description>
-
-<!-- todo 补充分页器的图文介绍 -->
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，图例分页导航器的主题样式设置。_LegendPageNavigatorCfg_ 配置如下：
 
@@ -109,6 +113,8 @@ pageNavigator: {
 },
 ```
 
+<playground path="component/legend/demo/legend-flippage.ts" rid="page-navigator"></playground>
+
 ##### itemHeight
 
 <description>**optional** _number_ _default:_ `null`</description>
@@ -129,9 +135,34 @@ pageNavigator: {
 
 | 参数名    | 类型       | 默认值  | 描述                                                                |
 | --------- | ---------- | ------- | ------------------------------------------------------------------- |
-| style     | _object_   | -       | 文本样式配置项，参考  [绘图属性](/zh/docs/api/graphic-style)        |
-| spacing   | _number_   | `false` | 图例项 marker 同后面 name 的间距                                    |
-| formatter | _function_ | -       | 格式化函数, `(text: string, item: ListItem, index: number) => any;` |
+| style     | _((item: ListItem, index: number, items: ListItem[]) => ShapeAttrs) \| ShapeAttrs_             |          | -      | 文本样式配置项                   |
+| spacing   | number                                                  |          | -      | 图例项 marker 同后面 name 的间距 |
+| formatter | `(text: string, item: ListItem, index: number) => any;` |          |        | 格式化函数                       |
+
+其中, `ShapeAttrs` 详细配置见：[文档](/zh/docs/api/shape/shape-attrs)；`ListItem` 配置如下：
+
+```ts
+type ListItem = {
+  /**
+   * 名称 {string}
+   */
+  name: string;
+  /**
+   * 值 {any}
+   */
+  value: any;
+  /**
+   * 图形标记 {object|string}
+   */
+  marker?: Marker | string;
+}
+
+type Marker = {
+  symbol? string;
+  style?: ShapeAttrs;
+  spacing?: number;
+};
+```
 
 ##### itemValue
 
@@ -141,9 +172,34 @@ pageNavigator: {
 
 | 参数名     | 类型       | 默认值  | 描述                                                                |
 | ---------- | ---------- | ------- | ------------------------------------------------------------------- |
-| style      | _object_   | -       | 文本样式配置项，详见  [绘图属性](/zh/docs/api/graphic-style)        |
 | alignRight | _boolean_  | `false` | 是否右对齐，默认为 false，仅当设置图例项宽度时生效                  |
 | formatter  | _function_ | -       | 格式化函数, `(text: string, item: ListItem, index: number) => any;` |
+| style     | _((item: ListItem, index: number, items: ListItem[]) => ShapeAttrs) \| ShapeAttrs_             |          | -      | 文本样式配置项                   |
+
+其中, `ShapeAttrs` 详细配置见：[文档](/zh/docs/api/shape/shape-attrs)；`ListItem` 配置如下：
+
+```ts
+type ListItem = {
+  /**
+   * 名称 {string}
+   */
+  name: string;
+  /**
+   * 值 {any}
+   */
+  value: any;
+  /**
+   * 图形标记 {object|string}
+   */
+  marker?: Marker | string;
+}
+
+type Marker = {
+  symbol? string;
+  style?: ShapeAttrs;
+  spacing?: number;
+};
+```
 
 <playground path="component/legend/demo/legend-item-value.ts" rid="legend-item-value"></playground>
 
@@ -175,17 +231,45 @@ pageNavigator: {
 
 `markdown:docs/common/marker.zh.md`
 
+##### maxItemWidth
+
+<description> _number_ **optional** </description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大宽度设置。
+
+##### maxWidthRatio
+
+<description> _number_ **optional**. 取值范围：[0, 1], 默认: 0.25</description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项容器最大宽度比例（以 view 的 bbox 容器大小为参照）设置，如果不需要该配置，可以设置为 `null`。
+
+##### maxHeightRatio
+
+<description> _number_ **optional**. 取值范围：[0, 1], 默认: 0.25</description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项容器最大高度比例（以 view 的 bbox 容器大小为参照）设置，如果不需要该配置，可以设置为 `null`。
+
 ##### maxWidth
 
 <description>**optional** _number_ </description>
 
-适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大宽度设置。当 layout 等于 'horizontal' 时，生效，当图例项横向排布，超过最大宽度时，会结合 `flipPage: true` 进行分页。
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项容器最大宽度设置。当 layout 等于 'horizontal' 时，生效，当图例项横向排布，超过最大宽度时，会结合 `flipPage: true` 进行分页。实际上，图例项容器最大宽度的计算如下：
+
+```sign
+const viewBBox = this.view.viewBBox;
+const maxWidth = Math.min(maxWidth, maxWidthRatio * viewBBox.width);
+```
 
 ##### maxHeight
 
 <description>**optional** _number_ </description>
 
-适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项最大高度设置。当 layout 等于 'vertical' 时，生效，当图例项纵向排布，超过最大高度时，会结合 `flipPage: true` 进行分页。
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项容器最大高度设置。当 layout 等于 'vertical' 时，生效，当图例项纵向排布，超过最大高度时，会结合 `flipPage: true` 进行分页。实际上，图例项容器最大宽度的计算如下：
+
+```sign
+const viewBBox = this.view.viewBBox;
+const maxHeight = Math.min(maxHeight, maxHeightRatio * viewBBox.height);
+```
 
 ##### reversed
 
@@ -231,7 +315,7 @@ pageNavigator: {
 
 适用于 <tag color="cyan" text="连续图例">连续图例</tag>，当前选中的范围。
 
-##### legendOption.selected ✨ 🆕
+##### selected ✨ 🆕
 
 <description> _object_ **optional** </description>
 
@@ -294,17 +378,3 @@ _ContinueLegendHandlerCfg_ 配置如下：
 | ------ | -------- | ------ | ----------------------------------------------------------- |
 | size   | _number_ | -      | 滑块的大小，默认：10                                                  |
 | style  | _object_ | -      | 滑块的样式设置，参考 [绘图属性](/zh/docs/api/graphic-style) |
-
-##### animate
-
-<description>**optional** _boolean_ _default:_ `false`</description>
-
-是否开启动画开关。
-
-##### animateOption
-
-<description>**optional** _ComponentAnimateOption_ </description>
-
-动画参数配置，当且仅当 animate 属性为 true，即动画开启时生效。动画配置详情如下：
-
-`markdown:docs/common/animate-option.zh.md`

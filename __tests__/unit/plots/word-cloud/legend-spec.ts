@@ -53,4 +53,33 @@ describe('word-cloud', () => {
 
     cloud.destroy();
   });
+
+  it('配置 legend', async () => {
+    const cloud = new WordCloud(createDiv('x*y'), {
+      width: 400,
+      height: 300,
+      data: CountryEconomy,
+      wordField: 'Country',
+      weightField: 'GDP',
+      colorField: 'continent',
+      legend: {
+        position: 'left',
+        marker: { style: { fill: 'red' } },
+      },
+      animation: false,
+      wordStyle: {
+        // 本地跑 live 也会丢失一个 series，故此加上 font-size
+        fontSize: [12, 20],
+      },
+    });
+
+    cloud.render();
+
+    expect(cloud.options.legend).toMatchObject({
+      position: 'left',
+      marker: { style: { fill: 'red' } },
+    });
+
+    cloud.destroy();
+  });
 });

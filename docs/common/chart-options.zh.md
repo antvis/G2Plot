@@ -45,3 +45,10 @@
 <description>**optional** _boolean_</description>
 
 是否对超出坐标系范围的 Geometry 进行剪切。
+
+<!-- 先插入到这里 -->
+#### locale
+
+<description>**optional** _string_</description>
+
+指定具体语言，目前内置 'zh-CN' and 'en-US' 两个语言，你也可以使用 `G2Plot.registerLocale` 方法注册新的语言。语言包格式参考：[src/locales/en_US.ts](https://github.com/antvis/G2Plot/blob/master/src/locales/en_US.ts)

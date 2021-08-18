@@ -7,16 +7,22 @@ type CSSStyle = Omit<Partial<CSSStyleDeclaration>, 'opacity' | 'fontWeight' | 'l
   lineHeight?: string | number;
 };
 
+/**
+ * 统计文本
+ * - 支持三种设置模式(优先级)：customHtml > formatter > content
+ */
 export type StatisticText = {
   /** 统计文本的样式 */
   readonly style?: CSSStyle | ((datum: Datum) => CSSStyle);
+  /** 文本内容 */
+  readonly content?: string;
   /** 文本的格式化 */
   readonly formatter?: (datum?: Datum, data?: Data /** filterData */) => string;
+  /** 自定义中心文本的 html */
+  readonly customHtml?: (container: HTMLElement, view: View, datum?: Datum, data?: Data /** filterData */) => string;
   readonly rotate?: number;
   readonly offsetX?: number;
   readonly offsetY?: number;
-  /** 自定义中心文本的 html */
-  readonly customHtml?: (container: HTMLElement, view: View, datum?: Datum, data?: Data /** filterData */) => string;
 };
 
 /**

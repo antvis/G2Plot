@@ -1,8 +1,21 @@
-export const version = '2.3.20';
+export const version = '2.3.31';
 
 // G2 自定义能力透出
 import * as G2 from '@antv/g2';
 export { G2 };
+
+// 国际化处理
+import { registerLocale } from './core/locale';
+import { EN_US_LOCALE } from './locales/en_US';
+import { ZH_CN_LOCALE } from './locales/zh_CN';
+/** default locale register */
+registerLocale('en-US', EN_US_LOCALE);
+registerLocale('zh-CN', ZH_CN_LOCALE);
+/** 透出 国际化 工具函数，便于使用 */
+export { registerLocale };
+
+/** 全局变量 */
+export { setGlobal } from './core/global';
 
 /** G2Plot 的 Plot 基类 */
 export { Plot } from './core/plot';
@@ -65,7 +78,7 @@ export type { TinyColumnOptions } from './plots/tiny-column';
 export { TinyArea } from './plots/tiny-area';
 export type { TinyAreaOptions } from './plots/tiny-area';
 
-// 直方图及类型定义 | author by [arcsin1](https://github.com/arcsin1)
+// 直方图及类型定义 | author by [arcsin1](https://github.com/arcsin1), [visiky](https://github.com/visiky)
 export { Histogram } from './plots/histogram';
 export type { HistogramOptions } from './plots/histogram';
 
@@ -85,7 +98,11 @@ export type { HeatmapOptions } from './plots/heatmap';
 export { Box } from './plots/box';
 export type { BoxOptions } from './plots/box';
 
-// K线图及类型定义 | author by [jhwong](https://github.com/jinhuiWong)
+// 小提琴图及类型定义 | author by [YiSiWang](https://github.com/YiSiWang), [visiky](https://github.com/visiky)
+export { Violin } from './plots/violin';
+export type { ViolinOptions } from './plots/violin';
+
+// K线图及类型定义 | author by [jhwong](https://github.com/jinhuiWong), [visiky](https://github.com/visiky)
 export { Stock } from './plots/stock';
 export type { StockOptions } from './plots/stock';
 
@@ -93,7 +110,7 @@ export type { StockOptions } from './plots/stock';
 export { Funnel, FUNNEL_CONVERSATION_FIELD } from './plots/funnel';
 export type { FunnelOptions } from './plots/funnel';
 
-// 水波图及类型定义 | author by [CarisL](https://github.com/CarisL), [hustcc](https://github.com/hustcc)
+// 水波图及类型定义 | author by [CarisL](https://github.com/CarisL), [hustcc](https://github.com/hustcc), [pearmini](https://github.com/pearmini)
 export { Liquid } from './plots/liquid';
 export type { LiquidOptions } from './plots/liquid';
 
@@ -101,7 +118,7 @@ export type { LiquidOptions } from './plots/liquid';
 export { Bullet } from './plots/bullet';
 export type { BulletOptions } from './plots/bullet';
 
-// 旭日图及类型定义 | author by [lxfu1](https://github.com/lxfu1)
+// 旭日图及类型定义 | author by [lxfu1](https://github.com/lxfu1), [visiky](https://github.com/visiky)
 export { Sunburst } from './plots/sunburst';
 export type { SunburstOptions } from './plots/sunburst';
 
@@ -133,6 +150,10 @@ export type { SankeyOptions } from './plots/sankey';
 export { Chord } from './plots/chord';
 export type { ChordOptions } from './plots/chord';
 
+// circle-packing 及类型定义 | author by [visiky](https://github.com/visiky), [Angeli](https://github.com/Angelii)
+export { CirclePacking } from './plots/circle-packing';
+export type { CirclePackingOptions } from './plots/circle-packing';
+
 // 以下开放自定义图表开发的能力（目前仅仅是孵化中）
 /** 所有开放图表都使用 G2Plot.P 作为入口开发，理论上官方的所有图表都可以走 G2Plot.P 的入口（暂时不处理） */
 export { P } from './plugin';
@@ -144,11 +165,23 @@ export type { MixOptions as MultiViewOptions } from './plots/mix';
 export { Mix as Mix } from './plots/mix';
 export type { MixOptions } from './plots/mix';
 
+// 分面图及类型定义 | author by [visiky](https://github.com/visiky)
+export { Facet } from './plots/facet';
+export type { FacetOptions } from './plots/facet';
+
 /** 开发 adaptor 可能会用到的方法或一些工具方法，不强制使用 */
 export { flow, measureTextWidth } from './utils';
 
 /** 各个 geometry 的 adaptor，可以让开发者更快的构造图形 */
-export { line, interval, area, point, polygon } from './adaptor/geometries';
+export { line, interval, area, point, polygon, schema } from './adaptor/geometries';
+export type {
+  LineGeometryOptions,
+  IntervalGeometryOptions,
+  AreaGeometryOptions,
+  PointGeometryOptions,
+  PolygonGeometryOptions,
+  SchemaGeometryOptions,
+} from './adaptor/geometries';
 /** 开放一些通用的 adaptor 通道方法，实验阶段：不保证稳定性 */
 import { scale, legend, tooltip, annotation, interaction, theme, animation } from './adaptor/common';
 export const adaptors = { scale, legend, tooltip, annotation, interaction, theme, animation };

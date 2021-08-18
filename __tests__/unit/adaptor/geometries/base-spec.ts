@@ -74,13 +74,13 @@ describe('adaptor - geometry', () => {
         },
       },
     });
-    expect(plot.chart.geometries[0].getAttribute('color').getFields()).toEqual(['date']);
+    expect(plot.chart.geometries[0].getAttribute('color').getFields()).toEqual(['']);
 
-    expect(plot.chart.geometries[0].getAttribute('color').values).toEqual([]);
+    expect(plot.chart.geometries[0].getAttribute('color').values).toEqual(['']);
     expect(plot.chart.geometries[0].getAttribute('color').callback).toBeDefined();
 
     expect(p).toEqual({
-      date: '25/01/2018',
+      date: [''],
     });
 
     plot.destroy();

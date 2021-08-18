@@ -1,4 +1,4 @@
-const { repository } = require('./package.json');
+const { repository, version } = require('./package.json');
 
 module.exports = {
   plugins: [
@@ -17,15 +17,23 @@ module.exports = {
     description: 'A collection of charts made with the Grammar of Graphics',
     siteUrl: 'https://g2plot.antv.vision',
     githubUrl: repository.url,
+    showGithubStar: true,
+    showGithubCorner: false,
     versions: {
-      'latest v2': 'https://g2plot.antv.vision',
+      [version]: 'https://g2plot.antv.vision',
       '1.x': 'https://g2plot-v1.antv.vision',
     },
     galleryMenuCloseAll: true,
     showChartResize: true, // 是否在demo页展示图表视图切换
     showAPIDoc: true, // 是否在demo页展示API文档
     themeSwitcher: 'g2plot',
-    playground: {},
+    playground: {
+      extraLib: '',
+      container: '<div id="container"><div id="container1"></div><div id="container2"></div></div>', // 定义演示的渲染节点，默认 <div id="container" />
+      devDependencies: {
+        typescript: 'latest',
+      },
+    },
     mdPlayground: {
       // markdown 文档中的 playground 若干设置
       splitPaneMainSize: '50%',
@@ -104,12 +112,20 @@ module.exports = {
         order: 2,
       },
       {
+        slug: 'api/advanced-plots',
+        title: {
+          zh: '高级图表',
+          en: 'Advanced plots',
+        },
+        order: 3,
+      },
+      {
         slug: 'api/components',
         title: {
           zh: '图表组件',
           en: 'Components',
         },
-        order: 3,
+        order: 4,
       },
       {
         slug: 'api/options',
@@ -117,8 +133,8 @@ module.exports = {
           zh: '通用配置',
           en: 'Common Configuration',
         },
-        order: 4,
-      },
+        order: 5,
+      }
     ],
     examples: [
       {
@@ -127,6 +143,14 @@ module.exports = {
         title: {
           zh: '',
           en: '',
+        },
+      },
+      {
+        slug: 'facet',
+        icon: 'gallery',
+        title: {
+          zh: 'Facet ❤️',
+          en: '分面图 ❤️',
         },
       },
       {
@@ -287,5 +311,9 @@ module.exports = {
       apiKey: '0d19588d7661a81faa8b75f6ade80321',
       indexName: 'antv_g2plot',
     },
+    announcement: {
+      zh: "图表实例：新增了一些「高级用法」，可以前往查看如果通过高级用法，来进行图表之间的联动交互",
+      en: "Examples of advanced usage have been added, you can go for to see how to make interactions between plots",
+    }
   },
 };

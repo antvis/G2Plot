@@ -1,4 +1,5 @@
 import DataSet from '@antv/data-set';
+import { groupBy } from '@antv/util';
 import { binHistogram } from '../../../../src/utils/transform/histogram';
 import { histogramData, histogramStackData } from '../../../data/histogram-data';
 
@@ -23,13 +24,13 @@ const dv2 = ds.createView().source(histogramData);
 dv2.transform({
   type: 'bin.histogram',
   field: 'value',
-  bins: 4, // binNumber
+  bins: 4, // binNumber + 1
   as: ['range', 'count'],
 });
 
 describe('binHistogram', () => {
   it('binHistogram binNumber', () => {
-    expect(binHistogram(histogramData, 'value', undefined, 4)).toEqual(dv2.rows);
+    expect(binHistogram(histogramData, 'value', undefined, 5)).toEqual(dv2.rows);
   });
 });
 
@@ -56,13 +57,19 @@ const dv4 = ds.createView().source(histogramStackData);
 dv4.transform({
   type: 'bin.histogram',
   field: 'value',
-  bins: 4, // binNumber
+  bins: 4, // binNumber + 1
   groupBy: ['type'],
   as: ['range', 'count'],
 });
 
 describe('binHistogram', () => {
   it('binHistogram stack binNumber', () => {
-    expect(binHistogram(histogramStackData, 'value', undefined, 4, 'type')).toEqual(dv4.rows);
+    expect(binHistogram(histogramStackData, 'value', undefined, 5, 'type')).toEqual(dv4.rows);
+  });
+
+  it('binNumber is 1', () => {
+    expect(binHistogram(histogramStackData, 'value', undefined, 1, 'type').length).toBe(
+      Object.values(groupBy(histogramStackData, 'type')).length
+    );
   });
 });

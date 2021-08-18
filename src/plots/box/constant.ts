@@ -22,7 +22,9 @@ export const DEFAULT_OPTIONS = deepAssign({}, Plot.getDefaultOptions(), {
   // 默认 tooltips 共享，不显示 markers
   tooltip: {
     showMarkers: false,
-    showCrosshairs: true,
     shared: true,
+  },
+  boxStyle: {
+    lineWidth: 1,
   },
 });

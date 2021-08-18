@@ -12,6 +12,16 @@
       },
 
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*LjN9Sqfo6nsAAAAAAAAAAAAAARQnAQ"
-    }     
+    }
+    ,
+    {
+      "filename": "custom-tooltip.ts",
+      "title": {
+        "zh": "和弦图 - 自定义 tooltip",
+        "en": "chord"
+      },
+
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*LjN9Sqfo6nsAAAAAAAAAAAAAARQnAQ"
+    }  
   ]
 }

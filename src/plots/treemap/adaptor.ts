@@ -1,14 +1,10 @@
+import { get } from '@antv/util';
 import { polygon as basePolygon } from '../../adaptor/geometries/polygon';
 import { Params } from '../../core/adaptor';
 import { interaction as commonInteraction, animation, theme, legend, annotation, tooltip } from '../../adaptor/common';
 import { flow, deepAssign } from '../../utils';
-import {
-  transformData,
-  findInteraction,
-  enableInteraction,
-  getFommatInteractions,
-  getAdjustAppendPadding,
-} from './utils';
+import { getAdjustAppendPadding } from '../../utils/padding';
+import { transformData, findInteraction, enableDrillInteraction } from './utils';
 import { TreemapOptions } from './types';
 
 /**
@@ -22,24 +18,8 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
   return deepAssign(
     {
       options: {
-        // 默认按照 name 字段对颜色进行分类
-        colorField: 'name',
-        rectStyle: {
-          lineWidth: 1,
-          stroke: '#fff',
-        },
-        hierarchyConfig: {
-          tile: 'treemapSquarify',
-        },
-        label: {
-          fields: ['name'],
-          layout: {
-            type: 'limit-in-shape',
-          },
-        },
+        rawFields: ['value'],
         tooltip: {
-          showMarkers: false,
-          showTitle: false,
           fields: ['name', 'value', colorField, 'path'],
           formatter: (data) => {
             return {
@@ -60,12 +40,12 @@ function defaultOptions(params: Params<TreemapOptions>): Params<TreemapOptions> 
  */
 function geometry(params: Params<TreemapOptions>): Params<TreemapOptions> {
   const { chart, options } = params;
-  const { color, colorField, rectStyle, hierarchyConfig } = options;
+  const { color, colorField, rectStyle, hierarchyConfig, rawFields } = options;
 
   const data = transformData({
     data: options.data,
     colorField: options.colorField,
-    enableDrillDown: enableInteraction(options.interactions, 'treemap-drill-down'),
+    enableDrillDown: enableDrillInteraction(options),
     hierarchyConfig,
   });
 
@@ -78,7 +58,7 @@ function geometry(params: Params<TreemapOptions>): Params<TreemapOptions> {
         xField: 'x',
         yField: 'y',
         seriesField: colorField,
-        rawFields: ['value'],
+        rawFields: rawFields,
         polygon: {
           color,
           style: rectStyle,
@@ -103,19 +83,36 @@ function axis(params: Params<TreemapOptions>): Params<TreemapOptions> {
   return params;
 }
 
+function adaptorInteraction(options: TreemapOptions): TreemapOptions {
+  const { drilldown, interactions = [] } = options;
+
+  const enableDrillDown = enableDrillInteraction(options);
+  if (enableDrillDown) {
+    return deepAssign({}, options, {
+      interactions: [
+        ...interactions,
+        {
+          type: 'drill-down',
+          // 🚓 这不是一个规范的 API，后续会变更。慎重参考
+          cfg: { drillDownConfig: drilldown, transformData },
+        },
+      ],
+    });
+  }
+  return options;
+}
+
 /**
  * Interaction 配置
  * @param params
  */
 export function interaction(params: Params<TreemapOptions>): Params<TreemapOptions> {
   const { chart, options } = params;
-  const { interactions, hierarchyConfig } = options;
+  const { interactions, drilldown } = options;
 
   commonInteraction({
     chart,
-    options: {
-      interactions: getFommatInteractions(interactions, hierarchyConfig),
-    },
+    options: adaptorInteraction(options),
   });
 
   // 适配 view-zoom
@@ -134,10 +131,10 @@ export function interaction(params: Params<TreemapOptions>): Params<TreemapOptio
   }
 
   // 适应下钻交互面包屑
-  const enableDrillInteraction = enableInteraction(interactions, 'treemap-drill-down');
-  if (enableDrillInteraction) {
+  const enableDrillDown = enableDrillInteraction(options);
+  if (enableDrillDown) {
     // 为面包屑在底部留出 25px 的空间
-    chart.appendPadding = getAdjustAppendPadding(chart.appendPadding);
+    chart.appendPadding = getAdjustAppendPadding(chart.appendPadding, get(drilldown, ['breadCrumb', 'position']));
   }
   return params;
 }
@@ -148,5 +145,5 @@ export function interaction(params: Params<TreemapOptions>): Params<TreemapOptio
  * @param options
  */
 export function adaptor(params: Params<TreemapOptions>) {
-  return flow(defaultOptions, geometry, axis, theme, legend, tooltip, interaction, animation, annotation())(params);
+  return flow(defaultOptions, theme, geometry, axis, legend, tooltip, interaction, animation, annotation())(params);
 }

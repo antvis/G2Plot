@@ -1,8 +1,8 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { ChordOptions } from './types';
 import { adaptor } from './adaptor';
 import { DEFAULT_OPTIONS } from './constant';
+import { ChordOptions } from './types';
 
 export type { ChordOptions };
 

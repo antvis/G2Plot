@@ -21,6 +21,29 @@ order: 11
 
 设置直方图绘制 (进行分箱) 的字段。
 
+#### stackField
+
+<description>**optional** _number_</description>
+
+指定层叠字段，通过该字段的值，柱子将会被分割为多个部分，通过颜色进行区分。
+
+#### meta
+
+`markdown:docs/common/meta.zh.md`
+
+直方图内含的数据字段有：
+
+| 字段 | 字段描述 | 字段值类型 |
+｜ --- ｜ --- ｜ --- ｜
+｜`range`| 分箱之后，所处分箱的区间范围 |_number[]_ |
+｜`count`| 分箱之后，所处分箱的计数数量 | _number_ |
+
+示例：
+
+<playground path="more-plots/histogram/demo/binWidth.ts" rid="histogram-meta"></playground>
+
+### 图形样式
+
 #### binWidth
 
 <description>**optional** _string_</description>
@@ -32,18 +55,6 @@ order: 11
 <description>**optional** _number_</description>
 
 设置直方图的分箱数量，binNumber 影响直方图分箱后每个柱子的宽度。
-
-#### stackField
-
-<description>**optional** _number_</description>
-
-指定层叠字段，通过该字段的值，柱子将会被分割为多个部分，通过颜色进行区分。
-
-#### meta
-
-`markdown:docs/common/meta.zh.md`
-
-### 图形样式
 
 #### columnStyle
 

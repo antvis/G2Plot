@@ -13,6 +13,15 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*bLulSLk-VskAAAAAAAAAAAAAARQnAQ"
     },
     {
+      "filename": "set-state.ts",
+      "title": {
+        "zh": "桑基图状态交互",
+        "en": "Sankey with state"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/rAuJKL%24Y6n/7a301a5e-4864-44f3-acb7-ebefb9c2402b.png"
+    },
+    {
       "filename": "energy.ts",
       "title": {
         "zh": "能量关系桑基图",

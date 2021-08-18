@@ -40,7 +40,7 @@ more details about action, got to see [G2 | interaction feedback](https://g2.ant
 | element-single-highlight | 用于设置和取消图表元素的 highlight ，只允许单个元素 highlight。高亮的时候会取消当前激活元素之外的元素的高亮态 | <tag color="green" text="Element">Element</tag> |
 | element-filter| 图表元素的过滤，支持来自图例（分类和连续）、坐标轴文本的触发 | <tag color="green" text="Element">Element</tag> | 
 
-### Assembel interacions
+### Assembel interactions
 
 #### element-link (chart elements of the same colors)
 

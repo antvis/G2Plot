@@ -3,7 +3,7 @@ import { each } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
 import { Options, StateName, StateCondition, Size, StateObject } from '../types';
-import { getContainerSize, getAllElements, deepAssign, pick } from '../utils';
+import { getContainerSize, getAllElementsRecursively, deepAssign, pick } from '../utils';
 import { Adaptor } from './adaptor';
 
 /** 单独 pick 出来的用于基类的类型定义 */
@@ -19,6 +19,7 @@ export type PickOptions = Pick<
   | 'syncViewPadding'
   | 'supportCSSTransform'
   | 'limitInPlot'
+  | 'locale'
 >;
 
 const SOURCE_ATTRIBUTE_NAME = 'data-chart-source-type';
@@ -64,7 +65,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
   }
 
   /** plot 类型名称 */
-  public abstract readonly type: string = 'base';
+  public abstract readonly type: string;
   /** plot 的 schema 配置 */
   public options: O;
   /** plot 绘制的 dom */
@@ -187,7 +188,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * @param status 是否激活，默认 true
    */
   public setState(type: StateName, condition: StateCondition, status: boolean = true) {
-    const elements = getAllElements(this.chart);
+    const elements = getAllElementsRecursively(this.chart);
 
     each(elements, (ele: Element) => {
       if (condition(ele.getData())) {
@@ -200,7 +201,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 获取状态
    */
   public getStates(): StateObject[] {
-    const elements = getAllElements(this.chart);
+    const elements = getAllElementsRecursively(this.chart);
 
     const stateObjects: StateObject[] = [];
     each(elements, (element: Element) => {

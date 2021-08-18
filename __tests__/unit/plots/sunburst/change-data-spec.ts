@@ -4,11 +4,12 @@ import { delay } from '../../../utils/delay';
 import { SUNBRUST_DATA } from '../../../data/sunburst';
 
 describe('sunburst', () => {
-  it('init: change data', async () => {
+  it('旧版本', async () => {
     const sunburstPlot = new Sunburst(createDiv(), {
       width: 400,
       height: 400,
       data: [],
+      // @ts-ignore
       seriesField: 'sum',
       colorField: 'value',
       color: ['#BAE7FF', '#1890FF', '#0050B3'],
@@ -30,7 +31,8 @@ describe('sunburst', () => {
       labelOption: { fields, cfg },
       coordinate,
     } = geometry;
-    expect(fields).toEqual(['sum']);
+    // 默认展示 name（不进行兼容））
+    expect(fields).toEqual(['name']);
     expect(cfg.position).toBe('middle');
     const positionFields = geometry.getAttribute('position').getFields();
     expect(geometry.elements.length).toBe(geometry.data.length);
@@ -42,11 +44,12 @@ describe('sunburst', () => {
     sunburstPlot.destroy();
   });
 
-  it('init: update', async () => {
+  it('旧版本: update', async () => {
     const sunburstPlot = new Sunburst(createDiv(), {
       width: 400,
       height: 400,
       data: SUNBRUST_DATA,
+      // @ts-ignore
       seriesField: 'sum',
       innerRadius: 0.3,
       radius: 1,
@@ -63,7 +66,8 @@ describe('sunburst', () => {
       labelOption: { fields },
       coordinate,
     } = geometry;
-    expect(fields).toEqual(['sum']);
+    // 默认展示 name（不进行兼容））
+    expect(fields).toEqual(['name']);
     expect(coordinate.innerRadius).toBe(0.3);
     // @ts-ignore
     sunburstPlot.update({

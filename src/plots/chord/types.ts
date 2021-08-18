@@ -15,6 +15,11 @@ export interface ChordOptions extends Omit<Options, 'xField' | 'yField' | 'xAxis
    */
   readonly weightField: string;
   /**
+   * 附加的 源字段
+   */
+  readonly rawFields?: string[];
+
+  /**
    * 数据
    */
   readonly data: Data;

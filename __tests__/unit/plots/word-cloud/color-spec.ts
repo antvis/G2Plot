@@ -73,4 +73,23 @@ describe('word-cloud color option', () => {
 
     cloud.destroy();
   });
+
+  it('callback color', () => {
+    const cloud = new WordCloud(createDiv(), {
+      width: 400,
+      height: 300,
+      data: CountryEconomy,
+      wordField: 'Country',
+      weightField: 'GDP',
+      colorField: 'x',
+      color: (data) => {
+        expect(!!data['datum'] || !data['color']).toBe(true);
+        return 'red';
+      },
+    });
+
+    cloud.render();
+
+    cloud.destroy();
+  });
 });

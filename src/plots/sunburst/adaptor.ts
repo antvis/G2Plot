@@ -1,8 +1,13 @@
+import { isFunction, get, uniq } from '@antv/util';
+import { Types } from '@antv/g2';
 import { Params } from '../../core/adaptor';
 import { polygon as polygonAdaptor } from '../../adaptor/geometries';
-import { interaction, animation, theme, annotation } from '../../adaptor/common';
+import { interaction as baseInteraction, animation, theme, annotation, scale } from '../../adaptor/common';
 import { flow, findGeometry, transformLabel, deepAssign } from '../../utils';
-import { transformData, getTooltipTemplate } from './utils';
+import { getAdjustAppendPadding } from '../../utils/padding';
+import { Datum } from '../../types';
+import { RAW_FIELDS, SUNBURST_ANCESTOR_FIELD, SUNBURST_PATH_FIELD, SUNBURST_Y_FIELD } from './constant';
+import { transformData } from './utils';
 import { SunburstOptions } from './types';
 
 /**
@@ -11,9 +16,23 @@ import { SunburstOptions } from './types';
  */
 function geometry(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart, options } = params;
-  const { color, colorField, sunburstStyle } = options;
+  const { color, colorField = SUNBURST_ANCESTOR_FIELD, sunburstStyle, rawFields = [] } = options;
   const data = transformData(options);
   chart.data(data);
+
+  // 特殊处理下样式，如果没有设置 fillOpacity 的时候，默认根据层级进行填充透明度
+  let style;
+  if (sunburstStyle) {
+    style = (datum: Datum) => {
+      return deepAssign(
+        {},
+        {
+          fillOpacity: 0.85 ** datum.depth,
+        },
+        isFunction(sunburstStyle) ? sunburstStyle(datum) : sunburstStyle
+      );
+    };
+  }
 
   // geometry
   polygonAdaptor(
@@ -22,9 +41,10 @@ function geometry(params: Params<SunburstOptions>): Params<SunburstOptions> {
         xField: 'x',
         yField: 'y',
         seriesField: colorField,
+        rawFields: uniq([...RAW_FIELDS, ...rawFields]),
         polygon: {
           color,
-          style: sunburstStyle,
+          style,
         },
       },
     })
@@ -44,11 +64,13 @@ export function axis(params: Params<SunburstOptions>): Params<SunburstOptions> {
 }
 
 /**
- * legend 配置
+ * legend 配置（旭日图暂时不支持图例，后续需要支持的话，得自定义数据筛选）
  * @param params
+ * @returns
  */
-export function legend(params: Params<SunburstOptions>): Params<SunburstOptions> {
+function legend(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart } = params;
+
   chart.legend(false);
   return params;
 }
@@ -59,17 +81,17 @@ export function legend(params: Params<SunburstOptions>): Params<SunburstOptions>
  */
 function label(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart, options } = params;
-  const { label, seriesField } = options;
+  const { label } = options;
 
   const geometry = findGeometry(chart, 'polygon');
 
-  // label 为 false, 空 则不显示 label
+  // 默认不展示，undefined 也不展示
   if (!label) {
     geometry.label(false);
   } else {
-    const { callback, ...cfg } = label;
+    const { fields = ['name'], callback, ...cfg } = label;
     geometry.label({
-      fields: [seriesField],
+      fields,
       callback,
       cfg: transformLabel(cfg),
     });
@@ -99,21 +121,22 @@ function coordinate(params: Params<SunburstOptions>): Params<SunburstOptions> {
 
   return params;
 }
-
 /**
- * scale 配置
+ * meta 配置
  * @param params
  */
-function scale(params: Params<SunburstOptions>): Params<SunburstOptions> {
-  const { chart, options } = params;
-  const { meta } = options;
+export function meta(params: Params<SunburstOptions>): Params<SunburstOptions> {
+  const { options } = params;
+  const { hierarchyConfig, meta } = options;
 
-  if (meta) {
-    // @ts-ignore
-    chart.scale(meta);
-  }
-
-  return params;
+  return flow(
+    scale(
+      {},
+      {
+        [SUNBURST_Y_FIELD]: get(meta, get(hierarchyConfig, ['field'], 'value')),
+      }
+    )
+  )(params);
 }
 
 /**
@@ -122,23 +145,74 @@ function scale(params: Params<SunburstOptions>): Params<SunburstOptions> {
  */
 export function tooltip(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart, options } = params;
-  const { tooltip, seriesField, colorField } = options;
+  const { tooltip } = options;
 
-  if (tooltip) {
-    chart.tooltip({
-      ...tooltip,
-      customContent:
-        tooltip && tooltip.customContent
-          ? tooltip.customContent
-          : (value: string, items: any[]) => {
-              return getTooltipTemplate({
-                value,
-                items,
-                formatter: tooltip && tooltip?.formatter,
-                fields: (tooltip && tooltip.fields) || [seriesField, colorField],
-              });
-            },
+  if (tooltip === false) {
+    chart.tooltip(false);
+  } else {
+    let tooltipOptions = tooltip;
+    // 设置了 fields，就不进行 customItems 了; 设置 formatter 时，需要搭配 fields
+    if (!get(tooltip, 'fields')) {
+      tooltipOptions = deepAssign(
+        {},
+        {
+          customItems: (items: Types.TooltipItem[]) =>
+            items.map((item) => {
+              const scales = get(chart.getOptions(), 'scales');
+              const pathFormatter = get(scales, [SUNBURST_PATH_FIELD, 'formatter'], (v) => v);
+              const valueFormatter = get(scales, [SUNBURST_Y_FIELD, 'formatter'], (v) => v);
+              return {
+                ...item,
+                name: pathFormatter(item.data[SUNBURST_PATH_FIELD]),
+                value: valueFormatter(item.data.value),
+              };
+            }),
+        },
+        tooltipOptions
+      );
+    }
+    chart.tooltip(tooltipOptions);
+  }
+
+  return params;
+}
+
+function adaptorInteraction(options: SunburstOptions): SunburstOptions {
+  const { drilldown, interactions = [] } = options;
+
+  if (drilldown?.enabled) {
+    return deepAssign({}, options, {
+      interactions: [
+        ...interactions,
+        {
+          type: 'drill-down',
+          cfg: { drillDownConfig: drilldown, transformData },
+        },
+      ],
     });
+  }
+  return options;
+}
+
+/**
+ * 交互配置
+ * @param params
+ * @returns
+ */
+function interaction(params: Params<SunburstOptions>): Params<SunburstOptions> {
+  const { chart, options } = params;
+
+  const { drilldown } = options;
+
+  baseInteraction({
+    chart,
+    options: adaptorInteraction(options),
+  });
+
+  // 适应下钻交互面包屑
+  if (drilldown?.enabled) {
+    // 为面包屑留出 25px 的空间
+    chart.appendPadding = getAdjustAppendPadding(chart.appendPadding, get(drilldown, ['breadCrumb', 'position']));
   }
 
   return params;
@@ -152,10 +226,10 @@ export function tooltip(params: Params<SunburstOptions>): Params<SunburstOptions
 export function adaptor(params: Params<SunburstOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
-    geometry,
     theme,
+    geometry,
     axis,
-    scale,
+    meta,
     legend,
     coordinate,
     tooltip,

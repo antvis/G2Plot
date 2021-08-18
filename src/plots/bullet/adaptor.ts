@@ -98,7 +98,7 @@ export function meta(params: Params<BulletOptions>): Params<BulletOptions> {
       },
       // 额外的 meta
       {
-        [measureField]: { min: extData?.min, max: extData?.max },
+        [measureField]: { min: extData?.min, max: extData?.max, sync: true },
         [targetField]: {
           sync: `${measureField}`,
         },

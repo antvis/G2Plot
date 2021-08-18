@@ -16,7 +16,7 @@ export function transformData(
 ): FunnelOptions['data'] {
   let formatData = [];
   const { yField, maxSize, minSize } = options;
-  const maxYFieldValue = maxBy(originData, yField)[yField];
+  const maxYFieldValue = get(maxBy(originData, yField), [yField]);
   const max = isNumber(maxSize) ? maxSize : 1;
   const min = isNumber(minSize) ? minSize : 0;
 

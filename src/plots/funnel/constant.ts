@@ -10,3 +10,38 @@ export const FUNNEL_TOTAL_PERCENT = '$$totalPercentage$$';
 // 漏斗多边型 x 坐标
 export const PLOYGON_X = '$$x$$';
 export const PLOYGON_Y = '$$y$$';
+
+/**
+ * 漏斗图 默认配置项
+ */
+export const DEFAULT_OPTIONS = {
+  appendPadding: [0, 80],
+  minSize: 0,
+  maxSize: 1,
+  meta: {
+    [FUNNEL_MAPPING_VALUE]: {
+      min: 0,
+      max: 1,
+      nice: false,
+    },
+  },
+  label: {
+    style: {
+      fill: '#fff',
+      fontSize: 12,
+    },
+  },
+  tooltip: {
+    showTitle: false,
+    showMarkers: false,
+    shared: false,
+  },
+  conversionTag: {
+    offsetX: 10,
+    offsetY: 0,
+    style: {
+      fontSize: 12,
+      fill: 'rgba(0,0,0,0.45)',
+    },
+  },
+};

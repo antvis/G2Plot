@@ -79,6 +79,15 @@ describe('中心文本 - 指标卡', () => {
     expect((htmlAnnotations[1] as HTMLElement).innerText).toBe(`${data.reduce((a, b) => a + b.value, 0)}`);
   });
 
+  it('设置 content', () => {
+    // 清空所有配置
+    pie.update({ statistic: null });
+    pie.update({ statistic: { title: { content: 'TEST' }, content: { content: 'ss' } } });
+    const htmlAnnotations = document.querySelectorAll('.g2-html-annotation');
+    expect((htmlAnnotations[0] as HTMLElement).innerText).toBe('TEST');
+    expect((htmlAnnotations[1] as HTMLElement).innerText).toBe('ss');
+  });
+
   it('自定义中心文本内容: update statistic title & content', () => {
     pie.update({
       ...pie.options,

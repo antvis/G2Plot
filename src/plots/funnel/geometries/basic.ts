@@ -1,6 +1,6 @@
 import { Types } from '@antv/g2';
 import { isArray } from '@antv/util';
-import { flow, findGeometry } from '../../../utils';
+import { flow, findGeometry, deepAssign } from '../../../utils';
 import { getTooltipMapping } from '../../../utils/tooltip';
 import { Params } from '../../../core/adaptor';
 import { Datum, Data } from '../../../types/common';
@@ -33,7 +33,7 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { xField, yField, color, tooltip, label } = options;
+  const { xField, yField, color, tooltip, label, shape = 'funnel', funnelStyle, state } = options;
 
   const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField]);
 
@@ -46,11 +46,21 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
       colorField: xField,
       tooltipFields: isArray(fields) && fields.concat([FUNNEL_PERCENT, FUNNEL_CONVERSATION]),
       mapping: {
-        shape: 'funnel',
+        shape,
         tooltip: formatter,
         color,
+        style: funnelStyle,
       },
-      label,
+      // 使用 Interval 绘制的漏斗图，默认使用 'interval-adjust-position', 否则尖底漏斗图最后一行 label 错位
+      label: deepAssign(
+        {
+          layout: {
+            type: 'interval-adjust-position',
+          },
+        },
+        label
+      ),
+      state,
     },
   });
 

@@ -27,6 +27,12 @@ describe('gauge statistic', () => {
     expect((annotation as HTMLElement).innerText).toBe('65.00%');
   });
 
+  it('设置 content', () => {
+    gauge.update({ statistic: { content: { content: 'ss' } } });
+    const annotation = document.body.querySelector('.g2-html-annotation');
+    expect((annotation as HTMLElement).innerText).toBe('ss');
+  });
+
   it('statistic 配置的格式化方式, 优先级高于 meta', () => {
     gauge.update({ statistic: { content: { formatter: ({ percent }) => `${percent * 100}.0%` } } });
     const annotation = document.body.querySelector('.g2-html-annotation');

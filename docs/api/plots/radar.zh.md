@@ -60,9 +60,9 @@ radarPlot.render();
 
 #### seriesField
 
-<description>**required** _string_</description>
+<description>**optional** _string_</description>
 
-对雷达图进行分组的字段，一般对应一个分类字段。通过该字段的值，雷达图将会被分为多个组，通过颜色进行区分，并上下重叠。
+对雷达图进行分组的字段，一般对应一个分类字段 (**注意：文本型字段**)。通过该字段的值，雷达图将会被分为多个组，通过颜色进行区分，并上下重叠。
 
 ### 图形样式
 

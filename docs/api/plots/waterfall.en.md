@@ -66,7 +66,7 @@ Rising color configuration.
 
 <description>**optional** _number_ _default:_ `#30bf78`</description>
 
-Drop color configuration.
+Falling color configuration.
 
 #### columnWidthRatio
 

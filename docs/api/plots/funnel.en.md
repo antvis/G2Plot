@@ -23,18 +23,11 @@ Configure the data source. The data source is a collection of objects. For examp
 
 Field for comparing.
 
-
 #### seriesField
 
 <description>**optional** _string_</description>
 
 Field for spliting.
-
-#### isTransposed
-
-<description>**optional** _boolean_ _default:_ `false`</description>
-
-Whether the plot is transposed.
 
 #### meta
 
@@ -42,11 +35,26 @@ Whether the plot is transposed.
 
 ### Graphic Style
 
+#### isTransposed
+
+<description>**optional** _boolean_ _default:_ `false`</description>
+
+Whether the plot is transposed.
+
+#### shape
+
+<description>**optional** _string_ `'funnel' ｜ 'pyramid'` </description>
+
+漏斗图形状。shape 设置为 'pyramid' 时，漏斗图展示为尖底样式（形如：金字塔）。目前只在基础漏斗图中适用。不适用场景：
+
+1. 在对比漏斗图（`compareField` 存在时）不适用
+2. 设置 dynamicHeight: 'true' 时不适用，此时需要设置 shape 为空。
+
 #### dynamicHeight
 
 <description>**optional** _boolean_ _default:_ `false`</description>
 
-Whether the height is dynamic.
+Whether the height is dynamic. When set to `true`, the height of each elemnet in funnel plot is directly proportional to the corresponding value of yField.
 
 #### maxSize
 
@@ -64,15 +72,13 @@ the min size of graphic，is between 0 and 1, default 0。
 
 Tip: when set dynamicHeight to be true, this field is invalid 
 
-#### conversionTag
+#### funnelStyle
 
-<description>**optional** _false | object_</description>
+<description>**optional** _object_</description>
 
-Configure the conversion rate component.
+Graphic style of funnel. You can either pass in the 'shapeStyle' structure directly, or you can use callbacks to return different styles for different data. For the ShapeStyle data structure, see:
 
-Defalut: `{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$percentage$$ * 100 + '%',}`。
-
-`markdown:docs/common/color.en.md`
+`markdown:docs/common/shape-style.en.md`
 
 ### Plot Components
 
@@ -83,6 +89,16 @@ Defalut: `{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$
 #### label
 
 `markdown:docs/common/label.en.md`
+
+#### conversionTag
+
+<description>**optional** _false | object_</description>
+
+Configure the conversion rate component.
+
+Defalut: `{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$percentage$$ * 100 + '%',}`。
+
+`markdown:docs/common/color.en.md`
 
 #### 图例
 
@@ -105,20 +121,47 @@ Defalut: `{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$
 
 `markdown:docs/common/theme.en.md`
 
+### Static Properties
 
-### Static Variables
+Funnel plot provides static properties, makes it easy to use.
 
-Funnel plot provides static variables, such as:
+#### Static variables
 
+| Field | Description |
+| --- | --- |
+| `CONVERSATION_FIELD` | The corresponding value of this field is an array, stores the current and previous values of the funnel, for example, [263, 151], from which the user can calculate the conversion rate |
+| `PERCENT_FIELD` | The corresponding value of this field represents the `conversion percentage` between current value and previous value |
+| `TOTAL_PERCENT_FIELD` | The corresponding value of this field represents the percentage of total conversion rate |
+
+**Example:**
+
+```javascript
+import { Funnel } from '@antv/g2plot';
+
+// usage
+{
+  conversionTag: {
+    formatter: (datum) => {
+      return `${(datum[Funnel.CONVERSATION_FIELD][1] / datum[Funnel.CONVERSATION_FIELD][0] * 100).toFixed(2)}%`;
+    },
+  },
+  label: {
+    formatter: (datum) => {
+      return `${(datum[Funnel.PERCENT_FIELD] * 100).toFixed(2)}%`;
+    }
+  }
+}
+```
 
 #### FUNNEL_CONVERSATION_FIELD
+
+> Attention: you can use `Funnel.CONVERSATION_FIELD` to replace `FUNNEL_CONVERSATION_FIELD` in the latest version.
 
 FUNNEL_CONVERSATION_FIELD is an array, stores the current and previous values of the funnel, for example, [263, 151], from which the user can calculate the conversion rate, for example:
 
 ```javascript
 // 引用
 import { FUNNEL_CONVERSATION_FIELD } from '@antv/g2plot';
-
 
 // 使用
 {

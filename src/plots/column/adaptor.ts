@@ -1,7 +1,7 @@
+import { Types } from '@antv/g2';
+import { each, filter, isMatch } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { findGeometry } from '../../utils';
 import {
-  tooltip,
   slider,
   interaction,
   animation,
@@ -15,10 +15,10 @@ import {
 import { conversionTag } from '../../adaptor/conversion-tag';
 import { connectedArea } from '../../adaptor/connected-area';
 import { interval } from '../../adaptor/geometries';
-import { flow, transformLabel, deepAssign } from '../../utils';
-import { getDataWhetherPecentage } from '../../utils/transform/percent';
-import { adjustYMetaByZero } from '../../utils/data';
+import { flow, transformLabel, deepAssign, findGeometry, adjustYMetaByZero, pick } from '../../utils';
+import { getDataWhetherPecentage, getDeepPercent } from '../../utils/transform/percent';
 import { Datum } from '../../types';
+import { brushInteraction } from '../../adaptor/brush';
 import { ColumnOptions } from './types';
 
 /**
@@ -53,15 +53,50 @@ function defaultOptions(params: Params<ColumnOptions>): Params<ColumnOptions> {
  */
 function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const { chart, options } = params;
-  const { data, columnStyle, color, columnWidthRatio, isPercent, xField, yField, seriesField, tooltip } = options;
+  const {
+    data,
+    columnStyle,
+    color,
+    columnWidthRatio,
+    isPercent,
+    isGroup,
+    isStack,
+    xField,
+    yField,
+    seriesField,
+    groupField,
+    tooltip,
+  } = options;
 
-  chart.data(getDataWhetherPecentage(data, yField, xField, yField, isPercent));
+  const percentData =
+    isPercent && isGroup && isStack
+      ? getDeepPercent(data, yField, [xField, groupField], yField)
+      : getDataWhetherPecentage(data, yField, xField, yField, isPercent);
+
+  let chartData = [];
+
+  // 存在堆叠,并且存在堆叠seriesField分类，并且不存在分组的时候 进行堆叠
+  if (isStack && seriesField && !isGroup) {
+    percentData.forEach((item) => {
+      const stackedItem = chartData.find((v) => v[xField] === item[xField] && v[seriesField] === item[seriesField]);
+      if (stackedItem) {
+        stackedItem[yField] += item[yField] || 0;
+      } else {
+        chartData.push({ ...item });
+      }
+    });
+  } else {
+    chartData = percentData;
+  }
+
+  chart.data(chartData);
 
   // 百分比堆积图，默认会给一个 % 格式化逻辑, 用户可自定义
   const tooltipOptions = isPercent
     ? {
         formatter: (datum: Datum) => ({
-          name: datum[seriesField] || datum[xField],
+          name:
+            isGroup && isStack ? `${datum[seriesField]} - ${datum[groupField]}` : datum[seriesField] || datum[xField],
           value: (Number(datum[yField]) * 100).toFixed(2) + '%',
         }),
         ...tooltip,
@@ -70,6 +105,7 @@ function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
 
   const p = deepAssign({}, params, {
     options: {
+      data: chartData,
       widthRatio: columnWidthRatio,
       tooltip: tooltipOptions,
       interval: {
@@ -80,7 +116,7 @@ function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
   });
   interval(p);
 
-  return params;
+  return p;
 }
 
 /**
@@ -198,6 +234,50 @@ function label(params: Params<ColumnOptions>): Params<ColumnOptions> {
 }
 
 /**
+ * 柱形图 tooltip 配置 (对堆叠、分组做特殊处理)
+ * @param params
+ */
+function columnTooltip(params: Params<ColumnOptions>): Params<ColumnOptions> {
+  const { chart, options } = params;
+  const { tooltip, isGroup, isStack, groupField, data, xField, yField, seriesField } = options;
+
+  if (tooltip === false) {
+    chart.tooltip(false);
+  } else {
+    let tooltipOptions = tooltip;
+    // fix: https://github.com/antvis/G2Plot/issues/2572
+    if (isGroup && isStack) {
+      const tooltipFormatter =
+        tooltipOptions?.formatter ||
+        ((datum: Datum) => ({ name: `${datum[seriesField]} - ${datum[groupField]}`, value: datum[yField] }));
+      tooltipOptions = {
+        ...tooltipOptions,
+        customItems: (originalItems: Types.TooltipItem[]) => {
+          const items: Types.TooltipItem[] = [];
+          each(originalItems, (item: Types.TooltipItem) => {
+            // Find datas in same cluster
+            const datas = filter(data, (d) => isMatch(d, pick(item.data, [xField, seriesField])));
+            datas.forEach((datum) => {
+              items.push({
+                ...item,
+                value: datum[yField],
+                data: datum,
+                mappingData: { _origin: datum },
+                ...tooltipFormatter(datum),
+              });
+            });
+          });
+          return items;
+        },
+      };
+    }
+    chart.tooltip(tooltipOptions);
+  }
+
+  return params;
+}
+
+/**
  * 柱形图适配器
  * @param params
  */
@@ -212,10 +292,11 @@ export function adaptor(params: Params<ColumnOptions>, isBar = false) {
     meta,
     axis,
     legend,
-    tooltip,
+    columnTooltip,
     slider,
     scrollbar,
     label,
+    brushInteraction,
     interaction,
     animation,
     annotation(),

@@ -13,41 +13,91 @@ order: 17
 
 <description>**required** _object_</description>
 
-设置图表数据源。
+设置图表数据源。旭日图的数据格式要求为：
+
+```sign
+type Node = { name: string; value?: number; children: Node[]; }
+```
+
+示例:
+
+```ts
+{
+  name: 'root',
+  children: [
+    { name: 'type1', value: 1 },
+    { name: 'type2', value: 3, children: [{ name: 'type2-1', value: 2 }] }
+  ]
+}
+```
 
 #### meta
 
 `markdown:docs/common/meta.zh.md`
 
-#### type
+旭日图内含的数据字段有：
 
-<description>**optional** _partition | treemap_ _default:_ `partition`</description>
+| 字段 | 字段描述 | 字段值类型 |
+｜ --- ｜ --- ｜ --- ｜
+｜`Sunburst.SUNBURST_PATH_FIELD`| 节点的路径信息 |_string_ |
+｜`Sunburst.SUNBURST_ANCESTOR_FIELD`| 当前节点的祖先节点 | _string_ |
+｜`Sunburst.NODE_ANCESTORS_FIELD`| 当前节点的祖先节点列表 |_object[]_ |
+｜`nodeIndex`| 当前节点在同一父节点下的所有节点中的索引顺序 |_number_ |
+| `childNodeCount` | 当前节点的儿子节点数 |_number_ |
+｜`depth`| |_number_ |
+｜`height`| | _number_ |
 
-布局类型，更多类型探索中。
+可以通过下面的方式来设置字段的元信息：
 
-#### seriesField
+```ts
+meta: {
+  [Sunburst.SUNBURST_PATH_FIELD]: {
+    alias: '节点路径',
+    formatter: (v) => `${v}`,
+  },
+  [Sunburst.SUNBURST_ANCESTOR_FIELD]: {
+    alias: '祖先节点',
+  },
+  depth: {
+    alias: '节点层级',
+  },
+},
+```
+
+#### colorField
 
 <description>**optional** _string_</description>
 
-分组字段，即要映射的数值字段。
+颜色映射字段。默认为：`Sunburst.SUNBURST_ANCESTOR_FIELD`，即节点的祖先节点，颜色透明度逐渐减小（可以通过 sunburstStyle 回调来控制填充透明度）
 
-#### reflect
+#### rawFields
 
-<description>**optional** _x | y_</description>
+<description>**optional** _string[]_</description>
 
-径向类型，非特殊情况不建议使用。
-
-#### hierarchyConfig
-
-<description>**optional** _object_</description>
-
-层级布局配置，例如 `size`、`padding` 等，详细配置参考[d3-hierarchy](https://github.com/d3/d3-hierarchy#treemap)。
+额外的原始字段。配置之后，可以在 tooltip，sunburstStyle 等回调函数的 datum 参数中，获取到更多额外的原始数据。
 
 ### 图形样式
 
+#### hierarchyConfig ✨
+
+<description>**optional** _object_</description>
+
+层级布局配置，参考[d3-hierarchy](https://github.com/d3/d3-hierarchy#partition)。
+
+支持配置属性：
+
+| Properties        | Type               | Description                                                                                                                          |
+| ----------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| field             | _string_           | 数据节点权重映射字段，默认为：`value`. 当你的节点数据格式不是：`{ name: 'xx', value: 'xx' }`, 可以通过该字段来指定，详细见：图表示例 |
+| padding           | _number\|number[]_ | 默认：`0`。参考：[d3-hierarchy#partition_padding](https://github.com/d3/d3-hierarchy#partition_padding)                              |
+| size              | _number[]_         | 默认：`[1, 1]`。参考：[d3-hierarchy#partition_size](https://github.com/d3/d3-hierarchy#partition_size)                               |
+| round             | _boolean_          | 默认：`false`。参考：[d3-hierarchy#partition_round](https://github.com/d3/d3-hierarchy#partition_round)                              |
+| sort              | _Function_         | 数据节点排序方式，默认：降序。参考: [d3-hierarchy#node_sort](https://github.com/d3/d3-hierarchy#node_sort)                           |
+| ignoreParentValue | _boolean_          | 是否忽略 parentValue, 默认：true。 当设置为 true 时，父节点的权重由子元素决定                                                        |
+
 #### radius
 
-<description>**optional** _string_ _default:_ `1`</description>
+<description>**optional** _string_ _default:_ `0.85`</description>
 
 半径，0 ~ 1。
 
@@ -57,31 +107,25 @@ order: 17
 
 内径，0 ~ 1。
 
-#### colorField
-
-<description>**optional** _string_</description>
-
-颜色映射字段。
+<!-- Color 配置 -->
 
 `markdown:docs/common/color.zh.md`
 
-#### sunburstStyle 
+#### sunburstStyle
 
-<description>**optional** _object_</description>
+<description>**optional** _object | Function_</description>
 
-旭日图形样式。pointStyle 中的`fill`会覆盖 `color` 的配置。sunburstStyle 可以直接指定，也可以通过 callback 的方式，根据数据指定单独的样式。
+旭日图形样式。旭日图默认随着层级增加，而逐渐减小填充透明度，可以通过 sunburstStyle 回调来控制填充透明度，详细见：[图表示例](/zh/examples/more-plots/sunburst#style)
 
-默认配置：
-
-| 细分配置      | 类型   | 功能描述   |
-| ------------- | ------ | ---------- |
-| fill          | string | 填充颜色   |
-| stroke        | string | 描边颜色   |
-| lineWidth     | number | 线宽       |
-| lineDash      | number | 虚线显示   |
-| opacity       | number | 透明度     |
-| fillOpacity   | number | 填充透明度 |
-| strokeOpacity | number | 描边透明度 |
+| Properties    | Type   | Description           |
+| ------------- | ------ | --------------------- |
+| fill          | string | Fill color            |
+| stroke        | string | Stroke color          |
+| lineWidth     | number | Line width            |
+| lineDash      | number | The dotted lines show |
+| opacity       | number | Transparency          |
+| fillOpacity   | number | Fill transparency     |
+| strokeOpacity | number | Stroke transparency   |
 
 ```ts
 // 直接指定
@@ -94,15 +138,14 @@ order: 17
 }
 // Function
 {
-  sunburstStyle: (value, item) => {
-    if (value === 0.5) {
+  sunburstStyle: (datum) => {
+    if (datum.value === 0.5) {
       return {
         fill: 'green',
         stroke: 'yellow',
         opacity: 0.8,
       }
     }
-    // TODO
     return {
       fill: 'red',
       stroke: 'yellow',
@@ -112,9 +155,27 @@ order: 17
 }
 ```
 
+#### reflect
+
+<description>**optional** _x | y_</description>
+
+径向类型，非特殊情况不建议使用。在旭日图中，不可使用 `reflect: 'x'` 进行 x 轴反转，使用 `reflect: 'y'` 进行 y 轴反转后，祖先节点在最外层，从外至内依次：父节点 - 孩子节点 - 孙子节点
+
 ### 图表组件
 
 `markdown:docs/common/component-polygon.zh.md`
+
+### 图表交互
+
+旭日图内置了一些交互，列表如下:
+
+| 交互       | 描述                                     | 配置                           |
+| ---------- | ---------------------------------------- | ------------------------------ |
+| drill-down | 用于下钻交互，配置该交互后，点击可下钻。 | `drilldown: { enabled: true }` |
+
+`markdown:docs/common/drill-down.zh.md`
+
+`markdown:docs/common/interactions.zh.md`
 
 ### 图表事件
 
@@ -127,7 +188,3 @@ order: 17
 ### 图表主题
 
 `markdown:docs/common/theme.zh.md`
-
-### 图表交互
-
-`markdown:docs/common/interactions.zh.md`

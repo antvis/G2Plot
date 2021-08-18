@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "2.3.20",
+  "version": "2.3.31",
   "description": "An interactive and responsive charting library",
   "keywords": [
     "chart",
@@ -24,7 +24,7 @@
     "url": "https://github.com/antvis/g2plot"
   },
   "scripts": {
-    "start": "npm run site:develop",
+    "start": "npm run site:clean && npm run site:develop",
     "site:develop": "cross-env PORT=8080 gatsby develop --open -H 0.0.0.0",
     "site:build": "npm run site:clean && gatsby build --prefix-paths",
     "site:clean": "gatsby clean",
@@ -45,7 +45,8 @@
     "ci": "run-s lint coverage build",
     "changelog": "generate-changelog",
     "prepublishOnly": "run-s lint test build",
-    "analyze": "webpack --profile --json > dist/stats.json && webpack-bundle-analyzer ./dist/stats.json"
+    "analyze": "webpack --profile --json > dist/stats.json && webpack-bundle-analyzer ./dist/stats.json",
+    "contributors:add": "all-contributors add"
   },
   "husky": {
     "hooks": {
@@ -55,15 +56,16 @@
   },
   "dependencies": {
     "@antv/event-emitter": "^0.1.2",
-    "@antv/g2": "^4.1.0",
+    "@antv/g2": "^4.1.19",
     "d3-hierarchy": "^2.0.0",
     "d3-regression": "^1.3.5",
+    "pdfast": "^0.2.0",
     "size-sensor": "^1.0.1",
     "tslib": "^2.0.3"
   },
   "devDependencies": {
     "@antv/data-set": "^0.11.5",
-    "@antv/gatsby-theme-antv": "^1.1.2",
+    "@antv/gatsby-theme-antv": "^1.1.8",
     "@babel/core": "^7.10.4",
     "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.10.4",
@@ -73,8 +75,10 @@
     "@types/jest": "^25.2.1",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",
+    "all-contributors-cli": "^6.20.0",
     "antd": "^4.8.4",
     "babel-loader": "^8.1.0",
+    "chroma-js": "^2.1.2",
     "conventional-changelog-cli": "^2.0.34",
     "cross-env": "^7.0.2",
     "eslint": "^6.1.0",
@@ -88,6 +92,7 @@
     "jest": "^26.0.1",
     "jest-electron": "^0.1.7",
     "jest-extended": "^0.11.2",
+    "jest-matcher-deep-close-to": "^2.0.1",
     "limit-size": "^0.1.3",
     "lint-md-cli": "^0.1.2",
     "lint-staged": "^10.0.7",
@@ -111,7 +116,8 @@
     "testEnvironment": "jest-electron/environment",
     "testTimeout": 30000,
     "setupFilesAfterEnv": [
-      "jest-extended"
+      "jest-extended",
+      "./jest.setup.js"
     ],
     "preset": "ts-jest",
     "collectCoverage": false,
@@ -136,11 +142,11 @@
   "limit-size": [
     {
       "path": "dist/g2plot.min.js",
-      "limit": "900 Kb"
+      "limit": "950 Kb"
     },
     {
       "path": "dist/g2plot.min.js",
-      "limit": "250 Kb",
+      "limit": "260 Kb",
       "gzip": true
     }
   ],
@@ -148,7 +154,7 @@
   "resolutions": {
     "monaco-editor": "0.21.3",
     "@babel/plugin-transform-spread": "7.12.1",
-    "@babel/standalone": "7.12.6"
-  },
-  "sideEffects": false
+    "@babel/standalone": "7.12.6",
+    "d3-array": "2.12.1"
+  }
 }

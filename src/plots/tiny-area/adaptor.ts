@@ -1,4 +1,4 @@
-import { theme, scale, animation, annotation, tooltip } from '../../adaptor/common';
+import { theme, scale, animation, annotation, tooltip, pattern } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
 import { area, line, point } from '../../adaptor/geometries';
@@ -74,5 +74,5 @@ export function meta(params: Params<TinyAreaOptions>): Params<TinyAreaOptions> {
  * @param options
  */
 export function adaptor(params: Params<TinyAreaOptions>) {
-  return flow(geometry, meta, tooltip, theme, animation, annotation())(params);
+  return flow(pattern('areaStyle'), geometry, meta, tooltip, theme, animation, annotation())(params);
 }

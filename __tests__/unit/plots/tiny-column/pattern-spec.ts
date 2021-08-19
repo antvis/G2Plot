@@ -1,6 +1,4 @@
-import { TooltipCfg } from '@antv/g2/lib/interface';
 import { TinyColumn } from '../../../../src';
-import { DEFAULT_OPTIONS } from '../../../../src/plots/tiny-column/constants';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
 

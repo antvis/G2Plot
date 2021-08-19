@@ -11,7 +11,7 @@
         "en": "Pie plot with pattern"
       },
       "new": true,
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/q74g6X7aF3/d9238359-5228-402e-a265-f3e2d25aa802.png"
     },
     {
       "filename": "legend-marker-with-pattern.ts",
@@ -20,7 +20,7 @@
         "en": "Custom legend marker with pattern"
       },
       "new": true,
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/%241UK9BTcGM/c8446d1c-3180-4f95-8d9b-487ad04b87fc.png"
     },
     {
       "filename": "column-pattern.ts",
@@ -29,7 +29,7 @@
         "en": "Column plot with pattern"
       },
       "new": true,
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/1%26kZLf2KMW/68f576f5-1729-45f8-a48c-9e12e809ade1.png"
     },
     {
       "filename": "group-column-pattern.ts",
@@ -38,7 +38,7 @@
         "en": "Grouped column plot with pattern"
       },
       "new": true,
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/sAXTkW5p2C/93012937-dd60-4a52-9b4b-cb0ea01fd078.png"
     },
     {
       "filename": "bar-pattern.ts",
@@ -47,16 +47,7 @@
         "en": "Bar plot with pattern"
       },
       "new": true,
-      "screenshot": ""
-    },
-    {
-      "filename": "pie-pattern-callback.ts",
-      "title": {
-        "zh": "带贴图图案的饼图(回调方式)",
-        "en": "Pie plot with pattern callback"
-      },
-      "new": true,
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/5Q%24sV5H6BG/cc8ebaba-0c13-4f3e-bf24-0de4e20f6c2d.png"
     },
     {
       "filename": "radial-bar-pattern.ts",
@@ -65,7 +56,7 @@
         "en": "Radial-bar plot with pattern"
       },
       "new": true,
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/WKAcXIU4px/a20a3082-5c77-4787-87e6-4d4b072470a7.png"
     }
   ]
 }

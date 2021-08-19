@@ -26,7 +26,6 @@
         "zh": "图例项配置",
         "en": "Configuration of legend item"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/Bn1qWqQlkG/2d3c80e3-acde-4d13-afc5-83063f684ade.png"
     },
     {
@@ -43,7 +42,6 @@
         "zh": "图例项分页设置",
         "en": "Legend flip-page configuration"
       },
-      "new": "true",
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/W6n7yMd5lw/0a28a2bd-e5f3-4756-8fda-d8e2faf79076.png"
     }
   ]

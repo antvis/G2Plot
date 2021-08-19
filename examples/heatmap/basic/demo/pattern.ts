@@ -17,6 +17,9 @@ fetch('https://gw.alipayobjects.com/os/basement_prod/a719cd4e-bd40-4878-a4b4-df8
           type: 'cat',
         },
       },
+      tooltip: {
+        showMarkers: false,
+      },
       pattern: {
         type: 'square',
         cfg: {

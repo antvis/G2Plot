@@ -18,7 +18,8 @@
         "zh": "带贴图热力图",
         "en": "Basic heatmap plot with pattern"
       },
-      "screenshot": ""
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/JitXZA%26D%26S/30a463c4-05ee-4a6b-a69c-c2a7b44a9584.png"
     },
     {
       "filename": "shape.ts",

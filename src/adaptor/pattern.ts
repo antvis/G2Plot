@@ -1,4 +1,5 @@
-import { isArray } from '@antv/util';
+import { Util } from '@antv/g2';
+import { get } from '@antv/util';
 import { getCanvasPattern } from '../utils/pattern';
 import { Params } from '../core/adaptor';
 import { Datum, Options, StyleAttr } from '../types';
@@ -7,11 +8,7 @@ import { deepAssign } from '../utils';
 /**
  * 使用 Pattern 通道的 options，要求有 colorField/seriesField/stackField 作为分类字段（进行颜色映射）
  */
-type OptionsRequiredInPattern = Omit<Options, 'data'> & {
-  colorField?: string;
-  seriesField?: string;
-  stackField?: string;
-};
+type OptionsRequiredInPattern = Omit<Options, 'data'>;
 
 /**
  * Pattern 通道，处理图案填充
@@ -23,7 +20,7 @@ type OptionsRequiredInPattern = Omit<Options, 'data'> & {
 export function pattern(key: string) {
   return <O extends OptionsRequiredInPattern = OptionsRequiredInPattern>(params: Params<O>): Params<O> => {
     const { options, chart } = params;
-    const { pattern: patternOption, colorField, seriesField, stackField } = options;
+    const { pattern: patternOption } = options;
 
     // 没有 pattern 配置，则直接返回
     if (!patternOption) {
@@ -33,15 +30,15 @@ export function pattern(key: string) {
     /** ~~~~~~~ 进行贴图图案处理 ~~~~~~~ */
 
     const style: StyleAttr = (datum?: Datum, ...args: any[]) => {
-      let color = chart.getTheme().defaultColor;
+      const { defaultColor } = chart.getTheme();
+      let color = defaultColor;
 
-      const colorMapping = chart.geometries?.[0]?.getAttribute('color')?.callback;
-      if (typeof colorMapping === 'function') {
-        color = colorMapping(datum?.[colorField] || datum?.[seriesField] || datum?.[stackField]);
+      const colorAttribute = chart.geometries?.[0]?.getAttribute('color');
+      if (colorAttribute) {
+        const colorField = colorAttribute.getFields()[0];
+        const seriesValue = get(datum, colorField);
+        color = Util.getMappingValue(colorAttribute, seriesValue, colorAttribute.values?.[0] || defaultColor);
       }
-
-      // 处理color返回为数组的情况
-      color = isArray(color) ? color[0] : color;
 
       let pattern: CanvasPattern = patternOption as CanvasPattern;
 

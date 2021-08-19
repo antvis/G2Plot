@@ -2,7 +2,7 @@ import { isFunction, get, uniq } from '@antv/util';
 import { Types } from '@antv/g2';
 import { Params } from '../../core/adaptor';
 import { polygon as polygonAdaptor } from '../../adaptor/geometries';
-import { interaction as baseInteraction, animation, theme, annotation, scale } from '../../adaptor/common';
+import { interaction as baseInteraction, animation, theme, annotation, scale, pattern } from '../../adaptor/common';
 import { flow, findGeometry, transformLabel, deepAssign } from '../../utils';
 import { getAdjustAppendPadding } from '../../utils/padding';
 import { Datum } from '../../types';
@@ -227,6 +227,7 @@ export function adaptor(params: Params<SunburstOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
     theme,
+    pattern('sunburstStyle'),
     geometry,
     axis,
     meta,

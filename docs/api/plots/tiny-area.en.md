@@ -57,6 +57,12 @@ Area Chart Data Point Graph Style.
 
 `markdown:docs/common/color.en.md`
 
+#### pattern ✨
+
+<description>**optional** _object | Function_</description>
+
+`markdown:docs/common/pattern.en.md`
+
 ### Plot Component
 
 `markdown:docs/common/component-tiny.en.md`

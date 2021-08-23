@@ -117,7 +117,6 @@ meta: {
 
 `markdown:docs/common/pattern.zh.md`
 
-
 #### sunburstStyle
 
 <description>**optional** _object | Function_</description>

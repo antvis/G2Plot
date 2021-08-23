@@ -1,7 +1,6 @@
 import { Geometry } from '@antv/g2';
 import { get, isNil } from '@antv/util';
-import { interaction, animation, theme, scale } from '../../adaptor/common';
-import { pattern } from '../../adaptor/pattern';
+import { interaction, animation, theme, scale, pattern } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign, renderStatistic } from '../../utils';
 import { interval } from '../../adaptor/geometries';

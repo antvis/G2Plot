@@ -26,7 +26,7 @@ describe('radial-bar pattern', () => {
     expect(elements[2].shape.attr('fill') instanceof CanvasPattern).toEqual(true);
 
     bar.update({
-      pattern: false,
+      pattern: null,
     });
 
     expect(bar.chart.geometries[0].elements[1].shape.attr('fill') instanceof CanvasPattern).toEqual(false);

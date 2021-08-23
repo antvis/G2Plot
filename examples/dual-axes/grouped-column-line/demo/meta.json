@@ -21,6 +21,15 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Ogg7R6trDvgAAAAAAAAAAAAAARQnAQ"
     },
     {
+      "filename": "pattern-with-callback.ts",
+      "title": {
+        "zh": "带纹理图案的分组柱线图表",
+        "en": "Grouped column line with pattern"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/SL3QbumEbL/6131d19d-56b8-42bb-9609-8d0640a77d4a.png"
+    },
+    {
       "filename": "grouped-column-multi-line.ts",
       "title": {
         "zh": "分组柱线图表-显示多折线",

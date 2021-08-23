@@ -1,8 +1,9 @@
 import { each } from '@antv/util';
 import { Geometry } from '@antv/g2';
 import { Params } from '../../../core/adaptor';
-import { point, line, interval } from '../../../adaptor/geometries';
+import { point, line } from '../../../adaptor/geometries';
 import { pick, deepAssign } from '../../../utils';
+import { adaptor as columnAdaptor } from '../../column/adaptor';
 import { GeometryOption } from '../types';
 import { isLine, isColumn } from './option';
 
@@ -68,7 +69,7 @@ export function drawSingleGeometry<O extends { xField: string; yField: string; g
   }
 
   if (isColumn(geometryOption)) {
-    interval(
+    columnAdaptor(
       deepAssign({}, params, {
         options: {
           ...pick(options, FIELD_KEY),

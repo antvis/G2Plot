@@ -115,6 +115,12 @@ Inner radius, 0~1 of the value.
 
 `markdown:docs/common/color.en.md`
 
+#### pattern ✨
+
+<description>**optional** _object | Function_</description>
+
+`markdown:docs/common/pattern.en.md`
+
 #### sunburstStyle
 
 <description>**optional** _object_</description>

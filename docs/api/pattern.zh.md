@@ -30,4 +30,5 @@ G2Plot 内置了 `'dot' ｜ 'line' | 'square'` 等若干贴图, 图案颜色默�
 请注意 pattern 的使用，目前有一些限制：
 
 1. `svg` 的渲染方式下，暂不支持 pattern 图案填充
-2. Tooltip, Legend 的 marker 使用的是依旧是纯颜色（plain color）. 对于 Legend marker 可以考虑使用回调的方式来设置，参考：[Demo](/zh/examples/plugin/pattern#pie-pattern-callback)
+2. pattern 默认继承元素（element）的填充色，但不支持 pattern 填充色为渐变色，即元素（element）为渐变色时，pattern 背景色无法继承，需要手动指定。参考：[Demo](/zh/examples/tiny/tiny-area#pattern)
+3. Tooltip, Legend 的 marker 使用的是依旧是纯颜色（plain color）. 对于 Legend marker 可以考虑使用回调的方式来设置，参考：[Demo](/zh/examples/plugin/pattern#pie-pattern-callback)

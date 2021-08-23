@@ -22,7 +22,7 @@ describe('Circle-Packing', () => {
     expect(elements[0].shape.attr('fill') instanceof CanvasPattern).toEqual(true);
 
     plot.update({
-      pattern: false,
+      pattern: null,
     });
 
     expect(plot.chart.geometries[0].elements[0].shape.attr('fill') instanceof CanvasPattern).toEqual(false);

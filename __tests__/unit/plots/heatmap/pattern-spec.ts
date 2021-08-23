@@ -23,7 +23,7 @@ describe('heatmap: pattern', () => {
     expect(elements[0].shape.attr('fill') instanceof CanvasPattern).toEqual(true);
 
     heatmap.update({
-      pattern: false,
+      pattern: null,
     });
 
     expect(heatmap.chart.geometries[0].elements[0].shape.attr('fill') instanceof CanvasPattern).toEqual(false);

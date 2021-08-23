@@ -24,7 +24,7 @@ describe('tiny-column pattern', () => {
     expect(elements[0].shape.attr('fill') instanceof CanvasPattern).toEqual(true);
 
     tinyColumn.update({
-      pattern: false,
+      pattern: null,
     });
     expect(tinyColumn.chart.geometries[0].elements[0].shape.attr('fill') instanceof CanvasPattern).toEqual(false);
 

@@ -9,7 +9,6 @@ export type ShapeStyle = ShapeAttrs;
 export type ColorAttr = string | string[] | ((datum: Datum) => string) | object;
 /** pattern 映射*/
 export type PatternAttr =
-  | boolean
   | CanvasPattern
   | PatternOption
   | ((datum: Datum, color: string /** inherit color */) => PatternOption | CanvasPattern);

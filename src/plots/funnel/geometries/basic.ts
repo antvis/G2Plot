@@ -51,15 +51,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
         color,
         style: funnelStyle,
       },
-      // 使用 Interval 绘制的漏斗图，默认使用 'interval-adjust-position', 否则尖底漏斗图最后一行 label 错位
-      label: deepAssign(
-        {
-          layout: {
-            type: 'interval-adjust-position',
-          },
-        },
-        label
-      ),
+      label,
       state,
     },
   });

@@ -79,7 +79,6 @@ describe('basic funnel', () => {
       });
 
       const geometry = funnel.chart.geometries[0];
-      expect(geometry.labelOption.cfg.layout.type).toBe('interval-adjust-position');
       const shapeFields = geometry.getAttribute('shape').getFields();
       expect(shapeFields[0]).toBe('pyramid');
     });

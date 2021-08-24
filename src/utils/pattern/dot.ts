@@ -13,12 +13,12 @@ import {
  * dotPattern的默认配置
  */
 export const defaultDotPatternCfg = {
-  size: 4,
+  size: 6,
   padding: 2,
   backgroundColor: 'transparent',
   opacity: 1,
   rotation: 0,
-  fill: '#FFF',
+  fill: '#fff',
   fillOpacity: 0.5,
   stroke: 'transparent',
   lineWidth: 0,

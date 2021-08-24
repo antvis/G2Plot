@@ -8,34 +8,36 @@ const data = [
   { type: '分类四', value: 15 },
   { type: '分类五', value: 10 },
 ];
+
 const PATTERN_MAP = {
   分类一: {
     type: 'dot',
   },
   分类二: {
-    type: 'square',
+    type: 'line',
   },
   分类三: {
-    type: 'line',
+    type: 'square',
   },
   分类四: {
-    type: 'square',
-    cfg: {
-      size: 4,
-      padding: 1,
-      rotation: 45,
-      isStagger: false,
-    },
-  },
-  分类五: {
     type: 'line',
     cfg: {
-      spacing: 3,
+      spacing: 6,
       lineWidth: 2,
       rotation: 90,
     },
   },
+  分类五: {
+    type: 'square',
+    cfg: {
+      size: 5,
+      padding: 2,
+      rotation: 45,
+      isStagger: false,
+    },
+  },
 };
+
 const pattern = ({ type }, color) =>
   getCanvasPattern(deepMix({}, PATTERN_MAP[type], { cfg: { backgroundColor: color } }));
 
@@ -51,6 +53,7 @@ const plot = new Bar('container', {
       return {
         style: {
           fill: pattern({ type: text }, color),
+          r: 8,
         },
       };
     },

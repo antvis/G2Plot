@@ -2,7 +2,7 @@
 
 - 配置项：由`type`和`cfg`组成，`type`目前包括三种类型：`dot`、`line`、`square`，`cfg`为可选项。
 - 特点：`pattern`会覆盖当前图形设置的`style`样式(如 pieStyle、columnStyle 等)。
-- 使用方式：可通过 配置项(PatternOption) 或传入 CanvasPattern 对象 的方式给图表的所有图形设置统一的贴图样式，还提供了 callback 的方式给对应的图形设置样式。此外，提供了 getCanvasPattern 方法传入 PatternOption 配置来创建 pattern，以修改 Legend、Tooltip Marker 样式[Demo](/zh/examples/plugin/pattern#legend-marker-with-pattern)
+- 使用方式：可通过 配置项(PatternOption) 或传入 CanvasPattern 对象 的方式给图表的所有图形设置统一的贴图样式，还提供了 callback 的方式给对应的图形设置样式。此外，提供了 getCanvasPattern 方法传入 PatternOption 配置来创建 pattern，以修改 Legend 样式[Demo](/zh/examples/plugin/pattern#legend-marker-with-pattern)
 
 pattern 的类型定义如下：
 
@@ -73,7 +73,7 @@ dotPattern 额外的 cfg 配置项
 
 | 属性名        | 类型            | 介绍                |
 | ------------- | --------------- | ---------------- |
-| size          | _number_         | 圆点的大小，默认为`4`  |
+| size          | _number_         | 圆点的大小，默认为`6`  |
 | padding          | _number_         | 圆点之间的间隔，默认为`2` |
 | isStagger        | _boolean_         | 圆点之间是否交错，默认为`true`    |
 
@@ -81,12 +81,12 @@ linePattern 额外的 cfg 配置项
 
 | 属性名        | 类型            | 介绍                |
 | ------------- | --------------- | ---------------- |
-| spacing          | _number_         | 两条线之间的距离，默认为`4`  |
+| spacing          | _number_         | 两条线之间的距离，默认为`5`  |
 
 squarePattern 额外的 cfg 配置项
 
 | 属性名        | 类型            | 介绍                |
 | ------------- | --------------- | ---------------- |
-| size          | _number_         | 矩形的大小，默认为`5`  |
-| padding          | _number_         | 矩形之间的间隔，默认为`0` |
+| size          | _number_         | 矩形的大小，默认为`6`  |
+| padding          | _number_         | 矩形之间的间隔，默认为`1` |
 | isStagger        | _boolean_         | 矩形之间是否交错，默认为`true`    |

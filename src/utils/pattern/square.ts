@@ -13,13 +13,13 @@ import {
  * squarePattern 的 默认配置
  */
 export const defaultSquarePatternCfg = {
-  size: 5,
-  padding: 0,
+  size: 6,
+  padding: 1,
   isStagger: true,
   backgroundColor: 'transparent',
   opacity: 1,
   rotation: 0,
-  fill: '#FFF',
+  fill: '#fff',
   fillOpacity: 0.5,
   stroke: 'transparent',
   lineWidth: 0,

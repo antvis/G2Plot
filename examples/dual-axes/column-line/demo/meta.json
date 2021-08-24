@@ -51,6 +51,15 @@
         "en": "Slider with column line"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/fxukGXuXfg/89ea37e5-e00d-4424-b75e-1aba3ff8b633.png"
+    },
+    {
+      "filename": "pattern.ts",
+      "title": {
+        "zh": "带贴图图案的柱线混合图表",
+        "en": "column line with pattern"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/iMCSWEAapb/d19f59e0-788a-4945-8fbb-85b921a6e654.png"
     }
   ]
 }

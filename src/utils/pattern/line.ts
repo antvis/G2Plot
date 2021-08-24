@@ -7,12 +7,12 @@ import { initCanvas, drawBackground, transformMatrix, getPixelRatio } from './ut
  */
 export const defaultLinePatternCfg = {
   rotation: 45,
-  spacing: 4,
+  spacing: 5,
   opacity: 1,
   backgroundColor: 'transparent',
   strokeOpacity: 0.5,
-  stroke: '#FFF',
-  lineWidth: 1,
+  stroke: '#fff',
+  lineWidth: 2,
 };
 
 /**

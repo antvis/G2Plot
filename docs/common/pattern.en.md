@@ -2,7 +2,7 @@ Set the pattern style of the geometries.
 - PatternOption: consists of `type` and `cfg`, `type` includes: `dot`, `line`, `square`, `cfg` is optional.
 - Features: pattern will override the `style` of geometry (such as pieStyle, columnStyle, etc.).
 - Usage: You can set a uniform pattern style for all geometries of the chart by using configuration (`PatternOption`) or `CanvasPattern` object, and a `callback` is provided to set the pattern for each geometry.
-In addition, we provide `getCanvasPattern` function, pass in the PatternOption to create the pattern to modify the Legend, Tooltip Marker styles[Demo](/zh/examples/plugin/pattern#legend-marker-with-pattern)
+In addition, we provide `getCanvasPattern` function, pass in the PatternOption to create the pattern to modify the Legend styles[Demo](/zh/examples/plugin/pattern#legend-marker-with-pattern)
 
 The type of pattern is defined as follows:
 ```plain
@@ -71,7 +71,7 @@ Additional configuration for dotPattern
 
 | Attribute        | Type             | Description            |
 | ------------- | --------------- | ---------------- |
-| size          | _number_         | The size of the dot, default: `4`  |
+| size          | _number_         | The size of the dot, default: `6`  |
 | padding          | _number_         | The distance between dots, default: `2` |
 | isStagger        | _boolean_         | Staggered dots. default: `true`    |
 
@@ -79,12 +79,12 @@ Additional configuration for linePattern
 
 | Attribute        | Type             | Description           |
 | ------------- | --------------- | ---------------- |
-| spacing          | _number_         | The distance between the two lines, default: `4`  |
+| spacing          | _number_         | The distance between the two lines, default: `5`  |
 
 Additional configuration for squarePattern
 
 | Attribute        | Type             | Description           |
 | ------------- | --------------- | ---------------- |
-| size          | _number_         | The size of the square, default: `5`  |
-| padding          | _number_         | The distance between squares, default:`0` |
+| size          | _number_         | The size of the square, default: `6`  |
+| padding          | _number_         | The distance between squares, default:`1` |
 | isStagger        | _boolean_         | Staggered squares. default:`true`    |

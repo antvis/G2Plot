@@ -91,6 +91,7 @@ The graph corresponding to the column is configured as follows:
 | columnStyle      | _StyleAttr \| Function_          | Column style configuration[Column columnStyle](/en/docs/api/plots/column#columnstyle)                                                                                                                                      |         |
 | label            | _ContinueLegendLabelCfg_         | Column label [Column label](/en/docs/api/plots/column#label)                                                                                                                                                               |
 | color            | _string \| string[] \| Function_ | Specifies the color of the point [Column color](/en/docs/api/plots/column#color)                                                                                                                                              |
+| pattern            | _object \| Function_ | Specifies the pattern of the column [Column pattern](/en/docs/api/plots/column#pattern)                                                                                                                                              |
 | groupField       | _string_                         | Split field, used to stack group histograms. Split field takes precedence over SeriesField. IsGroup: true will group by GroupField.                                                                       | -       |
 
 ### Plot Components

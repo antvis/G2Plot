@@ -71,7 +71,7 @@ Additional configuration for dotPattern
 
 | Attribute        | Type             | Description            |
 | ------------- | --------------- | ---------------- |
-| size          | _number_         | The size of the dot, default: `4`  |
+| size          | _number_         | The size of the dot, default: `6`  |
 | padding          | _number_         | The distance between dots, default: `2` |
 | isStagger        | _boolean_         | Staggered dots. default: `true`    |
 
@@ -79,12 +79,12 @@ Additional configuration for linePattern
 
 | Attribute        | Type             | Description           |
 | ------------- | --------------- | ---------------- |
-| spacing          | _number_         | The distance between the two lines, default: `4`  |
+| spacing          | _number_         | The distance between the two lines, default: `5`  |
 
 Additional configuration for squarePattern
 
 | Attribute        | Type             | Description           |
 | ------------- | --------------- | ---------------- |
-| size          | _number_         | The size of the square, default: `5`  |
-| padding          | _number_         | The distance between squares, default:`0` |
+| size          | _number_         | The size of the square, default: `6`  |
+| padding          | _number_         | The distance between squares, default:`1` |
 | isStagger        | _boolean_         | Staggered squares. default:`true`    |

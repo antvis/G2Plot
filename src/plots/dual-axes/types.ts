@@ -41,7 +41,15 @@ export type GeometryLineOption = Pick<
 // 柱设置接口
 export type GeometryColumnOption = Pick<
   ColumnOptions,
-  'seriesField' | 'isGroup' | 'isStack' | 'isRange' | 'isPercent' | 'columnWidthRatio' | 'marginRatio' | 'columnStyle'
+  | 'seriesField'
+  | 'isGroup'
+  | 'isStack'
+  | 'isRange'
+  | 'isPercent'
+  | 'columnWidthRatio'
+  | 'marginRatio'
+  | 'columnStyle'
+  | 'pattern'
 > &
   CommonGeometryOption;
 

@@ -2,7 +2,7 @@ Set the pattern style of the geometries.
 - PatternOption: consists of `type` and `cfg`, `type` includes: `dot`, `line`, `square`, `cfg` is optional.
 - Features: pattern will override the `style` of geometry (such as pieStyle, columnStyle, etc.).
 - Usage: You can set a uniform pattern style for all geometries of the chart by using configuration (`PatternOption`) or `CanvasPattern` object, and a `callback` is provided to set the pattern for each geometry.
-In addition, we provide `getCanvasPattern` function, pass in the PatternOption to create the pattern to modify the Legend, Tooltip Marker styles[Demo](/zh/examples/plugin/pattern#legend-marker-with-pattern)
+In addition, we provide `getCanvasPattern` function, pass in the PatternOption to create the pattern to modify the Legend styles[Demo](/zh/examples/plugin/pattern#legend-marker-with-pattern)
 
 The type of pattern is defined as follows:
 ```plain

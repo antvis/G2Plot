@@ -35,6 +35,15 @@
         "en": "Rose interaction - with element action"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OgVJR7IIQiMAAAAAAAAAAABkARQnAQ"
+    },
+    {
+      "filename": "rose-pattern.ts",
+      "title": {
+        "zh": "带有贴图图案的玫瑰图",
+        "en": "Rose with pattern"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/mVpttHqMHR/bf55e601-ccbe-40b2-bd04-d31ae0264fa8.png"
     }
   ]
 }

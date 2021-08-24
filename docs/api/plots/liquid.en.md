@@ -62,6 +62,12 @@ function shape(x: number, y: number, width: number, height: number) {
 
 `markdown:docs/common/color.en.md`
 
+#### pattern ✨
+
+<description>**optional** _object | Function_</description>
+
+`markdown:docs/common/pattern.en.md`
+
 #### outline
 
 <description>**optional** _Outline_</description>

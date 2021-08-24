@@ -61,6 +61,12 @@ order: 3
 
 `markdown:docs/common/color.zh.md`
 
+#### pattern ✨
+
+<description>**optional** _object | Function_</description>
+
+`markdown:docs/common/pattern.zh.md`
+
 `markdown:docs/common/bar-style.en.md`
 
 #### barWidthRatio

@@ -206,3 +206,5 @@ export function limitInPlot(params: Params<Options>): Params<Options> {
 
   return params;
 }
+
+export { pattern } from './pattern';

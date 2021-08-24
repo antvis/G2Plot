@@ -2,7 +2,17 @@ import { get } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { deepAssign, findGeometry } from '../../utils';
 import { flow, transformLabel } from '../../utils';
-import { tooltip, interaction, animation, theme, scale, annotation, state, legend } from '../../adaptor/common';
+import {
+  tooltip,
+  interaction,
+  animation,
+  theme,
+  scale,
+  annotation,
+  state,
+  legend,
+  pattern,
+} from '../../adaptor/common';
 import { geometry as geometryAdaptor } from '../../adaptor/geometries/base';
 import { getTooltipMapping } from '../../utils/tooltip';
 import { HeatmapOptions } from './types';
@@ -162,6 +172,7 @@ export function adaptor(params: Params<HeatmapOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
     theme,
+    pattern('heatmapStyle'),
     meta,
     coordinate,
     geometry,

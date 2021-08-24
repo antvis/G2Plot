@@ -225,11 +225,19 @@ type Marker = {
 
 ##### marker
 
-<description>**optional** _MarkerCfg_ </description>
+<description>**optional** _MarkerCfg \| MarkerCfgCallback_ </description>
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项的 marker 图标的配置。
 
 `markdown:docs/common/marker.zh.md`
+
+
+```sign
+type LegendItem = { name: string; value: string; } & MarkerCfg;
+
+type MarkerCfgCallback = (name: string, index: number, item: LegendItem) => MarkerCfg;
+```
+
 
 ##### maxItemWidth
 

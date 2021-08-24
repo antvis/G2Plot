@@ -49,6 +49,12 @@ Axis mapping.
 
 `markdown:docs/common/color.en.md`
 
+#### pattern ✨
+
+<description>**optional** _object | Function_</description>
+
+`markdown:docs/common/pattern.en.md`
+
 #### shape
 
 <description>**optional** _rect | square | circle_</description>

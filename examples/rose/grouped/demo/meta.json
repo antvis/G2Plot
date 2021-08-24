@@ -11,6 +11,15 @@
         "en": "Basic grouped rose plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*EUesQ4eJ1fcAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "pattern.ts",
+      "title": {
+        "zh": "带纹理图案的分组玫瑰图",
+        "en": "Grouped rose plot with pattern"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/bVfROtpcku/a1cf2fa2-35ef-4a3a-b2cc-ade53b537e11.png"
     }
   ]
 }

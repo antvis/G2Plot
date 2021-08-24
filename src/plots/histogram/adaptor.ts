@@ -1,5 +1,6 @@
 import { Params } from '../../core/adaptor';
 import { tooltip, interaction, animation, theme, scale, state } from '../../adaptor/common';
+import { pattern } from '../../adaptor/pattern';
 import { findGeometry, deepAssign } from '../../utils';
 import { flow, transformLabel } from '../../utils';
 import { interval } from '../../adaptor/geometries';
@@ -114,5 +115,16 @@ function label(params: Params<HistogramOptions>): Params<HistogramOptions> {
  */
 export function adaptor(params: Params<HistogramOptions>) {
   // flow 的方式处理所有的配置到 G2 API
-  return flow(geometry, meta, axis, theme, state, label, tooltip, interaction, animation)(params);
+  return flow(
+    theme,
+    pattern('columnStyle'),
+    geometry,
+    meta,
+    axis,
+    state,
+    label,
+    tooltip,
+    interaction,
+    animation
+  )(params);
 }

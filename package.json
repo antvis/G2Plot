@@ -40,7 +40,7 @@
     "lint": "eslint --ext .ts ./src ./__tests__ && prettier --check ./src ./__tests__ && lint-md ./examples ./docs",
     "lint-staged": "lint-staged",
     "test": "jest",
-    "test-live": "cross-env DEBUG_MODE=1 jest --watch ./__tests__",
+    "test-live": "cross-env DEBUG_MODE=1 jest --watch ./__tests__/",
     "coverage": "jest -w 16 --coverage",
     "ci": "run-s lint coverage build",
     "changelog": "generate-changelog",
@@ -56,7 +56,7 @@
   },
   "dependencies": {
     "@antv/event-emitter": "^0.1.2",
-    "@antv/g2": "^4.1.19",
+    "@antv/g2": "^4.1.23",
     "d3-hierarchy": "^2.0.0",
     "d3-regression": "^1.3.5",
     "pdfast": "^0.2.0",

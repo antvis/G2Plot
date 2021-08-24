@@ -1,7 +1,7 @@
 import { filter, isObject, isArray } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { flow, findGeometry, log, LEVEL, transformLabel, deepAssign } from '../../utils';
-import { tooltip, interaction, animation, theme, scale, annotation, state } from '../../adaptor/common';
+import { tooltip, interaction, animation, theme, scale, annotation, state, pattern } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { RoseOptions } from './types';
 
@@ -155,6 +155,7 @@ function axis(params: Params<RoseOptions>): Params<RoseOptions> {
 export function adaptor(params: Params<RoseOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   flow(
+    pattern('sectorStyle'),
     geometry,
     meta,
     label,

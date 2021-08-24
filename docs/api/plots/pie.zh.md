@@ -90,6 +90,12 @@ piePlot.render();
 
 `markdown:docs/common/color.zh.md`
 
+#### pattern ✨
+
+<description>**optional** _object | Function_</description>
+
+`markdown:docs/common/pattern.zh.md`
+
 #### statistic ✨
 
 <description>**optional** _object_</description>

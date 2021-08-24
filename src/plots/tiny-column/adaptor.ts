@@ -1,4 +1,4 @@
-import { theme, animation, annotation, tooltip } from '../../adaptor/common';
+import { theme, animation, annotation, tooltip, pattern } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow, deepAssign } from '../../utils';
 import { interval } from '../../adaptor/geometries';
@@ -46,5 +46,5 @@ function geometry(params: Params<TinyColumnOptions>): Params<TinyColumnOptions> 
  * @param options
  */
 export function adaptor(params: Params<TinyColumnOptions>) {
-  return flow(geometry, meta, tooltip, theme, animation, annotation())(params);
+  return flow(theme, pattern('columnStyle'), geometry, meta, tooltip, animation, annotation())(params);
 }

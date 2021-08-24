@@ -53,6 +53,15 @@
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/hWIcBgVYMI/d265c8b0-2184-48aa-8610-173cb0b065a8.png"
     },
     {
+      "filename": "pattern.ts",
+      "title": {
+        "zh": "带纹理图案的旭日图",
+        "en": "Sunburst plot with pattern"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/UUU%24Gu8byX/5caede2e-eef7-4512-9ac5-d8ae4f3fa5cd.png"
+    },
+    {
       "filename": "tooltip-fields.ts",
       "title": {
         "zh": "指定父节点权重",

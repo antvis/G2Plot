@@ -1,3 +1,18 @@
+#### 2.3.32 (2021-08-25)
+
+##### Documentation Changes
+
+*  添加 pattern 精选案例 ([#2818](https://github.com/antvis/g2plot/pull/2818)) ([b87a9ba0](https://github.com/antvis/g2plot/commit/b87a9ba0748458fdfc90e2c75b6fefd8f125cb57))
+*  增加 2 个转化分析漏斗图 demo, 带跳转 ([#2807](https://github.com/antvis/g2plot/pull/2807)) ([df6a984e](https://github.com/antvis/g2plot/commit/df6a984ef9986207cf01fc28760b34d1a57f2101))
+
+##### New Features
+
+*  增加 pattern 贴图 ([#2777](https://github.com/antvis/g2plot/pull/2777)) ([b5176660](https://github.com/antvis/g2plot/commit/b51766603e7ed37d6cb1ec46164b22d44d7091ed))
+
+##### Bug Fixes
+
+* **funnel:**  不将 label 的 layout 的 type 设置为 interval-adjust-position ([#2817](https://github.com/antvis/g2plot/pull/2817)) ([de2efd5e](https://github.com/antvis/g2plot/commit/de2efd5e63739ec8efba378198847b37bd51c4c7))
+
 #### 2.3.31 (2021-08-16)
 
 ##### Bug Fixes

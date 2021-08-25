@@ -31,10 +31,9 @@
     {
       "filename": "pattern.ts",
       "title": {
-        "zh": "带纹理图案的水波图",
+        "zh": "带贴图的水波图",
         "en": "Liquid plot with pattern"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/6uQnXA6lU2/4916bed6-3aeb-427b-ad86-51e3db07c0a1.png"
     },
     {

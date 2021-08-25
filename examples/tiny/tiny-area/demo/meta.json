@@ -15,7 +15,7 @@
     {
       "filename": "pattern.ts",
       "title": {
-        "zh": "带纹理图案的迷你面积图",
+        "zh": "带贴图的迷你面积图",
         "en": "Tiny area plot with pattern"
       },
       "new": true,

@@ -23,10 +23,9 @@
     {
       "filename": "pattern-with-callback.ts",
       "title": {
-        "zh": "带纹理图案的分组柱线图表",
+        "zh": "带贴图的分组柱线图表",
         "en": "Grouped column line with pattern"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/SL3QbumEbL/6131d19d-56b8-42bb-9609-8d0640a77d4a.png"
     },
     {

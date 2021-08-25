@@ -1,9 +1,10 @@
 ---
 title: Pattern
-order: 12
+order: 8
 ---
 
 ### Introduction
+
 We can set patterns for geometries.
 - We provide the default, high contrast patterns: dot, line, and square. For charts with poor color differentiation, pattern can be used as an "intuitive, visual classification attribute" to distinguish each item, making it color-blind friendly.
 - add grouping for color: Pattern can help to expand the classification of colors when there are not enough harmonious colors, or when the color has a small proportion, the distinction is not obvious.

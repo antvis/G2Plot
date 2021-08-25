@@ -55,7 +55,7 @@
     {
       "filename": "pattern.ts",
       "title": {
-        "zh": "带纹理图案的旭日图",
+        "zh": "带贴图的旭日图",
         "en": "Sunburst plot with pattern"
       },
       "new": true,

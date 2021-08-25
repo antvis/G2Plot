@@ -15,7 +15,7 @@
     {
       "filename": "pattern.ts",
       "title": {
-        "zh": "带纹理图案的分组玫瑰图",
+        "zh": "带贴图的分组玫瑰图",
         "en": "Grouped rose plot with pattern"
       },
       "new": true,

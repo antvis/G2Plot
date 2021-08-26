@@ -313,8 +313,8 @@ module.exports = {
       indexName: 'antv_g2plot',
     },
     announcement: {
-      zh: "",
-      en: "",
+      zh: "G2Plot 8月迭代更新详情，见：https://www.yuque.com/antv/g2plot/2021-08",
+      en: "G2Plot 8月迭代更新详情，见：https://www.yuque.com/antv/g2plot/2021-08"
     }
   },
 };

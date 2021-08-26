@@ -71,8 +71,8 @@ const plot = new Column('container', {
   data,
   yField: 'value',
   xField: 'type',
-  pattern: createPattern(20, 20, '#9c88ff', 0),
-  columnStyle: { stroke: '#9c88ff', strokeOpacity: 0.85 },
+  pattern: createPattern(20, 20, '#7ed6df', 0),
+  columnStyle: { stroke: '#7ed6df', strokeOpacity: 0.85 },
   interactions: [{ type: 'element-active' }],
 });
 

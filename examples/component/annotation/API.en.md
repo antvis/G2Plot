@@ -9,3 +9,7 @@ title: API
 `markdown:docs/common/annotations/arc.en.md`
 
 `markdown:docs/common/annotations/image.en.md`
+
+`markdown:docs/common/annotations/data-marker.en.md`
+
+`markdown:docs/common/annotations/data-region.en.md`

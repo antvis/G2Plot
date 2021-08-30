@@ -164,7 +164,7 @@ The configuration for Xaxis and Yaxis is the same, since DualAxes are biaxes, an
 }
 ```
 
-`markdown:docs/common/annotations.en.md`
+详细配置见：各 Annotation 配置项说明。
 
 #### legend
 
@@ -185,3 +185,6 @@ The configuration for Xaxis and Yaxis is the same, since DualAxes are biaxes, an
 ### Plot Methods
 
 `markdown:docs/common/chart-methods.en.md`
+
+<!-- 直接 三级导航展开 -->
+`markdown:docs/common/annotations.en.md`

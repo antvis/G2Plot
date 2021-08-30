@@ -1,0 +1,1 @@
+`markdown:docs/common/annotations/data-region.zh.md`

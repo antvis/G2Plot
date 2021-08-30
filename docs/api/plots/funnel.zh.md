@@ -104,9 +104,9 @@ order: 9
 
 `markdown:docs/common/legend.zh.md`
 
-<!-- #### annotations -->
+#### annotations
 
-`markdown:docs/common/annotations.zh.md`
+详细配置见末尾各 Annotation 配置项说明：
 
 ### 图表事件
 
@@ -173,3 +173,5 @@ import { FUNNEL_CONVERSATION_FIELD } from '@antv/g2plot';
 }
 ```
 
+<!-- 直接 三级导航展开 -->
+`markdown:docs/common/annotations.zh.md`

@@ -10,7 +10,7 @@ order: 6
 🎨  前往墨者学院 [AntV 设计 | 标注 Annotation](https://www.yuque.com/mo-college/vis-design/ybatti) 查看**设计指引**。 
 
 
-#### 图表标注类型
+### 标注类型
 
 <img src="https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*B0q9R7s1v3sAAAAAAAAAAABkARQnAQ" class="component-img" alt="annotation" />
 
@@ -27,7 +27,7 @@ G2Plot 提供了以下图形标注类型：
 |  dataMarker  |             特殊数据点标注，多用于折线图和面积图。 | ![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*h-e2TLivyI4AAAAAAAAAAABkARQnAQ)             |  `{ type: 'dataMarker' }`  |
 |  dataRegion  |            特殊数据区间标注，多用于折线图和面积图。 | ![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*NHbSRKacUesAAAAAAAAAAABkARQnAQ)            |  `{ type: 'dataRegion' }`  |
 
-#### 使用方式
+### 使用方式
 
 标注是数组类型，可以设置多个。
 

@@ -1,12 +1,12 @@
-#### DataMarker Annotation
+### DataMarker Annotation
 
-##### type
+#### type
 
 <description>**optional** _string_</description>
 
 需要指定 `type: 'dataMarker',` 标识为：特殊数据点标注，多用于折线图和面积图。
 
-##### position
+#### position
 
 <description>**required** _[string, string] | Datum | ((xScale, yScales) => [string, string])_</description>
 
@@ -14,7 +14,7 @@ DataMarker 标注位置，参考 Text Annotation 标注的 `position` 设置。
 
 [Example](/zh/examples/component/annotation#text-annotation1)
 
-##### point
+#### point
 
 <description>**optional** _null | DataMarkerPointCfg_ </description>
 
@@ -29,7 +29,7 @@ type DataMarkerPointCfg = {
 }
 ```
 
-##### line
+#### line
 
 <description>**optional** _null | DataMarkerLineCfg_ </description>
 
@@ -45,7 +45,7 @@ type DataMarkerPointCfg = {
 }
 ```
 
-##### text
+#### text
 
 <description>**optional** _null | AnnotationTextCfg_ </description>
 
@@ -69,13 +69,13 @@ type AnnotationTextCfg = {
 };
 ```
 
-##### autoAdjust
+#### autoAdjust
 
 <description>**optional** _boolean_ </description>
 
 文本超出绘制区域时，是否自动调节文本方向。
 
-##### direction
+#### direction
 
 <description>**optional** _upward | downward_ </description>
 

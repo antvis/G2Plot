@@ -1,12 +1,12 @@
-#### Region Annotation
+### Region Annotation
 
-##### type
+#### type
 
 <description>**optional** _string_</description>
 
 需要指定 `type: 'region',` 标识为：辅助框，框选一段图区，设置背景、边框等。
 
-##### start
+#### start
 
 <description>**optional** _AnnotationPosition_ </description>
 
@@ -38,12 +38,13 @@ type AnnotationPosition =
 
 [Example](/zh/examples/component/annotation#line-annotation-position)
 
-##### end
+#### end
 
 <description>**optional** _AnnotationPosition_ </description>
 
 结束位置，一般用于 line、region 等。具体配置属性参考: [start](#start)
-##### style
+
+#### style
 
 <description>**optional** _object_ </description>
 

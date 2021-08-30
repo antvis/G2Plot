@@ -1,12 +1,12 @@
-#### Line Annotation
+### Line Annotation
 
-##### type
+#### type
 
 <description>**optional** _string_</description>
 
 需要指定 `type: 'line',` 标识为：辅助线（可带文本），例如表示平均值或者预期分布的直线。
 
-##### start
+#### start
 
 <description>**optional** _AnnotationPosition_ </description>
 
@@ -38,18 +38,18 @@ type AnnotationPosition =
 
 [Example](/zh/examples/component/annotation#line-annotation-position)
 
-##### end
+#### end
 
 <description>**optional** _AnnotationPosition_ </description>
 
 结束位置，一般用于 line、region 等。具体配置属性参考: [start](#start)
-##### style
+#### style
 
 <description>**optional** _object_ </description>
 
 辅助线样式属性，参考[绘图属性](/zh/docs/api/graphic-style)
 
-##### text
+#### text
 
 <description>**optional** _LineAnnotationTextCfg_ </description>
 

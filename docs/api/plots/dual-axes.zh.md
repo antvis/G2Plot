@@ -163,7 +163,7 @@ xAxis、yAxis 配置相同，由于 DualAxes 是双轴， annotations 类型是�
 }
 ```
 
-`markdown:docs/common/annotations.zh.md`
+详细配置见：各 Annotation 配置项说明。
 
 #### 图例 - legend
 
@@ -184,3 +184,6 @@ xAxis、yAxis 配置相同，由于 DualAxes 是双轴， annotations 类型是�
 ### 图表方法
 
 `markdown:docs/common/chart-methods.zh.md`
+
+<!-- 直接 三级导航展开 -->
+`markdown:docs/common/annotations.zh.md`

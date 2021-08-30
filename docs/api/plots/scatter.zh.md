@@ -238,9 +238,9 @@ xAxis、yAxis 配置相同。**注意**：由于 DualAxes(双轴图) 和 Bidirec
 
 详细配置同：[legend](#legend)
 
-<!-- #### annotations -->
+#### annotations
 
-`markdown:docs/common/annotations.zh.md`
+详细配置见末尾各 Annotation 配置项说明：
 
 #### quadrant
 
@@ -308,3 +308,6 @@ regressionLine: {
 `markdown:docs/common/brush.zh.md`
 
 `markdown:docs/common/interactions.zh.md`
+
+<!-- 直接 三级导航展开 -->
+`markdown:docs/common/annotations.zh.md`

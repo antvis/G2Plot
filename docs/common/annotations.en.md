@@ -28,3 +28,7 @@ annotations: [
 `markdown:docs/common/annotations/data-region.en.md`
 
 `markdown:docs/common/annotations/region-filter.en.md`
+
+`markdown:docs/common/annotations/html.en.md`
+
+`markdown:docs/common/annotations/shape.en.md`

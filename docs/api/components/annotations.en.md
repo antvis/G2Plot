@@ -25,6 +25,8 @@ G2Plot 提供了以下图形标注类型：
 | regionFilter | 区域着色，将图表中位于矩形选区中的图形元素提取出来，重新着色。 | ![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*cp2jSJfeJDYAAAAAAAAAAABkARQnAQ) | `{ type: 'regionFilter' }` |
 |  dataMarker  |             特殊数据点标注，多用于折线图和面积图。 | ![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*h-e2TLivyI4AAAAAAAAAAABkARQnAQ)             |  `{ type: 'dataMarker' }`  |
 |  dataRegion  |            特殊数据区间标注，多用于折线图和面积图。 | ![image.png](https://gw.alipayobjects.com/mdn/rms_f5c722/afts/img/A*NHbSRKacUesAAAAAAAAAAABkARQnAQ)            |  `{ type: 'dataRegion' }`  |
+|  html  |           自定义 HTML 标注，新增 🆕 。 | -           |  `{ type: 'html' }`  |
+|  shape  |           自定义 shape 标注，新增 🆕 。 | -           |  `{ type: 'shape' }`  |
 
 ### Usage
 

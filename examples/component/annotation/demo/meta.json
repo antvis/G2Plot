@@ -5,6 +5,24 @@
   },
   "demos": [
     {
+      "filename": "text-annotation1.ts",
+      "title": {
+        "zh": "文本标注",
+        "en": "Text annotation"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/gAMlNVZrIU/b9cc7e10-2a1a-41f4-b217-4559b4f888d9.png"
+    },
+    {
+      "filename": "text-annotation2.ts",
+      "title": {
+        "zh": "文本标注带包围框",
+        "en": "Text annotation with background"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/DhczAubJSh/3c7d4891-1150-4b47-ae9d-26851dec3e16.png"
+    },
+    {
       "filename": "line-annotation.ts",
       "title": {
         "zh": "辅助线标注",

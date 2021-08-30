@@ -73,7 +73,7 @@ y 方向的偏移量。
 <description>**optional** _string_ </description>
 
 图片路径，用于 image 中。
-
+<!-- 
 ##### content
 
 <description>**optional** _string_ </description>
@@ -119,7 +119,7 @@ y 方向的偏移量。
 | 参数名  | 类型                | 默认值 | 描述               |
 | ------- | ------------------- | -------- | ------ | ------------------ |
 | style   | _object_ | -      | 文本背景的样式, 参考[绘图属性](/en/docs/api/graphic-style)     |
-| padding | _number \| number[]_ | -      | 文本背景周围的留白 |
+| padding | _number \| number[]_ | -      | 文本背景周围的留白 | -->
 
 
 ##### color

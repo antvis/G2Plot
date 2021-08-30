@@ -1,0 +1,1 @@
+`markdown:docs/common/annotations/arc.zh.md`

@@ -2,4 +2,4 @@
 title: API
 ---
 
-`markdown:docs/api/components/annotation.en.md`
+`markdown:docs/common/annotations.en.md`

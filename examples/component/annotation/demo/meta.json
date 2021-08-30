@@ -5,6 +5,33 @@
   },
   "demos": [
     {
+      "filename": "text-annotation1.ts",
+      "title": {
+        "zh": "文本标注",
+        "en": "Text annotation"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/gAMlNVZrIU/b9cc7e10-2a1a-41f4-b217-4559b4f888d9.png"
+    },
+    {
+      "filename": "text-annotation2.ts",
+      "title": {
+        "zh": "文本标注带包围框",
+        "en": "Text annotation with background"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/DhczAubJSh/3c7d4891-1150-4b47-ae9d-26851dec3e16.png"
+    },
+    {
+      "filename": "line-annotation-position.jsx",
+      "title": {
+        "zh": "辅助线标注",
+        "en": "Line annotation with preset-value"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/qFApvvldG3/f67b4331-1db5-471a-8fd1-35f665a9039e.png"
+    },
+    {
       "filename": "line-annotation.ts",
       "title": {
         "zh": "辅助线标注",
@@ -13,15 +40,7 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*d8s-RrJb-xcAAAAAAAAAAAAAARQnAQ"
     },
     {
-      "filename": "area-with-line-annotation.ts",
-      "title": {
-        "zh": "带中位线标注的面积图",
-        "en": "Area with line annotation"
-      },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/xSfk26S6da/2415772d-efc8-462a-846c-155dc15eb8cb.png"
-    },
-    {
-      "filename": "line-annotation1.ts",
+      "filename": "line-annotation-accurate.ts",
       "title": {
         "zh": "辅助线标注（精确定位）",
         "en": "Line annotation (accurate position)"

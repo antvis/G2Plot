@@ -241,7 +241,7 @@ Details to see: [legend](#legend)
 
 #### annotations
 
-`markdown:docs/common/annotations.en.md`
+详细配置见：各 Annotation 配置项说明。
 
 #### quadrant
 
@@ -309,3 +309,6 @@ Built-in interactions of scatter are as follows:
 `markdown:docs/common/brush.en.md`
 
 `markdown:docs/common/interactions.en.md`
+
+<!-- 直接 三级导航展开 -->
+`markdown:docs/common/annotations.en.md`

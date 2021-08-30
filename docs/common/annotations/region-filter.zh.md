@@ -1,10 +1,10 @@
-#### Line Annotation
+#### Region Annotation
 
 ##### type
 
 <description>**optional** _string_</description>
 
-需要指定 `type: 'line',` 标识为：辅助线（可带文本），例如表示平均值或者预期分布的直线。
+需要指定 `type: 'regionFilter',` 标识为：区域着色，将图表中位于矩形选区中的图形元素提取出来，重新着色。
 
 ##### start
 
@@ -43,35 +43,23 @@ type AnnotationPosition =
 <description>**optional** _AnnotationPosition_ </description>
 
 结束位置，一般用于 line、region 等。具体配置属性参考: [start](#start)
+
 ##### style
 
 <description>**optional** _object_ </description>
 
 辅助线样式属性，参考[绘图属性](/zh/docs/api/graphic-style)
 
-##### text
+##### color
 
-<description>**optional** _LineAnnotationTextCfg_ </description>
+<description>**optional** _string_ </description>
 
-辅助线上的文本设置。
+染色色值，一般用于 regionFilter。
 
-**_LineAnnotationTextCfg_** 类型定义如下：
+##### apply
 
-```ts
-type LineAnnotationTextCfg = {
-  /** 文本内容*/
-  content?: string;
-  /** 自动旋转，沿着线的方向，默认 true */
-  autoRotate?: boolean;
-  /** 文本的偏移 x */
-  offsetX?: number;
-  /** 文本的偏移 y */
-  offsetY?: number;
-  /** 字体样式，参考绘图属性 */
-  style?: object;
-};
-```
+<description>**optional** _string[]_ </description>
 
-[Example](/zh/examples/component/annotation#line-annotation-with-text)
+设定 regionFilter 只对特定 geometry 类型起作用，如 apply: ['area']，一般用于 regionFilter。
 
 `markdown:docs/common/annotations/base-annotation.zh.md`

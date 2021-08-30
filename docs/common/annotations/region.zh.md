@@ -1,10 +1,10 @@
-#### Line Annotation
+#### Region Annotation
 
 ##### type
 
 <description>**optional** _string_</description>
 
-需要指定 `type: 'line',` 标识为：辅助线（可带文本），例如表示平均值或者预期分布的直线。
+需要指定 `type: 'region',` 标识为：辅助框，框选一段图区，设置背景、边框等。
 
 ##### start
 
@@ -48,30 +48,5 @@ type AnnotationPosition =
 <description>**optional** _object_ </description>
 
 辅助线样式属性，参考[绘图属性](/zh/docs/api/graphic-style)
-
-##### text
-
-<description>**optional** _LineAnnotationTextCfg_ </description>
-
-辅助线上的文本设置。
-
-**_LineAnnotationTextCfg_** 类型定义如下：
-
-```ts
-type LineAnnotationTextCfg = {
-  /** 文本内容*/
-  content?: string;
-  /** 自动旋转，沿着线的方向，默认 true */
-  autoRotate?: boolean;
-  /** 文本的偏移 x */
-  offsetX?: number;
-  /** 文本的偏移 y */
-  offsetY?: number;
-  /** 字体样式，参考绘图属性 */
-  style?: object;
-};
-```
-
-[Example](/zh/examples/component/annotation#line-annotation-with-text)
 
 `markdown:docs/common/annotations/base-annotation.zh.md`

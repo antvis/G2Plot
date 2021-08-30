@@ -44,27 +44,6 @@ annotations: [
 ];s
 ```
 
-#### 配置项（_AnnotationCfg_）
-
-> ❗️ 代表 _必选_
-
-|   **属性**   |     **类型**        |      **描述** |       **用于**              |
-| --- | --- | --- | --- |
-| type ❗️ | _string_ | 图形标注类型. |
-| position ❗️  | _object_ | 标注位置. |
-| animate | _boolean_ | 是否进行动画. |
-| autoAdjust | _boolean_ | 文本超出绘制区域时，是否自动调节文本方向. |
-| start | _array_ | 起始位置. | <tag color="green" text="line"> Line </tag> <tag color="green" text="region"> Region </tag> 
-| end | _array_ | 结束位置. | <tag color="green" text="line"> Line </tag> <tag color="green" text="region"> Region </tag> 
-| src | _string_ | 图片路径. | <tag color="green" text="image"> Image</tag> 
-| content | _string_ | 文本内容. | <tag color="green" text="text"> Text </tag> 
-| lineLength | _string_ | line 长度. | <tag color="green" text="text"> DataRegion </tag> 
-| container | _string_ | 自定义 HTML 图形标记的容器元素. | <tag color="green" text="html"> Html </tag> 
-| html | _string_ | 自定义的图形标记的 HTML 元素，可为 HTML DOM 字符串，或 HTML 元素，或 html 回调函数. | <tag color="green" text="html"> Html </tag> 
-| alignX | _string_ | DOM 元素在 X 方向的对齐方式，用于 html. 可选值: `'left' | 'middle' | 'right'` | <tag color="green" text="html"> Html </tag> 
-| alignY | _string_ | DOM 元素在 Y 方向的对齐方式，用于 html. 可选值: `'left' | 'middle' | 'right'`  | <tag color="green" text="html"> Html </tag> 
-| 更多内容，查看下方的具体 api |
-
-#### 配置项详解
+配置详情：
 
 `markdown:docs/common/annotations.zh.md`

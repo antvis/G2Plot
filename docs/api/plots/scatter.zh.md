@@ -238,10 +238,9 @@ xAxis、yAxis 配置相同。**注意**：由于 DualAxes(双轴图) 和 Bidirec
 
 详细配置同：[legend](#legend)
 
-#### annotations
+<!-- #### annotations -->
 
 `markdown:docs/common/annotations.zh.md`
-
 
 #### quadrant
 

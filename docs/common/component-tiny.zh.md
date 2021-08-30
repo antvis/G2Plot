@@ -8,7 +8,7 @@ xAxis、yAxis 配置相同。
 
 `markdown:docs/common/axis.zh.md`
 
-#### annotations
+<!-- #### annotations -->
 
 `markdown:docs/common/annotations.zh.md`
 

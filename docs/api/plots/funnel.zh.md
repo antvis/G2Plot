@@ -104,10 +104,9 @@ order: 9
 
 `markdown:docs/common/legend.zh.md`
 
-#### annotations
+<!-- #### annotations -->
 
 `markdown:docs/common/annotations.zh.md`
-
 
 ### 图表事件
 

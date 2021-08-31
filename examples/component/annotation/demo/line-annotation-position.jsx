@@ -64,7 +64,7 @@ const Plot = () => {
         label = options.find((opt) => opt.value === startY)?.label || label;
       }
 
-      plotRef.current.updateAnnotation([
+      plotRef.current.addAnnotation([
         {
           type: 'line',
           id: 'line',

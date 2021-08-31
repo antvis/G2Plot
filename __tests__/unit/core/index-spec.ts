@@ -334,13 +334,22 @@ describe('core', () => {
 
     expect(line.chart.getController('annotation').getComponents().length).toBe(2);
 
-    line.updateAnnotation([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx', id: 'ID' }]);
+    line.addAnnotation([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx', id: 'ID' }]);
 
     const annotations = line.chart.getController('annotation').getComponents();
     expect(annotations.length).toBe(2);
     expect(annotations.find((co) => co.extra.id === 'ID').component.get('type')).toBe('image');
 
-    line.updateAnnotation([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx' }]);
+    line.addAnnotation([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx' }]);
+    expect(line.chart.getController('annotation').getComponents().length).toBe(3);
+
+    line.addAnnotation([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx', id: 'ID2' }]);
+    expect(line.chart.getController('annotation').getComponents().length).toBe(4);
+
+    line.removeAnnotation([{ id: 'ID' }]);
+    expect(line.chart.getController('annotation').getComponents().length).toBe(3);
+
+    line.removeAnnotation([{ id: '' }]);
     expect(line.chart.getController('annotation').getComponents().length).toBe(3);
 
     line.destroy();

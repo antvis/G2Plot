@@ -318,4 +318,40 @@ describe('core', () => {
 
     plot.destroy();
   });
+
+  it('update annotations', () => {
+    const line = new Line(createDiv(), {
+      data: partySupport.filter((o) => o.type === 'FF'),
+      xField: 'date',
+      yField: 'value',
+      annotations: [
+        { type: 'line', start: ['min', 'median'], end: ['max', 'median'], id: 'ID' },
+        { type: 'line', start: ['min', 'median'], end: ['max', 'median'] },
+      ],
+    });
+
+    line.render();
+
+    expect(line.chart.getController('annotation').getComponents().length).toBe(2);
+
+    line.addAnnotations([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx', id: 'ID' }]);
+
+    const annotations = line.chart.getController('annotation').getComponents();
+    expect(annotations.length).toBe(2);
+    expect(annotations.find((co) => co.extra.id === 'ID').component.get('type')).toBe('image');
+
+    line.addAnnotations([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx' }]);
+    expect(line.chart.getController('annotation').getComponents().length).toBe(3);
+
+    line.addAnnotations([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx', id: 'ID2' }]);
+    expect(line.chart.getController('annotation').getComponents().length).toBe(4);
+
+    line.removeAnnotations([{ id: 'ID' }]);
+    expect(line.chart.getController('annotation').getComponents().length).toBe(3);
+
+    line.removeAnnotations([{ id: '' }]);
+    expect(line.chart.getController('annotation').getComponents().length).toBe(3);
+
+    line.destroy();
+  });
 });

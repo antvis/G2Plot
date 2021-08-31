@@ -2,7 +2,7 @@ import { Chart, Event, Element } from '@antv/g2';
 import { each } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
-import { Options, StateName, StateCondition, Size, StateObject } from '../types';
+import { Options, StateName, StateCondition, Size, StateObject, Annotation } from '../types';
 import { getContainerSize, getAllElementsRecursively, deepAssign, pick } from '../utils';
 import { Adaptor } from './adaptor';
 
@@ -236,6 +236,48 @@ export abstract class Plot<O extends PickOptions> extends EE {
     this.chart.changeSize(width, height);
   }
 
+  /**
+   * 增加图表标注。通过 id 标识，如果匹配到，就做更新
+   */
+  public addAnnotations(annotations: Annotation[]): void {
+    const incoming = [...annotations];
+    const controller = this.chart.getController('annotation');
+    const current = controller.getComponents().map((co) => co.extra);
+
+    controller.clear(true);
+    for (let i = 0; i < current.length; i++) {
+      let annotation = current[i];
+
+      const findIndex = incoming.findIndex((item) => item.id && item.id === annotation.id);
+      if (findIndex !== -1) {
+        annotation = deepAssign({}, annotation, incoming[findIndex]);
+        incoming.splice(findIndex, 1);
+      }
+      controller.annotation(annotation);
+    }
+
+    incoming.forEach((annotation) => controller.annotation(annotation));
+    this.chart.render(true);
+  }
+
+  /**
+   * 删除图表标注。通过 id 标识，如果匹配到，就做删除
+   */
+  public removeAnnotations(annotations: Array<{ id: string } & Partial<Annotation>>): void {
+    const controller = this.chart.getController('annotation');
+    const current = controller.getComponents().map((co) => co.extra);
+
+    controller.clear(true);
+    for (let i = 0; i < current.length; i++) {
+      const annotation = current[i];
+
+      if (!annotations.find((item) => item.id && item.id === annotation.id)) {
+        controller.annotation(annotation);
+      }
+    }
+
+    this.chart.render(true);
+  }
   /**
    * 销毁
    */

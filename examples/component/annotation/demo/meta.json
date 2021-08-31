@@ -40,6 +40,15 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*d8s-RrJb-xcAAAAAAAAAAAAAARQnAQ"
     },
     {
+      "filename": "operate-annotation.ts",
+      "title": {
+        "zh": "添加或删除图表标注",
+        "en": "Add / Remove annotations"
+      },
+      "new": true,
+      "screenshot": ""
+    },
+    {
       "filename": "line-annotation-accurate.ts",
       "title": {
         "zh": "辅助线标注（精确定位）",

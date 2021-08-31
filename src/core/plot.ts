@@ -2,7 +2,7 @@ import { Chart, Event, Element } from '@antv/g2';
 import { each } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
-import { Options, StateName, StateCondition, Size, StateObject } from '../types';
+import { Options, StateName, StateCondition, Size, StateObject, Annotation } from '../types';
 import { getContainerSize, getAllElementsRecursively, deepAssign, pick } from '../utils';
 import { Adaptor } from './adaptor';
 
@@ -234,6 +234,31 @@ export abstract class Plot<O extends PickOptions> extends EE {
    */
   public changeSize(width: number, height: number) {
     this.chart.changeSize(width, height);
+  }
+
+  /**
+   * 更新图表标注, 通过 id 标识
+   */
+  public updateAnnotation(annotations: Annotation[]): void {
+    const incoming = [...annotations];
+    const controller = this.chart.getController('annotation');
+    const current = controller.getComponents().map((co) => co.extra);
+
+    controller.clear(true);
+    for (let i = 0; i < current.length; i++) {
+      let annotation = current[i];
+
+      const findIndex = incoming.findIndex((item) => item.id === annotation.id);
+      if (findIndex !== -1) {
+        annotation = deepAssign({}, annotation, incoming[findIndex]);
+        incoming.splice(findIndex, 1);
+      }
+      controller.annotation(annotation);
+    }
+
+    incoming.forEach((annotation) => controller.annotation(annotation));
+
+    this.chart.render(true);
   }
 
   /**

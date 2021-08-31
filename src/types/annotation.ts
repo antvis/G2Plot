@@ -1,6 +1,6 @@
 import { Types } from '@antv/g2';
 
-export type Annotation =
+type AnnotationOption =
   | Types.ArcOption
   | Types.ImageOption
   | Types.LineOption
@@ -11,3 +11,5 @@ export type Annotation =
   | Types.DataRegionOption
   | Types.ShapeAnnotationOption
   | Types.HtmlAnnotationOption;
+
+export type Annotation = { id?: string } & AnnotationOption;

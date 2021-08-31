@@ -31,6 +31,7 @@ const Plot = () => {
       annotations: [
         {
           type: 'line',
+          id: 'line',
           /** 起始位置 */
           start: [startX, startY],
           /** 结束位置 */
@@ -58,34 +59,24 @@ const Plot = () => {
 
   useEffect(() => {
     if (plotRef?.current) {
-      // fixme 提供更新 annotation 的方法
-      const annotationController = plotRef.current.chart.getController('annotation');
-      annotationController.clear(true);
       let label = '辅助线';
       if (startY === endY) {
-        label = options.find(opt => opt.value === startY)?.label || label;
+        label = options.find((opt) => opt.value === startY)?.label || label;
       }
-      annotationController.annotation({
-        type: 'line',
-        /** 起始位置 */
-        start: [startX, startY],
-        /** 结束位置 */
-        end: [endX, endY],
-        text: {
-          content: label,
-          position: 'right',
-          offsetY: 18,
-          style: {
-            textAlign: 'right',
+
+      plotRef.current.updateAnnotation([
+        {
+          type: 'line',
+          id: 'line',
+          /** 起始位置 */
+          start: [startX, startY],
+          /** 结束位置 */
+          end: [endX, endY],
+          text: {
+            content: label,
           },
         },
-        style: {
-          lineWidth: 0.5,
-          lineDash: [4, 4],
-        },
-      });
-
-      plotRef.current.chart.render(true);
+      ]);
     }
   }, [startX, startY, endX, endY]);
 

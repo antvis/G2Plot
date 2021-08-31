@@ -414,6 +414,42 @@ describe('bar', () => {
     bar.destroy();
   });
 
+  it('update annotations', () => {
+    const plot = new Bar(createDiv(), {
+      data: salesByArea,
+      xField: 'area',
+      yField: 'sales',
+      annotations: [
+        { type: 'line', start: ['min', 'median'], end: ['max', 'median'], id: 'ID' },
+        { type: 'line', start: ['min', 'median'], end: ['max', 'median'] },
+      ],
+    });
+
+    plot.render();
+
+    expect(plot.chart.getController('annotation').getComponents().length).toBe(2);
+
+    plot.addAnnotation([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx', id: 'ID' }]);
+
+    const annotations = plot.chart.getController('annotation').getComponents();
+    expect(annotations.length).toBe(2);
+    expect(annotations.find((co) => co.extra.id === 'ID').component.get('type')).toBe('image');
+
+    plot.addAnnotation([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx' }]);
+    expect(plot.chart.getController('annotation').getComponents().length).toBe(3);
+
+    plot.addAnnotation([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx', id: 'ID2' }]);
+    expect(plot.chart.getController('annotation').getComponents().length).toBe(4);
+
+    plot.removeAnnotation([{ id: 'ID' }]);
+    expect(plot.chart.getController('annotation').getComponents().length).toBe(3);
+
+    plot.removeAnnotation([{ id: '' }]);
+    expect(plot.chart.getController('annotation').getComponents().length).toBe(3);
+
+    plot.destroy();
+  });
+
   it('defaultOptions 保持从 constants 中获取', () => {
     expect(Bar.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });

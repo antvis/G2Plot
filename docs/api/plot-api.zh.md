@@ -118,3 +118,21 @@ plot.getStates();
 ```
 
 获取当前图表所有的状态量信息。
+
+### 12. addAnnotation
+
+```sign
+plot.addAnnotation(annotations: Annotation[]) => void;
+```
+
+批量为当前图表增加图表标注。通过 id 匹配，如果匹配成功，则更新，匹配不成功则增加。
+
+ <!-- <playground path="dynamic-plots/basic/demo/dynamic-spline.ts" rid="addAnnotation"></playground> -->
+
+### 13. removeAnnotation
+
+```sign
+plot.removeAnnotation(annotations: { id: string }[]) => void;
+```
+
+批量为当前图表删除图表标注。通过 id 匹配，如果匹配成功，则删除。

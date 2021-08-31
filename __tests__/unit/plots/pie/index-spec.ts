@@ -174,6 +174,38 @@ describe('pie', () => {
     pie.destroy();
   });
 
+  it('update annotations', () => {
+    const plot = new Pie(createDiv(), {
+      data,
+      angleField: 'value',
+      colorField: 'type',
+    });
+
+    plot.render();
+
+    expect(plot.chart.getController('annotation').getComponents().length).toBe(0);
+
+    plot.addAnnotation([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx', id: 'ID' }]);
+
+    const annotations = plot.chart.getController('annotation').getComponents();
+    expect(annotations.length).toBe(1);
+    expect(annotations.find((co) => co.extra.id === 'ID').component.get('type')).toBe('image');
+
+    plot.addAnnotation([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx' }]);
+    expect(plot.chart.getController('annotation').getComponents().length).toBe(2);
+
+    plot.addAnnotation([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx', id: 'ID2' }]);
+    expect(plot.chart.getController('annotation').getComponents().length).toBe(3);
+
+    plot.removeAnnotation([{ id: 'ID' }]);
+    expect(plot.chart.getController('annotation').getComponents().length).toBe(2);
+
+    plot.removeAnnotation([{ id: '' }]);
+    expect(plot.chart.getController('annotation').getComponents().length).toBe(2);
+
+    plot.destroy();
+  });
+
   it('defaultOptions 保持从 constants 中获取', () => {
     expect(Pie.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });

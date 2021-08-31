@@ -429,22 +429,22 @@ describe('bar', () => {
 
     expect(plot.chart.getController('annotation').getComponents().length).toBe(2);
 
-    plot.addAnnotation([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx', id: 'ID' }]);
+    plot.addAnnotations([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx', id: 'ID' }]);
 
     const annotations = plot.chart.getController('annotation').getComponents();
     expect(annotations.length).toBe(2);
     expect(annotations.find((co) => co.extra.id === 'ID').component.get('type')).toBe('image');
 
-    plot.addAnnotation([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx' }]);
+    plot.addAnnotations([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx' }]);
     expect(plot.chart.getController('annotation').getComponents().length).toBe(3);
 
-    plot.addAnnotation([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx', id: 'ID2' }]);
+    plot.addAnnotations([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx', id: 'ID2' }]);
     expect(plot.chart.getController('annotation').getComponents().length).toBe(4);
 
-    plot.removeAnnotation([{ id: 'ID' }]);
+    plot.removeAnnotations([{ id: 'ID' }]);
     expect(plot.chart.getController('annotation').getComponents().length).toBe(3);
 
-    plot.removeAnnotation([{ id: '' }]);
+    plot.removeAnnotations([{ id: '' }]);
     expect(plot.chart.getController('annotation').getComponents().length).toBe(3);
 
     plot.destroy();

@@ -239,7 +239,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
   /**
    * 增加图表标注。通过 id 标识，如果匹配到，就做更新
    */
-  public addAnnotation(annotations: Annotation[]): void {
+  public addAnnotations(annotations: Annotation[]): void {
     const incoming = [...annotations];
     const controller = this.chart.getController('annotation');
     const current = controller.getComponents().map((co) => co.extra);
@@ -263,7 +263,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
   /**
    * 删除图表标注。通过 id 标识，如果匹配到，就做删除
    */
-  public removeAnnotation(annotations: Array<{ id: string } & Partial<Annotation>>): void {
+  public removeAnnotations(annotations: Array<{ id: string } & Partial<Annotation>>): void {
     const controller = this.chart.getController('annotation');
     const current = controller.getComponents().map((co) => co.extra);
 

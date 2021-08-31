@@ -117,20 +117,20 @@ plot.getStates();
 
 Get all status information of the current plot.
 
-### 12. addAnnotation
+### 12. addAnnotations
 
 ```sign
-plot.addAnnotation(annotations: Annotation[]) => void;
+plot.addAnnotations(annotations: Annotation[]) => void;
 ```
 
 批量为当前图表增加图表标注。通过 id 匹配，如果匹配成功，则更新，匹配不成功则增加。
 
- <!-- <playground path="dynamic-plots/basic/demo/dynamic-spline.ts" rid="addAnnotation"></playground> -->
+ <!-- <playground path="dynamic-plots/basic/demo/dynamic-spline.ts" rid="addAnnotations"></playground> -->
 
-### 13. removeAnnotation
+### 13. removeAnnotations
 
 ```sign
-plot.removeAnnotation(annotations: { id: string }[]) => void;
+plot.removeAnnotations(annotations: { id: string }[]) => void;
 ```
 
 批量为当前图表删除图表标注。通过 id 匹配，如果匹配成功，则删除。

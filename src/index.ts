@@ -102,6 +102,10 @@ export type { BoxOptions } from './plots/box';
 export { Violin } from './plots/violin';
 export type { ViolinOptions } from './plots/violin';
 
+// 韦恩图及类型定义 | author by [visiky](https://github.com/visiky)
+export { Venn } from './plots/venn';
+export type { VennOptions } from './plots/venn';
+
 // K线图及类型定义 | author by [jhwong](https://github.com/jinhuiWong), [visiky](https://github.com/visiky)
 export { Stock } from './plots/stock';
 export type { StockOptions } from './plots/stock';

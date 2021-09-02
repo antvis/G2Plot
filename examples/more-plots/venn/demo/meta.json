@@ -1,0 +1,27 @@
+{
+  "title": {
+    "zh": "韦恩图",
+    "en": "Venn"
+  },
+  "demos": [
+    {
+      "filename": "basic.ts",
+      "title": {
+        "zh": "基础韦恩图",
+        "en": "Basic venn plot"
+      },
+      "new": true,
+      "screenshot": ""
+    },
+    {
+      "filename": "blend-mode.ts",
+      "title": {
+        "zh": "设置颜色叠加模式",
+        "en": "Color blend mode"
+      },
+      "new": true,
+      "screenshot": ""
+    }
+   
+  ]
+}

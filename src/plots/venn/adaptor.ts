@@ -3,7 +3,8 @@ import { Params } from '../../core/adaptor';
 import { schema as schemaGeometry } from '../../adaptor/geometries';
 import { deepAssign, flow } from '../../utils';
 import { layoutVennData } from './utils';
-import { VennOptions } from './types';
+import { VennData, VennOptions } from './types';
+import { COLOR_FIELD } from './constant';
 import './shape';
 
 /**
@@ -16,7 +17,7 @@ function geometry(params: Params<VennOptions>): Params<VennOptions> {
 
   // 获取容器大小
   const { width, height } = chart.viewBBox;
-  const vennData = layoutVennData(data, width, height, 0 /** todo 获取内边距 padding */);
+  const vennData: VennData = layoutVennData(data, width, height, 0 /** todo 获取内边距 padding */);
   chart.data(vennData);
 
   schemaGeometry(
@@ -25,7 +26,7 @@ function geometry(params: Params<VennOptions>): Params<VennOptions> {
         xField: 'x',
         yField: 'y',
         sizeField: 'size',
-        seriesField: 'id',
+        seriesField: COLOR_FIELD,
         schema: {
           shape: 'venn',
           style: pointStyle,

@@ -1,10 +1,13 @@
 import { Options, StyleAttr } from '../../types';
+import { COLOR_FIELD } from './constant';
 
 type VennDatum = { sets: string[]; size: number; label?: string };
+
 export type VennData = Array<
   VennDatum & {
-    id?: string;
-    path?: string;
+    id: string;
+    path: string;
+    [COLOR_FIELD]: string;
   }
 >;
 

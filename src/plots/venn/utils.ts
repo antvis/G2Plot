@@ -2,6 +2,7 @@ import { assign, clone } from '@antv/util';
 import { venn, scaleSolution } from './layout/layout';
 import { circlePath, intersectionAreaPath, computeTextCentres } from './layout/diagram';
 import { VennData, VennOptions } from './types';
+import { COLOR_FIELD } from './constant';
 
 /**
  * 给韦恩图数据进行布局
@@ -26,6 +27,8 @@ export function layoutVennData(
     const sets = row.sets;
     const id = sets.join(',');
     row.id = id;
+    // color 分类字段与 id 同步
+    row[COLOR_FIELD] = id;
     if (sets.length === 1) {
       const circle = circles[id];
       row.path = circlePath(circle.x, circle.y, circle.radius);

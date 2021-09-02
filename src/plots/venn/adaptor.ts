@@ -1,6 +1,6 @@
-import { interaction, animation, theme, tooltip } from '../../adaptor/common';
+import { interaction, animation, theme, tooltip, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
-import { schema as schemaGeometry } from '../../adaptor/geometries/schema';
+import { schema as schemaGeometry } from '../../adaptor/geometries';
 import { deepAssign, flow } from '../../utils';
 import { layoutVennData } from './utils';
 import { VennOptions } from './types';
@@ -12,7 +12,7 @@ import './shape';
  */
 function geometry(params: Params<VennOptions>): Params<VennOptions> {
   const { chart, options } = params;
-  const { data, tooltip, pointStyle } = options;
+  const { data, pointStyle } = options;
 
   // 获取容器大小
   const { width, height } = chart.viewBBox;
@@ -38,20 +38,11 @@ function geometry(params: Params<VennOptions>): Params<VennOptions> {
 }
 
 /**
- * meta 配置
- * @param params
- */
-export function meta(params: Params<VennOptions>): Params<VennOptions> {
-  return params;
-}
-
-/**
  * 默认关闭图例
  * @param params
  */
 export function legend(params: Params<VennOptions>): Params<VennOptions> {
   const { chart } = params;
-
   chart.legend(false);
 
   return params;
@@ -63,7 +54,6 @@ export function legend(params: Params<VennOptions>): Params<VennOptions> {
  */
 export function axis(params: Params<VennOptions>): Params<VennOptions> {
   const { chart } = params;
-
   chart.axis(false);
 
   return params;
@@ -79,7 +69,7 @@ export function adaptor(params: Params<VennOptions>) {
   return flow(
     theme,
     geometry,
-    meta,
+    scale({}),
     legend,
     axis,
     tooltip,

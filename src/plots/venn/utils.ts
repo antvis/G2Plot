@@ -1,8 +1,41 @@
-import { assign, clone } from '@antv/util';
+import { assign, clone, memoize } from '@antv/util';
+import chroma from 'chroma-js';
 import { venn, scaleSolution } from './layout/layout';
 import { circlePath, intersectionAreaPath, computeTextCentres } from './layout/diagram';
 import { VennData, VennOptions } from './types';
 import { COLOR_FIELD } from './constant';
+
+/**
+ * 获取 颜色映射
+ * @usage colorMap.get('id') => color
+ *
+ * @returns Map<string, string>
+ */
+export const getColorMap = memoize(
+  (colorPalette: string[], data: VennData, blendMode: string) => {
+    const colorMap = new Map<string /** id */, string /** color */>();
+    const colorPaletteLen = colorPalette.length;
+    // 排序，mutable
+    data.sort((a, b) => a.sets.length - b.sets.length);
+    data.forEach((d, idx) => {
+      if (d.sets.length === 1) {
+        colorMap.set(d.id, colorPalette[(idx + colorPaletteLen) % colorPaletteLen]);
+      } else {
+        const colorArr = d.sets.map(
+          (subSetId) => colorMap.get(subSetId) /** 一般都是可以获取到颜色的，如果不正确 就是输入了非法数据 */
+        );
+        // https://gka.github.io/chroma.js/#chroma-blend, 这里直接使用 乘加 的方式
+        colorMap.set(
+          d.id,
+          colorArr.slice(1).reduce((a, b) => chroma.blend(a, b, blendMode).hex(), colorArr[0])
+        );
+      }
+    });
+
+    return colorMap;
+  },
+  (...params) => JSON.stringify(params)
+);
 
 /**
  * 给韦恩图数据进行布局

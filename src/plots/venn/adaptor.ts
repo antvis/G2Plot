@@ -1,11 +1,34 @@
+import { isArray } from '@antv/util';
 import { interaction, animation, theme, tooltip, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { schema as schemaGeometry } from '../../adaptor/geometries';
 import { deepAssign, flow } from '../../utils';
-import { layoutVennData } from './utils';
+import { Datum } from '../../types';
+import { getColorMap, layoutVennData } from './utils';
 import { VennData, VennOptions } from './types';
 import { COLOR_FIELD } from './constant';
 import './shape';
+
+// todo 可以在这里处理下非法数据输入，避免直接 crash
+
+/**
+ * color options 转换
+ */
+function transformColor(params: Params<VennOptions>, data: VennData): VennOptions['color'] {
+  const { chart, options } = params;
+  const { color, blendMode = 'multiply' } = options;
+
+  if (typeof color !== 'function') {
+    let colorPalette = typeof color === 'string' ? [color] : color;
+    if (!isArray(colorPalette)) {
+      const { colors10, colors20 } = chart.getTheme();
+      colorPalette = data.filter((d) => d.sets.length === 1).length <= 10 ? colors10 : colors20;
+    }
+    const colorMap = getColorMap(colorPalette, [...data], blendMode);
+    return (datum: Datum) => colorMap.get(datum.id);
+  }
+  return color;
+}
 
 /**
  * geometry 处理
@@ -27,9 +50,11 @@ function geometry(params: Params<VennOptions>): Params<VennOptions> {
         yField: 'y',
         sizeField: 'size',
         seriesField: COLOR_FIELD,
+        rawFields: ['sets', 'id', 'size'],
         schema: {
           shape: 'venn',
           style: pointStyle,
+          color: transformColor(params, vennData),
         },
       },
     })

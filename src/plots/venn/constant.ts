@@ -7,6 +7,7 @@ export const COLOR_FIELD = 'colorField';
  * 韦恩图 默认配置项
  */
 export const DEFAULT_OPTIONS: Partial<VennOptions> = {
+  blendMode: 'multiply',
   tooltip: {
     showMarkers: false,
   },

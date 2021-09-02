@@ -10,7 +10,8 @@ import { Point } from '../../types';
  * @param cfg 图形绘制数据
  */
 function getFillAttrs(cfg: Types.ShapeInfo) {
-  return deepAssign({}, cfg.defaultStyle, cfg.style, { fill: cfg.color });
+  // style.fill 优先级更高
+  return deepAssign({}, cfg.defaultStyle, { fill: cfg.color }, cfg.style);
 }
 
 registerShape('schema', 'venn', {

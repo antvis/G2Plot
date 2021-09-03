@@ -3,12 +3,8 @@ import { ID_FIELD, PATH_FIELD, SETS_FIELD, SIZE_FIELD } from './constant';
 
 type VennDatum = { [SETS_FIELD]: string[]; [SIZE_FIELD]: number };
 
-export type VennData = Array<
-  VennDatum & {
-    [PATH_FIELD]: string;
-    [ID_FIELD]: string;
-  }
->;
+export type VennData = (VennDatum & { [PATH_FIELD]: string; [ID_FIELD]: string })[];
+export type CustomInfo = { offsetY: number; offsetX: number };
 
 /** 配置类型定义 */
 export interface VennOptions extends Options {

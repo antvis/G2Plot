@@ -1,11 +1,12 @@
-import { isArray } from '@antv/util';
+import { Geometry } from '@antv/g2';
+import { isArray, get } from '@antv/util';
 import { interaction, animation, theme, tooltip, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { schema as schemaGeometry } from '../../adaptor/geometries';
-import { deepAssign, flow } from '../../utils';
+import { deepAssign, flow, getAdjustAppendPadding } from '../../utils';
 import { Datum } from '../../types';
 import { getColorMap, layoutVennData } from './utils';
-import { VennData, VennOptions } from './types';
+import { CustomInfo, VennData, VennOptions } from './types';
 import { ID_FIELD, SETS_FIELD, SIZE_FIELD } from './constant';
 import './shape';
 
@@ -42,14 +43,26 @@ function defaultOptions(params: Params<VennOptions>): Params<VennOptions> {
  */
 function geometry(params: Params<VennOptions>): Params<VennOptions> {
   const { chart, options } = params;
-  const { data, color, pointStyle } = options;
+  const { data, pointStyle, legend, appendPadding } = options;
 
   // 获取容器大小
-  const { width, height } = chart.viewBBox;
-  const vennData: VennData = layoutVennData(data, width, height, 0 /** todo 获取内边距 padding */);
+  let { width, height } = chart.coordinateBBox;
+
+  // 处理 legend 的位置. 默认预留 40px, 业务上可以通过 appendPadding 增加
+  const customInfo: CustomInfo = { offsetX: 0, offsetY: 0 };
+  if (legend !== false) {
+    const padding = getAdjustAppendPadding(appendPadding, get(legend, 'position'), 40);
+    const [t, r, b, l] = padding;
+    width -= r + l;
+    height -= t + b;
+    customInfo.offsetX = l;
+    customInfo.offsetY = t;
+  }
+
+  const vennData: VennData = layoutVennData(data, width, height, 0);
   chart.data(vennData);
 
-  schemaGeometry(
+  const { ext } = schemaGeometry(
     deepAssign({}, params, {
       options: {
         xField: 'x',
@@ -65,6 +78,9 @@ function geometry(params: Params<VennOptions>): Params<VennOptions> {
       },
     })
   );
+
+  const geometry = ext.geometry as Geometry;
+  geometry.customInfo(customInfo);
 
   return params;
 }

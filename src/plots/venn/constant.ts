@@ -21,4 +21,5 @@ export const DEFAULT_OPTIONS: Partial<VennOptions> = {
     { type: 'legend-highlight', enable: false },
     { type: 'legend-active', enable: false },
   ],
+  legend: { position: 'top-left' },
 };

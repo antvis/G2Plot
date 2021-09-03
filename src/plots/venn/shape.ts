@@ -1,9 +1,10 @@
 import { IGroup } from '@antv/g-base';
-import { registerShape, Types } from '@antv/g2';
+import { registerShape, Types, Util } from '@antv/g2';
 import { parsePathString } from '@antv/path-util';
 import { get } from '@antv/util';
 import { deepAssign } from '../../utils';
 import { Point } from '../../types';
+import { CustomInfo } from './types';
 
 /**
  * 获取填充属性
@@ -19,6 +20,7 @@ registerShape('schema', 'venn', {
     const segments = parsePathString(get(cfg.data, 'path', ''));
     const fillAttrs = getFillAttrs(cfg);
 
+    const group = container.addGroup();
     // fix: G 无法识别 小写 m 命令，进行偏移（手动处理下）
     const path = [];
     segments.forEach((segment) => {
@@ -41,11 +43,15 @@ registerShape('schema', 'venn', {
         path,
       },
     });
+
+    const { offsetX, offsetY } = cfg.customInfo as CustomInfo;
+    const matrix = Util.transform(null, [['t', offsetX, offsetY]]);
+    pathShape.setMatrix(matrix);
+
     return pathShape;
   },
   getMarker(markerCfg: Types.ShapeMarkerCfg, ...args) {
     const { color } = markerCfg;
-    console.info('color', color, markerCfg, ...args);
     return {
       symbol: 'circle',
       style: {

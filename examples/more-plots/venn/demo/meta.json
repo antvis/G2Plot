@@ -21,7 +21,15 @@
       },
       "new": true,
       "screenshot": ""
+    },
+    {
+      "filename": "tooltip.ts",
+      "title": {
+        "zh": "格式化 tooltip",
+        "en": "Formatter tooltip"
+      },
+      "new": true,
+      "screenshot": ""
     }
-   
   ]
 }

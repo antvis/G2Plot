@@ -6,13 +6,21 @@ export const SETS_FIELD = 'sets';
 export const SIZE_FIELD = 'size';
 export const PATH_FIELD = 'path';
 
+/** 源数据字段 */
+export const RAW_FIELDS = ['sets', 'size'];
+
 /**
  * 韦恩图 默认配置项
  */
 export const DEFAULT_OPTIONS: Partial<VennOptions> = {
   blendMode: 'multiply',
   tooltip: {
+    showTitle: false,
     showMarkers: false,
+    fields: ['id', 'size'],
+    formatter: (datum) => {
+      return { name: datum.id, value: datum.size };
+    },
   },
   // 默认不开启 图例筛选交互
   interactions: [

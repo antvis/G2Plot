@@ -7,7 +7,7 @@ import { deepAssign, flow, getAdjustAppendPadding } from '../../utils';
 import { Datum } from '../../types';
 import { getColorMap, layoutVennData } from './utils';
 import { CustomInfo, VennData, VennOptions } from './types';
-import { ID_FIELD, SETS_FIELD, SIZE_FIELD } from './constant';
+import { ID_FIELD, SETS_FIELD, SIZE_FIELD, RAW_FIELDS } from './constant';
 import './shape';
 
 /**
@@ -69,7 +69,7 @@ function geometry(params: Params<VennOptions>): Params<VennOptions> {
         yField: 'y',
         sizeField: SIZE_FIELD,
         seriesField: ID_FIELD,
-        rawFields: [SETS_FIELD, SIZE_FIELD],
+        rawFields: RAW_FIELDS,
         schema: {
           shape: 'venn',
           style: pointStyle,

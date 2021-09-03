@@ -20,27 +20,10 @@ registerShape('schema', 'venn', {
     const segments = parsePathString(get(cfg.data, 'path', ''));
     const fillAttrs = getFillAttrs(cfg);
 
-    const group = container.addGroup();
-    // fix: G 无法识别 小写 m 命令，进行偏移（手动处理下）
-    const path = [];
-    segments.forEach((segment) => {
-      if (segment[0] === 'm') {
-        let prev = path.pop();
-        if (prev && prev[0] === 'M') {
-          const [, x, y] = prev;
-          const [, x1, y1] = segment;
-          prev = ['M', x + x1, y + y1];
-        }
-        path.push(prev);
-      } else {
-        path.push(segment);
-      }
-    });
-
     const pathShape = container.addShape('path', {
       attrs: {
         ...fillAttrs,
-        path,
+        path: segments,
       },
     });
 
@@ -50,7 +33,7 @@ registerShape('schema', 'venn', {
 
     return pathShape;
   },
-  getMarker(markerCfg: Types.ShapeMarkerCfg, ...args) {
+  getMarker(markerCfg: Types.ShapeMarkerCfg) {
     const { color } = markerCfg;
     return {
       symbol: 'circle',

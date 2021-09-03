@@ -31,9 +31,14 @@ function transformColor(params: Params<VennOptions>, data: VennData): VennOption
 
 /**
  * 处理默认配置项
- * todo 可以在这里处理下非法数据输入，避免直接 crash
  */
 function defaultOptions(params: Params<VennOptions>): Params<VennOptions> {
+  const { options } = params;
+  const { data } = options;
+  // 进行排序，mutable。避免 图形元素遮挡
+  data.sort((a, b) => a[SETS_FIELD].length - b[SETS_FIELD].length);
+
+  // todo 可以在这里处理下非法数据输入，避免直接 crash
   return params;
 }
 

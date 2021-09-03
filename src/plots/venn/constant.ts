@@ -24,6 +24,7 @@ export const DEFAULT_OPTIONS: Partial<VennOptions> = {
   },
   legend: { position: 'top-left' },
   label: {
+    offsetY: 6,
     style: {
       textAlign: 'center',
       fill: '#fff',

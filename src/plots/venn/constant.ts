@@ -14,4 +14,11 @@ export const DEFAULT_OPTIONS: Partial<VennOptions> = {
   tooltip: {
     showMarkers: false,
   },
+  // 默认不开启 图例筛选交互
+  interactions: [
+    { type: 'legend-filter', enable: false },
+    // hover 激活的时候，元素的层级展示不太好 先移除该交互
+    { type: 'legend-highlight', enable: false },
+    { type: 'legend-active', enable: false },
+  ],
 };

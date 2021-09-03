@@ -43,4 +43,17 @@ registerShape('schema', 'venn', {
     });
     return pathShape;
   },
+  getMarker(markerCfg: Types.ShapeMarkerCfg, ...args) {
+    const { color } = markerCfg;
+    console.info('color', color, markerCfg, ...args);
+    return {
+      symbol: 'circle',
+      style: {
+        lineWidth: 0,
+        stroke: color,
+        fill: color,
+        r: 4,
+      },
+    };
+  },
 });

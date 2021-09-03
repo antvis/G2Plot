@@ -2,12 +2,12 @@ import { assign, clone, memoize } from '@antv/util';
 import chroma from 'chroma-js';
 import { venn, scaleSolution } from './layout/layout';
 import { circlePath, intersectionAreaPath, computeTextCentres } from './layout/diagram';
+import { ID_FIELD, PATH_FIELD, SETS_FIELD } from './constant';
 import { VennData, VennOptions } from './types';
-import { COLOR_FIELD } from './constant';
 
 /**
  * 获取 颜色映射
- * @usage colorMap.get('id') => color
+ * @usage colorMap.get(id) => color
  *
  * @returns Map<string, string>
  */
@@ -16,17 +16,16 @@ export const getColorMap = memoize(
     const colorMap = new Map<string /** id */, string /** color */>();
     const colorPaletteLen = colorPalette.length;
     // 排序，mutable
-    data.sort((a, b) => a.sets.length - b.sets.length);
+    data.sort((a, b) => a[SETS_FIELD].length - b[SETS_FIELD].length);
     data.forEach((d, idx) => {
-      if (d.sets.length === 1) {
-        colorMap.set(d.id, colorPalette[(idx + colorPaletteLen) % colorPaletteLen]);
+      if (d[SETS_FIELD].length === 1) {
+        colorMap.set(d[ID_FIELD], colorPalette[(idx + colorPaletteLen) % colorPaletteLen]);
       } else {
-        const colorArr = d.sets.map(
-          (subSetId) => colorMap.get(subSetId) /** 一般都是可以获取到颜色的，如果不正确 就是输入了非法数据 */
-        );
+        /** 一般都是可以获取到颜色的，如果不正确 就是输入了非法数据 */
+        const colorArr = d[SETS_FIELD].map((id) => colorMap.get(id));
         // https://gka.github.io/chroma.js/#chroma-blend, 这里直接使用 乘加 的方式
         colorMap.set(
-          d.id,
+          d[ID_FIELD],
           colorArr.slice(1).reduce((a, b) => chroma.blend(a, b, blendMode).hex(), colorArr[0])
         );
       }
@@ -57,14 +56,12 @@ export function layoutVennData(
   const circles = scaleSolution(solution, width, height, padding);
   const textCenters = computeTextCentres(circles, vennData);
   vennData.forEach((row) => {
-    const sets = row.sets;
+    const sets = row[SETS_FIELD];
     const id = sets.join(',');
-    row.id = id;
-    // color 分类字段与 id 同步
-    row[COLOR_FIELD] = id;
+    row[ID_FIELD] = id;
     if (sets.length === 1) {
       const circle = circles[id];
-      row.path = circlePath(circle.x, circle.y, circle.radius);
+      row[PATH_FIELD] = circlePath(circle.x, circle.y, circle.radius);
       assign(row, circle);
     } else {
       const setCircles = sets.map((set) => circles[set]);
@@ -72,7 +69,7 @@ export function layoutVennData(
       if (!/[zZ]$/.test(path)) {
         path += ' Z';
       }
-      row.path = path;
+      row[PATH_FIELD] = path;
       const center = textCenters[id] || { x: 0, y: 0 };
       assign(row, center);
     }

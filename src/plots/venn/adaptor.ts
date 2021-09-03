@@ -6,10 +6,8 @@ import { deepAssign, flow } from '../../utils';
 import { Datum } from '../../types';
 import { getColorMap, layoutVennData } from './utils';
 import { VennData, VennOptions } from './types';
-import { COLOR_FIELD } from './constant';
+import { ID_FIELD, SETS_FIELD, SIZE_FIELD } from './constant';
 import './shape';
-
-// todo 可以在这里处理下非法数据输入，避免直接 crash
 
 /**
  * color options 转换
@@ -22,12 +20,20 @@ function transformColor(params: Params<VennOptions>, data: VennData): VennOption
     let colorPalette = typeof color === 'string' ? [color] : color;
     if (!isArray(colorPalette)) {
       const { colors10, colors20 } = chart.getTheme();
-      colorPalette = data.filter((d) => d.sets.length === 1).length <= 10 ? colors10 : colors20;
+      colorPalette = data.filter((d) => d[SETS_FIELD].length === 1).length <= 10 ? colors10 : colors20;
     }
     const colorMap = getColorMap(colorPalette, [...data], blendMode);
-    return (datum: Datum) => colorMap.get(datum.id);
+    return (datum: Datum) => colorMap.get(datum[ID_FIELD]) || colorPalette[0];
   }
   return color;
+}
+
+/**
+ * 处理默认配置项
+ * todo 可以在这里处理下非法数据输入，避免直接 crash
+ */
+function defaultOptions(params: Params<VennOptions>): Params<VennOptions> {
+  return params;
 }
 
 /**
@@ -36,7 +42,7 @@ function transformColor(params: Params<VennOptions>, data: VennData): VennOption
  */
 function geometry(params: Params<VennOptions>): Params<VennOptions> {
   const { chart, options } = params;
-  const { data, pointStyle } = options;
+  const { data, color, pointStyle } = options;
 
   // 获取容器大小
   const { width, height } = chart.viewBBox;
@@ -48,9 +54,9 @@ function geometry(params: Params<VennOptions>): Params<VennOptions> {
       options: {
         xField: 'x',
         yField: 'y',
-        sizeField: 'size',
-        seriesField: COLOR_FIELD,
-        rawFields: ['sets', 'id', 'size'],
+        sizeField: SIZE_FIELD,
+        seriesField: ID_FIELD,
+        rawFields: [SETS_FIELD, SIZE_FIELD],
         schema: {
           shape: 'venn',
           style: pointStyle,
@@ -64,12 +70,16 @@ function geometry(params: Params<VennOptions>): Params<VennOptions> {
 }
 
 /**
- * 默认关闭图例
+ * legend 配置
  * @param params
  */
 export function legend(params: Params<VennOptions>): Params<VennOptions> {
-  const { chart } = params;
-  chart.legend(false);
+  const { chart, options } = params;
+  const { legend } = options;
+
+  chart.legend(ID_FIELD, legend);
+  // 强制不开启 连续图例
+  chart.legend(SIZE_FIELD, false);
 
   return params;
 }
@@ -93,6 +103,8 @@ export function axis(params: Params<VennOptions>): Params<VennOptions> {
 export function adaptor(params: Params<VennOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
+    // 先处理默认配置项，再处理主题
+    defaultOptions,
     theme,
     geometry,
     scale({}),

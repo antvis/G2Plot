@@ -43,13 +43,13 @@ function defaultOptions(params: Params<VennOptions>): Params<VennOptions> {
  */
 function geometry(params: Params<VennOptions>): Params<VennOptions> {
   const { chart, options } = params;
-  const { data, pointStyle, legend, appendPadding } = options;
+  const { data, pointStyle, legend, appendPadding, label } = options;
 
   // 获取容器大小
   let { width, height } = chart.coordinateBBox;
 
   // 处理 legend 的位置. 默认预留 40px, 业务上可以通过 appendPadding 增加
-  const customInfo: CustomInfo = { offsetX: 0, offsetY: 0 };
+  const customInfo: CustomInfo = { offsetX: 0, offsetY: 0, label };
   if (legend !== false) {
     const padding = getAdjustAppendPadding(appendPadding, get(legend, 'position'), 40);
     const [t, r, b, l] = padding;
@@ -70,6 +70,8 @@ function geometry(params: Params<VennOptions>): Params<VennOptions> {
         sizeField: SIZE_FIELD,
         seriesField: ID_FIELD,
         rawFields: RAW_FIELDS,
+        // 不使用 G2 的label，直接在自定义 shape 中实现
+        label: false,
         schema: {
           shape: 'venn',
           style: pointStyle,

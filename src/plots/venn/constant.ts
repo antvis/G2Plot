@@ -22,6 +22,13 @@ export const DEFAULT_OPTIONS: Partial<VennOptions> = {
       return { name: datum.id, value: datum.size };
     },
   },
+  legend: { position: 'top-left' },
+  label: {
+    style: {
+      textAlign: 'center',
+      fill: '#fff',
+    },
+  },
   // 默认不开启 图例筛选交互
   interactions: [
     { type: 'legend-filter', enable: false },
@@ -29,5 +36,4 @@ export const DEFAULT_OPTIONS: Partial<VennOptions> = {
     { type: 'legend-highlight', enable: false },
     { type: 'legend-active', enable: false },
   ],
-  legend: { position: 'top-left' },
 };

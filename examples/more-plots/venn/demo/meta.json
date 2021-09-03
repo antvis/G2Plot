@@ -11,7 +11,7 @@
         "en": "Basic venn plot"
       },
       "new": true,
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/BJw8fy6uxU/009dd50e-c2a4-48dc-a79a-dc417123889f.png"
     },
     {
       "filename": "blend-mode.ts",
@@ -20,7 +20,7 @@
         "en": "Color blend mode"
       },
       "new": true,
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/XZE3uS3Ezm/e18cdf57-f528-4a43-a0a5-b92dba819477.png"
     },
     {
       "filename": "tooltip.ts",
@@ -29,7 +29,16 @@
         "en": "Formatter tooltip"
       },
       "new": true,
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/BJw8fy6uxU/009dd50e-c2a4-48dc-a79a-dc417123889f.png"
+    },
+    {
+      "filename": "label.ts",
+      "title": {
+        "zh": "设置 label",
+        "en": "Label setting"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/nyPJ6bGZ68/d5e85b5d-70c5-45b5-94aa-9a229e65474c.png"
     }
   ]
 }

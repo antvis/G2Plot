@@ -25,7 +25,7 @@ describe('venn', () => {
     expect(elements[0].shapeFactory['venn']).toBeDefined();
 
     expect(elements.length).toBe(1);
-    expect((elements[0].getData as any).size).toBe(10);
+    expect((elements[0].getData() as any).size).toBe(10);
     // path: [['M', ...], ['A', rx ry 0 1 0 x y], ...]
     const path = (elements[0].shape as IGroup).getChildren()[0].attr('path');
     const label = (elements[0].shape as IGroup).getChildren()[1];
@@ -33,7 +33,7 @@ describe('venn', () => {
     expect(path[0][0]).toBe('M');
     expect(path[1][0]).toBe('A');
     expect(path[2][0]).toBe('A');
-    expect((elements[0].getData as any).radius).toBe(400 / 2);
+    expect((elements[0].getData() as any).radius).toBe(400 / 2);
     expect(path[1][1]).toBe(400 / 2);
   });
 
@@ -77,9 +77,9 @@ describe('venn', () => {
 
     expect(elements.length).toBe(3);
     // 📒 size 的具体计算逻辑，可以再看下
-    expect((elements[0].getData as any).size).toBe(10);
-    expect((elements[1].getData as any).size).toBe(10);
-    expect((elements[2].getData as any).size).toBe(4);
+    expect((elements[0].getData() as any).size).toBe(10);
+    expect((elements[1].getData() as any).size).toBe(10);
+    expect((elements[2].getData() as any).size).toBe(4);
     // path: [['M', ...], ['A', rx ry 0 1 0 x y], ...]
     const path = (elements[0].shape as IGroup).getChildren()[0].attr('path');
     const label = (elements[0].shape as IGroup).getChildren()[1];
@@ -120,10 +120,10 @@ describe('venn', () => {
     expect(path[2][0]).toBe('A');
 
     // 中心点
-    expect((elements[6].getData as any).x).toBeCloseTo(200);
+    expect((elements[6].getData() as any).x).toBeCloseTo(200);
     // 元素对齐
-    expect(elements[2].getData().x).toBeCloseTo((elements[6].getData as any).x);
-    expect(elements[0].getData().y).toBeCloseTo((elements[1].getData as any).y);
+    expect(elements[2].getData().x).toBeCloseTo((elements[6].getData() as any).x);
+    expect(elements[0].getData().y).toBeCloseTo((elements[1].getData() as any).y);
   });
 
   it('defaultOptions 保持从 constants 中获取', () => {

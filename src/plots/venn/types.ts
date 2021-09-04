@@ -1,4 +1,3 @@
-import { Types } from '@antv/g2';
 import { Options, StyleAttr } from '../../types';
 import { ID_FIELD, PATH_FIELD, SETS_FIELD, SIZE_FIELD } from './constant';
 

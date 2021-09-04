@@ -1,6 +1,6 @@
 import { Types } from '@antv/g2';
 import { isArray } from '@antv/util';
-import { flow, findGeometry, deepAssign } from '../../../utils';
+import { flow, findGeometry } from '../../../utils';
 import { getTooltipMapping } from '../../../utils/tooltip';
 import { Params } from '../../../core/adaptor';
 import { Datum, Data } from '../../../types/common';

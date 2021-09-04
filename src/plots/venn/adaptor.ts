@@ -3,12 +3,15 @@ import { isArray, get } from '@antv/util';
 import { interaction, animation, theme, tooltip, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { schema as schemaGeometry } from '../../adaptor/geometries';
-import { deepAssign, flow, getAdjustAppendPadding } from '../../utils';
+import { deepAssign, flow, getAdjustAppendPadding, normalPadding } from '../../utils';
 import { Datum } from '../../types';
 import { getColorMap, layoutVennData } from './utils';
 import { CustomInfo, VennData, VennOptions } from './types';
 import { ID_FIELD, SETS_FIELD, SIZE_FIELD, RAW_FIELDS } from './constant';
 import './shape';
+
+/** 图例默认预留空间 */
+export const LEGEND_SPACE = 40;
 
 /**
  * color options 转换
@@ -43,28 +46,39 @@ function defaultOptions(params: Params<VennOptions>): Params<VennOptions> {
 }
 
 /**
+ * 处理 padding
+ */
+function padding(params: Params<VennOptions>): Params<VennOptions> {
+  const { chart, options } = params;
+  const { legend, appendPadding } = options;
+
+  // 处理 legend 的位置. 默认预留 40px, 业务上可以通过 appendPadding 增加
+  let padding: number[] = normalPadding(appendPadding);
+  if (legend !== false) {
+    padding = getAdjustAppendPadding(appendPadding, get(legend, 'position'), LEGEND_SPACE);
+  }
+
+  chart.appendPadding = padding;
+
+  return params;
+}
+
+/**
  * geometry 处理
  * @param params
  */
 function geometry(params: Params<VennOptions>): Params<VennOptions> {
   const { chart, options } = params;
-  const { data, pointStyle, legend, appendPadding, label } = options;
+  const { data, pointStyle, label } = options;
 
   // 获取容器大小
-  let { width, height } = chart.coordinateBBox;
-
+  const [t, r, b, l] = normalPadding(chart.appendPadding);
   // 处理 legend 的位置. 默认预留 40px, 业务上可以通过 appendPadding 增加
-  const customInfo: CustomInfo = { offsetX: 0, offsetY: 0, label };
-  if (legend !== false) {
-    const padding = getAdjustAppendPadding(appendPadding, get(legend, 'position'), 40);
-    const [t, r, b, l] = padding;
-    width -= r + l;
-    height -= t + b;
-    customInfo.offsetX = l;
-    customInfo.offsetY = t;
-  }
+  const customInfo: CustomInfo = { offsetX: l, offsetY: t, label };
+  // coordinateBBox + appendPadding = viewBBox, 不需要再计算 appendPadding 部分，因此直接使用 viewBBox
+  const { width, height } = chart.viewBBox;
 
-  const vennData: VennData = layoutVennData(data, width, height, 0);
+  const vennData: VennData = layoutVennData(data, width - (r + l), height - (t + b), 0);
   chart.data(vennData);
 
   const { ext } = schemaGeometry(
@@ -128,6 +142,7 @@ export function adaptor(params: Params<VennOptions>) {
   return flow(
     // 先处理默认配置项，再处理主题
     defaultOptions,
+    padding,
     theme,
     geometry,
     scale({}),

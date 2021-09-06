@@ -1,5 +1,5 @@
 import { assign, clone, memoize } from '@antv/util';
-import chroma from 'chroma-js';
+import { blend } from '../../utils/color/blend';
 import { venn, scaleSolution } from './layout/layout';
 import { circlePath, intersectionAreaPath, computeTextCentres } from './layout/diagram';
 import { ID_FIELD, PATH_FIELD, SETS_FIELD } from './constant';
@@ -23,10 +23,9 @@ export const getColorMap = memoize(
       } else {
         /** 一般都是可以获取到颜色的，如果不正确 就是输入了非法数据 */
         const colorArr = d[SETS_FIELD].map((id) => colorMap.get(id));
-        // https://gka.github.io/chroma.js/#chroma-blend, 这里直接使用 乘加 的方式
         colorMap.set(
           d[ID_FIELD],
-          colorArr.slice(1).reduce((a, b) => chroma.blend(a, b, blendMode).hex(), colorArr[0])
+          colorArr.slice(1).reduce((a, b) => blend(a, b, blendMode), colorArr[0])
         );
       }
     });

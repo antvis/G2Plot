@@ -13,6 +13,7 @@ export const RAW_FIELDS = ['sets', 'size'];
  * 韦恩图 默认配置项
  */
 export const DEFAULT_OPTIONS: Partial<VennOptions> = {
+  appendPadding: [10, 0, 20, 0],
   blendMode: 'multiply',
   tooltip: {
     showTitle: false,

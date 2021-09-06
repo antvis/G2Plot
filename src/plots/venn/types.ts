@@ -9,6 +9,10 @@ export type VennData = (VennDatum & { [PATH_FIELD]: string; [ID_FIELD]: string }
 export interface VennOptions extends Options {
   /** 韦恩图 数据 */
   readonly data: VennDatum[];
+  /** 集合字段 */
+  readonly setsField: string;
+  /** 大小字段 */
+  readonly sizeField: string;
 
   // 韦恩图 样式
   /** color */

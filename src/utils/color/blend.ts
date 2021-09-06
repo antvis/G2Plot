@@ -18,7 +18,7 @@ function componentToHex(c) {
   return hex.length == 1 ? '0' + hex : hex;
 }
 
-function rgbToHex(r, g, b) {
+export function rgbToHex(r: number, g: number, b: number) {
   return `#${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`;
 }
 

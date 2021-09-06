@@ -2,8 +2,7 @@ import { Types } from '@antv/g2';
 import { Options, StyleAttr } from '../../types';
 import { ID_FIELD, PATH_FIELD, SETS_FIELD, SIZE_FIELD } from './constant';
 
-type VennDatum = Types.Datum & { [SETS_FIELD]: string[]; [SIZE_FIELD]: number };
-
+export type VennDatum = Types.Datum & { [SETS_FIELD]: string[]; [SIZE_FIELD]: number };
 export type VennData = (VennDatum & { [PATH_FIELD]: string; [ID_FIELD]: string })[];
 
 /** 配置类型定义 */

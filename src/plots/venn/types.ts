@@ -1,14 +1,13 @@
 import { Types } from '@antv/g2';
 import { Options, StyleAttr } from '../../types';
-import { ID_FIELD, PATH_FIELD, SETS_FIELD, SIZE_FIELD } from './constant';
+import { ID_FIELD, PATH_FIELD } from './constant';
 
-export type VennDatum = Types.Datum & { [SETS_FIELD]: string[]; [SIZE_FIELD]: number };
-export type VennData = (VennDatum & { [PATH_FIELD]: string; [ID_FIELD]: string })[];
+export type VennData = (Types.Datum & { sets: string[]; [PATH_FIELD]: string; [ID_FIELD]: string })[];
 
 /** 配置类型定义 */
 export interface VennOptions extends Options {
   /** 韦恩图 数据 */
-  readonly data: VennDatum[];
+  readonly data: Types.Datum[];
   /** 集合字段 */
   readonly setsField: string;
   /** 大小字段 */

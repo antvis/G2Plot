@@ -10,6 +10,8 @@ const plot = new Venn('container', {
     { sets: ['B', 'C'], size: 2, label: 'B&C' },
     { sets: ['A', 'B', 'C'], size: 1 },
   ],
+  setsField: 'sets',
+  sizeField: 'size',
   // more blendMode to see: https://gka.github.io/chroma.js/#chroma-blend
   blendMode: 'overlay',
   pointStyle: { fillOpacity: 0.85 },

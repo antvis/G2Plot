@@ -7,7 +7,7 @@ import { deepAssign, flow, getAdjustAppendPadding, normalPadding } from '../../u
 import { Datum } from '../../types';
 import { getColorMap, layoutVennData } from './utils';
 import { CustomInfo, VennData, VennOptions } from './types';
-import { ID_FIELD, SETS_FIELD, SIZE_FIELD, RAW_FIELDS } from './constant';
+import { ID_FIELD } from './constant';
 import './shape';
 
 /** 图例默认预留空间 */
@@ -18,31 +18,18 @@ export const LEGEND_SPACE = 40;
  */
 function transformColor(params: Params<VennOptions>, data: VennData): VennOptions['color'] {
   const { chart, options } = params;
-  const { color, blendMode = 'multiply' } = options;
+  const { color, blendMode = 'multiply', setsField } = options;
 
   if (typeof color !== 'function') {
     let colorPalette = typeof color === 'string' ? [color] : color;
     if (!isArray(colorPalette)) {
       const { colors10, colors20 } = chart.getTheme();
-      colorPalette = data.filter((d) => d[SETS_FIELD].length === 1).length <= 10 ? colors10 : colors20;
+      colorPalette = data.filter((d) => d[setsField].length === 1).length <= 10 ? colors10 : colors20;
     }
-    const colorMap = getColorMap(colorPalette, [...data], blendMode);
+    const colorMap = getColorMap(colorPalette, data, options);
     return (datum: Datum) => colorMap.get(datum[ID_FIELD]) || colorPalette[0];
   }
   return color;
-}
-
-/**
- * 处理默认配置项
- */
-function defaultOptions(params: Params<VennOptions>): Params<VennOptions> {
-  const { options } = params;
-  const { data } = options;
-  // 进行排序，mutable。避免 图形元素遮挡
-  data.sort((a, b) => a[SETS_FIELD].length - b[SETS_FIELD].length);
-
-  // todo 可以在这里处理下非法数据输入，避免直接 crash
-  return params;
 }
 
 /**
@@ -69,7 +56,7 @@ function padding(params: Params<VennOptions>): Params<VennOptions> {
  */
 function geometry(params: Params<VennOptions>): Params<VennOptions> {
   const { chart, options } = params;
-  const { data, pointStyle, label } = options;
+  const { data, pointStyle, label, setsField, sizeField } = options;
 
   // 获取容器大小
   const [t, r, b, l] = normalPadding(chart.appendPadding);
@@ -78,7 +65,7 @@ function geometry(params: Params<VennOptions>): Params<VennOptions> {
   // coordinateBBox + appendPadding = viewBBox, 不需要再计算 appendPadding 部分，因此直接使用 viewBBox
   const { width, height } = chart.viewBBox;
 
-  const vennData: VennData = layoutVennData(data, width - (r + l), height - (t + b), 0);
+  const vennData: VennData = layoutVennData(options, width - (r + l), height - (t + b), 0);
   chart.data(vennData);
 
   const { ext } = schemaGeometry(
@@ -86,9 +73,9 @@ function geometry(params: Params<VennOptions>): Params<VennOptions> {
       options: {
         xField: 'x',
         yField: 'y',
-        sizeField: SIZE_FIELD,
+        sizeField: sizeField,
         seriesField: ID_FIELD,
-        rawFields: RAW_FIELDS,
+        rawFields: [setsField, sizeField],
         // 不使用 G2 的label，直接在自定义 shape 中实现
         label: false,
         schema: {
@@ -112,11 +99,11 @@ function geometry(params: Params<VennOptions>): Params<VennOptions> {
  */
 export function legend(params: Params<VennOptions>): Params<VennOptions> {
   const { chart, options } = params;
-  const { legend } = options;
+  const { legend, sizeField } = options;
 
   chart.legend(ID_FIELD, legend);
   // 强制不开启 连续图例
-  chart.legend(SIZE_FIELD, false);
+  chart.legend(sizeField, false);
 
   return params;
 }
@@ -140,8 +127,6 @@ export function axis(params: Params<VennOptions>): Params<VennOptions> {
 export function adaptor(params: Params<VennOptions>) {
   // flow 的方式处理所有的配置到 G2 API
   return flow(
-    // 先处理默认配置项，再处理主题
-    defaultOptions,
     padding,
     theme,
     geometry,

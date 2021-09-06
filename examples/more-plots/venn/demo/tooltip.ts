@@ -10,6 +10,8 @@ const plot = new Venn('container', {
     { sets: ['B', 'C'], size: 2, label: 'B&C' },
     { sets: ['A', 'B', 'C'], size: 1, label: 'A&B&C' },
   ],
+  setsField: 'sets',
+  sizeField: 'size',
   pointStyle: { fillOpacity: 0.85 },
   tooltip: {
     fields: ['label', 'size'],

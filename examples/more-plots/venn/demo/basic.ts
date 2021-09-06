@@ -10,6 +10,8 @@ const plot = new Venn('container', {
     { sets: ['B', 'C'], size: 2, label: 'B&C' },
     { sets: ['A', 'B', 'C'], size: 1 },
   ],
+  setsField: 'sets',
+  sizeField: 'size',
   pointStyle: { fillOpacity: 0.85 },
 });
 plot.render();

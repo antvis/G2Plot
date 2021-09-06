@@ -1,7 +1,6 @@
 import { Venn } from '@antv/g2plot';
 
 const plot = new Venn('container', {
-  appendPadding: [10, 20, 40, 20],
   data: [
     { sets: ['A'], size: 12, label: 'A' },
     { sets: ['B'], size: 12, label: 'B' },

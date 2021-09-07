@@ -18,7 +18,7 @@ export const LEGEND_SPACE = 40;
  */
 function transformColor(params: Params<VennOptions>, data: VennData): VennOptions['color'] {
   const { chart, options } = params;
-  const { color, blendMode = 'multiply', setsField } = options;
+  const { color, setsField } = options;
 
   if (typeof color !== 'function') {
     let colorPalette = typeof color === 'string' ? [color] : color;
@@ -56,7 +56,7 @@ function padding(params: Params<VennOptions>): Params<VennOptions> {
  */
 function geometry(params: Params<VennOptions>): Params<VennOptions> {
   const { chart, options } = params;
-  const { data, pointStyle, label, setsField, sizeField } = options;
+  const { pointStyle, label, setsField, sizeField } = options;
 
   // 获取容器大小
   const [t, r, b, l] = normalPadding(chart.appendPadding);

@@ -1,7 +1,7 @@
 import { IGroup } from '@antv/g-base';
 import { Venn } from '../../../../src';
-import { DEFAULT_OPTIONS, RAW_FIELDS } from '../../../../src/plots/venn/constant';
-import { VennData, VennDatum } from '../../../../src/plots/venn/types';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/venn/constant';
+import { VennData } from '../../../../src/plots/venn/types';
 import { createDiv } from '../../../utils/dom';
 
 describe('venn', () => {
@@ -10,8 +10,10 @@ describe('venn', () => {
   const plot = new Venn(createDiv(), {
     width: 400,
     height: 500,
+    setsField: 'sets',
+    sizeField: 'size',
     data: data1,
-    padding: 0,
+    appendPadding: 0,
     legend: false,
   });
 
@@ -132,13 +134,8 @@ describe('venn', () => {
   });
 
   it('韦恩图数据结构类型定义 types & constants', () => {
-    const vennDatum: VennDatum = { sets: [], size: 0 };
-    expect(vennDatum).toBeDefined();
-
     const vennData: VennData = [{ sets: [], size: 0, path: '', id: '' }];
     expect(vennData).toBeDefined();
-
-    expect(RAW_FIELDS).toEqual(['sets', 'size']);
   });
 
   afterAll(() => {

@@ -5,6 +5,8 @@ describe('venn 异常分支处理', () => {
   const plot = new Venn(createDiv(), {
     width: 400,
     height: 500,
+    setsField: 'sets',
+    sizeField: 'size',
     data: [],
   });
 

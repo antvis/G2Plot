@@ -1,5 +1,4 @@
 import { Venn } from '../../../../src';
-import { IS_TOTAL } from '../../../../src/plots/waterfall/constant';
 import { createDiv } from '../../../utils/dom';
 
 describe('venn: tooltip', () => {

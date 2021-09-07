@@ -32,12 +32,13 @@ describe('venn: pointStyle', () => {
       },
     });
 
-    expect(plot.chart.geometries[0].elements[0].getModel().style.fill).toBe('red');
-    expect(plot.chart.geometries[0].elements[0].getModel().style.stroke).toBe('yellow');
-    expect(plot.chart.geometries[0].elements[0].getModel().style.opacity).toBe(0.8);
-    expect(plot.chart.geometries[0].elements[0].getModel().style.lineDash).toEqual([2, 2]);
-    expect(plot.chart.geometries[0].elements[0].getModel().style.fillOpacity).toBe(0.5);
-    expect(plot.chart.geometries[0].elements[0].getModel().style.strokeOpacity).toBe(0.5);
+    const elements = plot.chart.geometries[0].elements;
+    expect(elements[0].getModel().style.fill).toBe('red');
+    expect(elements[0].getModel().style.stroke).toBe('yellow');
+    expect(elements[0].getModel().style.opacity).toBe(0.8);
+    expect(elements[0].getModel().style.lineDash).toEqual([2, 2]);
+    expect(elements[0].getModel().style.fillOpacity).toBe(0.5);
+    expect(elements[0].getModel().style.strokeOpacity).toBe(0.5);
   });
 
   it('style: callback', () => {
@@ -52,11 +53,19 @@ describe('venn: pointStyle', () => {
         }
         return {
           fill: 'red',
-          stroke: 'yellow',
+          stroke: 'green',
           opacity: 0.5,
         };
       },
     });
+
+    const elements = plot.chart.geometries[0].elements;
+    expect(elements[0].getModel().style.fill).toBe('blue');
+    expect(elements[0].getModel().style.stroke).toBe('yellow');
+    expect(elements[0].getModel().style.opacity).toBe(0.8);
+    expect(elements[3].getModel().style.fill).toBe('red');
+    expect(elements[3].getModel().style.stroke).toBe('green');
+    expect(elements[3].getModel().style.opacity).toBe(0.5);
   });
 
   afterAll(() => {

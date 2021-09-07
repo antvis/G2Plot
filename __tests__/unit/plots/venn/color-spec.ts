@@ -25,9 +25,7 @@ describe('venn: color', () => {
     expect(plot.chart.geometries[0].elements[0].getModel().color).toBe('red');
     expect(plot.chart.geometries[0].elements[1].getModel().color).toBe('red');
     expect(plot.chart.geometries[0].elements[2].getModel().color).toBe('red');
-    expect(plot.chart.geometries[0].elements[3].getModel().color).toBe('#000000');
-    expect(plot.chart.geometries[0].elements[4].getModel().color).toBe('#000000');
-    expect(plot.chart.geometries[0].elements[5].getModel().color).toBe('#000000');
+    // todo 优化blend之后，测试交集元素的颜色
   });
 
   it('color: array', () => {
@@ -36,9 +34,7 @@ describe('venn: color', () => {
     expect(plot.chart.geometries[0].elements[0].getModel().color).toBe('red');
     expect(plot.chart.geometries[0].elements[1].getModel().color).toBe('blue');
     expect(plot.chart.geometries[0].elements[2].getModel().color).toBe('yellow');
-    expect(plot.chart.geometries[0].elements[3].getModel().color).toBe('#000000');
-    expect(plot.chart.geometries[0].elements[4].getModel().color).toBe('#000000');
-    expect(plot.chart.geometries[0].elements[5].getModel().color).toBe('#000000');
+    // todo 优化blend之后，测试交集元素的颜色
   });
 
   it('color: callback', () => {
@@ -49,7 +45,11 @@ describe('venn: color', () => {
     });
 
     expect(plot.chart.geometries[0].elements[0].getModel().color).toBe('red');
+    expect(plot.chart.geometries[0].elements[1].getModel().color).toBe('red');
+    expect(plot.chart.geometries[0].elements[2].getModel().color).toBe('red');
     expect(plot.chart.geometries[0].elements[3].getModel().color).toBe('blue');
+    expect(plot.chart.geometries[0].elements[4].getModel().color).toBe('blue');
+    expect(plot.chart.geometries[0].elements[5].getModel().color).toBe('blue');
   });
 
   afterAll(() => {

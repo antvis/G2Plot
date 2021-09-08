@@ -1,27 +1,6 @@
-import { rgbToHex, hexTorgb, blend, colorToArr, innerBlend } from '../../../../src/utils/color/blend';
-import { nameToHex } from '../../../../src/utils/color/nameToHex';
+import { blend, colorToArr, innerBlend } from '../../../../src/utils/color/blend';
 
 describe('blend utils', () => {
-  it('rgbToHex', () => {
-    expect(rgbToHex(255, 0, 0)).toBe('#ff0000');
-    expect(rgbToHex(255, 255, 0)).toBe('#ffff00');
-    expect(rgbToHex(255, 255, 255)).toBe('#ffffff');
-  });
-
-  it('hexTorgb', () => {
-    expect(hexTorgb('#ff0000')).toEqual([255, 0, 0]);
-    expect(hexTorgb('#ffff00')).toEqual([255, 255, 0]);
-    expect(hexTorgb('#ffffff')).toEqual([255, 255, 255]);
-  });
-
-  it('nameToHex', () => {
-    expect(nameToHex('red')).toEqual('#ff0000');
-    expect(nameToHex('blue')).toEqual('#0000ff');
-    expect(nameToHex('lime')).toEqual('#00ff00');
-    expect(nameToHex('aliceblue')).toEqual('#f0f8ff');
-    expect(nameToHex('ALICEBLUE')).toEqual('#f0f8ff');
-  });
-
   it('colorToArr', () => {
     expect(colorToArr('red')).toEqual([255, 0, 0, 1]);
     expect(colorToArr('rgba(255, 34, 0, 0)')).toEqual([255, 34, 0, 0]);

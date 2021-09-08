@@ -1,38 +1,8 @@
-import { nameToHex } from './nameToHex';
+import colorUtil from '@antv/color-util';
 /*
  * interpolates between a set of colors uzing a bezier spline
  * blend mode formulas taken from http://www.venture-ware.com/kevin/coding/lets-learn-math-photoshop-blend-modes/
  */
-
-/**
- * hex 转 rgb 数组
- * @param color '#ff00ff'
- * @return [r, g, b]
- */
-// convert it back again (to a string)
-export function hexTorgb(hex: string): number[] {
-  // @ts-ignore
-  return [('0x' + hex[1] + hex[2]) | 0, ('0x' + hex[3] + hex[4]) | 0, ('0x' + hex[5] + hex[6]) | 0];
-}
-
-/**
- * 0～255 的分量转 16 进制
- * @param c 各个分量（0～255）
- * @return 转成 16 进制的分量，有 0 补位
- */
-function componentToHex(c: number): string {
-  const hex = (c | 0).toString(16);
-  return hex.length == 1 ? '0' + hex : hex;
-}
-
-/**
- * rgb -> hex色值
- * @param rgb
- * @return hex
- */
-export function rgbToHex(r: number, g: number, b: number): string {
-  return `#${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`;
-}
 
 const each =
   (f) =>
@@ -119,14 +89,14 @@ export function colorToArr(c: string): number[] {
 
   // 'red' -> [r, g, b, 1]
   if (typeof color === 'string' && !color.startsWith('rgba') && !color.startsWith('#')) {
-    return (rgbaArr = hexTorgb(nameToHex(color)).concat([1]));
+    return (rgbaArr = colorUtil.rgb2arr(colorUtil.toRGB(color)).concat([1]));
   }
 
   // rgba(255, 200, 125, 0.5) -> [r, g, b, a]
   if (color.startsWith('rgba')) rgbaArr = color.replace('rgba(', '').replace(')', '').split(',');
 
   // '#fff000' -> [r, g, b, 1]
-  if (color.startsWith('#')) rgbaArr = hexTorgb(color).concat([1]); // 如果是 16 进制（6 位数），默认透明度 1
+  if (color.startsWith('#')) rgbaArr = colorUtil.rgb2arr(color).concat([1]); // 如果是 16 进制（6 位数），默认透明度 1
 
   // [r, g, b, a] 前三位取整
   return rgbaArr.map((item, index) => (index === 3 ? Number(item) : item | 0));

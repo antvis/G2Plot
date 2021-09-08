@@ -110,22 +110,23 @@ export function blend(c0: string, c1: string, mode = 'normal') {
 /**
  * 统一颜色输入的格式 [r, g, b, a]
  * 参考：https://www.w3.org/TR/compositing/#blending
- * @param color 'red' or 'rgba(255, 0, 0, 0.5)' or '#ff00ff'
+ * @param c color
  * @return [r, g, b, a]
  */
-export function colorToArr(color: string): number[] {
-  const rgba = color.replace('/s+/g', ''); // 去除所有空格
+export function colorToArr(c: string): number[] {
+  const color = c.replace('/s+/g', ''); // 去除所有空格
   let rgbaArr: any[];
+
   // 'red' -> [r, g, b, 1]
-  if (typeof color === 'string' && !rgba.startsWith('rgba') && !rgba.startsWith('#')) {
+  if (typeof color === 'string' && !color.startsWith('rgba') && !color.startsWith('#')) {
     return (rgbaArr = hexTorgb(nameToHex(color)).concat([1]));
   }
 
   // rgba(255, 200, 125, 0.5) -> [r, g, b, a]
-  if (rgba.startsWith('rgba')) rgbaArr = rgba.replace('rgba(', '').replace(')', '').split(',');
+  if (color.startsWith('rgba')) rgbaArr = color.replace('rgba(', '').replace(')', '').split(',');
 
   // '#fff000' -> [r, g, b, 1]
-  if (rgba.startsWith('#')) rgbaArr = hexTorgb(rgba).concat([1]); // 如果是 16 进制（6 位数），默认透明度 1
+  if (color.startsWith('#')) rgbaArr = hexTorgb(color).concat([1]); // 如果是 16 进制（6 位数），默认透明度 1
 
   // [r, g, b, a] 前三位取整
   return rgbaArr.map((item, index) => (index === 3 ? Number(item) : item | 0));

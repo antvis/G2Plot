@@ -1,35 +1,52 @@
+import { nameToHex } from './nameToHex';
 /*
  * interpolates between a set of colors uzing a bezier spline
  * blend mode formulas taken from http://www.venture-ware.com/kevin/coding/lets-learn-math-photoshop-blend-modes/
  */
 
+/**
+ * hex 转 rgb 数组
+ * @param color '#ff00ff'
+ * @return [r, g, b]
+ */
 // convert it back again (to a string)
-function hexTorgb(color) {
-  if (typeof color === 'string' && !color.startsWith('#')) {
-    return color;
-  }
-  const hex = color;
+export function hexTorgb(hex: string): number[] {
   // @ts-ignore
   return [('0x' + hex[1] + hex[2]) | 0, ('0x' + hex[3] + hex[4]) | 0, ('0x' + hex[5] + hex[6]) | 0];
 }
 
-function componentToHex(c) {
+/**
+ * 0～255 的分量转 16 进制
+ * @param c 各个分量（0～255）
+ * @return 转成 16 进制的分量，有 0 补位
+ */
+function componentToHex(c: number): string {
   const hex = (c | 0).toString(16);
   return hex.length == 1 ? '0' + hex : hex;
 }
 
-export function rgbToHex(r: number, g: number, b: number) {
+/**
+ * rgb -> hex色值
+ * @param rgb
+ * @return hex
+ */
+export function rgbToHex(r: number, g: number, b: number): string {
   return `#${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`;
 }
 
-const each = (f) => (c0, c1) => {
-  const out = [];
-  out[0] = f(c0[0], c1[0]);
-  out[1] = f(c0[1], c1[1]);
-  out[2] = f(c0[2], c1[2]);
-  return out;
-};
+const each =
+  (f) =>
+  (c0: number[], c1: number[]): number[] => {
+    const out = [];
+    out[0] = f(c0[0], c1[0]);
+    out[1] = f(c0[1], c1[1]);
+    out[2] = f(c0[2], c1[2]);
+    return out;
+  };
 
+/**
+ * 混合方法集合
+ */
 const blendObject = {
   normal: (a: number) => a,
   multiply: (a: number, b: number) => (a * b) / 255,
@@ -42,18 +59,74 @@ const blendObject = {
     a = (255 * (b / 255)) / (1 - a / 255);
     return a > 255 ? 255 : a;
   },
-  burn: (a: number, b: number) => 255 * (1 - (1 - b / 255) / (a / 255)),
+  burn: (a: number, b: number) => {
+    // 参考 w3c 的写法，考虑除数为 0 的情况
+    if (b === 255) return 255;
+    else if (a === 0) return 0;
+    else return 255 * (1 - Math.min(1, (1 - b / 255) / (a / 255)));
+  },
 };
 
-const innerBlend = (mode) => {
+/**
+ * 获取混合方法
+ */
+export const innerBlend = (mode: string) => {
   if (!blendObject[mode]) {
     throw new Error('unknown blend mode ' + mode);
   }
   return blendObject[mode];
 };
 
+/**
+ * 混合颜色，并处理透明度情况
+ * 参考：https://www.w3.org/TR/compositing/#blending
+ * @param c0
+ * @param c1
+ * @param mode 混合模式
+ * @return rbga
+ */
 export function blend(c0: string, c1: string, mode = 'normal') {
-  const [r, g, b] = each(innerBlend(mode))(hexTorgb(c0), hexTorgb(c1));
+  // blendRgbArr: 生成不考虑透明度的 blend color: [r, g, b]
+  const blendRgbArr = each(innerBlend(mode))(colorToArr(c0), colorToArr(c1));
 
-  return rgbToHex(r, g, b);
+  const [r0, g0, b0, a0] = colorToArr(c0);
+  const [r1, g1, b1, a1] = colorToArr(c1);
+
+  const a = Number((a0 + a1 * (1 - a0)).toFixed(2));
+
+  const r = Math.round(
+    ((a0 * (1 - a1) * (r0 / 255) + a0 * a1 * (blendRgbArr[0] / 255) + (1 - a0) * a1 * (r1 / 255)) / a) * 255
+  );
+  const g = Math.round(
+    ((a0 * (1 - a1) * (g0 / 255) + a0 * a1 * (blendRgbArr[1] / 255) + (1 - a0) * a1 * (g1 / 255)) / a) * 255
+  );
+  const b = Math.round(
+    ((a0 * (1 - a1) * (b0 / 255) + a0 * a1 * (blendRgbArr[2] / 255) + (1 - a0) * a1 * (b1 / 255)) / a) * 255
+  );
+
+  return `rgba(${r}, ${g}, ${b}, ${a})`;
+}
+
+/**
+ * 统一颜色输入的格式 [r, g, b, a]
+ * 参考：https://www.w3.org/TR/compositing/#blending
+ * @param color 'red' or 'rgba(255, 0, 0, 0.5)' or '#ff00ff'
+ * @return [r, g, b, a]
+ */
+export function colorToArr(color: string): number[] {
+  const rgba = color.replace('/s+/g', ''); // 去除所有空格
+  let rgbaArr: any[];
+  // 'red' -> [r, g, b, 1]
+  if (typeof color === 'string' && !rgba.startsWith('rgba') && !rgba.startsWith('#')) {
+    return (rgbaArr = hexTorgb(nameToHex(color)).concat([1]));
+  }
+
+  // rgba(255, 200, 125, 0.5) -> [r, g, b, a]
+  if (rgba.startsWith('rgba')) rgbaArr = rgba.replace('rgba(', '').replace(')', '').split(',');
+
+  // '#fff000' -> [r, g, b, 1]
+  if (rgba.startsWith('#')) rgbaArr = hexTorgb(rgba).concat([1]); // 如果是 16 进制（6 位数），默认透明度 1
+
+  // [r, g, b, a] 前三位取整
+  return rgbaArr.map((item, index) => (index === 3 ? Number(item) : item | 0));
 }

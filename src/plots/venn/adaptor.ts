@@ -37,15 +37,18 @@ function transformColor(params: Params<VennOptions>, data: VennData): VennOption
  */
 function padding(params: Params<VennOptions>): Params<VennOptions> {
   const { chart, options } = params;
-  const { legend, appendPadding } = options;
+  const { legend, appendPadding, padding } = options;
 
   // 处理 legend 的位置. 默认预留 40px, 业务上可以通过 appendPadding 增加
-  let padding: number[] = normalPadding(appendPadding);
+  let tempPadding: number[] = normalPadding(appendPadding);
   if (legend !== false) {
-    padding = getAdjustAppendPadding(appendPadding, get(legend, 'position'), LEGEND_SPACE);
+    tempPadding = getAdjustAppendPadding(appendPadding, get(legend, 'position'), LEGEND_SPACE);
   }
 
-  chart.appendPadding = padding;
+  const [t0, r0, b0, l0] = tempPadding;
+  const [t1, r1, b1, l1] = normalPadding(padding);
+
+  chart.appendPadding = [t0 + t1, r0 + r1, b0 + b1, l0 + l1];
 
   return params;
 }

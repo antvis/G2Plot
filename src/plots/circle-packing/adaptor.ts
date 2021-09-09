@@ -12,8 +12,8 @@ import {
   pattern,
 } from '../../adaptor/common';
 import { flow, deepAssign } from '../../utils';
-import { getAdjustAppendPadding } from '../../utils/padding';
-import { transformData, resolvePaddingForCircle, resolveAllPadding } from './utils';
+import { getAdjustAppendPadding, resolveAllPadding } from '../../utils/padding';
+import { transformData, resolvePaddingForCircle } from './utils';
 import { CirclePackingOptions } from './types';
 import { RAW_FIELDS } from './constant';
 

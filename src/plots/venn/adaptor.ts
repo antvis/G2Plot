@@ -3,7 +3,7 @@ import { isArray, get } from '@antv/util';
 import { interaction, animation, theme, tooltip, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { schema as schemaGeometry } from '../../adaptor/geometries';
-import { deepAssign, flow, getAdjustAppendPadding, normalPadding } from '../../utils';
+import { deepAssign, flow, getAdjustAppendPadding, normalPadding, resolveAllPadding } from '../../utils';
 import { Datum } from '../../types';
 import { getColorMap, layoutVennData } from './utils';
 import { CustomInfo, VennData, VennOptions } from './types';
@@ -45,10 +45,7 @@ function padding(params: Params<VennOptions>): Params<VennOptions> {
     tempPadding = getAdjustAppendPadding(appendPadding, get(legend, 'position'), LEGEND_SPACE);
   }
 
-  const [t0, r0, b0, l0] = tempPadding;
-  const [t1, r1, b1, l1] = normalPadding(padding);
-
-  chart.appendPadding = [t0 + t1, r0 + r1, b0 + b1, l0 + l1];
+  chart.appendPadding = resolveAllPadding([tempPadding, normalPadding(padding)]);
 
   return params;
 }

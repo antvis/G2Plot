@@ -2,7 +2,7 @@ import { Types } from '@antv/g2';
 import { pack } from '../../utils/hierarchy/pack';
 import { deepAssign, pick } from '../../utils';
 import { HIERARCHY_DATA_TRANSFORM_PARAMS } from '../../interactions/actions/drill-down';
-import { normalPadding } from '../../utils/padding';
+import { resolveAllPadding } from '../../utils/padding';
 import { CirclePackingOptions } from './types';
 
 interface TransformDataOptions {
@@ -53,26 +53,6 @@ export function transformData(options: TransformDataOptions) {
   });
 
   return result;
-}
-
-/**
- * 根据图表的 padding 和 appendPadding 计算出图表的最终 padding
- * @param array
- */
-export function resolveAllPadding(paddings: Types.ViewPadding[]) {
-  // 先把数组里的 padding 全部转换成 normal
-  const normalPaddings = paddings.map((item) => normalPadding(item));
-  let finalPadding = [0, 0, 0, 0];
-  if (normalPaddings.length > 0) {
-    finalPadding = finalPadding.map((item, index) => {
-      // 有几个 padding 数组就遍历几次，累加
-      normalPaddings.forEach((d, i) => {
-        item += normalPaddings[i][index];
-      });
-      return item;
-    });
-  }
-  return finalPadding;
 }
 
 /**

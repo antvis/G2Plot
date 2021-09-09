@@ -8,6 +8,24 @@
 
 ##### New Features
 
+* **venn:**  初始化韦恩图 ([#2831](https://github.com/antvis/g2plot/pull/2831)) ([e2b84c6a](https://github.com/antvis/g2plot/commit/e2b84c6a153831f09171b68759738ba6115a3814))
+* **dual-axes:**  双轴图支持单轴配置 legend ([#2840](https://github.com/antvis/g2plot/pull/2840)) ([d1e1a527](https://github.com/antvis/g2plot/commit/d1e1a527a046076daf06d96088f28ec19fc415bc))
+* **annotations:** 提供更新图标标注方法 ([#2826](https://github.com/antvis/g2plot/pull/2826)) ([d879ad14](https://github.com/antvis/g2plot/commit/d879ad14c516fe6a27ac6cb0d3075f5c1ebb4b39))
+
+##### Bug Fixes
+
+*  修复 demo ([87ae90f9](https://github.com/antvis/g2plot/commit/87ae90f9c034f728222fcc0d4e7437352cc28e8f))
+
+#### 2.3.33 (2021-09-09)
+
+##### Documentation Changes
+
+*  set default lang=zh in readme ([#2839](https://github.com/antvis/g2plot/pull/2839)) ([6c2fea3b](https://github.com/antvis/g2plot/commit/6c2fea3bb90add6ff0aff7a4ccd656c7f0b82a28))
+* **annotations:** annotations 相关文档完善 ([#2823](https://github.com/antvis/g2plot/pull/2823)) ([0df46052](https://github.com/antvis/g2plot/commit/0df46052724a0c98b75e0923ebe7c9474d7ae000))
+* **pattern:**  添加自定义 pattern 的 demo ([a0a42420](https://github.com/antvis/g2plot/commit/a0a4242038782b790b628a3668b09233e899a90f))
+
+##### New Features
+
 * **dual-axes:**  双轴图支持单轴配置 legend ([#2840](https://github.com/antvis/g2plot/pull/2840)) ([d1e1a527](https://github.com/antvis/g2plot/commit/d1e1a527a046076daf06d96088f28ec19fc415bc))
 *  提供更新图标标注方法 ([#2826](https://github.com/antvis/g2plot/pull/2826)) ([d879ad14](https://github.com/antvis/g2plot/commit/d879ad14c516fe6a27ac6cb0d3075f5c1ebb4b39))
 

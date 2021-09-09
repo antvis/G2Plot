@@ -10,7 +10,6 @@
         "zh": "联动 Tooltip (饼图)",
         "en": "Associate Tooltip for Pie plot"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/VoiPvFL%26U5/pie-tooltip.gif"
     },
     {
@@ -19,7 +18,6 @@
         "zh": "联动筛选",
         "en": "Associate Filter"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/tHF3bgalmB/association-filter.gif"
     },
     {
@@ -28,7 +26,6 @@
         "zh": "带跳转转化分析图",
         "en": "Conversion analysis bar"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/p8r96Xc9o0/conversion-analysis-bar.gif"
     },
     {
@@ -37,7 +34,6 @@
         "zh": "带跳转转化分析图2",
         "en": "Conversion analysis bar2"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/PojoRGFBN4/conversion-analysis-2.gif"
     }
   ]

@@ -23,6 +23,8 @@ type CommonGeometryOption = {
   readonly geometry?: string;
   // label
   readonly label?: Options['label'];
+  // legend
+  readonly legend?: Options['legend'];
   // 色板
   readonly color?: Options['color'];
   // 是否分组

@@ -2,11 +2,11 @@ import { Column } from '@antv/g2plot';
 
 const data = [
   {
-    type: '家具家电',
+    type: '湖州',
     sales: 38,
   },
   {
-    type: '粮油副食',
+    type: '嘉兴',
     sales: 52,
   },
   {

@@ -48,3 +48,23 @@ export function getAdjustAppendPadding(padding: Types.ViewAppendPadding, positio
     currentAppendPadding[3] + PADDING[3],
   ];
 }
+
+/**
+ * 根据图表的 padding 和 appendPadding 计算出图表的最终 padding
+ * @param array
+ */
+export function resolveAllPadding(paddings: Types.ViewPadding[]) {
+  // 先把数组里的 padding 全部转换成 normal
+  const normalPaddings = paddings.map((item) => normalPadding(item));
+  let finalPadding = [0, 0, 0, 0];
+  if (normalPaddings.length > 0) {
+    finalPadding = finalPadding.map((item, index) => {
+      // 有几个 padding 数组就遍历几次，累加
+      normalPaddings.forEach((d, i) => {
+        item += normalPaddings[i][index];
+      });
+      return item;
+    });
+  }
+  return finalPadding;
+}

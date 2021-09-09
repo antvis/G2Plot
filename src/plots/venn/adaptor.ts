@@ -3,7 +3,7 @@ import { isArray, get } from '@antv/util';
 import { interaction, animation, theme, tooltip, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { schema as schemaGeometry } from '../../adaptor/geometries';
-import { deepAssign, flow, getAdjustAppendPadding, normalPadding } from '../../utils';
+import { deepAssign, flow, getAdjustAppendPadding, normalPadding, resolveAllPadding } from '../../utils';
 import { Datum } from '../../types';
 import { getColorMap, layoutVennData } from './utils';
 import { CustomInfo, VennData, VennOptions } from './types';
@@ -37,15 +37,15 @@ function transformColor(params: Params<VennOptions>, data: VennData): VennOption
  */
 function padding(params: Params<VennOptions>): Params<VennOptions> {
   const { chart, options } = params;
-  const { legend, appendPadding } = options;
+  const { legend, appendPadding, padding } = options;
 
   // 处理 legend 的位置. 默认预留 40px, 业务上可以通过 appendPadding 增加
-  let padding: number[] = normalPadding(appendPadding);
+  let tempPadding: number[] = normalPadding(appendPadding);
   if (legend !== false) {
-    padding = getAdjustAppendPadding(appendPadding, get(legend, 'position'), LEGEND_SPACE);
+    tempPadding = getAdjustAppendPadding(appendPadding, get(legend, 'position'), LEGEND_SPACE);
   }
 
-  chart.appendPadding = padding;
+  chart.appendPadding = resolveAllPadding([tempPadding, padding]);
 
   return params;
 }

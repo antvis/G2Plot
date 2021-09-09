@@ -374,7 +374,7 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
             view: leftView,
             geometryOption: geometryOptions[0],
             yField: yField[0],
-            legend,
+            legend: geometryOptions[0].legend || legend,
           })
         : [];
 
@@ -383,7 +383,7 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
             view: rightView,
             geometryOption: geometryOptions[1],
             yField: yField[1],
-            legend,
+            legend: geometryOptions[1].legend || legend,
           })
         : [];
 

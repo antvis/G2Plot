@@ -23,7 +23,10 @@ export function getViewLegendItems(params: {
     const legendItemName = get(view, `options.scales.${yField}.alias`) || yField;
     // 返回 g2 设置的图例
     const colorAttribute = geometry.getAttribute('color');
-    const color = Util.getMappingValue(colorAttribute, legendItemName, colorAttribute.values[0]);
+    let color = view.getTheme().defaultColor;
+    if (colorAttribute) {
+      color = Util.getMappingValue(colorAttribute, legendItemName, get(colorAttribute, ['values', 0], color));
+    }
 
     const marker =
       (isFunction(userMarker)

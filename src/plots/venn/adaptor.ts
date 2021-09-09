@@ -45,7 +45,7 @@ function padding(params: Params<VennOptions>): Params<VennOptions> {
     tempPadding = getAdjustAppendPadding(appendPadding, get(legend, 'position'), LEGEND_SPACE);
   }
 
-  chart.appendPadding = resolveAllPadding([tempPadding, normalPadding(padding)]);
+  chart.appendPadding = resolveAllPadding([tempPadding, padding]);
 
   return params;
 }

@@ -367,6 +367,8 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
   } else if (isObject(legend) && legend.custom === true) {
     chart.legend(legend);
   } else {
+    const leftLegend = get(geometryOptions, [0, 'legend'], legend);
+    const rightLegend = get(geometryOptions, [1, 'legend'], legend);
     // 均使用自定义图例
     chart.once('beforepaint', () => {
       const leftItems = data[0].length
@@ -374,7 +376,7 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
             view: leftView,
             geometryOption: geometryOptions[0],
             yField: yField[0],
-            legend: geometryOptions[0].legend || legend,
+            legend: leftLegend,
           })
         : [];
 
@@ -383,7 +385,7 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
             view: rightView,
             geometryOption: geometryOptions[1],
             yField: yField[1],
-            legend: geometryOptions[1].legend || legend,
+            legend: rightLegend,
           })
         : [];
 
@@ -398,10 +400,10 @@ export function legend(params: Params<DualAxesOptions>): Params<DualAxesOptions>
     });
 
     if (geometryOptions[0].seriesField) {
-      leftView.legend(geometryOptions[0].seriesField, legend);
+      leftView.legend(geometryOptions[0].seriesField, leftLegend);
     }
     if (geometryOptions[1].seriesField) {
-      rightView.legend(geometryOptions[1].seriesField, legend);
+      rightView.legend(geometryOptions[1].seriesField, rightLegend);
     }
 
     // 自定义图例交互

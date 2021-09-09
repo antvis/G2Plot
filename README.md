@@ -1,10 +1,10 @@
-<img src="https://gw.alipayobjects.com/zos/antfincdn/R8sN%24GNdh6/language.svg" width="18"> English | [简体中文](./README.zh-CN.md)
+<img src="https://gw.alipayobjects.com/zos/antfincdn/R8sN%24GNdh6/language.svg" width="18"> [English](./README.en-US.md) | 简体中文
 
 <h1 align="center">G2Plot</h1>
 
 <div align="center">
 
-A charting library based on the Grammar of Graphics.
+基于图形语法（the Grammar of Graphics）的图表库。
 
 [![Version](https://badgen.net/npm/v/@antv/g2plot)](https://npmjs.com/@antv/g2plot)
 [![NPM downloads](https://img.shields.io/npm/dm/@antv/g2plot.svg)](https://npmjs.com/@antv/g2plot)
@@ -15,51 +15,61 @@ A charting library based on the Grammar of Graphics.
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/antvis/g2plot.svg)](http://isitmaintained.com/project/antvis/g2plot "Average time to resolve an issue")
 
 <p align="center">
-  <a href="https://g2plot.antv.vision/en">Website</a> •
-  <a href="https://g2plot.antv.vision/en/docs/manual/getting-started">Quick Start</a> •
-  <a href="https://www.yuque.com/antv/g2plot">Blog</a> •
+  <a href="https://g2plot.antv.vision/en">网站</a> •
+  <a href="https://g2plot.antv.vision/en/docs/manual/getting-started">快速开始</a> •
+  <a href="https://www.yuque.com/antv/g2plot">博客</a> •
   <a href="https://github.com/antvis/theme-set">AntV ThemeSet</a>
 </p>
 
 </div>
 
-G2Plot is an interactive and responsive charting library.
-Based on [the grammar of graphics](https://github.com/antvis/g2), you can easily make superior statistical charts through a few lines of code.
+一套简单、易用、并具备一定扩展能力和组合能力的统计图表库，基于图形语法理论搭建而成，『G2Plot』中的 G2 即意指图形语法 (the Grammar of Graphics)，同时也致敬了 [ggplot2](https://ggplot2.tidyverse.org/)。我们想做的事有三件：
+
+1. 使用户不用成为可视化专家也能够轻松制作出优雅美观的图表。
+2. 保证图表能够经受得起业务的检验，在真实的场景中易用、好用。
+3. 探索统计图表的更多可能性，使统计图表变得更好玩、更酷。
 
 <div align="center">
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*sXqrRrEwFRQAAAAAAAAAAABkARQnAQ" width="800">
+  <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*sXqrRrEwFRQAAAAAAAAAAABkARQnAQ" width="800">
 </div>
-<br/>
 
-## ✨ Features
+## ✨ 特性
 
-### 📦 Pretty & Lightweight
+### 📦 开箱即用、体验优雅的高质量统计图表
 
-With [AntV](https://antv.vision/en) design principles of data visualization, G2Plot provides standard and elegant visual styles as well as neat config options.
+G2Plot 呈现给用户的是一套提炼自企业级产品的视觉语言和设计规范。不仅对图表的整体视觉样式进行了优化，并且针对每一个图表自身的特点，沉淀出一套最佳配置，保证用户能够通过最少的配置制作出优雅、标准的图表。
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rqI2Qqt0pTwAAAAAAAAAAABkARQnAQ" />
+<div align="center">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*rqI2Qqt0pTwAAAAAAAAAAABkARQnAQ" width="600" />
+</div>
 
-### 📊 Responsive
+### 📊 响应式：让图表更聪明
 
-G2Plot guarantees the readability of the charts in different sizes and data.
+在现实的图表应用场景中，一个棘手的难题是图表的展示空间往往并不足够显示图表的数据量，造成极值情况下文本的重叠遮挡、内容无法自适应、内容裁剪等问题。G2Plot 借鉴宽容性设计的思想，在图表的信息密度过高时，对图表辅助信息进行抽稀，保证图表主要信息的展示和基本可读性。
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ifK1TLi_4WoAAAAAAAAAAABkARQnAQ" />
+<div align="center">
+  <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*ifK1TLi_4WoAAAAAAAAAAABkARQnAQ" width="600" />
+</div>
 
-### 🔳 Storytelling
+### 🔳 向前一步：会讲故事的图表
 
-With the feature of _layers_, charts can be grouped, nested or linked to do exploratory analysis and expressive storytelling.
+在 G2Plot 体系下，图表不仅仅只是各不相关的实例，图层概念的引入提供了多图表组合、叠加、联动，共同讲述一个数据故事的可能性。未来，我们还将探索统计图表转化信息图的可能性，丰富统计图表的表现能力。
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gd00QaD9110AAAAAAAAAAABkARQnAQ" />
+<div align="center">
+  <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*gd00QaD9110AAAAAAAAAAABkARQnAQ" width="600" />
+</div>
 
-## 📦 Installation
+## 📦 安装
 
 ```bash
 $ npm install @antv/g2plot
 ```
 
-## 🔨 Usage
+## 🔨 使用
 
-<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*37siRJftYDIAAAAAAAAAAABkARQnAQ" />
+<div align="center">
+<img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*37siRJftYDIAAAAAAAAAAABkARQnAQ" width="450" />
+</div>
 
 ```html
 <div id="container"></div>
@@ -86,13 +96,15 @@ const bar = new Bar('container', {
 bar.render();
 ```
 
-## 🤝 How to Contribute
+## 🤝 参与贡献
 
-Your contributions are always welcome! Please Do have a look at the [issues](https://github.com/antvis/g2plot/issues) first.
+我们非常欢迎你的贡献！无论是 issue 还是 PR。
 
-To become a contributor, please follow our [contributing guide](https://github.com/antvis/g2plot/blob/master/CONTRIBUTING.md).
+反馈问题请先阅读 [issues](https://github.com/antvis/g2plot/issues)。
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+提交代码请遵循 [贡献指引](https://github.com/antvis/g2plot/blob/master/CONTRIBUTING.md)。
+
+感谢下面这些贡献者 ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -153,19 +165,17 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
-
-## 📧 Contact us
+## 📧 联系我们
 
 钉钉群组号码: 30233731
 
 <img src="https://gw.alipayobjects.com/zos/antfincdn/9sHnl5k%26u4/dingdingqun.png" width="200" height="266" />
 <img src="https://gw.alipayobjects.com/zos/antfincdn/8qEHi7GiaN/G2Plot-dingding.JPG" width="200" height="266" />
 
-## 🔗 Links
+## 🔗 相关链接
 
-<img src="https://gw.alipayobjects.com/zos/antfincdn/1yMwFkBvyV/chartcube-logo-cube.svg" width="18"> [ChartCube](https://chartcube.alipay.com/) - Online chart making tool based on G2Plot.
+<img src="https://gw.alipayobjects.com/zos/antfincdn/1yMwFkBvyV/chartcube-logo-cube.svg" width="18"> [ChartCube](https://chartcube.alipay.com/) - 基于 G2Plot 的在线图表制作工具，交互简单，一键导出图表代码！
 
-## License
+## 许可证
 
 MIT

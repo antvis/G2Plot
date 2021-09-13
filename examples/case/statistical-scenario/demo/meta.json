@@ -18,7 +18,16 @@
         "zh": "场景漏斗图",
         "en": "Funnel Scenario"
       },
+      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/kqkXF8ap7d/24934434-0067-4c1f-9c22-e51b27beb3f6.png"
+    },
+    {
+      "filename": "funnel-analysis.jsx",
+      "title": {
+        "zh": "自定义分析漏斗图",
+        "en": "Funnel analysis"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/3jrUoywaYN/339d1657-af7b-47d0-8434-da69979d597d.png"
     },
     {
       "filename": "pie.ts",

@@ -64,8 +64,8 @@ function geometry(params: Params<VennOptions>): Params<VennOptions> {
   const customInfo: CustomInfo = { offsetX: l, offsetY: t, label };
   // coordinateBBox + appendPadding = viewBBox, 不需要再计算 appendPadding 部分，因此直接使用 viewBBox
   const { width, height } = chart.viewBBox;
-
-  const vennData: VennData = layoutVennData(options, width - (r + l), height - (t + b), 0);
+  // 处理padding输入不合理的情况， w 和 h 不能为负数
+  const vennData: VennData = layoutVennData(options, Math.max(width - (r + l), 0), Math.max(height - (t + b), 0), 0);
   chart.data(vennData);
 
   const { ext } = schemaGeometry(

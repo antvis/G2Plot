@@ -1,5 +1,6 @@
 import { assign, memoize } from '@antv/util';
 import { blend } from '../../utils/color/blend';
+import { log, LEVEL } from '../../../src/utils';
 import { venn, scaleSolution } from './layout/layout';
 import { circlePath, intersectionAreaPath, computeTextCentres } from './layout/diagram';
 import { ID_FIELD, PATH_FIELD } from './constant';
@@ -46,6 +47,12 @@ export const getColorMap = memoize(
 export function layoutVennData(options: VennOptions, width: number, height: number, padding: number = 0): VennData {
   const { data, setsField, sizeField } = options;
 
+  // 处理空数据的情况
+  if (data.length === 0) {
+    log(LEVEL.WARN, false, 'warn: %s', '数据不能为空');
+    return [];
+  }
+
   const vennData: VennData = data.map((d) => ({
     ...d,
     sets: d[setsField] || [],
@@ -80,4 +87,19 @@ export function layoutVennData(options: VennOptions, width: number, height: numb
     }
   });
   return vennData;
+}
+
+/**
+ * 检查是否存在 非法元素
+ * @param legalArr 合法集合：['A', 'B']
+ * @param testArr 检查集合：['A', 'B', 'C'] or ['A', 'C']（存在非法 'C'）
+ * @return boolean
+ */
+export function islegalSets(legalArr: any[], testArr: any[]): boolean {
+  for (let i = 0; i < testArr.length; i++) {
+    if (!legalArr.includes(testArr[i])) {
+      return false;
+    }
+  }
+  return true;
 }

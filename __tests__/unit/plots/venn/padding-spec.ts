@@ -125,6 +125,36 @@ describe('venn padding', () => {
     });
   });
 
+  it('兼容非法 padding', () => {
+    plot.changeSize(400, 400);
+    plot.update({
+      legend: false,
+      appendPadding: 0,
+      padding: 250,
+    });
+    plot.chart.geometries[0].data.forEach((datum) => {
+      if (datum.sets.length === 1) {
+        expect(datum.radius).toBe(0);
+      }
+      expect(datum.x).toBe(0);
+      expect(datum.y).toBe(0);
+    });
+
+    plot.changeSize(800, 400);
+    plot.update({
+      legend: false,
+      appendPadding: 0,
+      padding: 200,
+    });
+    plot.chart.geometries[0].data.forEach((datum) => {
+      if (datum.sets.length === 1) {
+        expect(datum.radius).toBe(0);
+      }
+      expect(datum.x).toBe(200);
+      expect(datum.y).toBe(0);
+    });
+  });
+
   afterAll(() => {
     plot.destroy();
   });

@@ -1,11 +1,12 @@
 import { Geometry } from '@antv/g2';
-import { isArray, get } from '@antv/util';
+import { isArray, get, deepMix, isEqual } from '@antv/util';
 import { interaction, animation, theme, tooltip, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { schema as schemaGeometry } from '../../adaptor/geometries';
 import { deepAssign, flow, getAdjustAppendPadding, normalPadding, resolveAllPadding } from '../../utils';
 import { Datum } from '../../types';
-import { getColorMap, layoutVennData } from './utils';
+import { log, LEVEL } from '../../../src/utils';
+import { getColorMap, layoutVennData, islegalSets } from './utils';
 import { CustomInfo, VennData, VennOptions } from './types';
 import { ID_FIELD } from './constant';
 import './shape';
@@ -48,6 +49,48 @@ function padding(params: Params<VennOptions>): Params<VennOptions> {
   chart.appendPadding = resolveAllPadding([tempPadding, padding]);
 
   return params;
+}
+
+/**
+ * 处理非法数据
+ * @param params
+ */
+function data(params: Params<VennOptions>): Params<VennOptions> {
+  const { options } = params;
+
+  /* 如遇到 交集 中存在 非法元素 的情况，就过滤掉
+   * 如：
+   * data = [
+   *   { sets: ['A'], size: 3 }, // 集合
+   *   { sets: ['B'], size: 4 }, // 集合
+   *   { sets: ['A', 'B'], size: 2 }, // 交集
+   *   { sets: ['A', 'B', 'C'], size: 2 }, // 交集 (存在非法 C，过滤该条数据)
+   *   ...
+   * ]
+   */
+
+  let data = options['data'];
+  if (!data) {
+    log(LEVEL.WARN, false, 'warn: %s', '数据不能为空');
+    data = [];
+  }
+
+  // 合法元素的集合：['A', 'B']
+  const currSets = data.filter((datum) => datum.sets.length === 1).map((datum) => datum.sets[0]);
+  // 过滤 data
+  const filterSets = data.filter((datum) => {
+    const sets = datum.sets;
+    // 存在非法元素，就过滤这条数据
+    return islegalSets(currSets, sets);
+  });
+
+  if (!isEqual(filterSets, data)) log(LEVEL.WARN, false, 'warn: %s', '交集中不能出现不存在的集合, 请输入合法数据');
+
+  return deepMix({}, params, {
+    options: {
+      data: filterSets,
+    },
+  });
 }
 
 /**
@@ -129,6 +172,7 @@ export function adaptor(params: Params<VennOptions>) {
   return flow(
     padding,
     theme,
+    data,
     geometry,
     scale({}),
     legend,

@@ -29,6 +29,14 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*QyXPRK-URmUAAAAAAAAAAAAAARQnAQ"
     },
     {
+      "filename": "pie-custome-label.ts",
+      "title": {
+        "en": "Pie plot - custome label",
+        "zh": "饼图-个性化标签"
+      },
+      "screenshot": "https://cdn.nlark.com/yuque/0/2021/png/22203542/1631705960519-bab7f151-f210-4fc4-b33c-72386996888e.png"
+    },
+    {
       "filename": "quarter-circle.ts",
       "title": {
         "zh": "四分之一圆",

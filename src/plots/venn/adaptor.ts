@@ -163,7 +163,7 @@ function label(params: Params<VennOptions>): Params<VennOptions> {
   } else {
     const { callback, ...cfg } = label;
     geometry.label({
-      fields: ['sets'],
+      fields: ['id'],
       callback,
       cfg: deepMix({}, transformLabel(cfg), {
         // 使用 G2 的 自定义label 修改位置

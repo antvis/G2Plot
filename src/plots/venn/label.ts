@@ -1,6 +1,4 @@
-import { get, each } from '@antv/util';
-import { IGroup, IShape, BBox } from '@antv/g-base';
-import { registerGeometryLabelLayout, registerGeometryLabel, GeometryLabel } from '@antv/g2';
+import { registerGeometryLabel, GeometryLabel } from '@antv/g2';
 
 // Step 1
 // 自定义 Label 类

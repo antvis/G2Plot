@@ -19,14 +19,23 @@ describe('venn: label', () => {
   });
   plot.render();
 
+  it('label', () => {
+    const geometries = plot.chart.geometries[0];
+    // @ts-ignore
+    expect(geometries.labelOption.cfg).not.toBeUndefined();
+    expect(geometries.labelsContainer.getChildren().length).toBe(6);
+  });
+
   it('label: offset', () => {
     plot.update({
       label: {
         offsetY: 6,
       },
     });
+
+    const geometries = plot.chart.geometries[0];
     // @ts-ignore
-    expect(plot.chart.geometries[0].customOption.label.offsetY).toBe(6);
+    expect(geometries.labelOption.cfg.offsetY).toBe(6);
   });
 
   it('label: style', () => {
@@ -39,12 +48,14 @@ describe('venn: label', () => {
         },
       },
     });
+
+    const geometries = plot.chart.geometries[0];
     // @ts-ignore
-    expect(plot.chart.geometries[0].customOption.label.style.textAlign).toBe('center');
+    expect(geometries.labelOption.cfg.style.textAlign).toBe('center');
     // @ts-ignore
-    expect(plot.chart.geometries[0].customOption.label.style.fill).toBe('red');
+    expect(geometries.labelOption.cfg.style.fill).toBe('red');
     // @ts-ignore
-    expect(plot.chart.geometries[0].customOption.label.style.lineHeight).toBe(18);
+    expect(geometries.labelOption.cfg.style.lineHeight).toBe(18);
   });
 
   it('label: formatter', () => {
@@ -60,16 +71,18 @@ describe('venn: label', () => {
         formatter,
       },
     });
+    const geometries = plot.chart.geometries[0];
     // @ts-ignore
-    expect(plot.chart.geometries[0].customOption.label.formatter).toEqual(formatter);
+    expect(geometries.labelOption.cfg.formatter).toEqual(formatter);
   });
 
   it('label: false', () => {
     plot.update({
       label: false,
     });
+    const geometries = plot.chart.geometries[0];
     // @ts-ignore
-    expect(plot.chart.geometries[0].customOption.label).toEqual(false);
+    expect(geometries.labelOption).toEqual(false);
   });
 
   afterAll(() => {

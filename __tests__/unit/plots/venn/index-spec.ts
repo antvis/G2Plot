@@ -31,12 +31,9 @@ describe('venn', () => {
     expect((elements[0].getData() as any).size).toBe(10);
     // path: [['M', ...], ['A', rx ry 0 1 0 x y], ...]
     const path = (elements[0].shape as IGroup).getChildren()[0].attr('path');
-    const label = (elements[0].shape as IGroup).getChildren()[1];
-    expect(label.get('name')).toBe('venn-label');
     expect(path[0][0]).toBe('M');
     expect(path[1][0]).toBe('A');
     expect(path[2][0]).toBe('A');
-    expect((elements[0].getData() as any).radius).toBe(400 / 2);
     expect(path[1][1]).toBe(400 / 2);
   });
 
@@ -53,8 +50,6 @@ describe('venn', () => {
     expect(elements[1].getModel().size).toBe(1);
     // path: [['M', ...], ['A', rx ry 0 1 0 x y], ...]
     const path = (elements[0].shape as IGroup).getChildren()[0].attr('path');
-    const label = (elements[0].shape as IGroup).getChildren()[1];
-    expect(label.get('name')).toBe('venn-label');
     expect(path[0][0]).toBe('M');
     expect(path[1][0]).toBe('A');
     expect(path[2][0]).toBe('A');
@@ -85,8 +80,6 @@ describe('venn', () => {
     expect((elements[2].getData() as any).size).toBe(4);
     // path: [['M', ...], ['A', rx ry 0 1 0 x y], ...]
     const path = (elements[0].shape as IGroup).getChildren()[0].attr('path');
-    const label = (elements[0].shape as IGroup).getChildren()[1];
-    expect(label.get('name')).toBe('venn-label');
     expect(path[0][0]).toBe('M');
     expect(path[1][0]).toBe('A');
     expect(path[2][0]).toBe('A');
@@ -125,8 +118,8 @@ describe('venn', () => {
     // 中心点
     expect((elements[6].getData() as any).x).toBeCloseTo(200);
     // 元素对齐
-    expect(elements[2].getData().x).toBeCloseTo((elements[6].getData() as any).x);
-    expect(elements[0].getData().y).toBeCloseTo((elements[1].getData() as any).y);
+    expect(elements[2].getData().x).toBeCloseTo((elements[6].getData() as any).x, 1);
+    expect(elements[0].getData().y).toBeCloseTo((elements[1].getData() as any).y, 1);
   });
 
   it('defaultOptions 保持从 constants 中获取', () => {

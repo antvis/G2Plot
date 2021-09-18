@@ -1,7 +1,6 @@
 import { IGroup } from '@antv/g-base';
 import { registerShape, Types, Util } from '@antv/g2';
 import { parsePathString } from '@antv/path-util';
-import { get } from '@antv/util';
 import { deepAssign } from '../../utils';
 import { Datum, Point } from '../../types';
 import { CustomInfo } from './types';
@@ -32,23 +31,7 @@ registerShape('schema', 'venn', {
       name: 'venn-path',
     });
 
-    const { offsetX, offsetY, label } = cfg.customInfo as CustomInfo;
-
-    if (label !== false) {
-      const formatter = get(label, 'formatter');
-      const offsetX = get(label, 'offsetX', 0);
-      const offsetY = get(label, 'offsetY', 0);
-      group.addShape('text', {
-        attrs: {
-          ...label,
-          ...get(label, 'style', { textAlign: 'center', fill: '#fff' }),
-          x: data.x + offsetX,
-          y: data.y + offsetY,
-          text: formatter ? formatter(data) : `${data.id}: ${data.size}`,
-        },
-        name: 'venn-label',
-      });
-    }
+    const { offsetX, offsetY } = cfg.customInfo as CustomInfo;
 
     const matrix = Util.transform(null, [['t', offsetX, offsetY]]);
     group.setMatrix(matrix);

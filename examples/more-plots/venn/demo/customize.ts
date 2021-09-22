@@ -1,6 +1,6 @@
 import { Venn } from '@antv/g2plot';
 
-fetch('https://gw.alipayobjects.com/os/antfincdn/yzC3ZiBbhM/venn-data.json')
+fetch('https://gw.alipayobjects.com/os/bmw-prod/288d9443-a034-40bf-840f-2f5525edd92d.json')
   .then((data) => data.json())
   .then((data) => {
     const sum = data.reduce((a, b) => a + b.size, 0);

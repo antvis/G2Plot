@@ -48,6 +48,15 @@
       },
       "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/T6cgHx5BHB/f2137e3b-5784-4626-a986-109fc8cb5feb.png"
+    },
+    {
+      "filename": "interaction.ts",
+      "title": {
+        "zh": "韦恩图 - 元素交互",
+        "en": "venn plot - with element action"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/x%24Jxds2L2T/0ff5000b-d23e-49a8-a02a-4eb02d7a8e47.png"
     }
   ]
 }

@@ -18,7 +18,7 @@ import { getColorMap, layoutVennData, islegalSets } from './utils';
 import { CustomInfo, VennData, VennOptions } from './types';
 import { ID_FIELD } from './constant';
 import './shape';
-import './label';
+import './interaction';
 
 /** 图例默认预留空间 */
 export const LEGEND_SPACE = 40;

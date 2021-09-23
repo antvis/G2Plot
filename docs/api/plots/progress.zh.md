@@ -9,7 +9,7 @@ order: 20
 
 ### 数据映射
 
-#### percent 
+#### percent
 
 <description>**required** _number_</description>
 
@@ -21,15 +21,30 @@ order: 20
 
 <description>**optional** _number_ _default:_ `0.5`</description>
 
-条形图宽度占比 [0-1]。
+进度条宽度占比 [0-1]。
 
 #### progressStyle
 
 <description>**optional** _StyleAttr | Function_</description>
 
-柱子样式配置。
+进度条样式配置。
 
 `markdown:docs/common/shape-style.zh.md`
+
+使用回调方法获得样式配置
+
+```ts
+({ percent, type }) => {
+  if (type === 'current') {
+    return {
+      // 进度条百分比部分样式
+    };
+  }
+  return {
+    // 进度条背景部分样式
+  };
+};
+```
 
 `markdown:docs/common/color.zh.md`
 

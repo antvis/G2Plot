@@ -13,6 +13,7 @@ const plot = new Venn('container', {
   setsField: 'sets',
   sizeField: 'size',
   pointStyle: { fillOpacity: 0.8 },
+  padding: [0, 10],
   state: {
     active: {
       style: {

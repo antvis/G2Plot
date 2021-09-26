@@ -2,7 +2,7 @@ import { assign, memoize } from '@antv/util';
 import { blend } from '../../utils/color/blend';
 import { log, LEVEL } from '../../../src/utils';
 import { venn, scaleSolution } from './layout/layout';
-import { circlePath, intersectionAreaPath, computeTextCentres } from './layout/diagram';
+import { intersectionAreaPath, computeTextCentres } from './layout/diagram';
 import { ID_FIELD, PATH_FIELD } from './constant';
 import { VennData, VennOptions } from './types';
 
@@ -71,20 +71,15 @@ export function layoutVennData(options: VennOptions, width: number, height: numb
     const sets = row.sets;
     const id = sets.join(',');
     row[ID_FIELD] = id;
-    if (sets.length === 1) {
-      const circle = circles[id];
-      row[PATH_FIELD] = circlePath(circle.x, circle.y, circle.radius);
-      assign(row, circle);
-    } else {
-      const setCircles = sets.map((set) => circles[set]);
-      let path = intersectionAreaPath(setCircles);
-      if (!/[zZ]$/.test(path)) {
-        path += ' Z';
-      }
-      row[PATH_FIELD] = path;
-      const center = textCenters[id] || { x: 0, y: 0 };
-      assign(row, center);
+    // 保留 vennText 布局方法
+    const setCircles = sets.map((set) => circles[set]);
+    let path = intersectionAreaPath(setCircles);
+    if (!/[zZ]$/.test(path)) {
+      path += ' Z';
     }
+    row[PATH_FIELD] = path;
+    const center = textCenters[id] || { x: 0, y: 0 };
+    assign(row, center);
   });
   return vennData;
 }

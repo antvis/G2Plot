@@ -133,9 +133,6 @@ describe('venn padding', () => {
       padding: 250,
     });
     plot.chart.geometries[0].data.forEach((datum) => {
-      if (datum.sets.length === 1) {
-        expect(datum.radius).toBe(0);
-      }
       expect(datum.x).toBe(0);
       expect(datum.y).toBe(0);
     });
@@ -147,9 +144,6 @@ describe('venn padding', () => {
       padding: 200,
     });
     plot.chart.geometries[0].data.forEach((datum) => {
-      if (datum.sets.length === 1) {
-        expect(datum.radius).toBe(0);
-      }
       expect(datum.x).toBe(200);
       expect(datum.y).toBe(0);
     });

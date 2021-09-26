@@ -42,7 +42,7 @@ describe('label', () => {
       },
     });
 
-    labelsContainer.cfg.children.forEach((item, index) => {
+    funnel.chart.geometries[0].labelsContainer.cfg.children.forEach((item, index) => {
       expect(item.get('children')[0].attr('text')).toBe(`行为:${data[index].action}`);
     });
     // @ts-ignore

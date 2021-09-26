@@ -3,13 +3,22 @@ import { isArray, get, deepMix, isEqual } from '@antv/util';
 import { interaction, animation, theme, tooltip, scale } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { schema as schemaGeometry } from '../../adaptor/geometries';
-import { deepAssign, flow, getAdjustAppendPadding, normalPadding, resolveAllPadding } from '../../utils';
+import {
+  deepAssign,
+  flow,
+  findGeometry,
+  transformLabel,
+  getAdjustAppendPadding,
+  normalPadding,
+  resolveAllPadding,
+} from '../../utils';
 import { Datum } from '../../types';
 import { log, LEVEL } from '../../../src/utils';
 import { getColorMap, layoutVennData, islegalSets } from './utils';
 import { CustomInfo, VennData, VennOptions } from './types';
 import { ID_FIELD } from './constant';
 import './shape';
+import './label';
 
 /** 图例默认预留空间 */
 export const LEGEND_SPACE = 40;
@@ -99,12 +108,12 @@ function data(params: Params<VennOptions>): Params<VennOptions> {
  */
 function geometry(params: Params<VennOptions>): Params<VennOptions> {
   const { chart, options } = params;
-  const { pointStyle, label, setsField, sizeField } = options;
+  const { pointStyle, setsField, sizeField } = options;
 
   // 获取容器大小
   const [t, r, b, l] = normalPadding(chart.appendPadding);
   // 处理 legend 的位置. 默认预留 40px, 业务上可以通过 appendPadding 增加
-  const customInfo: CustomInfo = { offsetX: l, offsetY: t, label };
+  const customInfo: CustomInfo = { offsetX: l, offsetY: t };
   // coordinateBBox + appendPadding = viewBBox, 不需要再计算 appendPadding 部分，因此直接使用 viewBBox
   const { width, height } = chart.viewBBox;
   // 处理padding输入不合理的情况， w 和 h 不能为负数
@@ -119,8 +128,6 @@ function geometry(params: Params<VennOptions>): Params<VennOptions> {
         sizeField: sizeField,
         seriesField: ID_FIELD,
         rawFields: [setsField, sizeField],
-        // 不使用 G2 的label，直接在自定义 shape 中实现
-        label: false,
         schema: {
           shape: 'venn',
           style: pointStyle,
@@ -132,6 +139,39 @@ function geometry(params: Params<VennOptions>): Params<VennOptions> {
 
   const geometry = ext.geometry as Geometry;
   geometry.customInfo(customInfo);
+
+  return params;
+}
+
+/**
+ * 处理 label
+ * @param params
+ */
+function label(params: Params<VennOptions>): Params<VennOptions> {
+  const { chart, options } = params;
+  const { label } = options;
+
+  // 获取容器大小
+  const [t, r, b, l] = normalPadding(chart.appendPadding);
+  // 传入 label 布局函数所需的 自定义参数
+  const customLabelInfo = { offsetX: l, offsetY: t };
+
+  const geometry = findGeometry(chart, 'schema');
+
+  if (!label) {
+    geometry.label(false);
+  } else {
+    const { callback, ...cfg } = label;
+    geometry.label({
+      fields: ['id'],
+      callback,
+      cfg: deepMix({}, transformLabel(cfg), {
+        // 使用 G2 的 自定义label 修改位置
+        type: 'venn',
+        customLabelInfo,
+      }),
+    });
+  }
 
   return params;
 }
@@ -174,6 +214,7 @@ export function adaptor(params: Params<VennOptions>) {
     theme,
     data,
     geometry,
+    label,
     scale({}),
     legend,
     axis,

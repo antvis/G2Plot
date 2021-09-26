@@ -44,7 +44,7 @@ The name of the data field corresponding to the point size map.
 
 <description>**optional** _string_</description>
 
-Color blend mode of the intersection area, default: `multiply`. Other: `darken`, `lighten`, `screen`, `overlay`, `burn`, and `dodge`.
+Color blend mode of the intersection area, default: `multiply`. Other: `normal`, `darken`, `lighten`, `screen`, `overlay`, `burn`, and `dodge`.
 reference：https://gka.github.io/chroma.js/#chroma-blend
 
 #### pointStyle
@@ -109,6 +109,13 @@ Default configuration:
 
 
 ### Plot Interactions
+
+There are interactions for venn diagrams, listed below:
+
+| interaction | description | configuration method |
+| ---|--|--|
+| venn-element-active | enable the "mouse-over venn diagram element triggers active" interaction | `interactions:[{ type: 'venn-element-active', enabled: true }]` |
+| venn-element-selected | enable the interaction "trigger selected when mouse clicked on venn diagram element", multiple options available | `interactions:[{ type: 'venn-element-selected', enabled: true }]` |
 
 `markdown:docs/common/interactions.en.md`
 

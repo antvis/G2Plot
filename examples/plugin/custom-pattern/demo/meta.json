@@ -10,7 +10,6 @@
         "zh": "自定义 pattern 1",
         "en": "Custom pattern 1"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/K3xBN5N4Qz/f7dd5830-13b4-4f06-a6aa-e4b1a2eab8c1.png"
     },
     {
@@ -19,7 +18,6 @@
         "zh": "自定义 pattern 2",
         "en": "Custom pattern 2"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/m%24tVnt%26fw1/0df6c0bd-d4e4-401d-9f8f-3e06e66dd0f6.png"
     },
     {
@@ -28,7 +26,6 @@
         "zh": "自定义 pattern 3",
         "en": "Custom pattern 3"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/6P5yjvGTfV/2c60bc1b-88b6-4937-b852-fc97af953007.png"
     }
   ]

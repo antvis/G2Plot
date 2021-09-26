@@ -1,0 +1,17 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "custom-label.ts",
+      "title": {
+        "zh": "自定义数据标签",
+        "en": "Custom Label"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/P7ARYNBdol/3988b5ab-b286-4b2c-befa-eac77afd5bac.png"
+    }
+  ]
+}

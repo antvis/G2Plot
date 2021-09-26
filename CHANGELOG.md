@@ -1,3 +1,28 @@
+#### 2.3.34 (2021-09-26)
+
+##### Chores
+
+* **github actions:**  change macos to ubuntu ([#2869](https://github.com/antvis/g2plot/pull/2869)) ([45c8a5f8](https://github.com/antvis/g2plot/commit/45c8a5f84684009986758017006611d61b772fb7))
+
+##### Documentation Changes
+
+* **label:**  增加一个数据标签的 demo ([#2875](https://github.com/antvis/g2plot/pull/2875)) ([626a50cd](https://github.com/antvis/g2plot/commit/626a50cd4c0277326a4a428f56dda8a1c8b790af))
+* **progress:**  完善了进度条 progressStyle 的回调方法描述文档 ([#2863](https://github.com/antvis/g2plot/pull/2863)) ([240bb18e](https://github.com/antvis/g2plot/commit/240bb18e9346b79ee8f0c7b47ad509a7102fab59))
+*  增加一个漏斗图分析 demo ([#2848](https://github.com/antvis/g2plot/pull/2848)) ([4b3143e6](https://github.com/antvis/g2plot/commit/4b3143e66b82fa89bf069d82a60e7dfdfed9bfe0))
+*  增加一个饼图 demo（个性化标签饼图） ([#2853](https://github.com/antvis/g2plot/pull/2853)) ([7fb1542b](https://github.com/antvis/g2plot/commit/7fb1542b84f8c91ac6cf45ed15ca4775a31c4c87))
+* **changelog:**  删除重复的 changelog ([#2843](https://github.com/antvis/g2plot/pull/2843)) ([f9433c01](https://github.com/antvis/g2plot/commit/f9433c01b5f69ea8a2d9dae21c1c4c6a3f21545d))
+
+#### New Features
+
+* **venn(interaction):**  添加韦恩图 selected 和 active 的交互 ([#2871](https://github.com/antvis/g2plot/pull/2871)) ([bf4b248f](https://github.com/antvis/g2plot/commit/bf4b248f71b5dca1c1aaf7c46689a4bba422f84a))
+
+##### Bug Fixes
+
+* **venn(label):**  处理韦恩图 label 遮挡问题 ([#2861](https://github.com/antvis/g2plot/pull/2861)) ([bec4bb14](https://github.com/antvis/g2plot/commit/bec4bb14a4c97e7e1874672ba45d53b48a36317c))
+* **venn(data):**  处理非法数据 ([#2857](https://github.com/antvis/g2plot/pull/2857)) ([e8cca008](https://github.com/antvis/g2plot/commit/e8cca008f3c42785aaee6e8d5e26a63574240628))
+* **venn(padding):**  兼容非法 padding ([#2855](https://github.com/antvis/g2plot/pull/2855)) ([94adfa44](https://github.com/antvis/g2plot/commit/94adfa4486df46325611de0db9c1ca4075a20968))
+* **compare funnel:**  添加了对比漏斗图案例 ([#2859](https://github.com/antvis/g2plot/pull/2859)) ([5678aa44](https://github.com/antvis/g2plot/commit/5678aa44fa524d719e4c57635df314edc27948ad))
+
 #### 2.3.33 (2021-09-09)
 
 ##### Documentation Changes

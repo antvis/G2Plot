@@ -45,7 +45,7 @@ order: 12
 
 <description>**optional** _string_</description>
 
-交集区域的颜色混合方式, 默认: `multiply`（正片叠底）。可选项: `multiply`, `darken`, `lighten`, `screen`, `overlay`, `burn`, and `dodge`.
+交集区域的颜色混合方式, 默认: `multiply`（正片叠底）。可选项: `multiply`, `normal`, `darken`, `lighten`, `screen`, `overlay`, `burn`, and `dodge`.
 参考：https://gka.github.io/chroma.js/#chroma-blend
 
 #### pointStyle
@@ -109,6 +109,13 @@ order: 12
 `markdown:docs/common/tooltip.zh.md`
 
 ### 图表交互
+
+内置了针对 venn 图交互，列表如下:
+
+| 交互 | 描述 | 配置方式 |
+| ---|---|---|
+| venn-element-active | 开启「鼠标移入 venn 图元素时触发 active」的交互 | `interactions:[{ type: 'venn-element-active', enabled: true }]`  |
+| venn-element-selected | 开启「鼠标点击 venn 图元素时触发 selected」的交互，可多选 | `interactions:[{ type: 'venn-element-selected', enabled: true }]` |
 
 `markdown:docs/common/interactions.zh.md`
 

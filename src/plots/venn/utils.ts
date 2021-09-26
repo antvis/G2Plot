@@ -1,6 +1,6 @@
 import { assign, memoize } from '@antv/util';
 import { blend } from '../../utils/color/blend';
-import { log, LEVEL } from '../../../src/utils';
+import { log, LEVEL } from '../../utils';
 import { venn, scaleSolution } from './layout/layout';
 import { intersectionAreaPath, computeTextCentres } from './layout/diagram';
 import { ID_FIELD, PATH_FIELD } from './constant';

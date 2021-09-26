@@ -13,7 +13,7 @@ import {
   resolveAllPadding,
 } from '../../utils';
 import { Datum } from '../../types';
-import { log, LEVEL } from '../../../src/utils';
+import { log, LEVEL } from '../../utils';
 import { getColorMap, layoutVennData, islegalSets } from './utils';
 import { CustomInfo, VennData, VennOptions } from './types';
 import { ID_FIELD } from './constant';

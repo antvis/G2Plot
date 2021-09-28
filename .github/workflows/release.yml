@@ -12,7 +12,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm install
+      - run: yarn install
       - run: npm run lint
 
   publish-site:
@@ -23,8 +23,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm install
-      - run: npm run site:build
+      - run: yarn install
+      - run: yarn run site:build
       - run: |
           cd public
           git init
@@ -48,8 +48,8 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      - run: npm install
-      - run: npm run build
+      - run: yarn install
+      - run: yarn run build
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

@@ -59,6 +59,15 @@
         "en": "Meter gauge plot (custom steps and stepRatio)"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/wqWYdQwQlc/demo1.gif"
+    },
+    {
+      "filename": "custom-indicator.ts",
+      "title": {
+        "zh": "自定义仪表盘指示器",
+        "en": "Custom gauge indicator"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/DUTCv9MXHO/71a294f0-99ed-4c41-9592-83add57871bc.png"
     }
   ]
 }

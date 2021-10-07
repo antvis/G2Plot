@@ -92,7 +92,7 @@ Indicates auxiliary shaft styles.
 
 `markdown:docs/common/axis.en.md`
 
-#### indicator
+#### indicator ✨
 
 <description>**optional** _object_</description>
 
@@ -100,6 +100,7 @@ Dashboard indicator style configuration. Divided into components as follows:
 
 - `pointer`：Pointer style configuration in a pointer
 - `pin`：The disc style configuration in the indicator
+- `shape`：Custom shape of indicator, used with the API `registerShape`. Default: `gauge-indicator` (Go to [gauge/shapes/indicator](https://github.com/antvis/g2plot/blob/master/plots/gauge/shapes/indicator.ts) see details.)
 
 They all have the following configuration items:
 

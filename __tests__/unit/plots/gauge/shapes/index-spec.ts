@@ -10,7 +10,6 @@ describe('gauge', () => {
       height: 300,
       autoFit: false,
       percent: 0.75,
-
       indicator: false,
     });
 

@@ -11,6 +11,7 @@ describe('heatmap', () => {
     yField: 'day',
     colorField: 'sales',
     interactions: [{ type: 'element-active' }],
+    animation: false,
   });
 
   heatmap.render();

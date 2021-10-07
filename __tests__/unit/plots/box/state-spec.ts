@@ -23,6 +23,7 @@ describe('box', () => {
           },
         },
       },
+      animation: false,
     });
 
     plot.render();

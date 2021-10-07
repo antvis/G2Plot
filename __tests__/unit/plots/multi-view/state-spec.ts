@@ -34,6 +34,7 @@ describe('mix', () => {
                 },
               },
             },
+            animation: false,
           },
         },
         {

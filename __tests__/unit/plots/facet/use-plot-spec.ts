@@ -31,11 +31,13 @@ describe('facet', () => {
           yField: 'value',
           seriesField: 'name',
           color: ['red', 'green', 'yellow', 'blue'],
+          animation: false,
         },
       };
     },
     showTitle: false,
     meta: { date: { sync: true } },
+    animation: false,
   });
   plot.render();
 
@@ -124,6 +126,7 @@ describe('facet', () => {
             color: ['red', 'green', 'yellow', 'blue'],
             xAxis: columnIndex === 0 ? false : {},
             yAxis: columnIndex === 0 ? false : {},
+            animation: false,
           },
         };
       },
@@ -156,6 +159,7 @@ describe('facet', () => {
             seriesField: 'name',
             color: ['red', 'green', 'yellow', 'blue'],
             tooltip: columnIndex === 0 ? false : {},
+            animation: false,
           },
         };
       },
@@ -195,6 +199,7 @@ describe('facet', () => {
             seriesField: 'name',
             color: ['red', 'green', 'yellow', 'blue'],
             interactions: [{ type: 'element-active', enable: false }],
+            animation: false,
           },
         };
       },
@@ -220,6 +225,7 @@ describe('facet', () => {
             seriesField: 'name',
             color: ['red', 'green', 'yellow', 'blue'],
             interactions: facet.columnIndex === 0 ? [{ type: 'element-active' }] : [],
+            animation: false,
           },
         };
       },

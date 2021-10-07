@@ -26,6 +26,7 @@ describe('#2573', () => {
       },
     },
     point: {},
+    animation: false,
   });
 
   radar.render();

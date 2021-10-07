@@ -23,6 +23,7 @@ describe('funnel state', () => {
         },
       },
     },
+    animation: false,
   });
 
   plot.render();

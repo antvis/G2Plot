@@ -11,6 +11,7 @@ describe('sankey', () => {
     sourceField: 'source',
     targetField: 'target',
     weightField: 'value',
+    animation: false,
   });
 
   sankey.render();

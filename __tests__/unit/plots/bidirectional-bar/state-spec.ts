@@ -21,6 +21,7 @@ describe('Bidirectional', () => {
         },
       },
     },
+    animation: false,
   });
   plot.render();
 

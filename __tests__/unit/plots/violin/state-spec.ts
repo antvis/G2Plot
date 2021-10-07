@@ -9,6 +9,7 @@ describe('violin', () => {
     data: BASE_VIOLIN_DATA,
     xField: 'type',
     yField: 'value',
+    animation: false,
     state: {
       selected: {
         style: {

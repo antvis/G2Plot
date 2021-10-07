@@ -9,4 +9,10 @@ registerInteraction('marker-active', {
       action: 'marker-active:active',
     },
   ],
+  end: [
+    {
+      trigger: 'tooltip:hide',
+      action: 'marker-active:reset',
+    },
+  ],
 });

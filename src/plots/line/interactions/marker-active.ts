@@ -12,11 +12,20 @@ export class MarkerActiveAction extends InteractionAction {
       each(points, (point: Geometry) => {
         each(point.elements, (element) => {
           const active = findIndex(items, (item) => (item as any).data === element.data) !== -1;
-          // @ts-ignore
           element.setState('active', active);
         });
       });
     }
+  }
+
+  public reset() {
+    const view = this.getView();
+    const points = view.geometries.filter((geom) => geom.type === 'point');
+    each(points, (point: Geometry) => {
+      each(point.elements, (element) => {
+        element.setState('active', false);
+      });
+    });
   }
 
   private getView(): View {

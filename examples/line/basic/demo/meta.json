@@ -51,6 +51,15 @@
         "en": "Line plot with regionFilter"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*7V6nSpj64uYAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "custom-marker.ts",
+      "title": {
+        "zh": "自定义折线图 marker 与交互",
+        "en": "Custom marker and interaction of line plot"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/KgcySsCeI9/custom-marker.gif"
     }
   ]
 }

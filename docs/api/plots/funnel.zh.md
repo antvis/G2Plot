@@ -96,7 +96,16 @@ order: 9
 
 配置转化率组件。
 
-默认配置：`{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$percentage$$ * 100 + '%',}`。
+默认配置：`{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum[Funnel.PERCENT_FIELD] * 100 + '%',}`。
+
+| 配置项    | 类型                                                 | 功能描述         |
+| --------- | ---------------------------------------------------- | ---------------- |
+| offsetX   | _number_                                             | x 偏移量         |
+| offsetY   | _number_                                             | y 偏移量         |
+| style     | _ShapeAttrs \| false_                                | 文本字体样式配置 |
+| formatter | _string \| ((datum?: Datum, data?: Data) => string)_ | 文本内容格式化   |
+
+样式配置类型请参考 [绘图属性](/zh/docs/api/graphic-style)
 
 `markdown:docs/common/color.zh.md`
 
@@ -126,11 +135,11 @@ order: 9
 
 #### 静态变量
 
-| 字段 key 值 | 说明 |
-| --- | --- |
-| `CONVERSATION_FIELD` | 该字段对应数值为数组，存储漏斗当前和上一项值，例如 [263, 151], 用户可由此计算转化率 |
-| `PERCENT_FIELD` | 该字段对应数值代表的是当前数值和上一项值的转化率百分比 |
-| `TOTAL_PERCENT_FIELD` | 该字段对应数值代表的总转化率百分比 |
+| 字段 key 值           | 说明                                                                                |
+| --------------------- | ----------------------------------------------------------------------------------- |
+| `CONVERSATION_FIELD`  | 该字段对应数值为数组，存储漏斗当前和上一项值，例如 [263, 151], 用户可由此计算转化率 |
+| `PERCENT_FIELD`       | 该字段对应数值代表的是当前数值和上一项值的转化率百分比                              |
+| `TOTAL_PERCENT_FIELD` | 该字段对应数值代表的总转化率百分比                                                  |
 
 **使用示例：**
 
@@ -174,4 +183,5 @@ import { FUNNEL_CONVERSATION_FIELD } from '@antv/g2plot';
 ```
 
 <!-- 直接 三级导航展开 -->
+
 `markdown:docs/common/annotations.zh.md`

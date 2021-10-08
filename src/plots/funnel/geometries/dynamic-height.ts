@@ -39,11 +39,12 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const max = maxBy(data, yField)[yField];
 
   const formatData = map(data, (row, index) => {
+    const newRow = { ...row };
     // 储存四个点 x，y 坐标，方向为顺时针，即 [左上, 右上，右下，左下]
     const x = [];
     const y = [];
 
-    row[FUNNEL_TOTAL_PERCENT] = (row[yField] || 0) / sum;
+    newRow[FUNNEL_TOTAL_PERCENT] = (newRow[yField] || 0) / sum;
 
     // 获取左上角，右上角坐标
     if (index) {
@@ -61,17 +62,17 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
     }
 
     // 获取右下角坐标
-    y[2] = y[1] - row[FUNNEL_TOTAL_PERCENT];
+    y[2] = y[1] - newRow[FUNNEL_TOTAL_PERCENT];
     x[2] = (y[2] + 1) / 4;
     y[3] = y[2];
     x[3] = -x[2];
 
     // 赋值
-    row[PLOYGON_X] = x;
-    row[PLOYGON_Y] = y;
-    row[FUNNEL_PERCENT] = (row[yField] || 0) / max;
-    row[FUNNEL_CONVERSATION] = [get(data, [index - 1, yField]), row[yField]];
-    return row;
+    newRow[PLOYGON_X] = x;
+    newRow[PLOYGON_Y] = y;
+    newRow[FUNNEL_PERCENT] = (newRow[yField] || 0) / max;
+    newRow[FUNNEL_CONVERSATION] = [get(data, [index - 1, yField]), newRow[yField]];
+    return newRow;
   });
 
   chart.data(formatData);

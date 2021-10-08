@@ -8,9 +8,6 @@ export const DEFAULT_COLOR = '#f0f0f0';
 export const INDICATEOR_VIEW_ID = 'indicator-view';
 export const RANGE_VIEW_ID = 'range-view';
 
-/** meter 类型的仪表盘 带 mask 的 view */
-export const MASK_VIEW_ID = 'range-mask-view';
-
 /**
  * 仪表盘默认配置项
  */

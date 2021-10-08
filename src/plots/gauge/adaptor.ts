@@ -1,19 +1,12 @@
+import { Geometry } from '@antv/g2';
 import { isString } from '@antv/util';
 import { interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { Params } from '../../core/adaptor';
 import { deepAssign, flow, pick, renderGaugeStatistic } from '../../utils';
-import {
-  RANGE_TYPE,
-  RANGE_VALUE,
-  PERCENT,
-  DEFAULT_COLOR,
-  INDICATEOR_VIEW_ID,
-  RANGE_VIEW_ID,
-  MASK_VIEW_ID,
-} from './constants';
-import { GaugeCustomInfo, GaugeOptions } from './types';
+import { RANGE_TYPE, RANGE_VALUE, PERCENT, DEFAULT_COLOR, INDICATEOR_VIEW_ID, RANGE_VIEW_ID } from './constants';
+import { GaugeOptions } from './types';
 import { getIndicatorData, getRangeData } from './utils';
 
 /**
@@ -22,7 +15,8 @@ import { getIndicatorData, getRangeData } from './utils';
  */
 function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
   const { chart, options } = params;
-  const { percent, range, radius, innerRadius, startAngle, endAngle, axis, indicator, gaugeStyle } = options;
+  const { percent, range, radius, innerRadius, startAngle, endAngle, axis, indicator, gaugeStyle, type, meter } =
+    options;
   const { color, width: rangeWidth } = range;
 
   // 指标 & 指针
@@ -61,7 +55,7 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
 
   const rangeColor = isString(color) ? [color, DEFAULT_COLOR] : color;
 
-  interval({
+  const { ext } = interval({
     chart: v2,
     options: {
       xField: '1',
@@ -72,6 +66,7 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
       interval: {
         color: rangeColor,
         style: gaugeStyle,
+        shape: type === 'meter' ? 'meter-gauge' : null,
       },
       args: {
         zIndexReversed: true,
@@ -81,47 +76,16 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
     },
   });
 
+  const geometry = ext.geometry as Geometry;
+  // 传入到自定义 shape 中
+  geometry.customInfo({ meter });
+
   v2.coordinate('polar', {
     innerRadius,
     radius,
     startAngle,
     endAngle,
   }).transpose();
-
-  return params;
-}
-
-/**
- * meter 类型的仪表盘 有一层 mask
- * @param params
- */
-function meterView(params: Params<GaugeOptions>): Params<GaugeOptions> {
-  const { chart, options } = params;
-
-  const { type, meter } = options;
-  if (type === 'meter') {
-    const { innerRadius, radius, startAngle, endAngle, range } = options;
-    const minColumnWidth = range?.width;
-    const maxColumnWidth = range?.width;
-
-    const { background } = chart.getTheme();
-
-    let color = background;
-    if (!color || color === 'transparent') {
-      color = '#fff';
-    }
-
-    const v3 = chart.createView({ id: MASK_VIEW_ID });
-    v3.data([{ [RANGE_TYPE]: '1', [RANGE_VALUE]: 1 }]);
-    const customInfo: GaugeCustomInfo = { meter };
-    v3.interval({ minColumnWidth, maxColumnWidth })
-      .position(`1*${RANGE_VALUE}`)
-      .color(color)
-      .adjust('stack')
-      .shape('meter-gauge')
-      .customInfo(customInfo);
-    v3.coordinate('polar', { innerRadius, radius, startAngle, endAngle }).transpose();
-  }
 
   return params;
 }
@@ -217,8 +181,6 @@ export function adaptor(params: Params<GaugeOptions>) {
     meta,
     statistic,
     interaction,
-    // meterView 需要放到主题之后
-    meterView,
     annotation(),
     other
     // ... 其他的 adaptor flow

@@ -1,3 +1,25 @@
+#### 2.3.36 (2021-10-08)
+
+##### Documentation Changes
+
+* **funnel:**  漏斗图转化率信息组件文档 api 补全 ([#2894](https://github.com/antvis/g2plot/pull/2894)) ([3a708220](https://github.com/antvis/g2plot/commit/3a708220c14fecda184a97945278c1d484ea894e))
+* **label:**  补充 label position 配置的文档说明 ([#2896](https://github.com/antvis/g2plot/pull/2896)) ([379df35f](https://github.com/antvis/g2plot/commit/379df35f6fdad4442f8d1234ac264d0e8cf895be))
+
+##### New Features
+
+* **gauge:**  仪表盘支持自定义指示器 indicator ([#2892](https://github.com/antvis/g2plot/pull/2892)) ([e36296b1](https://github.com/antvis/g2plot/commit/e36296b18d1f4ad133e5f1c6ed32dba525d1e476))
+* **line:**  修复折线图 marker 交互, 以及丰富折线图自定义 marker demo ([#2895](https://github.com/antvis/g2plot/pull/2895)) ([078a358a](https://github.com/antvis/g2plot/commit/078a358a8e0f667bcf1d2a808bac5c0fc2e9bb08))
+
+##### Bug Fixes
+
+* **sankey:**  桑基图节点顺序需要保证原序 ([#2897](https://github.com/antvis/g2plot/pull/2897)) ([5ad43b72](https://github.com/antvis/g2plot/commit/5ad43b7276f7a49c4ceefcfe929cabc1e10bf2c8))
+* **funnel:**  修复漏斗图数据为 0 时，出现 conversionTag 样式问题 ([#2893](https://github.com/antvis/g2plot/pull/2893)) ([6a0512b7](https://github.com/antvis/g2plot/commit/6a0512b70fe2442f9c9e86b8e1705d53d8d10fd5))
+*  修复开启 animation 引发 state 样式延迟渲染，导致单测错误 ([#2891](https://github.com/antvis/g2plot/pull/2891)) ([0e8de058](https://github.com/antvis/g2plot/commit/0e8de0581e65caf0b615cc63c43590f9dc5b2041))
+
+##### Refactors
+
+* **gauge:**  米轨仪表盘绘制方案改造 & 单测 ([#2890](https://github.com/antvis/g2plot/pull/2890)) ([cc8fa33d](https://github.com/antvis/g2plot/commit/cc8fa33d5c17d64392f1e549b876f62252ee90d4))
+
 #### 2.3.35 (2021-09-26)
 
 ##### Chores

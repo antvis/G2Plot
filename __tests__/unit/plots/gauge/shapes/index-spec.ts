@@ -1,7 +1,6 @@
 import { IGroup } from '@antv/g2';
 import { Gauge } from '../../../../../src';
 import { createDiv } from '../../../../utils/dom';
-import { getPixelColor } from '../../../../utils/getPixelColor';
 
 describe('gauge', () => {
   it('no indicator', async () => {

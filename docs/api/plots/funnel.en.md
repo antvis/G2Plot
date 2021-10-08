@@ -62,7 +62,7 @@ Whether the height is dynamic. When set to `true`, the height of each elemnet in
 
 the max size of graphic，is between 0 and 1, default 1。
 
-Tip: when set dynamicHeight to be true, this field is invalid 
+Tip: when set dynamicHeight to be true, this field is invalid
 
 #### minSize
 
@@ -70,7 +70,7 @@ Tip: when set dynamicHeight to be true, this field is invalid
 
 the min size of graphic，is between 0 and 1, default 0。
 
-Tip: when set dynamicHeight to be true, this field is invalid 
+Tip: when set dynamicHeight to be true, this field is invalid
 
 #### funnelStyle
 
@@ -96,7 +96,16 @@ Graphic style of funnel. You can either pass in the 'shapeStyle' structure direc
 
 Configure the conversion rate component.
 
-Defalut: `{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum.$$percentage$$ * 100 + '%',}`。
+Defalut: `{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum[Funnel.PERCENT_FIELD] * 100 + '%',}`。
+
+| Properties | Type                                                 | Description            |
+| ---------- | ---------------------------------------------------- | ---------------------- |
+| offsetX    | _number_                                             | x 偏移量               |
+| offsetY    | _number_                                             | y 偏移量               |
+| style      | _ShapeAttrs \| false_                                | Text style             |
+| formatter  | _string \| ((datum?: Datum, data?: Data) => string)_ | Text content formatter |
+
+Please refer to the style configuration [ShapeAttrs](/en/docs/api/graphic-style)
 
 `markdown:docs/common/color.en.md`
 
@@ -126,11 +135,11 @@ Funnel plot provides static properties, makes it easy to use.
 
 #### Static variables
 
-| Field | Description |
-| --- | --- |
-| `CONVERSATION_FIELD` | The corresponding value of this field is an array, stores the current and previous values of the funnel, for example, [263, 151], from which the user can calculate the conversion rate |
-| `PERCENT_FIELD` | The corresponding value of this field represents the `conversion percentage` between current value and previous value |
-| `TOTAL_PERCENT_FIELD` | The corresponding value of this field represents the percentage of total conversion rate |
+| Field                 | Description                                                                                                                                                                             |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CONVERSATION_FIELD`  | The corresponding value of this field is an array, stores the current and previous values of the funnel, for example, [263, 151], from which the user can calculate the conversion rate |
+| `PERCENT_FIELD`       | The corresponding value of this field represents the `conversion percentage` between current value and previous value                                                                   |
+| `TOTAL_PERCENT_FIELD` | The corresponding value of this field represents the percentage of total conversion rate                                                                                                |
 
 **Example:**
 
@@ -173,4 +182,5 @@ import { FUNNEL_CONVERSATION_FIELD } from '@antv/g2plot';
 ```
 
 <!-- 直接 三级导航展开 -->
+
 `markdown:docs/common/annotations.zh.md`

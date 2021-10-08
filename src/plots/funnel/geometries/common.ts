@@ -54,7 +54,7 @@ export function conversionTagComponent(
     if (conversionTag) {
       const { formatter } = conversionTag;
       data.forEach((obj, index) => {
-        if (index <= 0) return;
+        if (index <= 0 || Number.isNaN(obj[FUNNEL_MAPPING_VALUE])) return;
         const lineOption = getLineCoordinate(obj, index, data, {
           top: true,
           text: {

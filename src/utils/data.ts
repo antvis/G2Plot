@@ -1,6 +1,6 @@
 import { get, isNumber, filter } from '@antv/util';
 import { Data, Datum, Meta, Options } from '../types';
-import { NodeLinkData } from '../types/relation-data';
+import { Node, NodeLinkData } from '../types/relation-data';
 import { LEVEL, log } from './invariant';
 import { pick } from './pick';
 
@@ -54,7 +54,7 @@ export function transformDataToNodeLinkData(
   //   const nodes = [];
   const links = [];
   // 先使用对象方式存储
-  const nodesMap = {};
+  const nodesMap: Record<string, Node> = {};
   let nodesIndex = -1;
   // 数组变换成 chord layout 的数据结构
   data.forEach((datum: Datum) => {
@@ -90,7 +90,8 @@ export function transformDataToNodeLinkData(
     });
   });
   return {
-    nodes: Object.values(nodesMap),
+    // 需要按照 id 的顺序
+    nodes: Object.values(nodesMap).sort((a, b) => a.id - b.id),
     links,
   };
 }

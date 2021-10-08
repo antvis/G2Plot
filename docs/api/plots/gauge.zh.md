@@ -93,7 +93,7 @@ order: 5
 
 `markdown:docs/common/axis.zh.md`
 
-#### indicator
+#### indicator ✨
 
 <description>**optional** _object_</description>
 
@@ -101,6 +101,7 @@ order: 5
 
 - `pointer`：指示器中的**指针**样式配置
 - `pin`：指示器中的**圆盘**样式配置
+- `shape`：自定义指示器形状，需要搭配自定义 `registerShape` 使用. 默认: `gauge-indicator` (具体实现, 见: [gauge/shapes/indicator](https://github.com/antvis/g2plot/blob/master/plots/gauge/shapes/indicator.ts))
 
 他们都有以下配置项：
 

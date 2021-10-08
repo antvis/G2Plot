@@ -127,3 +127,7 @@ Example:
 同时还支持对 `steps` 以及 `stepRatio` 的设置，其中 `stepRatio` 代表着 step 和 gap 的比例关系，默认为：0.5，即默认 step 等于 gap 宽度，当 `stepRatio` 为 1 时，gap 为 0。
 
 <playground path="progress-plots/gauge/demo/custom-meter-step.ts" rid="rect3"></playground>
+
+### 自定义仪表盘指示器
+
+<playground path="progress-plots/gauge/demo/custom-indicator.ts" rid="custom-gauge-indicator"></playground>

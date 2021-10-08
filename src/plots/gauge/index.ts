@@ -7,7 +7,7 @@ import { INDICATEOR_VIEW_ID, RANGE_VIEW_ID, DEFAULT_OPTIONS } from './constants'
 import { getIndicatorData, getRangeData } from './utils';
 
 // 注册 shape
-import './shapes/gauge';
+import './shapes/indicator';
 import './shapes/meter-gauge';
 
 export type { GaugeOptions };

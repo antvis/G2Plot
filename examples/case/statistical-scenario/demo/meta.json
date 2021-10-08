@@ -5,14 +5,6 @@
   },
   "demos": [
     {
-      "filename": "compare-funnel.ts",
-      "title": {
-        "zh": "对比漏斗图",
-        "en": "Compare Funnel Diagram"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*gS12TpN1MN8AAAAAAAAAAAAAARQnAQ"
-    },
-    {
       "filename": "trend.jsx",
       "title": {
         "zh": "指标卡趋势图",
@@ -34,15 +26,17 @@
         "zh": "自定义分析漏斗图",
         "en": "Funnel analysis"
       },
+      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/3jrUoywaYN/339d1657-af7b-47d0-8434-da69979d597d.png"
     },
     {
-      "filename": "pie.ts",
+      "filename": "compare-funnel.ts",
       "title": {
-        "zh": "饼图(占比)",
-        "en": "Statistical Charts-Pie"
+        "zh": "对比漏斗图",
+        "en": "Compare Funnel Diagram"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OOnhQI4Sme4AAAAAAAAAAAAAARQnAQ"
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*gS12TpN1MN8AAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "trend-funnel.ts",
@@ -51,6 +45,14 @@
         "en": "Statistical Charts-Funnel"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/yYAiTdM%242e/case-funnel.png"
+    },
+    {
+      "filename": "pie.ts",
+      "title": {
+        "zh": "饼图(占比)",
+        "en": "Statistical Charts-Pie"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*OOnhQI4Sme4AAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

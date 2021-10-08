@@ -12,6 +12,8 @@ export type Indicator = {
   readonly pin?: {
     readonly style?: ShapeStyle; // 只允许静态的 object
   };
+  // 自定义指针 shape. 默认: 'gauge-indicator'
+  readonly shape?: string;
 };
 
 export type Range = {

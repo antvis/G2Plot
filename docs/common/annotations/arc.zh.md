@@ -1,12 +1,12 @@
-### Arc Annotation
+#### 💠 Arc Annotation
 
-#### type
+##### type
 
 <description>**optional** _string_</description>
 
 需要指定 `type: 'arc',` 标识为：辅助弧线，只在**极坐标系**下生效。常用于绘制仪表盘。
 
-#### start
+##### start
 
 <description>**optional** _AnnotationPosition_ </description>
 
@@ -38,13 +38,13 @@ type AnnotationPosition =
 
 [Example](/zh/examples/component/annotation#line-annotation-position)
 
-#### end
+##### end
 
 <description>**optional** _AnnotationPosition_ </description>
 
 结束位置，一般用于 line、region 等。具体配置属性参考: [start](#start)
 
-#### style
+##### style
 
 <description>**optional** _object_ </description>
 

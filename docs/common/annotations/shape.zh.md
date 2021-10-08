@@ -1,12 +1,12 @@
-### Html Annotation
+#### 💠 Shape Annotation
 
-#### type
+##### type
 
 <description>**optional** _string_</description>
 
 需要指定 `type: 'shape',`。自定义任意类型的图形标记，通过 option 中的 render 回调函数来在图表区域绘制自定义标记。option 配置如下：
 
-#### render
+##### render
 
 <description> _(
 container: IGroup,

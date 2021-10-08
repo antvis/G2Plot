@@ -1,29 +1,28 @@
-
-#### top
+##### top
 
 <description>**optional** _boolean_ </description>
 
 指定 annotation 是否绘制在 canvas 最上层，默认为 false, 即绘制在最下层。
 
-#### offsetX
+##### offsetX
 
 <description>**optional** _number_ </description>
 
 x 轴方向的偏移量。
 
-#### offsetY
+##### offsetY
 
 <description>**optional** _number_ </description>
 
 y 轴方向的偏移量。
 
-#### animate
+##### animate
 
 <description>**optional** _boolean_ </description>
 
 是否进行动画。
 
-#### animateOption
+##### animateOption
 
 <description>**optional** _object_ </description>
 

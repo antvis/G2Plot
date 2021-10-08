@@ -144,12 +144,12 @@ code.language-text {
 a.ant-anchor-link-title[href='#快速上手'],
 a.ant-anchor-link-title[href='#quick-start'],
 a.ant-anchor-link-title[href='#事件监听'],
-a.ant-anchor-link-title[href='#event-listener']  {
+a.ant-anchor-link-title[href='#event-listener'] {
   transform: translateX(-10px);
 }
 
 a.ant-anchor-link-title[href='#快速上手']::before,
-a.ant-anchor-link-title[href='#quick-start']::before, 
+a.ant-anchor-link-title[href='#quick-start']::before,
 a.ant-anchor-link-title[href='#事件监听']::before,
 a.ant-anchor-link-title[href='#event-listener']::before {
   content: ' ';
@@ -168,19 +168,27 @@ a.ant-anchor-link-title[href='#event-listener']::before {
 
 /** 图表示例 API 文档样式 START */
 [class*='markdown-module--exampleContent'] [class*='APIDoc-module--docContent'] {
-  h5::before {
-    content: '👉 ';
-    display: inline-block;
-    width: 14px;
-    height: 18px;
-    margin-right: 8px;
+  // 第三级 折叠面板的样式，自定义覆盖
+  .ant-collapse.ant-collapse-borderless .ant-collapse.ant-collapse-borderless {
+    // 头部
+    .ant-collapse-header {
+      padding: 6px 0 6px 16px;
+      [class*='APIDoc-module--type'] {
+        font-size: 10px;
+        line-height: 10px;
+      }
+    }
+    // 内容
+    .ant-collapse-content p {
+      line-height: 18px;
+    }
   }
 }
 /** 图表示例 API 文档样式 END */
 
 /** 自定义 组件-API 文档页样式 START **/
 
-[class*="markdown-module--main"] [class*="markdown-module--content"] .component-img {
+[class*='markdown-module--main'] [class*='markdown-module--content'] .component-img {
   display: block;
   margin: 0 auto;
   max-height: 400px;

@@ -1,5 +1,5 @@
 import { Types } from '@antv/g2';
-import { isFunction, map, isNumber, maxBy, get, clone } from '@antv/util';
+import { isFunction, map, isNumber, maxBy, get } from '@antv/util';
 import { Datum, Data } from '../../../types/common';
 import { FUNNEL_PERCENT, FUNNEL_CONVERSATION, FUNNEL_MAPPING_VALUE } from '../constant';
 import { Params } from '../../../core/adaptor';

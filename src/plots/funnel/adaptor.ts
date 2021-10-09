@@ -1,4 +1,4 @@
-import { isFunction } from '@antv/util';
+import { isFunction, clone } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme, scale, annotation, tooltip } from '../../adaptor/common';
 import { getLocale } from '../../core/locale';
@@ -27,7 +27,7 @@ import { FUNNEL_CONVERSATION, FUNNEL_PERCENT } from './constant';
  */
 function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { options } = params;
-  const { compareField, xField, yField, locale, funnelStyle } = options;
+  const { compareField, xField, yField, locale, funnelStyle, data } = options;
   const i18n = getLocale(locale);
 
   const defaultOption = {
@@ -70,7 +70,7 @@ function defaultOptions(params: Params<FunnelOptions>): Params<FunnelOptions> {
     };
   }
 
-  return deepAssign({ options: defaultOption }, params, { options: { funnelStyle: style } });
+  return deepAssign({ options: defaultOption }, params, { options: { funnelStyle: style, data: clone(data) } });
 }
 
 /**

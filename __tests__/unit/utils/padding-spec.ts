@@ -1,4 +1,4 @@
-import { getAdjustAppendPadding } from '../../../src/utils/padding';
+import { getAdjustAppendPadding, resolveAllPadding } from '../../../src/utils/padding';
 
 describe('getAdjustAppendPadding', () => {
   it('default position: bottom', () => {
@@ -45,4 +45,16 @@ describe('getAdjustAppendPadding', () => {
     expect(getAdjustAppendPadding([10, 20, 30], 'top', 5)).toStrictEqual([15, 20, 30, 20]);
     expect(getAdjustAppendPadding([10, 20, 30, 40], 'top', 5)).toStrictEqual([15, 20, 30, 40]);
   });
+});
+
+describe('resolveAllPadding', () => {
+  expect(resolveAllPadding([2, 4])).toEqual([6, 6, 6, 6]);
+  expect(resolveAllPadding([[1, 2, 2, 1], 4])).toEqual([5, 6, 6, 5]);
+  expect(resolveAllPadding([[1, 2, 2, 1], 'auto'])).toEqual([1, 2, 2, 1]);
+  expect(
+    resolveAllPadding([
+      [1, 2, 2, 1],
+      [2, 3, 3, 3],
+    ])
+  ).toEqual([3, 5, 5, 4]);
 });

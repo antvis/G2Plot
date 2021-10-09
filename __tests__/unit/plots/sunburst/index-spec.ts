@@ -111,6 +111,11 @@ describe('sunburst', () => {
     expect(coordinate.radius).toBe(1);
   });
 
+  it('active-depth', () => {
+    plot.update({ hierarchyConfig: { activeDepth: 1 } });
+    expect(plot.chart.geometries[0].elements.length).toBe(SIMPLE_SUNBURST_DATA.children.length);
+  });
+
   it('defaultOptions 保持从 constants 中获取', () => {
     expect(Sunburst.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });

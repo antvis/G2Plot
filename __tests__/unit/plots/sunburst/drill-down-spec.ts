@@ -155,5 +155,63 @@ describe('sunburst: drill-down', () => {
     textShape1.emit('mouseenter', { target: textShape1 });
     expect(textShape1.attr('cursor')).toBe('default');
     expect(textShape.attr('fill')).toBe('rgba(255,0,0,1)');
+
+    drillDownAction.reset();
+  });
+
+  it('activeDepth when drilldown interaction', () => {
+    plot.update({
+      data: {
+        name: 'root',
+        children: [
+          {
+            name: '1',
+            value: 1,
+            children: [
+              {
+                name: '1-1',
+                value: 1,
+                children: [
+                  { name: '1-1-1', value: 1, children: [] },
+                  { name: '1-1-2', value: 1, children: [] },
+                ],
+              },
+              { name: '1-2', value: 1, children: [] },
+            ],
+          },
+        ],
+      },
+    });
+    const context = new InteractionContext(plot.chart);
+    const drillDownAction = new DrillDownAction(context);
+
+    // 模拟一次点击(数据是升序的)
+    context.event = {
+      type: 'click',
+      data: {
+        data: plot.chart.getData()[0],
+      },
+    };
+
+    drillDownAction.click();
+    expect(plot.chart.getData().length).toBe(4);
+    expect(plot.chart.geometries[0].elements.length).toBe(4);
+
+    plot.update({ hierarchyConfig: { activeDepth: 1 } });
+
+    // 模拟一次点击(数据是升序的)
+    context.event = {
+      type: 'click',
+      data: {
+        data: plot.chart.getData()[0],
+      },
+    };
+    drillDownAction.click();
+    expect(plot.chart.getData().length).toBe(2);
+    expect(plot.chart.geometries[0].elements.length).toBe(2);
+  });
+
+  afterAll(() => {
+    plot.destroy();
   });
 });

@@ -82,6 +82,7 @@
         "zh": "配置激活展示的层级数",
         "en": "Config active display depth"
       },
+      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/y9BD5CSBrF/sunburst-active-level.gif"
     }
   ]

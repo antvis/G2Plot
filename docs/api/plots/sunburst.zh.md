@@ -88,7 +88,8 @@ meta: {
 
 | Properties        | Type               | Description                                                                                                                          |
 | ----------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
-| field             | _string_           | 数据节点权重映射字段，默认为：`value`. 当你的节点数据格式不是：`{ name: 'xx', value: 'xx' }`, 可以通过该字段来指定，详细见：图表示例 |
+| field             | _string_           | 数据节点权重映射字段，默认为：`value`. 当你的节点数据格式不是：`{ name: 'xx', value: 'xx' }`, 可以通过该字段来指定，详细见：[图表示例](/zh/examples/more-plots/sunburst#basic2) |
+| activeDepth             | _number_           | 默认展示的层级深度。默认空,代表全部展示。 取值范围为: [1, ∞)，详细见：[图表示例](/zh/examples/more-plots/sunburst#active-depth) |
 | padding           | _number\|number[]_ | 默认：`0`。参考：[d3-hierarchy#partition_padding](https://github.com/d3/d3-hierarchy#partition_padding)                              |
 | size              | _number[]_         | 默认：`[1, 1]`。参考：[d3-hierarchy#partition_size](https://github.com/d3/d3-hierarchy#partition_size)                               |
 | round             | _boolean_          | 默认：`false`。参考：[d3-hierarchy#partition_round](https://github.com/d3/d3-hierarchy#partition_round)                              |

@@ -75,6 +75,15 @@
         "en": "Custom tooltip items"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/yBxQkbPBXF/2a71c7de-1971-4651-bcba-dd18ddd8732e.png"
+    },
+    {
+      "filename": "active-depth.ts",
+      "title": {
+        "zh": "配置激活展示的层级数",
+        "en": "Config active display depth"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/y9BD5CSBrF/sunburst-active-level.gif"
     }
   ]
 }

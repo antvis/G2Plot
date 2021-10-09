@@ -1,5 +1,5 @@
 import { Action, IGroup, Util } from '@antv/g2';
-import { get, last, isNil } from '@antv/util';
+import { get, last, isNil, size } from '@antv/util';
 import { Data } from '../../types';
 import { DrillDownCfg } from '../../types/drill-down';
 import { deepAssign } from '../../utils/deep-assign';
@@ -113,11 +113,20 @@ export class DrillDownAction extends Action {
   }
 
   /**
+   * 返回上一层
+   */
+  public back(): void {
+    if (size(this.historyCache)) {
+      this.backTo(this.historyCache.slice(0, -1));
+    }
+  }
+
+  /**
    * 重置
    */
   public reset(): void {
     if (this.historyCache[0]) {
-      this.back(this.historyCache.slice(0, 1));
+      this.backTo(this.historyCache.slice(0, 1));
     }
     // 清空
     this.historyCache = [];
@@ -158,7 +167,7 @@ export class DrillDownAction extends Action {
    * 回退事件，点击面包屑时触发
    * @param historyCache 当前要回退到的历史
    */
-  protected back(historyCache: HistoryCache) {
+  protected backTo(historyCache: HistoryCache) {
     if (!historyCache || historyCache.length <= 0) {
       return;
     }
@@ -236,7 +245,7 @@ export class DrillDownAction extends Action {
         const targetId = event.target.get('id');
         if (targetId !== last(cache)?.id) {
           const newHistoryCache = cache.slice(0, cache.findIndex((d) => d.id === targetId) + 1);
-          this.back(newHistoryCache);
+          this.backTo(newHistoryCache);
         }
       });
       // active 效果内置

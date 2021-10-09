@@ -1,3 +1,4 @@
+import { omit } from '@antv/util';
 import { HIERARCHY_DATA_TRANSFORM_PARAMS } from '../../interactions/actions/drill-down';
 import { pick } from '../../utils';
 import { partition } from '../../utils/hierarchy/partition';
@@ -23,7 +24,7 @@ export function transformData(options: Pick<SunburstOptions, 'data' | 'colorFiel
 
   const nodes = transform[type](data, {
     field: seriesField || 'value',
-    ...hierarchyConfig,
+    ...omit(hierarchyConfig, ['activeDepth']),
     // @ts-ignore
     type: `hierarchy.${type}`,
     as: ['x', 'y'],

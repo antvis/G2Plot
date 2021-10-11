@@ -38,7 +38,34 @@ The name of the data field corresponding to the point size map.
 
 ### Geometry Style
 
-`markdown:docs/common/color.en.md`
+#### color
+
+<description>**optional** _string | string[] | Function_</description>
+
+指定图形元素的颜色。可以指定单色，或者一系列色值，也可以通过回调函数的方法根据对应数值进行设置。（**注意**：韦恩图的 color 系列色值只作用于单个集合上，交集部分通过指定 blendMode 来进行叠加处理。另外，color 回调中，第二个参数代表默认分配的颜色。）
+
+默认配置：采用 theme 中的色板。演示 [Demo](/zh/examples/more-plots/venn#blend-mode)
+
+```ts
+// 设置单一颜色
+{
+  color: '#a8ddb5'
+}
+// 设置多色
+{
+  color: ['#d62728', '#2ca02c', '#000000'],
+}
+// Function
+{
+  color: (datum, defaultColor) => {
+    if(datum.size > 100){
+      return 'red';
+    }
+    return defaultColor;
+  }
+}
+```
+
 
 #### blendMode
 

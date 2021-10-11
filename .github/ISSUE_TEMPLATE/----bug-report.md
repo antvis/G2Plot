@@ -11,9 +11,9 @@ assignees: ''
 
 ### 🐛 Bug description [Please make everyone to understand it]
 
-### 💻 Link to minimal reproduction
+> Please provide a link by forking these links [G2Plot](https://codesandbox.io/s/g2plot-issue-template-gzfdq?file=/index.ts) or GitHub repo, a minimal reproduction.
 
-Please provide a link by forking these links [g2plot](https://codesandbox.io/s/g2plot-reproduction-template-gyej1) or GitHub repo. What is a minimal reproduction, and why is it required?
+* _Required_ **Link to minimal reproduction**:
 
 ### 📷 Step to reproduce
 

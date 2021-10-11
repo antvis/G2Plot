@@ -29,15 +29,15 @@ export const LEGEND_SPACE = 40;
  */
 function colorMap(params: Params<VennOptions>, data: VennData, colorPalette?: string[]) {
   const { chart, options } = params;
-  const { setsField } = options;
+  const { setsField, blendMode } = options;
   const { colors10, colors20 } = chart.getTheme();
   let palette = colorPalette;
   if (!isArray(palette)) {
     palette = data.filter((d) => d[setsField].length === 1).length <= 10 ? colors10 : colors20;
   }
-  const colorMap = getColorMap(palette, data, options);
+  const map = getColorMap(colorPalette, data, blendMode, setsField);
 
-  return (id: string) => colorMap.get(id) || palette[0];
+  return (id: string) => map.get(id) || palette[0];
 }
 
 /**
@@ -224,6 +224,35 @@ export function axis(params: Params<VennOptions>): Params<VennOptions> {
 }
 
 /**
+ * 韦恩图 interaction 交互适配器
+ */
+function vennInteraction(params: Params<VennOptions>): Params<VennOptions> {
+  const { options, chart } = params;
+  const { interactions } = options;
+
+  if (interactions) {
+    const MAP = {
+      'legend-active': 'venn-legend-active',
+      'legend-highlight': 'venn-legend-highlight',
+    };
+    interaction(
+      deepAssign({}, params, {
+        options: {
+          interactions: interactions.map((i) => ({
+            ...i,
+            type: MAP[i.type] || i.type,
+          })),
+        },
+      })
+    );
+  }
+
+  chart.removeInteraction('legend-active');
+  chart.removeInteraction('legend-highlight');
+  return params;
+}
+
+/**
  * 图适配器
  * @param chart
  * @param options
@@ -240,7 +269,7 @@ export function adaptor(params: Params<VennOptions>) {
     legend,
     axis,
     tooltip,
-    interaction,
+    vennInteraction,
     animation
     // ... 其他的 adaptor flow
   )(params);

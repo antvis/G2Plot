@@ -6,6 +6,13 @@ import { intersectionAreaPath, computeTextCentres } from './layout/diagram';
 import { ID_FIELD, PATH_FIELD } from './constant';
 import { VennData, VennOptions } from './types';
 
+type ColorMapFunction = (
+  colorPalette: string[],
+  data: VennData,
+  blendMode: VennOptions['blendMode'],
+  setsField: VennOptions['setsField']
+) => Map<string, string>;
+
 /**
  * 获取 颜色映射
  * @usage colorMap.get(id) => color
@@ -13,8 +20,7 @@ import { VennData, VennOptions } from './types';
  * @returns Map<string, string>
  */
 export const getColorMap = memoize(
-  (colorPalette: string[], data: VennData, options: VennOptions) => {
-    const { blendMode, setsField } = options;
+  ((colorPalette, data, blendMode, setsField) => {
     const colorMap = new Map<string /** id */, string /** color */>();
     const colorPaletteLen = colorPalette.length;
     data.forEach((d, idx) => {
@@ -31,9 +37,9 @@ export const getColorMap = memoize(
     });
 
     return colorMap;
-  },
+  }) as ColorMapFunction,
   (...params) => JSON.stringify(params)
-);
+) as ColorMapFunction;
 
 /**
  * 给韦恩图数据进行布局

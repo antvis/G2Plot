@@ -44,12 +44,17 @@ function colorMap(params: Params<VennOptions>, data: VennData, colorPalette?: st
  * color options 转换
  */
 function transformColor(params: Params<VennOptions>, data: VennData): VennOptions['color'] {
-  const { options } = params;
-  const { color } = options;
+  const { chart, options } = params;
+  const { color, setsField, blendMode } = options;
 
   if (typeof color !== 'function') {
-    const colorPalette = typeof color === 'string' ? [color] : color;
-    return (datum: Datum) => colorMap(params, data, colorPalette)(datum[ID_FIELD]);
+    let colorPalette = typeof color === 'string' ? [color] : color;
+    if (!isArray(colorPalette)) {
+      const { colors10, colors20 } = chart.getTheme();
+      colorPalette = data.filter((d) => d[setsField].length === 1).length <= 10 ? colors10 : colors20;
+    }
+    const colorMap = getColorMap(colorPalette, data, blendMode, setsField);
+    return (datum: Datum) => colorMap.get(datum[ID_FIELD]) || colorPalette[0];
   }
   return color;
 }

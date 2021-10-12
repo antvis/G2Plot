@@ -26,7 +26,8 @@ describe('box outliers', () => {
     // 类型
     expect(geometry.type).toBe('point');
     // 图形元素个数
-    expect(geometry.elements.length).toBe(outliersData.length);
+    const len = outliersData.reduce((r, d) => r + d.outliers.length, 0);
+    expect(geometry.elements.length).toBe(len);
     // 同步y轴度量 axis sync
     // @ts-ignore
     expect(outliersScale.sync).toEqual(BOX_SYNC_NAME);
@@ -59,7 +60,7 @@ describe('box outliers', () => {
     const elements = view.geometries[0].elements;
 
     // 类型
-    expect(elements[0].shape.cfg.children[0].attr('fill')).toBe('#f6f');
+    expect(elements[0].shape.attr('fill')).toBe('#f6f');
 
     box.destroy();
   });

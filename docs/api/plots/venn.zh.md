@@ -136,14 +136,16 @@ const data = [
 
 `markdown:docs/common/tooltip.zh.md`
 
-### 图表交互
+### 图表交互 ✨
 
 内置了针对 venn 图交互，列表如下:
 
 | 交互 | 描述 | 配置方式 |
 | ---|---|---|
-| venn-element-active | 开启「鼠标移入 venn 图元素时触发 active」的交互 | `interactions:[{ type: 'venn-element-active', enabled: true }]`  |
-| venn-element-selected | 开启「鼠标点击 venn 图元素时触发 selected」的交互，可多选 | `interactions:[{ type: 'venn-element-selected', enabled: true }]` |
+| venn-element-active | 开启「鼠标移入 venn 图元素时触发 active」的交互 | `interactions:[{ type: 'venn-element-active' }]`  |
+| venn-element-selected | 开启「鼠标点击 venn 图元素时触发 selected」的交互，可多选 | `interactions:[{ type: 'venn-element-selected' }]` |
+| venn-element-single-selected | 开启「鼠标点击 venn 图元素时触发 selected」的交互，单选 | `interactions:[{ type: 'venn-element-single-selected' }]` |
+| venn-element-highlight | 开启「鼠标点击 venn 图元素时触发 高亮」的交互 | `interactions:[{ type: 'venn-element-highlight' }]` |
 
 `markdown:docs/common/interactions.zh.md`
 

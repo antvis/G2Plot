@@ -30,7 +30,7 @@ registerInteraction('venn-element-selected', {
   start: [{ trigger: 'element:click', action: 'venn-element-selected:toggle' }],
   rollback: [{ trigger: 'dblclick', action: ['venn-element-selected:reset'] }],
 });
-// 点击 venn element （可多选）
+// 点击 venn element （单选）
 registerInteraction('venn-element-single-selected', {
   start: [{ trigger: 'element:click', action: 'venn-element-single-selected:toggle' }],
   rollback: [{ trigger: 'dblclick', action: ['venn-element-single-selected:reset'] }],

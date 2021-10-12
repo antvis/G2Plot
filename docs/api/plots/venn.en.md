@@ -139,14 +139,16 @@ Default configuration:
 `markdown:docs/common/tooltip.en.md`
 
 
-### Plot Interactions
+### Plot Interactions ✨
 
 There are interactions for venn diagrams, listed below:
 
 | interaction | description | configuration method |
 | ---|--|--|
-| venn-element-active | enable the "mouse-over venn diagram element triggers active" interaction | `interactions:[{ type: 'venn-element-active', enabled: true }]` |
-| venn-element-selected | enable the interaction "trigger selected when mouse clicked on venn diagram element", multiple options available | `interactions:[{ type: 'venn-element-selected', enabled: true }]` |
+| venn-element-active | enable the "mouse-over venn diagram element triggers active" interaction | `interactions:[{ type: 'venn-element-active'}]` |
+| venn-element-selected | enable the interaction "trigger selected when mouse clicked on venn diagram element", multiple options available | `interactions:[{ type: 'venn-element-selected'}]` |
+| venn-element-single-selected | enable the interaction "trigger selected when mouse clicked on venn diagram element", single selected | `interactions:[{ type: 'venn-element-single-selected'}]` |
+| venn-element-highlight | enable the interaction "trigger highlight when mouse clicked on venn diagram element" | `interactions:[{ type: 'venn-element-highlight'}]` |
 
 `markdown:docs/common/interactions.en.md`
 

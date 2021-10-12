@@ -88,7 +88,7 @@ const data = [
 
 `markdown:docs/common/component.zh.md`
 
-#### 缩略轴
+#### 缩略轴 slider
 
 `markdown:docs/common/slider.zh.md`
 

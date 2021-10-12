@@ -93,21 +93,21 @@ order: 2
 
 `markdown:docs/common/common-component.zh.md`
 
-#### 缩略轴
+#### 缩略轴 slider
 
 `markdown:docs/common/slider.zh.md`
 
-#### 滚动条
+#### 滚动条 scrollbar
 
 `markdown:docs/common/scrollbar.zh.md`
 
-#### 转化标签
+#### 转化标签 conversionTag
 
 适用于基础柱形图和基础条形图，转化率组件可以让用户关注到数据的变化比例。
 
 `markdown:docs/common/conversion-tag.zh.md`
 
-#### 联通区域对比
+#### 联通区域对比 connectedArea
 
 `markdown:docs/common/connected-area.zh.md`
 

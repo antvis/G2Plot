@@ -1,4 +1,5 @@
 import { isArray } from '@antv/util';
+import { Types } from '@antv/g2';
 import { Params } from '../../core/adaptor';
 import { interaction, animation, theme, tooltip } from '../../adaptor/common';
 import { point, schema } from '../../adaptor/geometries';
@@ -34,6 +35,8 @@ function field(params: Params<BoxOptions>): Params<BoxOptions> {
         seriesField: groupField,
         tooltip: tooltipOptions,
         rawFields,
+        // 只有异常点视图展示 label
+        label: false,
         schema: {
           shape: 'box',
           color,
@@ -50,21 +53,30 @@ function field(params: Params<BoxOptions>): Params<BoxOptions> {
   return params;
 }
 
+/**
+ * 创建异常点 view
+ */
 function outliersPoint(params: Params<BoxOptions>): Params<BoxOptions> {
   const { chart, options } = params;
-  const { xField, data, outliersField, outliersStyle, padding } = options;
+  const { xField, data, outliersField, outliersStyle, padding, label } = options;
 
   if (!outliersField) return params;
 
   const outliersView = chart.createView({ padding, id: OUTLIERS_VIEW_ID });
-  outliersView.data(data);
+  const outliersViewData = data.reduce((ret, datum) => {
+    const outliersData = datum[outliersField];
+    outliersData.forEach((d) => ret.push({ ...datum, [outliersField]: d }));
+    return ret;
+  }, []) as Types.Datum[];
 
+  outliersView.data(outliersViewData);
   point({
     chart: outliersView,
     options: {
       xField,
       yField: outliersField,
       point: { shape: 'circle', style: outliersStyle },
+      label,
     },
   });
 

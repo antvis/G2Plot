@@ -77,6 +77,24 @@
       },
       "new": true,
       "screenshot": ""
+    },
+    {
+      "filename": "legend-active.ts",
+      "title": {
+        "zh": "自定义韦恩图图例激活交互",
+        "en": "Custom venn legend active"
+      },
+      "new": true,
+      "screenshot": ""
+    },
+    {
+      "filename": "legend-highlight.ts",
+      "title": {
+        "zh": "自定义韦恩图图例高亮交互",
+        "en": "Custom venn legend highlight"
+      },
+      "new": true,
+      "screenshot": ""
     }
   ]
 }

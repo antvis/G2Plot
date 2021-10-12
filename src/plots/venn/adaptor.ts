@@ -173,7 +173,7 @@ function label(params: Params<VennOptions>): Params<VennOptions> {
   const { label } = options;
 
   // 获取容器大小
-  const [t, r, b, l] = normalPadding(chart.appendPadding);
+  const [t, , , l] = normalPadding(chart.appendPadding);
   // 传入 label 布局函数所需的 自定义参数
   const customLabelInfo = { offsetX: l, offsetY: t };
 

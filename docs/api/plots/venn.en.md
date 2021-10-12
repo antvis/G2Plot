@@ -24,6 +24,10 @@ Configure the chart data source. For example：
    ];
 ```
 
+```sign
+💡 注意：这里的数据是包含交集部分的数据量的。如上数据源，含有两个集合：`A` 和 `B`, 其中：`{ sets: ['A'], size: 5 }` 代表的是含有 A 集合的有 5 个（其实有 2 个是包含 B 集合的）
+```
+
 #### setsField
 
 <description>**optional** _string_</description>

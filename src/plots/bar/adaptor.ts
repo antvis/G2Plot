@@ -122,17 +122,9 @@ function tooltip(params: Params<BarOptions>): Params<BarOptions> {
  * @param params
  */
 function coordinate(params: Params<BarOptions>): Params<BarOptions> {
-  const { chart, options } = params;
-  const { coordinate } = options;
+  const { chart } = params;
   // transpose column to bar 对角变换 & y 方向镜像变换
-  chart.coordinate(
-    deepAssign(
-      {
-        actions: [['transpose'], ['scale', 1, -1]],
-      },
-      coordinate
-    )
-  );
+  chart.coordinate({ actions: [['transpose'], ['reflect', 'y']] });
   return params;
 }
 

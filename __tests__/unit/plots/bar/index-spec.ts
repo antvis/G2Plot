@@ -414,6 +414,15 @@ describe('bar', () => {
     bar.destroy();
   });
 
+  it('coordinate', () => {
+    const plot = getBar(false, false);
+
+    expect(plot.chart.getCoordinate().isReflect('y')).toBe(true);
+    expect(plot.chart.getCoordinate().isTransposed).toBe(true);
+
+    plot.destroy();
+  });
+
   it('update annotations', () => {
     const plot = new Bar(createDiv(), {
       data: salesByArea,

@@ -257,7 +257,7 @@ describe('bar conversion tag', () => {
 
     const shapes = plot.chart.geometries[0].getShapes();
     const shapeBBoxes = shapes.map((shape) => shape.getBBox());
-    const totalHeight = shapeBBoxes[0].minY - shapeBBoxes[1].maxY;
+    const totalHeight = shapeBBoxes[1].minY - shapeBBoxes[0].maxY;
     const foreground = plot.chart.foregroundGroup;
 
     // 整体
@@ -308,7 +308,7 @@ describe('bar conversion tag', () => {
 
     const shapes = plot.chart.geometries[0].getShapes();
     const shapeBBoxes = shapes.map((shape) => shape.getBBox());
-    const totalHeight = shapeBBoxes[0].minY - shapeBBoxes[1].maxY;
+    const totalHeight = shapeBBoxes[1].minY - shapeBBoxes[0].maxY;
     const foreground = plot.chart.foregroundGroup;
 
     // 整体

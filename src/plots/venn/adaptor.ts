@@ -29,7 +29,7 @@ export const LEGEND_SPACE = 40;
  */
 function colorMap(params: Params<VennOptions>, data: VennData, colorPalette?: string[]) {
   const { chart, options } = params;
-  const { setsField, blendMode } = options;
+  const { blendMode, setsField } = options;
   const { colors10, colors20 } = chart.getTheme();
   let palette = colorPalette;
   if (!isArray(palette)) {

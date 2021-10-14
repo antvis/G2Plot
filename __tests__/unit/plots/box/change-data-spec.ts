@@ -60,8 +60,9 @@ describe('box change data', () => {
     box.render();
     const outliersView = box.chart.views.find((v) => v.id === OUTLIERS_VIEW_ID);
 
+    const len = outliersData.reduce((r, d) => r + d.outliers.length, 0);
     expect(box.chart.geometries[0].elements.length).toEqual(outliersData.length);
-    expect(outliersView.geometries[0].elements.length).toEqual(outliersData.length);
+    expect(outliersView.geometries[0].elements.length).toEqual(len);
 
     const newData = [
       ...outliersData,

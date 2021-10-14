@@ -35,6 +35,23 @@
         "en": "Set alias of field"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/BUWqiUYOhY/box-alias.png"
+    },
+    {
+      "filename": "label.ts",
+      "title": {
+        "zh": "设置箱线图 label",
+        "en": "Box plot label"
+      },
+      "new": true,
+      "screenshot": ""
+    },
+    {
+      "filename": "tooltip.ts",
+      "title": {
+        "zh": "设置箱线图 tooltip",
+        "en": "Box plot tooltip"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*cE6vR461omUAAAAAAAAAAAAAARQnAQ"
     }
   ]
 }

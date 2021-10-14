@@ -25,20 +25,31 @@ import './interaction';
 export const LEGEND_SPACE = 40;
 
 /**
+ * 获取 color 映射
+ */
+function colorMap(params: Params<VennOptions>, data: VennData, colorPalette?: string[]) {
+  const { chart, options } = params;
+  const { setsField } = options;
+  const { colors10, colors20 } = chart.getTheme();
+  let palette = colorPalette;
+  if (!isArray(palette)) {
+    palette = data.filter((d) => d[setsField].length === 1).length <= 10 ? colors10 : colors20;
+  }
+  const colorMap = getColorMap(palette, data, options);
+
+  return (id: string) => colorMap.get(id) || palette[0];
+}
+
+/**
  * color options 转换
  */
 function transformColor(params: Params<VennOptions>, data: VennData): VennOptions['color'] {
-  const { chart, options } = params;
-  const { color, setsField } = options;
+  const { options } = params;
+  const { color } = options;
 
   if (typeof color !== 'function') {
-    let colorPalette = typeof color === 'string' ? [color] : color;
-    if (!isArray(colorPalette)) {
-      const { colors10, colors20 } = chart.getTheme();
-      colorPalette = data.filter((d) => d[setsField].length === 1).length <= 10 ? colors10 : colors20;
-    }
-    const colorMap = getColorMap(colorPalette, data, options);
-    return (datum: Datum) => colorMap.get(datum[ID_FIELD]) || colorPalette[0];
+    const colorPalette = typeof color === 'string' ? [color] : color;
+    return (datum: Datum) => colorMap(params, data, colorPalette)(datum[ID_FIELD]);
   }
   return color;
 }
@@ -132,7 +143,6 @@ function geometry(params: Params<VennOptions>): Params<VennOptions> {
         schema: {
           shape: 'venn',
           style: pointStyle,
-          color: transformColor(params, vennData),
         },
       },
     })
@@ -140,6 +150,16 @@ function geometry(params: Params<VennOptions>): Params<VennOptions> {
 
   const geometry = ext.geometry as Geometry;
   geometry.customInfo(customInfo);
+
+  const colorOptions = transformColor(params, vennData);
+  // 韦恩图试点, color 通道只能映射一个字段. 通过外部查找获取 datum
+  if (typeof colorOptions === 'function') {
+    geometry.color(ID_FIELD, (id) => {
+      const datum = vennData.find((d) => d[ID_FIELD] === id);
+      const defaultColor = colorMap(params, vennData)(id);
+      return colorOptions(datum, defaultColor);
+    });
+  }
 
   return params;
 }

@@ -19,7 +19,7 @@ import { CustomInfo, VennData, VennOptions } from './types';
 import { ID_FIELD } from './constant';
 import './shape';
 import './label';
-import './interaction';
+import './interactions';
 
 /** 图例默认预留空间 */
 export const LEGEND_SPACE = 40;

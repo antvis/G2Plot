@@ -35,7 +35,7 @@ function colorMap(params: Params<VennOptions>, data: VennData, colorPalette?: st
   if (!isArray(palette)) {
     palette = data.filter((d) => d[setsField].length === 1).length <= 10 ? colors10 : colors20;
   }
-  const map = getColorMap(colorPalette, data, blendMode, setsField);
+  const map = getColorMap(palette, data, blendMode, setsField);
 
   return (id: string) => map.get(id) || palette[0];
 }
@@ -44,17 +44,13 @@ function colorMap(params: Params<VennOptions>, data: VennData, colorPalette?: st
  * color options 转换
  */
 function transformColor(params: Params<VennOptions>, data: VennData): VennOptions['color'] {
-  const { chart, options } = params;
-  const { color, setsField, blendMode } = options;
+  const { options } = params;
+  const { color } = options;
 
   if (typeof color !== 'function') {
-    let colorPalette = typeof color === 'string' ? [color] : color;
-    if (!isArray(colorPalette)) {
-      const { colors10, colors20 } = chart.getTheme();
-      colorPalette = data.filter((d) => d[setsField].length === 1).length <= 10 ? colors10 : colors20;
-    }
-    const colorMap = getColorMap(colorPalette, data, blendMode, setsField);
-    return (datum: Datum) => colorMap.get(datum[ID_FIELD]) || colorPalette[0];
+    const colorPalette = typeof color === 'string' ? [color] : color;
+    const map = colorMap(params, data, colorPalette);
+    return (datum: Datum) => map(datum[ID_FIELD]);
   }
   return color;
 }

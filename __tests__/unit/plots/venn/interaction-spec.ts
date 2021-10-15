@@ -1,12 +1,12 @@
 import { IGroup } from '@antv/g-base';
 import InteractionContext from '@antv/g2/lib/interaction/context';
 import { Venn } from '../../../../src';
-import { VennElementActive } from '../../../../src/plots/venn/interaction/actions/active';
-import { VennElementHighlight } from '../../../../src/plots/venn/interaction/actions/highlight';
+import { VennElementActive } from '../../../../src/plots/venn/interactions/actions/active';
+import { VennElementHighlight } from '../../../../src/plots/venn/interactions/actions/highlight';
 import {
   VennElementSelected,
   VennElementSingleSelected,
-} from '../../../../src/plots/venn/interaction/actions/selected';
+} from '../../../../src/plots/venn/interactions/actions/selected';
 import { createDiv } from '../../../utils/dom';
 
 describe('venn', () => {

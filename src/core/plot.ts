@@ -20,6 +20,7 @@ export type PickOptions = Pick<
   | 'supportCSSTransform'
   | 'limitInPlot'
   | 'locale'
+  | 'defaultInteractions'
 >;
 
 const SOURCE_ATTRIBUTE_NAME = 'data-chart-source-type';
@@ -90,7 +91,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 创建 G2 实例
    */
   private createG2() {
-    const { width, height } = this.options;
+    const { width, height, defaultInteractions } = this.options;
 
     this.chart = new Chart({
       container: this.container,
@@ -98,6 +99,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
       ...this.getChartSize(width, height),
       localRefresh: false, // 默认关闭，目前 G 还有一些位置问题，难以排查！
       ...pick(this.options, PLOT_CONTAINER_OPTIONS),
+      defaultInteractions,
     });
 
     // 给容器增加标识，知道图表的来源区别于 G2

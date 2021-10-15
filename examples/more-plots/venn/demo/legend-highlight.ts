@@ -12,11 +12,22 @@ const plot = new Venn('container', {
   ],
   setsField: 'sets',
   sizeField: 'size',
-  pointStyle: { fillOpacity: 0.8 },
-  padding: [0, 10],
   interactions: [
-    { type: 'venn-element-active', enable: true },
-    { type: 'venn-element-selected', enable: true },
+    {
+      type: 'legend-highlight',
+      cfg: {
+        // 自定义图例高亮交互的触发行为
+        start: [
+          {
+            trigger: 'legend-item:click',
+            action: ['legend-item-highlight:highlight', 'venn-element-highlight:highlight'],
+          },
+        ],
+        end: [
+          { trigger: 'legend-item:dblclick', action: ['legend-item-highlight:reset', 'venn-element-highlight:reset'] },
+        ],
+      },
+    },
   ],
 });
 plot.render();

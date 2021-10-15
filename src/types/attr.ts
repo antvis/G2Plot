@@ -6,7 +6,7 @@ import { Datum } from './common';
 export type ShapeStyle = ShapeAttrs;
 
 /** 颜色映射 */
-export type ColorAttr = string | string[] | ((datum: Datum) => string) | object;
+export type ColorAttr = string | string[] | ((datum: Datum, defaultColor?: string) => string);
 /** pattern 映射*/
 export type PatternAttr =
   | CanvasPattern

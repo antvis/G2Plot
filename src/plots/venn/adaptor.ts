@@ -19,7 +19,7 @@ import { CustomInfo, VennData, VennOptions } from './types';
 import { ID_FIELD } from './constant';
 import './shape';
 import './label';
-import './interaction';
+import './interactions';
 
 /** 图例默认预留空间 */
 export const LEGEND_SPACE = 40;
@@ -29,15 +29,15 @@ export const LEGEND_SPACE = 40;
  */
 function colorMap(params: Params<VennOptions>, data: VennData, colorPalette?: string[]) {
   const { chart, options } = params;
-  const { setsField } = options;
+  const { blendMode, setsField } = options;
   const { colors10, colors20 } = chart.getTheme();
   let palette = colorPalette;
   if (!isArray(palette)) {
     palette = data.filter((d) => d[setsField].length === 1).length <= 10 ? colors10 : colors20;
   }
-  const colorMap = getColorMap(palette, data, options);
+  const map = getColorMap(palette, data, blendMode, setsField);
 
-  return (id: string) => colorMap.get(id) || palette[0];
+  return (id: string) => map.get(id) || palette[0];
 }
 
 /**
@@ -49,7 +49,8 @@ function transformColor(params: Params<VennOptions>, data: VennData): VennOption
 
   if (typeof color !== 'function') {
     const colorPalette = typeof color === 'string' ? [color] : color;
-    return (datum: Datum) => colorMap(params, data, colorPalette)(datum[ID_FIELD]);
+    const map = colorMap(params, data, colorPalette);
+    return (datum: Datum) => map(datum[ID_FIELD]);
   }
   return color;
 }
@@ -173,7 +174,7 @@ function label(params: Params<VennOptions>): Params<VennOptions> {
   const { label } = options;
 
   // 获取容器大小
-  const [t, r, b, l] = normalPadding(chart.appendPadding);
+  const [t, , , l] = normalPadding(chart.appendPadding);
   // 传入 label 布局函数所需的 自定义参数
   const customLabelInfo = { offsetX: l, offsetY: t };
 
@@ -224,6 +225,35 @@ export function axis(params: Params<VennOptions>): Params<VennOptions> {
 }
 
 /**
+ * 韦恩图 interaction 交互适配器
+ */
+function vennInteraction(params: Params<VennOptions>): Params<VennOptions> {
+  const { options, chart } = params;
+  const { interactions } = options;
+
+  if (interactions) {
+    const MAP = {
+      'legend-active': 'venn-legend-active',
+      'legend-highlight': 'venn-legend-highlight',
+    };
+    interaction(
+      deepAssign({}, params, {
+        options: {
+          interactions: interactions.map((i) => ({
+            ...i,
+            type: MAP[i.type] || i.type,
+          })),
+        },
+      })
+    );
+  }
+
+  chart.removeInteraction('legend-active');
+  chart.removeInteraction('legend-highlight');
+  return params;
+}
+
+/**
  * 图适配器
  * @param chart
  * @param options
@@ -240,7 +270,7 @@ export function adaptor(params: Params<VennOptions>) {
     legend,
     axis,
     tooltip,
-    interaction,
+    vennInteraction,
     animation
     // ... 其他的 adaptor flow
   )(params);

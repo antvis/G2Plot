@@ -13,10 +13,15 @@ const plot = new Venn('container', {
   setsField: 'sets',
   sizeField: 'size',
   pointStyle: { fillOpacity: 0.8 },
-  padding: [0, 10],
   interactions: [
-    { type: 'venn-element-active', enable: true },
-    { type: 'venn-element-selected', enable: true },
+    {
+      type: 'legend-active',
+      cfg: {
+        // 自定义图例激活交互的触发行为和反馈
+        start: [{ trigger: 'legend-item:click', action: ['list-active:active', 'venn-element-active:active'] }],
+        end: [{ trigger: 'legend-item:dblclick', action: ['list-active:reset', 'venn-element-active:reset'] }],
+      },
+    },
   ],
 });
 plot.render();

@@ -24,6 +24,10 @@ Configure the chart data source. For example：
    ];
 ```
 
+```sign
+💡 注意：这里的数据是包含交集部分的数据量的。如上数据源，含有两个集合：`A` 和 `B`, 其中：`{ sets: ['A'], size: 5 }` 代表的是含有 A 集合的有 5 个（其实有 2 个是包含 B 集合的）
+```
+
 #### setsField
 
 <description>**optional** _string_</description>
@@ -135,14 +139,16 @@ Default configuration:
 `markdown:docs/common/tooltip.en.md`
 
 
-### Plot Interactions
+### Plot Interactions ✨
 
 There are interactions for venn diagrams, listed below:
 
 | interaction | description | configuration method |
 | ---|--|--|
-| venn-element-active | enable the "mouse-over venn diagram element triggers active" interaction | `interactions:[{ type: 'venn-element-active', enabled: true }]` |
-| venn-element-selected | enable the interaction "trigger selected when mouse clicked on venn diagram element", multiple options available | `interactions:[{ type: 'venn-element-selected', enabled: true }]` |
+| venn-element-active | enable the "mouse-over venn diagram element triggers active" interaction | `interactions:[{ type: 'venn-element-active'}]` |
+| venn-element-selected | enable the interaction "trigger selected when mouse clicked on venn diagram element", multiple options available | `interactions:[{ type: 'venn-element-selected'}]` |
+| venn-element-single-selected | enable the interaction "trigger selected when mouse clicked on venn diagram element", single selected | `interactions:[{ type: 'venn-element-single-selected'}]` |
+| venn-element-highlight | enable the interaction "trigger highlight when mouse clicked on venn diagram element" | `interactions:[{ type: 'venn-element-highlight'}]` |
 
 `markdown:docs/common/interactions.en.md`
 

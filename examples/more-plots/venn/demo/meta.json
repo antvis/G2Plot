@@ -59,6 +59,42 @@
         "en": "venn plot - with element action"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/x%24Jxds2L2T/0ff5000b-d23e-49a8-a02a-4eb02d7a8e47.png"
+    },
+    {
+      "filename": "element-active.ts",
+      "title": {
+        "zh": "自定义韦恩图元素激活交互",
+        "en": "Custom venn element active"
+      },
+      "new": true,
+      "screenshot": ""
+    },
+    {
+      "filename": "element-highlight.ts",
+      "title": {
+        "zh": "自定义韦恩图元素高亮交互",
+        "en": "Custom venn element highlight"
+      },
+      "new": true,
+      "screenshot": ""
+    },
+    {
+      "filename": "legend-active.ts",
+      "title": {
+        "zh": "自定义韦恩图图例激活交互",
+        "en": "Custom venn legend active"
+      },
+      "new": true,
+      "screenshot": ""
+    },
+    {
+      "filename": "legend-highlight.ts",
+      "title": {
+        "zh": "自定义韦恩图图例高亮交互",
+        "en": "Custom venn legend highlight"
+      },
+      "new": true,
+      "screenshot": ""
     }
   ]
 }

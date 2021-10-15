@@ -132,4 +132,6 @@ export type Options = {
   readonly state?: State;
   /** 是否对超出坐标系范围的 Geometry 进行剪切 */
   readonly limitInPlot?: boolean;
+  /** 内置注册的交互 */
+  readonly defaultInteractions?: string[];
 };

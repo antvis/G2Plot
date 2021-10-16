@@ -306,17 +306,16 @@ function label(params: Params<BidirectionalBarOptions>): Params<BidirectionalBar
       // 设置 textAlign 默认值
       const textAlign = leftLabelCfg.style?.textAlign || (cfg.position === 'middle' ? 'center' : 'left');
       cfg.style = deepAssign({}, cfg.style, { textAlign });
-      leftLabelCfg.style = deepAssign({}, leftLabelCfg.style, {
-        textAlign: textAlign === 'left' ? 'right' : textAlign === 'right' ? 'left' : 'center',
-      });
+      const textAlignMap = { left: 'right', right: 'left', center: 'center' };
+      leftLabelCfg.style = deepAssign({}, leftLabelCfg.style, { textAlign: textAlignMap[textAlign] });
     } else {
-      cfg.position = leftLabelCfg.position === 'top' ? 'bottom' : leftLabelCfg.position === 'bottom' ? 'top' : 'middle';
+      const positionMap = { top: 'bottom', bottom: 'top', middle: 'middle' };
+      cfg.position = positionMap[leftLabelCfg.position];
       // 设置 textBaseline 默认值
       const textBaseline = leftLabelCfg.style?.textBaseline || 'bottom';
       leftLabelCfg.style = deepAssign({}, leftLabelCfg.style, { textBaseline });
-      cfg.style = deepAssign({}, cfg.style, {
-        textBaseline: textBaseline === 'top' ? 'bottom' : textBaseline === 'bottom' ? 'top' : 'middle',
-      });
+      const textBaselineMap = { top: 'bottom', bottom: 'top', middle: 'middle' };
+      cfg.style = deepAssign({}, cfg.style, { textBaseline: textBaselineMap[textBaseline] });
     }
 
     leftGeometry.label({

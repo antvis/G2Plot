@@ -1,3 +1,24 @@
+#### 2.3.37 (2021-10-16)
+
+##### Documentation Changes
+
+*  demo 增加说明 ([ee5bc822](https://github.com/antvis/g2plot/commit/ee5bc8225b5032e633d7bdc774b8c23d45efc615))
+* **heatmap:**  通过 iframe 嵌入语雀图表指引文档 ([6a00f9b8](https://github.com/antvis/g2plot/commit/6a00f9b87477b14a1c5d3206bfbab54b0a9b1004))
+
+##### New Features
+
+* **venn:**
+  *  韦恩图交互增强（修复图例激活元素交互 & 增强 active、highlight、selected 交互） ([#2911](https://github.com/antvis/g2plot/pull/2911)) ([ed5b71e2](https://github.com/antvis/g2plot/commit/ed5b71e22492b94d1157a6cb7c3f92e130ee1e45))
+  *  韦恩图颜色回调重构 ([#2909](https://github.com/antvis/g2plot/pull/2909)) ([c3694961](https://github.com/antvis/g2plot/commit/c36949619512467024d7458f5d07b01e026615e6))
+* **sunburst:**
+  *  丰富旭日图交互, 点击中心可以上卷 ([#2903](https://github.com/antvis/g2plot/pull/2903)) ([a8758fac](https://github.com/antvis/g2plot/commit/a8758fac13fa4fdb44e93297e7fedbd46f8d7d97))
+  *  旭日图增加 activeDepth 配置,允许配置默认展示的层级深度 ([#2902](https://github.com/antvis/g2plot/pull/2902)) ([b3920c9d](https://github.com/antvis/g2plot/commit/b3920c9d9cf83e9b37059f733bd344658c33e8c7))
+
+##### Bug Fixes
+
+* **box:**  修复箱形图异常点 view 的 label 只能展示一个 ([#2913](https://github.com/antvis/g2plot/pull/2913)) ([994c75d3](https://github.com/antvis/g2plot/commit/994c75d3ad585c582451ec6fd7b9319c4ff233e0))
+* **funnel:** 漏斗图 do not mutable data ([#2900](https://github.com/antvis/g2plot/pull/2900)) ([d92443e1](https://github.com/antvis/g2plot/commit/d92443e1d370b06f8ba86001aee1e51676dac5ca))
+
 #### 2.3.36 (2021-10-08)
 
 ##### Documentation Changes

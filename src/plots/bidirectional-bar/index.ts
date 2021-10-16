@@ -20,6 +20,9 @@ export class BidirectionalBar extends Plot<BidirectionalBarOptions> {
     });
   }
 
+  /** 对称条形图分类字段 */
+  static SERIES_FIELD_KEY = SERIES_FIELD_KEY;
+
   /** 图表类型 */
   public type: string = 'bidirectional-bar';
 

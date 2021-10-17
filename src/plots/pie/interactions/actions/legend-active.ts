@@ -1,7 +1,7 @@
 import { IElement, IGroup } from '@antv/g-base';
 import { Util, Element, Action } from '@antv/g2';
 import { isEqual } from '@antv/util';
-import { transform } from '../../../utils/matrix';
+import { transform } from '../../../../utils/matrix';
 
 /**
  * 饼图 图例激活 action

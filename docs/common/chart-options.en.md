@@ -46,6 +46,12 @@ Set the pixel ratio of the chart.
 
 Whether clip the Geometry beyond the coordinate system。
 
+#### supportCSSTransform
+
+<description>**optional** _boolean_</description>
+
+支持 CSS transform，开启后图表的交互以及事件将在页面设置了 css transform 属性时生效，默认关闭。
+
 <!-- 先插入到这里 -->
 #### locale
 

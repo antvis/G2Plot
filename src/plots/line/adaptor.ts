@@ -1,5 +1,5 @@
 import { Geometry } from '@antv/g2';
-import { each } from '@antv/util';
+import { each, isArray } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, slider, interaction, animation, theme, scale, annotation, limitInPlot } from '../../adaptor/common';
 import { findGeometry, transformLabel, deepAssign } from '../../utils';
@@ -69,6 +69,26 @@ export function meta(params: Params<LineOptions>): Params<LineOptions> {
       }
     )
   )(params);
+}
+
+/**
+ * 坐标系配置. 支持 reflect 镜像处理
+ * @param params
+ */
+function coordinate(params: Params<LineOptions>): Params<LineOptions> {
+  const { chart, options } = params;
+  const { reflect } = options;
+  if (reflect) {
+    let p = reflect as any;
+    if (!isArray(p)) {
+      p = [p];
+    }
+    const actions = p.map((d) => ['reflect', d]);
+
+    chart.coordinate({ type: 'rect', actions });
+  }
+
+  return params;
 }
 
 /**
@@ -174,6 +194,7 @@ export function adaptor(params: Params<LineOptions>) {
     meta,
     adjust,
     theme,
+    coordinate,
     axis,
     legend,
     tooltip,

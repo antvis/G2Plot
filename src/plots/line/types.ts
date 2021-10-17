@@ -22,4 +22,7 @@ export interface LineOptions extends Options {
   readonly lineShape?: Required<LineGeometryOptions>['line']['shape'];
   /** 折线数据点：1、图形映射属性 2、状态样式 */
   readonly point?: PointGeometryOptions['point'] & Pick<PointGeometryOptions, 'state'>;
+
+  // 支持坐标系配置
+  readonly reflect?: 'x' | 'y' | ['x', 'y'];
 }

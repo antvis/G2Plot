@@ -9,6 +9,14 @@ order: 0
 
 ### Data Mapping
 
+### Coordinate
+
+#### reflect
+
+<description>**optional** _'x' | 'y' | ['x', 'y']_</description>
+
+Apply `reflect` transform to the coordinate of line plot. When `reflect: 'y'` is set, y-axis can be inverted; in the same way, you can set `reflect: 'x'` to invert x-axis, and invert x-axis and y-axis at the same time is also supported.
+
 #### data
 
 <description>**required** _array object_</description>

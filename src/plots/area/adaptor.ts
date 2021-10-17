@@ -66,7 +66,10 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
       },
     },
   });
-  const second = deepAssign({}, primary, { options: { tooltip: false } });
+  // 线默认 2px
+  const second = deepAssign({ options: { line: { size: 2 } } }, primary, {
+    options: { sizeField: seriesField, tooltip: false },
+  });
   const pointParams = deepAssign({}, primary, { options: { tooltip: false, state: pointState } });
 
   // area geometry 处理

@@ -10,8 +10,6 @@ export interface HeatmapOptions extends Options {
   readonly yField: string;
   /** 颜色字段，可选 */
   readonly colorField?: string;
-  /** 点大小映射对应的数据字段名，可选 */
-  readonly sizeField?: string;
   /** 热力格子中的形状，可选 */
   readonly shape?: string;
   /** 热力格子中图形的尺寸比例，可选，只有当 shape 和 sizeField 至少指定一项后才生效 */
@@ -20,6 +18,12 @@ export interface HeatmapOptions extends Options {
   readonly reflect?: 'x' | 'y';
   /** 极坐标属性 */
   readonly coordinate?: Types.CoordinateOption;
+
+  // 图例相关
+  /** 点大小映射对应的数据字段名，可选 */
+  readonly sizeField?: string;
+  /** size 对应的图例 */
+  readonly sizeLegend?: Options['legend'];
 
   // 样式相关
   /** 热力图形样式 */

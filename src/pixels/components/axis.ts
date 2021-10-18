@@ -4,6 +4,7 @@ import { DIRECTION } from '../type';
 import { Axis as AxisOption } from '../../types/axis';
 import { PixelPlot } from '../index';
 import { getAxisRegion, getVerticalFactor } from '../util/axis';
+import { getTicks } from '../util/scale';
 import { Controller } from './base';
 
 export class AxisController extends Controller<AxisOption> {
@@ -36,6 +37,11 @@ export class AxisController extends Controller<AxisOption> {
     if (this.yAxisComponent) this.yAxisComponent.render();
   }
 
+  public clear() {
+    if (this.xAxisComponent) this.xAxisComponent.clear();
+    if (this.yAxisComponent) this.yAxisComponent.clear();
+  }
+
   /**
    * 销毁所有轴
    */
@@ -61,7 +67,13 @@ export class AxisController extends Controller<AxisOption> {
     // 默认渲染在背景层
     const canvas = axisOption['top'] ? 'foregroundCanvas' : 'backgroundCanvas';
     // 根据字段生成对应的比例尺, 以生成 ticks
-    const scale = this.pixelPlot.createScale(field, axisOption);
+    let scale = this.pixelPlot.getScale(field);
+    if (!scale) {
+      scale = this.pixelPlot.createScale(field, axisOption);
+    }
+    // 如果是 brush 交互，使用 临时的 tempScales
+    scale = this.pixelPlot.getTempScale(field) || scale;
+
     // 确定轴的方向：x或y
     const dir = get(axisOption, 'position', direction);
     // 轴的刻度和文字方向
@@ -74,7 +86,7 @@ export class AxisController extends Controller<AxisOption> {
         id: field,
         container: this.pixelPlot[canvas].addGroup(),
         ...region,
-        ticks: scale.getTicks().map((item) => ({ id: item.value, name: item.text, value: item.value })),
+        ticks: getTicks(scale),
         verticalFactor,
         animate: true,
         label: {
@@ -91,17 +103,12 @@ export class AxisController extends Controller<AxisOption> {
    * 更新所有轴
    */
   public update() {
-    const { xAxis, yAxis } = this.pixelPlot.options;
-    const pixelBBox = this.pixelPlot.pixelBBox;
+    const { xAxis, yAxis, xField, yField } = this.pixelPlot.options;
 
-    const xAxisDir = get(xAxis, 'position', DIRECTION.BOTTOM);
-    const xRegion = getAxisRegion(pixelBBox, xAxisDir);
+    const xAxisCfg = this.getAxisCfg(xField, xAxis, DIRECTION.BOTTOM);
+    const yAxisCfg = this.getAxisCfg(yField, yAxis, DIRECTION.LEFT);
 
-    const yAxisDir = get(yAxis, 'position', DIRECTION.LEFT);
-    const yRegion = getAxisRegion(pixelBBox, yAxisDir);
-
-    // todo 拿到关于轴的新配置后，update
-    if (this.xAxisComponent) this.xAxisComponent.update(xRegion);
-    if (this.yAxisComponent) this.yAxisComponent.update(yRegion);
+    if (this.xAxisComponent) this.xAxisComponent.update(xAxisCfg);
+    if (this.yAxisComponent) this.yAxisComponent.update(yAxisCfg);
   }
 }

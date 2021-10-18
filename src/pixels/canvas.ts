@@ -1,7 +1,7 @@
 import { Canvas } from '@antv/g-canvas';
 import { getScale } from '@antv/scale';
 import { Scale } from '@antv/g2';
-import { deepMix, min, max, uniqueId, debounce } from '@antv/util';
+import { deepMix, clone, uniqueId, debounce } from '@antv/util';
 import { getContainerSize, pick } from '../utils';
 import { Axis as AxisOption } from '../types/axis';
 import { AXIS_META_CONFIG_KEYS } from '../constant';
@@ -9,6 +9,7 @@ import { BBox, Datum, Options, ScaleMeta, ScaleOption } from './type';
 import { DEFAULT_OPTIONS } from './constant';
 import { getPaddingInfo, changeCanvasSize, setCanvasPosition } from './util/canvas';
 import { getDefaultMetaType } from './util/scale';
+import * as KD from './mock/kdbox';
 
 /**
  * 基于原生 canvas 绘制的 plot
@@ -32,7 +33,13 @@ export abstract class CanvasPlot<O extends Options> {
   /** 像素图包围盒：viewBBox - padding */
   public pixelBBox: BBox;
   /** 存储所有的scale */
-  public scales = new Map<string, ScaleMeta>();
+  protected scales = new Map<string, ScaleMeta>();
+  /** 存储过滤之后的scale */
+  protected filterScales = new Map<string, Scale>();
+  /** 绘制像素图数据 */
+  protected pixelData: number[];
+  /** brush等交互过滤后的像素图数据 */
+  protected filterPixelData: number[];
 
   constructor(container: string | HTMLElement, options: O) {
     this.container = typeof container === 'string' ? document.getElementById(container) : container;
@@ -212,7 +219,19 @@ export abstract class CanvasPlot<O extends Options> {
   /**
    * 密度趋势图有单独的绘制方法
    */
-  protected abstract renderMidCanvas();
+  protected abstract renderMidCanvas(data: number[]);
+
+  /**
+   * 密度趋势图有单独的绘制方法
+   */
+  protected updateOptions(options: O) {
+    this.options = deepMix(this.options, options);
+  }
+
+  public update(options?: O) {
+    this.updateOptions(options);
+    this.updateComponents();
+  }
 
   /**
    * 渲染
@@ -220,9 +239,9 @@ export abstract class CanvasPlot<O extends Options> {
   public render() {
     // 处理render前所需的data：像素图数据pixelData
     this.processData();
-
     // 绘制：画布和组件
-    this.renderMidCanvas();
+    const data = this.filterPixelData || this.pixelData;
+    this.renderMidCanvas(data);
     this.renderComponents();
   }
 
@@ -256,13 +275,73 @@ export abstract class CanvasPlot<O extends Options> {
    */
   private getScaleCfg(meta: Record<string, ScaleOption>, field: string, data: Datum[]) {
     // 给定默认值： type、values、range
-    const type = meta[field]?.type || getDefaultMetaType(field, data); // 根据数据类型，给定默认的 type
+    let type = meta[field]?.type || getDefaultMetaType(field, data); // 根据数据类型，给定默认的 type
     const range = meta[field]?.range || [0, 1]; // range默认 [0, 1]
-    const values = meta[field]?.values || data.map((item) => item[field]);
+    const values = meta[field]?.values || [];
 
-    const cfg = { type, values, range, nice: true };
+    // 模拟kd算法返回的 最大最小 domain值
+    const valuesInfo = KD.getValuesRange(field);
+    const { min, max } = valuesInfo;
+    type = valuesInfo.type;
+
+    const cfg = { type, values, range, ...this.processCfgByType(min, max, type) };
 
     return deepMix({}, cfg, meta[field]);
+  }
+
+  /**
+   * 根据不同类型的比例尺处理 scale所需的 min max
+   */
+  private processCfgByType(minValue: number, maxValue: number, type: string) {
+    let minLimit, maxLimit, min, max, nice, tickMethod;
+
+    if (type === 'time') {
+      tickMethod = 'time';
+      min = new Date(minValue).getTime();
+      max = new Date(maxValue).getTime();
+      nice = false;
+    } else if (type === 'linear') {
+      minLimit = minValue;
+      maxLimit = maxValue;
+      nice = true;
+    }
+
+    return { minLimit, maxLimit, min, max, nice, tickMethod };
+  }
+
+  /**
+   * 根据字段获取 scale
+   */
+  public getScale(field: string) {
+    return this.scales.get(field)?.scale;
+  }
+
+  /**
+   * 创建临时比例尺
+   * @return tempScale 根据 brush 交互创建临时比例尺
+   */
+  public createTempScale(field: string, min: any, max: any) {
+    const scale = this.getScale(field);
+    const tempScale = clone(scale);
+
+    tempScale.change({
+      ...this.processCfgByType(min, max, tempScale.type),
+    });
+
+    this.filterScales.set(field, tempScale);
+
+    return tempScale;
+  }
+
+  /**
+   * 根据字段获取 tempScale
+   */
+  public getTempScale(field: string) {
+    return this.filterScales.get(field);
+  }
+
+  public clearTempScale() {
+    this.filterScales.clear();
   }
 
   /**

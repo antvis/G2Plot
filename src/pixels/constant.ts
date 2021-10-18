@@ -24,4 +24,7 @@ export const DEFAULT_OPTIONS = {
       },
     },
   },
+  brushZoom: {
+    type: 'xy',
+  },
 };

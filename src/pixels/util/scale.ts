@@ -1,3 +1,4 @@
+import { Scale } from '@antv/g2';
 import { isNumber, isString, isDate } from '@antv/util';
 
 /**
@@ -10,4 +11,8 @@ export function getDefaultMetaType(field: string, data: any[]) {
   if (isString(value)) type = 'cat';
   if (isDate(value) || !isNaN(Date.parse(value))) type = 'time';
   return type;
+}
+
+export function getTicks(scale: Scale) {
+  return scale.getTicks().map((item) => ({ id: `${item.value}`, name: item.text, value: item.value }));
 }

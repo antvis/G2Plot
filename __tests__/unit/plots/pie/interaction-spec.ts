@@ -4,7 +4,7 @@ import { deepMix } from '@antv/util';
 import { delay } from '../../../utils/delay';
 import { createDiv } from '../../../utils/dom';
 import { Pie } from '../../../../src';
-import { StatisticAction } from '../../../../src/plots/pie/interactions/pie-statistic-action';
+import { StatisticAction } from '../../../../src/plots/pie/interactions/actions/statistic-active';
 import { transformStatisticOptions } from '../../../../src/plots/pie/adaptor';
 
 describe('register interaction', () => {

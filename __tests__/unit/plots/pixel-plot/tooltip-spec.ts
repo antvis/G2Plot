@@ -3,7 +3,6 @@ import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
 import { PIXEL_DATA } from '../../../data/pixels';
 import { LARGE_DATA } from '../../../data/large-data';
-import { tooltipInfo } from '../../../../src/pixels/mock/data';
 
 describe('pixel-line tooltip', () => {
   const div = createDiv();
@@ -201,7 +200,7 @@ describe('pixel-line tooltip', () => {
     const plot = new PixelPlot(div, {
       ...defaultOptions,
       tooltip: {
-        customContent: (title, data) => {
+        customContent: (title) => {
           return `<div class="g2-tooltip">${title}</div>`;
         },
       },

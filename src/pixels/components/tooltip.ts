@@ -127,7 +127,7 @@ export class TooltipController extends Controller<ToolOptions> {
   /**
    * 显示 Tooltip
    */
-  private showTooltip(point: Point, pixelPoint: Point) {
+  private showTooltip(point: Point) {
     const { tooltip, xField } = this.pixelPlot.options;
 
     if (tooltip === false) return;
@@ -214,7 +214,7 @@ export class TooltipController extends Controller<ToolOptions> {
     this.tooltipMarkerGroup = this.pixelPlot.foregroundCanvas.addGroup();
 
     // 模拟：获取原始 tooltip 数据
-    const items = this.getTooltipInfo();
+    // const items = this.getTooltipInfo();
     // 尝试引入 getCrossPoints 方法，绘制 marker
     const { x, y } = point;
     const { position } = this.pixelPlot.TVSTree.getCrossPoints(x, y);

@@ -1,6 +1,5 @@
 import { Canvas } from '@antv/g-canvas';
 import { getScale } from '@antv/scale';
-import { Scale } from '@antv/g2';
 import { deepMix, min, max, uniqueId, debounce } from '@antv/util';
 import { getContainerSize, pick } from '../utils';
 import { Axis as AxisOption } from '../types/axis';

@@ -10,8 +10,8 @@ export const DEFAULT_OPTIONS = {
     follow: true,
     offset: 20,
     showTitle: true,
-    showContent: true,
-    showCrosshairs: true,
+    showContent: false,
+    showCrosshairs: false,
     showMarkers: true,
     crosshairs: {
       type: 'x',

@@ -1,5 +1,5 @@
 import { IGroup } from '@antv/g-canvas';
-import { size, isNil, uniq, clone } from '@antv/util';
+import { uniq, clone } from '@antv/util';
 import { CanvasPlot } from './canvas';
 import { PixelPlotOptions } from './type';
 import { TooltipController } from './components/tooltip';
@@ -118,7 +118,7 @@ export class PixelPlot extends CanvasPlot<PixelPlotOptions> {
         this.tooltipController.show(evt);
       });
 
-      this.foregroundCanvas.on('mouseleave', (evt) => {
+      this.foregroundCanvas.on('mouseleave', () => {
         this.hideLines();
         this.tooltipController.hide();
       });

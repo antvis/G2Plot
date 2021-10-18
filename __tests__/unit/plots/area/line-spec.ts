@@ -47,7 +47,7 @@ describe('area', () => {
     const point = area.chart.geometries.find((g: Geometry) => g.type === 'line');
     expect(point.shapeType).toBe('line');
     // @ts-ignore
-    expect(point.attributeOption.size.values).toEqual([2]);
+    expect(point.attributeOption.size.values).toEqual(2);
     // @ts-ignore
     // expect(point.attributeOption.shape.values).toEqual(['circle']);
 

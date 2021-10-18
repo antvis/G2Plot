@@ -310,7 +310,11 @@ function label(params: Params<BidirectionalBarOptions>): Params<BidirectionalBar
       leftLabelCfg.style = deepAssign({}, leftLabelCfg.style, { textAlign: textAlignMap[textAlign] });
     } else {
       const positionMap = { top: 'bottom', bottom: 'top', middle: 'middle' };
-      cfg.position = positionMap[leftLabelCfg.position];
+      if (typeof cfg.position === 'string') {
+        cfg.position = positionMap[cfg.position];
+      } else if (typeof cfg.position === 'function') {
+        cfg.position = (...args) => positionMap[(cfg.position as Function).apply(this, args)];
+      }
       // 设置 textBaseline 默认值
       const textBaseline = leftLabelCfg.style?.textBaseline || 'bottom';
       leftLabelCfg.style = deepAssign({}, leftLabelCfg.style, { textBaseline });

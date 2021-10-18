@@ -15,6 +15,7 @@ Promise.all([fetchRawData(), fetchPixelData()]).then(([rawData, pixelData]) => {
   const plot = new PixelPlot('container', {
     rawData,
     pixelData, // 暂时以外部方式请求拿到 pixels数据，接口内置后取消该写法
+    autoFit: false,
     width: 1100,
     height: 600,
     padding: 50,

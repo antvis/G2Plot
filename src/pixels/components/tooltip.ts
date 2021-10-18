@@ -213,8 +213,11 @@ export class TooltipController extends Controller<ToolOptions> {
     if (this.tooltipMarkerGroup) this.tooltipMarkerGroup.destroy();
     this.tooltipMarkerGroup = this.pixelPlot.foregroundCanvas.addGroup();
 
-    // 获取原始 tooltip 数据
+    // 模拟：获取原始 tooltip 数据
     const items = this.getTooltipInfo();
+    // 尝试引入 getCrossPoints 方法，绘制 marker
+    const { x, y } = point;
+    const { position } = this.pixelPlot.TVSTree.getCrossPoints(x, y);
 
     // 绘制 marker
     const defaultMarkerAttrs = {
@@ -223,19 +226,19 @@ export class TooltipController extends Controller<ToolOptions> {
       stroke: '#fff',
       lineWidth: 2,
     };
-    for (const item of items) {
-      const attrs = deepMix(
-        defaultMarkerAttrs,
-        {
-          x: point.x, // item.x
-          y: item.y,
-          shadowColor: item['color'],
-          fill: item['color'],
-        },
-        markerOption
-      );
-      this.tooltipMarkerGroup.addShape('marker', { attrs });
-    }
+    // for (const item of items) {
+    const attrs = deepMix(
+      defaultMarkerAttrs,
+      {
+        x: position.x,
+        y: position.y,
+        shadowColor: '#1890FF',
+        fill: '#1890FF',
+      },
+      markerOption
+    );
+    this.tooltipMarkerGroup.addShape('marker', { attrs });
+    // }
   }
 
   /**

@@ -23,6 +23,13 @@ export type Options = {
   yAxis?: Axis;
   /** tooltip 的配置项 */
   tooltip?: Tooltip;
+  /** 交互配置项 */
+  interactions?: Interaction[];
+};
+
+type Interaction = {
+  type: string;
+  enabled?: boolean;
 };
 
 export interface PixelPlotOptions extends Options {

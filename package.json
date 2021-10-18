@@ -61,7 +61,11 @@
     "d3-regression": "^1.3.5",
     "pdfast": "^0.2.0",
     "size-sensor": "^1.0.1",
-    "tslib": "^2.0.3"
+    "tslib": "^2.0.3",
+    "heap": "^0.2.6",
+    "ml-kmeans": "^5.0.0",
+    "rbush-3d": "^0.0.4",
+    "tinyqueue": "^2.0.3"
   },
   "devDependencies": {
     "@antv/data-set": "^0.11.5",

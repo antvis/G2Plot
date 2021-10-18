@@ -65,7 +65,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
   }
 
   /** plot 类型名称 */
-  public abstract readonly type: string = 'base';
+  public abstract readonly type: string;
   /** plot 的 schema 配置 */
   public options: O;
   /** plot 绘制的 dom */

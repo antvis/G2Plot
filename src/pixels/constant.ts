@@ -24,4 +24,5 @@ export const DEFAULT_OPTIONS = {
       },
     },
   },
+  interactions: [{ type: 'element-active' }],
 };

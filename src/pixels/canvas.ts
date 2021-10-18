@@ -258,9 +258,17 @@ export abstract class CanvasPlot<O extends Options> {
     // 给定默认值： type、values、range
     const type = meta[field]?.type || getDefaultMetaType(field, data); // 根据数据类型，给定默认的 type
     const range = meta[field]?.range || [0, 1]; // range默认 [0, 1]
-    const values = meta[field]?.values || data.map((item) => item[field]);
+    const values = data.map((item) => {
+      if (type === 'time') {
+        return new Date(item[field]).getTime();
+      } else {
+        return item[field];
+      }
+    });
+    const minValue = min(values);
+    const maxValue = max(values);
 
-    const cfg = { type, values, range, nice: true };
+    const cfg = { type, range, min: minValue, max: maxValue };
 
     return deepMix({}, cfg, meta[field]);
   }

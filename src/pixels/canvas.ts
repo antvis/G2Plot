@@ -228,7 +228,7 @@ export abstract class CanvasPlot<O extends Options> {
   /**
    * 创建比例尺
    */
-  public createScale(field: string, option: AxisOption): Scale {
+  public createScale(field: string, option: AxisOption) {
     const { meta, rawData } = this.options;
     // 在 axis 的配置中，融合 meta 的部分属性
     const axisMetaOption = pick(option, AXIS_META_CONFIG_KEYS);

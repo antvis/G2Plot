@@ -56,7 +56,7 @@ export class TooltipController extends Controller<ToolOptions> {
         y: point.y - pixelBBox.y,
       };
 
-      if (tooltip['showContent']) this.showTooltip(point, pixelPoint);
+      if (tooltip['showContent']) this.showTooltip(point);
 
       if (tooltip['showCrosshairs']) {
         const type = get(tooltip, ['crosshairs', 'type'], 'x');

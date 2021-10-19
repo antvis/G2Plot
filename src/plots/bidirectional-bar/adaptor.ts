@@ -76,10 +76,7 @@ function geometry(params: Params<BidirectionalBarOptions>): Params<Bidirectional
       },
       id: SECOND_AXES_VIEW,
     });
-    secondView
-      .coordinate()
-      .reflect('y')
-      .rotate(Math.PI * 0); // 旋转
+    secondView.coordinate().reflect('y');
 
     firstView.data(firstViewData);
     secondView.data(secondViewData);
@@ -277,12 +274,12 @@ export function animation(params: Params<BidirectionalBarOptions>): Params<Bidir
 }
 
 /**
- * label 配置
+ * label 配置 (1. 设置 offset 偏移量默认值 2. leftView 偏移量需要 *= -1)
  * @param params
  */
 function label(params: Params<BidirectionalBarOptions>): Params<BidirectionalBarOptions> {
   const { chart, options } = params;
-  const { label, yField } = options;
+  const { label, yField, layout } = options;
 
   const firstView = findViewById(chart, FIRST_AXES_VIEW);
   const secondView = findViewById(chart, SECOND_AXES_VIEW);
@@ -294,10 +291,41 @@ function label(params: Params<BidirectionalBarOptions>): Params<BidirectionalBar
     rightGeometry.label(false);
   } else {
     const { callback, ...cfg } = label;
+    /** ---- 设置默认配置 ---- */
+    // 默认居中
+    if (!cfg.position) {
+      cfg.position = 'middle';
+    }
+    if (cfg.offset === undefined) {
+      cfg.offset = 2;
+    }
+
+    /** ---- leftView label 设置 ---- */
+    const leftLabelCfg = { ...cfg };
+    if (isHorizontal(layout)) {
+      // 设置 textAlign 默认值
+      const textAlign = leftLabelCfg.style?.textAlign || (cfg.position === 'middle' ? 'center' : 'left');
+      cfg.style = deepAssign({}, cfg.style, { textAlign });
+      const textAlignMap = { left: 'right', right: 'left', center: 'center' };
+      leftLabelCfg.style = deepAssign({}, leftLabelCfg.style, { textAlign: textAlignMap[textAlign] });
+    } else {
+      const positionMap = { top: 'bottom', bottom: 'top', middle: 'middle' };
+      if (typeof cfg.position === 'string') {
+        cfg.position = positionMap[cfg.position];
+      } else if (typeof cfg.position === 'function') {
+        cfg.position = (...args) => positionMap[(cfg.position as Function).apply(this, args)];
+      }
+      // 设置 textBaseline 默认值
+      const textBaseline = leftLabelCfg.style?.textBaseline || 'bottom';
+      leftLabelCfg.style = deepAssign({}, leftLabelCfg.style, { textBaseline });
+      const textBaselineMap = { top: 'bottom', bottom: 'top', middle: 'middle' };
+      cfg.style = deepAssign({}, cfg.style, { textBaseline: textBaselineMap[textBaseline] });
+    }
+
     leftGeometry.label({
       fields: [yField[0]],
       callback,
-      cfg: transformLabel(cfg),
+      cfg: transformLabel(leftLabelCfg),
     });
     rightGeometry.label({
       fields: [yField[1]],

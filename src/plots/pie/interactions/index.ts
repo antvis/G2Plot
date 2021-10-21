@@ -1,6 +1,6 @@
 import { registerAction, registerInteraction } from '@antv/g2';
-import { PieLegendAction } from './pie-legend-action';
-import { StatisticAction } from './pie-statistic-action';
+import { PieLegendAction } from './actions/legend-active';
+import { StatisticAction } from './actions/statistic-active';
 
 export const PIE_STATISTIC = 'pie-statistic';
 

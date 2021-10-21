@@ -87,7 +87,9 @@ order: 2
 
 <description>**可选** _string_</description>
 
-需要搭配 [`registerShape`](https://g2.antv.vision/zh/docs/api/advanced/register-shape) 使用. [Demo](/zh/examples/column/basic#custom-shape)
+内置 shape 类型有：`hollow-rect`, `tick`; 此外，还可以搭配 [`registerShape`](https://g2.antv.vision/zh/docs/api/advanced/register-shape) 进行自定义使用. 
+
+[Demo](/zh/examples/column/basic#custom-shape)
 
 #### state
 

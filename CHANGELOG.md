@@ -1,3 +1,22 @@
+#### 2.3.38 (2021-10-21)
+
+##### Documentation Changes
+
+*  添加 supportCSSTransform 参数的使用文档 ([#2922](https://github.com/antvis/g2plot/pull/2922)) ([d5ce6666](https://github.com/antvis/g2plot/commit/d5ce666637208b68de80d90ece695bc5b8b7ad99))
+
+##### New Features
+
+* **column:**  柱状图支持 shape 配置 ([#2934](https://github.com/antvis/g2plot/pull/2934)) ([5a22da67](https://github.com/antvis/g2plot/commit/5a22da67bc68176de4a643684c92c0df02127ace))
+* **heatmpap:**  热力图支持 sizeLegend ([#2924](https://github.com/antvis/g2plot/pull/2924)) ([3c1fe830](https://github.com/antvis/g2plot/commit/3c1fe83076bf6c21e974c0b50d8c70caa9593802))
+* **line:**  折线图支持坐标系镜像反转 ([#2925](https://github.com/antvis/g2plot/pull/2925)) ([4d4b22b6](https://github.com/antvis/g2plot/commit/4d4b22b66fb652ab721b6c87a795715a74766eed))
+
+##### Bug Fixes
+
+* **pie:**  修复饼图中心文本交互问题 ([#2923](https://github.com/antvis/g2plot/pull/2923)) ([c65f6ab6](https://github.com/antvis/g2plot/commit/c65f6ab6720590c31aa744405fab516e20268dbc))
+*  修复个性化标签饼图 demo 预览图不显示的问题 ([#2932](https://github.com/antvis/g2plot/pull/2932)) ([bf846715](https://github.com/antvis/g2plot/commit/bf846715ef28274823c747595605db40cf7c5fc6))
+* **bidirection-bar:**  修复对称条形图 label 位置设置和默认配置 ([#2921](https://github.com/antvis/g2plot/pull/2921)) ([7f0ecba7](https://github.com/antvis/g2plot/commit/7f0ecba7da1ab2b27d2eb6ba6489d43efad4bb61))
+* **area:**  修复面积图中折线没有传入 seriesField ([#2926](https://github.com/antvis/g2plot/pull/2926)) ([f0967409](https://github.com/antvis/g2plot/commit/f0967409942e079a4951477baa1434c1392ff95c))
+
 #### 2.3.37 (2021-10-16)
 
 ##### Documentation Changes

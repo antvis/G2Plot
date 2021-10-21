@@ -40,6 +40,9 @@ export interface ColumnOptions
   /** 分组字段，优先级高于 seriesField , isGroup: true 时会根据 groupField 进行分组。*/
   readonly groupField?: string;
 
+  // 自定义相关
+  readonly shape?: string;
+
   // 图表交互
   readonly brush?: BrushCfg;
 }

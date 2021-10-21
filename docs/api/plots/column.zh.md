@@ -83,6 +83,12 @@ order: 2
 
 分组中柱子之间的间距 [0-1]，仅对分组柱状图适用。
 
+#### shape
+
+<description>**可选** _string_</description>
+
+需要搭配 [`registerShape`](https://g2.antv.vision/zh/docs/api/advanced/register-shape) 使用. [Demo](/zh/examples/column/basic#custom-shape)
+
 #### state
 
 <description>**可选** _object_</description>

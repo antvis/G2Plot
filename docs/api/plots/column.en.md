@@ -81,6 +81,12 @@ Width ratio of column [0-1].
 
 The spacing between columns in a grouping [0-1] applies only to grouping columns.
 
+#### shape
+
+<description>**可选** _string_</description>
+
+需要搭配 [`registerShape`](https://g2.antv.vision/en/docs/api/advanced/register-shape) 使用. [Demo](/en/examples/column/basic#custom-shape)
+
 #### state
 
 <description>**optional** _object_</description>

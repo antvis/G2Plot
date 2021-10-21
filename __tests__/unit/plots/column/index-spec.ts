@@ -437,6 +437,23 @@ describe('column', () => {
     plot.destroy();
   });
 
+  it('custom shape', () => {
+    const plot = new Column(createDiv(), {
+      data: salesByArea,
+      xField: 'area',
+      yField: 'sales',
+      color: 'red',
+    });
+
+    plot.render();
+    expect(plot.chart.geometries[0].elements[0].shape.attr('fill')).toBe('red');
+
+    plot.update({ shape: 'hollow-rect' });
+    expect(plot.chart.geometries[0].elements[0].shape.attr('stroke')).toBe('red');
+
+    plot.destroy();
+  });
+
   it('defaultOptions 保持从 constants 中获取', () => {
     expect(Column.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });

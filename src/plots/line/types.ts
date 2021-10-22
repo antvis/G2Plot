@@ -1,7 +1,7 @@
-import { LineGeometryOptions, PointGeometryOptions } from '../../adaptor/geometries';
+import { GeometryOptions, LineGeometryOptions, PointGeometryOptions } from '../../adaptor/geometries';
 import { Options, StyleAttr } from '../../types';
 
-export interface LineOptions extends Options {
+export interface LineOptions extends Options, Pick<GeometryOptions, 'customInfo'> {
   /** 阶梯折线图类型 */
   readonly stepType?: string;
   /** x 轴字段 */

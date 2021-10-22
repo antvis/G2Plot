@@ -1,3 +1,4 @@
+export type { GeometryOptions } from './base';
 export { area } from './area';
 export type { AreaGeometryOptions } from './area';
 export { line } from './line';

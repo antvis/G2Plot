@@ -18,12 +18,14 @@ const plot = new Venn('container', {
       cfg: {
         // 自定义图例高亮交互的触发行为
         start: [
+          { trigger: 'legend-item:mouseenter', action: ['cursor:pointer'] },
           {
             trigger: 'legend-item:click',
             action: ['legend-item-highlight:highlight', 'venn-element-highlight:highlight'],
           },
         ],
         end: [
+          { trigger: 'legend-item:mouseleave', action: ['cursor:default'] },
           { trigger: 'legend-item:dblclick', action: ['legend-item-highlight:reset', 'venn-element-highlight:reset'] },
         ],
       },

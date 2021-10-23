@@ -18,8 +18,14 @@ const plot = new Venn('container', {
       type: 'legend-active',
       cfg: {
         // 自定义图例激活交互的触发行为和反馈
-        start: [{ trigger: 'legend-item:click', action: ['list-active:active', 'venn-element-active:active'] }],
-        end: [{ trigger: 'legend-item:dblclick', action: ['list-active:reset', 'venn-element-active:reset'] }],
+        start: [
+          { trigger: 'legend-item:mouseenter', action: ['cursor:pointer'] },
+          { trigger: 'legend-item:click', action: ['list-highlight:highlight', 'venn-element-active:active'] },
+        ],
+        end: [
+          { trigger: 'legend-item:mouseleave', action: ['cursor:default'] },
+          { trigger: 'legend-item:dblclick', action: ['list-highlight:reset', 'venn-element-active:reset'] },
+        ],
       },
     },
   ],

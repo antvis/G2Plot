@@ -34,7 +34,6 @@
         "zh": "折线图 y 轴镜像反转",
         "en": "Invert y-axis of line plot"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/f8CNbPpLQj/a0eaf523-7c9d-4cec-aaaf-74f6e29412e0.png"
     },
     {
@@ -67,7 +66,6 @@
         "zh": "自定义折线图 marker 与交互",
         "en": "Custom marker and interaction of line plot"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/KgcySsCeI9/custom-marker.gif"
     }
   ]

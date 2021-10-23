@@ -86,6 +86,17 @@ Polyline data point graph style.
 
 `markdown:docs/common/point-style.en.md`
 
+#### area
+
+<description>**可选** _object_</description>
+
+折线趋势区域填充。
+
+| Properties | Type                             | Description                                                                                   |
+| ---------- | -------------------------------- | --------------------------------------------------------------------------------------------- |
+| color      | _string \| string[] \| Function_ | The color of the area, support callback way, example: `color: (datum: object) => string` |
+| style      | _object \| Function_             | Area style, support callback way, example: `style: (datum: object) => string`          |
+
 #### state
 
 <description>**optional** _object_</description>

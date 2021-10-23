@@ -66,8 +66,7 @@
         "zh": "自定义韦恩图元素激活交互",
         "en": "Custom venn element active"
       },
-      "new": true,
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/vHgfgbdet3/yuansujihuojiaohu.gif"
     },
     {
       "filename": "element-highlight.ts",
@@ -75,8 +74,7 @@
         "zh": "自定义韦恩图元素高亮交互",
         "en": "Custom venn element highlight"
       },
-      "new": true,
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/SeUOpp1SJ3/yuansugaoliangjiaohu.gif"
     },
     {
       "filename": "legend-active.ts",
@@ -84,8 +82,7 @@
         "zh": "自定义韦恩图图例激活交互",
         "en": "Custom venn legend active"
       },
-      "new": true,
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/zuqvwJcZPQ/tulijihuo.gif"
     },
     {
       "filename": "legend-highlight.ts",
@@ -93,8 +90,7 @@
         "zh": "自定义韦恩图图例高亮交互",
         "en": "Custom venn legend highlight"
       },
-      "new": true,
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/VLfTkx3NpU/tuligaoliangjiaohu.gif"
     }
   ]
 }

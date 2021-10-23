@@ -66,7 +66,6 @@
         "zh": "自定义仪表盘指示器",
         "en": "Custom gauge indicator"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/DUTCv9MXHO/71a294f0-99ed-4c41-9592-83add57871bc.png"
     },
     {
@@ -75,7 +74,6 @@
         "zh": "自定义仪表盘指示器",
         "en": "Custom gauge indicator"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/%26tVjT99wV1/6dae1f99-b160-4c6d-9769-b0972d02fd19.png"
     },
     {
@@ -84,7 +82,6 @@
         "zh": "简易仪表盘指示器",
         "en": "Custom simple gauge indicator"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/2RRg9bSnn2/380b6b20-aed3-44e2-9afe-5532b1f9daea.png"
     }
   ]

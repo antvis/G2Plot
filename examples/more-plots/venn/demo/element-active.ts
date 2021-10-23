@@ -1,7 +1,7 @@
 import { Venn, G2 } from '@antv/g2plot';
 import { isEqual } from '@antv/util';
 
-const { getActionClass, registerAction } = G2;
+const { getActionClass, registerAction, registerInteraction } = G2;
 const ElementActiveAction = getActionClass('venn-element-active') as any;
 
 /** 用一个变量来存储 label 的初始化 visible 状态 */
@@ -69,7 +69,12 @@ class VennElementActive extends ElementActiveAction {
   }
 }
 // 自定义注册韦恩图 · 图形元素激活交互
-registerAction('venn-element-active', VennElementActive as any);
+registerAction('custom-venn-element-active', VennElementActive as any);
+// ========= Active 交互 =========
+registerInteraction('custom-venn-element-active', {
+  start: [{ trigger: 'element:mouseenter', action: 'custom-venn-element-active:active' }],
+  end: [{ trigger: 'element:mouseleave', action: 'custom-venn-element-active:reset' }],
+});
 
 const data = [
   { sets: ['A'], size: 12, label: 'A' },
@@ -98,6 +103,6 @@ const plot = new Venn('container', {
       return `${datum.label} ${size}`;
     },
   },
-  interactions: [{ type: 'venn-element-active' }],
+  interactions: [{ type: 'custom-venn-element-active' }],
 });
 plot.render();

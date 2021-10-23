@@ -114,3 +114,16 @@ Point graphic style in the Area.
 ### Plot Theme
 
 `markdown:docs/common/theme.en.md`
+
+### Plot Interactions
+
+`markdown:docs/common/interactions.en.md`
+
+### Customize ✨
+
+#### customInfo
+
+<description>**optional** _any_</description>
+
+通过 `customInfo` 属性，可以向 shape 中传入自定义的数据。目前可能仅仅可能用于在 `registerShape` 的时候，像自定义 shape 中传入自定义的数据，方便实现自定义 shape 的配置能力。
+

@@ -1,9 +1,8 @@
-import { PointGeometryOptions } from '../../adaptor/geometries';
+import { GeometryOptions, LineGeometryOptions, PointGeometryOptions } from '../../adaptor/geometries';
 import { Options, StyleAttr } from '../../types';
-import { LineGeometryOptions } from '../../adaptor/geometries';
 
 /** 面积图的配置类型定义 */
-export interface AreaOptions extends Options {
+export interface AreaOptions extends Options, Pick<GeometryOptions, 'customInfo'> {
   /** x 轴字段 */
   readonly xField?: string;
   /** y 轴字段 */

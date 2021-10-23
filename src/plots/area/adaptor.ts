@@ -67,14 +67,14 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
     },
   });
   // 线默认 2px
-  const second = deepAssign({ options: { line: { size: 2 } } }, primary, {
+  const lineParams = deepAssign({ options: { line: { size: 2 } } }, primary, {
     options: { sizeField: seriesField, tooltip: false },
   });
   const pointParams = deepAssign({}, primary, { options: { tooltip: false, state: pointState } });
 
   // area geometry 处理
   area(primary);
-  line(second);
+  line(lineParams);
   point(pointParams);
 
   return params;

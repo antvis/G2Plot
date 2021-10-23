@@ -1,3 +1,14 @@
+#### 2.3.39 (2021-10-23)
+
+##### Documentation Changes
+
+*  添加如何导出图片的 faq 文档 ([#2936](https://github.com/antvis/g2plot/pull/2936)) ([ab8cbe62](https://github.com/antvis/g2plot/commit/ab8cbe62b9623b7fcc8dea3dd107c2f7f5047ad0))
+
+##### New Features
+
+* **line:**  折线图支持区域填充 ([#2939](https://github.com/antvis/g2plot/pull/2939)) ([45cd61d8](https://github.com/antvis/g2plot/commit/45cd61d801d70821605de9890c7dd9e35ac66e5f))
+* **customInfo:** 折线图、面积图支持 customInfo 配置 ([#2937](https://github.com/antvis/g2plot/pull/2937)) ([71b23a4d](https://github.com/antvis/g2plot/commit/71b23a4d9babe0f14bda9dd6ec82209f5fc2e201))
+
 #### 2.3.38 (2021-10-21)
 
 ##### Documentation Changes

@@ -91,6 +91,31 @@ describe('line', () => {
     line.destroy();
   });
 
+  it('customInfo', () => {
+    const data = [
+      { x: 1, y: 1 },
+      { x: 2, y: 4 },
+      { x: 3, y: 5 },
+      { x: 4, y: 2 },
+    ];
+    const line = new Line(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data: data,
+      xField: 'x',
+      yField: 'y',
+      customInfo: {
+        test: 'hello',
+      },
+    });
+
+    line.render();
+    // @ts-ignore
+    expect(line.chart.geometries[0].customOption).toEqual({ test: 'hello' });
+    line.destroy();
+  });
+
   it('defaultOptions 保持从 constants 中获取', () => {
     expect(Line.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
   });

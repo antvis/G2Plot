@@ -39,8 +39,8 @@ describe('area', () => {
 
     area.render();
 
-    expect(area.chart.getScaleByField('x').type).toBe('cat');
-    expect(area.chart.getScaleByField('x').range).toEqual([1 / 8, 7 / 8]);
+    expect(area.chart.getScale('x').type).toBe('cat');
+    expect(area.chart.getScale('x').range).toEqual([1 / 8, 7 / 8]);
     area.update({
       ...area.options,
       meta: {
@@ -52,7 +52,7 @@ describe('area', () => {
     });
 
     expect(area.options.meta.x.type).toBe('linear');
-    expect(area.chart.getScaleByField('x').range).toEqual([0.1, 0.9]);
+    expect(area.chart.getScale('x').range).toEqual([0.1, 0.9]);
 
     area.destroy();
   });
@@ -124,6 +124,32 @@ describe('area', () => {
     expect(plot.chart.getController('annotation').getComponents().length).toBe(3);
 
     plot.destroy();
+  });
+
+  it('customInfo', () => {
+    const data = [
+      { x: 1, y: 1 },
+      { x: 2, y: 4 },
+      { x: 3, y: 5 },
+      { x: 4, y: 2 },
+    ];
+    const area = new Area(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data: data,
+      xField: 'x',
+      yField: 'y',
+      customInfo: { test: 'hello' },
+      line: {},
+    });
+
+    area.render();
+
+    // @ts-ignore
+    expect(area.chart.geometries[0].customOption).toEqual({ test: 'hello' });
+    // @ts-ignore
+    expect(area.chart.geometries[1].customOption).toEqual({ test: 'hello' });
   });
 
   it('defaultOptions 保持从 constants 中获取', () => {

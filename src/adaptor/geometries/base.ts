@@ -50,6 +50,8 @@ export type Geometry = {
   readonly label?: Label;
   /** 不同状态的样式 */
   readonly state?: State;
+  /** 自定义信息，一般在 registerShape 中使用 */
+  readonly customInfo?: any;
   /** geometry params */
   readonly args?: any;
 };
@@ -139,8 +141,20 @@ export function getMappingFunction(mappingFields: string[], func: (datum: Datum)
  */
 export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O> {
   const { chart, options } = params;
-  const { type, args, mapping, xField, yField, colorField, shapeField, sizeField, tooltipFields, label, state } =
-    options;
+  const {
+    type,
+    args,
+    mapping,
+    xField,
+    yField,
+    colorField,
+    shapeField,
+    sizeField,
+    tooltipFields,
+    label,
+    state,
+    customInfo,
+  } = options;
 
   // 如果没有 mapping 信息，那么直接返回
   if (!mapping) {
@@ -242,6 +256,13 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
    */
   if (state) {
     geometry.state(state);
+  }
+
+  /**
+   * 自定义信息
+   */
+  if (customInfo) {
+    geometry.customInfo(customInfo);
   }
 
   // 防止因为 x y 字段做了通道映射，导致生成图例

@@ -108,10 +108,19 @@ const data = [
 
 `markdown:docs/common/chart-methods.zh.md`
 
+### 图表交互
+
+`markdown:docs/common/interactions.zh.md`
+
 ### 图表主题
 
 `markdown:docs/common/theme.zh.md`
 
-### 图表交互
+### 自定义 ✨
 
-`markdown:docs/common/interactions.zh.md`
+#### customInfo
+
+<description>**可选** _any_</description>
+
+通过 `customInfo` 属性，可以向 shape 中传入自定义的数据。目前可能仅仅可能用于在 `registerShape` 的时候，像自定义 shape 中传入自定义的数据，方便实现自定义 shape 的配置能力。
+

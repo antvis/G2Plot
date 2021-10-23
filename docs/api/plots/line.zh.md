@@ -86,6 +86,17 @@ const data = [
 
 `markdown:docs/common/point-style.zh.md`
 
+#### area
+
+<description>**可选** _object_</description>
+
+折线趋势区域填充。
+
+| 细分配置 | 类型     | 功能描述   |                                                                        |
+| ---------- | -------------------------------- | --------------------------------------------------------------------------------------------- |
+| color      | _string \| string[] \| Function_ | 填充区域的颜色，也可以支持回调的方式设置，回调参数为 `color: (datum: object) => string`  |
+| style      | _object \| Function_             | 填充区域的样式配置，也可以支持回调的方式设置，回调参数为 `style: (datum: object) => string`           |
+
 #### state
 
 <description>**可选** _object_</description>

@@ -23,7 +23,7 @@ const data = [
 ];
 ```
 
-```sign
+```plain
 💡 注意：这里的数据是包含交集部分的数据量的。如上数据源，含有两个集合：`A` 和 `B`, 其中：`{ sets: ['A'], size: 5 }` 代表的是含有 A 集合的有 5 个（其实有 2 个是包含 B 集合的）
 ```
 
@@ -142,10 +142,10 @@ const data = [
 
 | 交互 | 描述 | 配置方式 |
 | ---|---|---|
-| venn-element-active | 开启「鼠标移入 venn 图元素时触发 active」的交互 | `interactions:[{ type: 'venn-element-active' }]`  |
+| venn-element-active | 开启「鼠标移入 venn 图元素时触发 active」的交互 | `interactions:[{ type: 'venn-element-active' }]`|
 | venn-element-selected | 开启「鼠标点击 venn 图元素时触发 selected」的交互，可多选 | `interactions:[{ type: 'venn-element-selected' }]` |
 | venn-element-single-selected | 开启「鼠标点击 venn 图元素时触发 selected」的交互，单选 | `interactions:[{ type: 'venn-element-single-selected' }]` |
-| venn-element-highlight | 开启「鼠标点击 venn 图元素时触发 高亮」的交互 | `interactions:[{ type: 'venn-element-highlight' }]` |
+| venn-element-highlight | 开启「鼠标点击 venn 图元素时触发 高亮」的交互 | `interactions:[{ type: 'venn-element-highlight' }]`|
 
 `markdown:docs/common/interactions.zh.md`
 

@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: 12
       - run: yarn install
-      - run: yarn run site:build
+      - run: npm run site:build
       - run: |
           cd public
           git init
@@ -49,7 +49,7 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: yarn install
-      - run: yarn run build
+      - run: npm run build
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

@@ -28,7 +28,7 @@
     "site:develop": "cross-env PORT=8080 gatsby develop --open -H 0.0.0.0",
     "site:build": "npm run site:clean && gatsby build --prefix-paths",
     "site:clean": "gatsby clean",
-    "site:deploy": "yarn run build && yarn run site:build && gh-pages -d public",
+    "site:deploy": "npm run build && npm run site:build && gh-pages -d public",
     "fix": "eslint --ext .ts ./src ./__tests__ --fix && prettier --write ./src ./__tests__ && lint-md --fix ./examples ./docs",
     "build": "run-s clean lib dist size",
     "size": "limit-size",

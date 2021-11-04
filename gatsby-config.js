@@ -313,8 +313,8 @@ module.exports = {
       indexName: 'antv_g2plot',
     },
     announcement: {
-      zh: "G2Plot 韦恩图上新，欢迎到【图表示例】页查看。",
-      en: "Venn Plot of G2Plot on the new, welcome to see details on the [Examples]"
+      zh: "G2Plot 近期上新: 仪表盘支持自定义指示器; 韦恩图交互丰富; 折线图支持 y 轴镜像反转; 折线图支持区域填充。👏 可以到图表实例中查看演示 Demo。",
+      en: "G2Plot newer coming: Gauge support custom indicator shape; Richer interactions of Venn; Y-axis reflect supported in Line; Line support area fill. 👏 Welcome to see details on [Examples]",
     }
   },
 };

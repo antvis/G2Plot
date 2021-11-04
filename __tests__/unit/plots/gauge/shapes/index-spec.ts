@@ -1,6 +1,7 @@
 import { IGroup } from '@antv/g2';
 import { Gauge } from '../../../../../src';
 import { createDiv } from '../../../../utils/dom';
+import { delay } from '../../../../utils/delay';
 
 describe('gauge', () => {
   it('no indicator', async () => {
@@ -105,7 +106,7 @@ describe('gauge', () => {
     }, []);
   }
 
-  it('meter gauge: custom steps', () => {
+  it('meter gauge: custom steps', async () => {
     const gauge = new Gauge(createDiv(), {
       type: 'meter',
       percent: 0.75,
@@ -124,6 +125,7 @@ describe('gauge', () => {
       expect(getAllShapes(gauge.chart.views[0]).length).toBeGreaterThanOrEqual(steps);
       // 不存在交接
       gauge.update({ meter: { steps }, range: { ticks: [0, 1] } });
+      await delay(50);
       expect(getAllShapes(gauge.chart.views[0]).length).toBe(steps);
     }
 

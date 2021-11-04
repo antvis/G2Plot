@@ -67,6 +67,15 @@
         "en": "Basic column plot with region annotation"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/ceFSs9FuNn/2922d5e4-df5f-4512-8f8f-6f2ec258c7b8.png"
+    },
+    {
+      "filename": "custom-shape.ts",
+      "title": {
+        "zh": "自定义柱状图图形元素展示",
+        "en": "Custom column shape"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/98KdFZxO4I/blink-interval.gif"
     }
   ]
 }

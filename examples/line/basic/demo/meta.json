@@ -29,6 +29,14 @@
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*VN5SQYsPOaIAAAAAAAAAAAAAARQnAQ"
     },
     {
+      "filename": "reflect-y.ts",
+      "title": {
+        "zh": "折线图 y 轴镜像反转",
+        "en": "Invert y-axis of line plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/f8CNbPpLQj/a0eaf523-7c9d-4cec-aaaf-74f6e29412e0.png"
+    },
+    {
       "filename": "line-slider.ts",
       "title": {
         "zh": "带缩略轴的折线",
@@ -58,7 +66,6 @@
         "zh": "自定义折线图 marker 与交互",
         "en": "Custom marker and interaction of line plot"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/KgcySsCeI9/custom-marker.gif"
     }
   ]

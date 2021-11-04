@@ -1,3 +1,54 @@
+#### 2.3.39 (2021-10-23)
+
+##### Documentation Changes
+
+*  添加如何导出图片的 faq 文档 ([#2936](https://github.com/antvis/g2plot/pull/2936)) ([ab8cbe62](https://github.com/antvis/g2plot/commit/ab8cbe62b9623b7fcc8dea3dd107c2f7f5047ad0))
+
+##### New Features
+
+* **line:**  折线图支持区域填充 ([#2939](https://github.com/antvis/g2plot/pull/2939)) ([45cd61d8](https://github.com/antvis/g2plot/commit/45cd61d801d70821605de9890c7dd9e35ac66e5f))
+* **customInfo:** 折线图、面积图支持 customInfo 配置 ([#2937](https://github.com/antvis/g2plot/pull/2937)) ([71b23a4d](https://github.com/antvis/g2plot/commit/71b23a4d9babe0f14bda9dd6ec82209f5fc2e201))
+
+#### 2.3.38 (2021-10-21)
+
+##### Documentation Changes
+
+*  添加 supportCSSTransform 参数的使用文档 ([#2922](https://github.com/antvis/g2plot/pull/2922)) ([d5ce6666](https://github.com/antvis/g2plot/commit/d5ce666637208b68de80d90ece695bc5b8b7ad99))
+
+##### New Features
+
+* **column:**  柱状图支持 shape 配置 ([#2934](https://github.com/antvis/g2plot/pull/2934)) ([5a22da67](https://github.com/antvis/g2plot/commit/5a22da67bc68176de4a643684c92c0df02127ace))
+* **heatmpap:**  热力图支持 sizeLegend ([#2924](https://github.com/antvis/g2plot/pull/2924)) ([3c1fe830](https://github.com/antvis/g2plot/commit/3c1fe83076bf6c21e974c0b50d8c70caa9593802))
+* **line:**  折线图支持坐标系镜像反转 ([#2925](https://github.com/antvis/g2plot/pull/2925)) ([4d4b22b6](https://github.com/antvis/g2plot/commit/4d4b22b66fb652ab721b6c87a795715a74766eed))
+
+##### Bug Fixes
+
+* **pie:**  修复饼图中心文本交互问题 ([#2923](https://github.com/antvis/g2plot/pull/2923)) ([c65f6ab6](https://github.com/antvis/g2plot/commit/c65f6ab6720590c31aa744405fab516e20268dbc))
+*  修复个性化标签饼图 demo 预览图不显示的问题 ([#2932](https://github.com/antvis/g2plot/pull/2932)) ([bf846715](https://github.com/antvis/g2plot/commit/bf846715ef28274823c747595605db40cf7c5fc6))
+* **bidirection-bar:**  修复对称条形图 label 位置设置和默认配置 ([#2921](https://github.com/antvis/g2plot/pull/2921)) ([7f0ecba7](https://github.com/antvis/g2plot/commit/7f0ecba7da1ab2b27d2eb6ba6489d43efad4bb61))
+* **area:**  修复面积图中折线没有传入 seriesField ([#2926](https://github.com/antvis/g2plot/pull/2926)) ([f0967409](https://github.com/antvis/g2plot/commit/f0967409942e079a4951477baa1434c1392ff95c))
+
+#### 2.3.37 (2021-10-16)
+
+##### Documentation Changes
+
+*  demo 增加说明 ([ee5bc822](https://github.com/antvis/g2plot/commit/ee5bc8225b5032e633d7bdc774b8c23d45efc615))
+* **heatmap:**  通过 iframe 嵌入语雀图表指引文档 ([6a00f9b8](https://github.com/antvis/g2plot/commit/6a00f9b87477b14a1c5d3206bfbab54b0a9b1004))
+
+##### New Features
+
+* **venn:**
+  *  韦恩图交互增强（修复图例激活元素交互 & 增强 active、highlight、selected 交互） ([#2911](https://github.com/antvis/g2plot/pull/2911)) ([ed5b71e2](https://github.com/antvis/g2plot/commit/ed5b71e22492b94d1157a6cb7c3f92e130ee1e45))
+  *  韦恩图颜色回调重构 ([#2909](https://github.com/antvis/g2plot/pull/2909)) ([c3694961](https://github.com/antvis/g2plot/commit/c36949619512467024d7458f5d07b01e026615e6))
+* **sunburst:**
+  *  丰富旭日图交互, 点击中心可以上卷 ([#2903](https://github.com/antvis/g2plot/pull/2903)) ([a8758fac](https://github.com/antvis/g2plot/commit/a8758fac13fa4fdb44e93297e7fedbd46f8d7d97))
+  *  旭日图增加 activeDepth 配置,允许配置默认展示的层级深度 ([#2902](https://github.com/antvis/g2plot/pull/2902)) ([b3920c9d](https://github.com/antvis/g2plot/commit/b3920c9d9cf83e9b37059f733bd344658c33e8c7))
+
+##### Bug Fixes
+
+* **box:**  修复箱形图异常点 view 的 label 只能展示一个 ([#2913](https://github.com/antvis/g2plot/pull/2913)) ([994c75d3](https://github.com/antvis/g2plot/commit/994c75d3ad585c582451ec6fd7b9319c4ff233e0))
+* **funnel:** 漏斗图 do not mutable data ([#2900](https://github.com/antvis/g2plot/pull/2900)) ([d92443e1](https://github.com/antvis/g2plot/commit/d92443e1d370b06f8ba86001aee1e51676dac5ca))
+
 #### 2.3.36 (2021-10-08)
 
 ##### Documentation Changes

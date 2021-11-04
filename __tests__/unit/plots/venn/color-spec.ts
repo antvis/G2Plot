@@ -57,6 +57,29 @@ describe('venn: color', () => {
     expect(plot.chart.geometries[0].elements[5].getModel().color).toBe('blue');
   });
 
+  it('color: callback params', () => {
+    plot.update({
+      theme: { colors10: ['red', 'yellow', 'blue'] },
+      color: undefined,
+    });
+
+    expect(plot.chart.geometries[0].elements[0].getModel().color).toBe('red');
+    expect(plot.chart.geometries[0].elements[1].getModel().color).toBe('yellow');
+    expect(plot.chart.geometries[0].elements[2].getModel().color).toBe('blue');
+    expect(plot.chart.geometries[0].elements[4].getModel().color).not.toBe('black');
+
+    plot.update({
+      color: (datum, defaultColor) => {
+        return ['red', 'blue'].indexOf(defaultColor) === -1 ? 'black' : defaultColor;
+      },
+    });
+    expect(plot.chart.geometries[0].elements[0].getModel().color).toBe('red');
+    expect(plot.chart.geometries[0].elements[1].getModel().color).not.toBe('yellow');
+    expect(plot.chart.geometries[0].elements[1].getModel().color).toBe('black');
+    expect(plot.chart.geometries[0].elements[2].getModel().color).toBe('blue');
+    expect(plot.chart.geometries[0].elements[4].getModel().color).toBe('black');
+  });
+
   afterAll(() => {
     plot.destroy();
   });

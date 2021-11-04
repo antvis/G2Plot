@@ -13,7 +13,7 @@
 | labelLine    | _null_ \| _boolean_ \| _LabelLineCfg_                                   | 用于设置文本连接线的样式属性，null 表示不展示。                                            |
 | labelEmit    | _boolean_                                                    | 只对极坐标下的文本生效，表示文本是否按照角度进行放射状显示，true 表示开启，false 表示关闭  |
 | layout       | _'overlap' \| 'fixedOverlap' \| 'limitInShape'_              | 文本布局类型，支持多种布局函数组合使用。                                                   |
-| position     | _'top' \| 'bottom' \| 'middle' \| 'left' \| 'right'_         | 指定当前 label 与当前图形的相对位置 (只对 geometry 为 interval 的 柱条形图生效)                                                       |
+| position     | _'top' \| 'bottom' \| 'middle' \| 'left' \| 'right'_         | 指定当前 label 与当前图形的相对位置 (💡 注意：只对 geometry 为 interval 的柱条形图生效)                                                       |
 | animate      | _boolean \| AnimateOption_                                   | 动画配置。                                                                                 |
 | formatter    | _Function_                                                   | 格式化函数                                                                                 |
 | autoHide     | _boolean_                                                    | 是否自动隐藏，默认 false                                                                   |

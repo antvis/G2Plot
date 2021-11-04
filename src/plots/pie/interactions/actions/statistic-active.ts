@@ -1,8 +1,10 @@
 import { View, Action, Util, Types } from '@antv/g2';
 import { each, get } from '@antv/util';
-import { PieOptions } from '..';
-import { Annotation } from '../../../types/annotation';
-import { renderStatistic } from '../../../utils/statistic';
+import { Annotation } from '../../../../types/annotation';
+import { renderStatistic } from '../../../../utils/statistic';
+import { PieOptions } from '../../types';
+import { getCurrentElement } from '../util';
+
 /**
  * Pie 中心文本事件的 Action
  */
@@ -59,6 +61,12 @@ export class StatisticAction extends Action {
       });
       renderStatistic(view, { statistic, plotType: 'pie' }, data);
       view.render(true);
+    }
+
+    // 交互的时候，把 shape 提前
+    const ele = getCurrentElement(this.context);
+    if (ele) {
+      ele.shape.toFront();
     }
   }
 

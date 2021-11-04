@@ -7,6 +7,14 @@ order: 0
 
 `markdown:docs/common/chart-options.zh.md`
 
+### 坐标系
+
+#### 轴镜像反转 - reflect
+
+<description>**可选** _'x' | 'y' | ['x', 'y']_</description>
+
+折线图坐标系反转。当设置 `reflect: 'y'`时，可以对 y-axis 进行反转；同理，设置 `reflect: 'x'`时，可以对 x-axis 进行反转；也支持同时对 x-axis 和 y-axis 进行反转。
+
 ### 数据映射
 
 #### data
@@ -78,6 +86,17 @@ const data = [
 
 `markdown:docs/common/point-style.zh.md`
 
+#### area
+
+<description>**可选** _object_</description>
+
+折线趋势区域填充。
+
+| 细分配置 | 类型     | 功能描述   |                                                                        |
+| ---------- | -------------------------------- | --------------------------------------------------------------------------------------------- |
+| color      | _string \| string[] \| Function_ | 填充区域的颜色，也可以支持回调的方式设置，回调参数为 `color: (datum: object) => string`  |
+| style      | _object \| Function_             | 填充区域的样式配置，也可以支持回调的方式设置，回调参数为 `style: (datum: object) => string`           |
+
 #### state
 
 <description>**可选** _object_</description>
@@ -88,7 +107,7 @@ const data = [
 
 `markdown:docs/common/component.zh.md`
 
-#### 缩略轴 slider
+#### 缩略轴 - slider
 
 `markdown:docs/common/slider.zh.md`
 
@@ -100,10 +119,19 @@ const data = [
 
 `markdown:docs/common/chart-methods.zh.md`
 
+### 图表交互
+
+`markdown:docs/common/interactions.zh.md`
+
 ### 图表主题
 
 `markdown:docs/common/theme.zh.md`
 
-### 图表交互
+### 自定义 ✨
 
-`markdown:docs/common/interactions.zh.md`
+#### customInfo
+
+<description>**可选** _any_</description>
+
+通过 `customInfo` 属性，可以向 shape 中传入自定义的数据。目前可能仅仅可能用于在 `registerShape` 的时候，像自定义 shape 中传入自定义的数据，方便实现自定义 shape 的配置能力。
+

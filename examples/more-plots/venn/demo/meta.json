@@ -10,7 +10,6 @@
         "zh": "基础韦恩图",
         "en": "Basic venn plot"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/BJw8fy6uxU/009dd50e-c2a4-48dc-a79a-dc417123889f.png"
     },
     {
@@ -19,8 +18,15 @@
         "zh": "设置颜色叠加模式",
         "en": "Color blend mode"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/XZE3uS3Ezm/e18cdf57-f528-4a43-a0a5-b92dba819477.png"
+    },
+    {
+      "filename": "color.ts",
+      "title": {
+        "zh": "自定义颜色",
+        "en": "Custom color"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/jonq4FL0vL/7b5db090-a855-4861-806f-5e09c2fdfd97.png"
     },
     {
       "filename": "tooltip.ts",
@@ -28,7 +34,6 @@
         "zh": "格式化 tooltip",
         "en": "Formatter tooltip"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/BJw8fy6uxU/009dd50e-c2a4-48dc-a79a-dc417123889f.png"
     },
     {
@@ -37,7 +42,6 @@
         "zh": "设置 label",
         "en": "Label setting"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/nyPJ6bGZ68/d5e85b5d-70c5-45b5-94aa-9a229e65474c.png"
     },
     {
@@ -46,7 +50,6 @@
         "zh": "自定义韦恩图",
         "en": "Customize venn plot"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/T6cgHx5BHB/f2137e3b-5784-4626-a986-109fc8cb5feb.png"
     },
     {
@@ -55,8 +58,39 @@
         "zh": "韦恩图 - 元素交互",
         "en": "venn plot - with element action"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/x%24Jxds2L2T/0ff5000b-d23e-49a8-a02a-4eb02d7a8e47.png"
+    },
+    {
+      "filename": "element-active.ts",
+      "title": {
+        "zh": "自定义韦恩图元素激活交互",
+        "en": "Custom venn element active"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/vHgfgbdet3/yuansujihuojiaohu.gif"
+    },
+    {
+      "filename": "element-highlight.ts",
+      "title": {
+        "zh": "自定义韦恩图元素高亮交互",
+        "en": "Custom venn element highlight"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/SeUOpp1SJ3/yuansugaoliangjiaohu.gif"
+    },
+    {
+      "filename": "legend-active.ts",
+      "title": {
+        "zh": "自定义韦恩图图例激活交互",
+        "en": "Custom venn legend active"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/zuqvwJcZPQ/tulijihuo.gif"
+    },
+    {
+      "filename": "legend-highlight.ts",
+      "title": {
+        "zh": "自定义韦恩图图例高亮交互",
+        "en": "Custom venn legend highlight"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/VLfTkx3NpU/tuligaoliangjiaohu.gif"
     }
   ]
 }

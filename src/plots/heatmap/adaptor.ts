@@ -2,17 +2,7 @@ import { get } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { deepAssign, findGeometry } from '../../utils';
 import { flow, transformLabel } from '../../utils';
-import {
-  tooltip,
-  interaction,
-  animation,
-  theme,
-  scale,
-  annotation,
-  state,
-  legend,
-  pattern,
-} from '../../adaptor/common';
+import { tooltip, interaction, animation, theme, scale, annotation, state, pattern } from '../../adaptor/common';
 import { geometry as geometryAdaptor } from '../../adaptor/geometries/base';
 import { getTooltipMapping } from '../../utils/tooltip';
 import { HeatmapOptions } from './types';
@@ -111,6 +101,34 @@ function axis(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
     chart.axis(yField, false);
   } else {
     chart.axis(yField, yAxis);
+  }
+
+  return params;
+}
+
+/**
+ * legend 配置
+ * @param params
+ */
+function legend(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
+  const { chart, options } = params;
+  const { legend, colorField, sizeField, sizeLegend } = options;
+
+  /** legend 不为 false, 则展示图例, 优先展示 color 分类图例 */
+  const showLegend = legend !== false;
+
+  if (colorField) {
+    chart.legend(colorField, showLegend ? legend : false);
+  }
+
+  // 旧版本: 有 sizeField 就有 sizeLegend. 这里默认继承下 legend 配置
+  if (sizeField) {
+    chart.legend(sizeField, sizeLegend === undefined ? legend : sizeLegend);
+  }
+
+  /** 默认没有 sizeField，则隐藏连续图例 */
+  if (!showLegend && !sizeLegend) {
+    chart.legend(false);
   }
 
   return params;

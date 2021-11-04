@@ -40,6 +40,11 @@ export interface ColumnOptions
   /** 分组字段，优先级高于 seriesField , isGroup: true 时会根据 groupField 进行分组。*/
   readonly groupField?: string;
 
+  // 自定义相关
+  /** 自定义柱状图 interval 图形元素展示形状 */
+  readonly shape?: string;
+
   // 图表交互
+  /** 开启下钻交互，以及进行下钻交互的配置 */
   readonly brush?: BrushCfg;
 }

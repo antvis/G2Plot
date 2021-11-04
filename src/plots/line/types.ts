@@ -1,7 +1,12 @@
-import { LineGeometryOptions, PointGeometryOptions } from '../../adaptor/geometries';
+import {
+  GeometryOptions,
+  AreaGeometryOptions,
+  LineGeometryOptions,
+  PointGeometryOptions,
+} from '../../adaptor/geometries';
 import { Options, StyleAttr } from '../../types';
 
-export interface LineOptions extends Options {
+export interface LineOptions extends Options, Pick<GeometryOptions, 'customInfo'> {
   /** 阶梯折线图类型 */
   readonly stepType?: string;
   /** x 轴字段 */
@@ -22,4 +27,10 @@ export interface LineOptions extends Options {
   readonly lineShape?: Required<LineGeometryOptions>['line']['shape'];
   /** 折线数据点：1、图形映射属性 2、状态样式 */
   readonly point?: PointGeometryOptions['point'] & Pick<PointGeometryOptions, 'state'>;
+  /** 折线趋势填充色：1、图形映射属性 */
+  readonly area?: AreaGeometryOptions['area'];
+
+  // 其他
+  /** 坐标轴反转配置 */
+  readonly reflect?: 'x' | 'y' | ['x', 'y'];
 }

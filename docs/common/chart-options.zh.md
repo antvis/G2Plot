@@ -46,6 +46,12 @@
 
 是否对超出坐标系范围的 Geometry 进行剪切。
 
+#### supportCSSTransform
+
+<description>**optional** _boolean_</description>
+
+支持 CSS transform，开启后图表的交互以及事件将在页面设置了 css transform 属性时生效，默认关闭。
+
 <!-- 先插入到这里 -->
 #### locale
 

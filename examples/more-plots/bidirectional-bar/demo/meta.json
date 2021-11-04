@@ -7,18 +7,34 @@
     {
       "filename": "basic.ts",
       "title": {
-        "zh": "基础水平方对称条形图",
-        "en": "Basic bullet plot"
+        "zh": "基础对称条形图",
+        "en": "BidirectionalBar plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*9wdPQIJyXdoAAAAAAAAAAAAAARQnAQ"
     },
     {
       "filename": "layout.ts",
       "title": {
-        "zh": "基础垂直方向对称条形图",
-        "en": "Basic bullet plot"
+        "zh": "对称条形图（垂直方向）",
+        "en": "Vertical BidirectionalBar plot"
       },
       "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*dpEiSZht_1AAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "label.ts",
+      "title": {
+        "zh": "对称条形图 label 设置",
+        "en": "Label of BidirectionalBar plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/4A7SJPC00p/3b637385-c121-429f-9c13-82b4662c1c2e.png"
+    },
+    {
+      "filename": "vertical-label.ts",
+      "title": {
+        "zh": "对称条形图（垂直方向） label 设置",
+        "en": "Label of Vertical BidirectionalBar plot"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/w9EHshX3Q1/524ae45f-dc52-48ca-bff8-efa97dcf071e.png"
     }
   ]
 }

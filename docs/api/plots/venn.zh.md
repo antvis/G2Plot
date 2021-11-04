@@ -13,15 +13,18 @@ order: 12
 
 <description>**required** _object_</description>
 
-设置图表数据源。数据源为对象集合，例如：
+设置图表数据源。数据源为对象集合. 例如：
 
 ```ts
- const data = [
-    { sets: ['A'], size: 5 },
-    { sets: ['B'], size: 10 },
-    { sets: ['A', 'B'], size: 2 },
-    ...
-   ];
+const data = [
+  { sets: ['A'], size: 5 },
+  { sets: ['B'], size: 10 },
+  { sets: ['A', 'B'], size: 2 },
+];
+```
+
+```plain
+💡 注意：这里的数据是包含交集部分的数据量的。如上数据源，含有两个集合：`A` 和 `B`, 其中：`{ sets: ['A'], size: 5 }` 代表的是含有 A 集合的有 5 个（其实有 2 个是包含 B 集合的）
 ```
 
 #### setsField
@@ -38,8 +41,33 @@ order: 12
 
 ### 图形样式
 
-<!-- Color 配置 -->
-`markdown:docs/common/color.zh.md`
+#### color
+
+<description>**optional** _string | string[] | Function_</description>
+
+指定图形元素的颜色。可以指定单色，或者一系列色值，也可以通过回调函数的方法根据对应数值进行设置。（**注意**：韦恩图的 color 系列色值只作用于单个集合上，交集部分通过指定 blendMode 来进行叠加处理。另外，color 回调中，第二个参数代表默认分配的颜色。）
+
+默认配置：采用 theme 中的色板。演示 [Demo](/zh/examples/more-plots/venn#blend-mode)
+
+```ts
+// 设置单一颜色
+{
+  color: '#a8ddb5'
+}
+// 设置多色
+{
+  color: ['#d62728', '#2ca02c', '#000000'],
+}
+// Function
+{
+  color: (datum, defaultColor) => {
+    if(datum.size > 100){
+      return 'red';
+    }
+    return defaultColor;
+  }
+}
+```
 
 #### blendMode
 
@@ -108,14 +136,16 @@ order: 12
 
 `markdown:docs/common/tooltip.zh.md`
 
-### 图表交互
+### 图表交互 ✨
 
 内置了针对 venn 图交互，列表如下:
 
 | 交互 | 描述 | 配置方式 |
 | ---|---|---|
-| venn-element-active | 开启「鼠标移入 venn 图元素时触发 active」的交互 | `interactions:[{ type: 'venn-element-active', enabled: true }]`  |
-| venn-element-selected | 开启「鼠标点击 venn 图元素时触发 selected」的交互，可多选 | `interactions:[{ type: 'venn-element-selected', enabled: true }]` |
+| venn-element-active | 开启「鼠标移入 venn 图元素时触发 active」的交互 | `interactions:[{ type: 'venn-element-active' }]`|
+| venn-element-selected | 开启「鼠标点击 venn 图元素时触发 selected」的交互，可多选 | `interactions:[{ type: 'venn-element-selected' }]` |
+| venn-element-single-selected | 开启「鼠标点击 venn 图元素时触发 selected」的交互，单选 | `interactions:[{ type: 'venn-element-single-selected' }]` |
+| venn-element-highlight | 开启「鼠标点击 venn 图元素时触发 高亮」的交互 | `interactions:[{ type: 'venn-element-highlight' }]`|
 
 `markdown:docs/common/interactions.zh.md`
 

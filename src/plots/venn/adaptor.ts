@@ -19,26 +19,38 @@ import { CustomInfo, VennData, VennOptions } from './types';
 import { ID_FIELD } from './constant';
 import './shape';
 import './label';
-import './interaction';
+import './interactions';
 
 /** 图例默认预留空间 */
 export const LEGEND_SPACE = 40;
 
 /**
+ * 获取 color 映射
+ */
+function colorMap(params: Params<VennOptions>, data: VennData, colorPalette?: string[]) {
+  const { chart, options } = params;
+  const { blendMode, setsField } = options;
+  const { colors10, colors20 } = chart.getTheme();
+  let palette = colorPalette;
+  if (!isArray(palette)) {
+    palette = data.filter((d) => d[setsField].length === 1).length <= 10 ? colors10 : colors20;
+  }
+  const map = getColorMap(palette, data, blendMode, setsField);
+
+  return (id: string) => map.get(id) || palette[0];
+}
+
+/**
  * color options 转换
  */
 function transformColor(params: Params<VennOptions>, data: VennData): VennOptions['color'] {
-  const { chart, options } = params;
-  const { color, setsField } = options;
+  const { options } = params;
+  const { color } = options;
 
   if (typeof color !== 'function') {
-    let colorPalette = typeof color === 'string' ? [color] : color;
-    if (!isArray(colorPalette)) {
-      const { colors10, colors20 } = chart.getTheme();
-      colorPalette = data.filter((d) => d[setsField].length === 1).length <= 10 ? colors10 : colors20;
-    }
-    const colorMap = getColorMap(colorPalette, data, options);
-    return (datum: Datum) => colorMap.get(datum[ID_FIELD]) || colorPalette[0];
+    const colorPalette = typeof color === 'string' ? [color] : color;
+    const map = colorMap(params, data, colorPalette);
+    return (datum: Datum) => map(datum[ID_FIELD]);
   }
   return color;
 }
@@ -132,7 +144,6 @@ function geometry(params: Params<VennOptions>): Params<VennOptions> {
         schema: {
           shape: 'venn',
           style: pointStyle,
-          color: transformColor(params, vennData),
         },
       },
     })
@@ -140,6 +151,16 @@ function geometry(params: Params<VennOptions>): Params<VennOptions> {
 
   const geometry = ext.geometry as Geometry;
   geometry.customInfo(customInfo);
+
+  const colorOptions = transformColor(params, vennData);
+  // 韦恩图试点, color 通道只能映射一个字段. 通过外部查找获取 datum
+  if (typeof colorOptions === 'function') {
+    geometry.color(ID_FIELD, (id) => {
+      const datum = vennData.find((d) => d[ID_FIELD] === id);
+      const defaultColor = colorMap(params, vennData)(id);
+      return colorOptions(datum, defaultColor);
+    });
+  }
 
   return params;
 }
@@ -153,7 +174,7 @@ function label(params: Params<VennOptions>): Params<VennOptions> {
   const { label } = options;
 
   // 获取容器大小
-  const [t, r, b, l] = normalPadding(chart.appendPadding);
+  const [t, , , l] = normalPadding(chart.appendPadding);
   // 传入 label 布局函数所需的 自定义参数
   const customLabelInfo = { offsetX: l, offsetY: t };
 
@@ -204,6 +225,35 @@ export function axis(params: Params<VennOptions>): Params<VennOptions> {
 }
 
 /**
+ * 韦恩图 interaction 交互适配器
+ */
+function vennInteraction(params: Params<VennOptions>): Params<VennOptions> {
+  const { options, chart } = params;
+  const { interactions } = options;
+
+  if (interactions) {
+    const MAP = {
+      'legend-active': 'venn-legend-active',
+      'legend-highlight': 'venn-legend-highlight',
+    };
+    interaction(
+      deepAssign({}, params, {
+        options: {
+          interactions: interactions.map((i) => ({
+            ...i,
+            type: MAP[i.type] || i.type,
+          })),
+        },
+      })
+    );
+  }
+
+  chart.removeInteraction('legend-active');
+  chart.removeInteraction('legend-highlight');
+  return params;
+}
+
+/**
  * 图适配器
  * @param chart
  * @param options
@@ -220,7 +270,7 @@ export function adaptor(params: Params<VennOptions>) {
     legend,
     axis,
     tooltip,
-    interaction,
+    vennInteraction,
     animation
     // ... 其他的 adaptor flow
   )(params);

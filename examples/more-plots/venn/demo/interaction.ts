@@ -14,21 +14,6 @@ const plot = new Venn('container', {
   sizeField: 'size',
   pointStyle: { fillOpacity: 0.8 },
   padding: [0, 10],
-  state: {
-    active: {
-      style: {
-        fillOpacity: 1,
-        stroke: 'black',
-        lineWidth: 1,
-      },
-    },
-    selected: {
-      style: {
-        stroke: 'black',
-        lineWidth: 2,
-      },
-    },
-  },
   interactions: [
     { type: 'venn-element-active', enable: true },
     { type: 'venn-element-selected', enable: true },

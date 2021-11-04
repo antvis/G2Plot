@@ -1,8 +1,10 @@
+/**
+ * @description 使用 G2Plot 自定义扩展的插件，来自定义图表：https://g2plot.antv.vision/zh/docs/manual/plugin
+ */
+
 import { G2, P } from '@antv/g2plot';
 import { deepMix } from '@antv/util';
 
-const currDate = ['2020-08-01'];
-const compareDate = ['2020-07-06'];
 const name = ['本期', '对比期'];
 const tooltipItemsName = ['本期留存', '本期流失', '对比期留存', '对比期流失'];
 

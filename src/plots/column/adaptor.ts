@@ -67,6 +67,7 @@ function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
     seriesField,
     groupField,
     tooltip,
+    shape,
   } = options;
 
   const percentData =
@@ -110,6 +111,7 @@ function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
       widthRatio: columnWidthRatio,
       tooltip: tooltipOptions,
       interval: {
+        shape,
         style: columnStyle,
         color,
       },

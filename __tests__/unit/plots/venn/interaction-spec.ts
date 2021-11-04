@@ -1,7 +1,12 @@
 import { IGroup } from '@antv/g-base';
 import InteractionContext from '@antv/g2/lib/interaction/context';
 import { Venn } from '../../../../src';
-import { VennElementActive, VennElementSelected } from '../../../../src/plots/venn/interaction/action';
+import { VennElementActive } from '../../../../src/plots/venn/interactions/actions/active';
+import { VennElementHighlight } from '../../../../src/plots/venn/interactions/actions/highlight';
+import {
+  VennElementSelected,
+  VennElementSingleSelected,
+} from '../../../../src/plots/venn/interactions/actions/selected';
 import { createDiv } from '../../../utils/dom';
 
 describe('venn', () => {
@@ -38,13 +43,12 @@ describe('venn', () => {
     });
 
     const context = new InteractionContext(plot.chart);
+    // @ts-ignore
     const vennElementActive = new VennElementActive(context);
 
     // 模拟 active
     context.event = {
-      data: {
-        data: plot.chart.getData()[0],
-      },
+      target: plot.chart.getElements()[0].shape,
     };
     vennElementActive.active();
 
@@ -60,9 +64,7 @@ describe('venn', () => {
 
     // 模拟 第二次 active
     context.event = {
-      data: {
-        data: plot.chart.getData()[1],
-      },
+      target: plot.chart.getElements()[1].shape,
     };
     vennElementActive.active();
 
@@ -82,7 +84,7 @@ describe('venn', () => {
     vennElementActive.destroy();
   });
 
-  it('venn: selected', () => {
+  it('venn-element-selected', () => {
     plot.update({
       state: {
         selected: {
@@ -98,13 +100,12 @@ describe('venn', () => {
     });
 
     const context = new InteractionContext(plot.chart);
+    // @ts-ignore
     const vennElementSelected = new VennElementSelected(context);
 
     // 模拟 selected
     context.event = {
-      data: {
-        data: plot.chart.getData()[0],
-      },
+      target: plot.chart.getElements()[0].shape,
     };
     vennElementSelected.toggle();
 
@@ -124,9 +125,7 @@ describe('venn', () => {
 
     // 模拟第二个元素的 selected
     context.event = {
-      data: {
-        data: plot.chart.getData()[1],
-      },
+      target: plot.chart.getElements()[1].shape,
     };
     vennElementSelected.toggle();
 
@@ -143,6 +142,98 @@ describe('venn', () => {
     expect(elements[2].getStates().length).toBe(0);
 
     vennElementSelected.destroy();
+  });
+
+  it('venn-element-single-selected', () => {
+    plot.update({
+      state: {
+        selected: {
+          style: {
+            lineWidth: 2,
+          },
+        },
+      },
+      interactions: [
+        { type: 'venn-element-selected', enable: false },
+        { type: 'venn-element-single-selected', enable: true },
+      ],
+    });
+
+    const context = new InteractionContext(plot.chart);
+    // @ts-ignore
+    const vennElementSelected = new VennElementSingleSelected(context);
+
+    // 模拟 selected
+    context.event = {
+      target: plot.chart.getElements()[0].shape,
+    };
+    vennElementSelected.selected();
+
+    const elements = plot.chart.geometries[0].elements;
+
+    // 第一个元素 点击 有样式
+    expect(plot.getStates().length).toBe(1);
+    expect(plot.getStates()[0].state).toBe('selected');
+    expect(elements[0].getStates()[0]).toBe('selected');
+    expect((elements[0].shape as IGroup).getChildren()[0].attr('lineWidth')).toBe(2);
+
+    // 模拟 selected
+    context.event = {
+      target: plot.chart.getElements()[1].shape,
+    };
+    vennElementSelected.selected();
+    expect(plot.getStates().length).toBe(1);
+    expect(elements[0].getStates()[0]).toBeUndefined();
+    expect((elements[0].shape as IGroup).getChildren()[0].attr('lineWidth')).toBe(0);
+    expect(elements[1].getStates()[0]).toBe('selected');
+
+    // 所有元素的 selected state 为 false
+    vennElementSelected.reset();
+    vennElementSelected.destroy();
+  });
+
+  it('venn-element-highlight', () => {
+    plot.update({
+      state: {
+        inactive: {
+          style: {
+            fillOpacity: 0.3,
+          },
+        },
+      },
+      interactions: [
+        { type: 'venn-element-single-selected', enable: false },
+        { type: 'venn-element-active', enable: false },
+        { type: 'venn-element-highlight', enable: true },
+      ],
+    });
+
+    const context = new InteractionContext(plot.chart);
+    // @ts-ignore
+    const action = new VennElementHighlight(context);
+
+    // 模拟 selected
+    context.event = {
+      target: plot.chart.getElements()[0].shape,
+    };
+    action.highlight();
+    const elements = plot.chart.geometries[0].elements;
+    // 第一个元素 点击 有样式
+    expect(elements[0].getStates()[0]).toBe('active');
+    expect((elements[0].shape as IGroup).getChildren()[0].attr('fillOpacity')).not.toBe(0.3);
+    expect(elements[1].getStates()[0]).toBe('inactive');
+    expect((elements[1].shape as IGroup).getChildren()[0].attr('fillOpacity')).toBe(0.3);
+    action.toggle();
+
+    context.event = {
+      target: plot.chart.getElements()[1].shape,
+    };
+    action.toggle();
+    expect(elements[0].getStates().includes('inactive')).toBe(true);
+    expect((elements[0].shape as IGroup).getChildren()[0].attr('fillOpacity')).toBe(0.3);
+    expect((elements[1].shape as IGroup).getChildren()[0].attr('fillOpacity')).not.toBe(0.3);
+
+    action.destroy();
   });
 
   afterAll(() => {

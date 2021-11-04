@@ -10,7 +10,6 @@
         "zh": "带贴图图案的饼图",
         "en": "Pie plot with pattern"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/cACfJO99IO/32b38815-8427-4111-a0f0-34208aa65dd8.png"
     },
     {
@@ -19,7 +18,6 @@
         "zh": "图例 marker 设置贴图图案",
         "en": "Custom legend marker with pattern"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/N%26xo4t7zRW/79c6bdf8-0cc6-49b7-94a2-f462b9f825bc.png"
     },
     {
@@ -28,7 +26,6 @@
         "zh": "带贴图图案的分组柱状图",
         "en": "Grouped column plot with pattern"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/wlurjHqyu%24/4b21f53e-7186-42c8-8f57-6f32c91a09ba.png"
     },
     {
@@ -37,7 +34,6 @@
         "zh": "带贴图图案的条形图",
         "en": "Bar plot with pattern"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/APiY4THavu/93d5749b-1e0d-4118-b04f-4e928a7eb144.png"
     },
     {
@@ -46,7 +42,6 @@
         "zh": "带贴图图案的堆叠图",
         "en": "Stack-bar plot with pattern"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/LGFxwRRwZl/d11e9835-a520-4a4c-9893-30b6a6ebb3c1.png"
     },
     {
@@ -55,7 +50,6 @@
         "zh": "带贴图图案的环形图",
         "en": "Donut with pattern"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/spgIo%26zAzG/6562dc40-2ac6-4c8a-b433-88e41e20621a.png"
     },
     {
@@ -64,7 +58,6 @@
         "zh": "带贴图图案的面积图",
         "en": "Area with pattern"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/msiCPIX%243T/16b69b77-6a87-42e0-9e8c-9767d6b9df79.png"
     },
     {
@@ -73,7 +66,6 @@
         "zh": "带贴图图案的堆叠分组柱状图",
         "en": "Stacked grouped column plot with pattern"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/1Ei8A%24VtRI/a9f53248-bdb4-4bc4-a567-3cd0d76e2a26.png"
     },
     {
@@ -82,7 +74,6 @@
         "zh": "带贴图图案的热力图",
         "en": "Heatmap with pattern"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/0zXfW5rjOu/e442fed3-047c-4f34-9536-8efe2e60a92f.png"
     },
     {
@@ -91,7 +82,6 @@
         "zh": "带贴图图案的热力图",
         "en": "Heatmap with pattern (cookie)"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/vR9mVPFTmx/7b2e0aac-cee0-428b-bca3-c7082bb2b76f.png"
     },
     {
@@ -100,7 +90,6 @@
         "zh": "带贴图图案的水波图",
         "en": "Liquid with pattern"
       },
-      "new": true,
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/CBo9L7m9Ux/53202fa4-ad16-4c47-ba72-f8b9858f0c78.png"
     }
   ]

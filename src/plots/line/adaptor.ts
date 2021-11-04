@@ -1,9 +1,9 @@
 import { Geometry } from '@antv/g2';
-import { each } from '@antv/util';
+import { each, isArray } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, slider, interaction, animation, theme, scale, annotation, limitInPlot } from '../../adaptor/common';
 import { findGeometry, transformLabel, deepAssign } from '../../utils';
-import { point, line } from '../../adaptor/geometries';
+import { point, line, area } from '../../adaptor/geometries';
 import { flow } from '../../utils';
 import { adjustYMetaByZero } from '../../utils/data';
 import { LineOptions } from './types';
@@ -14,7 +14,7 @@ import { LineOptions } from './types';
  */
 function geometry(params: Params<LineOptions>): Params<LineOptions> {
   const { chart, options } = params;
-  const { data, color, lineStyle, lineShape, point: pointMapping, seriesField } = options;
+  const { data, color, lineStyle, lineShape, point: pointMapping, area: areaMapping, seriesField } = options;
   const pointState = pointMapping?.state;
 
   chart.data(data);
@@ -35,14 +35,21 @@ function geometry(params: Params<LineOptions>): Params<LineOptions> {
         shape: 'circle',
         ...pointMapping,
       },
+      // 面积配置
+      area: areaMapping && {
+        color,
+        ...areaMapping,
+      },
       // label 不传递给各个 geometry adaptor，由 label adaptor 处理
       label: undefined,
     },
   });
   const second = deepAssign({}, primary, { options: { tooltip: false, state: pointState } });
+  const areaParams = deepAssign({}, primary, { options: { tooltip: false, state: pointState } });
 
   line(primary);
   point(second);
+  area(areaParams);
 
   return params;
 }
@@ -69,6 +76,26 @@ export function meta(params: Params<LineOptions>): Params<LineOptions> {
       }
     )
   )(params);
+}
+
+/**
+ * 坐标系配置. 支持 reflect 镜像处理
+ * @param params
+ */
+function coordinate(params: Params<LineOptions>): Params<LineOptions> {
+  const { chart, options } = params;
+  const { reflect } = options;
+  if (reflect) {
+    let p = reflect as any;
+    if (!isArray(p)) {
+      p = [p];
+    }
+    const actions = p.map((d) => ['reflect', d]);
+
+    chart.coordinate({ type: 'rect', actions });
+  }
+
+  return params;
 }
 
 /**
@@ -174,6 +201,7 @@ export function adaptor(params: Params<LineOptions>) {
     meta,
     adjust,
     theme,
+    coordinate,
     axis,
     legend,
     tooltip,

@@ -9,6 +9,14 @@ order: 0
 
 ### Data Mapping
 
+### Coordinate
+
+#### reflect
+
+<description>**optional** _'x' | 'y' | ['x', 'y']_</description>
+
+Apply `reflect` transform to the coordinate of line plot. When `reflect: 'y'` is set, y-axis can be inverted; in the same way, you can set `reflect: 'x'` to invert x-axis, and invert x-axis and y-axis at the same time is also supported.
+
 #### data
 
 <description>**required** _array object_</description>
@@ -78,6 +86,17 @@ Polyline data point graph style.
 
 `markdown:docs/common/point-style.en.md`
 
+#### area
+
+<description>**可选** _object_</description>
+
+折线趋势区域填充。
+
+| Properties | Type                             | Description                                                                                   |
+| ---------- | -------------------------------- | --------------------------------------------------------------------------------------------- |
+| color      | _string \| string[] \| Function_ | The color of the area, support callback way, example: `color: (datum: object) => string` |
+| style      | _object \| Function_             | Area style, support callback way, example: `style: (datum: object) => string`          |
+
 #### state
 
 <description>**optional** _object_</description>
@@ -107,3 +126,12 @@ Polyline data point graph style.
 ### Plot Interactions
 
 `markdown:docs/common/interactions.en.md`
+
+### Customize ✨
+
+#### customInfo
+
+<description>**optional** _any_</description>
+
+通过 `customInfo` 属性，可以向 shape 中传入自定义的数据。目前可能仅仅可能用于在 `registerShape` 的时候，像自定义 shape 中传入自定义的数据，方便实现自定义 shape 的配置能力。
+

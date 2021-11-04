@@ -61,8 +61,8 @@ The return value is of the following type:
 | y          | _number_           | Vertical coordinates of the current text   |
 | font       | _string_           | Font of text                               |
 | weight     | _number \| string_ | Text weight                                |
-| size       | _numberg_          | The font size of the text                  |
-| rotate     | _numberg_          | The rotation Angle of the text             |
+| size       | _number_          | The font size of the text                  |
+| rotate     | _number_          | The rotation angle of the text             |
 
 #### timeInterval
 
@@ -97,7 +97,7 @@ Set the style of each word.
 | padding       | _number \| function_             | 1         | The padding of the box for each word, default to 1. The bigger the words, the bigger the space between them. |
 | fontSize      | _number[] \| number \| function_ | [20, 60]  | The range of font sizes, such as [10, 20], means that the minimum font is 10 and the maximum font is 20      |
 | rotation      | _number[] \| number \| function_ | [0, 90]   | Rotation minimum and maximum angles by default [0, 90]                                                       |
-| rotationSteps | _number_                         | 2         | Rotate the actual number of steps, the larger the rotation Angle may be smaller, default is 2                |
+| rotationSteps | _number_                         | 2         | Rotate the actual number of steps, the larger the rotation angle may be smaller, default is 2                |
 
 Above, some properties can be set to a function that takes the following parameters:
 

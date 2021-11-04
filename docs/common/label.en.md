@@ -9,9 +9,9 @@
 | content    | _string \| IGroup \| IShape \| GeometryLabelContentCallback_ | Text content that is displayed, if not declared, is displayed according to the value of the first field participating in the mapping                             |
 | style      | _ShapeAttrs_                                                       | Label text graphic property style                                                                                                                                |
 | autoRotate | _string_                                                     | Whether to rotate automatically, default true                                                                                                                    |
-| rotate     | _number_                                                     | Text rotation Angle                                                                                                                                              |
+| rotate     | _number_                                                     | Text rotation angle, unit is radian, clockwise rotation                                                                                                                                              |
 | labelLine  | _null_ \| _boolean_ \| _LabelLineCfg_                               | Used to set the style property of the text connector. NULL indicates that it is not displayed.                                                                   |
-| labelEmit  | _boolean_                                                    | Only applies to text in polar coordinates, indicating whether the text is radially displayed according to the Angle. True means on and false means off           |
+| labelEmit  | _boolean_                                                    | Only applies to text in polar coordinates, indicating whether the text is radially displayed according to the angle. True means on and false means off           |
 | layout     | _'overlap' \| 'fixedOverlap' \| 'limitInShape'_              | Text layout type, support a variety of layout function combination.                                                                                              |
 | position   | _'top' \| 'bottom' \| 'middle' \| 'left' \| 'right'_         | Specifies the position of the current Label relative to the current graphic   (💡 Attention: Only works for **column plot** and **bar plot**, which geometry is interval)                                                                                   |
 | animate    | _boolean \| AnimateOption_                                   | Animation configuration.                                                                                                                                         |
@@ -35,8 +35,7 @@ Example code:
       fill: 'red',
       opacity: 0.6,
       fontSize: 24
-    },
-    rotate: true
+    }
   }
 }
 ```

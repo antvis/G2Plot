@@ -9,7 +9,7 @@
 | content      | _string \| IGroup \| IShape \| GeometryLabelContentCallback_ | 展示的文本内容，如果不声明则按照参与映射的第一字段的值进行显示                             |
 | style        | _ShapeAttrs_                                                     | label 文本图形属性样式                                                                     |
 | autoRotate   | _string_                                                     | 是否自动旋转，默认 true                                                                    |
-| rotate       | _number_                                                     | 文本旋转角度                                                                               |
+| rotate       | _number_                                                     | 文本旋转角度，弧度制。顺时针旋转。                                                                               |
 | labelLine    | _null_ \| _boolean_ \| _LabelLineCfg_                                   | 用于设置文本连接线的样式属性，null 表示不展示。                                            |
 | labelEmit    | _boolean_                                                    | 只对极坐标下的文本生效，表示文本是否按照角度进行放射状显示，true 表示开启，false 表示关闭  |
 | layout       | _'overlap' \| 'fixedOverlap' \| 'limitInShape'_              | 文本布局类型，支持多种布局函数组合使用。                                                   |
@@ -35,8 +35,7 @@ type LabelLineCfg = {
       fill: 'red',
       opacity: 0.6,
       fontSize: 24
-    },
-    rotate: true
+    }
   }
 }
 ```

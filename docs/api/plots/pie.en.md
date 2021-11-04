@@ -79,13 +79,13 @@ The inner radius of the pie chart, starting at the center of the canvas. Configu
 
 <description>**optional** _number_</description>
 
-Configure the starting Angle of the coordinate system.
+Configure the starting angle of the coordinate system.
 
 #### endAngle
 
 <description>**optional** _number_</description>
 
-Configure the end Angle of the coordinate system.
+Configure the end angle of the coordinate system.
 
 <playground rid="quarter-circle" path="pie/basic/demo/quarter-circle.ts"></playground>
 

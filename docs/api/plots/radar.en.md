@@ -50,7 +50,7 @@ radarPlot.render();
 
 <description>**required** _string_</description>
 
-The radar map maps to the field corresponding to the circumference Angle, which is generally a classification field.
+The radar map maps to the field corresponding to the circumference angle, which is generally a classification field.
 
 #### yField
 
@@ -76,13 +76,13 @@ The radius of the radar map, starting at the center of the drawing area (not inc
 
 <description>**optional** _number_ _default:_ `(Math.PI * 0) / 180`</description>
 
-The starting Angle of the disk.
+The starting angle of the disk.
 
 #### endAngle
 
 <description>**optional** _number_ _default:_ `(Math.PI * 180) / 180`</description>
 
-The termination Angle of the disk.
+The termination angle of the disk.
 
 `markdown:docs/common/color.en.md`
 

@@ -31,13 +31,13 @@ The radius of the inner ring [0-1] is calculated relative to the inner radius ra
 
 <description>**optional** _number_ _default:_ `(-7 / 6) * Math.PI`</description>
 
-The starting Angle of the disk.
+The starting angle of the disk.
 
 #### endAngle
 
 <description>**optional** _number_ _default:_ `(1 / 6) * Math.PI`</description>
 
-The termination Angle of the disk.
+The termination angle of the disk.
 
 ### Plot Style
 

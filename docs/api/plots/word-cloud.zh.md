@@ -61,8 +61,8 @@ order: 8
 | y        | _number_           | 当前文本的纵向坐标 |
 | font     | _string_           | 文本的字体         |
 | weight   | _number \| string_ | 文本的字重         |
-| size     | _numberg_          | 文本的字体大小     |
-| rotate   | _numberg_          | 文本的旋转角度     |
+| size     | _number_          | 文本的字体大小     |
+| rotate   | _number_          | 文本的旋转角度     |
 
 #### timeInterval
 

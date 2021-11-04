@@ -47,7 +47,7 @@ Configurations related to axis label. Set this to `null` to prevent the axis lab
 | ------------ | -------------------------------------------------------- | ------- | --------------------------------------------------------- |
 | style        | _[ShapeAttrs](/en/docs/api/graphic-style)_               | -       | Axis label text graphic property style                    |
 | offset       | _number_                                                 | -       | Axis label offset                                         |
-| rotate       | _number_                                                 | -       | Axis label text rotation Angle                            |
+| rotate       | _number_                                                 | -       | Axis label text rotation angle                            |
 | autoRotate   | _boolean \|avoidCallback_                                                 | `true`  | Whether to rotate automatically, default true             |
 | autoHide     | _boolean \|avoidCallback \| { type:string,cfg?:AxisLabelAutoHideCfg }_                | `false` | Whether to hide it automatically, default to false        |
 | autoEllipsis | _boolean_                                                | `false` | Whether to ellipsis label when overflow, default to false |

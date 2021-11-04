@@ -105,13 +105,13 @@ The radius of the hollow circle inside the rose is the same as radius.
 
 <description>**optional** _number_ _default:_ `(Math.PI * 0) / 180`</description>
 
-The starting Angle of the disk.
+The starting angle of the disk.
 
 #### endAngle
 
 <description>**optional** _number_ _default:_ `(Math.PI * 180) / 180`</description>
 
-The termination Angle of the disk.
+The termination angle of the disk.
 
 `markdown:docs/common/color.en.md`
 

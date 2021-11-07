@@ -39,13 +39,13 @@ InnerRadius of Polar coordinate. Value can be: (0, 1]
 
 <description>**optional** _number_ _default:_ `-Math.PI / 2`</description>
 
-Configure the starting Angle of the coordinate system.
+Configure the starting angle of the coordinate system.
 
 #### endAngle
 
 <description>**optional** _number_ _default:_ `Math.PI / 2 * 3`</description>
 
-Configure the end Angle of the coordinate system.
+Configure the end angle of the coordinate system.
 
 <playground path="more-plots/radial-bar/demo/line.ts" rid="startAngle-endAngle"></playground>
 

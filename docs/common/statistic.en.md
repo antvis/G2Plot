@@ -11,7 +11,7 @@ StatisticText
 | content | _string_ | Content of the text。Priority: `customHtml` > `formatter` > `content` |
 | customHtml | _CustomHtml_ | custom content by using html，priority is higher than formatter |
 | formatter  | _Function_ | The formatted content of the text |
-| rotate     | _number_   | Rotation Angle                    |
+| rotate     | _number_   | Rotation angle                    |
 | offsetX    | _number_   | X offset                          |
 | offsetY    | _number_   | Y offset                          |
 

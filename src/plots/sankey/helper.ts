@@ -1,8 +1,18 @@
 import { isRealNumber, pick } from '../../utils';
 import { transformDataToNodeLinkData } from '../../utils/data';
-import { sankeyLayout } from './layout';
+import { Data } from '../../types';
+import { sankeyLayout, SankeyLayoutInputData } from './layout';
 import { cutoffCircle } from './circle';
 import { SankeyOptions } from './types';
+
+/**
+ * 是否是 node-link 类型的数据结构
+ * @param dataTyp
+ * @returns
+ */
+function isNodeLink(dataType: string) {
+  return dataType === 'node-link';
+}
 
 export function getNodeWidthRatio(nodeWidth: number, nodeWidthRatio: number, width: number) {
   return isRealNumber(nodeWidth) ? nodeWidth / width : nodeWidthRatio;
@@ -20,6 +30,7 @@ export function getNodePaddingRatio(nodePadding: number, nodePaddingRatio: numbe
  */
 export function transformToViewsData(options: SankeyOptions, width: number, height: number) {
   const {
+    dataType,
     data,
     sourceField,
     targetField,
@@ -34,13 +45,19 @@ export function transformToViewsData(options: SankeyOptions, width: number, heig
     rawFields = [],
   } = options;
 
-  const sankeyLayoutInputData = transformDataToNodeLinkData(
-    cutoffCircle(data, sourceField, targetField),
-    sourceField,
-    targetField,
-    weightField,
-    rawFields
-  );
+  let sankeyLayoutInputData: unknown;
+
+  if (!isNodeLink(dataType)) {
+    sankeyLayoutInputData = transformDataToNodeLinkData(
+      cutoffCircle(data as Data, sourceField, targetField),
+      sourceField,
+      targetField,
+      weightField,
+      rawFields
+    );
+  } else {
+    sankeyLayoutInputData = data;
+  }
 
   // 3. layout 之后的数据
   const { nodes, links } = sankeyLayout(
@@ -51,7 +68,7 @@ export function transformToViewsData(options: SankeyOptions, width: number, heig
       nodeSort,
       nodeDepth,
     },
-    sankeyLayoutInputData
+    sankeyLayoutInputData as SankeyLayoutInputData
   );
 
   // 4. 生成绘图数据

@@ -61,7 +61,7 @@ jobs:
             {
               "msgtype": "link",
               "link": {
-                "title": "🚨 自动发布失败",
+                "title": "🚨 G2Plot 自动发布失败",
                 "text": "🔗 请点击链接查看具体原因, 及时修复 🚑",
                 "messageUrl": "https://github.com/antvis/G2Plot/actions/workflows/auto-release.yml",
                 "picUrl": "https://gw.alipayobjects.com/zos/antfincdn/AdgOtrq%26KF/G2Plot.png"

@@ -1,20 +1,64 @@
 import { Data, Options, State, StyleAttr } from '../../types';
 import { NodeDepth, NodeSort } from './layout';
 
+/**
+ * node-link 数据类型的结构
+ */
+export type NodeLinkData = {
+  /**
+   * 节点数据
+   */
+  readonly nodes: {
+    /**
+     * id 唯一即可，一般可以直接等于 name
+     */
+    readonly id: string;
+    /**
+     * 节点的名称，用于 UI 上的现实
+     */
+    readonly name: string;
+    /**
+     * 节点的值，不传则节点大小有来源求和决定
+     */
+    readonly fixedValue?: number;
+  }[];
+  /**
+   *
+   */
+  readonly links: {
+    /**
+     * 来源节点在 nodes 中的 index
+     */
+    readonly source: number;
+    /**
+     * 目标节点在 nodes 中的 index
+     */
+    readonly target: number;
+    /**
+     * 边的值
+     */
+    readonly value: number;
+  }[];
+};
+
 /** 配置类型定义 */
-export interface SankeyOptions extends Omit<Options, 'xField' | 'yField' | 'xAxis' | 'yAxis'> {
+export interface SankeyOptions extends Omit<Options, 'data' | 'xField' | 'yField' | 'xAxis' | 'yAxis'> {
   /**
-   * 来源字段
+   * 数据集的类型，默认为 detail
    */
-  readonly sourceField: string;
+  readonly dataType?: 'node-link' | 'detail';
   /**
-   * 去向字段
+   * 来源字段，dataType = 'node-link' 的时候，不用传
    */
-  readonly targetField: string;
+  readonly sourceField?: string;
   /**
-   * 权重字段
+   * 去向字段，dataType = 'node-link' 的时候，不用传
    */
-  readonly weightField: string;
+  readonly targetField?: string;
+  /**
+   * 权重字段，dataType = 'node-link' 的时候，不用传
+   */
+  readonly weightField?: string;
   /**
    * 附加的 元字段
    */
@@ -22,7 +66,7 @@ export interface SankeyOptions extends Omit<Options, 'xField' | 'yField' | 'xAxi
   /**
    * 数据
    */
-  readonly data: Data;
+  readonly data: Data | NodeLinkData;
   /**
    * 节点宽度的比如，参考画布的宽度，默认值为 0.008
    */

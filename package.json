@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "2.3.39",
+  "version": "2.3.40",
   "description": "An nteractive and responsive charting library",
   "keywords": [
     "chart",
@@ -73,6 +73,8 @@
     "@babel/runtime": "^7.11.2",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-angular": "^8.2.0",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "@types/jest": "^25.2.1",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",

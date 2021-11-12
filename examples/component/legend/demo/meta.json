@@ -43,6 +43,14 @@
         "en": "Legend flip-page configuration"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/W6n7yMd5lw/0a28a2bd-e5f3-4756-8fda-d8e2faf79076.png"
+    },
+    {
+      "filename": "legend-marker-customize.ts",
+      "title": {
+        "zh": "图例 marker 自定义",
+        "en": "Customize legend marker"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/w87M340IdH/5f2f2e58-8426-4f6e-8100-7529ed57b5ed.png"
     }
   ]
 }

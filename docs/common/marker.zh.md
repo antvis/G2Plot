@@ -14,4 +14,6 @@
 
 回调的方式为：`(x: number, y: number, r: number) => PathCommand`；
 
+自定义图例 marker [DEMO](zh/examples/component/legend#legend-marker-customize)
+
 <!--这里可以插入一个代码示例-->

@@ -1,3 +1,19 @@
+#### 2.3.40 (2021-11-12)
+
+##### Documentation Changes
+
+*  增加图例自定义 marker 的 demo ([#2961](https://github.com/antvis/g2plot/pull/2961)) ([ceb52ab8](https://github.com/antvis/g2plot/commit/ceb52ab88a4bda626f6407e67030f7ff4586dca3))
+*  correct doc about `rotate` ([#2959](https://github.com/antvis/g2plot/pull/2959)) ([d3c5e856](https://github.com/antvis/g2plot/commit/d3c5e85691cbc5b948492bf7a541740cdc32dffb))
+
+##### New Features
+
+* **sankey:**  nodelink data supported ([#2967](https://github.com/antvis/g2plot/pull/2967)) ([bb9e01cd](https://github.com/antvis/g2plot/commit/bb9e01cd37aa27cef66aa9fcab85f9e534160503))
+
+##### Bug Fixes
+
+*  修复文档错误 导致网站部署问题 ([ce2a4ea9](https://github.com/antvis/g2plot/commit/ce2a4ea9fc5ae6a6ba1be11f2b7117146b7e8a62))
+
+
 #### 2.3.39 (2021-10-23)
 
 ##### Documentation Changes

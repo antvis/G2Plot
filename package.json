@@ -25,6 +25,7 @@
   },
   "scripts": {
     "start": "npm run site:clean && npm run site:develop",
+    "release": "semantic-release",
     "site:develop": "cross-env PORT=8080 gatsby develop --open -H 0.0.0.0",
     "site:build": "NODE_OPTIONS=--max_old_space_size=8192 npm run site:clean && gatsby build --prefix-paths",
     "site:clean": "gatsby clean",

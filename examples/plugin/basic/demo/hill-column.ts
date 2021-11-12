@@ -94,6 +94,6 @@ const hill = new P(
   },
   adaptor,
   defaultOptions
-); // 引入上述的封装，或者降上述代码发包
+); // 引入上述的封装，或者将上述代码发包
 
 hill.render();

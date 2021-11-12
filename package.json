@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "2.3.39",
+  "version": "2.3.40",
   "description": "An nteractive and responsive charting library",
   "keywords": [
     "chart",
@@ -21,7 +21,7 @@
   "homepage": "https://g2plot.antv.vision",
   "repository": {
     "type": "git",
-    "url": "https://github.com/antvis/g2plot"
+    "url": "https://github.com/antvis/G2plot"
   },
   "scripts": {
     "start": "npm run site:clean && npm run site:develop",

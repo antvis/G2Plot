@@ -56,7 +56,7 @@ describe('word-cloud', () => {
     // @ts-ignore
     cloud.triggerResize();
 
-    await delay(10);
+    await delay(100);
 
     expect(chart.width).toBe(410);
     cloud.destroy();

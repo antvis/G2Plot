@@ -81,6 +81,14 @@ order: 3
 
 分组中柱子之间的间距 [0-1]，仅对分组条形图适用。
 
+#### shape
+
+<description>**可选** _string_</description>
+
+内置 shape 类型有：`hollow-rect`, `tick`; 此外，还可以搭配 [`registerShape`](https://g2.antv.vision/zh/docs/api/advanced/register-shape) 进行自定义使用. 
+
+[Demo](/zh/examples/bar/basic#shape)
+
 #### state
 
 <description>**可选** _object_</description>

@@ -71,18 +71,17 @@ G2.registerShape('interval', 'blink-interval', {
     });
 
     const data = cfg.data;
-    if (data[LATEST_FLAG]) {
-      group.addShape('rect', {
-        attrs: {
-          x,
-          y,
-          width,
-          height,
-          fill: `l(90) 0:${fillColor} 1:rgba(255,255,255,0.23)`,
-        },
-        name: 'blink-interval',
-      });
-    }
+    group.addShape('rect', {
+      attrs: {
+        x,
+        y,
+        width,
+        height,
+        fill: `l(90) 0:${fillColor} 1:rgba(255,255,255,0.23)`,
+        opacity: data[LATEST_FLAG] ? 1 : 0,
+      },
+      name: 'blink-interval',
+    });
 
     return group;
   },

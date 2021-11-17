@@ -1,0 +1,11 @@
+name: demo
+
+on: workflow_dispatch
+
+jobs:
+  t:
+    runs-on: ubuntu-latest
+    steps:
+      - run: yarn
+      - run: npm run site:build
+      

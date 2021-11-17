@@ -6,6 +6,6 @@ jobs:
   t:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - run: yarn
       - run: npm run site:build
-      

@@ -10,6 +10,7 @@ import { pick } from './pick';
  * @param field
  */
 export function adjustYMetaByZero(data: Data, field: string): Meta {
+  if (!data) return {};
   // 过滤出数字数据
   const numberData = data.filter((datum: Datum) => {
     const v = get(datum, [field]);

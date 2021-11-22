@@ -127,7 +127,7 @@ const data = [
 
 `markdown:docs/common/theme.zh.md`
 
-### 自定义 ✨
+### 定制使用 ✨
 
 #### customInfo
 

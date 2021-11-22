@@ -59,6 +59,15 @@
         "en": "IntervalPadding of grouped column plot"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/lRokVhHkrr/61d333f8-9d15-4327-b70f-8e026453cf70.png"
+    },
+    {
+      "filename": "rc-tooltip.jsx",
+      "title": {
+        "zh": "自定义 react tooltip",
+        "en": "Customize React Tooltip"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/djrdqmlrYh/rc-tooltip.png"
     }
   ]
 }

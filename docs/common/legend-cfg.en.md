@@ -207,6 +207,25 @@ type Marker = {
 
 Apply to <tag color="green" text="Classification legend">Classification legend</tag>, control the horizontal spacing of legend items.
 
+##### itemMarginBottom
+
+<description>**optional** _number_ </description>
+
+Apply to <tag color="green" text="Classification legend">Classification legend</tag>, control the vertical spacing of legend items.
+
+##### label
+
+<description>**optional** _ContinueLegendLabelCfg_ </description>
+
+Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, a configuration item for the text, _ContinueLegendLabelCfg_ Configuration is as follows:
+
+| Properties | Type     | Default | Description                                                                                                                                                                                                                                      |
+| ---------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| align      | _string_ | -       | The alignment of text with the slider <br/> - rail : Align with the slide rail, at both ends of the slide rail <br/> - top, bottom: Legends are valid when laid out horizontally <br/> - left, right: Legends are valid when laid out vertically |
+| style      | _object_ | -       | Text style configuration item, reference [Graphic Style](/zh/docs/api/graphic-style)                                                                                                                                                             |
+| spacing    | _number_ | -       | The distance between the text and the slide                                                                                                                                                                                                      |
+| formatter  | _(value: any) => string_ | 文本的格式化方式 |
+
 ##### marker
 
 <description>**optional** _MarkerCfg_ </description>
@@ -329,19 +348,6 @@ Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, a s
 |**rail.type='color'**| **rail.type='size** |
 |---|---|
 |![color](https://gw.alipayobjects.com/zos/antfincdn/jwMUDJ63aN/72957823-0148-4b24-bbf4-c756959467d3.png)|![size](https://gw.alipayobjects.com/zos/antfincdn/t%26LwpJHUA6/52de13d5-b232-4efb-aacf-6d673778d92a.png)|
-
-##### label
-
-<description>**optional** _ContinueLegendLabelCfg_ </description>
-
-Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, a configuration item for the text, _ContinueLegendLabelCfg_ Configuration is as follows:
-
-| Properties | Type     | Default | Description                                                                                                                                                                                                                                      |
-| ---------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| align      | _string_ | -       | The alignment of text with the slider <br/> - rail : Align with the slide rail, at both ends of the slide rail <br/> - top, bottom: Legends are valid when laid out horizontally <br/> - left, right: Legends are valid when laid out vertically |
-| style      | _object_ | -       | Text style configuration item, reference [Graphic Style](/zh/docs/api/graphic-style)                                                                                                                                                             |
-| spacing    | _number_ | -       | The distance between the text and the slide                                                                                                                                                                                                      |
-| formatter  | _(value: any) => string_ | 文本的格式化方式 |
 
 ##### track
 

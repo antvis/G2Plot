@@ -1,31 +1,57 @@
 import { Params } from '../../core/adaptor';
+import { deepAssign, flow } from '../../utils';
 import { adaptor as columnAdaptor } from '../column/adaptor';
-import { BarOptions } from './types';
-import { transformBarData } from './utils';
-
 export { meta } from '../column/adaptor';
+import { BarOptions } from './types';
 
 /**
- * 柱形图适配器
+ * 处理默认配置项
+ * 1. switch xField、 yField
+ * 2. switch xAxis、 yAxis and adjust axis.position configuration
+ */
+function defaultOptions(params: Params<BarOptions>): Params<BarOptions> {
+  const { options } = params;
+  const { xField, yField, xAxis, yAxis } = options;
+
+  const position = {
+    left: 'bottom',
+    right: 'top',
+    top: 'left',
+    bottom: 'right',
+  };
+
+  const verticalAxis =
+    yAxis !== false
+      ? {
+          position: position[yAxis?.position || 'left'],
+          ...yAxis,
+        }
+      : false;
+  const horizontalAxis =
+    xAxis !== false
+      ? {
+          position: position[xAxis?.position || 'bottom'],
+          ...xAxis,
+        }
+      : false;
+
+  return deepAssign({}, params, {
+    options: {
+      xField: yField,
+      yField: xField,
+      xAxis: verticalAxis,
+      yAxis: horizontalAxis,
+    },
+  });
+}
+
+/**
+ * label 适配器
  * @param params
  */
-export function adaptor(params: Params<BarOptions>) {
-  const { chart, options } = params;
-  const {
-    xField,
-    yField,
-    xAxis,
-    yAxis,
-    barStyle,
-    barWidthRatio,
-    label,
-    data,
-    seriesField,
-    isStack,
-    minBarWidth,
-    maxBarWidth,
-  } = options;
-
+function label(params: Params<BarOptions>): Params<BarOptions> {
+  const { options } = params;
+  const { label } = options;
   // label of bar charts default position is left, if plot has label
   if (label && !label.position) {
     label.position = 'left';
@@ -40,7 +66,18 @@ export function adaptor(params: Params<BarOptions>) {
     }
   }
 
+  return deepAssign({}, params, { options: { label } });
+}
+
+/**
+ * legend 适配器
+ * @param params
+ */
+function legend(params: Params<BarOptions>): Params<BarOptions> {
+  const { options } = params;
+
   // 默认 legend 位置
+  const { seriesField, isStack } = options;
   let { legend } = options;
   if (seriesField) {
     if (legend !== false) {
@@ -53,9 +90,19 @@ export function adaptor(params: Params<BarOptions>) {
   } else {
     legend = false;
   }
-  // @ts-ignore 直接改值
-  params.options.legend = legend;
 
+  return deepAssign({}, params, { options: { legend } });
+}
+
+/**
+ * tooltip 适配器
+ * @param params
+ */
+function tooltip(params: Params<BarOptions>): Params<BarOptions> {
+  const { options } = params;
+
+  // 默认 legend 位置
+  const { seriesField, isStack } = options;
   // 默认 tooltip 配置
   let { tooltip } = options;
   if (seriesField) {
@@ -66,33 +113,52 @@ export function adaptor(params: Params<BarOptions>) {
       };
     }
   }
-  // @ts-ignore 直接改值
-  params.options.tooltip = tooltip;
 
-  // transpose column to bar
-  chart.coordinate().transpose();
+  return deepAssign({}, params, { options: { tooltip } });
+}
+
+/**
+ * coordinate 适配器
+ * @param params
+ */
+function coordinate(params: Params<BarOptions>): Params<BarOptions> {
+  const { chart } = params;
+  // transpose column to bar 对角变换 & y 方向镜像变换
+  chart.coordinate({ actions: [['transpose'], ['reflect', 'y']] });
+  return params;
+}
+
+/**
+ * 柱形图适配器
+ * @param params
+ */
+export function geometry(params: Params<BarOptions>) {
+  const { chart, options } = params;
+
+  const { barStyle, barWidthRatio, minBarWidth, maxBarWidth, barBackground } = options;
 
   return columnAdaptor(
     {
       chart,
       options: {
         ...options,
-        label,
-        // switch xField and yField
-        xField: yField,
-        yField: xField,
-        xAxis: yAxis,
-        yAxis: xAxis,
         // rename attrs as column
         columnStyle: barStyle,
         columnWidthRatio: barWidthRatio,
         minColumnWidth: minBarWidth,
         maxColumnWidth: maxBarWidth,
-        columnBackground: options.barBackground,
-        // bar 调整数据顺序
-        data: transformBarData(data),
+        columnBackground: barBackground,
       },
     },
     true
-  );
+  ) as Params<BarOptions>;
+}
+
+/**
+ * @param chart
+ * @param options
+ */
+export function adaptor(params: Params<BarOptions>): Params<BarOptions> {
+  // flow 的方式处理所有的配置到 G2 API
+  return flow<Params<BarOptions>>(defaultOptions, label, legend, tooltip, coordinate, geometry)(params);
 }

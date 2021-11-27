@@ -173,7 +173,7 @@ xAxis、yAxis 配置相同，由于 DualAxes 是双轴， annotations 类型是�
 
 `markdown:docs/common/theme.zh.md`
 
-#### 缩略轴
+#### 缩略轴 slider
 
 `markdown:docs/common/slider.zh.md`
 

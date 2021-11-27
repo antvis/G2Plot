@@ -90,8 +90,8 @@ function renderArrowTag(config: TagRenderConfig, elemPrev: Element, elemNext: El
   const { view, geometry, group, options, horizontal } = config;
   const { offset, size, arrow } = options;
   const coordinate = view.getCoordinate();
-  const pointPrev = parsePoints(coordinate, elemPrev)[horizontal ? 3 : 0];
-  const pointNext = parsePoints(coordinate, elemNext)[horizontal ? 0 : 3];
+  const pointPrev = parsePoints(coordinate, elemPrev)[3];
+  const pointNext = parsePoints(coordinate, elemNext)[0];
   const totalHeight = pointNext.y - pointPrev.y;
   const totalWidth = pointNext.x - pointPrev.x;
 
@@ -238,7 +238,7 @@ export function conversionTag<O extends OptionWithConversionTag & Options>(
             horizontal,
             options: getConversionTagOptionsWithDefaults(conversionTag, horizontal),
           };
-          const elements = horizontal ? interval.elements : interval.elements.slice().reverse();
+          const elements = interval.elements;
           each(elements, (elem: Element, idx: number) => {
             if (idx > 0) {
               renderTag(config, elements[idx - 1], elem);

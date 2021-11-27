@@ -95,7 +95,7 @@ describe('bar', () => {
       { product_type: '电子产品', sex: '女', order_amt: 5.9, product_sub_type: '鼠标' },
     ];
 
-    const dualAxes = new Bar(createDiv(), {
+    const plot = new Bar(createDiv(), {
       data: [],
       xField: 'product_type',
       yField: 'order_amt',
@@ -105,15 +105,15 @@ describe('bar', () => {
       groupField: 'sex',
     });
 
-    dualAxes.render();
-    dualAxes.changeData(data);
-    const elements = dualAxes.chart.geometries[0].elements;
+    plot.render();
+    plot.changeData(data);
+    const elements = plot.chart.geometries[0].elements;
     expect(elements.length).toBe(data.length);
     expect(elements[0].shape.attr('fill')).toBe(elements[1].shape.attr('fill'));
-    // 从下至上绘制
-    expect(elements[0].getModel().data).toMatchObject(data[data.length - 1]);
-    expect(elements[1].getModel().data).toEqual(data[data.length - 2]);
+    // 从下至上绘制 (数据不进行反转)
+    expect(elements[0].getModel().data).toMatchObject(data[0]);
+    expect(elements[1].getModel().data).toEqual(data[2]);
 
-    dualAxes.destroy();
+    plot.destroy();
   });
 });

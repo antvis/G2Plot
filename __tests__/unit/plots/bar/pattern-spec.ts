@@ -54,8 +54,8 @@ describe('bar style', () => {
 
     const geometry = bar.chart.geometries[0];
     const elements = geometry.elements;
-    expect(elements[2].shape.attr('fill') instanceof CanvasPattern).toEqual(true);
-    expect(elements[0].shape.attr('fill') instanceof CanvasPattern).toEqual(false);
+    expect(elements[3].shape.attr('fill') instanceof CanvasPattern).toEqual(true);
+    expect(elements[2].shape.attr('fill') instanceof CanvasPattern).toEqual(false);
 
     bar.update({
       pattern: ({ area }) => {
@@ -65,8 +65,10 @@ describe('bar style', () => {
       },
     });
 
-    expect(bar.chart.geometries[0].elements[0].shape.attr('fill') instanceof CanvasPattern).toEqual(true);
-    expect(bar.chart.geometries[0].elements[1].shape.attr('fill') instanceof CanvasPattern).toEqual(false);
+    expect(
+      bar.chart.geometries[0].elements[salesByArea.length - 1].shape.attr('fill') instanceof CanvasPattern
+    ).toEqual(true);
+    expect(bar.chart.geometries[0].elements[0].shape.attr('fill') instanceof CanvasPattern).toEqual(false);
 
     bar.destroy();
   });

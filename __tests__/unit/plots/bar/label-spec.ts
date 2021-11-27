@@ -32,9 +32,7 @@ describe('bar label', () => {
     });
     expect(labelGroups).toHaveLength(salesByArea.length);
     labelGroups.forEach((label, index) => {
-      expect(label.get('children')[0].attr('text')).toBe(
-        `${Math.floor(salesByArea[salesByArea.length - index - 1].sales / 10000)}万`
-      );
+      expect(label.get('children')[0].attr('text')).toBe(`${Math.floor(salesByArea[index].sales / 10000)}万`);
     });
 
     bar.destroy();

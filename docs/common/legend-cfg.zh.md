@@ -209,6 +209,12 @@ type Marker = {
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，控制图例项水平方向的间距。
 
+##### itemMarginBottom
+
+<description>**optional** _number_ </description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，控制图例项垂直方向的间距。
+
 ##### label
 
 <description>**optional** _ContinueLegendLabelCfg_ </description>

@@ -29,6 +29,15 @@
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/3jrUoywaYN/339d1657-af7b-47d0-8434-da69979d597d.png"
     },
     {
+      "filename": "conversion-funnel.ts",
+      "title": {
+        "zh": "转化漏斗图",
+        "en": "Conversion Funnel"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/81uizWIqmn/75bf097d-0c94-437f-aec9-5b5d9ba98cd2.png"
+    },
+    {
       "filename": "compare-funnel.ts",
       "title": {
         "zh": "对比漏斗图",

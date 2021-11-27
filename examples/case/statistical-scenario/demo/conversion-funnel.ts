@@ -128,7 +128,6 @@ const columnPlot = new Column('container', {
   yField: Y_FIELD,
   seriesField: X_FIELD,
   columnBackground: {},
-  interactions: [{ type: 'active-region', enable: false }],
   xAxis: false,
   yAxis: false,
   meta: {

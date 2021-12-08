@@ -145,7 +145,7 @@
   "limit-size": [
     {
       "path": "dist/g2plot.min.js",
-      "limit": "995 Kb"
+      "limit": "998 Kb"
     },
     {
       "path": "dist/g2plot.min.js",

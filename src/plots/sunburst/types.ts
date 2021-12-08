@@ -2,7 +2,7 @@ import { ColorAttr, Options, StyleAttr } from '../../types';
 import { DrillDownCfg } from '../../types/drill-down';
 import { HierarchyOption } from '../../utils/hierarchy/types';
 
-export interface SunburstOptions extends Omit<Options, 'data' | 'legend' | 'slider' | 'scrollbar' | 'xAxis' | 'yAxis'> {
+export interface SunburstOptions extends Omit<Options, 'data' | 'slider' | 'scrollbar' | 'xAxis' | 'yAxis'> {
   /** 旭日图数据 */
   readonly data: any;
   /** 径向类型 */

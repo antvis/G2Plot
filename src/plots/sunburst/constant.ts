@@ -41,6 +41,7 @@ export const DEFAULT_OPTIONS: Partial<SunburstOptions> = deepAssign({}, Plot.get
     offset: 20,
     showTitle: false,
   },
+  legend: false,
 
   // 样式设置
   sunburstStyle: {

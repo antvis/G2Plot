@@ -2,7 +2,15 @@ import { isFunction, get, uniq } from '@antv/util';
 import { Types } from '@antv/g2';
 import { Params } from '../../core/adaptor';
 import { polygon as polygonAdaptor } from '../../adaptor/geometries';
-import { interaction as baseInteraction, animation, theme, annotation, scale, pattern } from '../../adaptor/common';
+import {
+  interaction as baseInteraction,
+  animation,
+  theme,
+  annotation,
+  scale,
+  pattern,
+  legend,
+} from '../../adaptor/common';
 import { flow, findGeometry, transformLabel, deepAssign } from '../../utils';
 import { getAdjustAppendPadding } from '../../utils/padding';
 import { Datum } from '../../types';
@@ -60,18 +68,6 @@ function geometry(params: Params<SunburstOptions>): Params<SunburstOptions> {
 export function axis(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart } = params;
   chart.axis(false);
-  return params;
-}
-
-/**
- * legend 配置（旭日图暂时不支持图例，后续需要支持的话，得自定义数据筛选）
- * @param params
- * @returns
- */
-function legend(params: Params<SunburstOptions>): Params<SunburstOptions> {
-  const { chart } = params;
-
-  chart.legend(false);
   return params;
 }
 

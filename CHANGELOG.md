@@ -1,3 +1,30 @@
+#### 2.4.0 (2021-12-09)
+
+##### Documentation Changes
+
+*  补充 legend 文档 & 自定义转化漏斗图 demo ([#2998](https://github.com/antvis/G2plot/pull/2998)) ([86a8ec0f](https://github.com/antvis/G2plot/commit/86a8ec0f8a2d590348762837d3af91a5b6a9e355))
+*  周常丰富文档和 demo ([#2976](https://github.com/antvis/G2plot/pull/2976)) ([aad83bc2](https://github.com/antvis/G2plot/commit/aad83bc2d4eece515177cdee0bb930edfe8a02d2))
+*  更新官网公告 ([b5fcf129](https://github.com/antvis/G2plot/commit/b5fcf12956493919d6c86864878f47fa275ab00a))
+* **legend:** 增加图例自定义 marker 的 demo ([#2961](https://github.com/antvis/G2plot/pull/2961)) ([ceb52ab8](https://github.com/antvis/G2plot/commit/ceb52ab88a4bda626f6407e67030f7ff4586dca3))
+* correct doc about `rotate` ([#2959](https://github.com/antvis/G2plot/pull/2959)) ([d3c5e856](https://github.com/antvis/G2plot/commit/d3c5e85691cbc5b948492bf7a541740cdc32dffb))
+* **bar:**  条形图增加 bar 配置文档说明和 demo ([#2974](https://github.com/antvis/G2plot/pull/2974)) ([98d984f2](https://github.com/antvis/G2plot/commit/98d984f20197bfe65f51ba8d9edc4f6b86c72822))
+* **typo:** fix description of package ([#2989](https://github.com/antvis/G2plot/pull/2989)) ([5829e794](https://github.com/antvis/G2plot/commit/5829e79498d5e3cfaed88d7ff6e9afac0f6a063a))
+
+##### New Features
+
+* **sunburst:**  旭日图支持图例配置 & 单测 ([#3011](https://github.com/antvis/G2plot/pull/3011)) ([5d650336](https://github.com/antvis/G2plot/commit/5d6503369776f0d3795e32467dc8db2bc5a267a4))
+* **sankey:**  nodelink data supported ([#2967](https://github.com/antvis/G2plot/pull/2967)) ([bb9e01cd](https://github.com/antvis/G2plot/commit/bb9e01cd37aa27cef66aa9fcab85f9e534160503))
+
+##### Bug Fixes
+
+* **venn:**  fix venn color option type compatibility ([#3015](https://github.com/antvis/G2plot/pull/3015)) ([4364df56](https://github.com/antvis/G2plot/commit/4364df569c411c248acad8911f91872d46bced2b))
+* **bar:**  修复条形图图例转置 & 单测 ([#3013](https://github.com/antvis/G2plot/pull/3013)) ([be7caa9a](https://github.com/antvis/G2plot/commit/be7caa9ab6713974b33fcec5996a509dd099cdfa))
+* **docs:** fix document typo ([#2971](https://github.com/antvis/G2plot/pull/2971)) ([5449ce0c](https://github.com/antvis/G2plot/commit/5449ce0c36a07be9892ff106dedce4f25d044757))
+
+##### Refactors
+
+* **bar:**  条形图重构，不需要反转数据 调整下坐标系即可. Breaking-changes maybe existed. ([#2914](https://github.com/antvis/G2plot/pull/2914)) ([b1d8f47b](https://github.com/antvis/G2plot/commit/b1d8f47b8152a96d1229276019d4f5c3068dbe33))
+
 #### 2.3.40 (2021-11-12)
 
 ##### Documentation Changes

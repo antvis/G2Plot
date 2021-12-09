@@ -1,4 +1,5 @@
 import { Params } from '../../core/adaptor';
+import { tooltip } from '../../adaptor/common';
 import { deepAssign, flow } from '../../utils';
 import { adaptor as columnAdaptor } from '../column/adaptor';
 export { meta } from '../column/adaptor';
@@ -83,7 +84,6 @@ function legend(params: Params<BarOptions>): Params<BarOptions> {
     if (legend !== false) {
       legend = {
         position: isStack ? 'top-left' : 'right-top',
-        reversed: isStack ? false : true,
         ...(legend || {}),
       };
     }
@@ -92,29 +92,6 @@ function legend(params: Params<BarOptions>): Params<BarOptions> {
   }
 
   return deepAssign({}, params, { options: { legend } });
-}
-
-/**
- * tooltip 适配器
- * @param params
- */
-function tooltip(params: Params<BarOptions>): Params<BarOptions> {
-  const { options } = params;
-
-  // 默认 legend 位置
-  const { seriesField, isStack } = options;
-  // 默认 tooltip 配置
-  let { tooltip } = options;
-  if (seriesField) {
-    if (tooltip !== false) {
-      tooltip = {
-        reversed: isStack ? false : true,
-        ...(tooltip || {}),
-      };
-    }
-  }
-
-  return deepAssign({}, params, { options: { tooltip } });
 }
 
 /**

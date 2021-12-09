@@ -382,24 +382,6 @@ describe('bar', () => {
     return bar;
   }
 
-  it('legend/tooltip reversed, grouped', () => {
-    const bar = getBar(true, false);
-    // @ts-ignore
-    expect(bar.chart.getOptions().legends['series'].reversed).toBe(true);
-    // @ts-ignore
-    expect(bar.chart.getOptions().tooltip.reversed).toBe(true);
-    bar.destroy();
-  });
-
-  it('legend/tooltip reversed, stacked', () => {
-    const bar = getBar(false, true);
-    // @ts-ignore
-    expect(bar.chart.getOptions().legends['series'].reversed).toBe(false);
-    // @ts-ignore
-    expect(bar.chart.getOptions().tooltip?.reversed).toBe(false);
-    bar.destroy();
-  });
-
   it('bar background', () => {
     const bar = getBar(false, false);
     expect(bar.options.barBackground).not.toBeDefined();

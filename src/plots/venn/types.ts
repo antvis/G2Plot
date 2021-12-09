@@ -15,7 +15,7 @@ export interface VennOptions extends Options {
 
   // 韦恩图 样式
   /** color */
-  readonly color?: string | string[] | ((datum: Datum, defaultColor: string) => string);
+  readonly color?: string | string[] | ((datum: Datum, defaultColor?: string) => string);
   /** 并集合的颜色混合方式, 可选项: 参考 https://gka.github.io/chroma.js/#chroma-blend, 默认: multiply */
   readonly blendMode?: string;
   /** point 样式 */

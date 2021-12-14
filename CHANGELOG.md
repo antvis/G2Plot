@@ -1,3 +1,9 @@
+#### 2.4.1 (2021-12-14)
+
+##### Bug Fixes
+
+* **bar:**  修复条形图 xAxis、yAxis 配置互相影响 ([d9684d1b](https://github.com/antvis/G2plot/commit/d9684d1b348b699420a33263bc3a4494643e6281))
+
 #### 2.4.0 (2021-12-09)
 
 ##### Documentation Changes

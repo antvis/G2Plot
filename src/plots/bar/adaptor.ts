@@ -1,6 +1,7 @@
 import { Params } from '../../core/adaptor';
 import { tooltip } from '../../adaptor/common';
 import { deepAssign, flow } from '../../utils';
+import { Axis } from '../../types';
 import { adaptor as columnAdaptor } from '../column/adaptor';
 export { meta } from '../column/adaptor';
 import { BarOptions } from './types';
@@ -36,14 +37,17 @@ function defaultOptions(params: Params<BarOptions>): Params<BarOptions> {
         }
       : false;
 
-  return deepAssign({}, params, {
+  return {
+    ...params,
     options: {
+      ...options,
       xField: yField,
       yField: xField,
-      xAxis: verticalAxis,
-      yAxis: horizontalAxis,
+      // 条形图 xAxis，yAxis 不可以做 deepAssign
+      xAxis: verticalAxis as Axis,
+      yAxis: horizontalAxis as Axis,
     },
-  });
+  };
 }
 
 /**

@@ -41,10 +41,10 @@ describe('line', () => {
     });
 
     line.render();
-    expect(line.chart.geometries[1].elements.length).toBe(2);
+    expect(line.chart.views[0].geometries[0].elements.length).toBe(2);
 
     line.changeData([...line.options.data, { type: '3', value: 10 }]);
-    expect(line.chart.geometries[1].elements.length).toBe(3);
+    expect(line.chart.views[0].geometries[0].elements.length).toBe(3);
 
     line.destroy();
   });

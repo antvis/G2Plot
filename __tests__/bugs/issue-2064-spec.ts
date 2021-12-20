@@ -1,4 +1,5 @@
 import { Line, Area, Radar } from '../../src';
+import { getAllGeometriesRecursively } from '../../src/utils';
 import { createDiv } from '../utils/dom';
 
 const data = [
@@ -13,6 +14,9 @@ const data = [
 ];
 
 describe('#2064', () => {
+  function getPointGeom(plot: Line) {
+    return getAllGeometriesRecursively(plot.chart).find((g) => g.type === 'point');
+  }
   it('#2064 line', () => {
     const plot = new Line(createDiv(), {
       width: 400,
@@ -27,10 +31,9 @@ describe('#2064', () => {
     plot.render();
 
     const line = plot.chart.geometries.find((geom) => geom.type === 'line');
-    const point = plot.chart.geometries.find((geom) => geom.type === 'point');
 
     expect(line.labelsContainer.getChildren()).toHaveLength(data.length);
-    expect(point.labelsContainer.getChildren()).toHaveLength(0);
+    expect(getPointGeom(plot).labelsContainer.getChildren()).toHaveLength(0);
 
     plot.destroy();
   });

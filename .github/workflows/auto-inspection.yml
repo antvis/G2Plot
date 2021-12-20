@@ -20,6 +20,6 @@ jobs:
           surge_token: ${{ secrets.SURGE_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           build: |
-            npm install
+            yarn
       - name: Get the preview url
         run: echo "url => ${{ steps.preview_step.outputs.preview_url }}"

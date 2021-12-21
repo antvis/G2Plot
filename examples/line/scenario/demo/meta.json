@@ -1,0 +1,53 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "multiple-measures-line.ts",
+      "title": {
+        "zh": "多指标折线图",
+        "en": "Line plot with multiple measures"
+      },
+      "new": true,
+      "screenshot": ""
+    },
+    {
+      "filename": "series-multiple-measures-line.ts",
+      "title": {
+        "zh": "带拆分的多指标折线图",
+        "en": "Line plot with multiple measures"
+      },
+      "new": true,
+      "screenshot": ""
+    },
+    {
+      "filename": "derived-measures-line.ts",
+      "title": {
+        "zh": "带衍生指标折线图",
+        "en": "Line plot with derived measures"
+      },
+      "new": true,
+      "screenshot": ""
+    },
+    {
+      "filename": "line-sort-in-xAxis.jsx",
+      "title": {
+        "zh": "折线图 x 轴阅读端排序",
+        "en": "Line plot with sort in xAxis"
+      },
+      "new": true,
+      "screenshot": ""
+    },
+    {
+      "filename": "line-with-data-annotation.jsx",
+      "title": {
+        "zh": "带数据解读折线图",
+        "en": "Line plot with data annotation"
+      },
+      "new": true,
+      "screenshot": ""
+    }
+  ]
+}

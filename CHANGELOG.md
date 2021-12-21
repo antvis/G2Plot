@@ -1,3 +1,18 @@
+#### 2.4.2 (2021-12-21)
+
+##### Bug Fixes
+
+* **docs:**  文档链接 404 ([#3034](https://github.com/antvis/G2plot/pull/3034)) ([35e6f048](https://github.com/antvis/G2plot/commit/35e6f048c39e172f49c3f016ffa7f52527a2c59d))
+
+##### Refactors
+
+* **area:**  优化面积图渲染耗时, point 几何图形绘制在单独的 view 上，空数据不渲染 ([#3037](https://github.com/antvis/G2plot/pull/3037)) ([55e2abbb](https://github.com/antvis/G2plot/commit/55e2abbb0fb80a172b8bdccf92dc07f35c2010ff))
+* **line:**  折线图带 point 标注点时，进行空数据过滤，优化渲染 ([#3032](https://github.com/antvis/G2plot/pull/3032)) ([8fb5c3bd](https://github.com/antvis/G2plot/commit/8fb5c3bde657e7d15bccd5b9aa07bc38d3bb4598))
+
+##### Chores
+
+*  ci 升级到 yarn ([#3036](https://github.com/antvis/G2plot/pull/3036)) ([37728b11](https://github.com/antvis/G2plot/commit/37728b11d8ab3514d2580434c65b777626ceb07b))
+
 #### 2.4.1 (2021-12-14)
 
 ##### Bug Fixes

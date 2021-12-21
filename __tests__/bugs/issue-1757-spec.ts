@@ -1,4 +1,5 @@
 import { Line } from '../../src';
+import { getAllGeometriesRecursively } from '../../src/utils';
 import { createDiv } from '../utils/dom';
 
 describe('#1757', () => {
@@ -13,6 +14,9 @@ describe('#1757', () => {
     { year: '1998', value: 9 },
     { year: '1999', value: 13 },
   ];
+  function getPointGeom(plot: Line) {
+    return getAllGeometriesRecursively(plot.chart).find((g) => g.type === 'point');
+  }
   it('line line.tooltip.formatter', () => {
     const line = new Line(createDiv('formatter'), {
       data,
@@ -44,7 +48,7 @@ describe('#1757', () => {
     expect(document.getElementsByClassName('g2-tooltip-title')[0]).not.toBeUndefined();
     // @ts-ignore
     expect(document.getElementsByClassName('g2-tooltip-title')[0].style['margin-top']).toBe('12px');
-    expect(line.chart.geometries[1].elements[0].container.getChildByIndex(0).attr('stroke')).toBe('#2593fc');
+    expect(getPointGeom(line).elements[0].container.getChildByIndex(0).attr('stroke')).toBe('#2593fc');
 
     line.destroy();
   });

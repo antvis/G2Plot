@@ -1,11 +1,11 @@
 import { Geometry } from '@antv/g2';
-import { each, isArray } from '@antv/util';
+import { each, isArray, isNil, uniq } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { tooltip, slider, interaction, animation, theme, scale, annotation, limitInPlot } from '../../adaptor/common';
-import { findGeometry, transformLabel, deepAssign } from '../../utils';
+import { flow, findGeometry, transformLabel, deepAssign, getAllGeometriesRecursively } from '../../utils';
 import { point, line, area } from '../../adaptor/geometries';
-import { flow } from '../../utils';
 import { adjustYMetaByZero } from '../../utils/data';
+import { POINT_VIEW_ID } from './constants';
 import { LineOptions } from './types';
 
 /**
@@ -14,7 +14,7 @@ import { LineOptions } from './types';
  */
 function geometry(params: Params<LineOptions>): Params<LineOptions> {
   const { chart, options } = params;
-  const { data, color, lineStyle, lineShape, point: pointMapping, area: areaMapping, seriesField } = options;
+  const { data, color, lineStyle, lineShape, point: pointMapping, area: areaMapping, yField, seriesField } = options;
   const pointState = pointMapping?.state;
 
   chart.data(data);
@@ -44,12 +44,22 @@ function geometry(params: Params<LineOptions>): Params<LineOptions> {
       label: undefined,
     },
   });
-  const second = deepAssign({}, primary, { options: { tooltip: false, state: pointState } });
+
   const areaParams = deepAssign({}, primary, { options: { tooltip: false, state: pointState } });
 
   line(primary);
-  point(second);
   area(areaParams);
+
+  const pointParams = deepAssign({}, primary, { options: { tooltip: false, state: pointState } });
+  if (pointMapping) {
+    const pointView = chart.createView({ id: POINT_VIEW_ID });
+    pointView.axis(false);
+    pointView.tooltip(false);
+    pointView.legend(false);
+    // [PERFORMANCE] 🚀 数据为空的 point 标注点都不渲染（不包括：数据为 0)
+    pointView.data(data.filter((d) => !isNil(d[yField])));
+    point({ ...pointParams, chart: pointView });
+  }
 
   return params;
 }
@@ -60,7 +70,21 @@ function geometry(params: Params<LineOptions>): Params<LineOptions> {
  */
 export function meta(params: Params<LineOptions>): Params<LineOptions> {
   const { options } = params;
-  const { xAxis, yAxis, xField, yField, data } = options;
+  const { xAxis, yAxis, xField, yField, data, seriesField } = options;
+  const defaultMeta = {
+    [xField]: {
+      type: 'cat',
+      sync: true,
+      values: uniq(data.map((d) => d[xField])),
+    },
+    [yField]: {
+      ...adjustYMetaByZero(data, yField),
+      sync: true,
+    },
+  };
+  if (seriesField) {
+    defaultMeta[seriesField] = { sync: true };
+  }
 
   return flow(
     scale(
@@ -68,12 +92,7 @@ export function meta(params: Params<LineOptions>): Params<LineOptions> {
         [xField]: xAxis,
         [yField]: yAxis,
       },
-      {
-        [xField]: {
-          type: 'cat',
-        },
-        [yField]: adjustYMetaByZero(data, yField),
-      }
+      defaultMeta
     )
   )(params);
 }
@@ -180,8 +199,10 @@ export function adjust(params: Params<Pick<LineOptions, 'isStack'>>): Params<any
   const { chart, options } = params;
   const { isStack } = options;
 
+  const geometries = getAllGeometriesRecursively(chart);
+
   if (isStack) {
-    each(chart.geometries, (g: Geometry) => {
+    each(geometries, (g: Geometry) => {
       g.adjust('stack');
     });
   }

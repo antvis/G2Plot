@@ -1,5 +1,5 @@
-import { Geometry } from '@antv/g2';
 import { Area } from '../../../../src';
+import { findGeometry, getAllGeometriesRecursively } from '../../../../src/utils';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
 
@@ -16,7 +16,7 @@ describe('area', () => {
     });
 
     area.render();
-    expect(area.chart.geometries.length).toBe(2);
+    expect(getAllGeometriesRecursively(area.chart).length).toBe(2);
 
     let xValue;
     let yValue;
@@ -36,12 +36,12 @@ describe('area', () => {
         },
       },
     });
-    expect(area.chart.geometries.length).toBe(3);
+    expect(getAllGeometriesRecursively(area.chart).length).toBe(3);
     expect(xValue).toBe('25/01/2018');
     expect(yValue).toBe(400);
     expect(colorValue).toBe('Lab');
 
-    const point = area.chart.geometries.find((g: Geometry) => g.type === 'point');
+    const point = findGeometry(area.chart, 'point');
     expect(point.shapeType).toBe('point');
     // @ts-ignore
     expect(point.attributeOption.size.values).toEqual([2]);

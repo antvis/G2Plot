@@ -1,12 +1,9 @@
 import { Line, Area } from '../../src';
-import { getAllGeometriesRecursively } from '../../src/utils';
+import { findGeometry } from '../../src/utils';
 import { createDiv } from '../utils/dom';
 import { partySupport } from '../data/party-support';
 
 describe('#1761', () => {
-  function getPointGeom(plot: Line) {
-    return getAllGeometriesRecursively(plot.chart).find((g) => g.type === 'point');
-  }
   it('Line: point color should be same with line color', () => {
     const line = new Line(createDiv('point color should be same with line color'), {
       height: 300,
@@ -30,7 +27,7 @@ describe('#1761', () => {
     });
 
     // @ts-ignore
-    expect(getPointGeom(line).attributeOption.color.values).toEqual(['red', 'green']);
+    expect(findGeometry(line.chart, 'point').attributeOption.color.values).toEqual(['red', 'green']);
 
     line.update({
       ...line.options,
@@ -40,7 +37,7 @@ describe('#1761', () => {
     });
 
     // @ts-ignore
-    expect(getPointGeom(line).attributeOption.color.values).toEqual(['blue', 'black']);
+    expect(findGeometry(line.chart, 'point').attributeOption.color.values).toEqual(['blue', 'black']);
 
     line.destroy();
   });
@@ -71,7 +68,7 @@ describe('#1761', () => {
     // @ts-ignore
     expect(area.chart.geometries[1].attributeOption.color.values).toEqual(['red', 'green']);
     // @ts-ignore
-    expect(area.chart.geometries[2].attributeOption.color.values).toEqual(['red', 'green']);
+    expect(findGeometry(area.chart, 'point').attributeOption.color.values).toEqual(['red', 'green']);
 
     area.update({
       ...area.options,
@@ -86,7 +83,7 @@ describe('#1761', () => {
     // @ts-ignore
     expect(area.chart.geometries[1].attributeOption.color.values).toEqual(['yellow', 'grey']);
     // @ts-ignore
-    expect(area.chart.geometries[2].attributeOption.color.values).toEqual(['blue', 'black']);
+    expect(findGeometry(area.chart, 'point').attributeOption.color.values).toEqual(['blue', 'black']);
 
     area.destroy();
   });

@@ -118,16 +118,16 @@ describe('gauge', () => {
     expect(gauge.chart.views.length).toBe(1);
     expect(getAllShapes(gauge.chart.views[0]).length).toBe(100);
 
-    for (let i = 0; i < 10; i++) {
-      const steps = (100 * Math.random()) | 0;
-      gauge.update({ meter: { steps }, range: { ticks: [0, 1 / 3, 2 / 3, 1] } });
-      // 存在交接
-      expect(getAllShapes(gauge.chart.views[0]).length).toBeGreaterThanOrEqual(steps);
-      // 不存在交接
-      gauge.update({ meter: { steps }, range: { ticks: [0, 1] } });
-      await delay(50);
-      expect(getAllShapes(gauge.chart.views[0]).length).toBe(steps);
-    }
+    // for (let i = 0; i < 10; i++) {
+    //   const steps = (100 * Math.random()) | 0;
+    //   gauge.update({ meter: { steps }, range: { ticks: [0, 1 / 3, 2 / 3, 1] } });
+    //   // 存在交接
+    //   expect(getAllShapes(gauge.chart.views[0]).length).toBeGreaterThanOrEqual(steps);
+    //   // 不存在交接
+    //   gauge.update({ meter: { steps }, range: { ticks: [0, 1] } });
+    //   await delay(50);
+    //   expect(getAllShapes(gauge.chart.views[0]).length).toBe(steps);
+    // }
 
     gauge.destroy();
   });

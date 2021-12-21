@@ -1,4 +1,5 @@
 import { Area } from '../../../../src';
+import { findGeometry } from '../../../../src/utils';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
 
@@ -74,7 +75,7 @@ describe('area', () => {
     area.render();
     const areaGeometry = area.chart.geometries.find((geom) => geom.type === 'area');
     const lineGeometry = area.chart.geometries.find((geom) => geom.type === 'line');
-    const pointGeometry = area.chart.geometries.find((geom) => geom.type === 'point');
+    const pointGeometry = findGeometry(area.chart, 'point');
 
     expect(areaGeometry.tooltipOption).toBeUndefined();
     expect(lineGeometry.tooltipOption).toBe(false);

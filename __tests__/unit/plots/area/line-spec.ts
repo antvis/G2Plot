@@ -1,5 +1,6 @@
 import { Geometry } from '@antv/g2';
 import { Area } from '../../../../src';
+import { getAllGeometriesRecursively } from '../../../../src/utils';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
 
@@ -16,7 +17,7 @@ describe('area', () => {
     });
 
     area.render();
-    expect(area.chart.geometries.length).toBe(2);
+    expect(getAllGeometriesRecursively(area.chart).length).toBe(2);
 
     let xValue;
     let yValue;
@@ -39,7 +40,7 @@ describe('area', () => {
         size: 2,
       },
     });
-    expect(area.chart.geometries.length).toBe(3);
+    expect(getAllGeometriesRecursively(area.chart).length).toBe(3);
     expect(xValue).toBe('25/01/2018');
     expect(yValue).toBe(400);
     expect(colorValue).toBe('Lab');

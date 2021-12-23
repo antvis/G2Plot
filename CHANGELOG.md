@@ -1,3 +1,9 @@
+#### 2.4.3 (2021-12-23)
+
+##### Bug Fixes
+
+* **line:**  修复折线图 marker-active 交互，在 point 为空时存在隐藏错误 ([#3043](https://github.com/antvis/G2plot/pull/3043)) ([a1104ec5](https://github.com/antvis/G2plot/commit/a1104ec540f6a8235b35611689ece67cb69c4fa3))
+
 #### 2.4.2 (2021-12-21)
 
 ##### Bug Fixes

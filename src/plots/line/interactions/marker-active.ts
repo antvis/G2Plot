@@ -10,19 +10,23 @@ export class MarkerActiveAction extends InteractionAction {
       // items: 数组对象，当前 tooltip 显示的每条内容
       const { items } = evt.data;
       const point = findGeometry(view, 'point');
-      each(point.elements, (element) => {
-        const active = findIndex(items, (item) => (item as any).data === element.data) !== -1;
-        element.setState('active', active);
-      });
+      if (point) {
+        each(point.elements, (element) => {
+          const active = findIndex(items, (item) => (item as any).data === element.data) !== -1;
+          element.setState('active', active);
+        });
+      }
     }
   }
 
   public reset() {
     const view = this.getView();
     const point = findGeometry(view, 'point');
-    each(point.elements, (element) => {
-      element.setState('active', false);
-    });
+    if (point) {
+      each(point.elements, (element) => {
+        element.setState('active', false);
+      });
+    }
   }
 
   private getView(): View {

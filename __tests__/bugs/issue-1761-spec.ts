@@ -1,5 +1,4 @@
 import { Line, Area } from '../../src';
-import { findGeometry } from '../../src/utils';
 import { createDiv } from '../utils/dom';
 import { partySupport } from '../data/party-support';
 
@@ -27,7 +26,7 @@ describe('#1761', () => {
     });
 
     // @ts-ignore
-    expect(findGeometry(line.chart, 'point').attributeOption.color.values).toEqual(['red', 'green']);
+    expect(line.chart.geometries[1].attributeOption.color.values).toEqual(['red', 'green']);
 
     line.update({
       ...line.options,
@@ -37,7 +36,7 @@ describe('#1761', () => {
     });
 
     // @ts-ignore
-    expect(findGeometry(line.chart, 'point').attributeOption.color.values).toEqual(['blue', 'black']);
+    expect(line.chart.geometries[1].attributeOption.color.values).toEqual(['blue', 'black']);
 
     line.destroy();
   });
@@ -68,7 +67,7 @@ describe('#1761', () => {
     // @ts-ignore
     expect(area.chart.geometries[1].attributeOption.color.values).toEqual(['red', 'green']);
     // @ts-ignore
-    expect(findGeometry(area.chart, 'point').attributeOption.color.values).toEqual(['red', 'green']);
+    expect(area.chart.geometries[2].attributeOption.color.values).toEqual(['red', 'green']);
 
     area.update({
       ...area.options,
@@ -83,7 +82,7 @@ describe('#1761', () => {
     // @ts-ignore
     expect(area.chart.geometries[1].attributeOption.color.values).toEqual(['yellow', 'grey']);
     // @ts-ignore
-    expect(findGeometry(area.chart, 'point').attributeOption.color.values).toEqual(['blue', 'black']);
+    expect(area.chart.geometries[2].attributeOption.color.values).toEqual(['blue', 'black']);
 
     area.destroy();
   });

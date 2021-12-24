@@ -1,5 +1,4 @@
 import { Line } from '../../../../src';
-import { findGeometry } from '../../../../src/utils';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
 
@@ -42,12 +41,10 @@ describe('line', () => {
     });
 
     line.render();
-    expect(findGeometry(line.chart, 'point').elements.length).toBe(2);
+    expect(line.chart.geometries[1].elements.length).toBe(2);
 
     line.changeData([...line.options.data, { type: '3', value: 10 }]);
-    expect(findGeometry(line.chart, 'point').elements.length).toBe(3);
-    line.changeData([...line.options.data, { type: '4', value: null }]);
-    expect(findGeometry(line.chart, 'point').elements.length).toBe(3);
+    expect(line.chart.geometries[1].elements.length).toBe(3);
 
     line.destroy();
   });

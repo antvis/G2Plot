@@ -1,4 +1,4 @@
-export const version = '2.4.3';
+export const version = '2.4.1';
 
 // G2 自定义能力透出
 import * as G2 from '@antv/g2';
@@ -176,14 +176,6 @@ export type { MixOptions } from './plots/mix';
 export { Facet } from './plots/facet';
 export type { FacetOptions } from './plots/facet';
 
-/** 提供一些工具方法 */
-import { findGeometry, getAllGeometriesRecursively, findViewById } from './utils';
-const Util = {
-  findGeometry,
-  findViewById,
-  getAllGeometriesRecursively,
-};
-export { Util };
 /** 开发 adaptor 可能会用到的方法或一些工具方法，不强制使用 */
 export { flow, measureTextWidth } from './utils';
 

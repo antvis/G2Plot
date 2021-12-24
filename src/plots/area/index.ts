@@ -1,11 +1,9 @@
-import { isNil } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
 import { getDataWhetherPecentage } from '../../utils/transform/percent';
-import { findViewById } from '../../utils';
 import { AreaOptions } from './types';
 import { adaptor, meta } from './adaptor';
-import { DEFAULT_OPTIONS, POINT_VIEW_ID } from './constants';
+import { DEFAULT_OPTIONS } from './constants';
 
 export type { AreaOptions };
 
@@ -34,15 +32,10 @@ export class Area extends Plot<AreaOptions> {
    */
   public changeData(data: AreaOptions['data']) {
     this.updateOption({ data });
+    const { isPercent, xField, yField } = this.options;
     const { chart, options } = this;
-    const { isPercent, xField, yField } = options;
     meta({ chart, options });
-    const chartdata = getDataWhetherPecentage(data, yField, xField, yField, isPercent);
-    this.chart.changeData(chartdata);
-    const pointView = findViewById(this.chart, POINT_VIEW_ID);
-    if (pointView) {
-      pointView.changeData(data.filter((d) => !isNil(d[yField])));
-    }
+    this.chart.changeData(getDataWhetherPecentage(data, yField, xField, yField, isPercent));
   }
 
   /**

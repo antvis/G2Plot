@@ -1,5 +1,4 @@
 import { Line, Area, Radar } from '../../src';
-import { findGeometry, getAllGeometriesRecursively } from '../../src/utils';
 import { createDiv } from '../utils/dom';
 
 const data = [
@@ -14,9 +13,6 @@ const data = [
 ];
 
 describe('#2064', () => {
-  function getPointGeom(plot: Line) {
-    return getAllGeometriesRecursively(plot.chart).find((g) => g.type === 'point');
-  }
   it('#2064 line', () => {
     const plot = new Line(createDiv(), {
       width: 400,
@@ -31,9 +27,10 @@ describe('#2064', () => {
     plot.render();
 
     const line = plot.chart.geometries.find((geom) => geom.type === 'line');
+    const point = plot.chart.geometries.find((geom) => geom.type === 'point');
 
     expect(line.labelsContainer.getChildren()).toHaveLength(data.length);
-    expect(getPointGeom(plot).labelsContainer.getChildren()).toHaveLength(0);
+    expect(point.labelsContainer.getChildren()).toHaveLength(0);
 
     plot.destroy();
   });
@@ -54,7 +51,7 @@ describe('#2064', () => {
 
     const area = plot.chart.geometries.find((geom) => geom.type === 'area');
     const line = plot.chart.geometries.find((geom) => geom.type === 'line');
-    const point = findGeometry(plot.chart, 'point');
+    const point = plot.chart.geometries.find((geom) => geom.type === 'point');
 
     expect(area.labelsContainer.getChildren()).toHaveLength(data.length);
     expect(line.labelsContainer.getChildren()).toHaveLength(0);
@@ -80,7 +77,7 @@ describe('#2064', () => {
 
     const area = plot.chart.geometries.find((geom) => geom.type === 'area');
     const line = plot.chart.geometries.find((geom) => geom.type === 'line');
-    const point = findGeometry(plot.chart, 'point');
+    const point = plot.chart.geometries.find((geom) => geom.type === 'point');
 
     expect(area.labelsContainer.getChildren()).toHaveLength(0);
     expect(line.labelsContainer.getChildren()).toHaveLength(data.length);

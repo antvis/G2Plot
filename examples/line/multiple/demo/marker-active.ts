@@ -1,4 +1,5 @@
 import { Line } from '@antv/g2plot';
+import { uniq, findIndex } from '@antv/util';
 
 fetch('https://gw.alipayobjects.com/os/bmw-prod/55424a73-7cb8-4f79-b60d-3ab627ac5698.json')
   .then((res) => res.json())
@@ -40,10 +41,6 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/55424a73-7cb8-4f79-b60d-3ab627ac
           };
         },
       },
-      tooltip: {
-        showMarkers: false,
-      },
-      interactions: [{ type: 'marker-active' }],
     });
 
     line.render();

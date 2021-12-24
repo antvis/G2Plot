@@ -1,10 +1,8 @@
-import { isNil } from '@antv/util';
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { findViewById } from '../../utils';
 import { LineOptions } from './types';
 import { adaptor, meta } from './adaptor';
-import { DEFAULT_OPTIONS, POINT_VIEW_ID } from './constants';
+import { DEFAULT_OPTIONS } from './constants';
 import './interactions';
 
 export type { LineOptions };
@@ -28,13 +26,8 @@ export class Line extends Plot<LineOptions> {
   public changeData(data: LineOptions['data']) {
     this.updateOption({ data });
     const { chart, options } = this;
-    const { yField } = options;
     meta({ chart, options });
     this.chart.changeData(data);
-    const pointView = findViewById(this.chart, POINT_VIEW_ID);
-    if (pointView) {
-      pointView.changeData(data.filter((d) => !isNil(d[yField])));
-    }
   }
 
   /**

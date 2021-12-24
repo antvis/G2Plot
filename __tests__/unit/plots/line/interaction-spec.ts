@@ -3,7 +3,6 @@ import { Line } from '../../../../src';
 import { MarkerActiveAction } from '../../../../src/plots/line/interactions/marker-active';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
-import { getPoint } from './point-spec';
 
 describe('line', () => {
   it('marker-active: tooltip:change 激活 point', () => {
@@ -19,18 +18,17 @@ describe('line', () => {
     });
 
     line.render();
-    const point = getPoint(line);
-    expect(point.elements[1].getStates()).not.toEqual(['active']);
+    const view = line.chart;
+    expect(view.geometries[1].elements[1].getStates()).not.toEqual(['active']);
 
-    const pointView = line.chart.views[0];
-    const context = new Context(pointView);
+    const context = new Context(view);
     context.event = {
-      data: { items: [{ data: pointView.getData()[0] }] },
+      data: { items: [{ data: data[0] }] },
     };
     const action = new MarkerActiveAction(context);
     action.active();
-    expect(point.elements[0].getStates()).toEqual(['active']);
-    expect(point.elements[1].getStates()).toEqual([]);
+    expect(view.geometries[1].elements[0].getStates()).toEqual(['active']);
+    expect(view.geometries[1].elements[1].getStates()).toEqual([]);
 
     line.destroy();
   });

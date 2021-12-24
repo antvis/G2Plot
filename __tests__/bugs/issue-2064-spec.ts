@@ -1,5 +1,5 @@
 import { Line, Area, Radar } from '../../src';
-import { findGeometry, getAllGeometriesRecursively } from '../../src/utils';
+import { getAllGeometriesRecursively } from '../../src/utils';
 import { createDiv } from '../utils/dom';
 
 const data = [
@@ -54,7 +54,7 @@ describe('#2064', () => {
 
     const area = plot.chart.geometries.find((geom) => geom.type === 'area');
     const line = plot.chart.geometries.find((geom) => geom.type === 'line');
-    const point = findGeometry(plot.chart, 'point');
+    const point = plot.chart.geometries.find((geom) => geom.type === 'point');
 
     expect(area.labelsContainer.getChildren()).toHaveLength(data.length);
     expect(line.labelsContainer.getChildren()).toHaveLength(0);
@@ -80,7 +80,7 @@ describe('#2064', () => {
 
     const area = plot.chart.geometries.find((geom) => geom.type === 'area');
     const line = plot.chart.geometries.find((geom) => geom.type === 'line');
-    const point = findGeometry(plot.chart, 'point');
+    const point = plot.chart.geometries.find((geom) => geom.type === 'point');
 
     expect(area.labelsContainer.getChildren()).toHaveLength(0);
     expect(line.labelsContainer.getChildren()).toHaveLength(data.length);

@@ -1,4 +1,4 @@
-import { Line, G2, Util } from '@antv/g2plot';
+import { Line, G2 } from '@antv/g2plot';
 import { each, findIndex } from '@antv/util';
 
 const { InteractionAction, registerInteraction, registerAction } = G2;
@@ -50,48 +50,52 @@ export class CustomMarkerAction extends InteractionAction {
     if (evt.data) {
       // items: 数组对象，当前 tooltip 显示的每条内容
       const { items } = evt.data;
-      const pointGeometry = Util.findGeometry(view, 'point');
-      each(pointGeometry.elements, (pointElement, idx) => {
-        const active = findIndex(items, (item) => item.data === pointElement.data) !== -1;
-        const [point0, point1] = pointElement.shape.getChildren();
+      const pointGeometries = view.geometries.filter((geom) => geom.type === 'point');
+      each(pointGeometries, (pointGeometry) => {
+        each(pointGeometry.elements, (pointElement, idx) => {
+          const active = findIndex(items, (item) => item.data === pointElement.data) !== -1;
+          const [point0, point1] = pointElement.shape.getChildren();
 
-        if (active) {
-          // outer-circle
-          point0.animate(
-            {
-              r: 10,
-              opacity: 0.2,
-            },
-            {
-              duration: 1800,
-              easing: 'easeLinear',
-              repeat: true,
-            }
-          );
-          // inner-circle
-          point1.animate(
-            {
-              r: 6,
-              opacity: 0.4,
-            },
-            {
-              duration: 800,
-              easing: 'easeLinear',
-              repeat: true,
-            }
-          );
-        } else {
-          this.resetElementState(pointElement);
-        }
+          if (active) {
+            // outer-circle
+            point0.animate(
+              {
+                r: 10,
+                opacity: 0.2,
+              },
+              {
+                duration: 1800,
+                easing: 'easeLinear',
+                repeat: true,
+              }
+            );
+            // inner-circle
+            point1.animate(
+              {
+                r: 6,
+                opacity: 0.4,
+              },
+              {
+                duration: 800,
+                easing: 'easeLinear',
+                repeat: true,
+              }
+            );
+          } else {
+            this.resetElementState(pointElement);
+          }
+        });
       });
     }
   }
 
   reset() {
     const view = this.getView();
-    const point = Util.findGeometry(view, 'point');
-    each(point.elements, (pointElement) => {
-      this.resetElementState(pointElement);
+    const points = view.geometries.filter((geom) => geom.type === 'point');
+    each(points, (point) => {
+      each(point.elements, (pointElement) => {
+        this.resetElementState(pointElement);
+      });
     });
   }
 

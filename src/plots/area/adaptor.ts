@@ -1,14 +1,13 @@
 import { Geometry } from '@antv/g2';
-import { each, isNil } from '@antv/util';
+import { each } from '@antv/util';
 import { tooltip, slider, interaction, animation, theme, annotation, limitInPlot, pattern } from '../../adaptor/common';
-import { findGeometry, getAllGeometriesRecursively } from '../../utils';
+import { findGeometry } from '../../utils';
 import { Params } from '../../core/adaptor';
 import { area, point, line } from '../../adaptor/geometries';
 import { flow, transformLabel, deepAssign } from '../../utils';
 import { getDataWhetherPecentage } from '../../utils/transform/percent';
 import { Datum } from '../../types';
 import { meta, legend, axis } from '../line/adaptor';
-import { POINT_VIEW_ID } from './constants';
 import { AreaOptions } from './types';
 
 export { meta };
@@ -71,21 +70,12 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
   const lineParams = deepAssign({ options: { line: { size: 2 } } }, primary, {
     options: { sizeField: seriesField, tooltip: false },
   });
+  const pointParams = deepAssign({}, primary, { options: { tooltip: false, state: pointState } });
 
   // area geometry 处理
   area(primary);
   line(lineParams);
-
-  const pointParams = deepAssign({}, primary, { options: { tooltip: false, state: pointState } });
-  if (pointMapping) {
-    const pointView = chart.createView({ id: POINT_VIEW_ID });
-    pointView.axis(false);
-    pointView.tooltip(false);
-    pointView.legend(false);
-    // [PERFORMANCE] 🚀 数据为空的 point 标注点都不渲染（不包括：数据为 0)
-    pointView.data(data.filter((d) => !isNil(d[yField])));
-    point({ ...pointParams, chart: pointView });
-  }
+  point(pointParams);
 
   return params;
 }
@@ -131,8 +121,7 @@ function adjust(params: Params<AreaOptions>): Params<AreaOptions> {
   const { chart, options } = params;
   const { isStack, isPercent, seriesField } = options;
   if ((isPercent || isStack) && seriesField) {
-    const geometries = getAllGeometriesRecursively(chart);
-    each(geometries, (g: Geometry) => {
+    each(chart.geometries, (g: Geometry) => {
       g.adjust('stack');
     });
   }

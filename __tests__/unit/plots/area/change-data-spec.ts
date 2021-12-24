@@ -1,5 +1,4 @@
 import { Area } from '../../../../src';
-import { findGeometry } from '../../../../src/utils';
 import { getDataWhetherPecentage } from '../../../../src/utils/transform/percent';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
@@ -42,10 +41,10 @@ describe('area', () => {
     });
 
     area.render();
-    expect(findGeometry(area.chart, 'point').elements.length).toBe(2);
+    expect(area.chart.geometries[1].elements.length).toBe(2);
 
     area.changeData([...area.options.data, { type: '3', value: 10 }]);
-    expect(findGeometry(area.chart, 'point').elements.length).toBe(3);
+    expect(area.chart.geometries[1].elements.length).toBe(3);
 
     area.destroy();
   });

@@ -7,8 +7,7 @@ import { reduce, get } from '@antv/util';
  * @param type
  */
 export function findGeometry(view: View, type: string): Geometry {
-  const geometries = getAllGeometriesRecursively(view);
-  return geometries.find((g: Geometry) => g.type === type);
+  return view.geometries.find((g: Geometry) => g.type === type);
 }
 
 /**

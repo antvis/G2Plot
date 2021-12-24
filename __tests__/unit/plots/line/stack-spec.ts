@@ -1,7 +1,6 @@
 import { Line } from '../../../../src';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
-import { getPoint } from './point-spec';
 
 describe('line', () => {
   it('stack line', () => {
@@ -32,9 +31,8 @@ describe('line', () => {
     expect(line.chart.geometries[0].type).toBe('line');
     expect(line.chart.geometries[0].getAdjust('stack')).toBeDefined();
 
-    const point = getPoint(line);
-    expect(point.type).toBe('point');
-    expect(point.getAdjust('stack')).toBeDefined();
+    expect(line.chart.geometries[1].type).toBe('point');
+    expect(line.chart.geometries[1].getAdjust('stack')).toBeDefined();
 
     // @ts-ignore
     expect(line.chart.getOptions().legends.type.position).toBe('top-left');

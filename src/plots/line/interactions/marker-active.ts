@@ -1,6 +1,5 @@
 import { each, findIndex } from '@antv/util';
 import { InteractionAction, View, Geometry } from '@antv/g2';
-import { getAllGeometriesRecursively } from '../../../utils';
 
 export class MarkerActiveAction extends InteractionAction {
   public active() {
@@ -9,7 +8,7 @@ export class MarkerActiveAction extends InteractionAction {
     if (evt.data) {
       // items: 数组对象，当前 tooltip 显示的每条内容
       const { items } = evt.data;
-      const points = getAllGeometriesRecursively(view).filter((geom) => geom.type === 'point');
+      const points = view.geometries.filter((geom) => geom.type === 'point');
       each(points, (point: Geometry) => {
         each(point.elements, (element) => {
           const active = findIndex(items, (item) => (item as any).data === element.data) !== -1;

@@ -1,5 +1,4 @@
 import { Line } from '../../../../src';
-import { getAllGeometriesRecursively } from '../../../../src/utils';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
 
@@ -39,20 +38,19 @@ describe('line with area', () => {
         },
       },
     });
-    const geometries = getAllGeometriesRecursively(plot.chart);
-    expect(geometries.length).toBe(3);
+    expect(plot.chart.geometries.length).toBe(3);
     expect(xValue).toBe('25/01/2018');
     expect(yValue).toBe(400);
     expect(colorValue).toBe('Lab');
 
-    const area = plot.chart.geometries[1];
+    const area = plot.chart.geometries[2];
     expect(area.elements[0].shape.attr('opacity')).toBe(0.15);
 
     plot.update({
       ...plot.options,
       point: null,
     });
-    expect(plot.chart.views.length).toBe(0);
+    expect(plot.chart.geometries.length).toBe(2);
     expect(plot.chart.geometries[1].type).toBe('area');
 
     plot.destroy();

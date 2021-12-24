@@ -4,7 +4,6 @@ import { DEFAULT_OPTIONS as columnDft } from '../../../../src/plots/column/const
 import { DEFAULT_OPTIONS as barDft } from '../../../../src/plots/bar/constants';
 import { DEFAULT_OPTIONS as areaDft } from '../../../../src/plots/area/constants';
 import { execPlotAdaptor } from '../../../../src/plots/mix/utils';
-import { getAllGeometriesRecursively } from '../../../../src/utils';
 import { createDiv } from '../../../utils/dom';
 
 describe('utils', () => {
@@ -17,17 +16,14 @@ describe('utils', () => {
     yField: 'y',
     point: {},
   };
-  function getPointGeom(chart: Chart) {
-    return getAllGeometriesRecursively(chart).find((g) => g.type === 'point');
-  }
   it('exec-adaptor: normal line', () => {
     const chart = new Chart({ container: createDiv(), width: 200, height: 400 });
     execPlotAdaptor('line', chart, options);
     chart.render();
 
-    expect(getAllGeometriesRecursively(chart).length).toBe(2);
+    expect(chart.geometries.length).toBe(2);
     expect(chart.geometries[0].elements.length).toBe(1);
-    expect(getPointGeom(chart).elements.length).toBe(2);
+    expect(chart.geometries[1].elements.length).toBe(2);
 
     // defaultOptions
     expect(chart.getOptions().tooltip).toMatchObject(lineDft.tooltip);

@@ -1,12 +1,8 @@
 import { Line, Area } from '../../src';
-import { getAllGeometriesRecursively } from '../../src/utils';
 import { createDiv } from '../utils/dom';
 import { partySupport } from '../data/party-support';
 
 describe('#1761', () => {
-  function getPointGeom(plot: Line) {
-    return getAllGeometriesRecursively(plot.chart).find((g) => g.type === 'point');
-  }
   it('Line: point color should be same with line color', () => {
     const line = new Line(createDiv('point color should be same with line color'), {
       height: 300,
@@ -30,7 +26,7 @@ describe('#1761', () => {
     });
 
     // @ts-ignore
-    expect(getPointGeom(line).attributeOption.color.values).toEqual(['red', 'green']);
+    expect(line.chart.geometries[1].attributeOption.color.values).toEqual(['red', 'green']);
 
     line.update({
       ...line.options,
@@ -40,7 +36,7 @@ describe('#1761', () => {
     });
 
     // @ts-ignore
-    expect(getPointGeom(line).attributeOption.color.values).toEqual(['blue', 'black']);
+    expect(line.chart.geometries[1].attributeOption.color.values).toEqual(['blue', 'black']);
 
     line.destroy();
   });

@@ -1,7 +1,6 @@
 import { Line } from '../../../../src';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
-import { getPoint } from './point-spec';
 
 describe('line', () => {
   it('x*y and tooltip', () => {
@@ -73,7 +72,7 @@ describe('line', () => {
 
     line.render();
     const lineGeometry = line.chart.geometries.find((geom) => geom.type === 'line');
-    const pointGeometry = getPoint(line);
+    const pointGeometry = line.chart.geometries.find((geom) => geom.type === 'point');
 
     expect(lineGeometry.tooltipOption).toBeUndefined();
     expect(pointGeometry.tooltipOption).toBe(false);

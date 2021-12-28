@@ -71,11 +71,12 @@ Area graphic style.
 
 Line graphic style in the Area.
 
-| Properties | Type                                     | Description        |
-| ---------- | ---------------------------------------- | ------------------ |
-| color      | _string \| string[] \| Function_         | Line color         |
-| style      | _ShapeStyle \| Function_                 | Line graphic style |
-| size       | _number \| [number, number] \| Function_ | Line width         |
+| Properties | Type                                     | Description                                |
+| ---------- | ---------------------------------------- | ------------------------------------------ |
+| color      | _string \| string[] \| Function_         | Line color                                 |
+| style      | _ShapeStyle \| Function_                 | Line graphic style                         |
+| size       | _number \| [number, number] \| Function_ | Line width                                 |
+| state      | _object_                                 | State style of line，details to see: [#state] |
 
 #### point
 
@@ -126,4 +127,3 @@ Point graphic style in the Area.
 <description>**optional** _any_</description>
 
 通过 `customInfo` 属性，可以向 shape 中传入自定义的数据。目前可能仅仅可能用于在 `registerShape` 的时候，像自定义 shape 中传入自定义的数据，方便实现自定义 shape 的配置能力。
-

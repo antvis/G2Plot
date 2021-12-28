@@ -72,7 +72,7 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
       },
       sizeField: seriesField,
       state: lineMapping?.state,
-      tooltip: null,
+      tooltip: false,
       // label 不传递给各个 geometry adaptor，由 label adaptor 处理
       label: undefined,
       args: {

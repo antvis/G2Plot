@@ -71,11 +71,12 @@ order: 1
 
 面积中折线的样式。
 
-| 细分配置项名称 | 类型                                     | 功能描述 |
-| -------------- | ---------------------------------------- | -------- |
-| color          | _string \| string[] \| Function_         | 颜色映射 |
-| style          | _ShapeStyle \| Function_                 | 样式映射 |
-| size           | _number \| [number, number] \| Function_ | 折线宽度 |
+| 细分配置项名称 | 类型                                     | 功能描述                                   |
+| -------------- | ---------------------------------------- | ------------------------------------------ |
+| color          | _string \| string[] \| Function_         | 颜色映射                                   |
+| style          | _ShapeStyle \| Function_                 | 样式映射                                   |
+| size           | _number \| [number, number] \| Function_ | 折线宽度                                   |
+| state          | _object_                                 | 面积图的描边折线的状态样式，类型同[#state] |
 
 #### point
 
@@ -126,4 +127,3 @@ order: 1
 <description>**可选** _any_</description>
 
 通过 `customInfo` 属性，可以向 shape 中传入自定义的数据。目前可能仅仅可能用于在 `registerShape` 的时候，像自定义 shape 中传入自定义的数据，方便实现自定义 shape 的配置能力。
-

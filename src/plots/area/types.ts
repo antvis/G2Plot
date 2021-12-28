@@ -18,7 +18,7 @@ export interface AreaOptions extends Options, Pick<GeometryOptions, 'customInfo'
   /** 面积图形样式 */
   readonly areaStyle?: StyleAttr;
   /** 面积中折线的样式 */
-  readonly line?: LineGeometryOptions['line'];
+  readonly line?: LineGeometryOptions['line'] & Pick<PointGeometryOptions, 'state'>;
   /** 面积图数据点图形样式 */
   readonly point?: PointGeometryOptions['point'] & Pick<PointGeometryOptions, 'state'>;
   /** 积图是否从 0 基准线开始填充 */

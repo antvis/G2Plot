@@ -28,7 +28,7 @@ export interface LineOptions extends Options, Pick<GeometryOptions, 'customInfo'
   /** 折线数据点：1、图形映射属性 2、状态样式 */
   readonly point?: PointGeometryOptions['point'] & Pick<PointGeometryOptions, 'state'>;
   /** 折线趋势填充色：1、图形映射属性 */
-  readonly area?: AreaGeometryOptions['area'];
+  readonly area?: AreaGeometryOptions['area'] & Pick<PointGeometryOptions, 'state'>;
 
   // 其他
   /** 坐标轴反转配置 */

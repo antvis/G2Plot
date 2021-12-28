@@ -1,5 +1,5 @@
 import { Geometry } from '@antv/g2';
-import { each } from '@antv/util';
+import { each, omit } from '@antv/util';
 import { tooltip, slider, interaction, animation, theme, annotation, limitInPlot, pattern } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
 import { Params } from '../../core/adaptor';
@@ -48,12 +48,6 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
   const primary = deepAssign({}, params, {
     options: {
       area: { color, style: areaStyle },
-      // 颜色保持一致，因为如果颜色不一致，会导致 tooltip 中元素重复。
-      // 如果存在，才设置，否则为空
-      line: lineMapping && {
-        color,
-        ...lineMapping,
-      },
       point: pointMapping && {
         color,
         ...pointMapping,
@@ -66,10 +60,26 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
       },
     },
   });
-  // 线默认 2px
-  const lineParams = deepAssign({ options: { line: { size: 2 } } }, primary, {
-    options: { sizeField: seriesField, tooltip: false },
-  });
+  // 线默认 2px (折线不能复用面积图的 state，因为 fill 和 stroke 不匹配)
+  const lineParams = {
+    chart,
+    options: deepAssign({ line: { size: 2 } }, omit(options as any, ['state']), {
+      // 颜色保持一致，因为如果颜色不一致，会导致 tooltip 中元素重复。
+      // 如果存在，才设置，否则为空
+      line: lineMapping && {
+        color,
+        ...lineMapping,
+      },
+      sizeField: seriesField,
+      state: lineMapping?.state,
+      tooltip: false,
+      // label 不传递给各个 geometry adaptor，由 label adaptor 处理
+      label: undefined,
+      args: {
+        startOnZero,
+      },
+    }),
+  };
   const pointParams = deepAssign({}, primary, { options: { tooltip: false, state: pointState } });
 
   // area geometry 处理

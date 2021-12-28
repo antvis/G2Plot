@@ -1,3 +1,9 @@
+#### 2.4.5 (2021-12-28)
+
+##### New Features
+
+* **area:**  面积图支持 line 独立设置 state，避免填充颜色出现问题 ([#3053](https://github.com/antvis/G2plot/pull/3053)) ([54342e6f](https://github.com/antvis/G2plot/commit/54342e6fc08eb659abdc741ba83d5b2f2e8d1249))
+
 #### 2.4.1 (2021-12-14)
 
 ##### Bug Fixes

@@ -16,6 +16,7 @@ function geometry(params: Params<LineOptions>): Params<LineOptions> {
   const { chart, options } = params;
   const { data, color, lineStyle, lineShape, point: pointMapping, area: areaMapping, seriesField } = options;
   const pointState = pointMapping?.state;
+  const areaState = areaMapping?.state;
 
   chart.data(data);
 
@@ -45,7 +46,7 @@ function geometry(params: Params<LineOptions>): Params<LineOptions> {
     },
   });
   const second = deepAssign({}, primary, { options: { tooltip: false, state: pointState } });
-  const areaParams = deepAssign({}, primary, { options: { tooltip: false, state: pointState } });
+  const areaParams = deepAssign({}, primary, { options: { tooltip: false, state: areaState } });
 
   line(primary);
   point(second);

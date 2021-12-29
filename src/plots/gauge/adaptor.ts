@@ -70,6 +70,7 @@ function geometry(params: Params<GaugeOptions>): Params<GaugeOptions> {
       },
       args: {
         zIndexReversed: true,
+        sortZIndex: true,
       },
       minColumnWidth: rangeWidth,
       maxColumnWidth: rangeWidth,

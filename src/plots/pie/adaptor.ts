@@ -42,6 +42,7 @@ function geometry(params: Params<PieOptions>): Params<PieOptions> {
         },
         args: {
           zIndexReversed: true,
+          sortZIndex: true,
         },
       },
     });
@@ -62,6 +63,7 @@ function geometry(params: Params<PieOptions>): Params<PieOptions> {
         },
         args: {
           zIndexReversed: true,
+          sortZIndex: true,
         },
       },
     });

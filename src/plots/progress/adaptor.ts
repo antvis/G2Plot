@@ -30,6 +30,7 @@ export function geometry(params: Params<ProgressOptions>): Params<ProgressOption
       },
       args: {
         zIndexReversed: true,
+        sortZIndex: true,
       },
     },
   });

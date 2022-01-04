@@ -1,3 +1,14 @@
+#### 2.4.6 (2022-01-04)
+
+##### Documentation Changes
+
+*  增加 axis title api 说明 ([#3065](https://github.com/antvis/G2plot/pull/3065)) ([f0a8cc33](https://github.com/antvis/G2plot/commit/f0a8cc33c2bb61bd860ba3b7fb3743c3c1d42d15))
+
+##### New Features
+
+* **scatter:**  散点图气泡图添加 slider 缩略轴 scrollbar 滚动条 配置 ([#3064](https://github.com/antvis/G2plot/pull/3064)) ([c867afb0](https://github.com/antvis/G2plot/commit/c867afb007a431a5529e35a56ab888fdec50e31f))
+*  增加 sortZIndex 参数 ([#3060](https://github.com/antvis/G2plot/pull/3060)) ([e16d29d1](https://github.com/antvis/G2plot/commit/e16d29d17dbd69d94b5c448d5db1be7979b0227c))
+
 #### 2.4.5 (2021-12-28)
 
 ##### New Features

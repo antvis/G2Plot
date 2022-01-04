@@ -23,7 +23,8 @@
 | offset         | _number_     | 标题距离坐标轴的距离                                      |
 | spacing        | _number_     | 标题距离坐标轴文本的距离                                  |
 | style          | _shapeStyle_ | 标题文本配置项                                            |
-| autoRotate     | _boolean_    | 是否自动旋转                                              |
+| autoRotate     | _boolean_    | 是否自动旋转，默认为: true                                              |
+| rotation     | _number_    | 关闭 `autoRotate` 后，可以设置自动旋转的角度，如: -Math.PI / 2 (条形图 y 轴标题)                                          |
 
 **_shapeStyle_**
 

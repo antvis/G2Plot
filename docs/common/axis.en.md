@@ -23,7 +23,8 @@ A configuration item for the title, NULL means not to be displayed.
 | offset     | _number_     | The distance of the title from the coordinate axis                         |
 | spacing    | _number_     | The distance between the title and the text on the coordinate axis         |
 | style      | _shapeStyle_ | Title text configuration items                                             |
-| autoRotate | _boolean_    | Whether to rotate automatically or not                                     |
+| autoRotate | _boolean_    | Whether to rotate automatically or not, default: true |                                    |
+| rotation     | _number_    | 关闭 `autoRotate` 后，可以设置自动旋转的角度，如: -Math.PI / 2 (条形图 y 轴标题)                                          |
 
 **_shapeStyle_**
 

@@ -3,7 +3,7 @@ import { Params } from '../../core/adaptor';
 import { flow, deepAssign, pick } from '../../utils';
 import { point } from '../../adaptor/geometries';
 import { brushInteraction } from '../../adaptor/brush';
-import { interaction, animation, theme, scale, annotation } from '../../adaptor/common';
+import { interaction, animation, theme, scale, annotation, slider, scrollbar } from '../../adaptor/common';
 import { findGeometry, transformLabel } from '../../utils';
 import { getQuadrantDefaultConfig, getPath, getMeta } from './util';
 import { ScatterOptions } from './types';
@@ -327,6 +327,8 @@ export function adaptor(params: Params<ScatterOptions>) {
     label,
     // 需要在 interaction 前面
     brushInteraction,
+    slider,
+    scrollbar,
     interaction,
     scatterAnnotation,
     animation,

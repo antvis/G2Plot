@@ -1,3 +1,14 @@
+#### 2.4.7 (2022-01-14)
+
+##### New Features
+
+* **line:**  折线图支持 scrollbar ([#3076](https://github.com/antvis/G2plot/pull/3076)) ([aa01ce37](https://github.com/antvis/G2plot/commit/aa01ce372d284a48fb27c3c1647336e867650774))
+* **legend:**  图例增加 radio 按钮实现正选 focus 功能 ([#3074](https://github.com/antvis/G2plot/pull/3074)) ([27838663](https://github.com/antvis/G2plot/commit/2783866353ba4f5b889068ff5f71d3504a7ace81))
+
+##### Bug Fixes
+
+* **liquid:**  水波图允许关闭动画效果 ([#3075](https://github.com/antvis/G2plot/pull/3075)) ([54900577](https://github.com/antvis/G2plot/commit/54900577849f00e53beb6cddae8d59f9658d97b1))
+
 #### 2.4.6 (2022-01-04)
 
 ##### Documentation Changes

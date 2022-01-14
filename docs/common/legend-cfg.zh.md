@@ -244,6 +244,15 @@ type LegendItem = { name: string; value: string; } & MarkerCfg;
 type MarkerCfgCallback = (name: string, index: number, item: LegendItem) => MarkerCfg;
 ```
 
+### radio ✨
+
+<description>**optional** _RadioCfg_ </description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项的末尾展示一个 radio 的按钮 🔘，点击可以实现“图例正选”筛选（聚焦）。
+
+```sign
+type RadioCfg = { style: ShapeAttr };
+```
 
 ##### maxItemWidth
 

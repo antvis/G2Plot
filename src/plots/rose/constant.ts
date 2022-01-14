@@ -9,6 +9,7 @@ export const DEFAULT_OPTIONS = deepAssign({}, Plot.getDefaultOptions(), {
   yAxis: false,
   legend: {
     position: 'right',
+    radio: {},
   },
   sectorStyle: {
     stroke: '#fff',

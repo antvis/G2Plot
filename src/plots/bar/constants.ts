@@ -12,5 +12,8 @@ export const DEFAULT_OPTIONS = deepAssign({}, Plot.getDefaultOptions(), {
     showMarkers: false,
     offset: 20,
   },
+  legend: {
+    radio: {},
+  },
   interactions: [{ type: 'active-region' }],
 });

@@ -32,9 +32,18 @@
       "filename": "legend-focus.ts",
       "title": {
         "zh": "图例项默认不选中",
-        "en": "Default unselected legend tem"
+        "en": "Default unselected legend item"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/KL9rDFTlDt/64abafb6-8e4e-48ff-9a79-cb84883a3bef.png"
+    },
+    {
+      "filename": "legend-radio.ts",
+      "title": {
+        "zh": "图例正选模式",
+        "en": "Legend radio focus"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/LVM6Z%2473sn/legend-radio-focus.gif"
     },
     {
       "filename": "legend-flippage.ts",

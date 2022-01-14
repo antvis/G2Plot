@@ -32,7 +32,7 @@ describe('bar legend', () => {
 
     bar.render();
     // @ts-ignore
-    expect(bar.chart.getOptions().legends.series).toEqual({ position: 'right-top' });
+    expect(bar.chart.getOptions().legends.series).toEqual({ position: 'right-top', radio: {} });
     expect(bar.chart.getComponents().filter((co) => co.type === 'legend').length).toBe(1);
 
     bar.update({
@@ -45,6 +45,7 @@ describe('bar legend', () => {
     // @ts-ignore
     expect(bar.chart.getOptions().legends.series).toEqual({
       position: 'right-top',
+      radio: {},
       flipPage: true,
     });
     expect(bar.chart.getComponents().filter((co) => co.type === 'legend').length).toBe(1);

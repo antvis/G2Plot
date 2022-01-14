@@ -15,7 +15,7 @@ describe('pie label', () => {
     data,
     angleField: 'value',
     colorField: 'type',
-    radius: 0.8,
+    radius: 0.6,
     label: {},
   };
 
@@ -121,6 +121,7 @@ describe('support template string formatter', () => {
       label: {
         content: '{name}: {value}',
       },
+      radius: 0.79,
     });
 
     pie.render();
@@ -135,7 +136,7 @@ describe('support template string formatter', () => {
     });
     labels = pie.chart.geometries[0].labelsContainer.getChildren();
     // todo 暂时没有提供精度配置，直接粗暴返回
-    expect((labels[0] as IGroup).getChildren()[0].attr('text')).toBe('item1: 1(2...');
+    expect((labels[0] as IGroup).getChildren()[0].attr('text')).toContain('...');
 
     // 移除 limit-in-plot ellipsis
     pie.update({

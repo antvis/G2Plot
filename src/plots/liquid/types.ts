@@ -49,4 +49,5 @@ export type CustomInfo = {
   wave?: LiquidOptions['wave'];
   shape?: LiquidOptions['shape'];
   background?: string;
+  animation?: LiquidOptions['animation'];
 };

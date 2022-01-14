@@ -212,7 +212,8 @@ function addWaterWave(
   group: IGroup,
   clip: IShape,
   radius: number,
-  waveLength: number
+  waveLength: number,
+  animation: LiquidOptions['animation']
 ) {
   const { fill, opacity } = waveAttrs;
   const bbox = clip.getBBox();
@@ -239,6 +240,7 @@ function addWaterWave(
     });
 
     try {
+      if (animation === false) return;
       const matrix = transform([['t', waveLength, 0]]);
 
       wave.stopAnimate();
@@ -373,7 +375,7 @@ registerShape('interval', 'liquid-fill-gauge', {
     const cy = 0.5;
 
     const { customInfo } = cfg;
-    const { radius: radio, shape, background } = customInfo as CustomInfo;
+    const { radius: radio, shape, background, animation } = customInfo as CustomInfo;
     const outline: LiquidOptions['outline'] = customInfo.outline;
     const wave: LiquidOptions['wave'] = customInfo.wave;
     const { border, distance } = outline;
@@ -430,7 +432,8 @@ registerShape('interval', 'liquid-fill-gauge', {
       waves,
       clipPath,
       radius * 2,
-      waveLength
+      waveLength,
+      animation
     );
 
     // 2. 绘制一个 distance 宽的 border

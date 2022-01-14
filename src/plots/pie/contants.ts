@@ -7,6 +7,7 @@ import { deepAssign } from '../../utils';
 export const DEFAULT_OPTIONS = deepAssign({}, Plot.getDefaultOptions(), {
   legend: {
     position: 'right',
+    radio: {},
   },
   tooltip: {
     shared: false,

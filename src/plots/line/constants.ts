@@ -15,6 +15,7 @@ export const DEFAULT_OPTIONS = deepAssign({}, Plot.getDefaultOptions(), {
   },
   legend: {
     position: 'top-left',
+    radio: {},
   },
   isStack: false,
 });

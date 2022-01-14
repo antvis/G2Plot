@@ -234,6 +234,16 @@ Apply to <tag color="green" text="Classification legend">Classification legend</
 
 `markdown:docs/common/marker.en.md`
 
+### radio ✨
+
+<description>**optional** _RadioCfg_ </description>
+
+适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项的末尾展示一个 radio 的按钮 🔘，点击可以实现“图例正选”筛选（聚焦）。
+
+```sign
+type RadioCfg = { style: ShapeAttr };
+```
+
 ##### maxItemWidth
 
 <description> _number_ **optional** </description>

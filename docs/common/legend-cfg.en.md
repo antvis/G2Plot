@@ -234,7 +234,7 @@ Apply to <tag color="green" text="Classification legend">Classification legend</
 
 `markdown:docs/common/marker.en.md`
 
-### radio ✨
+##### radio ✨
 
 <description>**optional** _RadioCfg_ </description>
 

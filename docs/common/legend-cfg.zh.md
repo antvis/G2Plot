@@ -244,7 +244,7 @@ type LegendItem = { name: string; value: string; } & MarkerCfg;
 type MarkerCfgCallback = (name: string, index: number, item: LegendItem) => MarkerCfg;
 ```
 
-### radio ✨
+##### radio ✨
 
 <description>**optional** _RadioCfg_ </description>
 

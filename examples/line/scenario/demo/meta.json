@@ -11,7 +11,7 @@
         "en": "Line plot with multiple measures"
       },
       "new": true,
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/dlVX%26qKJM8/5cd5a7a4-deeb-4093-b9b7-16642b6fd29c.png"
     },
     {
       "filename": "series-multiple-measures-line.ts",
@@ -20,7 +20,7 @@
         "en": "Line plot with multiple measures"
       },
       "new": true,
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/yDIAapcDqv/53c603d6-c841-4564-86c1-cafa5865bde1.png"
     },
     {
       "filename": "derived-measures-line.ts",
@@ -29,7 +29,7 @@
         "en": "Line plot with derived measures"
       },
       "new": true,
-      "screenshot": ""
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/3Fb00xBNEL/4c831eb3-2290-4c2c-b3c5-c51877beb157.png"
     },
     {
       "filename": "line-sort-in-xAxis.jsx",

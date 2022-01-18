@@ -39,6 +39,15 @@
       },
    
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/dCP6LawPW0/7ffa2fef-af09-4df4-8db3-b8f1ddbc63a5.png"
+    },
+    {
+      "filename": "philosopher.ts",
+      "title": {
+        "zh": "哲学家和哲学流派的关系",
+        "en": "Relations between philosophers and philosophical schools"
+      },
+      "new": true,
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/PPFPHLW0yX/059ab342-efca-4665-bbcc-17758959b9cb.png"
     }
   ]
 }

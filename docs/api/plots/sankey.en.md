@@ -57,6 +57,12 @@ State style configuration of Sankey node.
 
 `markdown:docs/common/state-style.zh.md`
 
+#### nodeInteractions
+
+<description>**optional** _Interaction[]_</description>
+
+Interaction configuration of Sankey node.
+
 #### edgeStyle
 
 <description>**optional** _StyleAttr | Function_</description>
@@ -72,6 +78,12 @@ State style configuration of Sankey edge.
 `markdown:docs/common/state-style.zh.md`
 
 `markdown:docs/common/color.en.md`
+
+#### edgeInteractions
+
+<description>**optional** _Interaction[]_</description>
+
+Interaction configuration of Sankey edge.
 
 #### nodeWidthRatio
 

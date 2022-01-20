@@ -37,7 +37,17 @@ function defaultOptions(params: Params<SankeyOptions>): Params<SankeyOptions> {
  */
 function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
   const { chart, options } = params;
-  const { color, nodeStyle, edgeStyle, label, tooltip, nodeState, edgeState } = options;
+  const {
+    color,
+    nodeStyle,
+    edgeStyle,
+    label,
+    tooltip,
+    nodeState,
+    nodeInteractions = [],
+    edgeState,
+    edgeInteractions = [],
+  } = options;
 
   // 1. 组件，优先设置，因为子 view 会继承配置
   chart.legend(false);
@@ -71,6 +81,14 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
     },
   });
 
+  edgeInteractions.forEach((i) => {
+    if (i.enable === false) {
+      edgeView.removeInteraction(i.type);
+    } else {
+      edgeView.interaction(i.type, i.cfg || {});
+    }
+  });
+
   const nodeView = chart.createView({ id: NODES_VIEW_ID });
   nodeView.data(nodes);
 
@@ -88,6 +106,14 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
       tooltip,
       state: nodeState,
     },
+  });
+
+  nodeInteractions.forEach((i) => {
+    if (i.enable === false) {
+      nodeView.removeInteraction(i.type);
+    } else {
+      nodeView.interaction(i.type, i.cfg || {});
+    }
   });
 
   chart.interaction('element-active');

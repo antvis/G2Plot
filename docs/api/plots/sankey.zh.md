@@ -57,6 +57,12 @@ order: 27
 
 `markdown:docs/common/state-style.zh.md`
 
+#### nodeInteractions
+
+<description>**optional** _Interaction[]_</description>
+
+桑基图节点交互的配置。
+
 #### edgeStyle
 
 <description>**optional** _StyleAttr | Function_</description>
@@ -72,6 +78,12 @@ order: 27
 桑基图边状态样式的配置。
 
 `markdown:docs/common/state-style.zh.md`
+
+#### nodeInteractions
+
+<description>**optional** _Interaction[]_</description>
+
+桑基图边交互的配置。
 
 #### nodeWidthRatio
 

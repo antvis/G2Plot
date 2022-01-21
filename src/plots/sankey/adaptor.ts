@@ -1,5 +1,5 @@
 import { uniq } from '@antv/util';
-import { interaction, theme } from '../../adaptor/common';
+import { theme } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { deepAssign, flow } from '../../utils';
 import { polygon, edge } from '../../adaptor/geometries';
@@ -37,17 +37,7 @@ function defaultOptions(params: Params<SankeyOptions>): Params<SankeyOptions> {
  */
 function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
   const { chart, options } = params;
-  const {
-    color,
-    nodeStyle,
-    edgeStyle,
-    label,
-    tooltip,
-    nodeState,
-    nodeInteractions = [],
-    edgeState,
-    edgeInteractions = [],
-  } = options;
+  const { color, nodeStyle, edgeStyle, label, tooltip, nodeState, edgeState } = options;
 
   // 1. 组件，优先设置，因为子 view 会继承配置
   chart.legend(false);
@@ -81,14 +71,6 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
     },
   });
 
-  edgeInteractions.forEach((i) => {
-    if (i.enable === false) {
-      edgeView.removeInteraction(i.type);
-    } else {
-      edgeView.interaction(i.type, i.cfg || {});
-    }
-  });
-
   const nodeView = chart.createView({ id: NODES_VIEW_ID });
   nodeView.data(nodes);
 
@@ -106,14 +88,6 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
       tooltip,
       state: nodeState,
     },
-  });
-
-  nodeInteractions.forEach((i) => {
-    if (i.enable === false) {
-      nodeView.removeInteraction(i.type);
-    } else {
-      nodeView.interaction(i.type, i.cfg || {});
-    }
   });
 
   chart.interaction('element-active');
@@ -168,6 +142,39 @@ export function nodeDraggable(params: Params<SankeyOptions>): Params<SankeyOptio
   } else {
     chart.removeInteraction(DRAG_INTERACTION);
   }
+
+  return params;
+}
+
+/**
+ * Interaction 配置
+ * @param params
+ */
+function interaction(params: Params<SankeyOptions>): Params<SankeyOptions> {
+  const { chart, options } = params;
+  const { interactions = [] } = options;
+
+  const nodeInteractions = [].concat(interactions, options.nodeInteractions || []);
+  const edgeInteractions = [].concat(interactions, options.edgeInteractions || []);
+
+  const nodeView = chart.views[0];
+  const edgeView = chart.views[1];
+
+  nodeInteractions.forEach((i) => {
+    if (i?.enable === false) {
+      nodeView.removeInteraction(i.type);
+    } else {
+      nodeView.interaction(i.type, i.cfg || {});
+    }
+  });
+
+  edgeInteractions.forEach((i) => {
+    if (i?.enable === false) {
+      edgeView.removeInteraction(i.type);
+    } else {
+      edgeView.interaction(i.type, i.cfg || {});
+    }
+  });
 
   return params;
 }

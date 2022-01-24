@@ -115,4 +115,12 @@ export interface SankeyOptions extends Omit<Options, 'data' | 'xField' | 'yField
    * 节点位置是否可以拖拽，默认为 false
    */
   readonly nodeDraggable?: boolean;
+  /**
+   * 边交互
+   */
+  readonly edgeInteractions?: Options['interactions'];
+  /**
+   * 节点交互
+   */
+  readonly nodeInteractions?: Options['interactions'];
 }

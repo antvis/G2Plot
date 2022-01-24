@@ -1,5 +1,5 @@
 import { uniq } from '@antv/util';
-import { interaction, theme } from '../../adaptor/common';
+import { theme } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { deepAssign, flow } from '../../utils';
 import { polygon, edge } from '../../adaptor/geometries';
@@ -142,6 +142,39 @@ export function nodeDraggable(params: Params<SankeyOptions>): Params<SankeyOptio
   } else {
     chart.removeInteraction(DRAG_INTERACTION);
   }
+
+  return params;
+}
+
+/**
+ * Interaction 配置
+ * @param params
+ */
+function interaction(params: Params<SankeyOptions>): Params<SankeyOptions> {
+  const { chart, options } = params;
+  const { interactions = [] } = options;
+
+  const nodeInteractions = [].concat(interactions, options.nodeInteractions || []);
+  const edgeInteractions = [].concat(interactions, options.edgeInteractions || []);
+
+  const nodeView = chart.views[0];
+  const edgeView = chart.views[1];
+
+  nodeInteractions.forEach((i) => {
+    if (i?.enable === false) {
+      nodeView.removeInteraction(i.type);
+    } else {
+      nodeView.interaction(i.type, i.cfg || {});
+    }
+  });
+
+  edgeInteractions.forEach((i) => {
+    if (i?.enable === false) {
+      edgeView.removeInteraction(i.type);
+    } else {
+      edgeView.interaction(i.type, i.cfg || {});
+    }
+  });
 
   return params;
 }

@@ -31,7 +31,7 @@ export function percent(data: Data, measure: string, groupField: string, as: str
   return map(data, (datum: Datum) => {
     const v = datum[measure];
     const groupValue = datum[groupField];
-    const percentage = isRealNumber(v) ? v / sumMap.get(groupValue) : 0;
+    const percentage = isRealNumber(v) && sumMap.get(groupValue) !== 0 ? v / sumMap.get(groupValue) : 0;
 
     return {
       ...datum,
@@ -72,7 +72,7 @@ export function getDeepPercent(data: Record<string, any>[], measure: string, fie
     // 获取分组得到的枚举key值
     const groupValue = reduce(fields, (value, field) => `${value}${datum[field]}`, '');
 
-    const percentage = isRealNumber(v) ? v / sumMap.get(groupValue) : 0;
+    const percentage = isRealNumber(v) && sumMap.get(groupValue) !== 0 ? v / sumMap.get(groupValue) : 0;
 
     return {
       ...datum,

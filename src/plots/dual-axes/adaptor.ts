@@ -468,14 +468,14 @@ export function slider(params: Params<DualAxesOptions>): Params<DualAxesOptions>
       if (isEqual(value, originValue)) {
         return;
       }
-      doSliderFilter(rightView, chart, value);
+      doSliderFilter(rightView, value);
     });
     chart.once('afterpaint', () => {
       // 初始化数据，配置默认值时需要同步
       if (!isBoolean(slider)) {
         const { start, end } = slider;
         if (start || end) {
-          doSliderFilter(rightView, chart, [start, end]);
+          doSliderFilter(rightView, [start, end]);
         }
       }
     });

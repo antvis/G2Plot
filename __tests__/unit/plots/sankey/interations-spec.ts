@@ -1,7 +1,8 @@
 import { Sankey } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
-import { delay } from '../../../utils/delay';
 import { ALIPAY_DATA } from '../../../data/sankey-energy';
+import { NODES_VIEW_ID, EDGES_VIEW_ID } from '../../../../src/plots/sankey/constant';
+import { findViewById } from '../../../../src/utils';
 
 describe('sankey', () => {
   it('changeData', async () => {
@@ -18,16 +19,22 @@ describe('sankey', () => {
 
     sankey.render();
 
-    expect(Object.keys(sankey.chart.views[0].interactions)[0]).toBe('element-single-selected');
-    expect(Object.keys(sankey.chart.views[1].interactions)[0]).toBe('element-highlight');
+    let nodeView = findViewById(sankey.chart, NODES_VIEW_ID);
+    let edgeView = findViewById(sankey.chart, EDGES_VIEW_ID);
+    expect(Object.keys(edgeView.interactions).includes('element-single-selected')).toBe(true);
+    expect(Object.keys(nodeView.interactions).includes('element-single-selected')).toBe(false);
+    expect(Object.keys(nodeView.interactions).includes('element-highlight')).toBe(true);
+    expect(Object.keys(edgeView.interactions).includes('element-highlight')).toBe(false);
 
     sankey.update({
       edgeInteractions: [{ type: 'element-single-selected', enable: false }],
       nodeInteractions: [{ type: 'element-highlight', enable: false }],
     });
 
-    expect(sankey.chart.views[0].interactions).toEqual({});
-    expect(sankey.chart.views[1].interactions).toEqual({});
+    nodeView = findViewById(sankey.chart, NODES_VIEW_ID);
+    edgeView = findViewById(sankey.chart, EDGES_VIEW_ID);
+    expect(Object.keys(edgeView.interactions).includes('element-single-selected')).toBe(false);
+    expect(Object.keys(nodeView.interactions).includes('element-highlight')).toBe(false);
 
     sankey.destroy();
   });

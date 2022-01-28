@@ -1,7 +1,7 @@
 import { uniq } from '@antv/util';
 import { theme } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
-import { deepAssign, flow } from '../../utils';
+import { deepAssign, findViewById, flow } from '../../utils';
 import { polygon, edge } from '../../adaptor/geometries';
 import { transformToViewsData } from './helper';
 import { SankeyOptions } from './types';
@@ -157,8 +157,8 @@ function interaction(params: Params<SankeyOptions>): Params<SankeyOptions> {
   const nodeInteractions = [].concat(interactions, options.nodeInteractions || []);
   const edgeInteractions = [].concat(interactions, options.edgeInteractions || []);
 
-  const nodeView = chart.views[0];
-  const edgeView = chart.views[1];
+  const nodeView = findViewById(chart, NODES_VIEW_ID);
+  const edgeView = findViewById(chart, EDGES_VIEW_ID);
 
   nodeInteractions.forEach((i) => {
     if (i?.enable === false) {

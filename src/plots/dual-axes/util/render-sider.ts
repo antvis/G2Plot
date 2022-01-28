@@ -29,5 +29,5 @@ export const doSliderFilter = (view: View, sliderValue: [number, number]) => {
     const idx: number = xValues.indexOf(value);
     return idx > -1 ? isBetween(idx, minIndex, maxIndex) : true;
   });
-  view.render(true);
+  view.getRootView().render(true);
 };

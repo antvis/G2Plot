@@ -1,3 +1,29 @@
+#### 2.4.8 (2022-01-30)
+
+##### Chores
+
+*  add pr-auto-labels & auto-release-generate ([84f17e99](https://github.com/antvis/G2plot/commit/84f17e995c786ddefc5980ee811e79a2199fb9ba))
+
+##### Continuous Integration
+
+*  fix footer click ([#3090](https://github.com/antvis/G2plot/pull/3090)) ([c21681fc](https://github.com/antvis/G2plot/commit/c21681fcf03f808f34186e017b5b23b704d42f53))
+
+##### Documentation Changes
+
+* **gauge:**  增加仪表盘自定义 demo ([#3092](https://github.com/antvis/G2plot/pull/3092)) ([01258289](https://github.com/antvis/G2plot/commit/012582899112cd118fd5cb48d6bbe67e30642bc6))
+* **scenario-demos:**  体系化建设 BI 业务图表 ([#3039](https://github.com/antvis/G2plot/pull/3039)) ([052b5052](https://github.com/antvis/G2plot/commit/052b5052db782f5d3503c336a0ba2b44e660c4ed))
+* **legend:**  修复图例文档问题 ([798767bb](https://github.com/antvis/G2plot/commit/798767bb96b45e99e0bda2d26503022689957b68))
+
+##### New Features
+
+* **sankey:**  分别对 node 和 edge 添加 交互属性配置 ([#3081](https://github.com/antvis/G2plot/pull/3081)) ([adc88836](https://github.com/antvis/G2plot/commit/adc88836120214288ba9480997ceab6d75c79e1f))
+
+##### Bug Fixes
+
+* **dual-axes:**  修复双轴图 bottom 统一的问题 [#2930](https://github.com/antvis/G2plot/pull/2930) ([#3096](https://github.com/antvis/G2plot/pull/3096)) ([538b6dd0](https://github.com/antvis/G2plot/commit/538b6dd0138f274926fad5ee23c6ecb8b5977c74))
+* **sankey:**  修复桑基图单测问题 ([4e1e870a](https://github.com/antvis/G2plot/commit/4e1e870ae84de2d7b07fd17c1f0355ff5da47b42))
+* **column:**  修复百分比柱状图 总和为零时的 bug ([#3089](https://github.com/antvis/G2plot/pull/3089)) ([6663aed6](https://github.com/antvis/G2plot/commit/6663aed6df975e8f67e3a48a75c1532ea81884fa))
+
 #### 2.4.7 (2022-01-14)
 
 ##### New Features

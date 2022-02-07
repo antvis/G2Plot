@@ -1,3 +1,4 @@
+import { last } from '@antv/util';
 import { P, Params } from '../../../../src';
 import { geometry, GeometryOptions } from '../../../../src/adaptor/geometries/base';
 import { partySupport } from '../../../data/party-support';
@@ -206,6 +207,10 @@ describe('adaptor - geometry', () => {
       xField: 'date',
       yField: 'value',
       sizeField: 'value',
+      colorField: 'type',
+      meta: {
+        date: { type: 'cat' },
+      },
       mapping: {
         size: 10,
       },
@@ -239,8 +244,9 @@ describe('adaptor - geometry', () => {
     expect(plot.chart.geometries[0].getAttribute('size').values).toEqual([]);
     expect(plot.chart.geometries[0].getAttribute('size').callback).toBeDefined();
 
+    const datum = last(plot.chart.getGeometries()[0].getElements()).getData();
     expect(p).toEqual({
-      value: 1800,
+      value: datum.value,
     });
 
     plot.destroy();

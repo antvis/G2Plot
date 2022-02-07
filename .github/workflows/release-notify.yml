@@ -11,6 +11,7 @@ jobs:
     steps:
       - uses: visiky/dingtalk-release-notify@main
         with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DING_TALK_TOKEN: ${{ secrets.DING_TALK_TOKENS}}
           notify_title: '🎉 G2Plot 发布 release {release_tag} 🎉'
           notify_body: '## { title }<hr /> ![](https://gw.alipayobjects.com/zos/antfincdn/AdgOtrq%26KF/G2Plot.png) <hr /> { body } <hr />'

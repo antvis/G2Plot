@@ -75,10 +75,13 @@ export function animation<O extends Pick<Options, 'animation'>>(params: Params<O
     chart.animate(true);
   }
 
-  // 所有的 Geometry 都使用同一动画（各个图形如有区别，自行覆盖）
-  each(chart.geometries, (g: Geometry) => {
-    g.animate(animation);
-  });
+  // animation 没有配置时，不进行覆盖
+  if (!isNil(animation)) {
+    // 所有的 Geometry 都使用同一动画（各个图形如有区别，自行覆盖
+    each(chart.geometries, (g: Geometry) => {
+      g.animate(animation);
+    });
+  }
 
   return params;
 }

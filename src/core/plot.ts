@@ -241,7 +241,8 @@ export abstract class Plot<O extends PickOptions> extends EE {
   /**
    * 增加图表标注。通过 id 标识，如果匹配到，就做更新
    */
-  public addAnnotations(annotations: Annotation[], view: View = this.chart): void {
+  public addAnnotations(annotations: Annotation[], view?: View): void {
+    view = view ? view : this.chart;
     const incoming = [...annotations];
     const controller = view.getController('annotation');
     const current = controller.getComponents().map((co) => co.extra);

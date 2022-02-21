@@ -4,28 +4,64 @@ import { BarOptions } from '../bar';
 
 /** 配置类型定义 */
 export interface RadialBarOptions extends Options, Pick<BarOptions, 'barBackground' | 'minBarWidth' | 'maxBarWidth'> {
-  /** x 轴字段 */
+  /**
+  * @title x轴字段
+  * @description x轴字段
+  */
   readonly xField?: string;
-  /** y 轴字段 */
+  /**
+  * @title y轴字段
+  * @description y轴字段
+  */
   readonly yField?: string;
-  /** 样式 */
+  /**
+  * @title 样式
+  * @description 样式
+  */
   readonly barStyle?: ShapeAttrs;
-  /** 最大旋转角度 0~360 */
+  /**
+  * @title 最大旋转角度
+  * @description 范围0-360
+  */
   readonly maxAngle?: number;
-  /** 圆半径 */
+  /**
+  * @title 圆半径
+  * @description 圆半径
+  */
   readonly radius?: number;
-  /** 圆内半径 */
+  /**
+  * @title 圆内半径
+  * @description 圆内半径
+  */
   readonly innerRadius?: number;
-  /** 圆环的开始角度 */
+  /**
+  * @title 圆环的开始角度
+  * @description 圆环的开始角度
+  */
   readonly startAngle?: number;
-  /** 圆环的结束角度 */
+  /**
+  * @title 圆环的结束角度
+  * @description 圆环的结束角度
+  */
   readonly endAngle?: number;
-  /** 颜色字段 */
+  /**
+  * @title 颜色字段
+  * @description 颜色字段
+  */
   readonly colorField?: string;
-  /** 类型 */
+  /**
+  * @title 类型
+  * @description 类型
+  */
   readonly type?: string;
-  /** 叠加 */
+  /**
+  * @title 叠加
+  * @description 叠加
+  */
   readonly isStack?: boolean;
-  /** 分组 */
+  /**
+  * @title 分组
+  * @description 分组
+  */
   readonly isGroup?: boolean;
 }

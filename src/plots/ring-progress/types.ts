@@ -2,16 +2,34 @@ import { Options, StyleAttr, ColorAttr, Statistic } from '../../types';
 
 /** mini 图类型定义需要 omit 很多的 G2 Options 配置 */
 export interface RingProgressOptions extends Omit<Options, 'data' | 'tooltip' | 'legend' | 'label' | 'color'> {
-  /** 进度百分比 */
+  /**
+  * @title 进度百分比
+  * @description 进度百分比
+  */
   readonly percent: number;
-  /** 外环的半径 */
+  /**
+  * @title 外环的半径
+  * @description 外环的半径
+  */
   readonly radius?: number;
-  /** 内环的半径 */
+  /**
+  * @title 内环的半径
+  * @description 内环的半径
+  */
   readonly innerRadius?: number;
-  /** 进度条颜色 */
+  /**
+  * @title 进度条颜色
+  * @description 进度条颜色
+  */
   readonly color?: ColorAttr;
-  /** 进度条样式 */
+  /**
+  * @title 进度条样式
+  * @description 进度条样式
+  */
   readonly progressStyle?: StyleAttr;
-  /** 统计内容组件 */
+  /**
+  * @title 统计内容组件
+  * @description 统计内容组件
+  */
   readonly statistic?: Statistic;
 }

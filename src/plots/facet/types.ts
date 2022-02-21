@@ -9,140 +9,169 @@ import { Interaction } from '../../types/interaction';
 import { IPlotTypes } from '../mix/utils';
 
 /**
- * geometry 映射信息
- */
+  * @title geometry 映射信息
+  * @description geometry 映射信息
+  */
 export type IGeometry = Geometry & {
   adjust?: Types.AdjustOption;
 };
 
 /**
- * 子 view 的配置。
- * 1. 暂时不开嵌套 view 的情况
- * 2. 暂不开放 分面子 view 的 meta 独立设置
- */
+* @title 子 view 的配置
+* @description 1. 暂时不开嵌套 view 的情况 2. 暂不开放 分面子 view 的 meta 独立设置
+*/
 export type IView = {
   /**
-   * 图形 geometry 及映射配置
-   */
+  * @title 图形
+  * @description 图形 geometry 及映射配置
+  */
   readonly geometries: IGeometry[];
-
   /**
-   * 1. optional，view 中的数据，默认由分面数据来根据拆分维度值进行分配
-   */
+  * @title 数据
+  * @description optional，view 中的数据
+  * @default 由分面数据来根据拆分维度值进行分配
+  */
   readonly data?: Data;
-
   /**
-   * 2. meta
-   */
+  * @title meta
+  * @description meta
+  */
   readonly meta?: Record<string, Axis>;
-
   /**
-   * 3. 坐标系的配置，每一个 view 具有相同的坐标系
-   */
+  * @title 坐标系的配置
+  * @description 每一个 view 具有相同的坐标系
+  */
   readonly coordinate?: Types.CoordinateOption;
-
   /**
-   * 4. 坐标轴配置
-   */
+  * @title 坐标轴配置
+  * @description 坐标轴配置
+  */
   readonly axes?: false | Record<string, Axis>;
-
   /**
-   * 5. interactions 配置
-   */
+  * @title interactions 配置
+  * @description interactions 配置
+  */
   readonly interactions?: Interaction[];
-
   /**
-   * 6. annotation 配置
-   */
+  * @title annotation 配置
+  * @description annotation 配置
+  */
   readonly annotations?: Annotation[];
-
   /**
-   * 7. animation 配置
-   */
+  * @title animation 配置
+  * @description animation 配置
+  */
   readonly animation?: Animation;
-
   /**
-   * 8. tooltip 配置
-   */
+  * @title tooltip 配置
+  * @description tooltip 配置
+  */
   readonly tooltip?: Tooltip;
 };
 
-/**
- * 子 plot 的配置
- */
+  /**
+  * @title 子 plot 的配置
+  * @description 子 plot 的配置
+  */
 export type IPlot = IPlotTypes;
-/**
- * facetData map
- */
+  /**
+  * @title facetData map
+  * @description facetData map
+  */
 type FacetDataMap = {
-  /** rect 类型分面配置 */
+  /**
+  * @title rect 类型分面配置
+  * @description rect 类型分面配置
+  */
   readonly rect: Types.RectData;
-  /** mirror 类型分面配置 */
+  /**
+  * @title mirror 类型分面配置
+  * @description mirror 类型分面配置
+  */
   readonly mirror: Types.MirrorData;
-  /** list 类型分面配置 */
+  /**
+  * @title list 类型分面配置
+  * @description list 类型分面配置
+  */
   readonly list: Types.ListData;
-  /** matrix 类型分面配置 */
+  /**
+  * @title matrix 类型分面配置
+  * @description matrix 类型分面配置
+  */
   readonly matrix: Types.MatrixData;
-  /** circle 类型分面配置 */
+  /**
+  * @title circle 类型分面配置
+  * @description circle 类型分面配置
+  */
   readonly circle: Types.CircleData;
-  /** tree 类型分面配置 */
+  /**
+  * @title tree 类型分面配置
+  * @description tree 类型分面配置
+  */
   readonly tree: Types.TreeData;
 };
 
 type FacetCfg = Types.MirrorCfg & Types.RectCfg & Types.TreeCfg & Types.ListCfg & Types.CircleCfg & Types.MatrixCfg;
 
-/** 分面图的配置类型定义 */
+  /**
+  * @title 分面图的配置类型定义
+  * @description 分面图的配置类型定义
+  */
 export interface FacetOptions<T extends keyof Types.FacetCfgMap = keyof Types.FacetCfgMap> extends Options, FacetCfg {
   /**
-   * 分面类型，G2 内置了六种分面: rect、list、circle、tree、mirror 和 matrix
-   */
+  * @title 分面类型
+  * @description G2 内置了六种分面: rect、list、circle、tree、mirror 和 matrix
+  */
   readonly type: T;
   /**
-   * 数据划分维度。
-   */
+  * @title 数据划分维度
+  * @description 数据划分维度
+  */
   readonly fields: string[];
   /**
-   * 分面数据
-   */
+  * @title 分面数据
+  * @description 分面数据
+  */
   readonly data: Data;
-
   /**
-   * 每个分面 view 中的具体绘图表现
-   * 回调的方式
-   */
+  * @title 绘图
+  * @description 每个分面 view 中的具体绘图表现 回调的方式
+  */
   readonly eachView: (innerView: View, facet?: FacetDataMap[T]) => IView | IPlot;
   /**
-   * 是否展示分面标题
-   */
+  * @title 展示分面标题
+  * @description 是否展示分面标题
+  * @default false
+  */
   readonly showTitle?: boolean;
-
   /**
-   * 3. facet 中对应的 meta 字段配置
-   */
+  * @title meta 字段
+  * @description facet 中对应的 meta 字段配置
+  */
   readonly meta?: Record<string, Meta>;
-
   /**
-   * 4. 坐标系的配置，每一个 view 具有相同的坐标系
-   */
+  * @title 坐标系的配置
+  * @description 每一个 view 具有相同的坐标系
+  */
   readonly coordinate?: Types.CoordinateOption;
-
   /**
-   * 5. 轴配置
-   */
+  * @title 轴配置
+  * @description 轴配置
+  */
   readonly axes?: false | Record<string, Axis>;
-
   /**
-   * 6. tooltip 配置
-   */
+  * @title tooltip 配置
+  * @description tooltip 配置
+  */
   readonly tooltip?: Tooltip;
-
   /**
-   * 7. 图例配置
-   */
+  * @title 图例配置
+  * @description 图例配置
+  */
   readonly legend?: Legend;
-
   /**
-   * 8. 图例配置
-   */
+  * @title 图例配置
+  * @description 图例配置
+  */
   readonly interactions?: Interaction[];
 }

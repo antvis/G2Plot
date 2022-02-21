@@ -1,16 +1,36 @@
 import { Options, StyleAttr } from '../../types';
 
 export interface BoxOptions extends Options {
-  /** x 轴字段 */
+  /**
+  * @title x轴字段
+  * @description x轴字段
+  */
   readonly xField: string;
-  /** y 轴映射 box range [low, q1, median, q3, high] 五个字段 or 一个数组字段 */
+  /**
+  * @title y轴映射
+  * @description y 轴映射 box range [low, q1, median, q3, high] 五个字段 or 一个数组字段
+  */
   readonly yField: string | [string?, string?, string?, string?, string?];
-  /** 箱型样式配置，可选 */
+  /**
+  * @title 箱型样式
+  * @description 箱型样式配置
+  */
   readonly boxStyle?: StyleAttr;
   /** 分组拆分字段，默认是分组情况，颜色作为视觉通道 */
+  /**
+  * @title 分组拆分字段
+  * @description 分组拆分字段配置
+  * @default 分组情况,颜色作为视觉通道
+  */
   readonly groupField?: string;
-  /** 异常值字段 */
+  /**
+  * @title 异常值字段
+  * @description 异常值字段
+  */
   readonly outliersField?: string;
-  /** 异常值样式 */
+  /**
+  * @title 异常值样式
+  * @description 异常值样式配置
+  */
   readonly outliersStyle?: StyleAttr;
 }

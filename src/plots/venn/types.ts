@@ -6,19 +6,39 @@ export type VennData = (Types.Datum & { sets: string[]; [PATH_FIELD]: string; [I
 
 /** 配置类型定义 */
 export interface VennOptions extends Options {
-  /** 韦恩图 数据 */
+  /**
+   * @title 韦恩图
+   * @description  韦恩图 数据
+   */
   readonly data: Types.Datum[];
-  /** 集合字段 */
+  /**
+   * @title 集合字段
+   * @description  集合字段
+   */
   readonly setsField: string;
-  /** 大小字段 */
+  /**
+   * @title 大小字段
+   * @description  大小字段
+   */
   readonly sizeField: string;
 
   // 韦恩图 样式
-  /** color */
+
+  /**
+   * @title 颜色
+   * @description  颜色
+   */
   readonly color?: string | string[] | ((datum: Datum, defaultColor?: string) => string);
-  /** 并集合的颜色混合方式, 可选项: 参考 https://gka.github.io/chroma.js/#chroma-blend, 默认: multiply */
+  /**
+   * @title 并集合的颜色混合方式
+   * @description  可选项: 参考 https://gka.github.io/chroma.js/#chroma-blend
+   * @default multiply
+   */
   readonly blendMode?: string;
-  /** point 样式 */
+  /**
+   * @title point 样式
+   * @description  point 样式
+   */
   readonly pointStyle?: StyleAttr;
 }
 

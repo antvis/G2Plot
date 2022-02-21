@@ -2,45 +2,57 @@ import { Data, Datum, Options, StyleAttr } from '../../types';
 
 /** 配置类型定义 */
 export interface ChordOptions extends Omit<Options, 'xField' | 'yField' | 'xAxis' | 'yAxis'> {
-  /**
-   * 来源字段
+   /**
+   * @title 来源字段
+   * @description 来源字段
    */
   readonly sourceField: string;
-  /**
-   * 去向字段
+   /**
+   * @title 去向字段
+   * @description 去向字段
    */
   readonly targetField: string;
-  /**
-   * 权重字段
+   /**
+   * @title 权重字段
+   * @description 权重字段
    */
   readonly weightField: string;
-  /**
-   * 附加的 源字段
+   /**
+   * @title 源字段
+   * @description 源字段
    */
   readonly rawFields?: string[];
-
-  /**
-   * 数据
+   /**
+   * @title 数据
+   * @description 数据
    */
   readonly data: Data;
   /**
-   * 节点间距比例，参考画布的宽度，默认值为 0.1，取值为[0, 1)
-   */
+  * @title 节点间距比例
+  * @description 取值[0-1]
+  * @default 0.1
+  */
   readonly nodePaddingRatio?: number;
   /**
-   * 节点的厚度，默认值为0.05，取值为(0, 1)
-   */
+  * @title 节点的厚度
+  * @description 取值[0-1]
+  * @default 0.05
+  */
   readonly nodeWidthRatio?: number;
   /**
-   * 节点排序方式，默认为空
-   */
+  * @title 节点排序方式
+  * @description 节点排序方式
+  * @default null
+  */
   readonly nodeSort?: (a: Datum, b: Datum) => number;
-  /**
-   * 节点样式
+   /**
+   * @title 节点样式
+   * @description 节点样式
    */
   readonly nodeStyle?: StyleAttr;
-  /**
-   * 边样式
+   /**
+   * @title 边样式
+   * @description 边样式
    */
   readonly edgeStyle?: StyleAttr;
 }

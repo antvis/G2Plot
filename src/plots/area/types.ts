@@ -3,24 +3,58 @@ import { Options, StyleAttr } from '../../types';
 
 /** 面积图的配置类型定义 */
 export interface AreaOptions extends Options, Pick<GeometryOptions, 'customInfo'> {
-  /** x 轴字段 */
+  /**
+  * @title x轴字段
+  * @description x轴字段
+  */
   readonly xField?: string;
-  /** y 轴字段 */
+  /**
+  * @title y轴字段
+  * @description y轴字段
+  */
   readonly yField?: string;
-  /** 分组字段 */
+  /**
+  * @title 分组字段
+  * @description 分组字段
+  */
   readonly seriesField?: string;
-  /** 是否堆积 */
+  /**
+  * @title 是否堆积
+  * @description 是否配置堆积
+  * @default false
+  */
   readonly isStack?: boolean;
-  /** 是否百分比 */
+  /**
+  * @title 是否百分比
+  * @description 是否配置百分比
+  * @default false
+  */
   readonly isPercent?: boolean;
-  /** 是否平滑 */
+  /**
+  * @title 是否平滑
+  * @description 是否配置百分比
+  * @default false
+  */
   readonly smooth?: boolean;
-  /** 面积图形样式 */
+  /**
+  * @title 面积图形样式
+  * @description 图形样式映射
+  */
   readonly areaStyle?: StyleAttr;
-  /** 面积中折线的样式 */
+  /**
+  * @title 折线样式
+  * @description 面积中折线的样式
+  */
   readonly line?: LineGeometryOptions['line'] & Pick<PointGeometryOptions, 'state'>;
-  /** 面积图数据点图形样式 */
+  /**
+  * @title 面积图数据点图形样式
+  * @description 面积图数据点图形样式
+  */
   readonly point?: PointGeometryOptions['point'] & Pick<PointGeometryOptions, 'state'>;
-  /** 积图是否从 0 基准线开始填充 */
+  /**
+  * @title 面积图填充
+  * @description 面积图是否从 0 基准线开始填充
+  * @default false
+  */
   readonly startOnZero?: boolean;
 }

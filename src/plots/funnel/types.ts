@@ -7,31 +7,64 @@ export type ConversionPosition = {
 };
 
 export interface FunnelOptions extends Options {
-  /** x 轴字段 */
+  /**
+  * @title x轴字段
+  * @description x轴字段
+  */
   readonly xField?: string;
-  /** y 轴字段 */
+  /**
+  * @title y轴字段
+  * @description y轴字段
+  */
   readonly yField?: string;
-  /** 分组字段: 漏斗图将根据此字段转置为分面漏斗图 */
+  /**
+  * @title 分组字段
+  * @description 漏斗图将根据此字段转置为分面漏斗图
+  */
   readonly seriesField?: string;
-  /** 对比字段：漏斗图将根据此字段转置为对比漏斗图  */
+  /**
+  * @title 对比字段
+  * @description 漏斗图将根据此字段转置为对比漏斗图
+  */
   readonly compareField?: string;
-  /** 是否转置 */
+  /**
+  * @title 是否转置
+  * @description 是否转置
+  * @default false
+  */
   readonly isTransposed?: boolean;
-  /** 是否是动态高度 */
+  /**
+  * @title 动态高度
+  * @description 是否是动态高度
+  * @default false
+  */
   readonly dynamicHeight?: boolean;
-  /** maxSize: 最大宽度，0-1 之间 */
+  /**
+  * @title 最大宽度
+  * @description 范围0-1
+  */
   readonly maxSize?: number;
-  /** minSize: 最大宽度，0-1 之间 */
+  /**
+  * @title 最小宽度
+  * @description 范围0-1
+  */
   readonly minSize?: number;
-
-  // 样式
-  /** shape 形状: pyramid 金字塔, 只在基础漏斗图中适用. 在对比漏斗图以及设置 dynamicHeight: 'true' 时不适用 */
+  /**
+  * @title shape 形状
+  * @description pyramid 金字塔, 只在基础漏斗图中适用. 在对比漏斗图以及设置 dynamicHeight: 'true' 时不适用
+  */
   readonly shape?: string;
-  /** 漏斗图样式 */
+  /**
+  * @title 漏斗图样式
+  * @description 漏斗图样式
+  */
   readonly funnelStyle?: StyleAttr;
 
   // 组件
-  /** 转化率信息 */
+  /**
+  * @title 转化率信息
+  * @description 转化率信息
+  */
   readonly conversionTag?:
     | false
     | {

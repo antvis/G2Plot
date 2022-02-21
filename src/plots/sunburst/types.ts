@@ -3,36 +3,76 @@ import { DrillDownCfg } from '../../types/drill-down';
 import { HierarchyOption } from '../../utils/hierarchy/types';
 
 export interface SunburstOptions extends Omit<Options, 'data' | 'slider' | 'scrollbar' | 'xAxis' | 'yAxis'> {
-  /** 旭日图数据 */
+  /**
+   * @title 旭日图数据
+   * @description  旭日图数据
+   */
   readonly data: any;
-  /** 径向类型 */
+  /**
+   * @title 径向类型
+   * @description  径向类型
+   */
   readonly reflect?: 'x' | 'y';
 
   // 样式
-  /** 内径 */
+
+  /**
+   * @title 内径
+   * @description  内径
+   */
   readonly innerRadius?: number;
-  /** 半经 */
+  /**
+   * @title 半经
+   * @description  半经
+   */
   readonly radius?: number;
-  /** 颜色映射 */
+  /**
+   * @title 颜色映射
+   * @description  颜色映射
+   */
   readonly colorField?: string;
-  /** 颜色*/
+  /**
+   * @title 颜色
+   * @description  颜色
+   */
   readonly color?: ColorAttr;
-  /** 旭日图形样式 */
+  /**
+   * @title 旭日图形样式
+   * @description  旭日图形样式
+   */
   readonly sunburstStyle?: StyleAttr;
 
-  /** 层级布局配置 */
+  /**
+   * @title 层级布局
+   * @description  层级布局配置
+   */
   readonly hierarchyConfig?: Omit<HierarchyOption, 'as' | 'type'> & {
     /** default: 'value', required data to be like: { name: 'xx', [field]: 12, children: [] } */
     readonly field?: string;
-    /** 是否忽略父节点的权重, 默认: false, 其父节点的权重不由子节点权重总和决定 */
+  /**
+   * @title 是否忽略父节点的权重
+   * @description  其父节点的权重不由子节点权重总和决定
+   * @default false
+   */
     readonly ignoreParentValue?: boolean;
-    /** 默认展示的层级深度. 默认空, 代表全部展示. 取值 > 0 */
+    /**
+   * @title 展示的层级深度
+   * @description  取值 > 0 默认空, 代表全部展示
+   * @default null
+   */
     readonly activeDepth?: number;
   };
 
   // 其他
-  /** 额外的原始字段 */
+
+  /**
+   * @title 额外的原始字段
+   * @description  额外的原始字段
+   */
   readonly rawFields?: string[];
-  /** 下钻交互 */
+  /**
+   * @title 下钻交互
+   * @description  下钻交互
+   */
   readonly drilldown?: DrillDownCfg;
 }

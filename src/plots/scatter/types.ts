@@ -14,16 +14,33 @@ interface Labels extends Omit<TextOption, 'position'> {
   position?: AnnotationPosition;
 }
 
-interface QuadrantOptions {
-  /** x 方向上的象限分割基准线，默认为 0  */
+interface QuadrantOptions {=
+  /**
+   * @title x 基准线
+   * @description x 方向上的象限分割基准线
+   * @default 0
+   */
   readonly xBaseline?: number;
-  /** y 方向上的象限分割基准线，默认为 0  */
+  /**
+   * @title y 基准线
+   * @description y 方向上的象限分割基准线
+   * @default 0
+   */
   readonly yBaseline?: number;
-  /** 配置象限分割线的样式  */
+  /**
+   * @title 分割线的样式
+   * @description 配置象限分割线的样式
+   */
   readonly lineStyle?: RegionPositionBaseOption;
-  /** 象限样式 */
+  /**
+   * @title 象限样式
+   * @description 象限样式
+   */
   readonly regionStyle?: RegionPositionBaseOption[];
-  /** 象限文本配置  */
+  /**
+   * @title 象限文本
+   * @description 象限文本配置
+   */
   readonly labels?: Labels[];
 }
 

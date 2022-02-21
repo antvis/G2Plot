@@ -19,17 +19,36 @@ export interface PointConfig {
 }
 
 type CommonGeometryOption = {
-  // 图形类型
+  /**
+  * @title 图形类型
+  * @description 图形类型
+  */
   readonly geometry?: string;
-  // label
+  /**
+  * @title 标签
+  * @description 数据标签的配置
+  */
   readonly label?: Options['label'];
-  // legend
+  /**
+  * @title 图例legend
+  * @description 图例legend的配置项
+  */
   readonly legend?: Options['legend'];
-  // 色板
+  /**
+  * @title 色板
+  * @description 颜色色板
+  */
   readonly color?: Options['color'];
-  // 是否分组
+  /**
+  * @title 分组
+  * @description 是否分组
+  * @default false
+  */
   readonly isGroup?: boolean;
-  // 分组字段，优先级高于 seriesField
+  /**
+  * @title 分组字段
+  * @description 优先级高于 seriesField
+  */
   readonly groupField?: string;
 };
 
@@ -59,31 +78,33 @@ export type GeometryOption = GeometryColumnOption | GeometryLineOption;
 
 export type DualAxesOptions = Omit<Options, 'data' | 'yAxis' | 'color' | 'annotations'> & {
   /**
-   * 具体的数据，左右两边的数据
-   */
+  * @title 数据
+  * @description 具体的数据，左右两边的数据
+  */
   readonly data: Array<Record<string, any>[]>;
-
   /**
-   * 双轴图的 x 字段，x 字段名称需要保持一致
-   */
+  * @title 双轴图的 x 字段
+  * @description 双轴图的 x 字段，x 字段名称需要保持一致
+  */
   readonly xField: string;
   /**
-   * 双轴图左右 y 字段，需要不一致
-   */
+  * @title 双轴图左右 y 字段
+  * @description 双轴图左右 y 字段，需要不一致
+  */
   readonly yField: string[];
-
   /**
-   * 左右两边的 yAxis 配置，使用 object 的方式，key 为 y 字段名，或者数组分别表示左右
-   */
+  * @title 左右两边的 yAxis 配置
+  * @description 使用 object 的方式，key 为 y 字段名，或者数组分别表示左右
+  */
   readonly yAxis?: Options['yAxis'][] | Record<string, Options['yAxis']>;
-
   /**
-   * 左右两边的图形配置
-   */
+  * @title 左右两边的图形配置
+  * @description 左右两边的图形配置
+  */
   readonly geometryOptions?: GeometryOption[];
-
   /**
-   * 左右两边的 annotation 配置, 同时支持数组和object 两种形式，以防出现 field 相同无法设置的情况
-   */
+  * @title 左右两边的 annotation 配置
+  * @description 同时支持数组和object 两种形式，以防出现 field 相同无法设置的情况
+  */
   readonly annotations?: Options['annotations'][] | Record<string, Options['annotations']>;
 };

@@ -4,7 +4,6 @@ import { Options, StyleAttr, ColorAttr } from '../../types';
 export interface ProgressOptions extends Omit<Options, 'data' | 'color'> {
   /**
   * @title 进度百分比
-  * @description 进度百分比
   */
   readonly percent: number;
   /**
@@ -14,12 +13,10 @@ export interface ProgressOptions extends Omit<Options, 'data' | 'color'> {
   readonly barWidthRatio?: number;
   /**
   * @title 进度条颜色
-  * @description 进度条颜色
   */
   readonly color?: ColorAttr;
   /**
   * @title 进度条样式
-  * @description 进度条样式
   */
   readonly progressStyle?: StyleAttr;
 }

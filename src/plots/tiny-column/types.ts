@@ -4,7 +4,6 @@ import { Options, StyleAttr } from '../../types';
 export interface TinyColumnOptions extends Omit<Options, 'data' | 'legend' | 'label'> {
   /**
    * @title 具体的数据
-   * @description  具体的数据
    */
   readonly data: number[];
   /**
@@ -14,7 +13,6 @@ export interface TinyColumnOptions extends Omit<Options, 'data' | 'legend' | 'la
   readonly columnWidthRatio?: number;
   /**
    * @title 迷你柱形图形样式
-   * @description  迷你柱形图形样式
    */
   readonly columnStyle?: StyleAttr;
 }

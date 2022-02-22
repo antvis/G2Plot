@@ -4,32 +4,26 @@ import { Options, StyleAttr, ColorAttr, Statistic } from '../../types';
 export interface RingProgressOptions extends Omit<Options, 'data' | 'tooltip' | 'legend' | 'label' | 'color'> {
   /**
   * @title 进度百分比
-  * @description 进度百分比
   */
   readonly percent: number;
   /**
   * @title 外环的半径
-  * @description 外环的半径
   */
   readonly radius?: number;
   /**
   * @title 内环的半径
-  * @description 内环的半径
   */
   readonly innerRadius?: number;
   /**
   * @title 进度条颜色
-  * @description 进度条颜色
   */
   readonly color?: ColorAttr;
   /**
   * @title 进度条样式
-  * @description 进度条样式
   */
   readonly progressStyle?: StyleAttr;
   /**
   * @title 统计内容组件
-  * @description 统计内容组件
   */
   readonly statistic?: Statistic;
 }

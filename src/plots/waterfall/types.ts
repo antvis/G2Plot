@@ -4,12 +4,10 @@ import { Options, ShapeStyle, StyleAttr } from '../../types';
 type TotalCfg = {
   /**
    * @title 总计的标签
-   * @description 总计的标签
    */
   label?: string;
   /**
    * @title 样式
-   * @description 样式
    */
   style?: ShapeStyle;
 };
@@ -18,7 +16,6 @@ type TotalCfg = {
 type LeaderLineCfg = {
   /**
    * @title 样式
-   * @description 样式
    */
   style?: ShapeStyle;
 };
@@ -26,12 +23,10 @@ type LeaderLineCfg = {
 export interface WaterfallOptions extends Options {
   /**
    * @title x 轴字段
-   * @description x 轴字段
    */
   readonly xField: string;
   /**
    * @title y 轴字段
-   * @description y 轴字段
    */
   readonly yField: string;
   /**
@@ -52,12 +47,10 @@ export interface WaterfallOptions extends Options {
   readonly leaderLine?: false | LeaderLineCfg;
   /**
    * @title 上涨色
-   * @description 上涨色
    */
   readonly risingFill?: string;
   /**
    * @title 下跌色
-   * @description 下跌色
    */
   readonly fallingFill?: string;
   /**

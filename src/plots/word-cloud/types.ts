@@ -6,22 +6,18 @@ type FontWeight = ShapeStyle['fontWeight'];
 export interface Word {
   /**
    * @title 文本内容
-   * @description 文本内容
    */
   text: string;
   /**
    * @title 该文本所占权重
-   * @description 该文本所占权重
    */
   value: number;
   /**
    * @title 用于指定颜色字段
-   * @description 用于指定颜色字段
    */
   color: string | number;
   /**
    * @title 原始数据
-   * @description 原始数据
    */
   datum: Datum;
 }
@@ -29,27 +25,22 @@ export interface Word {
 export type Tag = Word & {
   /**
    * @title 字体
-   * @description 字体
    */
   font?: string;
   /**
    * @title 字体样式
-   * @description 字体样式
    */
   style?: ShapeStyle['fontStyle'];
   /**
    * @title 文本粗细
-   * @description 文本粗细
    */
   weight?: FontWeight;
   /**
    * @title 旋转角度
-   * @description 旋转角度
    */
   rotate?: number;
   /**
    * @title 字体大小
-   * @description 字体大小
    */
   size?: number;
   /**
@@ -59,28 +50,23 @@ export type Tag = Word & {
   padding?: number;
   /**
    * @title 是否包含文本
-   * @description 是否包含文本
    * @default "false"
    */
   hasText?: boolean;
   /**
    * @title 单词所占盒子的宽度
-   * @description 单词所占盒子的宽度
    */
   width?: number;
   /**
    * @title 单词所占盒子的高度
-   * @description 单词所占盒子的高度
    */
   height?: number;
   /**
    * @title x 轴坐标
-   * @description x 轴坐标
    */
   x?: number;
   /**
    * @title y 轴坐标
-   * @description y 轴坐标
    */
   y?: number;
 };
@@ -126,17 +112,14 @@ export interface WordStyle {
 export interface WordCloudOptions extends Options {
   /**
    * @title 词条内容字段
-   * @description 词条内容字段
    */
   readonly wordField: string;
   /**
    * @title 词条权重字段
-   * @description 词条权重字段
    */
   readonly weightField: string;
   /**
    * @title 根据该字段进行颜色映射
-   * @description 根据该字段进行颜色映射
    */
   readonly colorField?: string;
   /**
@@ -146,7 +129,6 @@ export interface WordCloudOptions extends Options {
   readonly imageMask?: HTMLImageElement | string;
   /**
    * @title 最大执行时间
-   * @description 最大执行时间
    */
   readonly timeInterval?: number;
   /**

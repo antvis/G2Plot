@@ -8,17 +8,15 @@ export type VennData = (Types.Datum & { sets: string[]; [PATH_FIELD]: string; [I
 export interface VennOptions extends Options {
   /**
    * @title 韦恩图
-   * @description  韦恩图 数据
+   * @description  韦恩图数据
    */
   readonly data: Types.Datum[];
   /**
    * @title 集合字段
-   * @description  集合字段
    */
   readonly setsField: string;
   /**
    * @title 大小字段
-   * @description  大小字段
    */
   readonly sizeField: string;
 
@@ -26,7 +24,6 @@ export interface VennOptions extends Options {
 
   /**
    * @title 颜色
-   * @description  颜色
    */
   readonly color?: string | string[] | ((datum: Datum, defaultColor?: string) => string);
   /**
@@ -37,7 +34,6 @@ export interface VennOptions extends Options {
   readonly blendMode?: string;
   /**
    * @title point 样式
-   * @description  point 样式
    */
   readonly pointStyle?: StyleAttr;
 }

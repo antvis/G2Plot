@@ -4,12 +4,10 @@ import { Options, StyleAttr } from '../../types';
 export interface BidirectionalBarOptions extends Omit<Options, 'yAxis' | 'yField'> {
   /**
   * @title x轴字段
-  * @description x轴字段
   */
   readonly xField: string;
   /**
   * @title y轴字段
-  * @description y轴字段
   */
   readonly yField: [string, string];
   /**
@@ -28,12 +26,10 @@ export interface BidirectionalBarOptions extends Omit<Options, 'yAxis' | 'yField
   readonly widthRatio?: number;
   /**
   * @title 柱状图柱子样式
-  * @description 柱状图柱子样式配置
   */
   readonly barStyle?: StyleAttr;
   /**
   * @title 布局方向选择
-  * @description 布局方向选择
   * @default "horizontal"
   */
   readonly layout?: 'horizontal' | 'vertical';

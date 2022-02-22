@@ -6,28 +6,23 @@ import { PointGeometryOptions } from '../../adaptor/geometries/point';
 export interface TinyAreaOptions extends Omit<Options, 'data' | 'legend' | 'label'> {
   /**
    * @title 具体的数据
-   * @description  具体的数据
    */
   readonly data: number[];
   /**
    * @title 是否平滑
-   * @description  是否平滑
    * @default "false"
    */
   readonly smooth?: boolean;
   /**
    * @title 面积折线图形样式
-   * @description  面积折线图形样式
    */
   readonly areaStyle?: StyleAttr;
   /**
    * @title 面积折线图形样式
-   * @description  面积折线图形样式
    */
   readonly line?: MappingOptions;
   /**
    * @title 面积点图形样式
-   * @description  面积点图形样式
    */
   readonly point?: MappingOptions & Pick<PointGeometryOptions, 'state'>;
 }

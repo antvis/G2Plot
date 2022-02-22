@@ -99,7 +99,6 @@ export type DualAxesOptions = Omit<Options, 'data' | 'yAxis' | 'color' | 'annota
   readonly yAxis?: Options['yAxis'][] | Record<string, Options['yAxis']>;
   /**
   * @title 左右两边的图形配置
-  * @description 左右两边的图形配置
   */
   readonly geometryOptions?: GeometryOption[];
   /**

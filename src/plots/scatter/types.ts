@@ -28,37 +28,31 @@ interface QuadrantOptions {=
    */
   readonly yBaseline?: number;
   /**
-   * @title 分割线的样式
-   * @description 配置象限分割线的样式
+   * @title 配置象限分割线的样式
    */
   readonly lineStyle?: RegionPositionBaseOption;
   /**
    * @title 象限样式
-   * @description 象限样式
    */
   readonly regionStyle?: RegionPositionBaseOption[];
   /**
    * @title 象限文本
-   * @description 象限文本配置
    */
   readonly labels?: Labels[];
 }
 
 export interface RegressionLineOptions {
   /**
-   * @title 顶层显示
-   * @description 是否顶层显示
+   * @title 是否顶层显示
    * @default "false"
    */
   readonly top?: boolean;
   /**
    * @title 回归线类型
-   * @description 回归线类型
    */
   readonly type?: string;
   /**
    * @title 配置回归线样式
-   * @description 配置回归线样式
    */
   readonly style?: ShapeStyle;
   /**
@@ -71,12 +65,10 @@ export interface RegressionLineOptions {
 export interface ScatterOptions extends Options {
   /**
    * @title x 轴字段
-   * @description x 轴字段
    */
   readonly xField: string;
   /**
    * @title y 轴字段
-   * @description y 轴字段
    */
   readonly yField: string;
   /**
@@ -86,42 +78,34 @@ export interface ScatterOptions extends Options {
   readonly type?: 'jitter' | 'stack' | 'symmetric' | 'dodge';
   /**
    * @title 点大小映射对应的数据字段名
-   * @description 点大小映射对应的数据字段名
    */
   readonly sizeField?: string;
   /**
    * @title size 对应的图例
-   * @description size 对应的图例
    */
   readonly sizeLegend?: Options['legend'];
   /**
    * @title 散点图大小
-   * @description 散点图大小
    */
   readonly size?: SizeAttr;
   /**
    * @title 点形状映射对应的数据字段名
-   * @description 点形状映射对应的数据字段名
    */
   readonly shapeField?: string;
   /**
    * @title shape 对应的图例
-   * @description shape 对应的图例
    */
   readonly shapeLegend?: Options['legend'];
   /**
    * @title 散点图形状
-   * @description 散点图形状
    */
   readonly shape?: ShapeAttr;
   /**
    * @title 散点图样式
-   * @description 散点图样式
    */
   readonly pointStyle?: StyleAttr;
   /**
    * @title 点颜色映射对应的数据字段名
-   * @description 点颜色映射对应的数据字段名
    */
   readonly colorField?: string;
 
@@ -129,17 +113,14 @@ export interface ScatterOptions extends Options {
 
   /**
    * @title 四象限组件
-   * @description 四象限组件
    */
   readonly quadrant?: QuadrantOptions;
   /**
    * @title 归曲线
-   * @description 归曲线
    */
   readonly regressionLine?: RegressionLineOptions;
   /**
    * @title 图表交互
-   * @description 图表交互
    */
   readonly brush?: BrushCfg;
 }

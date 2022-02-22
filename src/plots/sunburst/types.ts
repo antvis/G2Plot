@@ -5,7 +5,6 @@ import { HierarchyOption } from '../../utils/hierarchy/types';
 export interface SunburstOptions extends Omit<Options, 'data' | 'slider' | 'scrollbar' | 'xAxis' | 'yAxis'> {
   /**
    * @title 旭日图数据
-   * @description  旭日图数据
    */
   readonly data: any;
   /**
@@ -18,33 +17,27 @@ export interface SunburstOptions extends Omit<Options, 'data' | 'slider' | 'scro
 
   /**
    * @title 内径
-   * @description  内径
    */
   readonly innerRadius?: number;
   /**
    * @title 半经
-   * @description  半经
    */
   readonly radius?: number;
   /**
    * @title 颜色映射
-   * @description  颜色映射
    */
   readonly colorField?: string;
   /**
    * @title 颜色
-   * @description  颜色
    */
   readonly color?: ColorAttr;
   /**
    * @title 旭日图形样式
-   * @description  旭日图形样式
    */
   readonly sunburstStyle?: StyleAttr;
 
   /**
    * @title 层级布局
-   * @description  层级布局配置
    */
   readonly hierarchyConfig?: Omit<HierarchyOption, 'as' | 'type'> & {
     /** default: 'value', required data to be like: { name: 'xx', [field]: 12, children: [] } */
@@ -67,12 +60,10 @@ export interface SunburstOptions extends Omit<Options, 'data' | 'slider' | 'scro
 
   /**
    * @title 额外的原始字段
-   * @description  额外的原始字段
    */
   readonly rawFields?: string[];
   /**
    * @title 下钻交互
-   * @description  下钻交互
    */
   readonly drilldown?: DrillDownCfg;
 }

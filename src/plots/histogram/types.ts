@@ -24,7 +24,6 @@ export interface HistogramOptions extends Options {
   readonly stackField?: string;
   /**
   * @title 柱子样式配置
-  * @description   柱子样式配置
   */
   readonly columnStyle?: StyleAttr;
 }

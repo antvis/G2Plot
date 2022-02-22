@@ -9,50 +9,41 @@ import { Options, StyleAttr } from '../../types';
 export interface LineOptions extends Options, Pick<GeometryOptions, 'customInfo'> {
   /**
   * @title 阶梯折线图类型
-  * @description 阶梯折线图类型
   */
   readonly stepType?: string;
   /**
   * @title x轴字段
-  * @description x轴字段
   */
   readonly xField?: string;
   /**
   * @title y轴字段
-  * @description y轴字段
   */
   readonly yField?: string;
   /**
   * @title 分组字段
-  * @description 分组字段
   */
   readonly seriesField?: string;
   /**
   * @title 是否堆积
-  * @description 是否堆积
   * @default "false"
   */
   readonly isStack?: boolean;
   /**
   * @title 是否平滑
-  * @description 是否平滑
   * @default "false"
   */
   readonly smooth?: boolean;
   /**
   * @title 是否连接空数据
-  * @description 是否连接空数据
   * @default "false"
   */
   readonly connectNulls?: boolean;
   /**
   * @title 折线图形样式
-  * @description 折线图形样式
   */
   readonly lineStyle?: StyleAttr;
   /**
   * @title 折线 shape 配置
-  * @description 折线 shape 配置
   */
   readonly lineShape?: Required<LineGeometryOptions>['line']['shape'];
   /**

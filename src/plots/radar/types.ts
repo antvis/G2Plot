@@ -4,7 +4,6 @@ import { Options, ShapeStyle } from '../../types';
 export interface RadarOptions extends Options {
   /**
   * @title x轴字段
-  * @description x轴字段
   */
   readonly xField: string;
   /**
@@ -14,23 +13,19 @@ export interface RadarOptions extends Options {
   readonly yField: string;
   /**
   * @title 分组字段
-  * @description 分组字段
   */
   readonly seriesField?: string;
   /**
   * @title 是否平滑
-  * @description 是否平滑
   * @default "false"
   */
   readonly smooth?: boolean;
   /**
   * @title 折线图形样式
-  * @description 折线图形样式
   */
   readonly lineStyle?: ShapeStyle | ((x: any, y: any, series?: any) => ShapeStyle);
   /**
   * @title 数据点图形样式
-  * @description 数据点图形样式
   */
   readonly point?: PointGeometryOptions['point'] & Pick<PointGeometryOptions, 'state'>;
   /**
@@ -40,27 +35,22 @@ export interface RadarOptions extends Options {
   readonly area?: AreaGeometryOptions['area'];
   /**
   * @title 角度轴配置
-  * @description 角度轴配置
   */
   readonly xAxis?: any;
   /**
   * @title 径向轴配置
-  * @description 径向轴配置
   */
   readonly yAxis?: any;
   /**
   * @title 雷达图半径
-  * @description 雷达图半径
   */
   readonly radius?: number;
   /**
   * @title 雷达图开始角度
-  * @description 雷达图开始角度
   */
   readonly startAngle?: number;
   /**
   * @title 雷达图结束角度
-  * @description 雷达图结束角度
   */
   readonly endAngle?: number;
 }

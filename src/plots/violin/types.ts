@@ -3,17 +3,14 @@ import { Options, State, StyleAttr } from '../../types';
 export interface ViolinOptions extends Options {
   /**
    * @title X 轴映射
-   * @description X 轴映射
    */
   readonly xField: string;
   /**
    * @title Y 轴映射
-   * @description Y 轴映射
    */
   readonly yField: string;
    /**
    * @title 拆分字段映射
-   * @description 拆分字段映射
    * @default "分组情况,颜色作为视觉通道 "
    */
   readonly seriesField?: string;
@@ -38,7 +35,6 @@ export interface ViolinOptions extends Options {
   readonly shape?: 'smooth' | 'hollow' | 'hollow-smooth';
   /**
    * @title 小提琴样式配置
-   * @description 小提琴样式配置，可选
    */
   readonly violinStyle?: StyleAttr;
   /**

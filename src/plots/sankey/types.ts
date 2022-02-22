@@ -4,12 +4,10 @@ import { NodeDepth, NodeSort } from './layout';
 
     /**
     * @title node-link 数据类型的结构
-    * @description node-link 数据类型的结构
     */
 export type NodeLinkData = {
     /**
     * @title 节点数据
-    * @description 节点数据
     */
   readonly nodes: {
     /**
@@ -50,7 +48,6 @@ export type NodeLinkData = {
 
     /**
     * @title 配置类型定义
-    * @description 配置类型定义
     */ 
 export interface SankeyOptions extends Omit<Options, 'data' | 'xField' | 'yField' | 'xAxis' | 'yAxis'> {
   /**
@@ -81,12 +78,11 @@ export interface SankeyOptions extends Omit<Options, 'data' | 'xField' | 'yField
   readonly rawFields?: string[];
   /**
     * @title 数据
-    * @description 数据
     */
   readonly data: Data | NodeLinkData;
   /**
     * @title 节点宽度
-    * @description 节点宽度的比如，参考画布的宽度
+    * @description 参考画布的宽度
     * @default "0.008"
     */
   readonly nodeWidthRatio?: number;
@@ -114,7 +110,6 @@ export interface SankeyOptions extends Omit<Options, 'data' | 'xField' | 'yField
   readonly nodeAlign?: 'left' | 'right' | 'center' | 'justify';
   /**
     * @title 节点排序方式
-    * @description 节点排序方式
     * @default "null"
     */
   readonly nodeSort?: NodeSort;
@@ -125,38 +120,31 @@ export interface SankeyOptions extends Omit<Options, 'data' | 'xField' | 'yField
   readonly nodeDepth?: NodeDepth;
   /**
     * @title 节点样式
-    * @description 节点样式
     */
   readonly nodeStyle?: StyleAttr;
   /**
     * @title 节点状态样式
-    * @description 节点状态样式
     */
   readonly nodeState?: State;
   /**
    * @title 边样式
-   * @description 边样式
    */
   readonly edgeStyle?: StyleAttr;
   /**
    * @title 边状态样式
-   * @description 边状态样式
    */
   readonly edgeState?: State;
   /**
-   * @title 节点位置拖拽
-   * @description 节点位置是否可以拖拽
+   * @title 节点位置是否可以拖拽
    * @default "false"
    */
   readonly nodeDraggable?: boolean;
   /**
    * @title 边交互 
-   * @description 边交互配置
    */
   readonly edgeInteractions?: Options['interactions'];
   /**
    * @title 节点交互 
-   * @description 节点交互配置
    */
   readonly nodeInteractions?: Options['interactions'];
 }

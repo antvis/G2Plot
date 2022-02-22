@@ -13,40 +13,33 @@ export interface ColumnOptions
     PartialIntervalGeometryOptions {
   /**
   * @title x轴字段
-  * @description x轴字段
   */
   readonly xField: string;
   /**
   * @title y轴字段
-  * @description y轴字段
   */
   readonly yField: string;
   /**
   * @title 拆分字段
-  * @description 拆分字段
   */
   readonly seriesField?: string;
   /**
   * @title 是否分组柱形图
-  * @description 是否分组柱形图
   * @default "false"
   */
   readonly isGroup?: boolean;
   /**
   * @title 是否是区间柱状图
-  * @description 是否是区间柱状图
   * @default "false"
   */
   readonly isRange?: boolean;
   /**
   * @title 是否是百分比柱状图
-  * @description 是否是百分比柱状图
   * @default "false"
   */
   readonly isPercent?: boolean;
   /**
   * @title 是否堆积柱状图
-  * @description 是否堆积柱状图
   * @default "false"
   */
   readonly isStack?: boolean;
@@ -62,22 +55,18 @@ export interface ColumnOptions
   readonly marginRatio?: number;
   /**
   * @title 柱状图最小宽度（像素）
-  * @description 柱状图最小宽度（像素）
   */
   readonly minColumnWidth?: number;
   /**
   * @title 柱状图最大宽度（像素）
-  * @description 柱状图最大宽度（像素）
   */
   readonly maxColumnWidth?: number;
   /**
   * @title 柱状图柱子的背景
-  * @description 配置柱状图柱子的背景
   */
   readonly columnBackground?: { style?: ShapeAttrs };
   /**
   * @title 柱子样式
-  * @description 柱子样式配置
   */
   readonly columnStyle?: StyleAttr;
   /**

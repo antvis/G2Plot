@@ -3,24 +3,20 @@ import { Options, StyleAttr, ColorAttr, Statistic, ShapeStyle } from '../../type
 
   /**
   * @title 轮廓
-  * @description 轮廓的配置
   */
 type Outline = Partial<{
   /**
   * @title 外环的宽度
-  * @description 外环的宽度
   * @default "2px"
   */
   readonly border: number;
   /**
   * @title 内外的边距
-  * @description 内外的边距
   * @default "0px"
   */
   readonly distance: number;
   /**
   * @title 外环的样式
-  * @description 外环的样式
   */
   readonly style?: Pick<ShapeStyle, 'stroke' | 'strokeOpacity'>;
   // /** 外边框的形状，可以有 circle，rect，默认为 circle */
@@ -30,13 +26,11 @@ type Outline = Partial<{
 type Wave = Partial<{
   /**
   * @title 波形的数量
-  * @description 波形的数量
   * @default "3"
   */
   readonly count: number;
   /**
   * @title 波形的长度
-  * @description 波形的长度
   * @default "192"
   */
   readonly length: number;
@@ -46,12 +40,10 @@ type ShapeCallback = (x: number, y: number, width: number, height: number) => Pa
 
   /**
   * @title 配置类型定义
-  * @description 配置类型定义
   */
 export interface LiquidOptions extends Omit<Options, 'data'> {
   /**
   * @title 指标比例
-  * @description 指标比例
   */
   readonly percent: number;
   /**
@@ -67,22 +59,18 @@ export interface LiquidOptions extends Omit<Options, 'data'> {
   readonly radius?: number;
   /**
   * @title 水波图的样式
-  * @description 配置水波图的样式
   */
   readonly liquidStyle?: StyleAttr;
   /**
   * @title 指标文本组件
-  * @description 指标文本组件
   */
   readonly statistic?: Statistic;
   /**
   * @title 外环轮廓
-  * @description 外环轮廓的配置
   */
   readonly outline?: Outline;
   /**
   * @title 波的配置
-  * @description 波的配置
   */
   readonly wave?: Wave;
   /**
@@ -94,7 +82,6 @@ export interface LiquidOptions extends Omit<Options, 'data'> {
 
   /**
   * @title 水波图自定义 的 customInfo
-  * @description 水波图自定义 的 customInfo
   */
 export type CustomInfo = {
   radius?: LiquidOptions['radius'];

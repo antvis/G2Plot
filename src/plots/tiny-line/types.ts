@@ -6,29 +6,24 @@ import { PointGeometryOptions } from '../../adaptor/geometries/point';
 export interface TinyLineOptions extends Omit<Options, 'data' | 'legend' | 'label'> {
   /**
    * @title 具体的数据
-   * @description  具体的数据
    */
   readonly data: number[];
   /**
    * @title 是否平滑
-   * @description  是否平滑
    * @default "false"
    */
   readonly smooth?: boolean;
   /**
    * @title 是否连接空数据
-   * @description  是否连接空数据
    * @default "false"
    */
   readonly connectNulls?: boolean;
   /**
    * @title 折线图形样式
-   * @description  折线图形样式
    */
   readonly lineStyle?: StyleAttr;
   /**
    * @title 折线点图形样式
-   * @description  折线点图形样式
    */
   readonly point?: MappingOptions & Pick<PointGeometryOptions, 'state'>;
 }

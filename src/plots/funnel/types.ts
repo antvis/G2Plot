@@ -9,12 +9,10 @@ export type ConversionPosition = {
 export interface FunnelOptions extends Options {
   /**
   * @title x轴字段
-  * @description x轴字段
   */
   readonly xField?: string;
   /**
   * @title y轴字段
-  * @description y轴字段
   */
   readonly yField?: string;
   /**
@@ -29,13 +27,11 @@ export interface FunnelOptions extends Options {
   readonly compareField?: string;
   /**
   * @title 是否转置
-  * @description 是否转置
   * @default "false"
   */
   readonly isTransposed?: boolean;
   /**
-  * @title 动态高度
-  * @description 是否是动态高度
+  * @title 是否是动态高度
   * @default "false"
   */
   readonly dynamicHeight?: boolean;
@@ -56,14 +52,12 @@ export interface FunnelOptions extends Options {
   readonly shape?: string;
   /**
   * @title 漏斗图样式
-  * @description 漏斗图样式
   */
   readonly funnelStyle?: StyleAttr;
 
   // 组件
   /**
   * @title 转化率信息
-  * @description 转化率信息
   */
   readonly conversionTag?:
     | false

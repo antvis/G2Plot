@@ -3,7 +3,6 @@ import { Options, StyleAttr } from '../../types';
 export interface BoxOptions extends Options {
   /**
   * @title x轴字段
-  * @description x轴字段
   */
   readonly xField: string;
   /**
@@ -16,21 +15,17 @@ export interface BoxOptions extends Options {
   * @description 箱型样式配置
   */
   readonly boxStyle?: StyleAttr;
-  /** 分组拆分字段，默认是分组情况，颜色作为视觉通道 */
   /**
-  * @title 分组拆分字段
-  * @description 分组拆分字段配置
+  * @title 分组拆分字段配置
   * @default "分组情况,颜色作为视觉通道"
   */
   readonly groupField?: string;
   /**
   * @title 异常值字段
-  * @description 异常值字段
   */
   readonly outliersField?: string;
   /**
   * @title 异常值样式
-  * @description 异常值样式配置
   */
   readonly outliersStyle?: StyleAttr;
 }

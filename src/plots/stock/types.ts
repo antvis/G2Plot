@@ -19,17 +19,14 @@ export interface StockOptions extends Options {
 
   /**
    * @title 上涨色
-   * @description  上涨色
    */
   readonly risingFill?: string;
   /**
    * @title 下跌色
-   * @description  下跌色
    */
   readonly fallingFill?: string;
   /**
    * @title 样式配置
-   * @description  样式配置
    */
   readonly stockStyle?: StyleAttr;
 }

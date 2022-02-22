@@ -8,23 +8,19 @@ export interface RoseOptions extends Options {
   readonly xField: string;
   /**
   * @title 扇形切片半径长度所对应的数据字段名
-  * @description 扇形切片半径长度所对应的数据字段名
   */
   readonly yField: string;
   /**
   * @title 拆分字段
-  * @description 拆分字段
   */
   readonly seriesField?: string;
   /**
   * @title 是否分组玫瑰图
-  * @description 是否分组玫瑰图
   * @default "false"
   */
   readonly isGroup?: boolean;
   /**
   * @title 是否堆积玫瑰图
-  * @description 是否堆积玫瑰图
   * @default "false"
   */
   readonly isStack?: boolean;
@@ -40,12 +36,10 @@ export interface RoseOptions extends Options {
   readonly innerRadius?: number;
   /**
   * @title 玫瑰图开始角度
-  * @description 玫瑰图开始角度
   */
   readonly startAngle?: number;
   /**
   * @title 玫瑰图结束角度
-  * @description 玫瑰图结束角度
   */
   readonly endAngle?: number;
   /**

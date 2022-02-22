@@ -9,22 +9,18 @@ export interface HeatmapOptions extends Options {
   readonly type?: 'polygon' | 'density';
   /**
   * @title x轴字段
-  * @description x轴字段
   */
   readonly xField: string;
   /**
   * @title y轴字段
-  * @description y轴字段
   */
   readonly yField: string;
   /**
   * @title 颜色字段
-  * @description 颜色字段
   */
   readonly colorField?: string;
   /**
   * @title 热力格子中的形状
-  * @description 热力格子中的形状
   */
   readonly shape?: string;
   /**
@@ -39,13 +35,11 @@ export interface HeatmapOptions extends Options {
   readonly reflect?: 'x' | 'y';
   /**
   * @title 极坐标属性
-  * @description 极坐标属性
   */
   readonly coordinate?: Types.CoordinateOption;
 
   /**
   * @title 图例相关
-  * @description 图例相关
   */
 
   /**
@@ -55,18 +49,15 @@ export interface HeatmapOptions extends Options {
   readonly sizeField?: string;
   /**
   * @title size 对应的图例
-  * @description  size 对应的图例
   */
   readonly sizeLegend?: Options['legend'];
 
   /**
   * @title 样式相关
-  * @description  样式相关
   */
 
   /**
   * @title 热力图形样式
-  * @description  热力图形样式
   */
   readonly heatmapStyle?: StyleAttr;
   /**

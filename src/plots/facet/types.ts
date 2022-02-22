@@ -10,7 +10,6 @@ import { IPlotTypes } from '../mix/utils';
 
 /**
   * @title geometry 映射信息
-  * @description geometry 映射信息
   */
 export type IGeometry = Geometry & {
   adjust?: Types.AdjustOption;
@@ -34,7 +33,6 @@ export type IView = {
   readonly data?: Data;
   /**
   * @title meta
-  * @description meta
   */
   readonly meta?: Record<string, Axis>;
   /**
@@ -44,69 +42,56 @@ export type IView = {
   readonly coordinate?: Types.CoordinateOption;
   /**
   * @title 坐标轴配置
-  * @description 坐标轴配置
   */
   readonly axes?: false | Record<string, Axis>;
   /**
   * @title interactions 配置
-  * @description interactions 配置
   */
   readonly interactions?: Interaction[];
   /**
   * @title annotation 配置
-  * @description annotation 配置
   */
   readonly annotations?: Annotation[];
   /**
   * @title animation 配置
-  * @description animation 配置
   */
   readonly animation?: Animation;
   /**
   * @title tooltip 配置
-  * @description tooltip 配置
   */
   readonly tooltip?: Tooltip;
 };
 
   /**
   * @title 子 plot 的配置
-  * @description 子 plot 的配置
   */
 export type IPlot = IPlotTypes;
   /**
   * @title facetData map
-  * @description facetData map
   */
 type FacetDataMap = {
   /**
   * @title rect 类型分面配置
-  * @description rect 类型分面配置
   */
   readonly rect: Types.RectData;
   /**
   * @title mirror 类型分面配置
-  * @description mirror 类型分面配置
   */
   readonly mirror: Types.MirrorData;
   /**
   * @title list 类型分面配置
-  * @description list 类型分面配置
   */
   readonly list: Types.ListData;
   /**
   * @title matrix 类型分面配置
-  * @description matrix 类型分面配置
   */
   readonly matrix: Types.MatrixData;
   /**
   * @title circle 类型分面配置
-  * @description circle 类型分面配置
   */
   readonly circle: Types.CircleData;
   /**
   * @title tree 类型分面配置
-  * @description tree 类型分面配置
   */
   readonly tree: Types.TreeData;
 };
@@ -115,7 +100,6 @@ type FacetCfg = Types.MirrorCfg & Types.RectCfg & Types.TreeCfg & Types.ListCfg 
 
   /**
   * @title 分面图的配置类型定义
-  * @description 分面图的配置类型定义
   */
 export interface FacetOptions<T extends keyof Types.FacetCfgMap = keyof Types.FacetCfgMap> extends Options, FacetCfg {
   /**
@@ -125,12 +109,10 @@ export interface FacetOptions<T extends keyof Types.FacetCfgMap = keyof Types.Fa
   readonly type: T;
   /**
   * @title 数据划分维度
-  * @description 数据划分维度
   */
   readonly fields: string[];
   /**
   * @title 分面数据
-  * @description 分面数据
   */
   readonly data: Data;
   /**
@@ -139,8 +121,7 @@ export interface FacetOptions<T extends keyof Types.FacetCfgMap = keyof Types.Fa
   */
   readonly eachView: (innerView: View, facet?: FacetDataMap[T]) => IView | IPlot;
   /**
-  * @title 展示分面标题
-  * @description 是否展示分面标题
+  * @title 是否展示分面标题
   * @default "false"
   */
   readonly showTitle?: boolean;
@@ -156,22 +137,18 @@ export interface FacetOptions<T extends keyof Types.FacetCfgMap = keyof Types.Fa
   readonly coordinate?: Types.CoordinateOption;
   /**
   * @title 轴配置
-  * @description 轴配置
   */
   readonly axes?: false | Record<string, Axis>;
   /**
   * @title tooltip 配置
-  * @description tooltip 配置
   */
   readonly tooltip?: Tooltip;
   /**
   * @title 图例配置
-  * @description 图例配置
   */
   readonly legend?: Legend;
   /**
   * @title 图例配置
-  * @description 图例配置
   */
   readonly interactions?: Interaction[];
 }

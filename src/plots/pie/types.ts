@@ -9,22 +9,18 @@ export type StatisticData = {
 export interface PieOptions extends Options {
   /**
   * @title 角度映射字段
-  * @description 角度映射字段
   */
   readonly angleField: string;
   /**
   * @title 颜色映射字段
-  * @description 颜色映射字段
   */
   readonly colorField: string;
   /**
   * @title 饼图半径
-  * @description 饼图半径
   */
   readonly radius?: number;
   /**
   * @title 饼图内半径
-  * @description 饼图内半径
   */
   readonly innerRadius?: number;
   /**
@@ -34,18 +30,15 @@ export interface PieOptions extends Options {
   readonly label?: Label;
   /**
   * @title 饼图图形样式
-  * @description 饼图图形样式
   */
   readonly pieStyle?: StyleAttr;
   // 设置扇形图
   /**
   * @title 圆环的开始角度
-  * @description 圆环的开始角度
   */
   readonly startAngle?: number;
   /**
   * @title 圆环的结束角度
-  * @description 圆环的结束角度
   */
   readonly endAngle?: number;
   /**

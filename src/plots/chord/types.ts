@@ -4,27 +4,22 @@ import { Data, Datum, Options, StyleAttr } from '../../types';
 export interface ChordOptions extends Omit<Options, 'xField' | 'yField' | 'xAxis' | 'yAxis'> {
    /**
    * @title 来源字段
-   * @description 来源字段
    */
   readonly sourceField: string;
    /**
    * @title 去向字段
-   * @description 去向字段
    */
   readonly targetField: string;
    /**
    * @title 权重字段
-   * @description 权重字段
    */
   readonly weightField: string;
    /**
    * @title 源字段
-   * @description 源字段
    */
   readonly rawFields?: string[];
    /**
    * @title 数据
-   * @description 数据
    */
   readonly data: Data;
   /**
@@ -41,18 +36,15 @@ export interface ChordOptions extends Omit<Options, 'xField' | 'yField' | 'xAxis
   readonly nodeWidthRatio?: number;
   /**
   * @title 节点排序方式
-  * @description 节点排序方式
   * @default "null"
   */
   readonly nodeSort?: (a: Datum, b: Datum) => number;
    /**
    * @title 节点样式
-   * @description 节点样式
    */
   readonly nodeStyle?: StyleAttr;
    /**
    * @title 边样式
-   * @description 边样式
    */
   readonly edgeStyle?: StyleAttr;
 }

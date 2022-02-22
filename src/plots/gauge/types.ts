@@ -20,7 +20,6 @@ export type Indicator = {
   };
   /**
   * @title 自定义指针 shape
-  * @description 自定义指针 shape
   * @default 'gauge-indicator'
   */
   readonly shape?: string;
@@ -33,20 +32,17 @@ export type Range = {
   */
   readonly ticks?: number[];
   /**
-  * @title 辅助刻度的颜色
-  * @description 辅助刻度的颜色配置
+  * @title 辅助刻度的颜色配置
   */
   readonly color?: string | string[];
   /**
   * @title 仪表盘辅助背景的宽度
-  * @description 仪表盘辅助背景的宽度
   */
   readonly width?: number;
 };
 
   /**
   * @title 仪表盘辅助生成的 rangeData
-  * @description 仪表盘辅助生成的 rangeData
   */
 export type GaugeRangeData = {
   readonly [RANGE_VALUE]?: number;
@@ -56,7 +52,6 @@ export type GaugeRangeData = {
 
   /**
   * @title 仪表盘配置类型定义
-  * @description 仪表盘配置类型定义
   */
 export interface GaugeOptions
   extends Omit<Options, 'data' | 'tooltip' | 'legend' | 'xAxis' | 'yAxis' | 'xField' | 'yField' | 'color'> {
@@ -77,43 +72,35 @@ export interface GaugeOptions
   readonly innerRadius?: number;
   /**
   * @title 弧度起始
-  * @description 弧度起始
   */
   readonly startAngle?: number;
   /**
   * @title 弧度结束
-  * @description 弧度结束
   */
   readonly endAngle?: number;
   /**
   * @title 辅助的 range 组件
-  * @description 辅助的 range 组件
   */
   readonly range?: Range;
   /**
   * @title 坐标轴配置
-  * @description 坐标轴配置
   */
   readonly axis?: Axis;
   /**
   * @title 指针的配置
-  * @description 指针的配置
   */
   readonly indicator?: false | Indicator;
   /**
   * @title 统计文本
-  * @description 统计文本
   */
   readonly statistic?: Statistic;
   /**
   * @title 仪表盘样式
-  * @description 仪表盘样式
   */
   readonly gaugeStyle?: StyleAttr;
 
   /**
   * @title meter gauge 相关配置
-  * @description meter gauge 相关配置
   */
 
   /**
@@ -128,13 +115,11 @@ export interface GaugeOptions
   readonly meter?: {
   /**
   * @title 仪表盘总步数
-  * @description 仪表盘总步数
   * @default "50"
   */
     readonly steps?: number;
   /**
   * @title step 与 gap 的宽度占比
-  * @description step 与 gap 的宽度占比
   * @default "0.5"
   */
     readonly stepRatio?: number;
@@ -147,8 +132,7 @@ export interface GaugeOptions
   */
 export type GaugeCustomInfo = {
   /**
-  * @title 仪表盘 meter 类型
-  * @description 仪表盘 meter 类型的相关配置
+  * @title 仪表盘 meter 类型的相关配置
   */
   readonly meter?: GaugeOptions['meter'];
 };

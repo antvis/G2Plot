@@ -10,7 +10,6 @@ import { IPlotTypes } from './utils';
 
   /**
   * @title geometry 映射信息
-  * @description geometry 映射信息
   */
 export type IGeometry = Geometry & {
   adjust?: Types.AdjustOption;
@@ -22,18 +21,15 @@ export type IGeometry = Geometry & {
 export type IView = {
   /**
   * @title view 的布局范围
-  * @description view 的布局范围
   * @default "占满全部"
   */
   readonly region?: Region;
   /**
   * @title view 中的数据
-  * @description view 中的数据
   */
   readonly data: Data;
   /**
   * @title view 中对应的 meta 字段配置
-  * @description view 中对应的 meta 字段配置
   */
   readonly meta?: Record<string, Meta>;
   /**
@@ -48,39 +44,32 @@ export type IView = {
   readonly geometries: IGeometry[];
   /**
   * @title x,y 轴
-  * @description x,y 轴配置
   */
   readonly axes?: false | Record<string, Axis>;
   /**
   * @title interactions 
-  * @description interactions 配置
   */
   readonly interactions?: Interaction[];
   /**
   * @title annotation  
-  * @description annotation 配置
   */
   readonly annotations?: Annotation[];
   /**
   * @title annotation  
-  * @description annotation 配置
   */
   readonly animation?: Animation;
   /**
   * @title tooltip 
-  * @description tooltip 配置
   */
   readonly tooltip?: Tooltip;
 };
 
 /**
   * @title 子 plot 的配置 
-  * @description 子 plot 的配置
   */
 export type IPlot = IPlotTypes & {
   /**
   * @title plot view 的布局范围
-  * @description plot view 的布局范围
   * @default "占满全部"
   */
   readonly region?: Region;
@@ -88,7 +77,6 @@ export type IPlot = IPlotTypes & {
 
   /**
   * @title 类型定义 
-  * @description 配置类型定义
   */
 export interface MixOptions
   extends Omit<Options, 'data' | 'legend' | 'xAxis' | 'yAxis' | 'legend' | 'tooltip' | 'slider' | 'scrollbar'> {

@@ -16,12 +16,12 @@ export interface RoseOptions extends Options {
   readonly seriesField?: string;
   /**
   * @title 是否分组玫瑰图
-  * @default "false"
+  * @default false
   */
   readonly isGroup?: boolean;
   /**
   * @title 是否堆积玫瑰图
-  * @default "false"
+  * @default false
   */
   readonly isStack?: boolean;
   /**

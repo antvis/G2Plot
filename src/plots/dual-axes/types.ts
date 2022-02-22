@@ -21,28 +21,23 @@ export interface PointConfig {
 type CommonGeometryOption = {
   /**
   * @title 图形类型
-  * @description 图形类型
   */
   readonly geometry?: string;
   /**
-  * @title 标签
-  * @description 数据标签的配置
+  * @title 数据标签的配置
   */
   readonly label?: Options['label'];
   /**
-  * @title 图例legend
-  * @description 图例legend的配置项
+  * @title 图例legend的配置项
   */
   readonly legend?: Options['legend'];
   /**
-  * @title 色板
-  * @description 颜色色板
+  * @title 颜色色板
   */
   readonly color?: Options['color'];
   /**
-  * @title 分组
-  * @description 是否分组
-  * @default "false"
+  * @title 是否分组
+  * @default false
   */
   readonly isGroup?: boolean;
   /**
@@ -84,12 +79,12 @@ export type DualAxesOptions = Omit<Options, 'data' | 'yAxis' | 'color' | 'annota
   readonly data: Array<Record<string, any>[]>;
   /**
   * @title 双轴图的 x 字段
-  * @description 双轴图的 x 字段，x 字段名称需要保持一致
+  * @description x 字段名称需要保持一致
   */
   readonly xField: string;
   /**
   * @title 双轴图左右 y 字段
-  * @description 双轴图左右 y 字段，需要不一致
+  * @description 需要不一致
   */
   readonly yField: string[];
   /**

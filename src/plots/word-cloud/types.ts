@@ -50,7 +50,7 @@ export type Tag = Word & {
   padding?: number;
   /**
    * @title 是否包含文本
-   * @default "false"
+   * @default false
    */
   hasText?: boolean;
   /**

@@ -7,12 +7,11 @@ export interface BoxOptions extends Options {
   readonly xField: string;
   /**
   * @title y轴映射
-  * @description y 轴映射 box range [low, q1, median, q3, high] 五个字段 or 一个数组字段
+  * @descriptionbox range [low, q1, median, q3, high] 五个字段 or 一个数组字段
   */
   readonly yField: string | [string?, string?, string?, string?, string?];
   /**
   * @title 箱型样式
-  * @description 箱型样式配置
   */
   readonly boxStyle?: StyleAttr;
   /**

@@ -45,7 +45,7 @@ export interface SunburstOptions extends Omit<Options, 'data' | 'slider' | 'scro
   /**
    * @title 是否忽略父节点的权重
    * @description  其父节点的权重不由子节点权重总和决定
-   * @default "false"
+   * @default false
    */
     readonly ignoreParentValue?: boolean;
     /**

@@ -25,32 +25,32 @@ export interface ColumnOptions
   readonly seriesField?: string;
   /**
   * @title 是否分组柱形图
-  * @default "false"
+  * @default false
   */
   readonly isGroup?: boolean;
   /**
   * @title 是否是区间柱状图
-  * @default "false"
+  * @default false
   */
   readonly isRange?: boolean;
   /**
   * @title 是否是百分比柱状图
-  * @default "false"
+  * @default false
   */
   readonly isPercent?: boolean;
   /**
   * @title 是否堆积柱状图
-  * @default "false"
+  * @default false
   */
   readonly isStack?: boolean;
   /**
   * @title 柱状图宽度占比
-  * @description 柱状图宽度占比 [0-1]
+  * @description 范围[0-1]
   */
   readonly columnWidthRatio?: number;
   /**
   * @title 分组中柱子之间的间距
-  * @description 分组中柱子之间的间距 [0-1]，仅对分组柱状图适用
+  * @description 范围[0-1]，仅对分组柱状图适用
   */
   readonly marginRatio?: number;
   /**
@@ -76,7 +76,7 @@ export interface ColumnOptions
   readonly groupField?: string;
   /**
   * @title 自定义柱状图
-  * @description 自定义柱状图 interval 图形元素展示形状
+  * @description interval 图形元素展示形状
   */
   readonly shape?: string;
   /**

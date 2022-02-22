@@ -9,7 +9,7 @@ export interface BarOptions
   readonly barStyle?: ColumnOptions['columnStyle'];
   /**
   * @title 柱状图宽度占比
-  * @description 柱状图宽度占比,范围[0-1]
+  * @description 范围[0-1]
   */
   readonly barWidthRatio?: ColumnOptions['columnWidthRatio'];
   /**

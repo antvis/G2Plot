@@ -12,7 +12,7 @@ export type NodeLinkData = {
   readonly nodes: {
     /**
     * @title id
-    * @description id 唯一即可，一般可以直接等于 name
+    * @description 唯一即可，一般可以直接等于 name
     */  
     readonly id: string;
     /**
@@ -30,17 +30,16 @@ export type NodeLinkData = {
   readonly links: {
     /**
     * @title 来源节点
-    * @description 来源节点在 nodes 中的 index
+    * @description 在 nodes 中的 index
     */ 
     readonly source: number;
     /**
     * @title 目标节点
-    * @description  目标节点在 nodes 中的 index
+    * @description  在 nodes 中的 index
     */ 
     readonly target: number;
     /**
-    * @title 边
-    * @description 边的值
+    * @title 边的值
     */ 
     readonly value: number;
   }[];
@@ -72,8 +71,7 @@ export interface SankeyOptions extends Omit<Options, 'data' | 'xField' | 'yField
     */
   readonly weightField?: string;
   /**
-    * @title 元字段
-    * @description 附加的
+    * @title 附加的元字段
     */
   readonly rawFields?: string[];
   /**
@@ -136,7 +134,7 @@ export interface SankeyOptions extends Omit<Options, 'data' | 'xField' | 'yField
   readonly edgeState?: State;
   /**
    * @title 节点位置是否可以拖拽
-   * @default "false"
+   * @default false
    */
   readonly nodeDraggable?: boolean;
   /**

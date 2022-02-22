@@ -22,7 +22,7 @@ export type IGeometry = Geometry & {
 export type IView = {
   /**
   * @title 图形
-  * @description 图形 geometry 及映射配置
+  * @description geometry 及映射配置
   */
   readonly geometries: IGeometry[];
   /**
@@ -122,7 +122,7 @@ export interface FacetOptions<T extends keyof Types.FacetCfgMap = keyof Types.Fa
   readonly eachView: (innerView: View, facet?: FacetDataMap[T]) => IView | IPlot;
   /**
   * @title 是否展示分面标题
-  * @default "false"
+  * @default false
   */
   readonly showTitle?: boolean;
   /**

@@ -31,18 +31,18 @@ export interface WaterfallOptions extends Options {
   readonly yField: string;
   /**
    * @title label 数据模式
-   * @description label 数据模式'absolute' | 'difference'
+   * @description absolute' | 'difference'
    * @default "difference"
    */
   readonly labelMode?: 'absolute' | 'difference';
   /**
    * @title 是否展示 总计 
-   * @description 是否展示 总计  false | TotalCfg
+   * @description   false | TotalCfg
    */
   readonly total?: false | TotalCfg;
   /**
    * @title 是否展示 柱子间牵引线 
-   * @description 是否展示 柱子间牵引线  false | LeaderLineCfg
+   * @description false | LeaderLineCfg
    */
   readonly leaderLine?: false | LeaderLineCfg;
   /**

@@ -38,8 +38,7 @@ export type IView = {
   */
   readonly coordinate?: Types.CoordinateOption;
   /**
-  * @title 图形 geometry
-  * @description 图形 geometry 及映射配置
+  * @title 图形 geometry 及映射配置
   */
   readonly geometries: IGeometry[];
   /**

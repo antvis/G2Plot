@@ -21,7 +21,7 @@ export interface BidirectionalBarOptions extends Omit<Options, 'yAxis' | 'yField
       };
   /**
   * @title 柱状图宽度占比
-  * @description 柱状图宽度占比,范围[0-1]
+  * @description 范围[0-1]
   */
   readonly widthRatio?: number;
   /**

@@ -7,8 +7,7 @@ export type VennData = (Types.Datum & { sets: string[]; [PATH_FIELD]: string; [I
 /** 配置类型定义 */
 export interface VennOptions extends Options {
   /**
-   * @title 韦恩图
-   * @description  韦恩图数据
+   * @title 韦恩图数据
    */
   readonly data: Types.Datum[];
   /**

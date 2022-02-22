@@ -44,7 +44,7 @@ interface QuadrantOptions {=
 export interface RegressionLineOptions {
   /**
    * @title 是否顶层显示
-   * @default "false"
+   * @default false
    */
   readonly top?: boolean;
   /**
@@ -57,7 +57,7 @@ export interface RegressionLineOptions {
   readonly style?: ShapeStyle;
   /**
    * @title 自定义算法
-   * @description 自定义算法 [[0,0],[100,100]]
+   * @description  [[0,0],[100,100]]
    */
   readonly algorithm?: Array<[number, number]> | ((data: any) => Array<[number, number]>);
 }

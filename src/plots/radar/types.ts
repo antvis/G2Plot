@@ -17,7 +17,7 @@ export interface RadarOptions extends Options {
   readonly seriesField?: string;
   /**
   * @title 是否平滑
-  * @default "false"
+  * @default false
   */
   readonly smooth?: boolean;
   /**

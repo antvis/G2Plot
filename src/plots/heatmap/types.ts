@@ -4,7 +4,7 @@ import { Options, StyleAttr } from '../../types';
 export interface HeatmapOptions extends Options {
   /**
   * @title 热力图类型
-  * @description 热力图类型 'polygon' | 'density'
+  * @description  'polygon' | 'density'
   */
   readonly type?: 'polygon' | 'density';
   /**

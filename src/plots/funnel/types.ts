@@ -27,12 +27,12 @@ export interface FunnelOptions extends Options {
   readonly compareField?: string;
   /**
   * @title 是否转置
-  * @default "false"
+  * @default false
   */
   readonly isTransposed?: boolean;
   /**
   * @title 是否是动态高度
-  * @default "false"
+  * @default false
   */
   readonly dynamicHeight?: boolean;
   /**

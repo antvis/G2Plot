@@ -25,17 +25,17 @@ export interface LineOptions extends Options, Pick<GeometryOptions, 'customInfo'
   readonly seriesField?: string;
   /**
   * @title 是否堆积
-  * @default "false"
+  * @default false
   */
   readonly isStack?: boolean;
   /**
   * @title 是否平滑
-  * @default "false"
+  * @default false
   */
   readonly smooth?: boolean;
   /**
   * @title 是否连接空数据
-  * @default "false"
+  * @default false
   */
   readonly connectNulls?: boolean;
   /**

@@ -1,50 +1,90 @@
 export type PatternCfg = {
-  /** pattern background color. Default: inherit (默认: 继承图形元素颜色) */
+  /**
+   * @title 背景色
+   * @description pattern background color. Default: inherit (默认: 继承图形元素颜色)
+   * @default "inherit"
+   */
   backgroundColor?: string;
-  /** pattern fill color. 贴图图案填充色 */
+  /**
+   * @title 贴图图案填充色
+   */
   fill?: string;
-  /** 填充透明度 */
+  /**
+   * @title 填充透明度
+   */
   fillOpacity?: number;
-  /** pattern stroke color. 贴图图案描边色 */
+  /**
+   * @title 描边色
+   * @description 贴图图案描边色
+   */
   stroke?: string;
-  /** 描边透明度 */
+  /**
+   * @title 描边透明度
+   */
   strokeOpacity?: number;
-  /** lines thickness. 描边粗细 */
+  /**
+   * @title 描边粗细
+   */
   lineWidth?: number;
-  /** 整个pattern 透明度 */
+  /**
+   * @title 透明度
+   * @description 整个pattern 透明度
+   */
   opacity?: number;
-  /** 整个pattern 的旋转角度 */
+  /**
+   * @title 旋转角度
+   * @description 整个pattern 的旋转角度
+   */
   rotation?: number;
 };
 
 /**
- * dot pattern
+ * @title dot pattern
  */
 export type DotPatternCfg = PatternCfg & {
-  /** 点的大小, 默认: 4 */
+  /**
+   * @title 点的大小
+   * @default 4
+   */
   size?: number;
-  /** padding between dots, 默认: 4 */
+  /**
+   * @title 点间距
+   * @default 4
+   */
   padding?: number;
-  /** 是否交错，默认: true. 即 staggered dots. */
+  /**
+   * @title 是否交错
+   * @default true
+   */
   isStagger?: boolean;
 };
 
 /**
- * line pattern
+ * @title line pattern
  */
 export type LinePatternCfg = PatternCfg & {
-  /** pacing between lines. 线之间的距离 */
+  /**
+   * @title 线之间的距离
+   */
   spacing?: number;
 };
 
 /**
- * square pattern
+ * @title square pattern
  */
 export type SquarePatternCfg = PatternCfg & {
-  /** 矩形的大小 */
+  /**
+   * @title 矩形的大小
+   */
   size?: number;
-  /** 矩形之间的间隔 */
+  /**
+   * @title 矩形之间的间隔
+   */
   padding?: number;
-  /** 是否交错，默认: true. 即 staggered squares. */
+  /**
+   * @title 是否交错
+   * @description 即 staggered squares.
+   * @default true
+   */
   isStagger?: boolean;
 };

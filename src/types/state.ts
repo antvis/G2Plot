@@ -3,11 +3,19 @@ import { Datum, Data } from './common';
 
 export type State = Types.StateOption;
 
-/** 状态名称，G2 Element 开放 'active' | 'inactive' | 'selected' | 'default' 四种状态 */
+/**
+ * @title 状态名称
+ * @description G2 Element 开放 'active' | 'inactive' | 'selected' | 'default' 四种状态
+ */
 export type StateName = 'active' | 'inactive' | 'selected' | 'default';
 
-/** 状态条件 */
+/**
+ * @title 状态条件
+ */
 export type StateCondition = (data: Datum | Data) => boolean;
 
-/** 状态对象, 可通过 `plot.getStates()` 获取 */
+/**
+ * @title 状态对象
+ * @description 可通过 `plot.getStates()` 获取
+ */
 export type StateObject = { data: Datum | Data; state: string; geometry: Geometry; element: Element };

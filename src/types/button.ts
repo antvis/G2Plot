@@ -7,21 +7,25 @@ import { ShapeAttrs } from '@antv/g2';
  */
 export type ButtonCfg = {
   /**
-   * 文本与按钮边缘的间距
+   * @title 间距
+   * @description 文本与按钮边缘的间距
    */
   padding?: number | number[];
   /**
-   * 按钮文本
+   * @title 文本
+   * @description 按钮文本
    */
   text?: string;
   /**
-   * 自定义文本样式
+   * @title 文本样式
+   * @title 自定义文本样式
    */
   textStyle?: {
     default?: ShapeAttrs;
   };
   /**
-   * 自定义按钮样式
+   * @title 按钮样式
+   * @description 自定义按钮样式
    */
   buttonStyle?: {
     default?: ShapeAttrs;

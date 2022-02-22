@@ -34,9 +34,15 @@ export type Position = [number, number];
 
 /** 一个区域描述 */
 export type Region = {
-  /** the top-left corner of layer-range, range from 0 to 1, relative to parent layer's range */
+  /**
+   * @title 开始位置
+   * @description the top-left corner of layer-range, range from 0 to 1, relative to parent layer's range
+   */
   readonly start: Point;
-  /** the bottom-right corner of layer-range, range from 0 to 1, relative to parent layer's range */
+  /**
+   * @title 结束位置
+   * @description the bottom-right corner of layer-range, range from 0 to 1, relative to parent layer's range
+   */
   readonly end: Point;
 };
 
@@ -50,17 +56,29 @@ export type BBox = {
 
 /** 文字 */
 export type TextStyle = {
-  /** 文本大小 */
+  /**
+   * @title 文本大小
+   */
   readonly fontSize?: number;
-  /** 字体系列 */
+  /**
+   * @title 字体系列
+   */
   readonly fontFamily?: string;
-  /** 文本粗细 */
+  /**
+   * @title 文本粗细
+   */
   readonly fontWeight?: number;
-  /** 文本行高 */
+  /**
+   * @title 文本行高
+   */
   readonly lineHeight?: number;
-  /** 文本对齐方式 */
+  /**
+   * @title 文本对齐方式
+   */
   readonly textAlign?: 'center' | 'left' | 'right';
-  /** 文本基线 */
+  /**
+   * @title 文本基线
+   */
   readonly textBaseline?: 'middle' | 'top' | 'bottom';
 };
 
@@ -71,67 +89,157 @@ export type Size = {
 
 /** 基础的 Options 配置 */
 export type Options = {
-  // 画布基本配置
-  /** 画布宽度 */
+  /**
+   * @title 画布宽度
+   */
   readonly width?: number;
-  /** 画布高度 */
+  /**
+   * @title 画布高度
+   */
   readonly height?: number;
-  /** 画布是否自动适配容器大小，默认为 true */
+  /**
+   * @title 自适应
+   * @description 画布是否自动适配容器大小，默认为 true
+   */
   readonly autoFit?: boolean;
-  /** 画布的 padding 值，或者开启 'auto' */
+  /**
+   * @title 内填充
+   * @description 画布的 padding 值，或者开启 'auto'
+   */
   readonly padding?: number[] | number | 'auto';
-  /** 额外怎加的 padding 值 */
+  /**
+   * @title 画布宽度
+   * @description 额外怎加的 padding 值
+   */
   readonly appendPadding?: number[] | number;
-  /** 是否同步子 view 的 padding */
+  /**
+   * @title 额外填充
+   * @description 是否同步子 view 的 padding
+   */
   readonly syncViewPadding?: boolean | Types.SyncViewPaddingFn;
 
-  /** 国际化 */
+  /**
+   * @title 国际化
+   * @description 语言配置
+   */
   readonly locale?: string;
 
-  // G 相关
-  /** 渲染引擎 */
+  /**
+   * @title 渲染引擎
+   * @description 设置渲染引擎，'svg' | 'canvas'
+   * @default "canvas"
+   */
   readonly renderer?: 'svg' | 'canvas';
-  /** 屏幕像素比，默认为 window.devicePixelRatio */
+  /**
+   * @title 屏幕像素比
+   * @description 默认为 window.devicePixelRatio
+   */
   readonly pixelRatio?: number;
-  /** 是否开启局部渲染，默认为 true */
+  /**
+   * @title 是否启局部渲染
+   * @description 是否开启局部渲染，默认为 true
+   * @default true
+   */
   readonly localRefresh?: boolean;
-  /** 支持 CSS transform，开启后图表的交互以及事件将在页面设置了 css transform 属性时生效，默认关闭。 */
+  /**
+   * @title 是否支持 CSS transform
+   * @description 开启后图表的交互以及事件将在页面设置了 css transform 属性时生效，默认关闭。
+   * @default false
+   */
   readonly supportCSSTransform?: boolean;
 
-  // 通用数据配置
-  /** 具体的数据 */
+  /**
+   * @title 数据
+   * @description 设置画布具体的数据
+   */
   readonly data: Record<string, any>[];
-  /** 数据字段元信息 */
+  /**
+   * @title 数据字段元信息
+   * @description 设置数据字段元信息
+   */
   readonly meta?: Record<string, Meta>;
 
   // G2 相关
-  /** 主题，G2 主题，字符串或者 theme object */
+  /**
+   * @title 主题
+   * @description G2 主题，字符串或者 theme object
+   * @default "light"
+   */
   readonly theme?: string | object;
-  /** 颜色色板 */
+  /**
+   * @title 颜色色板
+   * @description 设置颜色色板
+   */
   readonly color?: ColorAttr;
-  /** pattern 配置 */
+  /**
+   * @title pattern 配置
+   * @description 设置图表 pattern
+   */
   readonly pattern?: PatternAttr;
-  /** xAxis 的配置项 */
+  /**
+   * @title 横坐标
+   * @description 设置画布横坐标的配置项
+   */
   readonly xAxis?: Axis;
-  /** yAxis 的配置项 */
+  /**
+   * @title 纵坐标
+   * @description 设置画布纵坐标的配置项
+   */
   readonly yAxis?: Axis;
-  /** 数据标签的配置 */
+  /**
+   * @title 数据标签
+   * @description 设置数据标签
+   */
   readonly label?: Label;
-  /** tooltip 的配置项 */
+  /**
+   * @title tooltip 提示
+   * @description 设置画布 tooltip 的配置项
+   */
   readonly tooltip?: Tooltip;
-  /** 图例 legend 的配置项 */
+  /**
+   * @title 图例
+   * @description 设置画布图例 legend 的配置项
+   */
   readonly legend?: Legend;
-  /** 缩略轴 slider 的配置项 */
+  /**
+   * @title 缩略轴
+   * @description 设置缩略轴 slider 的配置项
+   */
   readonly slider?: Slider;
-  /** 缩略轴 scrollbar 的配置项 */
+  /**
+   * @title 滚动条
+   * @description 设置画布缩略轴 scrollbar 的配置项
+   */
   readonly scrollbar?: Scrollbar;
+  /**
+   * @title 动画
+   * @description 设置图表动画
+   */
   readonly animation?: Animation;
+  /**
+   * @title 交互
+   * @description 设置画布交互行为
+   */
   readonly interactions?: Interaction[];
+  /**
+   * @title 注解
+   * @description 设置画布注解
+   */
   readonly annotations?: Annotation[];
-  // 配置 active，inactive，selected 三种状态的样式，也可在 Theme 主题中配置
+  /**
+   * @title 图表状态
+   * @description 设置画布配置 active，inactive，selected 三种状态的样式，也可在 Theme 主题中配置
+   */
   readonly state?: State;
-  /** 是否对超出坐标系范围的 Geometry 进行剪切 */
+  /**
+   * @title 是否裁剪
+   * @description 是否对超出坐标系范围的 Geometry 进行剪切
+   */
   readonly limitInPlot?: boolean;
-  /** 内置注册的交互 */
+  /**
+   * @title 内置交互
+   * @description 内置注册的交互
+   * @deprecated false
+   */
   readonly defaultInteractions?: string[];
 };

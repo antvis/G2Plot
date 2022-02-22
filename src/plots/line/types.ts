@@ -7,30 +7,58 @@ import {
 import { Options, StyleAttr } from '../../types';
 
 export interface LineOptions extends Options, Pick<GeometryOptions, 'customInfo'> {
-  /** 阶梯折线图类型 */
+  /**
+   * @title 阶梯折线图类型
+   */
   readonly stepType?: string;
-  /** x 轴字段 */
+  /**
+   * @title x轴字段
+   */
   readonly xField?: string;
-  /** y 轴字段 */
+  /**
+   * @title y轴字段
+   */
   readonly yField?: string;
-  /** 分组字段 */
+  /**
+   * @title 分组字段
+   */
   readonly seriesField?: string;
-  /** 是否堆积 */
+  /**
+   * @title 是否堆积
+   * @default false
+   */
   readonly isStack?: boolean;
-  /** 是否平滑 */
+  /**
+   * @title 是否平滑
+   * @default false
+   */
   readonly smooth?: boolean;
-  /** 是否连接空数据 */
+  /**
+   * @title 是否连接空数据
+   * @default false
+   */
   readonly connectNulls?: boolean;
-  /** 折线图形样式 */
+  /**
+   * @title 折线图形样式
+   */
   readonly lineStyle?: StyleAttr;
-  /** 折线 shape 配置 */
+  /**
+   * @title 折线 shape 配置
+   */
   readonly lineShape?: Required<LineGeometryOptions>['line']['shape'];
-  /** 折线数据点：1、图形映射属性 2、状态样式 */
+  /**
+   * @title 折线数据点
+   * @description 1、图形映射属性 2、状态样式
+   */
   readonly point?: PointGeometryOptions['point'] & Pick<PointGeometryOptions, 'state'>;
-  /** 折线趋势填充色：1、图形映射属性 */
+  /**
+   * @title 折线趋势填充色
+   * @description 1、图形映射属性
+   */
   readonly area?: AreaGeometryOptions['area'] & Pick<PointGeometryOptions, 'state'>;
-
-  // 其他
-  /** 坐标轴反转配置 */
+  /**
+   * @title 坐标轴反转配置
+   * @description 坐标轴反转配置 'x' | 'y' | ['x', 'y']
+   */
   readonly reflect?: 'x' | 'y' | ['x', 'y'];
 }

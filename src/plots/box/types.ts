@@ -15,7 +15,7 @@ export interface BoxOptions extends Options {
    */
   readonly boxStyle?: StyleAttr;
   /**
-   * @title 分组拆分字段配置
+   * @title 分组拆分字段
    * @default 分组情况，颜色作为视觉通道
    */
   readonly groupField?: string;

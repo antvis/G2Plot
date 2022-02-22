@@ -80,7 +80,7 @@ export interface SankeyOptions extends Omit<Options, 'data' | 'xField' | 'yField
   /**
    * @title 节点宽度
    * @description 参考画布的宽度
-   * @default "0.008"
+   * @default 0.008
    */
   readonly nodeWidthRatio?: number;
   /**
@@ -91,7 +91,7 @@ export interface SankeyOptions extends Omit<Options, 'data' | 'xField' | 'yField
   /**
    * @title 节点之间的间距比例
    * @description 参考画布高度
-   * @default "0.03"
+   * @default 0.03
    */
   readonly nodePaddingRatio?: number;
   /**
@@ -107,7 +107,6 @@ export interface SankeyOptions extends Omit<Options, 'data' | 'xField' | 'yField
   readonly nodeAlign?: 'left' | 'right' | 'center' | 'justify';
   /**
    * @title 节点排序方式
-   * @default "null"
    */
   readonly nodeSort?: NodeSort;
   /**

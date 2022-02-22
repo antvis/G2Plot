@@ -26,12 +26,12 @@ type Outline = Partial<{
 type Wave = Partial<{
   /**
    * @title 波形的数量
-   * @default "3"
+   * @default 3
    */
   readonly count: number;
   /**
    * @title 波形的长度
-   * @default "192"
+   * @default 192
    */
   readonly length: number;
 }>;
@@ -54,7 +54,7 @@ export interface LiquidOptions extends Omit<Options, 'data'> {
   /**
    * @title 水波的外半径
    * @description 范围0-1
-   * @default "0.9"
+   * @default 0.9
    */
   readonly radius?: number;
   /**

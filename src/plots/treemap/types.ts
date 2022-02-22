@@ -18,7 +18,7 @@ export interface TreemapOptions extends Omit<Options, 'data'> {
   /**
    * @title 层级布局
    */
-  readonly hierarchyConfig?: Omit<HierarchyOption, 'as' | 'type' | 'field'>;=
+  readonly hierarchyConfig?: Omit<HierarchyOption, 'as' | 'type' | 'field'>;
   /**
    * @title 附加的源字段
    */

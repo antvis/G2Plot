@@ -36,12 +36,12 @@ export interface WaterfallOptions extends Options {
    */
   readonly labelMode?: 'absolute' | 'difference';
   /**
-   * @title 是否展示 总计 
+   * @title 是否展示 总计
    * @description   false | TotalCfg
    */
   readonly total?: false | TotalCfg;
   /**
-   * @title 是否展示 柱子间牵引线 
+   * @title 是否展示 柱子间牵引线
    * @description false | LeaderLineCfg
    */
   readonly leaderLine?: false | LeaderLineCfg;

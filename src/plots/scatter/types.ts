@@ -14,7 +14,7 @@ interface Labels extends Omit<TextOption, 'position'> {
   position?: AnnotationPosition;
 }
 
-interface QuadrantOptions {=
+interface QuadrantOptions {
   /**
    * @title x 基准线
    * @description x 方向上的象限分割基准线

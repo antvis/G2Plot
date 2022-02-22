@@ -42,17 +42,17 @@ export interface SunburstOptions extends Omit<Options, 'data' | 'slider' | 'scro
   readonly hierarchyConfig?: Omit<HierarchyOption, 'as' | 'type'> & {
     /** default: 'value', required data to be like: { name: 'xx', [field]: 12, children: [] } */
     readonly field?: string;
-  /**
-   * @title 是否忽略父节点的权重
-   * @description  其父节点的权重不由子节点权重总和决定
-   * @default false
-   */
+    /**
+     * @title 是否忽略父节点的权重
+     * @description  其父节点的权重不由子节点权重总和决定
+     * @default false
+     */
     readonly ignoreParentValue?: boolean;
     /**
-   * @title 展示的层级深度
-   * @description  取值 > 0 默认空, 代表全部展示
-   * @default "null"
-   */
+     * @title 展示的层级深度
+     * @description  取值 > 0 默认空, 代表全部展示
+     * @default "null"
+     */
     readonly activeDepth?: number;
   };
 

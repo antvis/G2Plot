@@ -56,12 +56,14 @@ export interface RadialBarOptions extends Options, Pick<BarOptions, 'barBackgrou
   readonly type?: string;
   /**
   * @title 叠加
-  * @description 叠加
+  * @description 是否叠加
+  * @default "false"
   */
   readonly isStack?: boolean;
   /**
   * @title 分组
-  * @description 分组
+  * @description 是否分组
+  * @default "false"
   */
   readonly isGroup?: boolean;
 }

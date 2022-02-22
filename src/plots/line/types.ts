@@ -30,19 +30,19 @@ export interface LineOptions extends Options, Pick<GeometryOptions, 'customInfo'
   /**
   * @title 是否堆积
   * @description 是否堆积
-  * @default false
+  * @default "false"
   */
   readonly isStack?: boolean;
   /**
   * @title 是否平滑
   * @description 是否平滑
-  * @default false
+  * @default "false"
   */
   readonly smooth?: boolean;
   /**
   * @title 是否连接空数据
   * @description 是否连接空数据
-  * @default false
+  * @default "false"
   */
   readonly connectNulls?: boolean;
   /**
@@ -67,7 +67,7 @@ export interface LineOptions extends Options, Pick<GeometryOptions, 'customInfo'
   readonly area?: AreaGeometryOptions['area'] & Pick<PointGeometryOptions, 'state'>;
   /**
   * @title 坐标轴反转配置
-  * @description 坐标轴反转配置
+  * @description 坐标轴反转配置 'x' | 'y' | ['x', 'y']
   */
   readonly reflect?: 'x' | 'y' | ['x', 'y'];
 }

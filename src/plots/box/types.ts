@@ -20,7 +20,7 @@ export interface BoxOptions extends Options {
   /**
   * @title 分组拆分字段
   * @description 分组拆分字段配置
-  * @default 分组情况,颜色作为视觉通道
+  * @default "分组情况,颜色作为视觉通道"
   */
   readonly groupField?: string;
   /**

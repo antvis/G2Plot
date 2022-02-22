@@ -21,19 +21,19 @@ export interface AreaOptions extends Options, Pick<GeometryOptions, 'customInfo'
   /**
   * @title 是否堆积
   * @description 是否配置堆积
-  * @default false
+  * @default "false"
   */
   readonly isStack?: boolean;
   /**
   * @title 是否百分比
   * @description 是否配置百分比
-  * @default false
+  * @default "false"
   */
   readonly isPercent?: boolean;
   /**
   * @title 是否平滑
   * @description 是否配置百分比
-  * @default false
+  * @default "false"
   */
   readonly smooth?: boolean;
   /**
@@ -54,7 +54,7 @@ export interface AreaOptions extends Options, Pick<GeometryOptions, 'customInfo'
   /**
   * @title 面积图填充
   * @description 面积图是否从 0 基准线开始填充
-  * @default false
+  * @default "false"
   */
   readonly startOnZero?: boolean;
 }

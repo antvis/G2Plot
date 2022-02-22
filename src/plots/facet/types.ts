@@ -29,7 +29,7 @@ export type IView = {
   /**
   * @title 数据
   * @description optional，view 中的数据
-  * @default 由分面数据来根据拆分维度值进行分配
+  * @default "由分面数据来根据拆分维度值进行分配"
   */
   readonly data?: Data;
   /**
@@ -141,7 +141,7 @@ export interface FacetOptions<T extends keyof Types.FacetCfgMap = keyof Types.Fa
   /**
   * @title 展示分面标题
   * @description 是否展示分面标题
-  * @default false
+  * @default "false"
   */
   readonly showTitle?: boolean;
   /**

@@ -23,7 +23,7 @@ export type IView = {
   /**
   * @title view 的布局范围
   * @description view 的布局范围
-  * @default 占满全部
+  * @default "占满全部"
   */
   readonly region?: Region;
   /**
@@ -81,7 +81,7 @@ export type IPlot = IPlotTypes & {
   /**
   * @title plot view 的布局范围
   * @description plot view 的布局范围
-  * @default 占满全部
+  * @default "占满全部"
   */
   readonly region?: Region;
 };

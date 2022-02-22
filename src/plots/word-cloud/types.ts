@@ -60,7 +60,7 @@ export type Tag = Word & {
   /**
    * @title 是否包含文本
    * @description 是否包含文本
-   * @default false
+   * @default "false"
    */
   hasText?: boolean;
   /**
@@ -100,7 +100,7 @@ export interface WordStyle {
   /**
    * @title 每个单词所占的盒子的内边距 
    * @description 当为函数时，其参数是一个经过处理之后的数据元素的值  越大单词之间的间隔越大
-   * @default 1
+   * @default "1"
    */
   readonly padding?: number | ((word: Word, index?: number, words?: Word[]) => number);
    /**
@@ -111,14 +111,14 @@ export interface WordStyle {
   /**
    * @title 旋转的最小角度和最大角度 
    * @description 如果值是 number 或者 function ，则 `rotationSteps` 选项将失效
-   * @default [0, 90]
+   * @default "[0, 90]"
    */
   readonly rotation?: [number, number] | number | ((word: Word, index?: number, words?: Word[]) => number);
    /**
    * @title 旋转实际的步数
    * @description 越大可能旋转角度越小，* 例如：如果 `rotation` 的值是 [0, 90]，`rotationSteps` 的值是 3，
    * 则最终可能旋转的角度有三种，分别是 0 度、45度和 90 度。
-   * @default 2 
+   * @default "2"
    */
   readonly rotationSteps?: number;
 }
@@ -154,13 +154,13 @@ export interface WordCloudOptions extends Options {
    * @description 其值可以是一个 [0, 1) 区间中的值，
    * 也可以是一个返回该值的函数，当该值是一个固定的值时，每次渲染
    * 相同数据的词云图时，其对应的每个单词的布局坐标一致。
-   * @default 使用的是浏览器内置的 Math.random，也就是每次渲染，单词的位置都不一样
+   * @default "使用的是浏览器内置的 Math.random,也就是每次渲染,单词的位置都不一样"
    */
   readonly random?: number | (() => number);
    /**
    * @title 词云图形状 
    * @description 1，当设置为 `archimedean` 时，整个词云图接近于`椭圆`的形状。 2，当设置为 `rectangular` 时，整个词云图接近于`矩形`的形状。
-   * @default `archimedean`
+   * @default "archimedean"
    */
   readonly spiral?: 'archimedean' | 'rectangular';
   /**

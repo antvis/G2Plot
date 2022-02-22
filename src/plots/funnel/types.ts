@@ -30,13 +30,13 @@ export interface FunnelOptions extends Options {
   /**
   * @title 是否转置
   * @description 是否转置
-  * @default false
+  * @default "false"
   */
   readonly isTransposed?: boolean;
   /**
   * @title 动态高度
   * @description 是否是动态高度
-  * @default false
+  * @default "false"
   */
   readonly dynamicHeight?: boolean;
   /**

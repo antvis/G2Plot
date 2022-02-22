@@ -36,8 +36,8 @@ export interface WaterfallOptions extends Options {
   readonly yField: string;
   /**
    * @title label 数据模式
-   * @description label 数据模式
-   * @default difference
+   * @description label 数据模式'absolute' | 'difference'
+   * @default "difference"
    */
   readonly labelMode?: 'absolute' | 'difference';
   /**

@@ -12,7 +12,7 @@ export interface TinyAreaOptions extends Omit<Options, 'data' | 'legend' | 'labe
   /**
    * @title 是否平滑
    * @description  是否平滑
-   * @default false
+   * @default "false"
    */
   readonly smooth?: boolean;
   /**

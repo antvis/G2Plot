@@ -32,7 +32,7 @@ export interface VennOptions extends Options {
   /**
    * @title 并集合的颜色混合方式
    * @description  可选项: 参考 https://gka.github.io/chroma.js/#chroma-blend
-   * @default multiply
+   * @default "multiply"
    */
   readonly blendMode?: string;
   /**

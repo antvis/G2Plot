@@ -129,13 +129,13 @@ export interface GaugeOptions
   /**
   * @title 仪表盘总步数
   * @description 仪表盘总步数
-  * @default 50
+  * @default "50"
   */
     readonly steps?: number;
   /**
   * @title step 与 gap 的宽度占比
   * @description step 与 gap 的宽度占比
-  * @default 0.5
+  * @default "0.5"
   */
     readonly stepRatio?: number;
   };

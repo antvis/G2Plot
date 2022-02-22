@@ -12,13 +12,13 @@ export interface TinyLineOptions extends Omit<Options, 'data' | 'legend' | 'labe
   /**
    * @title 是否平滑
    * @description  是否平滑
-   * @default false
+   * @default "false"
    */
   readonly smooth?: boolean;
   /**
    * @title 是否连接空数据
    * @description  是否连接空数据
-   * @default false
+   * @default "false"
    */
   readonly connectNulls?: boolean;
   /**

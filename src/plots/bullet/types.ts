@@ -50,9 +50,9 @@ export interface BulletOptions extends Omit<Options, 'color' | 'label' | 'style'
   */
   readonly bulletStyle?: BulletAttr<StyleAttr>;
   /**
-  * @title layout(布局)方向选择
-  * @description layout(布局)方向选择
-  * @default (水平)horizontal
+  * @title 布局方向选择
+  * @description 布局方向选择
+  * @default "horizontal"
   */
   layout?: 'horizontal' | 'vertical';
 }

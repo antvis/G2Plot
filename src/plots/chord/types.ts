@@ -29,20 +29,20 @@ export interface ChordOptions extends Omit<Options, 'xField' | 'yField' | 'xAxis
   readonly data: Data;
   /**
   * @title 节点间距比例
-  * @description 取值[0-1]
-  * @default 0.1
+  * @description 参考画布的宽度,取值[0-1]
+  * @default "0.1"
   */
   readonly nodePaddingRatio?: number;
   /**
   * @title 节点的厚度
   * @description 取值[0-1]
-  * @default 0.05
+  * @default "0.05"
   */
   readonly nodeWidthRatio?: number;
   /**
   * @title 节点排序方式
   * @description 节点排序方式
-  * @default null
+  * @default "null"
   */
   readonly nodeSort?: (a: Datum, b: Datum) => number;
    /**

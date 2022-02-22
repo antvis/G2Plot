@@ -18,13 +18,13 @@ interface QuadrantOptions {=
   /**
    * @title x 基准线
    * @description x 方向上的象限分割基准线
-   * @default 0
+   * @default "0"
    */
   readonly xBaseline?: number;
   /**
    * @title y 基准线
    * @description y 方向上的象限分割基准线
-   * @default 0
+   * @default "0"
    */
   readonly yBaseline?: number;
   /**
@@ -45,46 +45,101 @@ interface QuadrantOptions {=
 }
 
 export interface RegressionLineOptions {
-  /** 是否顶层显示，默认 false  */
+  /**
+   * @title 顶层显示
+   * @description 是否顶层显示
+   * @default "false"
+   */
   readonly top?: boolean;
-  /** 回归线类型  */
+  /**
+   * @title 回归线类型
+   * @description 回归线类型
+   */
   readonly type?: string;
-  /** 配置回归线样式  */
+  /**
+   * @title 配置回归线样式
+   * @description 配置回归线样式
+   */
   readonly style?: ShapeStyle;
-  /** 自定义算法 [[0,0],[100,100]] */
+  /**
+   * @title 自定义算法
+   * @description 自定义算法 [[0,0],[100,100]]
+   */
   readonly algorithm?: Array<[number, number]> | ((data: any) => Array<[number, number]>);
 }
 
 export interface ScatterOptions extends Options {
-  /** x 轴字段 */
+  /**
+   * @title x 轴字段
+   * @description x 轴字段
+   */
   readonly xField: string;
-  /** y 轴字段 */
+  /**
+   * @title y 轴字段
+   * @description y 轴字段
+   */
   readonly yField: string;
-  /** 数据调整类型 */
+  /**
+   * @title 数据调整类型
+   * @description 数据调整类型 'jitter' | 'stack' | 'symmetric' | 'dodge'
+   */
   readonly type?: 'jitter' | 'stack' | 'symmetric' | 'dodge';
-  /** 点大小映射对应的数据字段名 */
+  /**
+   * @title 点大小映射对应的数据字段名
+   * @description 点大小映射对应的数据字段名
+   */
   readonly sizeField?: string;
-  /** size 对应的图例 */
+  /**
+   * @title size 对应的图例
+   * @description size 对应的图例
+   */
   readonly sizeLegend?: Options['legend'];
-  /** 散点图大小 */
+  /**
+   * @title 散点图大小
+   * @description 散点图大小
+   */
   readonly size?: SizeAttr;
-  /** 点形状映射对应的数据字段名 */
+  /**
+   * @title 点形状映射对应的数据字段名
+   * @description 点形状映射对应的数据字段名
+   */
   readonly shapeField?: string;
-  /** shape 对应的图例 */
+  /**
+   * @title shape 对应的图例
+   * @description shape 对应的图例
+   */
   readonly shapeLegend?: Options['legend'];
-  /** 散点图形状 */
+  /**
+   * @title 散点图形状
+   * @description 散点图形状
+   */
   readonly shape?: ShapeAttr;
-  /** 散点图样式 */
+  /**
+   * @title 散点图样式
+   * @description 散点图样式
+   */
   readonly pointStyle?: StyleAttr;
-  /** 点颜色映射对应的数据字段名 */
+  /**
+   * @title 点颜色映射对应的数据字段名
+   * @description 点颜色映射对应的数据字段名
+   */
   readonly colorField?: string;
 
   // 图表标注组件
-  /** 四象限组件 */
-  readonly quadrant?: QuadrantOptions;
-  /** 归曲线 */
-  readonly regressionLine?: RegressionLineOptions;
 
-  // 图表交互
+  /**
+   * @title 四象限组件
+   * @description 四象限组件
+   */
+  readonly quadrant?: QuadrantOptions;
+  /**
+   * @title 归曲线
+   * @description 归曲线
+   */
+  readonly regressionLine?: RegressionLineOptions;
+  /**
+   * @title 图表交互
+   * @description 图表交互
+   */
   readonly brush?: BrushCfg;
 }

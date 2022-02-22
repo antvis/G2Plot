@@ -23,8 +23,7 @@ export interface BidirectionalBarOptions extends Omit<Options, 'yAxis' | 'yField
       };
   /**
   * @title 柱状图宽度占比
-  * @description 柱状图宽度占比
-  * @default [0-1]
+  * @description 柱状图宽度占比,范围[0-1]
   */
   readonly widthRatio?: number;
   /**
@@ -33,9 +32,9 @@ export interface BidirectionalBarOptions extends Omit<Options, 'yAxis' | 'yField
   */
   readonly barStyle?: StyleAttr;
   /**
-  * @title layout(布局)方向选择
-  * @description layout(布局)方向选择
-  * @default (水平)horizontal
+  * @title 布局方向选择
+  * @description 布局方向选择
+  * @default "horizontal"
   */
   readonly layout?: 'horizontal' | 'vertical';
 }

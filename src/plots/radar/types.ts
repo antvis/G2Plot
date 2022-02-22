@@ -20,7 +20,7 @@ export interface RadarOptions extends Options {
   /**
   * @title 是否平滑
   * @description 是否平滑
-  * @default false
+  * @default "false"
   */
   readonly smooth?: boolean;
   /**

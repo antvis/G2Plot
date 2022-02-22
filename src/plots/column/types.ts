@@ -29,25 +29,25 @@ export interface ColumnOptions
   /**
   * @title 是否分组柱形图
   * @description 是否分组柱形图
-  * @default false
+  * @default "false"
   */
   readonly isGroup?: boolean;
   /**
   * @title 是否是区间柱状图
   * @description 是否是区间柱状图
-  * @default false
+  * @default "false"
   */
   readonly isRange?: boolean;
   /**
   * @title 是否是百分比柱状图
   * @description 是否是百分比柱状图
-  * @default false
+  * @default "false"
   */
   readonly isPercent?: boolean;
   /**
   * @title 是否堆积柱状图
   * @description 是否堆积柱状图
-  * @default false
+  * @default "false"
   */
   readonly isStack?: boolean;
   /**

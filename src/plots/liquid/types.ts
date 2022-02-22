@@ -9,13 +9,13 @@ type Outline = Partial<{
   /**
   * @title 外环的宽度
   * @description 外环的宽度
-  * @default 2px
+  * @default "2px"
   */
   readonly border: number;
   /**
   * @title 内外的边距
   * @description 内外的边距
-  * @default 0px
+  * @default "0px"
   */
   readonly distance: number;
   /**
@@ -31,13 +31,13 @@ type Wave = Partial<{
   /**
   * @title 波形的数量
   * @description 波形的数量
-  * @default 3
+  * @default "3"
   */
   readonly count: number;
   /**
   * @title 波形的长度
   * @description 波形的长度
-  * @default 192
+  * @default "192"
   */
   readonly length: number;
 }>;
@@ -62,7 +62,7 @@ export interface LiquidOptions extends Omit<Options, 'data'> {
   /**
   * @title 水波的外半径
   * @description 范围0-1
-  * @default 0.9
+  * @default "0.9"
   */
   readonly radius?: number;
   /**

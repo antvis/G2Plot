@@ -42,7 +42,7 @@ type CommonGeometryOption = {
   /**
   * @title 分组
   * @description 是否分组
-  * @default false
+  * @default "false"
   */
   readonly isGroup?: boolean;
   /**

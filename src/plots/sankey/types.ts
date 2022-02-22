@@ -55,8 +55,8 @@ export type NodeLinkData = {
 export interface SankeyOptions extends Omit<Options, 'data' | 'xField' | 'yField' | 'xAxis' | 'yAxis'> {
   /**
     * @title 数据集的类型
-    * @description 数据集的类型
-    * @default 'detail'
+    * @description 数据集的类型 'node-link' | 'detail'
+    * @default "detail"
     */ 
   readonly dataType?: 'node-link' | 'detail';
   /**
@@ -87,7 +87,7 @@ export interface SankeyOptions extends Omit<Options, 'data' | 'xField' | 'yField
   /**
     * @title 节点宽度
     * @description 节点宽度的比如，参考画布的宽度
-    * @default 0.008
+    * @default "0.008"
     */
   readonly nodeWidthRatio?: number;
   /**
@@ -98,7 +98,7 @@ export interface SankeyOptions extends Omit<Options, 'data' | 'xField' | 'yField
   /**
     * @title 节点之间的间距比例
     * @description 参考画布高度
-    * @default 0.03
+    * @default "0.03"
     */
   readonly nodePaddingRatio?: number;
   /**
@@ -109,13 +109,13 @@ export interface SankeyOptions extends Omit<Options, 'data' | 'xField' | 'yField
   /**
     * @title 节点对齐的方式
     * @description 节点对齐的方式 'left' | 'right' | 'center' | 'justify'
-    * @default justify
+    * @default "justify"
     */
   readonly nodeAlign?: 'left' | 'right' | 'center' | 'justify';
   /**
     * @title 节点排序方式
     * @description 节点排序方式
-    * @default null
+    * @default "null"
     */
   readonly nodeSort?: NodeSort;
   /**
@@ -146,7 +146,7 @@ export interface SankeyOptions extends Omit<Options, 'data' | 'xField' | 'yField
   /**
    * @title 节点位置拖拽
    * @description 节点位置是否可以拖拽
-   * @default false
+   * @default "false"
    */
   readonly nodeDraggable?: boolean;
   /**

@@ -1,4 +1,4 @@
-import { Chart, Event, Element } from '@antv/g2';
+import { Chart, Event, Element, View } from '@antv/g2';
 import { each } from '@antv/util';
 import EE from '@antv/event-emitter';
 import { bind } from 'size-sensor';
@@ -241,9 +241,10 @@ export abstract class Plot<O extends PickOptions> extends EE {
   /**
    * 增加图表标注。通过 id 标识，如果匹配到，就做更新
    */
-  public addAnnotations(annotations: Annotation[]): void {
+  public addAnnotations(annotations: Annotation[], view?: View): void {
+    view = view ? view : this.chart;
     const incoming = [...annotations];
-    const controller = this.chart.getController('annotation');
+    const controller = view.getController('annotation');
     const current = controller.getComponents().map((co) => co.extra);
 
     controller.clear(true);
@@ -259,7 +260,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
     }
 
     incoming.forEach((annotation) => controller.annotation(annotation));
-    this.chart.render(true);
+    view.render(true);
   }
 
   /**

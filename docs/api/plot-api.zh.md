@@ -122,10 +122,27 @@ plot.getStates();
 ### 12. addAnnotations
 
 ```sign
-plot.addAnnotations(annotations: Annotation[]) => void;
+plot.addAnnotations(annotations: Annotation[], view?: View) => void;
 ```
 
-批量为当前图表增加图表标注。通过 id 匹配，如果匹配成功，则更新，匹配不成功则增加。
+示例代码：
+```ts
+dualAxes.addAnnotations(
+   [
+    {
+      type: 'text',
+      position: ['median', 'median'],
+      content: '辅助文本',
+      style: {
+        fill: 'red',
+      },
+    },
+  ],
+  dualAxes.chart.views[0]
+);
+```
+
+批量为指定的视图增加标注（默认为当前图表）。通过 id 匹配，如果匹配成功，则更新，匹配不成功则增加。
 
  <!-- <playground path="dynamic-plots/basic/demo/dynamic-spline.ts" rid="addAnnotations"></playground> -->
 

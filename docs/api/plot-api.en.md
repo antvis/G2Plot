@@ -120,10 +120,27 @@ Get all status information of the current plot.
 ### 12. addAnnotations
 
 ```sign
-plot.addAnnotations(annotations: Annotation[]) => void;
+plot.addAnnotations(annotations: Annotation[], view?: View) => void;
 ```
 
-批量为当前图表增加图表标注。通过 id 匹配，如果匹配成功，则更新，匹配不成功则增加。
+example：
+```ts
+dualAxes.addAnnotations(
+   [
+    {
+      type: 'text',
+      position: ['median', 'median'],
+      content: '辅助文本',
+      style: {
+        fill: 'red',
+      },
+    },
+  ],
+  dualAxes.chart.views[0]
+);
+```
+
+Add labels to the specified views in batches (default is the current chart). Matching by id, if the match is successful, it will be updated, and if the match is unsuccessful, it will be incremented.
 
  <!-- <playground path="dynamic-plots/basic/demo/dynamic-spline.ts" rid="addAnnotations"></playground> -->
 

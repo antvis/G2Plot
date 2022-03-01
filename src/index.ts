@@ -115,7 +115,7 @@ export { Funnel, FUNNEL_CONVERSATION_FIELD } from './plots/funnel';
 export type { FunnelOptions } from './plots/funnel';
 
 // 水波图及类型定义 | author by [CarisL](https://github.com/CarisL), [hustcc](https://github.com/hustcc), [pearmini](https://github.com/pearmini)
-export { Liquid } from './plots/liquid';
+export { Liquid, addWaterWave } from './plots/liquid';
 export type { LiquidOptions } from './plots/liquid';
 
 // 子弹图及类型定义 | author by [arcsin1](https://github.com/arcsin1)

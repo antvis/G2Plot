@@ -15,7 +15,6 @@ If you have any questions, suggestions, feedback or willingness to communicate, 
 
 - Contribution Guide：https://www.yuque.com/antv/g2plot/apubgw
 
-- DingTalk Group Number: 30233731
+- DingTalk Group Number: 35686967 (Group 2)
 
-<img src="https://gw.alipayobjects.com/zos/antfincdn/9sHnl5k%26u4/dingdingqun.png" width="200" height="266" />
 <img src="https://gw.alipayobjects.com/zos/antfincdn/8qEHi7GiaN/G2Plot-dingding.JPG" width="200" height="266" />

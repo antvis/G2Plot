@@ -1,3 +1,19 @@
+#### 2.4.9 (2022-03-03)
+
+##### Documentation Changes
+
+* **histogram:**  更新直方图指引文档 ([#3133](https://github.com/antvis/G2plot/pull/3133)) ([b8259a49](https://github.com/antvis/G2plot/commit/b8259a4975be02758fc74b3023f2da13b750aefc))
+
+##### New Features
+
+* **demo:**  转化分析图 + 水波图 ([#3131](https://github.com/antvis/G2plot/pull/3131)) ([2f07cd5d](https://github.com/antvis/G2plot/commit/2f07cd5d98c693ddadcc0d800531b097aa47b63b))
+*  基于 jsDoc 规范完善 plots 组件注释 ([#3126](https://github.com/antvis/G2plot/pull/3126)) ([6018e0b4](https://github.com/antvis/G2plot/commit/6018e0b471904e899ba8a15e0a09c2c40921f3b7))
+*  基于 JSDoc 标准调整 types 类型定义 ([#3125](https://github.com/antvis/G2plot/pull/3125)) ([ef80445b](https://github.com/antvis/G2plot/commit/ef80445b9eb3a48a9405b4e011671e8688b7b160))
+
+##### Bug Fixes
+
+* **annotations:**  修复 addAnnotations 在双轴图等具有分 view 图表失效的问题 ([#3119](https://github.com/antvis/G2plot/pull/3119)) ([76ff184f](https://github.com/antvis/G2plot/commit/76ff184f21c5fdb893db22bcff38bcc335e8fe7d))
+
 #### 2.4.8 (2022-01-30)
 
 ##### Chores

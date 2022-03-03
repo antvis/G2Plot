@@ -8,6 +8,8 @@ import { getLiquidData } from './utils';
 // register liquid shape
 import './shapes/liquid';
 
+export { addWaterWave } from './shapes/liquid';
+
 export type { LiquidOptions };
 
 /**

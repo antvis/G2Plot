@@ -203,7 +203,7 @@ function getWaterWavePath(
  * @param radius      绘制图形的高度
  * @param waveLength  波的长度
  */
-function addWaterWave(
+export function addWaterWave(
   x: number,
   y: number,
   level: number,
@@ -215,16 +215,21 @@ function addWaterWave(
   waveLength: number,
   animation: LiquidOptions['animation']
 ) {
+  // 盒子属性 颜色 宽高
   const { fill, opacity } = waveAttrs;
   const bbox = clip.getBBox();
   const width = bbox.maxX - bbox.minX;
   const height = bbox.maxY - bbox.minY;
 
+  // 循环 waveCount 个数
   for (let idx = 0; idx < waveCount; idx++) {
     const factor = waveCount <= 1 ? 0 : idx / (waveCount - 1);
+
+    // 画波
     const wave = group.addShape('path', {
       name: `waterwave-path`,
       attrs: {
+        // 波形路径配置
         path: getWaterWavePath(
           radius,
           bbox.minY + height * level,
@@ -240,6 +245,7 @@ function addWaterWave(
     });
 
     try {
+      // 默认 underfind 开启动画
       if (animation === false) return;
       const matrix = transform([['t', waveLength, 0]]);
 
@@ -369,6 +375,14 @@ function rect(x: number, y: number, width: number, height: number) {
     `;
 }
 
+const builtInShapeByName = {
+  pin,
+  circle,
+  diamond,
+  triangle,
+  rect,
+};
+
 registerShape('interval', 'liquid-fill-gauge', {
   draw(cfg: any, container: IGroup) {
     const cx = 0.5;
@@ -399,13 +413,7 @@ registerShape('interval', 'liquid-fill-gauge', {
     const waveAttrs = getFillAttrs(cfg);
     const outlineAttrs = getLineAttrs(mix({}, cfg, outline));
     const innerRadius = radius - border / 2;
-    const builtInShapeByName = {
-      pin,
-      circle,
-      diamond,
-      triangle,
-      rect,
-    };
+
     const buildPath = typeof shape === 'function' ? shape : builtInShapeByName[shape] || builtInShapeByName['circle'];
     const shapePath = buildPath(center.x, center.y, innerRadius * 2, innerRadius * 2);
 

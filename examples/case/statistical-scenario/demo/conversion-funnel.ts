@@ -1,4 +1,4 @@
-import { Column, G2 } from '@antv/g2plot';
+import { Column, G2, addWaterWave } from '@antv/g2plot';
 
 const X_FIELD = 'stage';
 const Y_FIELD = 'count';
@@ -64,28 +64,31 @@ G2.registerShape('interval', 'link-funnel', {
     rectPath = this.parsePath(rectPath);
 
     const group = container.addGroup();
+
     // 灰色背景
     group.addShape('path', {
       capture: false,
       attrs: {
         ...attrs,
-        fill: '#efefef',
+        fill: '#fff',
+        lineWidth: 1,
         path: this.parsePath([
-          ['M', points[0].x, points[1].y],
+          ['M', points[0].x, 0],
           ['L', points[0].x, 1],
           ['L', points[2].x, 1],
-          ['L', points[2].x, points[1].y],
+          ['L', points[2].x, 0],
         ]),
       },
     });
-    // 实际柱子
-    group.addShape('path', {
-      name: 'column',
-      attrs: {
-        ...attrs,
-        path: rectPath,
-      },
-    });
+
+    const boxPath = this.parsePath([
+      ['M', points[0].x, 0],
+      ['L', points[0].x, 1],
+      ['L', points[2].x, 1],
+      ['L', points[2].x, 0],
+      ['L', points[0].x, 0],
+    ]);
+
     // 存在下一节点, 添加连接带
     if (nextPoints) {
       const linkPath = this.parsePath([
@@ -118,6 +121,40 @@ G2.registerShape('interval', 'link-funnel', {
         },
       });
     }
+
+    /** 水波 ---- */
+    const centerX = (rectPath[0][1] + rectPath[2][1]) / 2;
+    const centerY = (boxPath[0][2] + boxPath[1][2]) / 2;
+    const height = boxPath[0][2] - boxPath[1][2];
+    const r = 1 - (rectPath[0][2] - rectPath[1][2]) / height;
+    // 1. 绘制一个波
+    const waves = group.addGroup({
+      name: 'waves',
+    });
+
+    const waveLength = 30;
+    // 3. 波对应的 clip 裁剪形状
+    const clipPath = waves.setClip({
+      type: 'path',
+      attrs: {
+        path: boxPath,
+      },
+    });
+
+    // 4. 绘制波形
+    addWaterWave(
+      centerX,
+      centerY,
+      r,
+      2,
+      { fill: attrs.fill, opacity: 0.8 },
+      waves,
+      clipPath,
+      height,
+      waveLength,
+      undefined
+    );
+
     return group;
   },
 });

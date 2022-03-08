@@ -48,20 +48,24 @@ const color = {
 };
 
 let data = [
-  { year: `${year}年`, value: 328, type: 'type1' },
+  { year: `${year}年`, value: 266, type: 'type1' },
   { year: `${year}年`, value: 252, type: 'type2' },
   { year: `${year}年`, value: 161, type: 'type3' },
   { year: `${year}年`, value: 100, type: 'type4' },
   { year: `${year}年`, value: 90, type: 'type5' },
   { year: `${year}年`, value: 88, type: 'type6' },
-  { year: `${year}年`, value: 66, type: 'type7' },
-  { year: `${year}年`, value: 59, type: 'type8' },
+  { year: `${year}年`, value: 10, type: 'type7' },
+  { year: `${year}年`, value: 5, type: 'type8' },
   { year: `${year}年`, value: 0, type: 'type9' },
   { year: `${year}年`, value: 0, type: 'type10' },
 ];
 
+function processData(data) {
+  return data.sort((a, b) => b.value - a.value).slice(0, 8);
+}
+
 const bar = new Bar('container', {
-  data,
+  data: processData(data),
   xField: 'value',
   yField: 'type',
   seriesField: 'type',
@@ -115,11 +119,11 @@ function updateData() {
   data = data.map(({ type, value }) => ({
     type,
     year: `${year} 年`,
-    value: value + Math.floor(Math.random() * 50),
+    value: value + Math.floor(Math.random() * 100),
   }));
 
   setTimeout(() => {
-    bar.changeData(data.sort((a, b) => b.value - a.value));
+    bar.changeData(processData(data));
 
     if (year !== 2021) {
       updateData();

@@ -1,3 +1,13 @@
+#### 2.4.10 (2022-03-10)
+
+##### Documentation Changes
+
+*  周边工具增加 性能检测工具 ([#3142](https://github.com/antvis/G2plot/pull/3142)) ([426340af](https://github.com/antvis/G2plot/commit/426340af26dcf6cef7d66b2084bc30015cd343ea))
+
+##### New Features
+
+* **funnel:**  漏斗图增加关闭分面 title 的展示 ([d10c30e7](https://github.com/antvis/G2plot/commit/d10c30e7d3d8abe781a5cdc6649e825c829586e0))
+
 #### 2.4.9 (2022-03-03)
 
 ##### Documentation Changes

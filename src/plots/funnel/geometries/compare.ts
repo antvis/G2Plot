@@ -46,6 +46,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
     label,
     funnelStyle,
     state,
+    showFacetTitle,
   } = options;
 
   chart.facet('mirror', {
@@ -53,6 +54,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
     // 漏斗图的转置规则与分面相反，默认是垂直布局
     transpose: !isTransposed,
     padding: isTransposed ? 0 : [32, 0, 0, 0],
+    showTitle: showFacetTitle,
     eachView(view, facet) {
       const index = isTransposed ? facet.rowIndex : facet.columnIndex;
 

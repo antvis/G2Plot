@@ -72,6 +72,12 @@ order: 9
 
 注：因动态高度漏斗图将值映射为高度，因此声明 dynamicHeight: true 时，该字段无效
 
+#### showFacetTitle
+
+<description>**optional** _boolean_ _default:_ `true`</description>
+
+是否展示漏斗分面的标题。适用于存在多组漏斗的情形，如：分组漏斗图、对比漏斗图
+
 #### funnelStyle
 
 <description>**可选** _object_</description>

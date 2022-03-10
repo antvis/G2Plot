@@ -26,11 +26,12 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
  */
 function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
-  const { seriesField, isTransposed } = options;
+  const { seriesField, isTransposed, showFacetTitle } = options;
 
   chart.facet('rect', {
     fields: [seriesField],
     padding: [isTransposed ? 0 : 32, 10, 0, 10],
+    showTitle: showFacetTitle,
     eachView(view, facet) {
       basicFunnel(
         deepAssign({}, params, {

@@ -54,7 +54,11 @@ export interface FunnelOptions extends Options {
    * @title 漏斗图样式
    */
   readonly funnelStyle?: StyleAttr;
-
+  /**
+   * @title 漏斗分面标题
+   * @description 是否关闭漏斗的标题展示，适用于存在多组漏斗的情形，如：分组漏斗图、对比漏斗图。
+   */
+  readonly showFacetTitle?: boolean;
   // 组件
   /**
    * @title 转化率信息

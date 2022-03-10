@@ -72,6 +72,12 @@ the min size of graphic，is between 0 and 1, default 0。
 
 Tip: when set dynamicHeight to be true, this field is invalid
 
+#### showFacetTitle
+
+<description>**optional** _boolean_ _default:_ `true`</description>
+
+是否展示漏斗分面的标题。适用于存在多组漏斗的情形，如：分组漏斗图、对比漏斗图
+
 #### funnelStyle
 
 <description>**optional** _object_</description>

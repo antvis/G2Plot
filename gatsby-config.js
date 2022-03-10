@@ -82,6 +82,13 @@ module.exports = {
       },
       {
         name: {
+          zh: '图表性能检测工具',
+          en: 'Charts performance test',
+        },
+        url: 'https://git.hust.cc/charts-perf/'
+      },
+      {
+        name: {
           zh: 'AntV ThemeSet（主题构建器）',
           en: 'AntV ThemeSet',
         },

@@ -67,6 +67,14 @@
         "en": "Sales analyze of company"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/KFq%26pzL%26WG/7b5f5942-e463-44e6-8aca-d1417a39075a.png"
+    },
+    {
+      "filename": "anomaly-detection-line-chart.ts",
+      "title": {
+        "zh": "异常检测折线图",
+        "en": "Line Chart with Anomaly Detection Style"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/9MkGXoBNaH/20220310212354.jpg"
     }
   ]
 }

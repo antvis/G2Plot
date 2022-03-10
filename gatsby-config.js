@@ -320,8 +320,8 @@ module.exports = {
       indexName: 'antv_g2plot',
     },
     announcement: {
-      zh: '',
-      en: '',
+      zh: '✨欢迎订阅图表指引，不定时会更新: https://www.yuque.com/antv/g2plot/plot-guide',
+      en: '✨欢迎订阅图表指引，不定时会更新: https://www.yuque.com/antv/g2plot/plot-guide',
     }
   },
 };

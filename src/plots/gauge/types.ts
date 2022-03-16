@@ -54,7 +54,7 @@ export type GaugeRangeData = {
  * @title 仪表盘配置类型定义
  */
 export interface GaugeOptions
-  extends Omit<Options, 'data' | 'tooltip' | 'legend' | 'xAxis' | 'yAxis' | 'xField' | 'yField' | 'color'> {
+  extends Omit<Options, 'data' | 'legend' | 'xAxis' | 'yAxis' | 'xField' | 'yField' | 'color'> {
   /**
    * @title 指标的比例
    * @description 范围0 ~ 1

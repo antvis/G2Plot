@@ -117,3 +117,7 @@ They all have the following configuration items:
 Metric central text component.
 
 `markdown:docs/common/statistic.en.md`
+
+#### tooltip
+
+`markdown:docs/common/tooltip.eh.md`

@@ -119,3 +119,6 @@ order: 5
 
 `markdown:docs/common/statistic.zh.md`
 
+#### tooltip
+
+`markdown:docs/common/tooltip.zh.md`

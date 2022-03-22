@@ -1,5 +1,5 @@
 import { Geometry } from '@antv/g2';
-import { isString } from '@antv/util';
+import { get, isString } from '@antv/util';
 import { interaction, animation, theme, scale, annotation } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
@@ -150,6 +150,42 @@ function statistic(params: Params<GaugeOptions>, updated?: boolean): Params<Gaug
 }
 
 /**
+ * tooltip 配置
+ */
+function tooltip(params: Params<GaugeOptions>): Params<GaugeOptions> {
+  const { chart, options } = params;
+  const { tooltip } = options;
+
+  if (tooltip) {
+    chart.tooltip(
+      deepAssign(
+        {
+          showTitle: false,
+          showMarkers: false,
+          containerTpl: '<div class="g2-tooltip"><div class="g2-tooltip-list"></div></div>',
+          domStyles: {
+            'g2-tooltip': {
+              padding: '4px 8px',
+              fontSize: '10px',
+            },
+          },
+          customContent: (x: string, data: any[]) => {
+            const percent = get(data, [0, 'data', PERCENT], 0);
+            return `${(percent * 100).toFixed(2)}%`;
+          },
+        },
+        tooltip
+      )
+    );
+  } else {
+    // 默认，不展示 tooltip
+    chart.tooltip(false);
+  }
+
+  return params;
+}
+
+/**
  * other 配置
  * @param params
  */
@@ -157,7 +193,6 @@ function other(params: Params<GaugeOptions>): Params<GaugeOptions> {
   const { chart } = params;
 
   chart.legend(false);
-  chart.tooltip(false);
 
   return params;
 }
@@ -180,6 +215,7 @@ export function adaptor(params: Params<GaugeOptions>) {
     animation,
     geometry,
     meta,
+    tooltip,
     statistic,
     interaction,
     annotation(),

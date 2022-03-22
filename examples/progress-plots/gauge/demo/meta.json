@@ -92,6 +92,14 @@
         "en": "Custom simple gauge indicator"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/2RRg9bSnn2/380b6b20-aed3-44e2-9afe-5532b1f9daea.png"
+    },
+    {
+      "filename": "tooltip-gauge.ts",
+      "title": {
+        "zh": "仪表盘 自定义 tooltip",
+        "en": "Gauge Customize React Tooltip"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/xDdGhZK84X/9746c5d8-4341-4c04-9528-87bcab55eedb.png"
     }
   ]
 }

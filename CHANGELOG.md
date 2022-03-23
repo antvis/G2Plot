@@ -1,3 +1,9 @@
+#### 2.4.11 (2022-03-22)
+
+##### New Features
+
+* **gauge:**  仪表盘增加 tooltip 配置 ([#3149](https://github.com/antvis/G2plot/pull/3149)) ([61f7ee43](https://github.com/antvis/G2plot/commit/61f7ee4396af3d43452985220fe7fff347af3857))
+
 #### 2.4.10 (2022-03-10)
 
 ##### Documentation Changes

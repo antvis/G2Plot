@@ -1,3 +1,14 @@
+#### 2.4.12 (2022-03-23)
+
+##### Chores
+
+*  v2.4.11 & changelog ([#3153](https://github.com/antvis/G2plot/pull/3153)) ([0f18de11](https://github.com/antvis/G2plot/commit/0f18de11e426305714852620e3cab49b800b7284))
+
+##### New Features
+
+* **bidirectional-bar:**  对称条形图支持主题配置 ([69160c4f](https://github.com/antvis/G2plot/commit/69160c4f9f8dda354ce1daef9a641bcbd7b30d1d))
+
+
 #### 2.4.11 (2022-03-22)
 
 ##### New Features

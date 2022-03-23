@@ -136,4 +136,61 @@ describe('Bidirectional', () => {
 
     bidirectional.destroy();
   });
+
+  it('theme', () => {
+    const plot = new BidirectionalBar(createDiv('widthRatio'), {
+      width: 400,
+      height: 400,
+      data,
+      xField: 'country',
+      yField: ['2016年耕地总面积', '2016年转基因种植面积'],
+      widthRatio: 0.7,
+      theme: {
+        styleSheet: {
+          brandColor: '#FF6B3B',
+          paletteQualitative10: [
+            '#FF6B3B',
+            '#626681',
+            '#FFC100',
+            '#9FB40F',
+            '#76523B',
+            '#DAD5B5',
+            '#0E8E89',
+            '#E19348',
+            '#F383A2',
+            '#247FEA',
+          ],
+          paletteQualitative20: [
+            '#FF6B3B',
+            '#626681',
+            '#FFC100',
+            '#9FB40F',
+            '#76523B',
+            '#DAD5B5',
+            '#0E8E89',
+            '#E19348',
+            '#F383A2',
+            '#247FEA',
+            '#2BCB95',
+            '#B1ABF4',
+            '#1D42C2',
+            '#1D9ED1',
+            '#D64BC0',
+            '#255634',
+            '#8C8C47',
+            '#8CDAE5',
+            '#8E283B',
+            '#791DC9',
+          ],
+        },
+      },
+    });
+
+    plot.render();
+
+    const theme = plot.chart.getTheme();
+    expect(theme.defaultColor).toBe('#FF6B3B');
+
+    plot.destroy();
+  });
 });

@@ -256,6 +256,7 @@ export function theme(params: Params<BidirectionalBarOptions>): Params<Bidirecti
 
   commonTheme(deepAssign({}, params, { chart: findViewById(chart, FIRST_AXES_VIEW) }));
   commonTheme(deepAssign({}, params, { chart: findViewById(chart, SECOND_AXES_VIEW) }));
+  commonTheme(params);
 
   return params;
 }

@@ -9,12 +9,13 @@ import { adaptor as areaAdaptor } from '../area/adaptor';
 import { adaptor as gaugeAdaptor } from '../gauge/adaptor';
 import { adaptor as tinyLineAdaptor } from '../tiny-line/adaptor';
 import { adaptor as tinyColumnAdaptor } from '../tiny-column/adaptor';
-import { adaptor as tinyAreadaptor } from '../tiny-area/adaptor';
+import { adaptor as tinyAreaAdaptor } from '../tiny-area/adaptor';
 import { adaptor as ringProgressAdaptor } from '../ring-progress/adaptor';
 import { adaptor as progressAdaptor } from '../progress/adaptor';
 import { adaptor as scatterAdaptor } from '../scatter/adaptor';
 import { adaptor as histogramAdaptor } from '../histogram/adaptor';
 import { adaptor as funnelAdaptor } from '../funnel/adaptor';
+import { adaptor as stockAdaptor } from '../stock/adaptor';
 import { Line, LineOptions } from '../line';
 import { Pie, PieOptions } from '../pie';
 import { Bar, BarOptions } from '../bar';
@@ -29,6 +30,7 @@ import { Progress, ProgressOptions } from '../progress';
 import { Scatter, ScatterOptions } from '../scatter';
 import { Histogram, HistogramOptions } from '../histogram';
 import { Funnel, FunnelOptions } from '../funnel';
+import { Stock, StockOptions } from '../stock';
 
 /**
  * 移除 options 中的 width、height 设置
@@ -100,6 +102,10 @@ export type IPlotTypes =
   | {
       readonly type: 'funnel';
       readonly options: OmitSize<FunnelOptions>;
+    }
+  | {
+      readonly type: 'stock';
+      readonly options: OmitSize<StockOptions>;
     };
 
 /**
@@ -114,12 +120,13 @@ const PLOT_ADAPTORS = {
   gauge: gaugeAdaptor,
   'tiny-line': tinyLineAdaptor,
   'tiny-column': tinyColumnAdaptor,
-  'tiny-area': tinyAreadaptor,
+  'tiny-area': tinyAreaAdaptor,
   'ring-progress': ringProgressAdaptor,
   progress: progressAdaptor,
   scatter: scatterAdaptor,
   histogram: histogramAdaptor,
   funnel: funnelAdaptor,
+  stock: stockAdaptor,
 };
 
 /**
@@ -141,6 +148,7 @@ const PLOT_CONSTRUCTOR = {
   scatter: Scatter,
   histogram: Histogram,
   funnel: Funnel,
+  stock: Stock,
 };
 
 /**

@@ -1,3 +1,13 @@
+#### 2.4.13 (2022-03-28)
+
+##### Chores
+
+*  fix typo in locale.json ([#3157](https://github.com/antvis/G2plot/pull/3157)) ([cb1a51f1](https://github.com/antvis/G2plot/commit/cb1a51f1941c9678d7b5ed060952abe840542432))
+
+##### New Features
+
+* **mix:**  mix 图表支持 stock ([#3163](https://github.com/antvis/G2plot/pull/3163)) ([cf916e5b](https://github.com/antvis/G2plot/commit/cf916e5bcd702d64f77f463e89e5c5239fe1ae02))
+
 #### 2.4.12 (2022-03-23)
 
 ##### Chores

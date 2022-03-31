@@ -33,9 +33,9 @@ import { Funnel, FunnelOptions } from '../funnel';
 import { Stock, StockOptions } from '../stock';
 
 /**
- * 移除 options 中的 width、height 设置
+ * 移除 options 中的 width、height、data 设置
  */
-type OmitSize<T> = Omit<T, 'width' | 'height'>;
+type OmitPlotOptions<T> = Omit<T, 'width' | 'height' | 'data'>;
 
 /**
  * multi-view 中的支持的 plots 类型（带 options 定义）
@@ -49,63 +49,63 @@ export type IPlotTypes =
       /**
        * plot 配置
        */
-      readonly options: OmitSize<LineOptions>;
+      readonly options: OmitPlotOptions<LineOptions>;
     }
   | {
       readonly type: 'pie';
-      readonly options: OmitSize<PieOptions>;
+      readonly options: OmitPlotOptions<PieOptions>;
     }
   | {
       readonly type: 'bar';
-      readonly options: OmitSize<BarOptions>;
+      readonly options: OmitPlotOptions<BarOptions>;
     }
   | {
       readonly type: 'column';
-      readonly options: OmitSize<ColumnOptions>;
+      readonly options: OmitPlotOptions<ColumnOptions>;
     }
   | {
       readonly type: 'area';
-      readonly options: OmitSize<AreaOptions>;
+      readonly options: OmitPlotOptions<AreaOptions>;
     }
   | {
       readonly type: 'gauge';
-      readonly options: OmitSize<GaugeOptions>;
+      readonly options: OmitPlotOptions<GaugeOptions>;
     }
   | {
       readonly type: 'tiny-line';
-      readonly options: OmitSize<TinyLineOptions>;
+      readonly options: OmitPlotOptions<TinyLineOptions>;
     }
   | {
       readonly type: 'tiny-area';
-      readonly options: OmitSize<TinyAreaOptions>;
+      readonly options: OmitPlotOptions<TinyAreaOptions>;
     }
   | {
       readonly type: 'tiny-column';
-      readonly options: OmitSize<TinyColumnOptions>;
+      readonly options: OmitPlotOptions<TinyColumnOptions>;
     }
   | {
       readonly type: 'ring-progress';
-      readonly options: OmitSize<RingProgressOptions>;
+      readonly options: OmitPlotOptions<RingProgressOptions>;
     }
   | {
       readonly type: 'progress';
-      readonly options: OmitSize<ProgressOptions>;
+      readonly options: OmitPlotOptions<ProgressOptions>;
     }
   | {
       readonly type: 'histogram';
-      readonly options: OmitSize<HistogramOptions>;
+      readonly options: OmitPlotOptions<HistogramOptions>;
     }
   | {
       readonly type: 'scatter';
-      readonly options: OmitSize<ScatterOptions>;
+      readonly options: OmitPlotOptions<ScatterOptions>;
     }
   | {
       readonly type: 'funnel';
-      readonly options: OmitSize<FunnelOptions>;
+      readonly options: OmitPlotOptions<FunnelOptions>;
     }
   | {
       readonly type: 'stock';
-      readonly options: OmitSize<StockOptions>;
+      readonly options: OmitPlotOptions<StockOptions>;
     };
 
 /**

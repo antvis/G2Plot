@@ -6,6 +6,7 @@ import { Geometry } from '../../adaptor/geometries/base';
 import { Animation } from '../../types/animation';
 import { Annotation } from '../../types/annotation';
 import { Interaction } from '../../types/interaction';
+import { Slider } from '../../types/slider';
 import { IPlotTypes } from './utils';
 
 /**
@@ -68,10 +69,21 @@ export type IView = {
  */
 export type IPlot = IPlotTypes & {
   /**
+   * @title 数据
+   * @description 设置画布具体的数据. 默认基础顶层 data
+   */
+  readonly data?: Record<string, any>[];
+  /**
    * @title plot view 的布局范围
    * @default "占满全部"
    */
   readonly region?: Region;
+  /**
+   * @title 是否为顶层
+   * @description 设置为 true 时，几何图形挂在顶层 chart 对象上，而不是子 view 下。此时 region 设置无效，data 继承顶层 data 配置。
+   * @default false
+   */
+  readonly top?: boolean;
 };
 
 /**
@@ -79,6 +91,10 @@ export type IPlot = IPlotTypes & {
  */
 export interface MixOptions
   extends Omit<Options, 'data' | 'legend' | 'xAxis' | 'yAxis' | 'legend' | 'tooltip' | 'slider' | 'scrollbar'> {
+  /**
+   * @title 顶层数据配置
+   */
+  readonly data?: Options['data'];
   /**
    * @title 是否同步子 view 的配置
    * @description 目前仅仅支持 true / false，后续需要增加 function 的方式进行自定义 view 之前的布局同步
@@ -96,12 +112,18 @@ export interface MixOptions
   readonly plots?: IPlot[];
   /**
    * @title tooltip 配置
-   * @description tooltip 配置在 chart 层配置
+   * @description Mix tooltip 组件配置，统一顶层配置
+   * TODO 字段映射
    */
   readonly tooltip?: Tooltip;
   /**
    * @title legend 配置
-   * @description 统一顶层配置
+   * @description Mix 图例配置，统一顶层配置
    */
   readonly legend?: false | Record<string, Legend>;
+  /**
+   * @title slider 配置
+   * @description Mix 缩略轴配置，统一顶层配置
+   */
+  readonly slider?: Slider;
 }

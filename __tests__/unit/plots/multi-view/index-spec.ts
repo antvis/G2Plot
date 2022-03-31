@@ -185,6 +185,30 @@ describe('multi-view', () => {
     expect(plot.chart.views[0].geometries[0].animateOption.appear.animation).toBe('fade-in');
   });
 
+  it('plots 支持配置在顶层', () => {
+    const data = [
+      { date: '03-01', sales: 100 },
+      { date: '03-02', sales: 95 },
+      { date: '03-03', sales: 69 },
+    ];
+
+    const plot = new Mix(createDiv(), {
+      data,
+      // 共享 slider
+      slider: {},
+      plots: [
+        { type: 'line', top: true, options: { xField: 'date', yField: 'sales', color: 'red' } },
+        { type: 'column', top: true, options: { xField: 'date', yField: 'sales', color: 'date' } },
+      ],
+    });
+
+    plot.render();
+
+    expect(plot.chart.geometries.length).toBe(2);
+    const line = plot.chart.geometries[0];
+    expect(line.getAttribute('color').values).toEqual(['red']);
+  });
+
   it('MultiView 依然可以使用', () => {
     const data = partySupport.filter((o) => ['FF', 'Lab'].includes(o.type));
     const line = new MultiView(createDiv(), {

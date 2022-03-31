@@ -1,3 +1,19 @@
+#### 2.4.14 (2022-03-31)
+
+##### Chores
+
+*  v2.4.13 & changelog ([#3164](https://github.com/antvis/G2plot/pull/3164)) ([689f8d83](https://github.com/antvis/G2plot/commit/689f8d83ca45ccf67e05b0edff57c6a22ed888a7))
+
+
+##### Documentation Changes
+
+* **mix:**  完善文档，增加定制股票图 demo: https://g2plot.an tv.vision/zh/examples/plugin/multi-view#customized-stock ([fc41099c](https://github.com/antvis/G2plot/commit/fc41099c99690e4d5d5e76275033cd9797c0de1f))
+
+##### New Features
+
+* **mix:**
+  *  mix 复合图表支持统一在顶层配置，增加 top、slider、annotations 等属性配置 ([b2e6b96c](https://github.com/antvis/G2plot/commit/b2e6b96cb3bb0c5cbbaf773ae0aa357ded8388f6))
+
 #### 2.4.13 (2022-03-28)
 
 ##### Chores

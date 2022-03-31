@@ -1,7 +1,7 @@
 import { each } from '@antv/util';
 import { Geometry } from '@antv/g2';
 import { geometry as geometryAdaptor } from '../../adaptor/geometries/base';
-import { interaction, animation, theme, tooltip } from '../../adaptor/common';
+import { interaction, animation, theme, tooltip, annotation } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { PLOT_CONTAINER_OPTIONS } from '../../core/plot';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
@@ -122,11 +122,16 @@ function multiView(params: Params<MixOptions>): Params<MixOptions> {
  */
 function multiPlot(params: Params<MixOptions>): Params<MixOptions> {
   const { chart, options } = params;
-  const { plots } = options;
+  const { plots, data = [] } = options;
 
   each(plots, (plot) => {
-    const { type, region, options = {} } = plot;
+    const { type, region, options = {}, top } = plot;
     const { tooltip } = options;
+
+    if (top) {
+      execPlotAdaptor(type, chart, { ...options, data });
+      return;
+    }
 
     const viewOfG2 = chart.createView({ region, ...pick(options, PLOT_CONTAINER_OPTIONS) });
     if (tooltip) {
@@ -134,8 +139,20 @@ function multiPlot(params: Params<MixOptions>): Params<MixOptions> {
       viewOfG2.interaction('tooltip');
     }
 
-    execPlotAdaptor(type, viewOfG2, options);
+    execPlotAdaptor(type, viewOfG2, { data, ...options });
   });
+
+  return params;
+}
+
+/**
+ * 处理缩略轴的 adaptor (mix)
+ * @param params
+ */
+export function slider(params: Params<MixOptions>): Params<MixOptions> {
+  const { chart, options } = params;
+
+  chart.option('slider', options.slider);
 
   return params;
 }
@@ -153,7 +170,9 @@ export function adaptor(params: Params<MixOptions>) {
     interaction,
     animation,
     theme,
-    tooltip
+    tooltip,
+    slider,
+    annotation()
     // ... 其他的 adaptor flow
   )(params);
 }

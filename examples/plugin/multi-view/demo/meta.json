@@ -37,14 +37,6 @@
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/GMzV%24DSDAX/68a9190b-a4eb-4ad4-be3b-4fef31595a3f.png"
     },
     {
-      "filename": "nobel-prize.ts",
-      "title": {
-        "zh": "星空诺贝尔奖",
-        "en": "Noble Prize Visual"
-      },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Zi6cQJN9L7EAAAAAAAAAAAAAARQnAQ"
-    },
-    {
       "filename": "drinks.ts",
       "title": {
         "zh": "Drinks",
@@ -75,6 +67,14 @@
         "en": "Line Chart with Anomaly Detection Style"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/9MkGXoBNaH/20220310212354.jpg"
+    },
+    {
+      "filename": "customized-stock.jsx",
+      "title": {
+        "zh": "定制股票图",
+        "en": "Customized stock"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/%26P96Yg5fKh/78f5836e-efde-409d-a5b6-7dfe91cd2d04.png"
     }
   ]
 }

@@ -146,7 +146,7 @@ chart.interval().position('date*sales').color('date');
 chart.option('slider', {});
 ```
 
-更多见：[定制股票图](examples/plugin/multi-view#customized-stock)
+更多见：[定制股票图](/zh/examples/plugin/multi-view#customized-stock)
 
 ### 其他
 

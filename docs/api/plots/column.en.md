@@ -59,6 +59,8 @@ Whether to percent columns, if isPercent is true, isStack also needs to be true.
 
 ### Geometry Style
 
+`markdown:docs/common/coordinate.en.md`
+
 `markdown:docs/common/color.en.md`
 
 #### pattern ✨

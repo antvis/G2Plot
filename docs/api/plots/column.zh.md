@@ -61,6 +61,8 @@ order: 2
 
 ### 图形样式
 
+`markdown:docs/common/coordinate.zh.md`
+
 `markdown:docs/common/color.zh.md`
 
 #### pattern ✨

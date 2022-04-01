@@ -29,6 +29,8 @@ order: 1
 
 ### 图形样式
 
+`markdown:docs/common/coordinate.zh.md`
+
 #### smooth
 
 <description>**optional** _boolean_ _default:_ `false`</description>

@@ -1,3 +1,9 @@
+#### 2.4.15 (2022-04-01)
+
+##### New Features
+
+* **coordinate:**   支持 coordinate 坐标转换配置 ([#3172](https://github.com/antvis/G2plot/pull/3172)) ([de389d3b](https://github.com/antvis/G2plot/commit/de389d3b3a4cd54daf9330f9a1c5667da0f9e339))
+
 #### 2.4.14 (2022-03-31)
 
 ##### Chores

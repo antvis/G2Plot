@@ -59,6 +59,8 @@ Whether the plot is Percent Bar. When isPercent is `true`, isStack must be `true
 
 ### Graphic Style
 
+`markdown:docs/common/coordinate.en.md`
+
 `markdown:docs/common/color.en.md`
 
 #### pattern ✨

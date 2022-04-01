@@ -3,6 +3,7 @@ import { BrushCfg, Options, StyleAttr } from '../../types';
 import { OptionWithConversionTag } from '../../adaptor/conversion-tag';
 import { OptionWithConnectedArea } from '../../adaptor/connected-area';
 import { IntervalGeometryOptions } from '../../adaptor/geometries/interval';
+import { Transformations } from '../../types/coordinate';
 
 type PartialIntervalGeometryOptions = Pick<IntervalGeometryOptions, 'dodgePadding' | 'intervalPadding'>;
 
@@ -84,4 +85,10 @@ export interface ColumnOptions
    * @description 开启下钻交互，以及进行下钻交互的配置
    */
   readonly brush?: BrushCfg;
+
+  /**
+   * @title 坐标转换
+   * @description 可以对坐标系进行转换，如: reflectX, reflectY, transpose 等
+   */
+  readonly coordinate?: Transformations;
 }

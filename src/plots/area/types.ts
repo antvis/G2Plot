@@ -1,5 +1,6 @@
 import { GeometryOptions, LineGeometryOptions, PointGeometryOptions } from '../../adaptor/geometries';
 import { Options, StyleAttr } from '../../types';
+import { Transformations } from '../../types/coordinate';
 
 /** 面积图的配置类型定义 */
 export interface AreaOptions extends Options, Pick<GeometryOptions, 'customInfo'> {
@@ -48,4 +49,10 @@ export interface AreaOptions extends Options, Pick<GeometryOptions, 'customInfo'
    * @default false
    */
   readonly startOnZero?: boolean;
+
+  /**
+   * @title 坐标转换
+   * @description 可以对坐标系进行转换，如: reflectX, reflectY, transpose 等
+   */
+  readonly coordinate?: Transformations;
 }

@@ -1,5 +1,5 @@
 import { Area } from '../../../../src';
-import { getDataWhetherPecentage } from '../../../../src/utils/transform/percent';
+import { getDataWhetherPercentage } from '../../../../src/utils/transform/percent';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
 
@@ -69,7 +69,7 @@ describe('area', () => {
     expect(area.chart.geometries[1].elements.length).toBe(2);
     expect(area.options.data).toEqual(partySupport.filter((o) => ['FF', 'Lab'].includes(o.type)));
     const { data, isPercent, xField, yField } = area.options;
-    expect(area.chart.getData()).toEqual(getDataWhetherPecentage(data, yField, xField, yField, isPercent));
+    expect(area.chart.getData()).toEqual(getDataWhetherPercentage(data, yField, xField, yField, isPercent));
 
     area.destroy();
   });

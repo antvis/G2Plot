@@ -24,7 +24,7 @@ describe('bar yaxis formatter', () => {
       yField: 'type',
       xAxis: {
         label: {
-          formatter: (v) => 'hello',
+          formatter: () => 'hello',
         },
       },
     });

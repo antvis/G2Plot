@@ -29,6 +29,8 @@ Grouping field. For example, when we need to analyze the transaction volume tren
 
 ### Graphic Style
 
+`markdown:docs/common/coordinate.en.md`
+
 #### smooth
 
 <description>**optional** _boolean_ _default:_ `false`</description>

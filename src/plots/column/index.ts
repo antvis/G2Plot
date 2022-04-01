@@ -1,6 +1,6 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { getDataWhetherPecentage } from '../../utils/transform/percent';
+import { getDataWhetherPercentage } from '../../utils/transform/percent';
 import { ColumnOptions } from './types';
 import { adaptor, meta } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
@@ -30,7 +30,7 @@ export class Column extends Plot<ColumnOptions> {
     const { yField, xField, isPercent } = this.options;
     const { chart, options } = this;
     meta({ chart, options });
-    this.chart.changeData(getDataWhetherPecentage(data, yField, xField, yField, isPercent));
+    this.chart.changeData(getDataWhetherPercentage(data, yField, xField, yField, isPercent));
   }
 
   /**

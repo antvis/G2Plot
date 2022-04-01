@@ -1,8 +1,9 @@
-import { Geometry } from '@antv/g2';
+import { Geometry, Types } from '@antv/g2';
 import { each, isNil, isObject } from '@antv/util';
 import { Params } from '../core/adaptor';
 import { Options } from '../types';
 import { Interaction } from '../types/interaction';
+import { Transformations } from '../types/coordinate';
 import { Axis } from '../types/axis';
 import { AXIS_META_CONFIG_KEYS } from '../constant';
 import { pick, deepAssign } from '../utils';
@@ -205,6 +206,32 @@ export function limitInPlot(params: Params<Options>): Params<Options> {
   chart.limitInPlot = value;
 
   return params;
+}
+
+/**
+ * 坐标系转换
+ */
+export function transformations(coordinateType: Types.CoordinateOption['type'] = 'rect') {
+  return (params: Params<Options & { coordinate: Transformations }>) => {
+    const { chart, options } = params;
+    const { coordinate } = options;
+
+    const actions: Types.CoordinateActions[] = Array.from(coordinate || [])
+      .map((cfg) => {
+        if (cfg.type === 'reflectX') return ['reflect', 'x'] as Types.CoordinateActions;
+        if (cfg.type === 'reflectY') return ['reflect', 'y'] as Types.CoordinateActions;
+        if (cfg.type === 'transpose') return ['transpose'] as Types.CoordinateActions;
+
+        return null;
+      })
+      .filter((d) => !!d);
+
+    if (actions.length !== 0) {
+      chart.coordinate({ type: coordinateType, actions });
+    }
+
+    return params;
+  };
 }
 
 export { pattern } from './pattern';

@@ -1,4 +1,3 @@
-import { groupBy, keys } from '@antv/util';
 import { WordCloud } from '../../../../src';
 import { CountryEconomy } from '../../../data/country-economy';
 import { createDiv } from '../../../utils/dom';

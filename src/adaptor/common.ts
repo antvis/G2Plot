@@ -3,6 +3,7 @@ import { each, isNil, isObject } from '@antv/util';
 import { Params } from '../core/adaptor';
 import { Options } from '../types';
 import { Interaction } from '../types/interaction';
+import { Transformations } from '../types/coordinate';
 import { Axis } from '../types/axis';
 import { AXIS_META_CONFIG_KEYS } from '../constant';
 import { pick, deepAssign } from '../utils';
@@ -211,7 +212,7 @@ export function limitInPlot(params: Params<Options>): Params<Options> {
  * 坐标系转换
  */
 export function coordinate(coordinateType: Types.CoordinateOption['type'] = 'rect') {
-  return (params: Params<Options>): Params<Options> => {
+  return (params: Params<Options & { coordinate: Transformations }>) => {
     const { chart, options } = params;
     const { coordinate } = options;
 

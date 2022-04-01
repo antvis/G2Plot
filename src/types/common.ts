@@ -11,7 +11,6 @@ import { Slider } from './slider';
 import { Scrollbar } from './scrollbar';
 import { ColorAttr, PatternAttr } from './attr';
 import { Meta } from './meta';
-import { Transformations } from './coordinate';
 
 /** annotation position */
 export type AnnotationPosition = Types.AnnotationPosition;
@@ -243,10 +242,4 @@ export type Options = {
    * @deprecated false
    */
   readonly defaultInteractions?: string[];
-
-  /**
-   * @title 坐标转换
-   * @description 可以对坐标系进行转换，如: reflectX, reflectY, transpose 等
-   */
-  readonly coordinate?: Transformations;
 };

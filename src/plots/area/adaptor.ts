@@ -1,6 +1,16 @@
 import { Geometry } from '@antv/g2';
 import { each, omit } from '@antv/util';
-import { tooltip, slider, interaction, animation, theme, annotation, limitInPlot, pattern } from '../../adaptor/common';
+import {
+  tooltip,
+  slider,
+  interaction,
+  animation,
+  theme,
+  annotation,
+  limitInPlot,
+  pattern,
+  coordinate,
+} from '../../adaptor/common';
 import { findGeometry } from '../../utils';
 import { Params } from '../../core/adaptor';
 import { area, point, line } from '../../adaptor/geometries';
@@ -149,6 +159,7 @@ export function adaptor(params: Params<AreaOptions>) {
   return flow(
     theme,
     pattern('areaStyle'),
+    coordinate('rect'),
     geometry,
     meta,
     adjust,

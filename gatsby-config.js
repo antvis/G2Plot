@@ -320,8 +320,8 @@ module.exports = {
       indexName: 'antv_g2plot',
     },
     announcement: {
-      zh: '✨欢迎订阅图表指引，不定时会更新: https://www.yuque.com/antv/g2plot/plot-guide',
-      en: '✨欢迎订阅图表指引，不定时会更新: https://www.yuque.com/antv/g2plot/plot-guide',
+      zh: '1. ✨欢迎订阅图表指引，不定时会更新: https://www.yuque.com/antv/g2plot/plot-guide 2. 柱状图、条形图、面积图支持配置坐标系转换',
+      en: '1. ✨欢迎订阅图表指引，不定时会更新: https://www.yuque.com/antv/g2plot/plot-guide 2. 柱状图、条形图、面积图支持配置坐标系转换',
     }
   },
 };

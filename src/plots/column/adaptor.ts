@@ -11,6 +11,7 @@ import {
   scrollbar,
   limitInPlot,
   state,
+  coordinate,
 } from '../../adaptor/common';
 import { conversionTag } from '../../adaptor/conversion-tag';
 import { connectedArea } from '../../adaptor/connected-area';
@@ -292,6 +293,7 @@ export function adaptor(params: Params<ColumnOptions>, isBar = false) {
     theme, // theme 需要在 geometry 之前
     pattern('columnStyle'),
     state,
+    coordinate('rect'),
     geometry,
     meta,
     axis,

@@ -103,10 +103,10 @@ function legend(params: Params<BarOptions>): Params<BarOptions> {
  * @param params
  */
 function coordinate(params: Params<BarOptions>): Params<BarOptions> {
-  const { chart } = params;
   // transpose column to bar 对角变换 & y 方向镜像变换
-  chart.coordinate({ actions: [['transpose'], ['reflect', 'y']] });
-  return params;
+  const { options } = params;
+  const coordinateOptions = [{ type: 'transpose' }, { type: 'reflectY' }].concat(options.coordinate || []);
+  return deepAssign({}, params, { options: { coordinate: coordinateOptions } });
 }
 
 /**

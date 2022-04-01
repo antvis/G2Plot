@@ -3,6 +3,7 @@ import { BrushCfg, Options, StyleAttr } from '../../types';
 import { OptionWithConversionTag } from '../../adaptor/conversion-tag';
 import { OptionWithConnectedArea } from '../../adaptor/connected-area';
 import { IntervalGeometryOptions } from '../../adaptor/geometries/interval';
+import { Transformations } from '../../types/coordinate';
 
 type PartialIntervalGeometryOptions = Pick<IntervalGeometryOptions, 'dodgePadding' | 'intervalPadding'>;
 

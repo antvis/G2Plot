@@ -13,6 +13,14 @@
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/rWp4Sq5ofk/10256978-7f35-4a4c-b67c-39aaad269bc2.png"
     },
     {
+      "filename": "coordinate.ts",
+      "title": {
+        "zh": "条形图设置坐标转换",
+        "en": "Bar plot with coordinate transformations"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/l41r3at5bs/becb13e0-3dc7-41e2-9458-651f6da6cdc3.png"
+    },
+    {
       "filename": "color.ts",
       "title": {
         "zh": "自定义条形图颜色",

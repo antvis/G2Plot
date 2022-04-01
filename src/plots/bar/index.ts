@@ -1,6 +1,6 @@
 import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { getDataWhetherPecentage } from '../../utils/transform/percent';
+import { getDataWhetherPercentage } from '../../utils/transform/percent';
 import { BarOptions } from './types';
 import { adaptor, meta } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
@@ -31,7 +31,7 @@ export class Bar extends Plot<BarOptions> {
     const { xField, yField, isPercent } = options;
     const switchedFieldOptions = { ...options, xField: yField, yField: xField };
     meta({ chart, options: switchedFieldOptions });
-    chart.changeData(getDataWhetherPecentage(data, xField, yField, xField, isPercent));
+    chart.changeData(getDataWhetherPercentage(data, xField, yField, xField, isPercent));
   }
 
   /**

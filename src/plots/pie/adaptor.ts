@@ -138,7 +138,7 @@ function label(params: Params<PieOptions>): Params<PieOptions> {
         const angleScale = chart.getScaleByField(angleField);
         const percent = angleScale?.scale(value);
         return isFunction(content)
-          ? // append pecent (number) to data, users can get origin data from `dataum._origin`
+          ? // append percent (number) to data, users can get origin data from `dataum._origin`
             content({ ...data, percent }, dataum, index)
           : isString(content)
           ? template(content as string, {

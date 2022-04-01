@@ -11,7 +11,7 @@ import {
   scrollbar,
   limitInPlot,
   state,
-  coordinate,
+  transformations,
 } from '../../adaptor/common';
 import { conversionTag } from '../../adaptor/conversion-tag';
 import { connectedArea } from '../../adaptor/connected-area';
@@ -19,7 +19,7 @@ import { interval } from '../../adaptor/geometries';
 import { pattern } from '../../adaptor/pattern';
 import { brushInteraction } from '../../adaptor/brush';
 import { flow, transformLabel, deepAssign, findGeometry, adjustYMetaByZero, pick } from '../../utils';
-import { getDataWhetherPecentage, getDeepPercent } from '../../utils/transform/percent';
+import { getDataWhetherPercentage, getDeepPercent } from '../../utils/transform/percent';
 import { Datum } from '../../types';
 import { ColumnOptions } from './types';
 
@@ -74,7 +74,7 @@ function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
   const percentData =
     isPercent && isGroup && isStack
       ? getDeepPercent(data, yField, [xField, groupField], yField)
-      : getDataWhetherPecentage(data, yField, xField, yField, isPercent);
+      : getDataWhetherPercentage(data, yField, xField, yField, isPercent);
 
   let chartData = [];
 
@@ -293,7 +293,7 @@ export function adaptor(params: Params<ColumnOptions>, isBar = false) {
     theme, // theme 需要在 geometry 之前
     pattern('columnStyle'),
     state,
-    coordinate('rect'),
+    transformations('rect'),
     geometry,
     meta,
     axis,

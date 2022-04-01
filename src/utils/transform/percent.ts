@@ -85,7 +85,7 @@ export function getDeepPercent(data: Record<string, any>[], measure: string, fie
  * 获取数据，如果是百分比，进行数据转换 (适用于面积图、柱状图、条形图)
  * @param isPercent 是否百分比
  */
-export function getDataWhetherPecentage(
+export function getDataWhetherPercentage(
   data: Record<string, any>[],
   yField: string,
   groupField: string,

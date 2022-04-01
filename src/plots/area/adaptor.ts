@@ -9,13 +9,13 @@ import {
   annotation,
   limitInPlot,
   pattern,
-  coordinate,
+  transformations,
 } from '../../adaptor/common';
 import { findGeometry } from '../../utils';
 import { Params } from '../../core/adaptor';
 import { area, point, line } from '../../adaptor/geometries';
 import { flow, transformLabel, deepAssign } from '../../utils';
-import { getDataWhetherPecentage } from '../../utils/transform/percent';
+import { getDataWhetherPercentage } from '../../utils/transform/percent';
 import { Datum } from '../../types';
 import { meta, legend, axis } from '../line/adaptor';
 import { AreaOptions } from './types';
@@ -43,7 +43,7 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
   } = options;
   const pointState = pointMapping?.state;
 
-  const chartData = getDataWhetherPecentage(data, yField, xField, yField, isPercent);
+  const chartData = getDataWhetherPercentage(data, yField, xField, yField, isPercent);
   chart.data(chartData);
   // 百分比堆积图，默认会给一个 % 格式化逻辑, 用户可自定义
   const tooltipOptions = isPercent
@@ -159,7 +159,7 @@ export function adaptor(params: Params<AreaOptions>) {
   return flow(
     theme,
     pattern('areaStyle'),
-    coordinate('rect'),
+    transformations('rect'),
     geometry,
     meta,
     adjust,

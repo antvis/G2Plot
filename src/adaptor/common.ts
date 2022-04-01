@@ -211,7 +211,7 @@ export function limitInPlot(params: Params<Options>): Params<Options> {
 /**
  * 坐标系转换
  */
-export function coordinate(coordinateType: Types.CoordinateOption['type'] = 'rect') {
+export function transformations(coordinateType: Types.CoordinateOption['type'] = 'rect') {
   return (params: Params<Options & { coordinate: Transformations }>) => {
     const { chart, options } = params;
     const { coordinate } = options;
@@ -226,7 +226,9 @@ export function coordinate(coordinateType: Types.CoordinateOption['type'] = 'rec
       })
       .filter((d) => !!d);
 
-    chart.coordinate({ type: coordinateType, actions });
+    if (actions.length !== 0) {
+      chart.coordinate({ type: coordinateType, actions });
+    }
 
     return params;
   };

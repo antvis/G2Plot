@@ -1,4 +1,3 @@
-import { DataView } from '@antv/data-set';
 import { Mix } from '@antv/g2plot';
 
 const data = [
@@ -45,9 +44,7 @@ const plot = new Mix('container', {
       interactions: [{ type: 'element-active' }, { type: 'association-highlight' }],
     },
     {
-      data: new DataView()
-        .source(data.map((d) => ({ type: d[0], male: d[2], female: d[3] })))
-        .transform({ type: 'fold', fields: ['male', 'female'], key: 'gender', value: 'value' }).rows,
+      data: [{"year":"2010","gender":"male","turnout":35},{"year":"2010","gender":"female","turnout":25},{"year":"2011","gender":"male","turnout":25},{"year":"2011","gender":"female","turnout":26},{"year":"2012","gender":"male","turnout":35},{"year":"2012","gender":"female","turnout":38},{"year":"2013","gender":"male","turnout":43},{"year":"2013","gender":"female","turnout":41},{"year":"2014","gender":"male","turnout":36},{"year":"2014","gender":"female","turnout":33},{"year":"2015","gender":"male","turnout":41},{"year":"2015","gender":"female","turnout":48}],
       region: { start: { x: 0.5, y: 0 }, end: { x: 1, y: 0.45 } },
       coordinate: { cfg: { isTransposed: true } },
       axes: { value: false },
@@ -94,9 +91,7 @@ const plot = new Mix('container', {
       ],
     },
     {
-      data: new DataView()
-        .source(yearData.map((d) => ({ year: d[0], male: d[3], female: d[4] })))
-        .transform({ type: 'fold', fields: ['male', 'female'], key: 'gender', value: 'turnout' }).rows,
+      data: [{"type":"Cosmopolitan","gender":"male","value":45},{"type":"Cosmopolitan","gender":"female","value":6},{"type":"Martini","gender":"male","value":39},{"type":"Martini","gender":"female","value":28},{"type":"Mojito","gender":"male","value":11},{"type":"Mojito","gender":"female","value":8},{"type":"Margarita","gender":"male","value":33},{"type":"Margarita","gender":"female","value":14},{"type":"Mai Tai","gender":"male","value":20},{"type":"Mai Tai","gender":"female","value":12},{"type":"Beer","gender":"male","value":20},{"type":"Beer","gender":"female","value":50}],
       region: { start: { x: 0.52, y: 0.52 }, end: { x: 1, y: 1 } },
       axes: {
         year: {

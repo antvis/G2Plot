@@ -9,6 +9,12 @@ module.exports = {
         GATrackingId: `UA-148148901-2`,
       },
     },
+    {
+      resolve: "gatsby-plugin-webpack-bundle-analyser-v2",
+      options: {
+        devMode: true,
+      },
+    },
   ],
   // Customize your site metadata:
   siteMetadata: {

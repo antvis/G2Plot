@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Line } from '@antv/g2plot';
-import { DataView } from '@antv/data-set';
 import * as _ from '@antv/util';
 import insertCss from 'insert-css';
 
@@ -19,20 +18,11 @@ class TrendChart extends React.Component {
     // Step 2: 创建图表
     const chartDom = this.chartNodeRef.current;
 
-    fetch('https://gw.alipayobjects.com/os/bmw-prod/c335e0c4-caa5-4c76-a321-20df96b6e5c8.json')
+    fetch('https://gw.alipayobjects.com/os/antfincdn/3PtP0m%26VuK/trend-data.json')
       .then((res) => res.json())
-      .then((originData) => {
-        const dv = new DataView().source(originData);
-        dv.transform({
-          type: 'fold',
-          fields: ['USA', 'California', 'BA9C', 'Marin'], // 展开字段集
-          key: 'series',
-          value: 'value',
-        });
-        const data = dv.rows.map((d) => ({
-          ...d,
-          value: d.value ? Number(d.value) : d.value,
-        }));
+      .then((data) => {
+   
+       window.data=data
         if (this.chartRef) {
           this.chartRef?.current?.clear();
         }
@@ -196,6 +186,9 @@ class TrendChart extends React.Component {
   }
 }
 
+// 我们用 insert-css 演示引入自定义样式
+// 推荐将样式添加到自己的样式文件中
+// 若拷贝官方代码，别忘了 npm install insert-css
 // 我们用 insert-css 演示引入自定义样式
 // 推荐将样式添加到自己的样式文件中
 // 若拷贝官方代码，别忘了 npm install insert-css

@@ -76,6 +76,39 @@ view 上的图形 geometry 及映射配置，具体见[Geometry Configuration](#
 
 ### IPlot
 
+#### IPlot.type
+
+<description>**必选** _string_</description>
+
+plot 支持的类型，目前支持的类型有：`line`, `pie`, `bar`, `column`, `area`, `gauge`, `tiny-line`, `tiny-area`, `tiny-column`, `ring-progress`, `progress`, `histogram`, `scatter`, `funnel` 和 `stock`.
+
+#### IPlot.top
+
+是否设置在顶层。设置为 true 时，几何图形挂在顶层 chart 对象上，而不是子 view 下。此时 region 设置无效，data 继承顶层 data 配置。
+
+**示例**：
+
+```ts
+const data = [{ date: '03-01', sales: 100 }, { date: '03-02', sales: 95 }, { date: '03-03', sales: 69 }];
+const plot = new Mix('container', {
+  data,
+  // 共享 slider
+  slider: {},
+  plots: [
+    { type: 'line', options: { xField: 'date', yField: 'sales', color: 'red' } },
+    { type: 'column', options: { xField: 'date', yField: 'sales', color: 'date', } },
+  ]
+});
+
+// 以上写法，等价于 G2 写法
+chart.data(data);
+chart.line().position('date*sales').color('red');
+chart.interval().position('date*sales').color('date');
+chart.option('slider', {});
+```
+
+更多见：[定制股票图](/zh/examples/plugin/multi-view#customized-stock)
+
 #### IPlot.region
 
 <description>**optional** _object_</description>

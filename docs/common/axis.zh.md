@@ -66,6 +66,26 @@ type avoidCallback = (isVertical: boolean, labelGroup: IGroup, limitLength?: num
 interface AxisLabelAutoHideCfg {
   /** 最小间距配置 */
   minGap?: number;
+  type?: string;
+}
+```
+
+如果你需要强制最后一个 tick 展示，可以尝试这么设置
+
+```ts
+{
+  scale: {
+    [xField 对应的值]: {
+      showLast: true,
+    }
+  },
+  xAxis: {
+    // 设置默认不自动隐藏，或
+    // autoHide: false,
+    autoHide: {
+      type: 'equidistantceWithReverseBoth'
+    }
+  }
 }
 ```
 

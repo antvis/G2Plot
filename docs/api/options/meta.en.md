@@ -171,7 +171,8 @@ Algorithms for calculating ticks.
 
 <description> _boolean_ **optional**</description>
 
-Only applies to scale of type: 'time', forcing the last date tick to be displayed.
+Only applies to scale of type: 'cat' and 'time-cat', forcing the last tick to be contained.
+Attention: if you have been config `tickMethod` (means customize ticks), will cause `showLast` not work
 
 ### MetaOption.mask
 

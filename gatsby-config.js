@@ -326,8 +326,8 @@ module.exports = {
       indexName: 'antv_g2plot',
     },
     announcement: {
-      zh: '1. ✨欢迎订阅图表指引，不定时会更新: https://www.yuque.com/antv/g2plot/plot-guide 2. 柱状图、条形图、面积图支持配置坐标系转换',
-      en: '1. ✨欢迎订阅图表指引，不定时会更新: https://www.yuque.com/antv/g2plot/plot-guide 2. 柱状图、条形图、面积图支持配置坐标系转换',
+      zh: '使用 `useDeferredLabel` 异步渲染数据标签，提升首屏渲染速度。',
+      en: 'Use `useDeferredLabel` to render data labels asynchronous, enable first paint quickly.',
     }
   },
 };

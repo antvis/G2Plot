@@ -20,7 +20,7 @@ export interface PolygonGeometryOptions extends GeometryOptions {
  */
 export function polygon<O extends PolygonGeometryOptions>(params: Params<O>): Params<O> {
   const { options } = params;
-  const { polygon, xField, yField, seriesField, tooltip } = options;
+  const { polygon, xField, yField, seriesField, tooltip, useDeferredLabel } = options;
 
   const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, seriesField]);
 
@@ -35,6 +35,7 @@ export function polygon<O extends PolygonGeometryOptions>(params: Params<O>): Pa
               tooltip: formatter,
               ...polygon,
             },
+            args: { useDeferredLabel },
           },
         })
       )

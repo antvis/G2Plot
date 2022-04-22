@@ -97,6 +97,7 @@ export function interval<O extends IntervalGeometryOptions>(params: Params<O>): 
     columnBackground,
     dodgePadding,
     intervalPadding,
+    useDeferredLabel,
   } = options;
 
   const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, seriesField]);
@@ -113,7 +114,14 @@ export function interval<O extends IntervalGeometryOptions>(params: Params<O>): 
               tooltip: formatter,
               ...interval,
             },
-            args: { dodgePadding, intervalPadding, minColumnWidth, maxColumnWidth, background: columnBackground },
+            args: {
+              dodgePadding,
+              intervalPadding,
+              minColumnWidth,
+              maxColumnWidth,
+              background: columnBackground,
+              useDeferredLabel,
+            },
           },
         })
       )

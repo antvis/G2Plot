@@ -147,6 +147,12 @@ export type Options = {
    * @default false
    */
   readonly supportCSSTransform?: boolean;
+  /**
+   * @title 是否开启 label 延迟渲染
+   * @description 开启后 label 渲染会在浏览器空闲时机执行。可制定具体 number 数值，来限定 timeout 时间 (建议开启时，指定 timeout 时间)
+   * @default false
+   */
+  readonly useDeferredLabel?: boolean | number;
 
   /**
    * @title 数据

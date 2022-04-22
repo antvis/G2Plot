@@ -24,7 +24,7 @@ export interface PointGeometryOptions extends GeometryOptions {
  */
 export function point<O extends PointGeometryOptions>(params: Params<O>): Params<O> {
   const { options } = params;
-  const { point, xField, yField, seriesField, sizeField, shapeField, tooltip } = options;
+  const { point, xField, yField, seriesField, sizeField, shapeField, tooltip, useDeferredLabel } = options;
 
   const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, seriesField, sizeField, shapeField]);
 
@@ -40,6 +40,7 @@ export function point<O extends PointGeometryOptions>(params: Params<O>): Params
               tooltip: formatter,
               ...point,
             },
+            args: { useDeferredLabel },
           },
         })
       )

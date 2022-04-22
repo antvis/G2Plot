@@ -1,3 +1,22 @@
+#### 2.4.16 (2022-04-22)
+
+##### Chores
+
+* **website:**  remove data-set & add bundle-analyser ([#3175](https://github.com/antvis/G2plot/pull/3175)) ([2c2a6c5e](https://github.com/antvis/G2plot/commit/2c2a6c5eeb606bd853ca347c5d3284984fa01440))
+
+##### Documentation Changes
+
+*  补全 scale 和 axis 文档 ([f3c4a4d7](https://github.com/antvis/G2plot/commit/f3c4a4d7dc734e0eb5fc18e1fd5df7ebd453dd1a))
+* **mix:**  增加 mix demo 和文档说明 ([#3176](https://github.com/antvis/G2plot/pull/3176)) ([7295dbf6](https://github.com/antvis/G2plot/commit/7295dbf6f8d997f35e1ea0a04a5e24419200bf9e))
+
+##### New Features
+
+*  support useDeferredLabel to improve performance ([#3190](https://github.com/antvis/G2plot/pull/3190)) ([a9b19463](https://github.com/antvis/G2plot/commit/a9b19463b6260415d906e87d994f0e0cfc1e9664))
+
+##### Bug Fixes
+
+*  勘误-百分比条形图 ([#3183](https://github.com/antvis/G2plot/pull/3183)) ([41f2ed2d](https://github.com/antvis/G2plot/commit/41f2ed2d93e55be35f34a2b924674fc95e723c4c))
+
 #### 2.4.15 (2022-04-01)
 
 ##### New Features

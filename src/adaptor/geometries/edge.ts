@@ -20,7 +20,7 @@ export interface EdgeGeometryOptions extends GeometryOptions {
  */
 export function edge<O extends EdgeGeometryOptions>(params: Params<O>): Params<O> {
   const { options } = params;
-  const { edge, xField, yField, seriesField, tooltip } = options;
+  const { edge, xField, yField, seriesField, tooltip, useDeferredLabel } = options;
 
   const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, seriesField]);
 
@@ -35,6 +35,7 @@ export function edge<O extends EdgeGeometryOptions>(params: Params<O>): Params<O
               tooltip: formatter,
               ...edge,
             },
+            args: { useDeferredLabel },
           },
         })
       )

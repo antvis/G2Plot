@@ -20,7 +20,7 @@ export interface SchemaGeometryOptions extends GeometryOptions {
  */
 export function schema<O extends SchemaGeometryOptions>(params: Params<O>): Params<O> {
   const { options } = params;
-  const { schema, xField, yField, seriesField, tooltip } = options;
+  const { schema, xField, yField, seriesField, tooltip, useDeferredLabel } = options;
 
   const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, seriesField]);
 
@@ -35,6 +35,7 @@ export function schema<O extends SchemaGeometryOptions>(params: Params<O>): Para
               tooltip: formatter,
               ...schema,
             },
+            args: { useDeferredLabel },
           },
         })
       )

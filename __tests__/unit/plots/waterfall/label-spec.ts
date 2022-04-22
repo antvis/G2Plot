@@ -1,9 +1,10 @@
 import { Waterfall } from '../../../../src';
 import { salesByArea } from '../../../data/sales';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 
 describe('waterfall label', () => {
-  it('position top', () => {
+  it('position top', async () => {
     const waterfall = new Waterfall(createDiv('position top'), {
       width: 400,
       height: 300,
@@ -24,6 +25,7 @@ describe('waterfall label', () => {
     waterfall.render();
 
     const geometry = waterfall.chart.geometries[0];
+    await delay(0);
     const labelGroups = geometry.labelsContainer.getChildren();
 
     // @ts-ignore
@@ -96,7 +98,7 @@ describe('waterfall label', () => {
     waterfall.destroy();
   });
 
-  it('callback', () => {
+  it('callback', async () => {
     const waterfall = new Waterfall(createDiv('position top'), {
       width: 400,
       height: 300,
@@ -121,6 +123,7 @@ describe('waterfall label', () => {
     });
 
     waterfall.render();
+    await delay(0);
     const labels = waterfall.chart.geometries[0].labelsContainer.getChildren();
     // @ts-ignore
     expect(labels[0].getChildByIndex(0).attr('fill')).toBe('red');

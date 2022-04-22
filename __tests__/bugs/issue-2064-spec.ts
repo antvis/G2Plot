@@ -1,5 +1,6 @@
 import { Line, Area, Radar } from '../../src';
 import { createDiv } from '../utils/dom';
+import { delay } from '../utils/delay';
 
 const data = [
   {
@@ -13,7 +14,7 @@ const data = [
 ];
 
 describe('#2064', () => {
-  it('#2064 line', () => {
+  it('#2064 line', async () => {
     const plot = new Line(createDiv(), {
       width: 400,
       height: 400,
@@ -28,14 +29,14 @@ describe('#2064', () => {
 
     const line = plot.chart.geometries.find((geom) => geom.type === 'line');
     const point = plot.chart.geometries.find((geom) => geom.type === 'point');
-
+    await delay(0);
     expect(line.labelsContainer.getChildren()).toHaveLength(data.length);
     expect(point.labelsContainer.getChildren()).toHaveLength(0);
 
     plot.destroy();
   });
 
-  it('#2064 area', () => {
+  it('#2064 area', async () => {
     const plot = new Area(createDiv(), {
       width: 400,
       height: 400,
@@ -52,6 +53,7 @@ describe('#2064', () => {
     const area = plot.chart.geometries.find((geom) => geom.type === 'area');
     const line = plot.chart.geometries.find((geom) => geom.type === 'line');
     const point = plot.chart.geometries.find((geom) => geom.type === 'point');
+    await delay(0);
 
     expect(area.labelsContainer.getChildren()).toHaveLength(data.length);
     expect(line.labelsContainer.getChildren()).toHaveLength(0);
@@ -60,7 +62,7 @@ describe('#2064', () => {
     plot.destroy();
   });
 
-  it('#2064 radar', () => {
+  it('#2064 radar', async () => {
     const plot = new Radar(createDiv(), {
       width: 400,
       height: 400,
@@ -78,6 +80,7 @@ describe('#2064', () => {
     const area = plot.chart.geometries.find((geom) => geom.type === 'area');
     const line = plot.chart.geometries.find((geom) => geom.type === 'line');
     const point = plot.chart.geometries.find((geom) => geom.type === 'point');
+    await delay(0);
 
     expect(area.labelsContainer.getChildren()).toHaveLength(0);
     expect(line.labelsContainer.getChildren()).toHaveLength(data.length);

@@ -22,7 +22,7 @@ export interface AreaGeometryOptions extends GeometryOptions {
  */
 export function area<O extends AreaGeometryOptions>(params: Params<O>): Params<O> {
   const { options } = params;
-  const { area, xField, yField, seriesField, smooth, tooltip } = options;
+  const { area, xField, yField, seriesField, smooth, tooltip, useDeferredLabel } = options;
 
   const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, seriesField]);
 
@@ -39,6 +39,7 @@ export function area<O extends AreaGeometryOptions>(params: Params<O>): Params<O
               tooltip: formatter,
               ...area,
             },
+            args: { useDeferredLabel },
           },
         })
       )

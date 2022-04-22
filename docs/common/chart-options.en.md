@@ -52,6 +52,12 @@ Whether clip the Geometry beyond the coordinate system。
 
 支持 CSS transform，开启后图表的交互以及事件将在页面设置了 css transform 属性时生效，默认关闭。
 
+#### useDeferredLabel
+
+<description>**optional** _boolean|number_</description>
+
+开启后 label 渲染会在浏览器空闲时机执行。可制定具体 number 数值，来限定 timeout 时间 (建议开启时，指定 timeout 时间)
+
 <!-- 先插入到这里 -->
 #### locale
 

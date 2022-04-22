@@ -1,9 +1,10 @@
 import { Bar } from '../../../../src';
 import { salesByArea, subSalesByArea } from '../../../data/sales';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 
 describe('bar label', () => {
-  it('position: right', () => {
+  it('position: right', async () => {
     const bar = new Bar(createDiv(), {
       width: 400,
       height: 300,
@@ -24,6 +25,7 @@ describe('bar label', () => {
     bar.render();
 
     const geometry = bar.chart.geometries[0];
+    await delay(0);
     const labelGroups = geometry.labelsContainer.getChildren();
 
     // @ts-ignore
@@ -94,7 +96,7 @@ describe('bar label', () => {
     bar.destroy();
   });
 
-  it('group bar position right', () => {
+  it('group bar position right', async () => {
     const bar = new Bar(createDiv('group bar position middle'), {
       width: 400,
       height: 300,
@@ -117,6 +119,7 @@ describe('bar label', () => {
     bar.render();
 
     const geometry = bar.chart.geometries[0];
+    await delay(0);
     const labelGroups = geometry.labelsContainer.getChildren();
 
     // @ts-ignore
@@ -132,7 +135,7 @@ describe('bar label', () => {
     bar.destroy();
   });
 
-  it('group column position middle', () => {
+  it('group column position middle', async () => {
     const bar = new Bar(createDiv('group column position middle'), {
       width: 400,
       height: 300,
@@ -155,6 +158,7 @@ describe('bar label', () => {
     bar.render();
 
     const geometry = bar.chart.geometries[0];
+    await delay(0);
     const labelGroups = geometry.labelsContainer.getChildren();
 
     // @ts-ignore
@@ -170,7 +174,7 @@ describe('bar label', () => {
     bar.destroy();
   });
 
-  it('group bar position left', () => {
+  it('group bar position left', async () => {
     const bar = new Bar(createDiv('group bar position bottom'), {
       width: 400,
       height: 300,
@@ -193,6 +197,7 @@ describe('bar label', () => {
     bar.render();
 
     const geometry = bar.chart.geometries[0];
+    await delay(0);
     const labelGroups = geometry.labelsContainer.getChildren();
 
     // @ts-ignore

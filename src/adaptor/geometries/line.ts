@@ -27,7 +27,7 @@ export interface LineGeometryOptions extends GeometryOptions {
  */
 export function line<O extends LineGeometryOptions>(params: Params<O>): Params<O> {
   const { options } = params;
-  const { line, stepType, xField, yField, seriesField, smooth, connectNulls, tooltip } = options;
+  const { line, stepType, xField, yField, seriesField, smooth, connectNulls, tooltip, useDeferredLabel } = options;
 
   const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, seriesField]);
 
@@ -46,7 +46,7 @@ export function line<O extends LineGeometryOptions>(params: Params<O>): Params<O
               },
               line
             ),
-            args: { connectNulls },
+            args: { connectNulls, useDeferredLabel },
           },
         })
       )

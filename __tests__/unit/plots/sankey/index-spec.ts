@@ -1,10 +1,11 @@
 import { Datum, Sankey } from '../../../../src';
 import { createDiv, removeDom } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 import { ENERGY_RELATIONS } from '../../../data/sankey-energy';
 import { PARALLEL_SET } from '../../../data/parallel-set';
 
 describe('sankey', () => {
-  it('sankey', () => {
+  it('sankey', async () => {
     const sankey = new Sankey(createDiv(), {
       height: 500,
       data: ENERGY_RELATIONS,
@@ -62,24 +63,21 @@ describe('sankey', () => {
       x: [0.008, 0.008, 0.1417142857142857, 0.1417142857142857],
       y: [0.2963247055394385, 0.26075939300940637, 0.3018199231660282, 0.26625461063599604],
     });
-
+    sankey.update({ animation: false });
     // label
+    await delay(200);
     expect(sankey.chart.views[1].geometries[0].labelsContainer.getChildren().length).toBe(48);
     expect(sankey.chart.views[1].geometries[0].labelsContainer.getChildByIndex(0).cfg.children[0].attr('text')).toBe(
       "Agricultural 'waste'"
     );
     expect(sankey.chart.views[0].geometries[0].labelsContainer.getChildren().length).toBe(0);
 
-    sankey.update({
-      animation: false,
-    });
-
     // tooltip
     sankey.chart.showTooltip({ x: 100, y: 100 });
     expect(sankey.chart.ele.querySelector('.g2-tooltip-name').textContent).toBe('Nuclear -> Thermal generation');
     expect(sankey.chart.ele.querySelector('.g2-tooltip-value').textContent).toBe('839.978');
 
-    sankey.destroy();
+    // sankey.destroy();
   });
 
   it('sankey style', () => {

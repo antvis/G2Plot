@@ -1,10 +1,11 @@
 import { Funnel } from '../../../../src';
 import { PV_DATA, PV_DATA_COMPARE } from '../../../data/conversion';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 import { FUNNEL_CONVERSATION, FUNNEL_PERCENT } from '../../../../src/plots/funnel/constant';
 
 describe('label', () => {
-  test('label basic & dynamicHeight', () => {
+  test('label basic & dynamicHeight', async () => {
     const funnelOption = {
       width: 400,
       height: 400,
@@ -15,6 +16,7 @@ describe('label', () => {
     const funnel = new Funnel(createDiv('label basic & dynamicHeight'), funnelOption);
     funnel.render();
     const geometry = funnel.chart.geometries[0];
+    await delay(0);
     const { labelOption, labelsContainer } = geometry;
     const labelOptionCfg = labelOption && labelOption.cfg;
     expect(labelOption).not.toBeFalsy();
@@ -41,7 +43,7 @@ describe('label', () => {
         position: 'right',
       },
     });
-
+    await delay(0);
     funnel.chart.geometries[0].labelsContainer.cfg.children.forEach((item, index) => {
       expect(item.get('children')[0].attr('text')).toBe(`行为:${data[index].action}`);
     });
@@ -54,12 +56,13 @@ describe('label', () => {
       ...funnelOption,
       label: false,
     });
+    await delay(0);
     expect(funnel.chart.geometries[0].labelsContainer.cfg.children.length).toBe(0);
 
     funnel.destroy();
   });
 
-  test('label compare', () => {
+  test('label compare', async () => {
     // 自定义 label
     const funnelOption = {
       width: 400,
@@ -72,6 +75,7 @@ describe('label', () => {
 
     const funnel = new Funnel(createDiv('label compare'), funnelOption);
     funnel.render();
+    await delay(0);
 
     funnel.chart.views.forEach((funnelView) => {
       const geometry = funnelView.geometries[0];
@@ -107,6 +111,7 @@ describe('label', () => {
         position: 'right',
       },
     });
+    await delay(0);
 
     funnel.chart.views.forEach((funnelView) => {
       const geometry = funnelView.geometries[0];
@@ -126,6 +131,7 @@ describe('label', () => {
       ...funnelOption,
       label: false,
     });
+    await delay(0);
 
     funnel.chart.views.forEach((funnelView) => {
       expect(funnelView.geometries[0].labelsContainer.cfg.children.length).toBe(0);

@@ -1,8 +1,9 @@
 import { Pie } from '../../src';
 import { createDiv } from '../utils/dom';
+import { delay } from '../utils/delay';
 
 describe('#2054', () => {
-  it('pie {percentage} label', () => {
+  it('pie {percentage} label', async () => {
     const pie = new Pie(createDiv(), {
       width: 400,
       height: 400,
@@ -22,7 +23,7 @@ describe('#2054', () => {
     });
 
     pie.render();
-
+    await delay(0);
     const labels = pie.chart.geometries[0].labelsContainer.getChildren();
     expect(labels[2].get('children')[0].attr('text')).toBe('0.00%');
 

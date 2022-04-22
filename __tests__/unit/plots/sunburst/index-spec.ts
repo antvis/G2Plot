@@ -1,5 +1,6 @@
 import { Sunburst } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 import { SIMPLE_SUNBURST_DATA } from '../../../data/sunburst';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/sunburst/constant';
 
@@ -74,17 +75,19 @@ describe('sunburst', () => {
     expect(elements[14].shape.attr('fillOpacity')).toBe(1);
   });
 
-  it('label', () => {
+  it('label', async () => {
     let geometry = plot.chart.geometries[0];
     expect(geometry.labelOption).toBe(false);
 
     plot.update({ label: {} });
+    await delay(0);
     let labelGroup = plot.chart.geometries[0].labelsContainer.getChildren()[0];
     expect(typeof plot.chart.geometries[0].labelOption).toBe('object');
     // @ts-ignore
     expect(labelGroup.getChildByIndex(0).attr('text')).toBe(plot.chart.getData()[0].name);
 
     plot.update({ label: { fields: ['value'] } });
+    await delay(0);
     labelGroup = plot.chart.geometries[0].labelsContainer.getChildren()[0];
     const filterData = plot.chart.getData();
     // @ts-ignore
@@ -92,12 +95,14 @@ describe('sunburst', () => {
 
     // meta
     plot.update({ meta: { value: { formatter: (v) => v + '%' } } });
+    await delay(0);
     labelGroup = plot.chart.geometries[0].labelsContainer.getChildren()[0];
     // @ts-ignore
     expect(labelGroup.getChildByIndex(0).attr('text')).toBe(`${filterData[0].value}%`);
 
     // formatter
     plot.update({ label: { formatter: () => 'xxx' } });
+    await delay(0);
     geometry = plot.chart.geometries[0];
     // @ts-ignore
     expect(geometry.labelsContainer.getChildren()[0].getChildByIndex(0).attr('text')).toBe('xxx');

@@ -1,10 +1,11 @@
 import { Datum, Chord } from '../../../../src';
+import { delay } from '../../../utils/delay';
 import { createDiv } from '../../../utils/dom';
 import { populationMovementData } from '../../../data/chord-population';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/chord/constant';
 
 describe('chord', () => {
-  it('chord', () => {
+  it('chord', async () => {
     const chord = new Chord(createDiv(), {
       height: 500,
       data: populationMovementData,
@@ -58,7 +59,7 @@ describe('chord', () => {
       x: [0.00625, 0.24959442595673875, 0.24959442595673875, 0.00625],
       y: [-0.025, -0.025, 0.025, 0.025],
     });
-
+    await delay(0);
     // edge label
     expect(chord.chart.views[0].geometries[0].labelsContainer.getChildren().length).toBe(0);
 

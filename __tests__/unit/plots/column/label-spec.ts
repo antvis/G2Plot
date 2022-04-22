@@ -1,9 +1,10 @@
 import { Column } from '../../../../src';
 import { salesByArea, subSalesByArea } from '../../../data/sales';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 
 describe('column label', () => {
-  it('position top', () => {
+  it('position top', async () => {
     const column = new Column(createDiv('position top'), {
       width: 400,
       height: 300,
@@ -24,6 +25,7 @@ describe('column label', () => {
     column.render();
 
     const geometry = column.chart.geometries[0];
+    await delay(0);
     const labelGroups = geometry.labelsContainer.getChildren();
 
     // @ts-ignore
@@ -94,7 +96,7 @@ describe('column label', () => {
     column.destroy();
   });
 
-  it('group column position top', () => {
+  it('group column position top', async () => {
     const column = new Column(createDiv('group column position top'), {
       width: 400,
       height: 300,
@@ -117,6 +119,7 @@ describe('column label', () => {
     column.render();
 
     const geometry = column.chart.geometries[0];
+    await delay(0);
     const labelGroups = geometry.labelsContainer.getChildren();
 
     // @ts-ignore
@@ -132,7 +135,7 @@ describe('column label', () => {
     column.destroy();
   });
 
-  it('group column position middle', () => {
+  it('group column position middle', async () => {
     const column = new Column(createDiv('group column position middle'), {
       width: 400,
       height: 300,
@@ -155,6 +158,7 @@ describe('column label', () => {
     column.render();
 
     const geometry = column.chart.geometries[0];
+    await delay(0);
     const labelGroups = geometry.labelsContainer.getChildren();
 
     // @ts-ignore
@@ -170,7 +174,7 @@ describe('column label', () => {
     column.destroy();
   });
 
-  it('group column position bottom', () => {
+  it('group column position bottom', async () => {
     const column = new Column(createDiv('group column position bottom'), {
       width: 400,
       height: 300,
@@ -193,6 +197,7 @@ describe('column label', () => {
     column.render();
 
     const geometry = column.chart.geometries[0];
+    await delay(0);
     const labelGroups = geometry.labelsContainer.getChildren();
 
     // @ts-ignore

@@ -1,9 +1,10 @@
 import { Lab, Mix, MultiView } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 import { partySupport } from '../../../data/party-support';
 
 describe('multi-view', () => {
-  it('simple line', () => {
+  it('simple line', async () => {
     const data = partySupport.filter((o) => ['FF', 'Lab'].includes(o.type));
     const line = new Lab.MultiView(createDiv(), {
       width: 400,
@@ -70,6 +71,7 @@ describe('multi-view', () => {
     // @ts-ignore
     options.views[0].geometries[0].label = { content: () => 'hello' };
     line.update(options);
+    await delay(0);
     expect(line.chart.views[0].geometries[0].labelsContainer.getChildren().length).toBe(data.length);
     // @ts-ignore
     expect(line.chart.views[0].geometries[0].labelsContainer.getChildren()[0].getChildren()[0].attr('text')).toBe(
@@ -209,7 +211,7 @@ describe('multi-view', () => {
     expect(line.getAttribute('color').values).toEqual(['red']);
   });
 
-  it('MultiView 依然可以使用', () => {
+  it('MultiView 依然可以使用', async () => {
     const data = partySupport.filter((o) => ['FF', 'Lab'].includes(o.type));
     const line = new MultiView(createDiv(), {
       width: 400,
@@ -276,6 +278,7 @@ describe('multi-view', () => {
     // @ts-ignore
     options.views[0].geometries[0].label = { content: () => 'hello' };
     line.update(options);
+    await delay(0);
     expect(line.chart.views[0].geometries[0].labelsContainer.getChildren().length).toBe(data.length);
     // @ts-ignore
     expect(line.chart.views[0].geometries[0].labelsContainer.getChildren()[0].getChildren()[0].attr('text')).toBe(

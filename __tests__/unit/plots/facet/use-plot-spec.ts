@@ -1,6 +1,7 @@
 import { groupBy, size } from '@antv/util';
 import { Facet } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 import { simulateMouseEvent } from '../../../utils/event';
 
 describe('facet', () => {
@@ -259,7 +260,7 @@ describe('facet', () => {
     expect(plot.chart.views[1].options.animate).toBe(false);
   });
 
-  it('label, 支持单独配置 & 不支持顶层配置', () => {
+  it('label, 支持单独配置 & 不支持顶层配置', async () => {
     plot.update({
       eachView: (__, facet) => {
         return {
@@ -274,6 +275,7 @@ describe('facet', () => {
         };
       },
     });
+    await delay(0);
     expect(plot.chart.views[0].geometries[0].labelsContainer.getChildren().length).toBeGreaterThan(0);
     expect(plot.chart.views[1].geometries[0].labelsContainer.getChildren().length).toBe(0);
   });

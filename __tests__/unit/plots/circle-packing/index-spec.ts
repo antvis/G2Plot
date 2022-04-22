@@ -1,5 +1,6 @@
 import { CirclePacking } from '../../../../src';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 import { DATA } from '../../../data/circle-packing';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/circle-packing/constant';
 
@@ -88,8 +89,9 @@ describe('Circle-Packing', () => {
     expect(elements[elements.length - 1].shape.attr('lineWidth')).toBe(2);
   });
 
-  it('label', () => {
+  it('label', async () => {
     let geometry = plot.chart.geometries[0];
+    await delay(0);
     let labelGroup = plot.chart.geometries[0].labelsContainer.getChildren()[0];
     expect(typeof plot.chart.geometries[0].labelOption).toBe('object');
     // @ts-ignore
@@ -100,6 +102,7 @@ describe('Circle-Packing', () => {
     );
 
     plot.update({ label: { fields: ['value'] } });
+    await delay(0);
     labelGroup = plot.chart.geometries[0].labelsContainer.getChildren()[0];
     const filterData = plot.chart.getData();
     // @ts-ignore
@@ -107,12 +110,14 @@ describe('Circle-Packing', () => {
 
     // meta
     plot.update({ meta: { value: { formatter: (v) => v + '%' } } });
+    await delay(0);
     labelGroup = plot.chart.geometries[0].labelsContainer.getChildren()[0];
     // @ts-ignore
     expect(labelGroup.getChildByIndex(0).attr('text')).toBe(`${filterData[0].value}%`);
 
     // formatter
     plot.update({ label: { formatter: () => 'xxx' } });
+    await delay(0);
     geometry = plot.chart.geometries[0];
     // @ts-ignore
     expect(geometry.labelsContainer.getChildren()[0].getChildByIndex(0).attr('text')).toBe('xxx');

@@ -2,6 +2,7 @@ import { deepMix } from '@antv/util';
 import { Rose } from '../../../../src';
 import { salesByArea, subSalesByArea } from '../../../data/sales';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 
 describe('rose label', () => {
   const options = {
@@ -152,7 +153,7 @@ describe('rose label', () => {
     rose.destroy();
   });
 
-  it('position top', () => {
+  it('position top', async () => {
     const rose = new Rose(
       createDiv('position top'),
       deepMix({}, options, {
@@ -166,6 +167,7 @@ describe('rose label', () => {
     rose.render();
 
     const geometry = rose.chart.geometries[0];
+    await delay(0);
     const labelGroups = geometry.labelsContainer.getChildren();
 
     // @ts-ignore
@@ -218,7 +220,7 @@ describe('rose label', () => {
     rose.destroy();
   });
 
-  it('group rose position top', () => {
+  it('group rose position top', async () => {
     const rose = new Rose(
       createDiv('group rose position top'),
       deepMix({}, options, {
@@ -235,6 +237,7 @@ describe('rose label', () => {
     rose.render();
 
     const geometry = rose.chart.geometries[0];
+    await delay(0);
     const labelGroups = geometry.labelsContainer.getChildren();
 
     // @ts-ignore
@@ -250,7 +253,7 @@ describe('rose label', () => {
     rose.destroy();
   });
 
-  it('group rose position middle', () => {
+  it('group rose position middle', async () => {
     const rose = new Rose(
       createDiv('group rose position middle'),
       deepMix({}, options, {
@@ -267,6 +270,7 @@ describe('rose label', () => {
     rose.render();
 
     const geometry = rose.chart.geometries[0];
+    await delay(0);
     const labelGroups = geometry.labelsContainer.getChildren();
 
     // @ts-ignore
@@ -282,7 +286,7 @@ describe('rose label', () => {
     rose.destroy();
   });
 
-  it('group rose position bottom', () => {
+  it('group rose position bottom', async () => {
     const rose = new Rose(
       createDiv('group rose position bottom'),
       deepMix({}, options, {
@@ -299,6 +303,7 @@ describe('rose label', () => {
     rose.render();
 
     const geometry = rose.chart.geometries[0];
+    await delay(0);
     const labelGroups = geometry.labelsContainer.getChildren();
 
     // @ts-ignore

@@ -3,6 +3,7 @@ import { flatten } from '@antv/util';
 import { Pie } from '../../../../src';
 import { POSITIVE_NEGATIVE_DATA } from '../../../data/common';
 import { createDiv } from '../../../utils/dom';
+import { delay } from '../../../utils/delay';
 
 describe('pie label', () => {
   const data = POSITIVE_NEGATIVE_DATA.filter((o) => o.value > 0).map((d, idx) =>
@@ -22,16 +23,17 @@ describe('pie label', () => {
   const pie = new Pie(createDiv(), config);
   pie.render();
 
-  it('label: visible', () => {
+  it('label: visible', async () => {
     const geometry = pie.chart.geometries[0];
     const elements = geometry.elements;
+    await delay(0);
     const labelGroups = geometry.labelsContainer.getChildren();
 
     expect(elements.length).toBe(data.length);
     expect(labelGroups.length).toBe(data.length);
   });
 
-  it('label: custom content & support percent', () => {
+  it('label: custom content & support percent', async () => {
     pie.update({
       data: [
         { type: 'item1', value: 1 },
@@ -50,6 +52,7 @@ describe('pie label', () => {
     });
 
     const geometry = pie.chart.geometries[0];
+    await delay(0);
     const labelGroups = geometry.labelsContainer.getChildren();
     expect(labelGroups.length).toBe(3);
     const label1 = (labelGroups[0] as IGroup).getChildren();
@@ -60,7 +63,7 @@ describe('pie label', () => {
     expect(label2[0].attr('text')).toBe('item2: 2(40%)');
   });
 
-  it('label: custom callback', () => {
+  it('label: custom callback', async () => {
     pie.update({
       data,
       label: {
@@ -72,6 +75,7 @@ describe('pie label', () => {
       },
     });
     const geometry = pie.chart.geometries[0];
+    await delay(0);
     const labelGroups = geometry.labelsContainer.getChildren();
 
     expect(labelGroups.length).toBe(data.length);
@@ -81,7 +85,7 @@ describe('pie label', () => {
     expect(label3[0].attr('text')).toBe(`${data[2].type}: ${data[2].value}`);
   });
 
-  it('label: offset adaptor', () => {
+  it('label: offset adaptor', async () => {
     pie.update({ label: { type: 'inner', offset: -10 } });
     let geometry = pie.chart.geometries[0];
     // @ts-ignore
@@ -89,6 +93,7 @@ describe('pie label', () => {
     expect(parseFloat(labelItems[0].offset)).toBeLessThan(0);
 
     pie.update({ label: { type: 'outer' } });
+    await delay(0);
     geometry = pie.chart.geometries[0];
     // @ts-ignore
     labelItems = geometry.geometryLabel.getLabelItems(flatten(geometry.dataArray));
@@ -107,7 +112,7 @@ describe('pie label', () => {
 });
 
 describe('support template string formatter', () => {
-  it('', () => {
+  it('', async () => {
     const pie = new Pie(createDiv(), {
       width: 400,
       height: 400,
@@ -125,6 +130,7 @@ describe('support template string formatter', () => {
     });
 
     pie.render();
+    await delay(0);
     let labels = pie.chart.geometries[0].labelsContainer.getChildren();
     expect((labels[0] as IGroup).getChildren()[0].attr('text')).toBe('item1: 1');
 
@@ -134,6 +140,7 @@ describe('support template string formatter', () => {
         content: '{name}: {value}({percentage})',
       },
     });
+    await delay(0);
     labels = pie.chart.geometries[0].labelsContainer.getChildren();
     // todo 暂时没有提供精度配置，直接粗暴返回
     expect((labels[0] as IGroup).getChildren()[0].attr('text')).toContain('...');
@@ -146,6 +153,7 @@ describe('support template string formatter', () => {
         layout: [],
       },
     });
+    await delay(0);
     labels = pie.chart.geometries[0].labelsContainer.getChildren();
     expect((labels[0] as IGroup).getChildren()[0].attr('text')).toBe('item1: 1(20.00%)');
 

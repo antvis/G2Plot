@@ -1,5 +1,6 @@
 import { Sankey } from '../../src';
 import { createDiv, removeDom } from '../utils/dom';
+import { delay } from '../utils/delay';
 import { PARALLEL_SET } from '../data/parallel-set';
 
 describe('sankey', () => {
@@ -33,13 +34,15 @@ describe('sankey', () => {
 
   sankey.render();
 
-  it('label', () => {
+  it('label', async () => {
     sankey.update({ label: { formatter: () => 'HELLO' } });
+    await delay(300);
     expect(sankey.chart.views[1].geometries[0].labelsContainer.getChildByIndex(0).cfg.children[0].attr('text')).toBe(
       'HELLO'
     );
     // with rawFields
     sankey.update({ label: { formatter: ({ append }) => append } });
+    await delay(300);
     expect(sankey.chart.views[1].geometries[0].labelsContainer.getChildByIndex(0).cfg.children[0].attr('text')).toBe(
       'hello'
     );

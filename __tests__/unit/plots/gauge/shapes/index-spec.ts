@@ -112,6 +112,7 @@ describe('gauge', () => {
       percent: 0.75,
       indicator: null,
       meter: { steps: 100 },
+      animation: false,
     });
 
     gauge.render();

@@ -150,25 +150,38 @@ export function sankeyLayout(
   const layoutData: SankeyLayoutOutputData = sankeyProcessor(data);
 
   // post process (x, y), etc.
-  layoutData.nodes.forEach((node) => {
-    const { x0, x1, y0, y1 } = node;
-    /* points
-     * 3---2
-     * |   |
-     * 0---1
-     */
-    node.x = [x0, x1, x1, x0];
-    node.y = [y0, y0, y1, y1];
-  });
+  const nodes = layoutData.nodes
+    .map((node) => {
+      const { x0, x1, y0, y1 } = node;
+      /* points
+       * 3---2
+       * |   |
+       * 0---1
+       */
+      node.x = [x0, x1, x1, x0];
+      node.y = [y0, y0, y1, y1];
 
-  layoutData.links.forEach((edge) => {
-    const { source, target } = edge;
-    const sx = source.x1;
-    const tx = target.x0;
-    edge.x = [sx, sx, tx, tx];
-    const offset = edge.width / 2;
-    edge.y = [edge.y0 + offset, edge.y0 - offset, edge.y1 + offset, edge.y1 - offset];
-  });
+      return node;
+    })
+    .filter((node) => {
+      return node.name !== null;
+    });
 
-  return layoutData;
+  const links = layoutData.links
+    .map((edge) => {
+      const { source, target } = edge;
+      const sx = source.x1;
+      const tx = target.x0;
+      edge.x = [sx, sx, tx, tx];
+      const offset = edge.width / 2;
+      edge.y = [edge.y0 + offset, edge.y0 - offset, edge.y1 + offset, edge.y1 - offset];
+
+      return edge;
+    })
+    .filter((edge) => {
+      const { source, target } = edge;
+      return source.name !== null && target.name !== null;
+    });
+
+  return { nodes, links };
 }

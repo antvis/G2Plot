@@ -1,3 +1,9 @@
+#### 2.4.17 (2022-05-24)
+
+##### New Features
+
+* **sankey:**  sankey support not to display node and edge which is null ([89a4a14b](https://github.com/antvis/G2plot/commit/89a4a14b547b406c84cbeb6fc0b5b85290b3e929))
+
 #### 2.4.16 (2022-04-22)
 
 ##### Chores

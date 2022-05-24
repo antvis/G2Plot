@@ -202,4 +202,25 @@ describe('sankey', () => {
     sankey.destroy();
     removeDom(dom);
   });
+
+  it('new Sankey({...}) supports not to display null.', () => {
+    const DATA = [
+      { source: 'a', target: null, value: 9 },
+      { source: 'a', target: 'b', value: 40 },
+    ];
+
+    const sankey = new Sankey(createDiv(), {
+      data: DATA,
+      sourceField: 'source',
+      targetField: 'target',
+      weightField: 'value',
+    });
+
+    sankey.render();
+
+    expect(sankey.chart.views[0].geometries[0].elements.length).toBe(1);
+    expect(sankey.chart.views[1].geometries[0].elements.length).toBe(2);
+
+    sankey.destroy();
+  });
 });

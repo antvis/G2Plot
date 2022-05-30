@@ -35,6 +35,14 @@
         "en": "Draggable sankey"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/n1taFikWlA/aedefca9-04ba-4588-97ec-82903c039224.png"
+    },
+    {
+      "filename": "node-sort-sankey.ts",
+      "title": {
+        "zh": "节点排序前桑基图",
+        "en": "NodeSort sankey"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/l8TGmjgWln/483b273b-d030-47fd-af1b-eee971d71014.png"
     }
   ]
 }

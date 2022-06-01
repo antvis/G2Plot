@@ -33,10 +33,13 @@ export function transformData(options: BulletOptions): TransformData {
       });
     });
     // 构建 title * target
-    ds.push({
-      tKey: `${targetField}`,
-      [xField]: xField ? item[xField] : String(index),
-      [targetField]: item[targetField],
+    item[targetField].sort((a: number, b: number) => a - b);
+    item[targetField].forEach((d: number, i: number) => {
+      ds.push({
+        tKey: item[targetField].length > 1 ? `${targetField}_${i}` : `${targetField}`, // 一个数据就不带索引了
+        [xField]: xField ? item[xField] : String(index),
+        [targetField]: d,
+      });
     });
     // 为了取最大值和最小值，先存储
     scales.push(item[rangeField], item[measureField], item[targetField]);

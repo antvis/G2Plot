@@ -15,23 +15,40 @@ export function transformData(options: BulletOptions): TransformData {
   const scales: number[] = [];
   data.forEach((item: any, index: number) => {
     // 构建 title * range
-    item[rangeField].sort((a: number, b: number) => a - b);
-    item[rangeField].forEach((d: number, i: number) => {
-      const range = i === 0 ? d : item[rangeField][i] - item[rangeField][i - 1];
-      ds.push({
-        rKey: `${rangeField}_${i}`,
-        [xField]: xField ? item[xField] : String(index), // 没有xField就用索引
-        [rangeField]: range,
+    if (Array.isArray(item[rangeField])) {
+      item[rangeField].sort((a: number, b: number) => a - b);
+      item[rangeField].forEach((d: number, i: number) => {
+        const range = i === 0 ? d : item[rangeField][i] - item[rangeField][i - 1];
+        ds.push({
+          rKey: `${rangeField}_${i}`,
+          [xField]: xField ? item[xField] : String(index), // 没有xField就用索引
+          [rangeField]: range,
+        });
       });
-    });
-    // 构建 title * measure
-    item[measureField].forEach((d: number, i: number) => {
+    } else {
       ds.push({
-        mKey: item[measureField].length > 1 ? `${measureField}_${i}` : `${measureField}`, // 一个数据就不带索引了
+        rKey: `${rangeField}`,
         [xField]: xField ? item[xField] : String(index),
-        [measureField]: d,
+        [rangeField]: item[rangeField],
       });
-    });
+    }
+
+    // 构建 title * measure
+    if (Array.isArray(item[measureField])) {
+      item[measureField].forEach((d: number, i: number) => {
+        ds.push({
+          mKey: item[measureField].length > 1 ? `${measureField}_${i}` : `${measureField}`, // 一个数据就不带索引了
+          [xField]: xField ? item[xField] : String(index),
+          [measureField]: d,
+        });
+      });
+    } else {
+      ds.push({
+        mKey: `${measureField}`, // 一个数据就不带索引了
+        [xField]: xField ? item[xField] : String(index),
+        [measureField]: item[measureField],
+      });
+    }
 
     // 构建 title * target
     if (Array.isArray(item[targetField])) {

@@ -1,3 +1,13 @@
+#### 2.4.18 (2022-06-02)
+
+##### Bug Fixes
+
+* **pie:**  修复饼图 title statistic 没有使用 meta formatter ([165165cc](https://github.com/antvis/G2plot/commit/165165ccb459c603ee3a2bc1a016379141d30283))
+
+##### Tests
+
+* **pie:**  add test case for pie statistic ([43402116](https://github.com/antvis/G2plot/commit/434021163bf0f34cda8ebb67aaf1fbe86981d047))
+
 #### 2.4.17 (2022-05-24)
 
 ##### New Features

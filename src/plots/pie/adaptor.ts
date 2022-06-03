@@ -191,11 +191,14 @@ export function transformStatisticOptions(options: PieOptions): PieOptions {
         {},
         {
           formatter: (datum: Datum) => {
-            // 交互中
-            if (datum) {
-              return datum[colorField];
-            }
-            return !isNil(titleOpt.content) ? titleOpt.content : i18n.get(['statistic', 'total']);
+            // 交互中, datum existed.
+            const text = datum
+              ? datum[colorField]
+              : !isNil(titleOpt.content)
+              ? titleOpt.content
+              : i18n.get(['statistic', 'total']);
+            const metaFormatter = get(meta, [colorField, 'formatter']) || ((v) => v);
+            return metaFormatter(text);
           },
         },
         titleOpt

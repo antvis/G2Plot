@@ -83,7 +83,7 @@ describe('bullet*data*transfrom', () => {
       },
       {
         title: '数学',
-        target: 66,
+        target: 90,
         tKey: 'target_0',
       },
       {
@@ -93,7 +93,7 @@ describe('bullet*data*transfrom', () => {
       },
       {
         title: '数学',
-        target: 90,
+        target: 66,
         tKey: 'target_2',
       },
     ];

@@ -50,7 +50,6 @@ export function transformData(options: BulletOptions): TransformData {
 
     // 构建 title * target
     const targetValues = [item[targetField]].flat();
-    targetValues.sort((a: number, b: number) => a - b);
     targetValues.forEach((d: number, i: number) => {
       ds.push({
         tKey: getSeriesFieldKey(targetValues, targetField, i),

@@ -5,6 +5,18 @@ type TransformData = {
   max: number;
   ds: any[];
 };
+
+/**
+ * 获取分类字段 key 值 一个分类值的时候， 返回非索引 key 值，在 tooltip 不做索引区分
+ * @param values 数据量
+ * @param field 指标字段
+ * @param index 索引
+ * @returns string
+ */
+function getSeriesFieldKey(values: number[], field: string, index: number): string {
+  return values.length > 1 ? `${field}_${index}` : `${field}`;
+}
+
 /**
  * bullet 处理数据
  * @param options
@@ -15,33 +27,33 @@ export function transformData(options: BulletOptions): TransformData {
   const scales: number[] = [];
   data.forEach((item: any, index: number) => {
     // 构建 title * range
-    const rangeFields = [item[rangeField]].flat();
-    rangeFields.sort((a: number, b: number) => a - b);
-    rangeFields.forEach((d: number, i: number) => {
-      const range = i === 0 ? d : rangeFields[i] - rangeFields[i - 1];
+    const rangeValues = [item[rangeField]].flat();
+    rangeValues.sort((a: number, b: number) => a - b);
+    rangeValues.forEach((d: number, i: number) => {
+      const range = i === 0 ? d : rangeValues[i] - rangeValues[i - 1];
       ds.push({
-        rKey: rangeFields.length > 1 ? `${rangeField}_${i}` : `${rangeField}`, // 一个数据就不带索引了
+        rKey: `${rangeField}_${i}`,
         [xField]: xField ? item[xField] : String(index), // 没有xField就用索引
         [rangeField]: range,
       });
     });
 
     // 构建 title * measure
-    const measureFields = [item[measureField]].flat();
-    measureFields.forEach((d: number, i: number) => {
+    const measureValues = [item[measureField]].flat();
+    measureValues.forEach((d: number, i: number) => {
       ds.push({
-        mKey: measureFields.length > 1 ? `${measureField}_${i}` : `${measureField}`, // 一个数据就不带索引了
+        mKey: getSeriesFieldKey(measureValues, measureField, i),
         [xField]: xField ? item[xField] : String(index),
         [measureField]: d,
       });
     });
 
     // 构建 title * target
-    const targetFields = [item[targetField]].flat();
-    targetFields.sort((a: number, b: number) => a - b);
-    targetFields.forEach((d: number, i: number) => {
+    const targetValues = [item[targetField]].flat();
+    targetValues.sort((a: number, b: number) => a - b);
+    targetValues.forEach((d: number, i: number) => {
       ds.push({
-        tKey: targetFields.length > 1 ? `${targetField}_${i}` : `${targetField}`, // 一个数据就不带索引了
+        tKey: getSeriesFieldKey(targetValues, targetField, i),
         [xField]: xField ? item[xField] : String(index),
         [targetField]: d,
       });

@@ -116,7 +116,7 @@ describe('bullet*data*transfrom', () => {
       {
         title: '数学',
         ranges: 100,
-        rKey: 'ranges',
+        rKey: 'ranges_0',
       },
       {
         title: '数学',

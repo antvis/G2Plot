@@ -35,4 +35,35 @@ describe('bar changeData should keep order', () => {
 
     barPlot.destroy();
   });
+
+  it.only('changeData should change scale correctly', () => {
+    const barPlot = new Bar(createDiv(), {
+      data: [
+        { copyAlias: 'test1接口', cpuUtil: 35 },
+        { copyAlias: 'test2接口', cpuUtil: 35 },
+        { copyAlias: 'test3接口', cpuUtil: 35 },
+      ],
+      xField: 'cpuUtil',
+      yField: 'copyAlias',
+      xAxis: {
+        min: 0,
+        max: 100,
+        minLimit: 0,
+        maxLimit: 100,
+      },
+    });
+
+    barPlot.render();
+    barPlot.changeData([
+      { copyAlias: 'test4接口', cpuUtil: 35 },
+      { copyAlias: 'test5接口', cpuUtil: 35 },
+      { copyAlias: 'test6接口', cpuUtil: 35 },
+    ]);
+
+    const boxes = barPlot.chart.geometries[0].elements.map((ele) => ele.getBBox());
+    expect(boxes[0].maxY).toBeLessThan(boxes[1].minY);
+    expect(boxes[1].maxY).toBeLessThan(boxes[2].minY);
+
+    barPlot.destroy();
+  });
 });

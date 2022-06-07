@@ -1,4 +1,4 @@
-export const version = '2.4.18';
+export const version = '2.4.19';
 
 // G2 自定义能力透出
 import * as G2 from '@antv/g2';

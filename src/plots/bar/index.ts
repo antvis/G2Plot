@@ -28,8 +28,11 @@ export class Bar extends Plot<BarOptions> {
   public changeData(data: BarOptions['data']) {
     this.updateOption({ data });
     const { chart, options } = this;
-    const { xField, yField, isPercent } = options;
-    const switchedFieldOptions = { ...options, xField: yField, yField: xField };
+    const { isPercent } = options;
+    let { xField, yField, xAxis, yAxis } = options;
+    [xField, yField] = [yField, xField];
+    [xAxis, yAxis] = [yAxis, xAxis];
+    const switchedFieldOptions = { ...options, xField, yField, yAxis, xAxis };
     meta({ chart, options: switchedFieldOptions });
     chart.changeData(getDataWhetherPercentage(data, xField, yField, xField, isPercent));
   }

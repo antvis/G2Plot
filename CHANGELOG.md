@@ -1,3 +1,20 @@
+#### 2.4.19 (2022-06-07)
+
+##### Chores
+
+*  specify @antv/util dependency ([#3240](https://github.com/antvis/G2plot/pull/3240)) ([e8045596](https://github.com/antvis/G2plot/commit/e804559699e363b0b31625fd62c6c91b4d1fae74))
+
+##### Documentation Changes
+
+* **sankey:**  add demo for sankey ([#3227](https://github.com/antvis/G2plot/pull/3227)) ([adbad6f3](https://github.com/antvis/G2plot/commit/adbad6f338f1a2d746b232a941d118bac165435d))
+
+##### Bug Fixes
+
+* **bar:**  修复条形图更新数据时, x y scale 没有交换问题 ([2880e927](https://github.com/antvis/G2plot/commit/2880e927ae026d63a9195e9183c623226dd0fd05))
+* **bullet:**
+  *  修改子弹图单测 ([#3241](https://github.com/antvis/G2plot/pull/3241)) ([518baeb2](https://github.com/antvis/G2plot/commit/518baeb2f04c35a8095ca7b241bc627672c2cc2a))
+  *  子弹图 添加单数值range/measures 、 多 target 数据修改兼容 ([#3231](https://github.com/antvis/G2plot/pull/3231)) ([3d076dee](https://github.com/antvis/G2plot/commit/3d076deef20e899e79091a355ee83650785e912b))
+
 #### 2.4.18 (2022-06-02)
 
 ##### Bug Fixes

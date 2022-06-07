@@ -54,17 +54,16 @@ describe('bar changeData should keep order', () => {
     });
 
     barPlot.render();
-    const chartData = barPlot.chart.getData();
     barPlot.changeData([
       { copyAlias: 'test4接口', cpuUtil: 35 },
       { copyAlias: 'test5接口', cpuUtil: 35 },
       { copyAlias: 'test6接口', cpuUtil: 35 },
     ]);
 
-    const boxes = barPlot.chart.geometries[0].elements.map(ele => ele.getBBox());
+    const boxes = barPlot.chart.geometries[0].elements.map((ele) => ele.getBBox());
     expect(boxes[0].maxY).toBeLessThan(boxes[1].minY);
     expect(boxes[1].maxY).toBeLessThan(boxes[2].minY);
 
-    // barPlot.destroy();
+    barPlot.destroy();
   });
 });

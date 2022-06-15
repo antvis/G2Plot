@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "element-selected",
+      "title": {
+        "zh": "元素多选交互",
+        "en": "Element selected"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/VoiPvFL%26U5/pie-tooltip.gif"
+    },
+    {
+      "filename": "pie-element-selected",
+      "title": {
+        "zh": "饼图 - 元素多选交互",
+        "en": "Element selected"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/VoiPvFL%26U5/pie-tooltip.gif"
+    },
+    {
+      "filename": "funnelelement-selected",
+      "title": {
+        "zh": "漏斗图 元素多选交互",
+        "en": "Element selected"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/VoiPvFL%26U5/pie-tooltip.gif"
+    }
+  ]
+}

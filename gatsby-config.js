@@ -326,8 +326,8 @@ module.exports = {
       indexName: 'antv_g2plot',
     },
     announcement: {
-      zh: '使用 `useDeferredLabel` 异步渲染数据标签，提升首屏渲染速度。',
-      en: 'Use `useDeferredLabel` to render data labels asynchronous, enable first paint quickly.',
+      zh: '',
+      en: ''
     }
   },
 };

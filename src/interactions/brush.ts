@@ -22,20 +22,21 @@ function isPointInView(context) {
 /**
  * 获取 交互 start 阶段的相关配置
  */
-export function getInteractionCfg(interactionType: string, brushType?: string, mask?: BrushCfg['mask']) {
+export function getInteractionCfg(interactionType: string, brushType?: string, options?: BrushCfg) {
+  const { mask, isStartEnable } = options || {};
   const maskType = brushType || 'rect';
 
   switch (interactionType) {
     case 'brush':
       return {
         showEnable: [
-          { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
+          { trigger: 'plot:mouseenter', action: 'cursor:crosshair', isEnable: isStartEnable || (() => true) },
           { trigger: 'plot:mouseleave', action: 'cursor:default' },
         ],
         start: [
           {
             trigger: 'mousedown',
-            isEnable: isPointInView,
+            isEnable: isStartEnable || isPointInView,
             action: ['brush:start', `${maskType}-mask:start`, `${maskType}-mask:show`],
             // 对应第二个action的参数
             arg: [null, { maskStyle: mask?.style }],
@@ -71,18 +72,26 @@ export function getInteractionCfg(interactionType: string, brushType?: string, m
     case 'brush-highlight':
       return {
         showEnable: [
-          { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
-          { trigger: 'mask:mouseenter', action: 'cursor:move' },
+          { trigger: 'plot:mouseenter', action: 'cursor:crosshair', isEnable: isStartEnable || (() => true) },
+          { trigger: 'plot:mousemove', action: 'cursor:crosshair', isEnable: isStartEnable || (() => true) },
+          {
+            trigger: 'plot:mousemove',
+            action: 'cursor:default',
+            isEnable: (context) => (isStartEnable ? !isStartEnable(context) : false),
+          },
+          { trigger: 'mask:mouseenter', action: 'cursor:move', isEnable: isStartEnable || (() => true) },
           { trigger: 'plot:mouseleave', action: 'cursor:default' },
           { trigger: 'mask:mouseleave', action: 'cursor:crosshair' },
         ],
         start: [
           {
             trigger: 'plot:mousedown',
-            isEnable(context) {
-              // 不要点击在 mask 上重新开始
-              return !context.isInShape('mask');
-            },
+            isEnable:
+              isStartEnable ||
+              ((context) => {
+                // 不要点击在 mask 上重新开始
+                return !context.isInShape('mask');
+              }),
             action: [`${maskType}-mask:start`, `${maskType}-mask:show`],
             // 对应第 1 个action的参数
             arg: [{ maskStyle: mask?.style }],
@@ -122,13 +131,13 @@ export function getInteractionCfg(interactionType: string, brushType?: string, m
     case 'brush-x':
       return {
         showEnable: [
-          { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
+          { trigger: 'plot:mouseenter', action: 'cursor:crosshair', isEnable: isStartEnable || (() => true) },
           { trigger: 'plot:mouseleave', action: 'cursor:default' },
         ],
         start: [
           {
             trigger: 'mousedown',
-            isEnable: isPointInView,
+            isEnable: isStartEnable || isPointInView,
             action: ['brush-x:start', `${maskType}-mask:start`, `${maskType}-mask:show`],
             // 对应第二个action的参数
             arg: [null, { maskStyle: mask?.style }],
@@ -153,18 +162,20 @@ export function getInteractionCfg(interactionType: string, brushType?: string, m
     case 'brush-x-highlight':
       return {
         showEnable: [
-          { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
-          { trigger: 'mask:mouseenter', action: 'cursor:move' },
+          { trigger: 'plot:mouseenter', action: 'cursor:crosshair', isEnable: isStartEnable || (() => true) },
+          { trigger: 'mask:mouseenter', action: 'cursor:move', isEnable: isStartEnable || (() => true) },
           { trigger: 'plot:mouseleave', action: 'cursor:default' },
           { trigger: 'mask:mouseleave', action: 'cursor:crosshair' },
         ],
         start: [
           {
             trigger: 'plot:mousedown',
-            isEnable(context) {
-              // 不要点击在 mask 上重新开始
-              return !context.isInShape('mask');
-            },
+            isEnable:
+              isStartEnable ||
+              ((context) => {
+                // 不要点击在 mask 上重新开始
+                return !context.isInShape('mask');
+              }),
             action: [`${maskType}-mask:start`, `${maskType}-mask:show`],
             // 对应第 1 个action的参数
             arg: [{ maskStyle: mask?.style }],
@@ -204,13 +215,13 @@ export function getInteractionCfg(interactionType: string, brushType?: string, m
     case 'brush-y':
       return {
         showEnable: [
-          { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
+          { trigger: 'plot:mouseenter', action: 'cursor:crosshair', isEnable: isStartEnable || (() => true) },
           { trigger: 'plot:mouseleave', action: 'cursor:default' },
         ],
         start: [
           {
             trigger: 'mousedown',
-            isEnable: isPointInView,
+            isEnable: isStartEnable || isPointInView,
             action: ['brush-y:start', `${maskType}-mask:start`, `${maskType}-mask:show`],
             // 对应第二个action的参数
             arg: [null, { maskStyle: mask?.style }],
@@ -235,18 +246,20 @@ export function getInteractionCfg(interactionType: string, brushType?: string, m
     case 'brush-y-highlight':
       return {
         showEnable: [
-          { trigger: 'plot:mouseenter', action: 'cursor:crosshair' },
-          { trigger: 'mask:mouseenter', action: 'cursor:move' },
+          { trigger: 'plot:mouseenter', action: 'cursor:crosshair', isEnable: isStartEnable || (() => true) },
+          { trigger: 'mask:mouseenter', action: 'cursor:move', isEnable: isStartEnable || (() => true) },
           { trigger: 'plot:mouseleave', action: 'cursor:default' },
           { trigger: 'mask:mouseleave', action: 'cursor:crosshair' },
         ],
         start: [
           {
             trigger: 'plot:mousedown',
-            isEnable(context) {
-              // 不要点击在 mask 上重新开始
-              return !context.isInShape('mask');
-            },
+            isEnable:
+              isStartEnable ||
+              ((context) => {
+                // 不要点击在 mask 上重新开始
+                return !context.isInShape('mask');
+              }),
             action: [`${maskType}-mask:start`, `${maskType}-mask:show`],
             // 对应第 1 个action的参数
             arg: [{ maskStyle: mask?.style }],

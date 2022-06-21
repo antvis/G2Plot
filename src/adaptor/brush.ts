@@ -39,8 +39,8 @@ export function brushInteraction<O extends Options = Options>(params: Params<O>)
       }
       const obj: Writable<Interaction> = { type, enable };
 
-      if (brush.mask?.style || brush.type) {
-        obj.cfg = getInteractionCfg(type, brush.type, brush.mask);
+      if (brush) {
+        obj.cfg = getInteractionCfg(type, brush.type, brush);
       }
       interactions.push(obj);
     });

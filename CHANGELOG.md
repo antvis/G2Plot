@@ -1,3 +1,14 @@
+#### 2.4.20 (2022-06-21)
+
+##### Documentation Changes
+
+* **demo:**  add a new demo about how to handle element multiple selected ([#3253](https://github.com/antvis/G2plot/pull/3253)) ([bcdd15ef](https://github.com/antvis/G2plot/commit/bcdd15efdeb8eb81ccb53751304a4da7490fc3eb))
+
+##### New Features
+
+* **interaction:**  support config brush start enable ([4962d16c](https://github.com/antvis/G2plot/commit/4962d16c39fa68b055ed086b24e1cfc7e4d8e93d))
+
+
 #### 2.4.19 (2022-06-07)
 
 ##### Chores

@@ -43,4 +43,10 @@ export type BrushCfg = {
    * @description brush button 的配置, 只在 action: 'filter' 的情况下适用
    */
   readonly button?: ButtonCfg;
+
+  /**
+   * @title 是否允许 brush 交互开始的回调
+   * @description 是否允许 brush 交互开始的回调
+   */
+  readonly isStartEnable?: (context: any) => boolean;
 };

@@ -10,15 +10,24 @@ import { GaugeOptions, GaugeRangeData } from './types';
  * @returns {GaugeRangeData}
  */
 export function processRangeData(range: number[], percent: GaugeOptions['percent']): GaugeRangeData {
-  return (
-    range
-      // 映射为 stack 的数据
-      .map((r: number, idx: number) => {
-        return { [RANGE_VALUE]: r - (range[idx - 1] || 0), [RANGE_TYPE]: `${idx}`, [PERCENT]: percent };
-      })
-      // 去掉 0 的数据
-      .filter((d: Datum) => !!d[RANGE_VALUE])
-  );
+  const rangeData = range
+    // 映射为 stack 的数据
+    .map((r: number, idx: number) => {
+      return { [RANGE_VALUE]: r - (range[idx - 1] || 0), [RANGE_TYPE]: `${idx}`, [PERCENT]: percent };
+    })
+    // 去掉 0 的数据
+    .filter((d: Datum) => !!d[RANGE_VALUE]);
+
+  // percent 为 0 时 重新补充
+  if (rangeData.length < 2) {
+    rangeData.unshift({
+      [RANGE_VALUE]: 0,
+      [RANGE_TYPE]: `${1}`,
+      [PERCENT]: percent,
+    });
+  }
+
+  return rangeData;
 }
 
 /**

@@ -35,7 +35,7 @@ export function getIndicatorData(percent: GaugeOptions['percent']): Data {
 export function getRangeData(percent: GaugeOptions['percent'], range?: GaugeOptions['range']): GaugeRangeData {
   const ticks = get(range, ['ticks'], []);
 
-  const clampTicks = size(ticks) ? ticks.filter((d: Datum) => !!d) : [clamp(percent, 0, 1), 1];
+  const clampTicks = size(ticks) ? uniq(ticks).filter((d: Datum) => !!d) : [clamp(percent, 0, 1), 1];
 
-  return processRangeData(uniq(clampTicks) as number[], percent);
+  return processRangeData(clampTicks as number[], percent);
 }

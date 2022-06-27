@@ -1,7 +1,8 @@
 import { Pie, measureTextWidth } from '@antv/g2plot';
 
 function renderStatistic(containerWidth, text, style) {
-  const { width: textWidth, height: textHeight } = measureTextWidth(text, style);
+  const textWidth = measureTextWidth(text, style);
+  const textHeight = style.lineHeight || style.fontSize
   const R = containerWidth / 2;
   // r^2 = (w / 2)^2 + (h - offsetY)^2
   let scale = 1;

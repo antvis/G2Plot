@@ -65,7 +65,7 @@ describe('sankey', () => {
     });
     sankey.update({ animation: false });
     // label
-    await delay(200);
+    await delay(500);
     // expect(sankey.chart.views[1].geometries[0].labelsContainer.getChildren().length).toBe(48);
     expect(sankey.chart.views[1].geometries[0].labelsContainer.getChildByIndex(0).cfg.children[0].attr('text')).toBe(
       "Agricultural 'waste'"

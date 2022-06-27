@@ -74,6 +74,14 @@
         "en": "Bar plot with backgorund"
       },
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/t6ut5YQMPB/bar-background.png"
+    },
+    {
+      "filename": "dynamic.ts",
+      "title": {
+        "zh": "动态条形图",
+        "en": "Dynamic Bar"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/%24MveD8UKQW/ddcd45c9-7bbb-4f4e-b290-c225996e687a.png"
     }
   ]
 }

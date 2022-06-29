@@ -23,7 +23,7 @@ describe('ring-progress', () => {
     expect(ringProgress.chart.geometries[0].elements[0].getData().percent).toBe(0.6);
     expect(ringProgress.chart.geometries[0].elements[0].shape.attr('fill')).toBe('#FAAD14');
     expect(ringProgress.chart.geometries[0].elements[1].getData().type).toBe('target');
-    expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(0.4);
+    expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(1);
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
 
     ringProgress.update({
@@ -39,7 +39,7 @@ describe('ring-progress', () => {
     expect(ringProgress.chart.geometries[0].elements[0].getData().percent).toBe(0.5);
     expect(ringProgress.chart.geometries[0].elements[0].shape.attr('fill')).toBe('#FAAD14');
     expect(ringProgress.chart.geometries[0].elements[1].getData().type).toBe('target');
-    expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(0.5);
+    expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(1);
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
 
     ringProgress.destroy();
@@ -61,7 +61,7 @@ describe('ring-progress', () => {
     expect(ringProgress.chart.geometries[0].elements[0].getData().percent).toBe(0.6);
     expect(ringProgress.chart.geometries[0].elements[0].shape.attr('fill')).toBe('#123456');
     expect(ringProgress.chart.geometries[0].elements[1].getData().type).toBe('target');
-    expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(0.4);
+    expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(1);
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#654321');
 
     ringProgress.update({
@@ -72,7 +72,7 @@ describe('ring-progress', () => {
     expect(ringProgress.chart.geometries[0].elements[0].getData().percent).toBe(0.6);
     expect(ringProgress.chart.geometries[0].elements[0].shape.attr('fill')).toBe('#654321');
     expect(ringProgress.chart.geometries[0].elements[1].getData().type).toBe('target');
-    expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(0.4);
+    expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(1);
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#123456');
 
     ringProgress.destroy();
@@ -101,13 +101,13 @@ describe('ring-progress', () => {
     expect(ringProgress.chart.geometries[0].elements[0].shape.attr('lineWidth')).toBe(2);
     expect(ringProgress.chart.geometries[0].elements[0].shape.attr('lineDash')).toEqual([2, 2]);
     expect(ringProgress.chart.geometries[0].elements[1].getData().type).toBe('target');
-    expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(0.4);
+    expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(1);
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('stroke')).toBe('#123456');
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('lineWidth')).toBe(2);
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('lineDash')).toEqual([2, 2]);
 
-    const progressStyle = ({ percent, type }) => {
+    const progressStyle = ({ current, percent, type }) => {
       if (type === 'current') {
         return percent > 0.5
           ? {
@@ -121,7 +121,7 @@ describe('ring-progress', () => {
               lineDash: [4, 4],
             };
       } else if (type === 'target') {
-        return percent >= 0.5
+        return percent - current >= 0.5
           ? {
               stroke: '#654321',
               lineWidth: 4,
@@ -146,7 +146,7 @@ describe('ring-progress', () => {
     expect(ringProgress.chart.geometries[0].elements[0].shape.attr('lineWidth')).toBe(4);
     expect(ringProgress.chart.geometries[0].elements[0].shape.attr('lineDash')).toEqual([4, 4]);
     expect(ringProgress.chart.geometries[0].elements[1].getData().type).toBe('target');
-    expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(0.4);
+    expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(1);
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('stroke')).toBe('#123456');
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('lineWidth')).toBe(4);
@@ -164,7 +164,7 @@ describe('ring-progress', () => {
     expect(ringProgress.chart.geometries[0].elements[0].shape.attr('lineWidth')).toBe(4);
     expect(ringProgress.chart.geometries[0].elements[0].shape.attr('lineDash')).toEqual([4, 4]);
     expect(ringProgress.chart.geometries[0].elements[1].getData().type).toBe('target');
-    expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(0.6);
+    expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(1);
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('stroke')).toBe('#654321');
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('lineWidth')).toBe(4);
@@ -189,7 +189,7 @@ describe('ring-progress', () => {
     expect(ringProgress.chart.geometries[0].elements[0].getData().percent).toBe(0.6);
     expect(ringProgress.chart.geometries[0].elements[0].shape.attr('fill')).toBe('#FAAD14');
     expect(ringProgress.chart.geometries[0].elements[1].getData().type).toBe('target');
-    expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(0.4);
+    expect(ringProgress.chart.geometries[0].elements[1].getData().percent).toBe(1);
     expect(ringProgress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
 
     ringProgress.destroy();
@@ -246,14 +246,14 @@ describe('ring-progress', () => {
 
     ring.render();
 
-    expect(ring.chart.getData()).toEqual([
+    expect(ring.chart.getData()).toMatchObject([
       {
         type: 'current',
         percent: 1,
       },
       {
         type: 'target',
-        percent: 0,
+        percent: 1,
       },
     ]);
 
@@ -262,7 +262,7 @@ describe('ring-progress', () => {
       percent: -1.65,
     });
 
-    expect(ring.chart.getData()).toEqual([
+    expect(ring.chart.getData()).toMatchObject([
       {
         type: 'current',
         percent: 0,

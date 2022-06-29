@@ -19,10 +19,9 @@ export function geometry(params: Params<ProgressOptions>): Params<ProgressOption
 
   const p = deepAssign({}, params, {
     options: {
-      xField: '1',
+      xField: 'current',
       yField: 'percent',
       seriesField: 'type',
-      isStack: true,
       widthRatio: barWidthRatio,
       interval: {
         style: progressStyle,

@@ -16,7 +16,7 @@ describe('progress', () => {
     expect(progress.chart.geometries[0].elements[0].getData().percent).toBe(0.6);
     expect(progress.chart.geometries[0].elements[0].shape.attr('fill')).toBe('#FAAD14');
     expect(progress.chart.geometries[0].elements[1].getData().type).toBe('target');
-    expect(progress.chart.geometries[0].elements[1].getData().percent).toBe(0.4);
+    expect(progress.chart.geometries[0].elements[1].getData().percent).toBe(1);
     expect(progress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
 
     progress.update({
@@ -27,7 +27,7 @@ describe('progress', () => {
     expect(progress.chart.geometries[0].elements[0].getData().percent).toBe(0.5);
     expect(progress.chart.geometries[0].elements[0].shape.attr('fill')).toBe('#FAAD14');
     expect(progress.chart.geometries[0].elements[1].getData().type).toBe('target');
-    expect(progress.chart.geometries[0].elements[1].getData().percent).toBe(0.5);
+    expect(progress.chart.geometries[0].elements[1].getData().percent).toBe(1);
     expect(progress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
 
     progress.destroy();
@@ -47,7 +47,7 @@ describe('progress', () => {
     expect(progress.chart.geometries[0].elements[0].getData().percent).toBe(0.6);
     expect(progress.chart.geometries[0].elements[0].shape.attr('fill')).toBe('#123456');
     expect(progress.chart.geometries[0].elements[1].getData().type).toBe('target');
-    expect(progress.chart.geometries[0].elements[1].getData().percent).toBe(0.4);
+    expect(progress.chart.geometries[0].elements[1].getData().percent).toBe(1);
     expect(progress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#654321');
 
     progress.update({
@@ -58,7 +58,7 @@ describe('progress', () => {
     expect(progress.chart.geometries[0].elements[0].getData().percent).toBe(0.6);
     expect(progress.chart.geometries[0].elements[0].shape.attr('fill')).toBe('#654321');
     expect(progress.chart.geometries[0].elements[1].getData().type).toBe('target');
-    expect(progress.chart.geometries[0].elements[1].getData().percent).toBe(0.4);
+    expect(progress.chart.geometries[0].elements[1].getData().percent).toBe(1);
     expect(progress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#123456');
 
     progress.destroy();
@@ -85,13 +85,13 @@ describe('progress', () => {
     expect(progress.chart.geometries[0].elements[0].shape.attr('lineWidth')).toBe(2);
     expect(progress.chart.geometries[0].elements[0].shape.attr('lineDash')).toEqual([2, 2]);
     expect(progress.chart.geometries[0].elements[1].getData().type).toBe('target');
-    expect(progress.chart.geometries[0].elements[1].getData().percent).toBe(0.4);
+    expect(progress.chart.geometries[0].elements[1].getData().percent).toBe(1);
     expect(progress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
     expect(progress.chart.geometries[0].elements[1].shape.attr('stroke')).toBe('#123456');
     expect(progress.chart.geometries[0].elements[1].shape.attr('lineWidth')).toBe(2);
     expect(progress.chart.geometries[0].elements[1].shape.attr('lineDash')).toEqual([2, 2]);
 
-    const progressStyle = ({ percent, type }) => {
+    const progressStyle = ({ current, percent, type }) => {
       if (type === 'current') {
         return percent > 0.5
           ? {
@@ -105,7 +105,7 @@ describe('progress', () => {
               lineDash: [4, 4],
             };
       } else if (type === 'target') {
-        return percent >= 0.5
+        return percent - current >= 0.5
           ? {
               stroke: '#654321',
               lineWidth: 4,
@@ -130,7 +130,7 @@ describe('progress', () => {
     expect(progress.chart.geometries[0].elements[0].shape.attr('lineWidth')).toBe(4);
     expect(progress.chart.geometries[0].elements[0].shape.attr('lineDash')).toEqual([4, 4]);
     expect(progress.chart.geometries[0].elements[1].getData().type).toBe('target');
-    expect(progress.chart.geometries[0].elements[1].getData().percent).toBe(0.4);
+    expect(progress.chart.geometries[0].elements[1].getData().percent).toBe(1);
     expect(progress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
     expect(progress.chart.geometries[0].elements[1].shape.attr('stroke')).toBe('#123456');
     expect(progress.chart.geometries[0].elements[1].shape.attr('lineWidth')).toBe(4);
@@ -148,7 +148,7 @@ describe('progress', () => {
     expect(progress.chart.geometries[0].elements[0].shape.attr('lineWidth')).toBe(4);
     expect(progress.chart.geometries[0].elements[0].shape.attr('lineDash')).toEqual([4, 4]);
     expect(progress.chart.geometries[0].elements[1].getData().type).toBe('target');
-    expect(progress.chart.geometries[0].elements[1].getData().percent).toBe(0.6);
+    expect(progress.chart.geometries[0].elements[1].getData().percent).toBe(1);
     expect(progress.chart.geometries[0].elements[1].shape.attr('fill')).toBe('#E8EDF3');
     expect(progress.chart.geometries[0].elements[1].shape.attr('stroke')).toBe('#654321');
     expect(progress.chart.geometries[0].elements[1].shape.attr('lineWidth')).toBe(4);
@@ -222,14 +222,14 @@ describe('progress', () => {
 
     progress.render();
 
-    expect(progress.chart.getData()).toEqual([
+    expect(progress.chart.getData()).toMatchObject([
       {
         type: 'current',
         percent: 1,
       },
       {
         type: 'target',
-        percent: 0,
+        percent: 1,
       },
     ]);
 
@@ -238,7 +238,7 @@ describe('progress', () => {
       percent: -1.65,
     });
 
-    expect(progress.chart.getData()).toEqual([
+    expect(progress.chart.getData()).toMatchObject([
       {
         type: 'current',
         percent: 0,

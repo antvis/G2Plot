@@ -36,6 +36,8 @@ export function getRangeData(percent: GaugeOptions['percent'], range?: GaugeOpti
   const ticks = get(range, ['ticks'], []);
 
   const clampTicks = size(ticks) ? uniq(ticks) : [0, clamp(percent, 0, 1), 1];
-  !clampTicks[0] && clampTicks.shift();
+  if (!clampTicks[0]) {
+    clampTicks.shift();
+  }
   return processRangeData(clampTicks as number[], percent);
 }

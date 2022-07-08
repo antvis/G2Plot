@@ -9,7 +9,7 @@ import { HeatmapOptions } from './types';
 
 function geometry(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart, options } = params;
-  const { data, type, xField, yField, colorField, sizeField, sizeRatio, shape, color, tooltip, heatmapStyle } = options;
+  const { data, type, xField, yField, colorField, sizeField, sizeRatio, shape, color, tooltip, heatmapStyle, meta } = options;
 
   chart.data(data);
   let geometryType = 'polygon';
@@ -51,8 +51,9 @@ function geometry(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
             (sizeField
               ? (dautm) => {
                   const field = data.map((row) => row[sizeField]);
-                  const min = Math.min(...field);
-                  const max = Math.max(...field);
+                  let { min, max } = meta?.[sizeField] || {};
+                  min = min || Math.min(...field);
+                  max = max || Math.max(...field);
                   return [shape, (get(dautm, sizeField) - min) / (max - min), checkedSizeRatio];
                 }
               : () => [shape, 1, checkedSizeRatio]),

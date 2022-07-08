@@ -22,13 +22,13 @@ export const DEFAULT_OPTIONS = {
       const centerX = (x[0] + x[1]) / 2;
       const offsetX = centerX > 0.5 ? -4 : 4;
       return {
-        labelEmit: true,
-        style: {
-          fill: '#8c8c8c',
-        },
         offsetX,
         content: name,
       };
+    },
+    labelEmit: true,
+    style: {
+      fill: '#8c8c8c',
     },
   },
   tooltip: {

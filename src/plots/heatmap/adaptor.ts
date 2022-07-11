@@ -1,4 +1,4 @@
-import { get } from '@antv/util';
+import { get, isNumber } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { deepAssign, findGeometry } from '../../utils';
 import { flow, transformLabel } from '../../utils';
@@ -51,12 +51,12 @@ function geometry(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
             shape &&
             (sizeField
               ? (dautm) => {
-                const field = data.map((row) => row[sizeField]);
-                let { min, max } = meta?.[sizeField] || {};
-                min = min || Math.min(...field);
-                max = max || Math.max(...field);
-                return [shape, (get(dautm, sizeField) - min) / (max - min), checkedSizeRatio];
-              }
+                  const field = data.map((row) => row[sizeField]);
+                  let { min, max } = meta?.[sizeField] || {};
+                  min = isNumber(min) ? min : Math.min(...field);
+                  max = isNumber(max) ? max : Math.max(...field);
+                  return [shape, (get(dautm, sizeField) - min) / (max - min), checkedSizeRatio];
+                }
               : () => [shape, 1, checkedSizeRatio]),
           color: color || (colorField && chart.getTheme().sequenceColors.join('-')),
           style: heatmapStyle,

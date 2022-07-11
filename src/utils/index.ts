@@ -12,5 +12,6 @@ export { kebabCase } from './kebab-case';
 export { renderStatistic, renderGaugeStatistic } from './statistic';
 export { measureTextWidth } from './measure-text';
 export { isBetween, isRealNumber } from './number';
+export { addViewAnimation } from './view';
 export * from './data';
 export * from './padding';

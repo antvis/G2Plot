@@ -1,9 +1,9 @@
-import { Geometry } from '@antv/g2';
 import { get, set, omit, each } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { interaction, theme, tooltip, annotation as baseAnnotation } from '../../adaptor/common';
 import { interval, point, violin } from '../../adaptor/geometries';
 import { flow, pick, deepAssign, findViewById } from '../../utils';
+import { addViewAnimation } from '../../utils/view';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { ViolinOptions } from './types';
 import { transformViolinData } from './utils';
@@ -281,16 +281,7 @@ export function animation(params: Params<ViolinOptions>): Params<ViolinOptions> 
 
   // 所有的 Geometry 都使用同一动画（各个图形如有区别，自行覆盖）
   each(chart.views, (view) => {
-    // 同时设置整个 view 动画选项
-    if (typeof animation === 'boolean') {
-      view.animate(animation);
-    } else {
-      view.animate(true);
-    }
-
-    each(view.geometries, (g: Geometry) => {
-      g.animate(animation);
-    });
+    addViewAnimation(view, animation);
   });
 
   return params;

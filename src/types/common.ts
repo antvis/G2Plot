@@ -1,4 +1,4 @@
-import { Types } from '@antv/g2';
+import { Geometry, Types } from '@antv/g2';
 import { Axis } from './axis';
 import { Label } from './label';
 import { Tooltip } from './tooltip';
@@ -221,7 +221,7 @@ export type Options = {
    * @title 动画
    * @description 设置图表动画
    */
-  readonly animation?: Animation;
+  readonly animation?: Animation | ((type: string, g: Geometry) => Animation) | boolean;
   /**
    * @title 交互
    * @description 设置画布交互行为

@@ -1,4 +1,4 @@
-import { clamp, get, size } from '@antv/util';
+import { clamp, get, size, uniq } from '@antv/util';
 import { Data, Datum } from '../../types';
 import { RANGE_VALUE, RANGE_TYPE, PERCENT } from './constants';
 import { GaugeOptions, GaugeRangeData } from './types';
@@ -16,8 +16,6 @@ export function processRangeData(range: number[], percent: GaugeOptions['percent
       .map((r: number, idx: number) => {
         return { [RANGE_VALUE]: r - (range[idx - 1] || 0), [RANGE_TYPE]: `${idx}`, [PERCENT]: percent };
       })
-      // 去掉 0 的数据
-      .filter((d: Datum) => !!d[RANGE_VALUE])
   );
 }
 
@@ -37,6 +35,9 @@ export function getIndicatorData(percent: GaugeOptions['percent']): Data {
 export function getRangeData(percent: GaugeOptions['percent'], range?: GaugeOptions['range']): GaugeRangeData {
   const ticks = get(range, ['ticks'], []);
 
-  const clampTicks = size(ticks) ? ticks : [0, clamp(percent, 0, 1), 1];
+  const clampTicks = size(ticks) ? uniq(ticks) : [0, clamp(percent, 0, 1), 1];
+  if (!clampTicks[0]) {
+    clampTicks.shift();
+  }
   return processRangeData(clampTicks as number[], percent);
 }

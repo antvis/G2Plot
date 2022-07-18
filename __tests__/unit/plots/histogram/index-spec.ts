@@ -148,6 +148,25 @@ describe('histogram', () => {
     histogram.destroy();
   });
 
+  it('直方图 关闭 legend', () => {
+    const histogram = new Histogram(createDiv('legend * true'), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data: histogramStackData,
+      binField: 'value',
+      binWidth: 4,
+      legend: false,
+    });
+
+    histogram.render();
+
+    //@ts-ignore
+    expect(histogram.chart.getController('legend').components.length).toEqual(0);
+
+    histogram.destroy();
+  });
+
   it('stackField with color', () => {
     const colors = ['red', 'blue'];
     const histogram = new Histogram(createDiv(), {

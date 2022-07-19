@@ -74,10 +74,10 @@ export function getMappingField(
   tileMappingField: string;
 } {
   const { type, xField, yField, colorField, shapeField, sizeField, styleField } = o;
-  let { rawFields = [] } = o;
+  let { rawFields } = o;
 
   let fields = [];
-  rawFields = isFunction(rawFields) ? rawFields(type, field) : rawFields;
+  rawFields = (isFunction(rawFields) ? rawFields(type, field) : rawFields) || [];
 
   // 因为 color 会影响到数据分组，以及最后的图形映射。所以导致 bar 图中的 widthRatio 设置不生效
   // 所以对于 color 字段，仅仅保留 colorField 好了！ + rawFields

@@ -1,6 +1,6 @@
 import { uniq, isFunction, isObject, isString, isNumber, isEmpty } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { ColorAttr, ShapeAttr, SizeAttr, StyleAttr, TooltipAttr, Options, Datum } from '../../types';
+import { ColorAttr, ShapeAttr, SizeAttr, StyleAttr, TooltipAttr, Options, Datum, RawFields } from '../../types';
 import { Label } from '../../types/label';
 import { State } from '../../types/state';
 import { transformLabel } from '../../utils';
@@ -43,7 +43,7 @@ export type Geometry = {
   /** tooltip 的映射字段 */
   readonly tooltipFields?: string[] | false;
   /** 其他原始字段, 用于 mapping 回调参数 */
-  readonly rawFields?: string[];
+  readonly rawFields?: RawFields;
   /** 图形映射规则 */
   readonly mapping?: MappingOptions;
   /** label 映射通道，因为历史原因导致实现略有区别 */
@@ -73,9 +73,11 @@ export function getMappingField(
   mappingFields: string[];
   tileMappingField: string;
 } {
-  const { type, xField, yField, colorField, shapeField, sizeField, styleField, rawFields = [] } = o;
+  const { type, xField, yField, colorField, shapeField, sizeField, styleField } = o;
+  let { rawFields = [] } = o;
 
   let fields = [];
+  rawFields = isFunction(rawFields) ? rawFields(type, field) : rawFields;
 
   // 因为 color 会影响到数据分组，以及最后的图形映射。所以导致 bar 图中的 widthRatio 设置不生效
   // 所以对于 color 字段，仅仅保留 colorField 好了！ + rawFields

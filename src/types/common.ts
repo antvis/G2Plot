@@ -249,3 +249,5 @@ export type Options = {
    */
   readonly defaultInteractions?: string[];
 };
+
+export type RawFields = string[] | ((type: string, field: 'color' | 'shape' | 'size' | 'style') => string[] | never);

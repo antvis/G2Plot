@@ -43,7 +43,7 @@ export { Bar } from './plots/bar';
 export type { BarOptions } from './plots/bar';
 
 // 饼图及类型定义 | author by [visiky](https://github.com/visiky)
-export { Pie } from './plots/pie';
+export { Pie, transformStatisticOptions } from './plots/pie';
 export type { PieOptions } from './plots/pie';
 
 // 玫瑰图及类型定义 | author by [zhangzhonghe](https://github.com/zhangzhonghe)
@@ -177,7 +177,7 @@ export { Facet } from './plots/facet';
 export type { FacetOptions } from './plots/facet';
 
 /** 开发 adaptor 可能会用到的方法或一些工具方法，不强制使用 */
-export { flow, measureTextWidth } from './utils';
+export { flow, measureTextWidth, renderStatistic } from './utils';
 
 /** 各个 geometry 的 adaptor，可以让开发者更快的构造图形 */
 export { line, interval, area, point, polygon, schema } from './adaptor/geometries';

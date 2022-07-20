@@ -8,6 +8,8 @@ import { PieOptions } from './types';
 import { isAllZero } from './utils';
 import './interactions';
 
+export { transformStatisticOptions } from './adaptor';
+
 export type { PieOptions };
 
 export class Pie extends Plot<PieOptions> {

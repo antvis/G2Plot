@@ -171,10 +171,7 @@ function coordinate(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
 
   let coordinateController;
   if (coordinate) {
-    coordinateController = chart.coordinate({
-      ...coordinate,
-      type: coordinate.type || 'rect',
-    });
+    coordinateController = chart.coordinate(coordinate);
   }
 
   if (reflect) {

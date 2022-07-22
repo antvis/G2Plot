@@ -67,4 +67,40 @@ describe('heatmap', () => {
 
     heatmap.destroy();
   });
+
+  it('coordinate reflect', () => {
+    const coordinate = {
+      type: 'polar',
+      cfg: {
+        radius: 0.85,
+        innerRadius: 0.2,
+      },
+      actions: [['scale', 0.5, -1]],
+    } as any;
+
+    const heatmap = new Heatmap(createDiv('custom axis'), {
+      width: 400,
+      height: 300,
+      data: semanticBasicHeatmapData,
+      xField: 'name',
+      yField: 'day',
+      colorField: 'sales',
+      shape: 'circle',
+      coordinate,
+      reflect: 'x',
+    });
+
+    heatmap.render();
+
+    // @ts-ignore
+    expect(heatmap.chart.options.coordinate).toMatchObject({
+      ...coordinate,
+      actions: [
+        ['scale', 0.5, -1],
+        ['reflect', 'x'],
+      ],
+    });
+
+    heatmap.destroy();
+  });
 });

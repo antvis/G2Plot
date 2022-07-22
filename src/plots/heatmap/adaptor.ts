@@ -51,12 +51,12 @@ function geometry(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
             shape &&
             (sizeField
               ? (dautm) => {
-                  const field = data.map((row) => row[sizeField]);
-                  let { min, max } = meta?.[sizeField] || {};
-                  min = isNumber(min) ? min : Math.min(...field);
-                  max = isNumber(max) ? max : Math.max(...field);
-                  return [shape, (get(dautm, sizeField) - min) / (max - min), checkedSizeRatio];
-                }
+                const field = data.map((row) => row[sizeField]);
+                let { min, max } = meta?.[sizeField] || {};
+                min = isNumber(min) ? min : Math.min(...field);
+                max = isNumber(max) ? max : Math.max(...field);
+                return [shape, (get(dautm, sizeField) - min) / (max - min), checkedSizeRatio];
+              }
               : () => [shape, 1, checkedSizeRatio]),
           color: color || (colorField && chart.getTheme().sequenceColors.join('-')),
           style: heatmapStyle,
@@ -168,16 +168,16 @@ function label(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
 function coordinate(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart, options } = params;
   const { coordinate, reflect } = options;
-
+  let coordinateController;
   if (coordinate) {
-    chart.coordinate({
+    coordinateController = chart.coordinate({
+      ...coordinate,
       type: coordinate.type || 'rect',
-      cfg: coordinate.cfg,
     });
   }
 
   if (reflect) {
-    chart.coordinate().reflect(reflect);
+    (coordinateController || chart.coordinate()).reflect(reflect);
   }
 
   return params;

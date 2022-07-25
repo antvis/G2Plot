@@ -169,14 +169,13 @@ function coordinate(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart, options } = params;
   const { coordinate, reflect } = options;
 
-  let coordinateController;
-  if (coordinate) {
-    coordinateController = chart.coordinate(coordinate);
-  }
+  const coordinateOption = coordinate ?? { type: 'rect', actions: [] };
 
   if (reflect) {
-    (coordinateController || chart.coordinate()).reflect(reflect);
+    coordinateOption.actions.push(['reflect', reflect]);
   }
+
+  chart.coordinate(coordinateOption);
 
   return params;
 }

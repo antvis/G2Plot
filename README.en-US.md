@@ -157,9 +157,9 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 
 ## 📧 Contact us
 
-钉钉群组号码: 30233731
+DingTalk Group Number: 30233731 / 35686967 (Group 2) / 44788198 （Group 3）
 
-<img src="https://gw.alipayobjects.com/zos/antfincdn/8qEHi7GiaN/G2Plot-dingding.JPG" width="200" height="266" />
+<img src="https://gw.alipayobjects.com/zos/antfincdn/hTzzaqgHgQ/Antv%252520G2%252520%26%252520G2Plot.png" width="200" height="266" />
 
 ## 🔗 Links
 

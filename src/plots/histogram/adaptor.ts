@@ -39,6 +39,8 @@ function geometry(params: Params<HistogramOptions>): Params<HistogramOptions> {
   // 图例
   if (legend && stackField) {
     chart.legend(stackField, legend);
+  } else {
+    chart.legend(false);
   }
 
   return params;

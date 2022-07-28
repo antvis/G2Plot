@@ -169,16 +169,13 @@ function coordinate(params: Params<HeatmapOptions>): Params<HeatmapOptions> {
   const { chart, options } = params;
   const { coordinate, reflect } = options;
 
-  if (coordinate) {
-    chart.coordinate({
-      type: coordinate.type || 'rect',
-      cfg: coordinate.cfg,
-    });
-  }
+  const coordinateOption = deepAssign({ actions: [] }, coordinate ?? { type: 'rect' });
 
   if (reflect) {
-    chart.coordinate().reflect(reflect);
+    coordinateOption.actions?.push?.(['reflect', reflect]);
   }
+
+  chart.coordinate(coordinateOption);
 
   return params;
 }

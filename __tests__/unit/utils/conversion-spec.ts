@@ -4,7 +4,7 @@ describe('conversionTagFormatter', () => {
   it('conversionTagFormatter', () => {
     expect(conversionTagFormatter(0, 0)).toBe('100%');
     expect(conversionTagFormatter(0, 1)).toBe('∞');
-    expect(conversionTagFormatter(1, 0)).toBe('-∞');
+    expect(conversionTagFormatter(1, 0)).toBe('0.00%');
     expect(conversionTagFormatter(10, 20)).toBe('200.00%');
     expect(conversionTagFormatter(40, 20)).toBe('50.00%');
     expect(conversionTagFormatter(40, 40)).toBe('100%');

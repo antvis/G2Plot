@@ -45,7 +45,7 @@ describe('#2124', () => {
         .getController('annotation')
         .getComponents()
         .map((co) => co.component.cfg.text.content)
-    ).toEqual(['转化率: 59.68%', '转化率: -∞', '转化率: ∞', '转化率: -', '转化率: -', '转化率: -']);
+    ).toEqual(['转化率: 59.68%', '转化率: 0.00%', '转化率: ∞', '转化率: -', '转化率: -', '转化率: -']);
 
     plot.destroy();
   });
@@ -83,7 +83,7 @@ describe('#2124', () => {
         .getComponents()
         .filter((co) => co.component.cfg.type === 'line')
         .map((co) => co.component.cfg.text.content)
-    ).toEqual(['转化率: 59.68%', '转化率: -∞', '转化率: ∞', '转化率: -', '转化率: -', '转化率: -']);
+    ).toEqual(['转化率: 59.68%', '转化率: 0.00%', '转化率: ∞', '转化率: -', '转化率: -', '转化率: -']);
 
     expect(
       plot.chart.views[1]
@@ -91,7 +91,7 @@ describe('#2124', () => {
         .getComponents()
         .filter((co) => co.component.cfg.type === 'line')
         .map((co) => co.component.cfg.text.content)
-    ).toEqual(['转化率: -∞', '转化率: ∞', '转化率: 76.47%', '转化率: 67.52%', '转化率: 18.99%', '转化率: -']);
+    ).toEqual(['转化率: 0.00%', '转化率: ∞', '转化率: 76.47%', '转化率: 67.52%', '转化率: 18.99%', '转化率: -']);
 
     plot.destroy();
   });
@@ -113,7 +113,7 @@ describe('#2124', () => {
         .getController('annotation')
         .getComponents()
         .map((co) => co.component.cfg.text.content)
-    ).toEqual(['转化率: 59.68%', '转化率: -∞', '转化率: ∞', '转化率: -', '转化率: -', '转化率: -']);
+    ).toEqual(['转化率: 59.68%', '转化率: 0.00%', '转化率: ∞', '转化率: -', '转化率: -', '转化率: -']);
 
     plot.destroy();
   });

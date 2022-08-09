@@ -491,7 +491,7 @@ describe('zero data no NaN', () => {
         } else if (prev === 0) {
           v = '∞';
         } else if (next === 0) {
-          v = '-∞';
+          v = '0.00%';
         } else {
           v = ((next / prev) * 100).toFixed(2) + '%';
         }

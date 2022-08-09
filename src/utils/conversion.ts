@@ -15,9 +15,6 @@ export function conversionTagFormatter(prev: number, next: number): string {
   if (prev === 0) {
     return '∞';
   }
-  if (next === 0) {
-    return '-∞';
-  }
 
   return `${((100 * next) / prev).toFixed(2)}%`;
 }

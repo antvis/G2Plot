@@ -496,7 +496,7 @@ describe('zero data no NaN', () => {
           v = ((next / prev) * 100).toFixed(2) + '%';
         }
         expect(texts[idx - 1].get('type')).toBe('text');
-        expect(texts[idx - 1].attr('text')).toBe(v);
+        expect(texts[idx - 1].attr('text')).toBe('-');
       }
     });
   });

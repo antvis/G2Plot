@@ -487,7 +487,11 @@ describe('zero data no NaN', () => {
         const next = DATA_WITH_ZERO[idx].pv;
         let v;
         if (prev === next) {
-          v = '100%';
+          if (prev === 0) {
+            v = '-';
+          } else {
+            v = '100%';
+          }
         } else if (prev === 0) {
           v = '∞';
         } else if (next === 0) {
@@ -496,7 +500,7 @@ describe('zero data no NaN', () => {
           v = ((next / prev) * 100).toFixed(2) + '%';
         }
         expect(texts[idx - 1].get('type')).toBe('text');
-        expect(texts[idx - 1].attr('text')).toBe('-');
+        expect(texts[idx - 1].attr('text')).toBe(v);
       }
     });
   });

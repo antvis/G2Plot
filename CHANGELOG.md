@@ -1,3 +1,28 @@
+#### 2.4.21 (2022-08-22)
+
+##### New Features
+
+* **md:** 更新 钉钉群 二维码和信息 ([3293](https://github.com/antvis/G2Plot/pull/3293))
+
+##### Documentation Changes
+
+* **docs:** fix title text field ([#3307](https://github.com/antvis/G2plot/pull/3307))
+
+##### Bug Fixes
+
+* **gauge:** 修复仪表盘 percent 0 时，数据被过滤重新添加回来 ([#3265](https://github.com/antvis/G2Plot/pull/3265)) ([d4b0c6c](https://github.com/antvis/G2Plot/pull/3265/commits/d4b0c6ce8a1186fc08271b7ed898adfcae4e434d))
+* **progress:** 迷你进度条重新修改 ([#3268](https://github.com/antvis/G2Plot/pull/3268)) ([80de816](https://github.com/antvis/G2Plot/pull/3268/commits/80de8163f62200bd11cf1c52e6ed33e2c868d71f))
+* **Chord:** 迷你进度条重新修改 ([#3270](https://github.com/antvis/G2Plot/pull/3270)) ([4302291](https://github.com/antvis/G2Plot/pull/3270/commits/430229160fe542fc1c56f6d96b79d8e1aba22394))
+* **heatmap:** 
+  * 添加 meta 中的最大最小值参数 可以控制最小显示参数 ([#3272](https://github.com/antvis/G2Plot/pull/3272)) ([ea46e9c](https://github.com/antvis/G2Plot/pull/3272/commits/ea46e9c22e09ab3aaf82b76062cee1d5558df21f))
+  * 修复色力图 coordinate 部分配置不起效 和 配置了 refect coordinate 失效的问题 ([#3294](https://github.com/antvis/G2Plot/pull/3294)) ([697b689](https://github.com/antvis/G2Plot/pull/3294/commits/697b68910867aba2e5068edcae9325e5e05b0517))
+* **histogram:** 直方图 histogram 修复不能关闭 legend 的问题 ([#3284](https://github.com/antvis/G2Plot/pull/3284)) ([a79f1dc](https://github.com/antvis/G2Plot/pull/3284/commits/a79f1dc176768dadad52f78d1cd45624618bb12e))
+* **pie:** 直方图 histogram 修复不能关闭 legend 的问题 ([#3284](https://github.com/antvis/G2Plot/pull/3284)) ([a79f1dc](https://github.com/antvis/G2Plot/pull/3284/commits/a79f1dc176768dadad52f78d1cd45624618bb12e))
+* **funnel:** 当 next 为 0 时，应该显示 '0%' 而不是 '-∞', 当 prev next 都为 0， 显示 '-' 无意义  ([#3313](https://github.com/antvis/G2Plot/pull/3313)) ([c2ce215](https://github.com/antvis/G2Plot/pull/3313/commits/c2ce21591f07e00437914dfddc00f081ec37265b))
+* **box:** 箱型图 添加 annotation 配置 ([#3317](https://github.com/antvis/G2Plot/pull/3317)) ([bd82cd4](https://github.com/antvis/G2Plot/pull/3317/commits/bd82cd429a223b83b019e35f4c574dfc0badd88a))
+* **rawFields:** rawFields 添加回调，对 geometry color shape 进行了区分 ([#3288](https://github.com/antvis/G2Plot/pull/3288)) ([5b17368](https://github.com/antvis/G2Plot/pull/3288/commits/5b17368803cf999922a9a12fbb2c97cbd216294d))
+
+
 #### 2.4.20 (2022-06-21)
 
 ##### Documentation Changes
@@ -7,7 +32,6 @@
 ##### New Features
 
 * **interaction:**  support config brush start enable ([4962d16c](https://github.com/antvis/G2plot/commit/4962d16c39fa68b055ed086b24e1cfc7e4d8e93d))
-
 
 #### 2.4.19 (2022-06-07)
 
@@ -24,7 +48,7 @@
 * **bar:**  修复条形图更新数据时, x y scale 没有交换问题 ([2880e927](https://github.com/antvis/G2plot/commit/2880e927ae026d63a9195e9183c623226dd0fd05))
 * **bullet:**
   *  修改子弹图单测 ([#3241](https://github.com/antvis/G2plot/pull/3241)) ([518baeb2](https://github.com/antvis/G2plot/commit/518baeb2f04c35a8095ca7b241bc627672c2cc2a))
-  *  子弹图 添加单数值range/measures 、 多 target 数据修改兼容 ([#3231](https://github.com/antvis/G2plot/pull/3231)) ([3d076dee](https://github.com/antvis/G2plot/commit/3d076deef20e899e79091a355ee83650785e912b))
+  *  子弹图 添加单数值 range/measures 、 多 target 数据修改兼容 ([#3231](https://github.com/antvis/G2plot/pull/3231)) ([3d076dee](https://github.com/antvis/G2plot/commit/3d076deef20e899e79091a355ee83650785e912b))
 
 #### 2.4.18 (2022-06-02)
 

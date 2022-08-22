@@ -487,11 +487,15 @@ describe('zero data no NaN', () => {
         const next = DATA_WITH_ZERO[idx].pv;
         let v;
         if (prev === next) {
-          v = '100%';
+          if (prev === 0) {
+            v = '-';
+          } else {
+            v = '100%';
+          }
         } else if (prev === 0) {
           v = '∞';
         } else if (next === 0) {
-          v = '-∞';
+          v = '0.00%';
         } else {
           v = ((next / prev) * 100).toFixed(2) + '%';
         }

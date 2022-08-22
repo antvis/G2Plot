@@ -9,14 +9,17 @@ export function conversionTagFormatter(prev: number, next: number): string {
     return '-';
   }
 
+  // 0 / 0 没有意义
+  if (prev === 0 && next === 0) {
+    return '-';
+  }
+
   if (prev === next) {
     return '100%';
   }
+
   if (prev === 0) {
     return '∞';
-  }
-  if (next === 0) {
-    return '-∞';
   }
 
   return `${((100 * next) / prev).toFixed(2)}%`;

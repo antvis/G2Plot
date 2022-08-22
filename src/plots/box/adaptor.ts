@@ -1,7 +1,7 @@
 import { isArray } from '@antv/util';
 import { Types } from '@antv/g2';
 import { Params } from '../../core/adaptor';
-import { interaction, animation, theme, tooltip } from '../../adaptor/common';
+import { interaction, animation, theme, tooltip, annotation } from '../../adaptor/common';
 import { point, schema } from '../../adaptor/geometries';
 import { flow, pick, deepAssign } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
@@ -167,5 +167,5 @@ export function legend(params: Params<BoxOptions>): Params<BoxOptions> {
  * @param params
  */
 export function adaptor(params: Params<BoxOptions>) {
-  return flow(field, outliersPoint, meta, axis, legend, tooltip, interaction, animation, theme)(params);
+  return flow(field, outliersPoint, meta, axis, legend, tooltip, annotation(), interaction, animation, theme)(params);
 }

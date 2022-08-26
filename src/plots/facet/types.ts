@@ -54,7 +54,7 @@ export type IView = {
   /**
    * @title animation 配置
    */
-  readonly animation?: Animation;
+  readonly animation?: Options['animation'];
   /**
    * @title tooltip 配置
    */

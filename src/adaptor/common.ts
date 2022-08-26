@@ -6,7 +6,7 @@ import { Interaction } from '../types/interaction';
 import { Transformations } from '../types/coordinate';
 import { Axis } from '../types/axis';
 import { AXIS_META_CONFIG_KEYS } from '../constant';
-import { pick, deepAssign } from '../utils';
+import { pick, deepAssign, addViewAnimation } from '../utils';
 
 /**
  * 通用 legend 配置, 适用于带 colorField 或 seriesField 的图表
@@ -69,17 +69,8 @@ export function animation<O extends Pick<Options, 'animation'>>(params: Params<O
   const { chart, options } = params;
   const { animation } = options;
 
-  // 同时设置整个 view 动画选项
-  if (typeof animation === 'boolean') {
-    chart.animate(animation);
-  } else {
-    chart.animate(true);
-  }
-
   // 所有的 Geometry 都使用同一动画（各个图形如有区别，自行覆盖）
-  each(chart.geometries, (g: Geometry) => {
-    g.animate(animation);
-  });
+  addViewAnimation(chart, animation);
 
   return params;
 }

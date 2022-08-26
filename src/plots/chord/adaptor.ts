@@ -1,11 +1,9 @@
-import { Geometry } from '@antv/g2';
-import { each } from '@antv/util';
 import { interaction, theme, state } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { flow, pick } from '../../utils';
 import { polygon, edge } from '../../adaptor/geometries';
 import { chordLayout } from '../../utils/transform/chord';
-import { getAllGeometriesRecursively, transformDataToNodeLinkData } from '../../utils';
+import { getAllGeometriesRecursively, transformDataToNodeLinkData, addViewAnimation } from '../../utils';
 import { ChordOptions } from './types';
 import { X_FIELD, Y_FIELD, NODE_COLOR_FIELD, EDGE_COLOR_FIELD } from './constant';
 
@@ -170,17 +168,7 @@ function animation(params: Params<ChordOptions>): Params<ChordOptions> {
   const { chart, options } = params;
   const { animation } = options;
 
-  // 同时设置整个 view 动画选项
-  if (typeof animation === 'boolean') {
-    chart.animate(animation);
-  } else {
-    chart.animate(true);
-  }
-
-  // 所有的 Geometry 都使用同一动画（各个图形如有区别，自行覆盖）
-  each(getAllGeometriesRecursively(chart), (g: Geometry) => {
-    g.animate(animation);
-  });
+  addViewAnimation(chart, animation, getAllGeometriesRecursively(chart));
 
   return params;
 }

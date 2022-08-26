@@ -1,9 +1,9 @@
-import { Geometry, View } from '@antv/g2';
+import { View } from '@antv/g2';
 import { each } from '@antv/util';
 import { geometry as geometryAdaptor } from '../../adaptor/geometries/base';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
-import { pick, deepAssign } from '../../utils';
-import { Axis, Interaction } from '../../types';
+import { pick, deepAssign, addViewAnimation } from '../../utils';
+import { Axis, Interaction, Options } from '../../types';
 import { IView } from './types';
 
 /**
@@ -74,15 +74,7 @@ export function execViewAdaptor(viewOfG2: View, options: IView): void {
   });
 
   // 7. animation (先做动画)
-  if (typeof animation === 'boolean') {
-    viewOfG2.animate(false);
-  } else {
-    viewOfG2.animate(true);
-    // 所有的 Geometry 都使用同一动画（各个图形如有区别，todo 自行覆盖）
-    each(viewOfG2.geometries, (g: Geometry) => {
-      g.animate(animation);
-    });
-  }
+  addViewAnimation(viewOfG2, animation as Options['animation']);
 
   if (tooltip) {
     // 8. tooltip

@@ -1,3 +1,39 @@
+#### 2.4.21 (2022-08-26)
+
+##### Chores
+
+*  add site-deploy workflows ([086de1e5](https://github.com/antvis/G2plot/commit/086de1e5c2afe4b3d2c7ec778795e4ab50d2a632))
+
+##### Documentation Changes
+
+*  update demo of pie statistic ([1965390d](https://github.com/antvis/G2plot/commit/1965390d995b54e19b5e0e1d3b7d5f778b7ad16e))
+*  update demo ([ea185519](https://github.com/antvis/G2plot/commit/ea18551982aa551f375e0e3f303493244f36a657))
+
+##### New Features
+
+* **md:**  更新 钉钉信息 ([#3293](https://github.com/antvis/G2plot/pull/3293)) ([d47118ad](https://github.com/antvis/G2plot/commit/d47118ad1e7d9b4d88f6a2d1a90cbbf8010d4309))
+* **bar:**  添加动态条形图 ([#3162](https://github.com/antvis/G2plot/pull/3162)) ([59d85a5b](https://github.com/antvis/G2plot/commit/59d85a5b4b7da0c0bb304c7462244aea0a363278))
+
+##### Bug Fixes
+
+* **animation:**   动画添加回调， 可以给不同的 形状添加动画 ([#3275](https://github.com/antvis/G2plot/pull/3275)) ([c6b941a0](https://github.com/antvis/G2plot/commit/c6b941a0d5f9570e32d390aef1be3ae6dcce9a3b))
+* **box:**  箱型图 添加 annotation 配置 ([#3317](https://github.com/antvis/G2plot/pull/3317)) ([fecd1e38](https://github.com/antvis/G2plot/commit/fecd1e3805cfe405d64ae76bfe4d2aa4a596c1e2))
+* **funnel:**  当 next 为 0 时，应该显示 0% 而不是 -∞ ([#3313](https://github.com/antvis/G2plot/pull/3313)) ([e3a2ed86](https://github.com/antvis/G2plot/commit/e3a2ed86b7b5ae6992ea21992eb4c716513e28e4))
+* **histogram:**  直方图 histogram 修复不能关闭 legend 的问题 ([#3284](https://github.com/antvis/G2plot/pull/3284)) ([35c9a08d](https://github.com/antvis/G2plot/commit/35c9a08d883e933ea94b44dce44e8aa912419d12))
+* **base:**  rawFields 添加回调，对 geometry color shape 进行了区分 ([#3288](https://github.com/antvis/G2plot/pull/3288)) ([da3d1a64](https://github.com/antvis/G2plot/commit/da3d1a64d8302b41b77cc53d0275f3e1c90c265d))
+* **heatmap:**
+  *  修复色力图 coordinate部分配置不起效 和 配置了 refect coordinate 失效的问题 ([#3294](https://github.com/antvis/G2plot/pull/3294)) ([45d60d7f](https://github.com/antvis/G2plot/commit/45d60d7fbd2d7c6d84246a1266c2630b93d159f4))
+  *  添加 meta 中的最大最小值参数 可以控制最小显示参数 ([#3272](https://github.com/antvis/G2plot/pull/3272)) ([2800e724](https://github.com/antvis/G2plot/commit/2800e72480b34ee78dab6ad2b278d252ba9bff4d))
+* **gauge:**  仪表盘 percent 0 时，数据被过滤重新添加回来 ([#3265](https://github.com/antvis/G2plot/pull/3265)) ([dd090c29](https://github.com/antvis/G2plot/commit/dd090c29d37009a27e5b1dd10eba2d2517e1e902))
+* **Chord:**  修复弦图label 样式不能修改的问题 ([#3270](https://github.com/antvis/G2plot/pull/3270)) ([bc5b2cf8](https://github.com/antvis/G2plot/commit/bc5b2cf8cc263af4ac5f42479ff26800bc38bd1b))
+* **progress:**  迷你进度条重新修改 ([#3268](https://github.com/antvis/G2plot/pull/3268)) ([c15b9c20](https://github.com/antvis/G2plot/commit/c15b9c20830ca8ff7492001cbad95a411dca81fd))
+* **test:**  g2plot label 延迟渲染 注释和增加延迟时间 到 test ([#3264](https://github.com/antvis/G2plot/pull/3264)) ([4bf3addd](https://github.com/antvis/G2plot/commit/4bf3addd6c7b6ff40e4c718b69f3774fec0ebb53))
+
+##### Other Changes
+
+* **custom Shape:**  添加 Shape 文档 以及 添加 三个 自定义 Shape demo ([#3246](https://github.com/antvis/G2plot/pull/3246)) ([ea0bbfab](https://github.com/antvis/G2plot/commit/ea0bbfab23063de5af99502ebed9f3bbb086dfeb))
+* **fix title text field:**  ([#3307](https://github.com/antvis/G2plot/pull/3307)) ([8c5bac38](https://github.com/antvis/G2plot/commit/8c5bac382fc6c31a4efe90fc15aa1c155ba1f0b4))
+
 #### 2.4.20 (2022-06-21)
 
 ##### Documentation Changes

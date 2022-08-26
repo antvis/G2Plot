@@ -1,0 +1,32 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "pie-custom-shape.ts",
+      "title": {
+        "zh": "自定义 环形图 形状",
+        "en": "Custom pie shape"
+      },
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*5f9ESplug4IAAAAAAAAAAAAAARQnAQ"
+    },
+    {
+      "filename": "bar-custom-shape.ts",
+      "title": {
+        "zh": "自定义 条形图 形状",
+        "en": "Custom bar shape"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/rWp4Sq5ofk/10256978-7f35-4a4c-b67c-39aaad269bc2.png"
+    },
+    {
+      "filename": "conversion-bar-shape.ts",
+      "title": {
+        "zh": "自定义 水波转化漏斗图 形状",
+        "en": "Custom water conversion bar shape"
+      },
+      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/81uizWIqmn/75bf097d-0c94-437f-aec9-5b5d9ba98cd2.png"
+    }
+  ]
+}

@@ -19,7 +19,7 @@ import { PieOptions } from './types';
  */
 function geometry(params: Params<PieOptions>): Params<PieOptions> {
   const { chart, options } = params;
-  const { data, angleField, colorField, color, pieStyle } = options;
+  const { data, angleField, colorField, color, pieStyle, shape } = options;
 
   // 处理不合法的数据
   let processData = processIllegalData(data, angleField);
@@ -38,6 +38,7 @@ function geometry(params: Params<PieOptions>): Params<PieOptions> {
         isStack: true,
         interval: {
           color,
+          shape,
           style: pieStyle,
         },
         args: {
@@ -59,6 +60,7 @@ function geometry(params: Params<PieOptions>): Params<PieOptions> {
         isStack: true,
         interval: {
           color,
+          shape,
           style: pieStyle,
         },
         args: {

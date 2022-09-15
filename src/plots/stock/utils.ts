@@ -6,9 +6,10 @@ import { TREND_FIELD, TREND_DOWN, TREND_UP, Y_FIELD } from './constant';
  * @param data
  * @param yField
  */
-export function getStockData(data, yField) {
-  return map(data, (obj) => {
-    if (isArray(yField)) {
+export function getStockData(data: Record<string, any>[], yField: [string, string, string, string]) {
+  return map(data, (item) => {
+    const obj = item && { ...item };
+    if (isArray(yField) && obj) {
       const [open, close, high, low] = yField;
       obj[TREND_FIELD] = obj[open] <= obj[close] ? TREND_UP : TREND_DOWN;
       obj[Y_FIELD] = [obj[open], obj[close], obj[high], obj[low]];

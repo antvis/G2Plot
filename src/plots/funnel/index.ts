@@ -12,6 +12,7 @@ import {
   FUNNEL_PERCENT,
   FUNNEL_TOTAL_PERCENT,
 } from './constant';
+import './interactions';
 
 export type { FunnelOptions };
 

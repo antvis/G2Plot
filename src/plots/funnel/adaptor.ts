@@ -1,6 +1,6 @@
-import { isFunction, clone } from '@antv/util';
+import { isFunction, clone, each } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { interaction, animation, theme, scale, annotation, tooltip } from '../../adaptor/common';
+import { animation, theme, scale, annotation, tooltip } from '../../adaptor/common';
 import { getLocale } from '../../core/locale';
 import { Datum } from '../../types';
 import { flow, deepAssign } from '../../utils';
@@ -11,6 +11,8 @@ import { compareFunnel } from './geometries/compare';
 import { facetFunnel } from './geometries/facet';
 import { dynamicHeightFunnel } from './geometries/dynamic-height';
 import { FUNNEL_CONVERSATION, FUNNEL_PERCENT } from './constant';
+import { interactionStart, FUNNEL_LEGEND_FILTER } from './interactions';
+import type { Interaction } from './types';
 
 /**
  *
@@ -132,6 +134,34 @@ function legend(params: Params<FunnelOptions>): Params<FunnelOptions> {
   } else {
     chart.legend(legend);
     // TODO FIX: legend-click 时间和转化率组件之间的关联
+  }
+
+  return params;
+}
+
+/**
+ * Interaction 配置
+ * @param params
+ */
+export function interaction<O extends Pick<FunnelOptions, 'interactions'>>(params: Params<O>): Params<O> {
+  const { chart, options } = params;
+  // @ts-ignore
+  const { interactions, dynamicHeight, compareField } = options;
+
+  each(interactions, (i: Interaction) => {
+    if (i.enable === false) {
+      chart.removeInteraction(i.type);
+    } else {
+      chart.interaction(i.type, i.cfg || {});
+    }
+  });
+  // 动态高度  不进行交互操作
+  if (!dynamicHeight && !compareField) {
+    chart.interaction(FUNNEL_LEGEND_FILTER, {
+      start: [{ ...interactionStart, arg: options }],
+    });
+  } else {
+    chart.removeInteraction(FUNNEL_LEGEND_FILTER);
   }
 
   return params;

@@ -1,5 +1,5 @@
 import { Types } from '@antv/g2';
-import { isArray } from '@antv/util';
+import { isArray, get, map } from '@antv/util';
 import { flow, findGeometry } from '../../../utils';
 import { getTooltipMapping } from '../../../utils/tooltip';
 import { Params } from '../../../core/adaptor';
@@ -80,9 +80,14 @@ function transpose(params: Params<FunnelOptions>): Params<FunnelOptions> {
  * 转化率组件
  * @param params
  */
-function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
-  const { options } = params;
+export function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
+  const { options, chart } = params;
   const { maxSize } = options;
+
+  // 获取形状位置，再转化为需要的转化率位置
+  const dataArray = get(chart, ['geometries', '0', 'dataArray'], []);
+  const size = get(chart, ['options', 'data', 'length']);
+  const x = map(dataArray, (item) => get(item, ['0', 'nextPoints', '0', 'x']) * size - 0.5);
 
   const getLineCoordinate = (
     datum: Datum,
@@ -93,8 +98,8 @@ function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
     const percent = maxSize - (maxSize - datum[FUNNEL_MAPPING_VALUE]) / 2;
     return {
       ...initLineOption,
-      start: [datumIndex - 0.5, percent],
-      end: [datumIndex - 0.5, percent + 0.05],
+      start: [x[datumIndex - 1] || datumIndex - 0.5, percent],
+      end: [x[datumIndex - 1] || datumIndex - 0.5, percent + 0.05],
     };
   };
 

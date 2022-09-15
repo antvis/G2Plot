@@ -47,10 +47,10 @@ export function conversionTagComponent(
 ) {
   return function (params: Params<FunnelOptions>): Params<FunnelOptions> {
     const { chart, options } = params;
-    const { conversionTag } = options;
+    const { conversionTag, data: filteredData } = options;
 
-    const { data } = chart.getOptions();
-
+    let { data } = chart.getOptions();
+    data = filteredData || data;
     if (conversionTag) {
       const { formatter } = conversionTag;
       data.forEach((obj, index) => {

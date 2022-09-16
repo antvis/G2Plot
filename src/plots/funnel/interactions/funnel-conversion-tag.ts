@@ -1,7 +1,8 @@
-import { get, map } from '@antv/util';
+import { get, map, filter, each } from '@antv/util';
 import { Action } from '@antv/g2';
-import { conversionTag } from '../geometries/basic';
-import { transformData } from '../geometries/common';
+import { conversionTag as basicConversionTag } from '../geometries/basic';
+import { compareConversionTag } from '../geometries/compare';
+import { transformData, CONVERSION_TAG_NAME } from '../geometries/common';
 import { FunnelOptions } from '../types';
 
 /**
@@ -12,16 +13,33 @@ export class ConversionTagAction extends Action {
   public change(options: FunnelOptions) {
     // 防止多次重复渲染
     if (!this.rendering) {
-      const { seriesField } = options;
+      const { seriesField, compareField } = options;
+      const conversionTag = compareField ? compareConversionTag : basicConversionTag;
       const { view } = this.context;
       // 兼容分面漏斗图
-      const views = seriesField ? view.views : [view];
-      map(views, (v) => {
-        v.getController('annotation').clear(true);
+      const views = seriesField || compareField ? view.views : [view];
+      map(views, (v, index) => {
+        // 防止影响其他 annotations 被去除
+        const annotationController = v.getController('annotation');
+
+        const annotations = filter(
+          get(annotationController, ['option'], []),
+          ({ name }) => name !== CONVERSION_TAG_NAME
+        );
+
+        annotationController.clear(true);
+
+        each(annotations, (annotation) => {
+          if (typeof annotation === 'object') {
+            v.annotation()[annotation.type](annotation);
+          }
+        });
+
         const data = get(v, ['filteredData'], v.getOptions().data);
 
         conversionTag({
           chart: v,
+          index,
           options: {
             ...options,
             // @ts-ignore

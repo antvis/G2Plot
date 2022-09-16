@@ -1,5 +1,5 @@
 import { Types } from '@antv/g2';
-import { isArray } from '@antv/util';
+import { isArray, isNumber, get, map } from '@antv/util';
 import { flow, deepAssign } from '../../../utils';
 import { Params } from '../../../core/adaptor';
 import { Datum, Data } from '../../../types/common';
@@ -114,52 +114,61 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   return params;
 }
 
+export function compareConversionTag(params: Params<FunnelOptions>) {
+  // @ts-ignore
+  const { chart, index, options } = params;
+  const { conversionTag, isTransposed } = options;
+  (isNumber(index) ? [chart] : chart.views).forEach((view, viewIndex) => {
+    // 获取形状位置，再转化为需要的转化率位置
+    const dataArray = get(view, ['geometries', '0', 'dataArray'], []);
+    const size = get(view, ['options', 'data', 'length']);
+    const x = map(dataArray, (item) => get(item, ['0', 'nextPoints', '0', 'x']) * size - 0.5);
+
+    const getLineCoordinate = (
+      datum: Datum,
+      datumIndex: number,
+      data: Data,
+      initLineOption: Record<string, any>
+    ): Types.LineOption => {
+      const ratio = (index || viewIndex) === 0 ? -1 : 1;
+      return deepAssign({}, initLineOption, {
+        start: [x[datumIndex - 1] || datumIndex - 0.5, datum[FUNNEL_MAPPING_VALUE]],
+        end: [x[datumIndex - 1] || datumIndex - 0.5, datum[FUNNEL_MAPPING_VALUE] + 0.05],
+        text: isTransposed
+          ? {
+              style: {
+                textAlign: 'start',
+              },
+            }
+          : {
+              offsetX: conversionTag !== false ? ratio * conversionTag.offsetX : 0,
+              style: {
+                textAlign: (index || viewIndex) === 0 ? 'end' : 'start',
+              },
+            },
+      });
+    };
+
+    conversionTagComponent(getLineCoordinate)(
+      deepAssign(
+        {},
+        {
+          chart: view,
+          options,
+        }
+      )
+    );
+  });
+}
+
 /**
  * 转化率组件
  * @param params
  */
 function conversionTag(params: Params<FunnelOptions>): Params<FunnelOptions> {
-  const { chart, options } = params;
-  const { conversionTag, isTransposed } = options;
+  const { chart } = params;
   // @ts-ignore
-  chart.once('beforepaint', () => {
-    chart.views.forEach((view, viewIndex) => {
-      const getLineCoordinate = (
-        datum: Datum,
-        datumIndex: number,
-        data: Data,
-        initLineOption: Record<string, any>
-      ): Types.LineOption => {
-        const ratio = viewIndex === 0 ? -1 : 1;
-        return deepAssign({}, initLineOption, {
-          start: [datumIndex - 0.5, datum[FUNNEL_MAPPING_VALUE]],
-          end: [datumIndex - 0.5, datum[FUNNEL_MAPPING_VALUE] + 0.05],
-          text: isTransposed
-            ? {
-                style: {
-                  textAlign: 'start',
-                },
-              }
-            : {
-                offsetX: conversionTag !== false ? ratio * conversionTag.offsetX : 0,
-                style: {
-                  textAlign: viewIndex === 0 ? 'end' : 'start',
-                },
-              },
-        });
-      };
-
-      conversionTagComponent(getLineCoordinate)(
-        deepAssign(
-          {},
-          {
-            chart: view,
-            options,
-          }
-        )
-      );
-    });
-  });
+  chart.once('beforepaint', () => compareConversionTag(params));
   return params;
 }
 

@@ -146,7 +146,7 @@ function legend(params: Params<FunnelOptions>): Params<FunnelOptions> {
 export function interaction<O extends Pick<FunnelOptions, 'interactions'>>(params: Params<O>): Params<O> {
   const { chart, options } = params;
   // @ts-ignore
-  const { interactions, dynamicHeight, compareField } = options;
+  const { interactions, dynamicHeight } = options;
 
   each(interactions, (i: Interaction) => {
     if (i.enable === false) {
@@ -156,7 +156,7 @@ export function interaction<O extends Pick<FunnelOptions, 'interactions'>>(param
     }
   });
   // 动态高度  不进行交互操作
-  if (!dynamicHeight && !compareField) {
+  if (!dynamicHeight) {
     chart.interaction(FUNNEL_LEGEND_FILTER, {
       start: [{ ...interactionStart, arg: options }],
     });

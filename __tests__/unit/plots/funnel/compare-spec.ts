@@ -67,14 +67,17 @@ describe('compare funnel', () => {
           '2020Q1': PV_DATA_COMPARE.filter((item) => item.quarter === '2020Q1'),
           '2020Q2': PV_DATA_COMPARE.filter((item) => item.quarter === '2020Q2'),
         };
+        const max = {
+          '2020Q1': maxBy(origin['2020Q1'], 'pv').pv,
+          '2020Q2': maxBy(origin['2020Q2'], 'pv').pv,
+        };
 
-        const max = maxBy(PV_DATA_COMPARE, 'pv').pv;
+        const { data } = funnelView.getOptions();
 
-        const { data } = funnel.chart.getOptions();
         data.forEach((item) => {
           const originData = origin[item.quarter];
           const originIndex = originData.findIndex((jtem) => jtem.pv === item.pv);
-          const percent = item.pv / max;
+          const percent = item.pv / max[item.quarter];
           expect(item[FUNNEL_PERCENT]).toEqual(percent);
           expect(item[FUNNEL_MAPPING_VALUE]).toEqual(0.5 * percent + 0.3);
           expect(item[FUNNEL_CONVERSATION]).toEqual([get(originData, [originIndex - 1, 'pv']), item.pv]);

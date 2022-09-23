@@ -906,7 +906,7 @@
 
 ##### Bug Fixes
 
-* **funnel:**  funnel conversion value ([#2159](https://github.com/antvis/g2plot/pull/2159)) ([08cf891b](hhttps://github.com/antvis/G2Plot/commit/222af2f4bf880b208d3b4939eaa6ce4e08cf891b))
+* **funnel:**  funnel conversion value ([#2159](https://github.com/antvis/g2plot/pull/2159)) ([08cf891b](https://github.com/antvis/G2Plot/commit/222af2f4bf880b208d3b4939eaa6ce4e08cf891b))
 * **conversion:**  conversion calculate error ([#2160](https://github.com/antvis/g2plot/pull/2160)) ([1aefd258](https://github.com/antvis/g2plot/commit/1aefd258c22255e39abbe039b81228f034e1cdf0))
 
 #### 2.3.5 (2020-12-28)

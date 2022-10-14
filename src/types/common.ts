@@ -109,7 +109,7 @@ export type Options = {
   readonly padding?: number[] | number | 'auto';
   /**
    * @title 画布宽度
-   * @description 额外怎加的 padding 值
+   * @description 额外增加的 padding 值
    */
   readonly appendPadding?: number[] | number;
   /**

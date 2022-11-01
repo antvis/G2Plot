@@ -85,10 +85,111 @@ export default defineConfig({
         url: 'https://vis-dashboard.antv.vision',
       },
     ],
-    details: [],
-    news: [],
-    features: [],
-    cases: [],
+    detail: {
+      title: {
+        zh: 'G2Plot 开箱即用的图表库',
+        en: 'G2Plot: a charting library',
+      },
+      description: {
+        zh: 'G2Plot 是开箱即用、易于配置、具有良好视觉和交互体验的通用统计图表库。',
+        en: 'G2Plot is an interactive and responsive charting library based on the grammar of graphics.',
+      },
+      image: 'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*f_gcSbpq-6kAAAAAAAAAAABkARQnAQ',
+      buttons: [
+        {
+          text: {
+            zh: '开始使用',
+            en: 'Getting Started',
+          },
+          link: `/docs/manual/introduction`,
+        },
+        {
+          text: {
+            zh: '图表示例',
+            en: 'Examples',
+          },
+          link: `/examples/`,
+          type: 'primary',
+        },
+      ],
+    },
+    news: [
+      {
+        type: {
+          zh: '论坛',
+          en: 'Forum',
+        },
+        title: {
+          zh: 'AntV 芒种日 图新物：GraphInsight 发布',
+          en: 'AntV Seeds Day Graph New: GraphInsight Released',
+        },
+        date: '2022.06.06',
+        link: 'https://github.com/antvis/GraphInsight',
+      },
+      {
+        type: {
+          zh: '论坛',
+          en: 'Forum',
+        },
+        title: {
+          zh: 'SEE Conf 2022 支付宝体验科技大会',
+          en: 'SEE Conf 2022 Alipay Experience Technology Conference',
+        },
+        date: '2022.01.08',
+        link: 'https://seeconf.antfin.com/',
+      },
+    ],
+    features: [
+      {
+        icon: 'https://gw.alipayobjects.com/zos/basement_prod/eae0ee4e-acbf-4486-88eb-ea17f441a0d5.svg',
+        title: {
+          zh: '开箱即用',
+          en: 'Easy to use',
+        },
+        description: {
+          zh: '配置项优化精简，仅需几行代码轻松生成图表',
+          en: 'Generating high quality statistical charts through a few lines of code.',
+        },
+      },
+      {
+        icon: 'https://gw.alipayobjects.com/zos/basement_prod/7269ccc5-fbe2-4e55-85d1-17c05917e8b0.svg',
+        title: {
+          zh: '默认好用',
+          en: 'Default by good',
+        },
+        description: {
+          zh: '即使你是可视化或设计小白，也能制作优雅、标准的统计图表',
+          en: 'Even though you are not an expert in data visualization and design, you still can create elegant as well as standard charts as you want by using G2Plot.',
+        },
+      },
+      {
+        icon: 'https://gw.alipayobjects.com/zos/basement_prod/d77e48ed-4e4c-43f5-bd83-329e12c28c16.svg',
+        title: {
+          zh: '响应式图表',
+          en: 'Responsive plots',
+        },
+        description: {
+          zh: '保证图表在任何显示尺寸、任何数据状态下的可读性',
+          en: 'The responsive ability of g2plot guarantee your chart\'s readability in any display space and data status.',
+        },
+      },
+    ],
+    cases: [
+      {
+        logo: 'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*Uh1MSpdcj-kAAAAAAAAAAABkARQnAQ',
+        title: {
+          zh: '图表实验室',
+          en: 'Advanced Features',
+        },
+        description: {
+          zh: '来这里尝试一下我们正在开发中的高级图表功能',
+          en: 'We are now working on some advanced and powerful chart features.',
+        },
+        link: `/examples/plugin/multi-view`,
+        image: 'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*SXLtRaVPGvMAAAAAAAAAAABkARQnAQ',
+        isAppLogo: true,
+      },
+    ],
     /** 首页合作公司 */
     companies: [
       { name: '阿里云', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*V_xMRIvw2iwAAAAAAAAAAABkARQnAQ' },
@@ -145,22 +246,6 @@ export default defineConfig({
     ],
     // 示例分类的信息
     examples: [
-      {
-        slug: 'gallery',
-        icon: 'gallery',
-        title: {
-          zh: '',
-          en: '',
-        },
-      },
-      {
-        slug: 'facet',
-        icon: 'gallery',
-        title: {
-          zh: 'Facet ❤️',
-          en: '分面图 ❤️',
-        },
-      },
       {
         slug: 'case',
         icon: 'gallery',
@@ -331,12 +416,12 @@ export default defineConfig({
       en: ''
     }
   },
-  analytics: {
-    // Google Analytics code, will be enabled after configuration
-    ga: 'UA-148148901-2',
-    // Baidu statistics code, will be enabled after configuration
-    // baidu: '5a66cxxxxxxxxxx9e13',
-  },
+  // analytics: {
+  //   // Google Analytics code, will be enabled after configuration
+  //   ga: 'UA-148148901-2',
+  //   // Baidu statistics code, will be enabled after configuration
+  //   // baidu: '5a66cxxxxxxxxxx9e13',
+  // },
   mfsu: false,
   // tnpm 安装的目录会导致 webpack 缓存快照 OOM，暂时禁用
   chainWebpack(memo) { memo.delete('cache'); return memo },

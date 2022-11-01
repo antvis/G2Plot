@@ -1,49 +1,26 @@
-const { repository, version } = require('./package.json');
+import { defineConfig } from 'dumi';
+import { repository, version } from './package.json';
 
-module.exports = {
-  plugins: [
-    {
-      resolve: '@antv/gatsby-theme-antv',
-      options: {
-        // eslint-disable-next-line quotes
-        GATrackingId: `UA-148148901-2`,
-      },
-    },
-    {
-      resolve: "gatsby-plugin-webpack-bundle-analyser-v2",
-      options: {
-        devMode: true,
-      },
-    },
-  ],
-  // Customize your site metadata:
-  siteMetadata: {
-    isAntVSite: false,
+export default defineConfig({
+  locales: [{ id: 'zh', name: '中文' }, { id: 'en', name: 'English' }],
+  themeConfig: {
     title: 'G2Plot',
     description: 'A collection of charts made with the Grammar of Graphics',
+    defaultLanguage: 'zh',
     siteUrl: 'https://g2plot.antv.vision',
-    githubUrl: repository.url,
-    showGithubStar: true,
-    showGithubCorner: false,
+    isAntVSite: false,
+    githubUrl: repository.url,                                          // GitHub 地址
+    showSearch: true,                                                   // 是否显示搜索框
+    showGithubCorner: true,                                             // 是否显示头部的 GitHub icon
+    showGithubStars: true,                                              // 是否显示 GitHub star 数量
+    showAntVProductsCard: true,                                         // 是否显示 AntV 产品汇总的卡片
+    showLanguageSwitcher: true,                                         // 是否显示官网语言切换
+    showWxQrcode: true,                                                 // 是否显示头部菜单的微信公众号
+    showChartResize: true,                                              // 是否在 demo 页展示图表视图切换
+    showAPIDoc: true,                                                   // 是否在 demo 页展示API文档
     versions: {
       [version]: 'https://g2plot.antv.vision',
       '1.x': 'https://g2plot-v1.antv.vision',
-    },
-    galleryMenuCloseAll: true,
-    showChartResize: true, // 是否在demo页展示图表视图切换
-    showAPIDoc: true, // 是否在demo页展示API文档
-    showExampleDemoTitle: true, // demo 页截图展示 title
-    themeSwitcher: 'g2plot',
-    playground: {
-      extraLib: '',
-      container: '<div id="container"><div id="container1"></div><div id="container2"></div></div>', // 定义演示的渲染节点，默认 <div id="container" />
-      devDependencies: {
-        typescript: 'latest',
-      },
-    },
-    mdPlayground: {
-      // markdown 文档中的 playground 若干设置
-      splitPaneMainSize: '50%',
     },
     navs: [
       {
@@ -108,6 +85,22 @@ module.exports = {
         url: 'https://vis-dashboard.antv.vision',
       },
     ],
+    details: [],
+    news: [],
+    features: [],
+    cases: [],
+    /** 首页合作公司 */
+    companies: [
+      { name: '阿里云', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*V_xMRIvw2iwAAAAAAAAAAABkARQnAQ' },
+      { name: '支付宝', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*lYDrRZvcvD4AAAAAAAAAAABkARQnAQ', },
+      { name: '天猫', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*BQrxRK6oemMAAAAAAAAAAABkARQnAQ', },
+      { name: '淘宝网', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*1l8-TqUr7UcAAAAAAAAAAABkARQnAQ', },
+      { name: '网上银行', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ZAKFQJ5Bz4MAAAAAAAAAAABkARQnAQ', },
+      { name: '京东', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*yh-HRr3hCpgAAAAAAAAAAABkARQnAQ', },
+      { name: 'yunos', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_js7SaNosUwAAAAAAAAAAABkARQnAQ', },
+      { name: '菜鸟', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*TgV-RZDODJIAAAAAAAAAAABkARQnAQ', },
+    ],
+    // 文档目录的信息
     docs: [
       {
         slug: 'manual/plots',
@@ -150,6 +143,7 @@ module.exports = {
         order: 5,
       }
     ],
+    // 示例分类的信息
     examples: [
       {
         slug: 'gallery',
@@ -321,6 +315,13 @@ module.exports = {
         },
       },
     ],
+    playground: {
+      extraLib: '',
+      container: '<div id="container"><div id="container1"></div><div id="container2"></div></div>', // 定义演示的渲染节点，默认 <div id="container" />
+      devDependencies: {
+        typescript: 'latest',
+      },
+    },
     docsearchOptions: {
       apiKey: '0d19588d7661a81faa8b75f6ade80321',
       indexName: 'antv_g2plot',
@@ -330,4 +331,17 @@ module.exports = {
       en: ''
     }
   },
-};
+  analytics: {
+    // Google Analytics code, will be enabled after configuration
+    ga: 'UA-148148901-2',
+    // Baidu statistics code, will be enabled after configuration
+    // baidu: '5a66cxxxxxxxxxx9e13',
+  },
+  mfsu: false,
+  // tnpm 安装的目录会导致 webpack 缓存快照 OOM，暂时禁用
+  chainWebpack(memo) { memo.delete('cache'); return memo },
+  links: [
+  ],
+  scripts: [
+  ],
+});

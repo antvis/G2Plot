@@ -30,24 +30,6 @@
       },
       
       "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/3Fb00xBNEL/4c831eb3-2290-4c2c-b3c5-c51877beb157.png"
-    },
-    {
-      "filename": "line-sort-in-xAxis.jsx",
-      "title": {
-        "zh": "折线图 x 轴阅读端排序",
-        "en": "Line plot with sort in xAxis"
-      },
-      
-      "screenshot": ""
-    },
-    {
-      "filename": "line-with-data-annotation.jsx",
-      "title": {
-        "zh": "带数据解读折线图",
-        "en": "Line plot with data annotation"
-      },
-      
-      "screenshot": ""
     }
   ]
 }

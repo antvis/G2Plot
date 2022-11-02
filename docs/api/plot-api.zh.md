@@ -16,7 +16,7 @@ G2Plot 的核心技术架构非常简单，所有的 Plot 图表都继承于一�
 ```ts
 import { Line } from '@antv/g2plot';
 
-const line = new Line(container', options);
+const line = new Line(container, options);
 // 1. `container`： 图表渲染的 DOM 容器 id 或者 HTMLElement 实例
 // 2. `options`： 图表配置数据，不同的图表功能请参考[基础图表 API]
 ```

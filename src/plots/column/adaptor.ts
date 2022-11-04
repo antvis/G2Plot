@@ -251,6 +251,7 @@ function columnTooltip(params: Params<ColumnOptions>): Params<ColumnOptions> {
     let tooltipOptions = tooltip;
     // fix: https://github.com/antvis/G2Plot/issues/2572
     if (isGroup && isStack) {
+      const { customItems } = tooltipOptions;
       const tooltipFormatter =
         tooltipOptions?.formatter ||
         ((datum: Datum) => ({ name: `${datum[seriesField]} - ${datum[groupField]}`, value: datum[yField] }));
@@ -271,7 +272,8 @@ function columnTooltip(params: Params<ColumnOptions>): Params<ColumnOptions> {
               });
             });
           });
-          return items;
+          // fix https://github.com/antvis/G2Plot/issues/3367
+          return customItems ? customItems(items) : items;
         },
       };
     }

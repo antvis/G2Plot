@@ -5,6 +5,8 @@ import { FUNNEL_PERCENT, FUNNEL_CONVERSATION, FUNNEL_MAPPING_VALUE } from '../co
 import { Params } from '../../../core/adaptor';
 import { FunnelOptions } from '../types';
 
+export const CONVERSION_TAG_NAME = 'CONVERSION_TAG_NAME';
+
 /**
  * 漏斗图 transform
  * @param geometry
@@ -47,16 +49,17 @@ export function conversionTagComponent(
 ) {
   return function (params: Params<FunnelOptions>): Params<FunnelOptions> {
     const { chart, options } = params;
-    const { conversionTag } = options;
+    // @ts-ignore
+    const { conversionTag, filteredData } = options;
 
-    const { data } = chart.getOptions();
-
+    const data = filteredData || chart.getOptions().data;
     if (conversionTag) {
       const { formatter } = conversionTag;
       data.forEach((obj, index) => {
         if (index <= 0 || Number.isNaN(obj[FUNNEL_MAPPING_VALUE])) return;
         const lineOption = getLineCoordinate(obj, index, data, {
           top: true,
+          name: CONVERSION_TAG_NAME,
           text: {
             content: isFunction(formatter) ? formatter(obj, data) : formatter,
             offsetX: conversionTag.offsetX,

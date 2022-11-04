@@ -1,5 +1,6 @@
 import { StyleAttr } from '../../types/attr';
 import { TextStyle, Datum, Data, AnnotationPosition, Options } from '../../types/common';
+export { Interaction } from '../../types';
 
 export type ConversionPosition = {
   start: AnnotationPosition;

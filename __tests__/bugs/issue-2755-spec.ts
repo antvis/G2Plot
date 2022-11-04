@@ -3,8 +3,8 @@ import { createDiv, removeDom } from '../utils/dom';
 import { delay } from '../utils/delay';
 import { PARALLEL_SET } from '../data/parallel-set';
 
-describe('sankey', () => {
-  const data = [];
+describe.skip('sankey', () => {
+  const data: any[] = [];
   const keys = ['Survived', 'Sex', 'Age', 'Class'];
   PARALLEL_SET.forEach((d) => {
     keys.reduce((a, b) => {

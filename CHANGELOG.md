@@ -1,3 +1,13 @@
+#### 2.4.22 (2022-11-04)
+
+##### Bug Fixes
+
+* **type:**  fix appendPadding description typo ([#3373](https://github.com/antvis/G2plot/pull/3373)) ([48387332](https://github.com/antvis/G2plot/commit/48387332935719d44b175f2d937963eb92da03df))
+* **funnel:**
+  *  漏斗图转化率文本位置获取修改 ([#3354](https://github.com/antvis/G2plot/pull/3354)) ([4e28638c](https://github.com/antvis/G2plot/commit/4e28638cd398f1a039e04a81a683460cffcdb463))
+* **column:**  custom customItems invalid issue ([#3367](https://github.com/antvis/G2plot/pull/3367)) ([#3375](https://github.com/antvis/G2plot/pull/3375)) ([bb26fd59](https://github.com/antvis/G2plot/commit/bb26fd59b62393e94b9d79609559202e4774d54b))
+* **stock:**  avoid mutating stock data item ([#3349](https://github.com/antvis/G2plot/pull/3349)) ([5ba0ad6e](https://github.com/antvis/G2plot/commit/5ba0ad6e1b7fa9c001daaf0aac9f3dd6574fa43f))
+
 #### 2.4.21 (2022-08-26)
 
 ##### Documentation Changes

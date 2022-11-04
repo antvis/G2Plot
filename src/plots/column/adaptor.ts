@@ -255,7 +255,6 @@ function columnTooltip(params: Params<ColumnOptions>): Params<ColumnOptions> {
         tooltipOptions?.formatter ||
         ((datum: Datum) => ({ name: `${datum[seriesField]} - ${datum[groupField]}`, value: datum[yField] }));
       tooltipOptions = {
-        ...tooltipOptions,
         customItems: (originalItems: Types.TooltipItem[]) => {
           const items: Types.TooltipItem[] = [];
           each(originalItems, (item: Types.TooltipItem) => {
@@ -273,6 +272,8 @@ function columnTooltip(params: Params<ColumnOptions>): Params<ColumnOptions> {
           });
           return items;
         },
+        // User's options have higher priority.
+        ...tooltipOptions,
       };
     }
     chart.tooltip(tooltipOptions);

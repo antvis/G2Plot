@@ -5,7 +5,7 @@ order: 0
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 坐标系
 
@@ -30,7 +30,7 @@ const data = [
 ];
 ```
 
-`markdown:docs/common/xy-field.zh.md`
+<embed src="@/docs/common/xy-field.zh.md"></embed>
 
 #### seriesField
 
@@ -40,7 +40,7 @@ const data = [
 
 #### meta
 
-`markdown:docs/common/meta.zh.md`
+<embed src="@/docs/common/meta.zh.md"></embed>
 
 ### 图形样式
 
@@ -68,7 +68,7 @@ const data = [
 
 对于存在 seriesField 分组字段的情况，我们可以设置 isStack = true，让折线堆叠累加起来。
 
-`markdown:docs/common/color.zh.md`
+<embed src="@/docs/common/color.zh.md"></embed>
 
 #### lineStyle
 
@@ -76,7 +76,7 @@ const data = [
 
 折线图形样式。可以直接传入 `ShapeStyle` 结构，也可以使用回调函数的方式，针对不同的数据，来返回不同的样式。对于 ShapeStyle 的数据结构，可以参考：
 
-`markdown:docs/common/shape-style.zh.md`
+<embed src="@/docs/common/shape-style.zh.md"></embed>
 
 #### point
 
@@ -84,7 +84,7 @@ const data = [
 
 折线数据点图形样式。
 
-`markdown:docs/common/point-style.zh.md`
+<embed src="@/docs/common/point-style.zh.md"></embed>
 
 #### area
 
@@ -101,31 +101,31 @@ const data = [
 
 <description>**可选** _object_</description>
 
-`markdown:docs/common/state-style.zh.md`
+<embed src="@/docs/common/state-style.zh.md"></embed>
 
 ### 图表组件
 
-`markdown:docs/common/component.zh.md`
+<embed src="@/docs/common/component.zh.md"></embed>
 
 #### 缩略轴 - slider
 
-`markdown:docs/common/slider.zh.md`
+<embed src="@/docs/common/slider.zh.md"></embed>
 
 ### 图表事件
 
-`markdown:docs/common/events.zh.md`
+<embed src="@/docs/common/events.zh.md"></embed>
 
 ### 图表方法
 
-`markdown:docs/common/chart-methods.zh.md`
+<embed src="@/docs/common/chart-methods.zh.md"></embed>
 
 ### 图表交互
 
-`markdown:docs/common/interactions.zh.md`
+<embed src="@/docs/common/interactions.zh.md"></embed>
 
 ### 图表主题
 
-`markdown:docs/common/theme.zh.md`
+<embed src="@/docs/common/theme.zh.md"></embed>
 
 ### 定制使用 ✨
 

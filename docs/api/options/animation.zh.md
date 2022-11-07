@@ -28,7 +28,7 @@ animation: {
 
 #### 配置项（_AnimateOption_）
 
-`markdown:docs/common/animate-option.zh.md`
+<embed src="@/docs/common/animate-option.zh.md"></embed>
 
 #### 缓动效果 (_Easing Effects_)
 

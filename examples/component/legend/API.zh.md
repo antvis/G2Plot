@@ -23,4 +23,4 @@ legend: {
 
 #### 配置属性
 
-`markdown:docs/common/legend-cfg.zh.md`
+<embed src="@/docs/common/legend-cfg.zh.md"></embed>

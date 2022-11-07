@@ -11,11 +11,11 @@ contributors:
   ]
 ---
 
-`markdown:docs/styles/component.md`
+<embed src="@/docs/styles/component.md"></embed>
 
 #### Properties - _ScrollbarCfg_
 
-`markdown:docs/common/scrollbar.en.md`
+<embed src="@/docs/common/scrollbar.en.md"></embed>
 
 #### Theme setting
 

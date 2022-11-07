@@ -5,7 +5,7 @@ order: 10
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -17,7 +17,7 @@ Configure the data source. The data source is a collection of objects. For examp
 
 #### meta
 
-`markdown:docs/common/meta.en.md`
+<embed src="@/docs/common/meta.en.md"></embed>
 
 #### measureField
 
@@ -97,7 +97,7 @@ type StyleAttr = ShapeStyle | ((datum: object) => ShapeStyle);
 
 `ShapeStyle` The structure can be referred to:
 
-`markdown:docs/common/shape-style.en.md`
+<embed src="@/docs/common/shape-style.en.md"></embed>
 
 ### Plot Components
 
@@ -113,30 +113,30 @@ Set the label attribute of each graph of the bullet map.
 | measure    | _GeometryLabelAttr_ | The label attribute of the actual value | true    |
 | target     | _GeometryLabelAttr_ | The label attribute of the target value | -       |
 
-`markdown:docs/common/label.en.md`
+<embed src="@/docs/common/label.en.md"></embed>
 
 #### tooltip
 
-`markdown:docs/common/tooltip.en.md`
+<embed src="@/docs/common/tooltip.en.md"></embed>
 
 #### axis
 
 Same for xAxis and yAxis.
 
-`markdown:docs/common/axis.en.md`
+<embed src="@/docs/common/axis.en.md"></embed>
 
 #### legend
 
-`markdown:docs/common/legend.en.md`
+<embed src="@/docs/common/legend.en.md"></embed>
 
 ### Plot Event
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Method
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>

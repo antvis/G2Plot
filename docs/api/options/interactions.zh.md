@@ -8,7 +8,7 @@ order: 7
 在 G2Plot 中，透传了 G2 的交互语法，同时也内置了一些与具体 plot 绑定的交互。
 ### 使用方式
 
-`markdown:docs/common/interactions.zh.md`
+<embed src="@/docs/common/interactions.zh.md"></embed>
 
 ### 交互介绍
 #### 内置交互

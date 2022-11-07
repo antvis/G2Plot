@@ -5,7 +5,7 @@ order: 9
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -15,7 +15,7 @@ order: 9
 
 Configure the data source. The data source is a collection of objects. For example:`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-`markdown:docs/common/xy-field.en.md`
+<embed src="@/docs/common/xy-field.en.md"></embed>
 
 #### compareField
 
@@ -31,7 +31,7 @@ Field for spliting.
 
 #### meta
 
-`markdown:docs/common/meta.en.md`
+<embed src="@/docs/common/meta.en.md"></embed>
 
 ### Graphic Style
 
@@ -84,17 +84,17 @@ Tip: when set dynamicHeight to be true, this field is invalid
 
 Graphic style of funnel. You can either pass in the 'shapeStyle' structure directly, or you can use callbacks to return different styles for different data. For the ShapeStyle data structure, see:
 
-`markdown:docs/common/shape-style.en.md`
+<embed src="@/docs/common/shape-style.en.md"></embed>
 
 ### Plot Components
 
 #### tooltip
 
-`markdown:docs/common/tooltip.en.md`
+<embed src="@/docs/common/tooltip.en.md"></embed>
 
 #### label
 
-`markdown:docs/common/label.en.md`
+<embed src="@/docs/common/label.en.md"></embed>
 
 #### conversionTag
 
@@ -113,11 +113,11 @@ Defalut: `{offsetX: 10, offsetY: 0, formatter: (datum) => '转化率' + datum[Fu
 
 Please refer to the style configuration [ShapeAttrs](/en/docs/api/graphic-style)
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 #### 图例
 
-`markdown:docs/common/legend.en.md`
+<embed src="@/docs/common/legend.en.md"></embed>
 
 #### annotations
 
@@ -125,15 +125,15 @@ Please refer to the style configuration [ShapeAttrs](/en/docs/api/graphic-style)
 
 ### Plot Event
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Method
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>
 
 ### Static Properties
 
@@ -189,4 +189,4 @@ import { FUNNEL_CONVERSATION_FIELD } from '@antv/g2plot';
 
 <!-- 直接 三级导航展开 -->
 
-`markdown:docs/common/annotations.zh.md`
+<embed src="@/docs/common/annotations.zh.md"></embed>

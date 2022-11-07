@@ -5,7 +5,7 @@ order: 4
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -17,7 +17,7 @@ Configure the data source. The data source is a collection of objects. For examp
 
 #### meta
 
-`markdown:docs/common/meta.en.md`
+<embed src="@/docs/common/meta.en.md"></embed>
 
 ```ts
 const data = [
@@ -89,13 +89,13 @@ Configure the end angle of the coordinate system.
 
 <playground rid="quarter-circle" path="pie/basic/demo/quarter-circle.ts"></playground>
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.en.md`
+<embed src="@/docs/common/pattern.en.md"></embed>
 
 #### pieStyle
 
@@ -103,19 +103,19 @@ Configure the end angle of the coordinate system.
 
 Set the sector style. The 'fill' in the pieStyle will override the 'color' configuration. The pieStyle can be specified either directly or via callback to specify a separate style for each sector slice based on the data.
 
-`markdown:docs/common/shape-style.en.md`
+<embed src="@/docs/common/shape-style.en.md"></embed>
 
 #### state
 
 <description>**optional** _object_</description>
 
-`markdown:docs/common/state-style.en.md`
+<embed src="@/docs/common/state-style.en.md"></embed>
 
 ### Plot Components
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*TBHtTY6RmHIAAAAAAAAAAAAAARQnAQ" alt="Load failed" width="600">
 
-`markdown:docs/common/component-no-axis.en.md`
+<embed src="@/docs/common/component-no-axis.en.md"></embed>
 
 #### statistic ✨
 
@@ -125,20 +125,20 @@ Statistical content components. When the innerRadius is greater than 0, the defa
 
 ![image](https://gw.alipayobjects.com/zos/bmw-prod/860bbf6e-cf20-4bdf-88bd-e8d685d12e9a.svg)
 
-`markdown:docs/common/statistic.en.md`
+<embed src="@/docs/common/statistic.en.md"></embed>
 
 ### Plot Event
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Method
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>
 
 ### Plot Interactions
 
-`markdown:docs/common/interactions.en.md`
+<embed src="@/docs/common/interactions.en.md"></embed>

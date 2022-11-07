@@ -3,7 +3,7 @@ title: Label
 order: 4
 ---
 
-`markdown:docs/styles/component.md`
+<embed src="@/docs/styles/component.md"></embed>
 
 🏷️  Label is a content annotation of the current set of data. It includes symbol, label line, text of values and so on, which can be selected according to different chart types.
 
@@ -11,7 +11,7 @@ order: 4
 
 #### Properties - _LabelCfg_
 
-`markdown:docs/common/label.en.md`
+<embed src="@/docs/common/label.en.md"></embed>
 
 #### LabelLayout
 

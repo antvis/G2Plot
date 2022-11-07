@@ -32,7 +32,7 @@
 
 功能描述： 样式配置 。
 
-`markdown:docs/common/shape-style.zh.md`
+<embed src="@/docs/common/shape-style.zh.md"></embed>
 
 #### barBackground.style
 

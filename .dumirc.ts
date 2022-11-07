@@ -423,6 +423,10 @@ export default defineConfig({
   //   // baidu: '5a66cxxxxxxxxxx9e13',
   // },
   mfsu: false,
+  alias: {
+    // 根据自己项目结构书写绝对路径
+    '@': __dirname,
+  },
   links: [
   ],
   scripts: [

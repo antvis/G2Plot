@@ -1,1 +1,1 @@
-`markdown:docs/api/plots/dual-axes.zh.md`
+<embed src="@/docs/api/plots/dual-axes.zh.md"></embed>

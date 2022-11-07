@@ -15,4 +15,4 @@ legend: {
 }
 ```
 
-`markdown:docs/common/legend-cfg.en.md`
+<embed src="@/docs/common/legend-cfg.en.md"></embed>

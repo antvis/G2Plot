@@ -3,7 +3,7 @@ title: 图表主题
 order: 9
 ---
 
-`markdown:docs/common/theme.zh.md`
+<embed src="@/docs/common/theme.zh.md"></embed>
 
 #### 参阅
 

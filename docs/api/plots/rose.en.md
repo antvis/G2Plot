@@ -5,7 +5,7 @@ order: 13
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -32,11 +32,11 @@ Configure the data source. The data source is a collection of objects. For examp
 ];
 ```
 
-`markdown:docs/common/xy-field.en.md`
+<embed src="@/docs/common/xy-field.en.md"></embed>
 
 #### meta
 
-`markdown:docs/common/meta.en.md`
+<embed src="@/docs/common/meta.en.md"></embed>
 
 ```ts
 const data = [
@@ -113,13 +113,13 @@ The starting angle of the disk.
 
 The termination angle of the disk.
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.en.md`
+<embed src="@/docs/common/pattern.en.md"></embed>
 
 #### sectorStyle
 
@@ -127,30 +127,30 @@ The termination angle of the disk.
 
 Set the sector style. The 'fill' in sectorStyle overrides the 'color' configuration. The sectorStyle can be specified either directly or via a callback to specify a separate style for each sector slice based on the data.
 
-`markdown:docs/common/shape-style.en.md`
+<embed src="@/docs/common/shape-style.en.md"></embed>
 
 #### state
 
 <description>**optional** _object_</description>
 
-`markdown:docs/common/state-style.en.md`
+<embed src="@/docs/common/state-style.en.md"></embed>
 
 ### Plot Components
 
-`markdown:docs/common/component.en.md`
+<embed src="@/docs/common/component.en.md"></embed>
 
 ### Plot Event
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Method
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>
 
 ### Plot Interactions
 
-`markdown:docs/common/interactions.en.md`
+<embed src="@/docs/common/interactions.en.md"></embed>

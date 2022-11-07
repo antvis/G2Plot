@@ -32,7 +32,7 @@ Specify the max width of column, pixel value. Auto adapt by default.
 
 Column graphic Style.
 
-`markdown:docs/common/shape-style.en.md`
+<embed src="@/docs/common/shape-style.en.md"></embed>
 
 #### columnBackground.style
 

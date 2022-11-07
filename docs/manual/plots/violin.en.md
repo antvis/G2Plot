@@ -5,4 +5,4 @@ contributors:
   [{ author: '新茗', github: 'visiky', avatar: 'https://gw.alipayobjects.com/zos/antfincdn/KAeYPA3TV0/avatar.jpeg' }]
 ---
 
-`markdown:docs/manual/plots/violin.zh.md`
+<embed src="@/docs/manual/plots/violin.zh.md"></embed>

@@ -9,7 +9,7 @@ In G2Plot, G2's interaction syntax is passed through, as well as some built-in i
 
 ### Usage
 
-`markdown:docs/common/interactions.en.md`
+<embed src="@/docs/common/interactions.en.md"></embed>
 
 ### About interactions
 

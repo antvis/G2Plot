@@ -1,1 +1,1 @@
-`markdown:docs/common/facet-title.zh.md`
+<embed src="@/docs/common/facet-title.zh.md"></embed>

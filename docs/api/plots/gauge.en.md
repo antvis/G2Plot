@@ -5,7 +5,7 @@ order: 5
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -80,7 +80,7 @@ It works when `type = 'meter'`. Properties are as followed:
 
 Gauge graphic style.
 
-`markdown:docs/common/shape-style.en.md`
+<embed src="@/docs/common/shape-style.en.md"></embed>
 
 ### Plot Components
 
@@ -90,7 +90,7 @@ Gauge graphic style.
 
 Indicates auxiliary shaft styles.
 
-`markdown:docs/common/axis.en.md`
+<embed src="@/docs/common/axis.en.md"></embed>
 
 #### indicator ✨
 
@@ -108,7 +108,7 @@ They all have the following configuration items:
 | ---------- | ------ | ----------- |
 | style      | object | ShapeStyle  |
 
-`markdown:docs/common/shape-style.en.md`
+<embed src="@/docs/common/shape-style.en.md"></embed>
 
 #### statistic
 
@@ -116,8 +116,8 @@ They all have the following configuration items:
 
 Metric central text component.
 
-`markdown:docs/common/statistic.en.md`
+<embed src="@/docs/common/statistic.en.md"></embed>
 
 #### tooltip
 
-`markdown:docs/common/tooltip.eh.md`
+<embed src="@/docs/common/tooltip.en.md"></embed>

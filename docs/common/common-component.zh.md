@@ -15,27 +15,27 @@ yAxis: {
 },
 ```
 
-`markdown:docs/common/axis.zh.md`
+<embed src="@/docs/common/axis.zh.md"></embed>
 
 #### legend
 
-`markdown:docs/common/legend.zh.md`
+<embed src="@/docs/common/legend.zh.md"></embed>
 
 
 #### label
 
 > 小提琴图暂时不支持 label 展示，可以使用 annnotation 进行替代
 
-`markdown:docs/common/label.zh.md`
+<embed src="@/docs/common/label.zh.md"></embed>
 
 
 #### tooltip
 
-`markdown:docs/common/tooltip.zh.md`
+<embed src="@/docs/common/tooltip.zh.md"></embed>
 
 #### annotations
 
 详细配置见：各 Annotation 配置项说明。
 
 <!-- 直接 三级导航展开 -->
-`markdown:docs/common/annotations.zh.md`
+<embed src="@/docs/common/annotations.zh.md"></embed>

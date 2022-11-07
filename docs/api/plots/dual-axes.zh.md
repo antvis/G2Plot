@@ -5,7 +5,7 @@ order: 6
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -33,7 +33,7 @@ const data = [[{ time: '1991'，value: 20 }], [{ time: '1992', count: 20 }]];
 
 #### meta
 
-`markdown:docs/common/meta.zh.md`
+<embed src="@/docs/common/meta.zh.md"></embed>
 
 使用示例：
 
@@ -97,7 +97,7 @@ const data = [[{ time: '1991'，value: 20 }], [{ time: '1992', count: 20 }]];
 
 #### 悬浮提示 - tooltip
 
-`markdown:docs/common/tooltip.zh.md`
+<embed src="@/docs/common/tooltip.zh.md"></embed>
 
 #### 坐标轴 - axis
 
@@ -117,7 +117,7 @@ xAxis、yAxis 配置相同，由于 DualAxes 是双轴， yAxis 类型是对象�
 }
 ```
 
-`markdown:docs/common/axis.zh.md`
+<embed src="@/docs/common/axis.zh.md"></embed>
 
 #### annotations
 
@@ -167,23 +167,23 @@ xAxis、yAxis 配置相同，由于 DualAxes 是双轴， annotations 类型是�
 
 #### 图例 - legend
 
-`markdown:docs/common/legend.zh.md`
+<embed src="@/docs/common/legend.zh.md"></embed>
 
 ### 图表主题
 
-`markdown:docs/common/theme.zh.md`
+<embed src="@/docs/common/theme.zh.md"></embed>
 
 #### 缩略轴 slider
 
-`markdown:docs/common/slider.zh.md`
+<embed src="@/docs/common/slider.zh.md"></embed>
 
 ### 图表事件
 
-`markdown:docs/common/events.zh.md`
+<embed src="@/docs/common/events.zh.md"></embed>
 
 ### 图表方法
 
-`markdown:docs/common/chart-methods.zh.md`
+<embed src="@/docs/common/chart-methods.zh.md"></embed>
 
 <!-- 直接 三级导航展开 -->
-`markdown:docs/common/annotations.zh.md`
+<embed src="@/docs/common/annotations.zh.md"></embed>

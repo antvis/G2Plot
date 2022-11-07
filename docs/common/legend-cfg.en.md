@@ -232,7 +232,7 @@ Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, a c
 
 Apply to <tag color="green" text="Classification legend">Classification legend</tag>, the configuration of the Marker icon of the legend item.
 
-`markdown:docs/common/marker.en.md`
+<embed src="@/docs/common/marker.en.md"></embed>
 
 ##### radio ✨
 
@@ -297,7 +297,7 @@ Apply to <tag color="green" text="Classification legend">Classification legend</
 | value      | any         | required | value                                |
 | marker     | _MarkerCfg_ |          | marker                               |
 
-`markdown:docs/common/marker.en.md`
+<embed src="@/docs/common/marker.en.md"></embed>
 
 ##### min
 

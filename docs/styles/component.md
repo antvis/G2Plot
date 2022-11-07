@@ -1,4 +1,4 @@
-`markdown:docs/styles/style.md`
+<embed src="@/docs/styles/style.md"></embed>
 
 <style>
   .gatsby-highlight + p {

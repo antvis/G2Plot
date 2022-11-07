@@ -11,7 +11,7 @@ contributors:
   ]
 ---
 
-`markdown:docs/styles/component.md`
+<embed src="@/docs/styles/component.md"></embed>
 
 🏷️ 提示信息 Tooltip，指当鼠标悬停在图表上或者手指点按移动设备的某个数据点时，以**交互提示**信息的形式展示该点的数据，比如该点的值，数据单位等。
 
@@ -23,4 +23,4 @@ contributors:
 
 #### 配置属性 - _TooltipCfg_
 
-`markdown:docs/common/tooltip.zh.md`
+<embed src="@/docs/common/tooltip.zh.md"></embed>

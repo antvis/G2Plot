@@ -11,11 +11,11 @@ contributors:
   ]
 ---
 
-`markdown:docs/styles/component.md`
+<embed src="@/docs/styles/component.md"></embed>
 
 #### 配置属性 - _ScrollbarCfg_
 
-`markdown:docs/common/scrollbar.zh.md`
+<embed src="@/docs/common/scrollbar.zh.md"></embed>
 
 #### 主题设置
 

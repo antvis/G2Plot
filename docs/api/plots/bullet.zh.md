@@ -5,7 +5,7 @@ order: 10
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -17,7 +17,7 @@ order: 10
 
 #### meta
 
-`markdown:docs/common/meta.zh.md`
+<embed src="@/docs/common/meta.zh.md"></embed>
 
 #### measureField 
 
@@ -97,7 +97,7 @@ type StyleAttr = ShapeStyle | ((datum: object) => ShapeStyle);
 
 `ShapeStyle` 结构可以参考：
 
-`markdown:docs/common/shape-style.zh.md`
+<embed src="@/docs/common/shape-style.zh.md"></embed>
 
 ### 图表组件
 
@@ -113,30 +113,30 @@ type StyleAttr = ShapeStyle | ((datum: object) => ShapeStyle);
 | measure  | _GeometryLabelAttr_ | 实际值的 label 属性 | true     |
 | target   | _GeometryLabelAttr_ | 目标值的 label 属性 | 无       |
 
-`markdown:docs/common/label.zh.md`
+<embed src="@/docs/common/label.zh.md"></embed>
 
 #### tooltip
 
-`markdown:docs/common/tooltip.zh.md`
+<embed src="@/docs/common/tooltip.zh.md"></embed>
 
 #### axis
 
 xAxis、yAxis 配置相同（由于 DualAxes 是双轴， yAxis 类型是数组类型）。
 
-`markdown:docs/common/axis.zh.md`
+<embed src="@/docs/common/axis.zh.md"></embed>
 
 #### 图例
 
-`markdown:docs/common/legend.zh.md`
+<embed src="@/docs/common/legend.zh.md"></embed>
 
 ### 图表事件
 
-`markdown:docs/common/events.zh.md`
+<embed src="@/docs/common/events.zh.md"></embed>
 
 ### 图表方法
 
-`markdown:docs/common/chart-methods.zh.md`
+<embed src="@/docs/common/chart-methods.zh.md"></embed>
 
 ### 图表主题
 
-`markdown:docs/common/theme.zh.md`
+<embed src="@/docs/common/theme.zh.md"></embed>

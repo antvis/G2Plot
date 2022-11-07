@@ -5,7 +5,7 @@ order: 5
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -15,11 +15,11 @@ order: 5
 
 Configure the data source. The data source is a collection of objects. For example:`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-`markdown:docs/common/xy-field.en.md`
+<embed src="@/docs/common/xy-field.en.md"></embed>
 
 #### meta
 
-`markdown:docs/common/meta.en.md`
+<embed src="@/docs/common/meta.en.md"></embed>
 
 ```ts
 const data = [
@@ -79,7 +79,7 @@ The name of the data field corresponding to the point size map.
 
 ### Geometry Style
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 #### size
 
@@ -193,17 +193,17 @@ Default configuration:
 
 #### tooltip
 
-`markdown:docs/common/tooltip.en.md`
+<embed src="@/docs/common/tooltip.en.md"></embed>
 
 #### label
 
-`markdown:docs/common/label.en.md`
+<embed src="@/docs/common/label.en.md"></embed>
 
 #### axis
 
 Same for xAxis and yAxis. **Note**: Since `DualAxes` or `BidirectionalBar` has double Y-axes, the yAxis is a object which takes the field in yField as the 'key'.
 
-`markdown:docs/common/axis.en.md`
+<embed src="@/docs/common/axis.en.md"></embed>
 
 #### legend
 
@@ -214,7 +214,7 @@ When colorField existed and legend is not false, color legend will be rendered.
 When shapeField existed and legend is not false, shape legend will be rendered. You can set `shapeLegend: false` to hide shape legend.
 ```
 
-`markdown:docs/common/legend.en.md`
+<embed src="@/docs/common/legend.en.md"></embed>
 
 #### shapeLegend
 
@@ -288,15 +288,15 @@ regressionLine: {
 
 ### Plot Event
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Method
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>
 
 ### Plot Interactions
 
@@ -306,9 +306,9 @@ Built-in interactions of scatter are as follows:
 | ----------- | ---------------------------------------- | ------------------------------ |
 | brush | 用于刷选交互，配置该交互后，可进行刷选。 | `brush: { enabled: true }` |
 
-`markdown:docs/common/brush.en.md`
+<embed src="@/docs/common/brush.en.md"></embed>
 
-`markdown:docs/common/interactions.en.md`
+<embed src="@/docs/common/interactions.en.md"></embed>
 
 <!-- 直接 三级导航展开 -->
-`markdown:docs/common/annotations.en.md`
+<embed src="@/docs/common/annotations.en.md"></embed>

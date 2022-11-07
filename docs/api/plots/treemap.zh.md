@@ -5,7 +5,7 @@ order: 29
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -56,13 +56,13 @@ G2 plot 会根据 data 生成以下数据结构：
 
 ### 图形样式
 
-`markdown:docs/common/color.zh.md`
+<embed src="@/docs/common/color.zh.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.zh.md`
+<embed src="@/docs/common/pattern.zh.md"></embed>
 
 #### rectStyle
 
@@ -113,7 +113,7 @@ G2 plot 会根据 data 生成以下数据结构：
 
 ### 图表组件
 
-`markdown:docs/common/component-polygon.zh.md`
+<embed src="@/docs/common/component-polygon.zh.md"></embed>
 
 ### 图表交互
 
@@ -125,18 +125,18 @@ G2 plot 会根据 data 生成以下数据结构：
 | view-zoom | view-zoom 用于放大 view，配置该交互后，canavs 自动识别 zoom 手势，放大或缩小矩形树图 | `interactions: [{ type: 'view-zoom' }]` |
 | drag-move |drag-move 用于拖拽 view，可和 view-zoom 配套使用，查看矩形树图细节| `interactions: [{ type: 'drag-move' }]` |
 
-`markdown:docs/common/drill-down.zh.md`
+<embed src="@/docs/common/drill-down.zh.md"></embed>
 
-`markdown:docs/common/interactions.zh.md`
+<embed src="@/docs/common/interactions.zh.md"></embed>
 
 ### 图表事件
 
-`markdown:docs/common/events.zh.md`
+<embed src="@/docs/common/events.zh.md"></embed>
 
 ### 图表方法
 
-`markdown:docs/common/chart-methods.zh.md`
+<embed src="@/docs/common/chart-methods.zh.md"></embed>
 
 ### 图表主题
 
-`markdown:docs/common/theme.zh.md`
+<embed src="@/docs/common/theme.zh.md"></embed>

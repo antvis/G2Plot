@@ -28,7 +28,7 @@ animation: {
 
 #### Configuration（_AnimateOption_）
 
-`markdown:docs/common/animate-option.zh.md`
+<embed src="@/docs/common/animate-option.zh.md"></embed>
 
 #### Easing Effects
 

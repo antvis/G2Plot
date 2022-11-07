@@ -5,7 +5,7 @@ order: 20
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -29,7 +29,7 @@ order: 20
 
 进度条样式配置。
 
-`markdown:docs/common/shape-style.zh.md`
+<embed src="@/docs/common/shape-style.zh.md"></embed>
 
 使用回调方法获得样式配置
 
@@ -46,8 +46,8 @@ order: 20
 };
 ```
 
-`markdown:docs/common/color.zh.md`
+<embed src="@/docs/common/color.zh.md"></embed>
 
 ### 图表组件
 
-`markdown:docs/common/component-progress.zh.md`
+<embed src="@/docs/common/component-progress.zh.md"></embed>

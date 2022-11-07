@@ -1,1 +1,1 @@
-`markdown:docs/common/annotations/html.zh.md`
+<embed src="@/docs/common/annotations/html.zh.md"></embed>

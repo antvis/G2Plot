@@ -73,7 +73,7 @@ contributors:
 
 ## Design Guide
 
-`markdown:examples/line/basic/design.en.md`
+<embed src="@/examples/line/basic/design.en.md"></embed>
 
 ## Quick start
 

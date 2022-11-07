@@ -5,7 +5,7 @@ order: 28
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -47,7 +47,7 @@ Configuration of chord graph node styles.
 
 Configuration of chord graph edge styles.
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 #### nodeWidthRatio
 
@@ -63,15 +63,15 @@ Configuration of chord graph edge styles.
 
 ### Plot Event
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Method
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>
 
 ### Plot Interactions
 
@@ -81,4 +81,4 @@ Configuration of chord graph edge styles.
 interactions: [{ type: 'element-active' }]
 ```
 
-`markdown:docs/common/interactions.en.md`
+<embed src="@/docs/common/interactions.en.md"></embed>

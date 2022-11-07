@@ -15,7 +15,7 @@ Applicable to base bar charts and base bar charts, the Conversion Rate component
 
 #### _ConversionTagCfg_
 
-`markdown:docs/common/conversion-tag.en.md`
+<embed src="@/docs/common/conversion-tag.en.md"></embed>
 
 #### Events and interactions
 

@@ -235,7 +235,7 @@ type Marker = {
 
 适用于 <tag color="green" text="分类图例">分类图例</tag>，图例项的 marker 图标的配置。
 
-`markdown:docs/common/marker.zh.md`
+<embed src="@/docs/common/marker.zh.md"></embed>
 
 
 ```sign
@@ -318,7 +318,7 @@ const maxHeight = Math.min(maxHeight, maxHeightRatio * viewBBox.height);
 | value  | any         | required | 值                       |
 | marker | _MarkerCfg_ |          | 图形标记                 |
 
-`markdown:docs/common/marker.zh.md`
+<embed src="@/docs/common/marker.zh.md"></embed>
 
 ##### min
 

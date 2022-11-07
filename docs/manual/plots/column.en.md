@@ -76,7 +76,7 @@ contributors:
 
 ## Design Guide
 
-`markdown:examples/column/basic/design.en.md`
+<embed src="@/examples/column/basic/design.en.md"></embed>
 
 ## Quick start
 

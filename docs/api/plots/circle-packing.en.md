@@ -5,7 +5,7 @@ order: 40
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -33,7 +33,7 @@ type Node = { name: string; value?: number; children: Node[]; }
 
 #### meta
 
-`markdown:docs/common/meta.en.md`
+<embed src="@/docs/common/meta.en.md"></embed>
 
 
 Circle packing contains data fields such as 'x', 'y', 'r', 'name', 'value', 'path', and 'depth', which can be retrieved from the metadata (used in tooltip and style callbacks).
@@ -103,13 +103,13 @@ Radius, 0~1 of the value.
 Inner radius, 0~1 of the value. -->
 
 <!-- Color 配置 -->
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.en.md`
+<embed src="@/docs/common/pattern.en.md"></embed>
 
 #### pointStyle
 
@@ -166,7 +166,7 @@ You can use `reflect: 'x'` to carry out an X-axis reverse and `reflect: 'y'` to 
 
 ### Plot Components
 
-`markdown:docs/common/component-polygon.en.md`
+<embed src="@/docs/common/component-polygon.en.md"></embed>
 
 ### Plot Interactions
 <!-- 
@@ -176,18 +176,18 @@ Built-in interactions of Sunburst are as follows:
 | ---|---|---|
 | drill-down | 用于下钻交互，配置该交互后，矩形树图默认显示深度为 1 的节点，点击后下钻。| `drilldown: { enabled: true }`  | -->
 
-<!-- `markdown:docs/common/drill-down.zh.md` -->
+<!-- <embed src="@/docs/common/drill-down.zh.md"></embed> -->
 
-`markdown:docs/common/interactions.en.md`
+<embed src="@/docs/common/interactions.en.md"></embed>
 
 ### Plot Event
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Method
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>

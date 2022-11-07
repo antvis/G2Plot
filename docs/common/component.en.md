@@ -1,5 +1,5 @@
-`markdown:docs/common/common-component.en.md`
+<embed src="@/docs/common/common-component.en.md"></embed>
 
 #### slider
 
-`markdown:docs/common/slider.en.md`
+<embed src="@/docs/common/slider.en.md"></embed>

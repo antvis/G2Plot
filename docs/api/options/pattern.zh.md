@@ -28,7 +28,7 @@ G2Plot 内置了 `'dot' ｜ 'line' | 'square'` 等若干贴图, 图案颜色默�
 
 ### API 说明
 
-`markdown:docs/common/pattern.zh.md`
+<embed src="@/docs/common/pattern.zh.md"></embed>
 
 ### 注意事项
 

@@ -1,1 +1,1 @@
-`markdown:docs/common/annotations/data-region.zh.md`
+<embed src="@/docs/common/annotations/data-region.zh.md"></embed>

@@ -5,7 +5,7 @@ order: 20
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -29,7 +29,7 @@ order: 20
 
 进度条样式配置。
 
-`markdown:docs/common/shape-style.en.md`
+<embed src="@/docs/common/shape-style.en.md"></embed>
 
 使用回调方法获得样式配置
 
@@ -46,8 +46,8 @@ order: 20
 };
 ```
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 ### Plot Component
 
-`markdown:docs/common/component-progress.en.md`
+<embed src="@/docs/common/component-progress.en.md"></embed>

@@ -13,22 +13,22 @@ annotations: [
 ];
 ```
 
-`markdown:docs/common/annotations/text.en.md`
+<embed src="@/docs/common/annotations/text.en.md"></embed>
 
-`markdown:docs/common/annotations/line.en.md`
+<embed src="@/docs/common/annotations/line.en.md"></embed>
 
-`markdown:docs/common/annotations/arc.en.md`
+<embed src="@/docs/common/annotations/arc.en.md"></embed>
 
-`markdown:docs/common/annotations/image.en.md`
+<embed src="@/docs/common/annotations/image.en.md"></embed>
 
-`markdown:docs/common/annotations/region.en.md`
+<embed src="@/docs/common/annotations/region.en.md"></embed>
 
-`markdown:docs/common/annotations/data-marker.en.md`
+<embed src="@/docs/common/annotations/data-marker.en.md"></embed>
 
-`markdown:docs/common/annotations/data-region.en.md`
+<embed src="@/docs/common/annotations/data-region.en.md"></embed>
 
-`markdown:docs/common/annotations/region-filter.en.md`
+<embed src="@/docs/common/annotations/region-filter.en.md"></embed>
 
-`markdown:docs/common/annotations/html.en.md`
+<embed src="@/docs/common/annotations/html.en.md"></embed>
 
-`markdown:docs/common/annotations/shape.en.md`
+<embed src="@/docs/common/annotations/shape.en.md"></embed>

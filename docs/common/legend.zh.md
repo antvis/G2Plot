@@ -14,4 +14,4 @@ legend: {
 }
 ```
 
-`markdown:docs/common/legend-cfg.zh.md`
+<embed src="@/docs/common/legend-cfg.zh.md"></embed>

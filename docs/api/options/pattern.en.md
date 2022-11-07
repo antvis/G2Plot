@@ -28,7 +28,7 @@ Usage for scenes:
 
 ### API
 
-`markdown:docs/common/pattern.en.md`
+<embed src="@/docs/common/pattern.en.md"></embed>
 
 ### Attention
 

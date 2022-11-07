@@ -5,7 +5,7 @@ order: 17
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -33,7 +33,7 @@ type Node = { name: string; value?: number; children: Node[]; }
 
 #### meta
 
-`markdown:docs/common/meta.en.md`
+<embed src="@/docs/common/meta.en.md"></embed>
 
 Built-in fields of Sunburst:
 
@@ -114,13 +114,13 @@ Inner radius, 0~1 of the value.
 
 <!-- Color 配置 -->
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.en.md`
+<embed src="@/docs/common/pattern.en.md"></embed>
 
 #### sunburstStyle
 
@@ -176,7 +176,7 @@ Radial type, not recommended in special cases. 在旭日图中，不可使用 `r
 
 ### Plot Components
 
-`markdown:docs/common/component-polygon.en.md`
+<embed src="@/docs/common/component-polygon.en.md"></embed>
 
 ### Plot Interactions
 
@@ -186,18 +186,18 @@ Built-in interactions of Sunburst are as follows:
 | ----------- | ---------------------------------------- | ------------------------------ |
 | drill-down  | 用于下钻交互，配置该交互后，点击可下钻。 | `drilldown: { enabled: true }` |
 
-`markdown:docs/common/drill-down.zh.md`
+<embed src="@/docs/common/drill-down.zh.md"></embed>
 
-`markdown:docs/common/interactions.zh.md`
+<embed src="@/docs/common/interactions.zh.md"></embed>
 
 ### Plot Event
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Method
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>

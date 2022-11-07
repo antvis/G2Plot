@@ -50,4 +50,4 @@ type AnnotationPosition =
 
 辅助线样式属性，参考[绘图属性](/zh/docs/api/graphic-style)
 
-`markdown:docs/common/annotations/base-annotation.zh.md`
+<embed src="@/docs/common/annotations/base-annotation.zh.md"></embed>

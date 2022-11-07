@@ -5,7 +5,7 @@ order: 15
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -17,7 +17,7 @@ order: 15
 
 #### meta
 
-`markdown:docs/common/meta.zh.md`
+<embed src="@/docs/common/meta.zh.md"></embed>
 
 ### 图形样式
 
@@ -33,7 +33,7 @@ order: 15
 
 面积图形样式。
 
-`markdown:docs/common/shape-style.zh.md`
+<embed src="@/docs/common/shape-style.zh.md"></embed>
 
 #### line
 
@@ -53,17 +53,17 @@ order: 15
 
 面积图数据点图形样式。
 
-`markdown:docs/common/point-style.zh.md`
+<embed src="@/docs/common/point-style.zh.md"></embed>
 
-`markdown:docs/common/color.zh.md`
+<embed src="@/docs/common/color.zh.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.zh.md`
+<embed src="@/docs/common/pattern.zh.md"></embed>
 
 
 ### 图表组件
 
-`markdown:docs/common/component-tiny.zh.md`
+<embed src="@/docs/common/component-tiny.zh.md"></embed>

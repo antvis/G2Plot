@@ -76,7 +76,7 @@ contributors:
 
 ## 设计指引
 
-`markdown:examples/column/basic/design.zh.md`
+<embed src="@/examples/column/basic/design.zh.md"></embed>
 
 ## 快速上手
 

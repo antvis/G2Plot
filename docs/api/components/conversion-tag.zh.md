@@ -15,7 +15,7 @@ contributors:
 
 #### 配置项
 
-`markdown:docs/common/conversion-tag.zh.md`
+<embed src="@/docs/common/conversion-tag.zh.md"></embed>
 
 #### 事件交互
 

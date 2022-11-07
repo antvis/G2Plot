@@ -5,7 +5,7 @@ order: 14
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -17,7 +17,7 @@ order: 14
 
 #### meta
 
-`markdown:docs/common/meta.zh.md`
+<embed src="@/docs/common/meta.zh.md"></embed>
 
 ### 图形样式
 
@@ -39,7 +39,7 @@ order: 14
 
 折线图形样式。可以直接传入 `ShapeStyle` 结构，也可以使用回调函数的方式，针对不同的数据，来返回不同的样式。对于 ShapeStyle 的数据结构，可以参考：
 
-`markdown:docs/common/shape-style.zh.md`
+<embed src="@/docs/common/shape-style.zh.md"></embed>
 
 #### point
 
@@ -47,10 +47,10 @@ order: 14
 
 折线数据点图形样式。
 
-`markdown:docs/common/point-style.zh.md`
+<embed src="@/docs/common/point-style.zh.md"></embed>
 
-`markdown:docs/common/color.zh.md`
+<embed src="@/docs/common/color.zh.md"></embed>
 
 ### 图表组件
 
-`markdown:docs/common/component-tiny.zh.md`
+<embed src="@/docs/common/component-tiny.zh.md"></embed>

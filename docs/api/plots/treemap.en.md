@@ -5,7 +5,7 @@ order: 29
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -55,13 +55,13 @@ Color mapping field name.
 Extra original fields. Once configured, you can retrieve additional raw data in the datum parameter of callback functions such as color.
 ### Geometry Style
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.en.md`
+<embed src="@/docs/common/pattern.en.md"></embed>
 
 #### rectStyle
 
@@ -112,7 +112,7 @@ The default is `{tile: 'treemapSquarify', ratio: 0.5 * (1 + Math.sqrt(5))}` (Gol
 
 ### Plot Components
 
-`markdown:docs/common/component-polygon.en.md`
+<embed src="@/docs/common/component-polygon.en.md"></embed>
 
 ### Plot Interactions
 
@@ -124,18 +124,18 @@ Built-in interactions of Treemap are as follows:
 | view-zoom          | view-zoom 用于放大 view，配置该交互后，canavs 自动识别 zoom 手势，放大或缩小矩形树图 | `interactions: [{ type: 'view-zoom' }]`                                               |
 | drag-move          | drag-move 用于拖拽 view，可和 view-zoom 配套使用，查看矩形树图细节                   | `interactions: [{ type: 'drag-move' }]`                                               |
 
-`markdown:docs/common/drill-down.en.md`
+<embed src="@/docs/common/drill-down.en.md"></embed>
 
-`markdown:docs/common/interactions.en.md`
+<embed src="@/docs/common/interactions.en.md"></embed>
 
 ### Plot Events
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Methods
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>

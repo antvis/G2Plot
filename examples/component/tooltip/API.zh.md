@@ -25,4 +25,4 @@ tooltip: {
 
 #### 配置属性
 
-`markdown:docs/common/tooltip.zh.md`
+<embed src="@/docs/common/tooltip.zh.md"></embed>

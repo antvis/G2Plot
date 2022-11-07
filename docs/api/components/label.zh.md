@@ -3,7 +3,7 @@ title: 数据标签 - Label
 order: 4
 ---
 
-`markdown:docs/styles/component.md`
+<embed src="@/docs/styles/component.md"></embed>
 
 🏷️ 在图表中，标签是对当前的一组数据进行的内容标注。包括数据点、拉线、文本数值等元素，根据不同的图表类型选择使用。
 
@@ -11,7 +11,7 @@ order: 4
 
 #### 配置属性 - _LabelCfg_
 
-`markdown:docs/common/label.zh.md`
+<embed src="@/docs/common/label.zh.md"></embed>
 
 #### 标签布局
 

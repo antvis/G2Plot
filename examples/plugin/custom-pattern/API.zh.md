@@ -1,1 +1,1 @@
-`markdown:docs/api/pattern.zh.md`
+<embed src="@/docs/api/pattern.zh.md"></embed>

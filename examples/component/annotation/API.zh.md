@@ -2,4 +2,4 @@
 title: API
 ---
 
-`markdown:docs/common/annotations.zh.md`
+<embed src="@/docs/common/annotations.zh.md"></embed>

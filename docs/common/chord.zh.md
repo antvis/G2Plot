@@ -5,7 +5,7 @@ order: 28
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### Data Mapping
 
@@ -61,15 +61,15 @@ order: 28
 
 ### Plot Event
 
-`markdown:docs/common/events.zh.md`
+<embed src="@/docs/common/events.zh.md"></embed>
 
 ### Plot Method
 
-`markdown:docs/common/chart-methods.zh.md`
+<embed src="@/docs/common/chart-methods.zh.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.zh.md`
+<embed src="@/docs/common/theme.zh.md"></embed>
 
 ### Plot Interactions
 #### 默认交互
@@ -78,4 +78,4 @@ order: 28
 interactions: [{ type: 'element-active' }]
 ```
 
-`markdown:docs/common/interactions.zh.md`
+<embed src="@/docs/common/interactions.zh.md"></embed>

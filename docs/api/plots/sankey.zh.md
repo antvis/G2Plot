@@ -5,7 +5,7 @@ order: 27
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -55,7 +55,7 @@ order: 27
 
 桑基图节点状态样式的配置。
 
-`markdown:docs/common/state-style.zh.md`
+<embed src="@/docs/common/state-style.zh.md"></embed>
 
 #### nodeInteractions
 
@@ -69,7 +69,7 @@ order: 27
 
 桑基图变样式的配置。
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 #### edgeState
 
@@ -77,7 +77,7 @@ order: 27
 
 桑基图边状态样式的配置。
 
-`markdown:docs/common/state-style.zh.md`
+<embed src="@/docs/common/state-style.zh.md"></embed>
 
 #### nodeInteractions
 
@@ -135,12 +135,12 @@ order: 27
 
 ### Plot Event
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Method
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>

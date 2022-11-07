@@ -11,7 +11,7 @@ contributors:
   ]
 ---
 
-`markdown:docs/styles/component.md`
+<embed src="@/docs/styles/component.md"></embed>
 
 #### Statistic
 
@@ -19,7 +19,7 @@ contributors:
 
 #### Properties - _Statistic_
 
-`markdown:docs/common/statistic.en.md`
+<embed src="@/docs/common/statistic.en.md"></embed>
 
 Example:
 

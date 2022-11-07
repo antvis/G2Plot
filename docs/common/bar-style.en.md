@@ -32,7 +32,7 @@ Specify the max width of bar, pixel value. Auto adapt by default.
 
 Bar graphic Style.
 
-`markdown:docs/common/shape-style.en.md`
+<embed src="@/docs/common/shape-style.en.md"></embed>
 
 #### barBackground.style
 

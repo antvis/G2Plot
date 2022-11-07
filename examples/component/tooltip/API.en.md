@@ -25,4 +25,4 @@ tooltip: {
 
 #### Properties
 
-`markdown:docs/common/tooltip.en.md`
+<embed src="@/docs/common/tooltip.en.md"></embed>

@@ -28,7 +28,7 @@ A configuration item for the title, NULL means not to be displayed.
 
 **_shapeStyle_**
 
-`markdown:docs/common/shape-style.en.md`
+<embed src="@/docs/common/shape-style.en.md"></embed>
 
 **_label_**
 
@@ -36,7 +36,7 @@ A configuration item for the title, NULL means not to be displayed.
 
 A configuration item for the text label. NULL indicates that it is not displayed.
 
-`markdown:docs/common/label.en.md`
+<embed src="@/docs/common/label.en.md"></embed>
 
 ##### label
 
@@ -122,7 +122,7 @@ Then config of `grid.line` is the same as: [line](#line)
 
 Coordinate axis configuration item, NULL means not displayed.
 
-`markdown:docs/common/line-style.en.md`
+<embed src="@/docs/common/line-style.en.md"></embed>
 
 ##### tickLine
 

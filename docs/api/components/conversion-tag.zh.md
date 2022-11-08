@@ -32,4 +32,4 @@ plot.on('conversion-tag-group:mouseenter', (evt) => {
 
 示例：
 
-<playground path='general/events/demo/conversion-tag-with-link.ts' rid='conversion-tag-events'></playground>
+<Playground path='general/events/demo/conversion-tag-with-link.ts' rid='conversion-tag-events'></playground>

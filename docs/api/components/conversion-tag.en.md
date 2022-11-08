@@ -19,7 +19,7 @@ Applicable to base bar charts and base bar charts, the Conversion Rate component
 
 #### Events and interactions
 
-<playground path='general/events/demo/conversion-tag-with-link.ts' rid='conversion-tag-events'></playground>
+<Playground path='general/events/demo/conversion-tag-with-link.ts' rid='conversion-tag-events'></playground>
 
 转化标签的图形组成包含 `conversion-tag-arrow` 和 `conversion-tag-text`。同一个图表的转化标签组件都放置于一个 group 下，也就是 `conversion-tag-group`，我们可以通过监听 `conversion-tag-group` 事件来进行一些定制交互。
 
@@ -34,4 +34,4 @@ plot.on('conversion-tag-group:mouseenter', (evt) => {
 
 Example：
 
-<playground path='general/events/demo/conversion-tag-with-link.ts' rid='conversion-tag-events'></playground>
+<Playground path='general/events/demo/conversion-tag-with-link.ts' rid='conversion-tag-events'></playground>

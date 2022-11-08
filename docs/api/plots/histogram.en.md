@@ -40,7 +40,7 @@ Built-in fields of Histogram:
 
 Example:
 
-<playground path="more-plots/histogram/demo/binWidth.ts" rid="histogram-meta"></playground>
+<Playground path="more-plots/histogram/demo/binWidth.ts" rid="histogram-meta"></playground>
 
 ### Geometry Style
 

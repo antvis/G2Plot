@@ -65,7 +65,7 @@ brush 交互相关事件:
 
 示例:
 
-<playground path="dynamic-plots/brush/demo/advanced-brush1.ts" rid="brush-filter-event"></playground>
+<Playground path="dynamic-plots/brush/demo/advanced-brush1.ts" rid="brush-filter-event"></playground>
 
 2. `brush-highlight`, 事件列表：
 
@@ -78,4 +78,4 @@ brush 交互相关事件:
 
 示例:
 
-<playground path="dynamic-plots/brush/demo/advanced-brush2.ts" rid="brush-highlight-event"></playground>
+<Playground path="dynamic-plots/brush/demo/advanced-brush2.ts" rid="brush-highlight-event"></playground>

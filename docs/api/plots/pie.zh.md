@@ -86,7 +86,7 @@ piePlot.render();
 
 配置坐标系的结束角度。
 
-<playground rid="quarter-circle" path="pie/basic/demo/quarter-circle.ts"></playground>
+<Playground rid="quarter-circle" path="pie/basic/demo/quarter-circle.ts"></playground>
 
 <embed src="@/docs/common/color.zh.md"></embed>
 

@@ -59,7 +59,7 @@ type KdeOptions = {
 
 可以通过 `meta` 来设置字段的元信息
 
-<playground path="more-plots/violin/demo/tooltip.ts" rid="tooltip-meta"></playground>
+<Playground path="more-plots/violin/demo/tooltip.ts" rid="tooltip-meta"></playground>
 
 ### Graphic Style
 

@@ -22,7 +22,7 @@ contributors:
       <tbody>
         <tr style="height: 33px;">
           <td colspan="1" rowspan="4" style="background:#fff">
-            <playground path='progress-plots/liquid/demo/basic.ts'></playground>
+            <Playground path='progress-plots/liquid/demo/basic.ts'></playground>
           </td>
           <td class="style1">
           <p><strong>定义</strong></p>
@@ -77,13 +77,13 @@ liquidPlot.render();
 
 Liquid plot has 5 built-in shapes: `circle | diamond | triangle | pin | rect`
 
-<playground path='progress-plots/liquid/demo/diamond.ts' rid='rect1'></playground>
+<Playground path='progress-plots/liquid/demo/diamond.ts' rid='rect1'></playground>
 
 ### Custom liquid shape
 
 In addition to the built-in shapes, the liquid plot also supports custom graphics. At this time, a callback function to build path needs to be passed in.
 
-<playground path='progress-plots/liquid/demo/outline-style.ts' rid='rect2'></playground>
+<Playground path='progress-plots/liquid/demo/outline-style.ts' rid='rect2'></playground>
 
 </div>
 

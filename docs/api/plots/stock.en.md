@@ -81,7 +81,7 @@ Rising color configuration.
 
 Falling color configuration.
 
-<playground path="more-plots/stock/demo/custom-color.ts" rid="custom-color"></playground>
+<Playground path="more-plots/stock/demo/custom-color.ts" rid="custom-color"></playground>
 
 #### stockStyle
 
@@ -91,7 +91,7 @@ Graphic style of stock plot. You can either pass in the 'shapeStyle' structure d
 
 <embed src="@/docs/common/shape-style.en.md"></embed>
 
-<playground path="more-plots/stock/demo/custom-style.ts" rid="custom-style"></playground>
+<Playground path="more-plots/stock/demo/custom-style.ts" rid="custom-style"></playground>
 
 ### Plot Components
 

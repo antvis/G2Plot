@@ -39,7 +39,7 @@ order: 27
 
 其他原始字段，便于在节点、边定义 tooltip 或者 label 时取用。
 
-<playground path="relation-plots/sankey/demo/draggable.ts" rid="sankey-raw-fields"></playground>
+<Playground path="relation-plots/sankey/demo/draggable.ts" rid="sankey-raw-fields"></playground>
 
 ### Geometry Style
 

@@ -16,7 +16,7 @@ order: 6
         <tbody>
           <tr style="height: 33px">
             <td colspan="1" rowspan="5" style="background: #fff">
-              <playground path="pie/basic/demo/basic.ts"></playground>
+              <Playground path="pie/basic/demo/basic.ts"></playground>
             </td>
             <td class="style1">
               <p><strong>定义</strong></p>
@@ -137,12 +137,12 @@ piePlot.render();
 
 在 G2Plot 中，只需要指定 `innerRadius` 就可以创建环形饼图
 
-<playground path='pie/donut/demo/basic.ts' rid='rect2'></playground>
+<Playground path='pie/donut/demo/basic.ts' rid='rect2'></playground>
 
 ### 扇形图
 
 通过设置饼图的 startAngle (开始角度) 和 endAngle (结束角度)，我们可以将饼图变成扇形图
 
-<playground path='pie/basic/demo/quarter-circle.ts' rid='rect3'></playground>
+<Playground path='pie/basic/demo/quarter-circle.ts' rid='rect3'></playground>
 
 </div>

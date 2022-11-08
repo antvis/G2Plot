@@ -25,7 +25,7 @@ contributors:
         <tbody>
           <tr style="height: 33px">
             <td colspan="1" rowspan="5" style="background: #fff">
-              <playground path="line/basic/demo/line.ts"></playground>
+              <Playground path="line/basic/demo/line.ts"></playground>
             </td>
             <td class="style1">
               <p><strong>Description</strong></p>
@@ -107,7 +107,7 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38cc
 
 曲线图是用曲线将一系列的数据点连接的图表, 对应的只需要配置 `smooth: true` 属性即可。
 
-<playground path='line/basic/demo/spline.ts' rid='rect2'></playground>
+<Playground path='line/basic/demo/spline.ts' rid='rect2'></playground>
 
 ### Step
 
@@ -119,6 +119,6 @@ options: {
 }
 ```
 
-<playground path='line/step/demo/line.ts' rid='rect3'></playground>
+<Playground path='line/step/demo/line.ts' rid='rect3'></playground>
 
 </div>

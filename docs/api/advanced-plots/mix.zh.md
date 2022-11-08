@@ -28,7 +28,7 @@ order: 8
 
 在 2.3.9 版本之后，我们提供了 `plots` 的配置项，你可以使用 plots 来代替 views 或者联合使用。
 
-<playground path="plugin/multi-view/demo/series-columns.ts" rid="multi-views-plots"></playground>
+<Playground path="plugin/multi-view/demo/series-columns.ts" rid="multi-views-plots"></playground>
 
 ### IView
 

@@ -85,7 +85,7 @@ The name of the data field corresponding to the point size map.
 
 <description>**optional** \_number | [number, number] | Function\_</description>
 
-<playground path="scatter/scatter/demo/color-mapping.ts" rid="rect"></playground>
+<Playground path="scatter/scatter/demo/color-mapping.ts" rid="rect"></playground>
 
 Specifies the size of the point. If no sizeField is configured, specify one. When the Sizefiled is configured, the size array '[minSize, maxSize]' can be specified, or the corresponding value can be set through the callback function method.
 
@@ -113,7 +113,7 @@ Specifies the size of the point. If no sizeField is configured, specify one. Whe
 
 <description>**optional** \_string | string[] | Function\_</description>
 
-<playground path="scatter/bubble/demo/quadrant.ts" rid="rect-quadrant"></playground>
+<Playground path="scatter/bubble/demo/quadrant.ts" rid="rect-quadrant"></playground>
 
 Specifies the size of the point. If no sizeField is configured, specify one. When the Sizefiled is configured, the size array '[minSize, maxSize]' can be specified, or the corresponding value can be set through the callback function method.
 

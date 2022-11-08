@@ -87,7 +87,7 @@ Configure the starting angle of the coordinate system.
 
 Configure the end angle of the coordinate system.
 
-<playground rid="quarter-circle" path="pie/basic/demo/quarter-circle.ts"></playground>
+<Playground rid="quarter-circle" path="pie/basic/demo/quarter-circle.ts"></playground>
 
 <embed src="@/docs/common/color.en.md"></embed>
 

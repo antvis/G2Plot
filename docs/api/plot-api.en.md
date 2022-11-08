@@ -53,7 +53,7 @@ Through this method, you can modify the data of the plot and re-render the plot 
 - Gauge、Liquid, which accept the updated percent value
 - Dual Axes, which has its own data structure
 
-<playground path="dynamic-plots/basic/demo/dynamic-spline.ts" rid="rect"></playground>
+<Playground path="dynamic-plots/basic/demo/dynamic-spline.ts" rid="rect"></playground>
 
 ### 5. changeSize
 
@@ -142,7 +142,7 @@ dualAxes.addAnnotations(
 
 Add labels to the specified views in batches (default is the current chart). Matching by id, if the match is successful, it will be updated, and if the match is unsuccessful, it will be incremented.
 
- <!-- <playground path="dynamic-plots/basic/demo/dynamic-spline.ts" rid="addAnnotations"></playground> -->
+ <!-- <Playground path="dynamic-plots/basic/demo/dynamic-spline.ts" rid="addAnnotations"></playground> -->
 
 ### 13. removeAnnotations
 

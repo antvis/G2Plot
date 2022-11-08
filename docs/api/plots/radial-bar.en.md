@@ -47,7 +47,7 @@ Configure the starting angle of the coordinate system.
 
 Configure the end angle of the coordinate system.
 
-<playground path="more-plots/radial-bar/demo/line.ts" rid="startAngle-endAngle"></playground>
+<Playground path="more-plots/radial-bar/demo/line.ts" rid="startAngle-endAngle"></playground>
 
 #### maxAngle
 

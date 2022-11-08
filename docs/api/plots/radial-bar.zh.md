@@ -48,7 +48,7 @@ order: 25
 
 配置坐标系的结束角度。
 
-<playground path="more-plots/radial-bar/demo/line.ts" rid="startAngle-endAngle"></playground>
+<Playground path="more-plots/radial-bar/demo/line.ts" rid="startAngle-endAngle"></playground>
 
 #### maxAngle
 

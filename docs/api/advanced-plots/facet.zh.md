@@ -161,7 +161,7 @@ order: 9
 type ViewCallback = (innerView: View, facet?: FacetData) => IPlot;
 ```
 
-<playground path="facet/basic/demo/rect.ts" rid="facet-rect-plot"></playground>
+<Playground path="facet/basic/demo/rect.ts" rid="facet-rect-plot"></playground>
 
 其中 _FacetData_ 结构如下：
 

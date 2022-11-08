@@ -42,7 +42,7 @@ In such an open and extended development mode, it can not only ensure the unific
 
 This section describes how to develop a custom chart. Example:
 
-<playground path="plugin/basic/demo/hill-column.ts"></playground>
+<Playground path="plugin/basic/demo/hill-column.ts"></playground>
 
 The main process is divided into the following steps:
 

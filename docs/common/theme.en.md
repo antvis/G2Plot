@@ -100,6 +100,6 @@ plot.update({ theme: { defaultColor: '#FF6B3B' } });
 
 In addition, G2 provides a custom topic mechanism to define a new topic structure, allowing users to switch and define chart topics. Go [G2 | Custom theme](https://g2.antv.vision/en/docs/api/advanced/register-theme) for more details.
 
-<playground path="general/theme/demo/register-theme.ts" rid="rect-register-theme"></playground>
+<Playground path="general/theme/demo/register-theme.ts" rid="rect-register-theme"></playground>
 
 🌰 Customize theme [DEMO](/zh/examples/general/theme#register-theme) 

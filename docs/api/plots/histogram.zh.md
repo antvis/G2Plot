@@ -40,7 +40,7 @@ order: 11
 
 示例：
 
-<playground path="more-plots/histogram/demo/binWidth.ts" rid="histogram-meta"></playground>
+<Playground path="more-plots/histogram/demo/binWidth.ts" rid="histogram-meta"></playground>
 
 ### 图形样式
 

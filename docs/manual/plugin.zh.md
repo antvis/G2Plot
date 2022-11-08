@@ -42,7 +42,7 @@ plot.render();
 
 这个章节，将介绍如何开发一个自定义图表。具体的实例在这里：
 
-<playground path="plugin/basic/demo/hill-column.ts"></playground>
+<Playground path="plugin/basic/demo/hill-column.ts"></playground>
 
 主要的流程分成为以下几个步骤：
 

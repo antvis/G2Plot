@@ -16,7 +16,7 @@ order: 6
       <tbody>
         <tr style="height: 33px">
           <td colspan="1" rowspan="5" style="background: #fff">
-            <playground path="pie/basic/demo/basic.ts"></playground>
+            <Playground path="pie/basic/demo/basic.ts"></playground>
           </td>
           <td class="style1">
             <p><strong>定义</strong></p>
@@ -136,12 +136,12 @@ piePlot.render();
 
 With G2Plot, you can set the `innerRadius` to create concentric ring.
 
-<playground path='pie/donut/demo/basic.ts' rid='rect2'></playground>
+<Playground path='pie/donut/demo/basic.ts' rid='rect2'></playground>
 
 ### Fan chart
 
 By setting startAngle and endAngle, we can turn a pie plot into a fan chart.
 
-<playground path='pie/basic/demo/quarter-circle.ts' rid='rect3'></playground>
+<Playground path='pie/basic/demo/quarter-circle.ts' rid='rect3'></playground>
 
 </div>

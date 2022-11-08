@@ -39,7 +39,7 @@ Set the weight field information of the relationship between nodes. The larger t
 
 Raw fields of original data. With the 'rawsFields' definition, you can get the original (raw) datum on node or edge elements.
 
-<playground path="relation-plots/sankey/demo/draggable.ts" rid="sankey-raw-fields"></playground>
+<Playground path="relation-plots/sankey/demo/draggable.ts" rid="sankey-raw-fields"></playground>
 
 ### Geometry Style
 

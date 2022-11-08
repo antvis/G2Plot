@@ -16,7 +16,7 @@ pattern 是附着在图形上的贴图样式。
 
 G2Plot 内置了 `'dot' ｜ 'line' | 'square'` 等若干贴图, 图案颜色默认从当前 element 继承。
 
-<playground path="plugin/pattern/demo/pie-pattern.ts" rid="pie-pattern"></playground>
+<Playground path="plugin/pattern/demo/pie-pattern.ts" rid="pie-pattern"></playground>
 
 一些场景使用：
 

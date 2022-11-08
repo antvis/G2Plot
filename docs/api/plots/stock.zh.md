@@ -81,7 +81,7 @@ order: 18
 
 下降色配置。
 
-<playground path="more-plots/stock/demo/custom-color.ts" rid="custom-color"></playground>
+<Playground path="more-plots/stock/demo/custom-color.ts" rid="custom-color"></playground>
 
 #### stockStyle
 
@@ -91,7 +91,7 @@ order: 18
 
 <embed src="@/docs/common/shape-style.zh.md"></embed>
 
-<playground path="more-plots/stock/demo/custom-style.ts" rid="custom-style"></playground>
+<Playground path="more-plots/stock/demo/custom-style.ts" rid="custom-style"></playground>
 
 ### 图表组件
 

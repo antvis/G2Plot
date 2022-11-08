@@ -23,4 +23,4 @@ contributors:
 
 示例:
 
-<playground path="pie/donut/demo/basic.ts" rid="docs-statistic" height="400"></playground>
+<Playground path="pie/donut/demo/basic.ts" rid="docs-statistic" height="400"></playground>

@@ -34,6 +34,6 @@ animation: {
 
 `easing` 用来控制动画中的缓动效果，更多的缓动效果可以参见 [d3-ease](https://github.com/d3/d3-ease)。
 
-<playground path="dynamic-plots/animation/demo/easing-effects.ts" rid="easing-effect"></playground>
+<Playground path="dynamic-plots/animation/demo/easing-effects.ts" rid="easing-effect"></playground>
 
 

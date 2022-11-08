@@ -84,7 +84,7 @@ scatterPlot.render();
 
 <description>**optional** \_number | [number, number] | Function\_</description>
 
-<playground path="scatter/scatter/demo/color-mapping.ts" rid="rect"></playground>
+<Playground path="scatter/scatter/demo/color-mapping.ts" rid="rect"></playground>
 
 指定点的大小。如没有配置 sizeField，指定一个即可。对 sizeFiled 进行了配置的情况下，可以指定大小数组 `[minSize, maxSize]`， 也可以通过回调函数的方法根据对应数值进行设置。
 
@@ -112,7 +112,7 @@ scatterPlot.render();
 
 <description>**optional** \_string | string[] | Function\_</description>
 
-<playground path="scatter/bubble/demo/quadrant.ts" rid="rect-quadrant"></playground>
+<Playground path="scatter/bubble/demo/quadrant.ts" rid="rect-quadrant"></playground>
 
 指定点的形状。如没有配置 shapeField ，指定一个即可。对 shapeField 进行了配置的情况下，可以指定形状数组 `['cicle', 'square']`， 也可以通过回调函数的方法根据对应数值进行设置。
 

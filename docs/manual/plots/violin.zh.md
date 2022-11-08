@@ -16,7 +16,7 @@ contributors:
       <tbody>
         <tr style="height: 33px;">
           <td colspan="1" rowspan="4" style="background:#fff">
-            <playground path="more-plots/violin/demo/basic.ts" rid="violin-basic"></playground>
+            <Playground path="more-plots/violin/demo/basic.ts" rid="violin-basic"></playground>
           </td>
           <td class="style1">
           <p><strong>定义</strong></p>
@@ -68,4 +68,4 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/6b0a5f1d-5931-42ae-b3ba-3c3cb77d
 
 ### 设置小提琴图形状
 
-<playground path="more-plots/violin/demo/shape.ts" rid="violin-shape"></playground>
+<Playground path="more-plots/violin/demo/shape.ts" rid="violin-shape"></playground>

@@ -1,8 +1,8 @@
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { ViolinOptions } from './types';
+import { Plot } from '../../core/plot';
 import { adaptor } from './adaptor';
 import { DEFAULT_OPTIONS } from './constant';
+import { ViolinOptions } from './types';
 import { transformViolinData } from './utils';
 export type { ViolinOptions };
 

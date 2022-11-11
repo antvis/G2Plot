@@ -4,14 +4,6 @@
     "en": "Category"
   },
   "demos": [
-    {
-      "filename": "column-sort-within-group.jsx",
-      "title": {
-        "zh": "柱状图实现组内排序",
-        "en": "Column plot with sort within group"
-      },
-      
-      "screenshot": ""
-    }
+    
   ]
 }

@@ -5,7 +5,7 @@ order: 11
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -29,7 +29,7 @@ order: 11
 
 #### meta
 
-`markdown:docs/common/meta.zh.md`
+<embed src="@/docs/common/meta.zh.md"></embed>
 
 直方图内含的数据字段有：
 
@@ -40,7 +40,7 @@ order: 11
 
 示例：
 
-<playground path="more-plots/histogram/demo/binWidth.ts" rid="histogram-meta"></playground>
+<Playground path="more-plots/histogram/demo/binWidth.ts" rid="histogram-meta"></playground>
 
 ### 图形样式
 
@@ -62,34 +62,34 @@ order: 11
 
 柱子样式配置。
 
-`markdown:docs/common/shape-style.zh.md`
+<embed src="@/docs/common/shape-style.zh.md"></embed>
 
-`markdown:docs/common/color.zh.md`
+<embed src="@/docs/common/color.zh.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.zh.md`
+<embed src="@/docs/common/pattern.zh.md"></embed>
 
 #### state
 
 <description>**可选** _object_</description>
 
-`markdown:docs/common/state-style.zh.md`
+<embed src="@/docs/common/state-style.zh.md"></embed>
 
 ### 图表组件
 
-`markdown:docs/common/component.zh.md`
+<embed src="@/docs/common/component.zh.md"></embed>
 
 ### 图表事件
 
-`markdown:docs/common/events.zh.md`
+<embed src="@/docs/common/events.zh.md"></embed>
 
 ### 图表方法
 
-`markdown:docs/common/chart-methods.zh.md`
+<embed src="@/docs/common/chart-methods.zh.md"></embed>
 
 ### 图表主题
 
-`markdown:docs/common/theme.zh.md`
+<embed src="@/docs/common/theme.zh.md"></embed>

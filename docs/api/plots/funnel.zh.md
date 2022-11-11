@@ -5,7 +5,7 @@ order: 9
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -15,7 +15,7 @@ order: 9
 
 设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-`markdown:docs/common/xy-field.zh.md`
+<embed src="@/docs/common/xy-field.zh.md"></embed>
 
 #### compareField
 
@@ -31,7 +31,7 @@ order: 9
 
 #### meta
 
-`markdown:docs/common/meta.zh.md`
+<embed src="@/docs/common/meta.zh.md"></embed>
 
 ### 图形样式
 
@@ -84,17 +84,17 @@ order: 9
 
 漏斗图样式。可以直接传入 `ShapeStyle` 结构，也可以使用回调函数的方式，针对不同的数据，来返回不同的样式。对于 ShapeStyle 的数据结构，可以参考：
 
-`markdown:docs/common/shape-style.zh.md`
+<embed src="@/docs/common/shape-style.zh.md"></embed>
 
 ### 图表组件
 
 #### tooltip
 
-`markdown:docs/common/tooltip.zh.md`
+<embed src="@/docs/common/tooltip.zh.md"></embed>
 
 #### label
 
-`markdown:docs/common/label.zh.md`
+<embed src="@/docs/common/label.zh.md"></embed>
 
 #### conversionTag
 
@@ -113,11 +113,11 @@ order: 9
 
 样式配置类型请参考 [绘图属性](/zh/docs/api/graphic-style)
 
-`markdown:docs/common/color.zh.md`
+<embed src="@/docs/common/color.zh.md"></embed>
 
 #### 图例
 
-`markdown:docs/common/legend.zh.md`
+<embed src="@/docs/common/legend.zh.md"></embed>
 
 #### annotations
 
@@ -125,15 +125,15 @@ order: 9
 
 ### 图表事件
 
-`markdown:docs/common/events.zh.md`
+<embed src="@/docs/common/events.zh.md"></embed>
 
 ### 图表方法
 
-`markdown:docs/common/chart-methods.zh.md`
+<embed src="@/docs/common/chart-methods.zh.md"></embed>
 
 ### 图表主题
 
-`markdown:docs/common/theme.zh.md`
+<embed src="@/docs/common/theme.zh.md"></embed>
 
 ### 静态属性
 
@@ -190,4 +190,4 @@ import { FUNNEL_CONVERSATION_FIELD } from '@antv/g2plot';
 
 <!-- 直接 三级导航展开 -->
 
-`markdown:docs/common/annotations.zh.md`
+<embed src="@/docs/common/annotations.zh.md"></embed>

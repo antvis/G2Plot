@@ -5,7 +5,7 @@ order: 18
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -61,7 +61,7 @@ Configure the data source. The data source is a collection of objects. For examp
 
 #### meta
 
-`markdown:docs/common/meta.en.md`
+<embed src="@/docs/common/meta.en.md"></embed>
 
 [Live demo](/en/examples/more-plots/stock#meta-alias)
 
@@ -81,7 +81,7 @@ Rising color configuration.
 
 Falling color configuration.
 
-<playground path="more-plots/stock/demo/custom-color.ts" rid="custom-color"></playground>
+<Playground path="more-plots/stock/demo/custom-color.ts" rid="custom-color"></playground>
 
 #### stockStyle
 
@@ -89,22 +89,22 @@ Falling color configuration.
 
 Graphic style of stock plot. You can either pass in the 'shapeStyle' structure directly, or you can use callbacks to return different styles for different data. For the ShapeStyle data structure, see:
 
-`markdown:docs/common/shape-style.en.md`
+<embed src="@/docs/common/shape-style.en.md"></embed>
 
-<playground path="more-plots/stock/demo/custom-style.ts" rid="custom-style"></playground>
+<Playground path="more-plots/stock/demo/custom-style.ts" rid="custom-style"></playground>
 
 ### Plot Components
 
-`markdown:docs/common/component.en.md`
+<embed src="@/docs/common/component.en.md"></embed>
 
 ### Plot Event
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Method
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>

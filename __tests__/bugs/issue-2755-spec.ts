@@ -1,7 +1,7 @@
 import { Sankey } from '../../src';
-import { createDiv, removeDom } from '../utils/dom';
-import { delay } from '../utils/delay';
 import { PARALLEL_SET } from '../data/parallel-set';
+import { delay } from '../utils/delay';
+import { createDiv, removeDom } from '../utils/dom';
 
 describe.skip('sankey', () => {
   const data: any[] = [];

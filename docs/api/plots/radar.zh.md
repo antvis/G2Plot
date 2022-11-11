@@ -5,7 +5,7 @@ order: 7
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -17,7 +17,7 @@ order: 7
 
 #### meta
 
-`markdown:docs/common/meta.zh.md`
+<embed src="@/docs/common/meta.zh.md"></embed>
 
 ```ts
 const data = [
@@ -84,7 +84,7 @@ radarPlot.render();
 
 配置坐标系的结束角度。
 
-`markdown:docs/common/color.zh.md`
+<embed src="@/docs/common/color.zh.md"></embed>
 
 #### smooth
 
@@ -98,7 +98,7 @@ radarPlot.render();
 
 配置雷达图上的折线样式，也可以通过回调函数的方法根据对应的数据进行设置，返回参数是通用的 ShapeStyle 对象
 
-`markdown:docs/common/shape-style.zh.md`
+<embed src="@/docs/common/shape-style.zh.md"></embed>
 
 使用示例：
 
@@ -119,7 +119,7 @@ radarPlot.render();
 
 配置雷达图上的点
 
-`markdown:docs/common/point-style.zh.md`
+<embed src="@/docs/common/point-style.zh.md"></embed>
 
 #### area
 
@@ -151,16 +151,16 @@ radarPlot.render();
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*KnguSICzqXEAAAAAAAAAAAAAARQnAQ" alt="雷达图 图表组件" width="600">
 
-`markdown:docs/common/component.zh.md`
+<embed src="@/docs/common/component.zh.md"></embed>
 
 ### 图表事件
 
-`markdown:docs/common/events.zh.md`
+<embed src="@/docs/common/events.zh.md"></embed>
 
 ### 图表方法
 
-`markdown:docs/common/chart-methods.zh.md`
+<embed src="@/docs/common/chart-methods.zh.md"></embed>
 
 ### 图表主题
 
-`markdown:docs/common/theme.zh.md`
+<embed src="@/docs/common/theme.zh.md"></embed>

@@ -1,5 +1,5 @@
-import { left, justify } from '../../../../src/plots/sankey/sankey';
-import { sankeyLayout, getNodeAlignFunction, getDefaultOptions } from '../../../../src/plots/sankey/layout';
+import { getDefaultOptions, getNodeAlignFunction, sankeyLayout } from '../../../../src/plots/sankey/layout';
+import { justify, left } from '../../../../src/plots/sankey/sankey';
 import { ENERGY } from '../../../data/sankey-energy';
 
 describe('sankeyLayout', () => {

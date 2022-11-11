@@ -1,4 +1,4 @@
-import { points2Path, smoothBezier, catmullRom2bezier, getSplinePath } from '../../../src/utils/path';
+import { catmullRom2bezier, getSplinePath, points2Path, smoothBezier } from '../../../src/utils/path';
 
 describe('path', () => {
   it('points2Path', () => {

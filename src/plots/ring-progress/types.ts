@@ -1,4 +1,4 @@
-import { Options, StyleAttr, ColorAttr, Statistic } from '../../types';
+import { ColorAttr, Options, Statistic, StyleAttr } from '../../types';
 
 /** mini 图类型定义需要 omit 很多的 G2 Options 配置 */
 export interface RingProgressOptions extends Omit<Options, 'data' | 'tooltip' | 'legend' | 'label' | 'color'> {

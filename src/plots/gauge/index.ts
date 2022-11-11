@@ -1,14 +1,13 @@
-import { VIEW_LIFE_CIRCLE, Event } from '@antv/g2';
-import { Plot } from '../../core/plot';
+import { Event, VIEW_LIFE_CIRCLE } from '@antv/g2';
 import { Adaptor } from '../../core/adaptor';
-import { GaugeOptions } from './types';
+import { Plot } from '../../core/plot';
 import { adaptor, statistic } from './adaptor';
-import { INDICATEOR_VIEW_ID, RANGE_VIEW_ID, DEFAULT_OPTIONS } from './constants';
-import { getIndicatorData, getRangeData } from './utils';
-
+import { DEFAULT_OPTIONS, INDICATEOR_VIEW_ID, RANGE_VIEW_ID } from './constants';
 // 注册 shape
 import './shapes/indicator';
 import './shapes/meter-gauge';
+import { GaugeOptions } from './types';
+import { getIndicatorData, getRangeData } from './utils';
 
 export type { GaugeOptions };
 

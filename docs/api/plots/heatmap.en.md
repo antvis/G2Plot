@@ -5,7 +5,7 @@ order: 23
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -15,11 +15,11 @@ order: 23
 
 Configure the data source. The data source is a collection of objects. For example:`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-`markdown:docs/common/xy-field.en.md`
+<embed src="@/docs/common/xy-field.en.md"></embed>
 
 #### meta
 
-`markdown:docs/common/meta.en.md`
+<embed src="@/docs/common/meta.en.md"></embed>
 
 #### type
 
@@ -47,13 +47,13 @@ Axis mapping.
 
 ### Geometry Style
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.en.md`
+<embed src="@/docs/common/pattern.en.md"></embed>
 
 #### shape
 
@@ -131,20 +131,20 @@ Default configuration:
 
 <description>**optional** _object_</description>
 
-`markdown:docs/common/state-style.en.md`
+<embed src="@/docs/common/state-style.en.md"></embed>
 
 ### Plot Components
 
-`markdown:docs/common/component.en.md`
+<embed src="@/docs/common/component.en.md"></embed>
 
 ### Plot Event
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Method
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>

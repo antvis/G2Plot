@@ -2,8 +2,8 @@ import { View } from '@antv/g2';
 import { each } from '@antv/util';
 import { geometry as geometryAdaptor } from '../../adaptor/geometries/base';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
-import { pick, deepAssign, addViewAnimation } from '../../utils';
 import { Axis, Interaction, Options } from '../../types';
+import { addViewAnimation, deepAssign, pick } from '../../utils';
 import { IView } from './types';
 
 /**

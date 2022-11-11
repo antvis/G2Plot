@@ -1,7 +1,7 @@
+import { animation, annotation, interaction, legend, scale, theme, tooltip } from '../../adaptor/common';
+import { area, line, point } from '../../adaptor/geometries';
 import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme, scale, annotation, legend } from '../../adaptor/common';
-import { area, point, line } from '../../adaptor/geometries';
-import { findGeometry, flow, transformLabel, deepAssign } from '../../utils';
+import { deepAssign, findGeometry, flow, transformLabel } from '../../utils';
 import { RadarOptions } from './types';
 
 /**

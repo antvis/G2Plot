@@ -2,8 +2,8 @@ import { IGroup } from '@antv/g-base';
 import { flatten } from '@antv/util';
 import { Pie } from '../../../../src';
 import { POSITIVE_NEGATIVE_DATA } from '../../../data/common';
-import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
+import { createDiv } from '../../../utils/dom';
 
 describe('pie label', () => {
   const data = POSITIVE_NEGATIVE_DATA.filter((o) => o.value > 0).map((d, idx) =>

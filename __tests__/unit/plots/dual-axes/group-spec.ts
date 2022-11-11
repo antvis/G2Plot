@@ -1,6 +1,6 @@
 import { DualAxes } from '../../../../src';
+import { LineData, MultipleData } from '../../../data/common';
 import { createDiv } from '../../../utils/dom';
-import { MultipleData, LineData } from '../../../data/common';
 
 const columnData2 = [
   { name: 'London', month: 'Jan.', value: 12.9, type: 'type1' },

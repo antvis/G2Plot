@@ -1,4 +1,4 @@
-import { registerInteraction, ShapeAttrs, Element } from '@antv/g2';
+import { Element, registerInteraction, ShapeAttrs } from '@antv/g2';
 import { Params } from '../core/adaptor';
 
 export interface ConnectedAreaOptions {

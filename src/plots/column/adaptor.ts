@@ -1,26 +1,26 @@
 import { Types } from '@antv/g2';
 import { each, filter, isMatch } from '@antv/util';
-import { Params } from '../../core/adaptor';
+import { brushInteraction } from '../../adaptor/brush';
 import {
-  slider,
-  interaction,
   animation,
-  theme,
-  scale,
   annotation,
-  scrollbar,
+  interaction,
   limitInPlot,
+  scale,
+  scrollbar,
+  slider,
   state,
+  theme,
   transformations,
 } from '../../adaptor/common';
-import { conversionTag } from '../../adaptor/conversion-tag';
 import { connectedArea } from '../../adaptor/connected-area';
+import { conversionTag } from '../../adaptor/conversion-tag';
 import { interval } from '../../adaptor/geometries';
 import { pattern } from '../../adaptor/pattern';
-import { brushInteraction } from '../../adaptor/brush';
-import { flow, transformLabel, deepAssign, findGeometry, adjustYMetaByZero, pick } from '../../utils';
-import { getDataWhetherPercentage, getDeepPercent } from '../../utils/transform/percent';
+import { Params } from '../../core/adaptor';
 import { Datum } from '../../types';
+import { adjustYMetaByZero, deepAssign, findGeometry, flow, pick, transformLabel } from '../../utils';
+import { getDataWhetherPercentage, getDeepPercent } from '../../utils/transform/percent';
 import { ColumnOptions } from './types';
 
 /**

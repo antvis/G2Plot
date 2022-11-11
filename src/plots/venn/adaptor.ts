@@ -1,25 +1,26 @@
 import { Geometry } from '@antv/g2';
-import { isArray, get, deepMix, isEqual } from '@antv/util';
-import { interaction, animation, theme, tooltip, scale } from '../../adaptor/common';
-import { Params } from '../../core/adaptor';
+import { deepMix, get, isArray, isEqual } from '@antv/util';
+import { animation, interaction, scale, theme, tooltip } from '../../adaptor/common';
 import { schema as schemaGeometry } from '../../adaptor/geometries';
+import { Params } from '../../core/adaptor';
+import { Datum } from '../../types';
 import {
   deepAssign,
-  flow,
   findGeometry,
-  transformLabel,
+  flow,
   getAdjustAppendPadding,
+  LEVEL,
+  log,
   normalPadding,
   resolveAllPadding,
+  transformLabel,
 } from '../../utils';
-import { Datum } from '../../types';
-import { log, LEVEL } from '../../utils';
-import { getColorMap, layoutVennData, islegalSets } from './utils';
-import { CustomInfo, VennData, VennOptions } from './types';
 import { ID_FIELD } from './constant';
-import './shape';
-import './label';
 import './interactions';
+import './label';
+import './shape';
+import { CustomInfo, VennData, VennOptions } from './types';
+import { getColorMap, islegalSets, layoutVennData } from './utils';
 
 /** 图例默认预留空间 */
 export const LEGEND_SPACE = 40;

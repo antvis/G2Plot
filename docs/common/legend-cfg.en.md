@@ -22,7 +22,7 @@ Legend title configuration is not displayed by default. _G2LegendTitleCfg_ Confi
 
 The position of legend is optional:'top', 'top-left', 'top-right', 'left', 'left-top', 'left-bottom', 'right', 'right-top', 'right-bottom', 'bottom', 'bottom-left', 'bottom-right'。
 
-<playground path="component/legend/demo/legend-position.jsx" rid="legend-position"></playground>
+<Playground path="component/legend/demo/legend-position.jsx" rid="legend-position"></playground>
 
 ##### offsetX
 
@@ -111,7 +111,7 @@ pageNavigator: {
 },
 ```
 
-<playground path="component/legend/demo/legend-flippage.ts" rid="page-navigator"></playground>
+<Playground path="component/legend/demo/legend-flippage.ts" rid="page-navigator"></playground>
 
 ##### itemHeight
 
@@ -199,7 +199,7 @@ type Marker = {
 };
 ```
 
-<playground path="component/legend/demo/legend-item-value.ts" rid="legend-item-value"></playground>
+<Playground path="component/legend/demo/legend-item-value.ts" rid="legend-item-value"></playground>
 
 ##### itemSpacing
 
@@ -232,7 +232,7 @@ Apply to <tag color="cyan" text="Continuous legend">Continuous legend</tag>, a c
 
 Apply to <tag color="green" text="Classification legend">Classification legend</tag>, the configuration of the Marker icon of the legend item.
 
-`markdown:docs/common/marker.en.md`
+<embed src="@/docs/common/marker.en.md"></embed>
 
 ##### radio ✨
 
@@ -297,7 +297,7 @@ Apply to <tag color="green" text="Classification legend">Classification legend</
 | value      | any         | required | value                                |
 | marker     | _MarkerCfg_ |          | marker                               |
 
-`markdown:docs/common/marker.en.md`
+<embed src="@/docs/common/marker.en.md"></embed>
 
 ##### min
 
@@ -335,7 +335,7 @@ legend: {
 }
 ```
 
-<playground path='component/legend/demo/legend-focus.ts' rid='legend-selected'></playground>
+<Playground path='component/legend/demo/legend-focus.ts' rid='legend-selected'></playground>
 
 ##### slidable
 

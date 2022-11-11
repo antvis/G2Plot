@@ -84,4 +84,4 @@ Then combine these component names and basic event names into a permutation and 
 
 ### Event Listener
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>

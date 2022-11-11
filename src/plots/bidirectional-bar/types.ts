@@ -1,5 +1,5 @@
-import { Axis } from '../../types/axis';
 import { Options, StyleAttr } from '../../types';
+import { Axis } from '../../types/axis';
 
 export interface BidirectionalBarOptions extends Omit<Options, 'yAxis' | 'yField'> {
   /**

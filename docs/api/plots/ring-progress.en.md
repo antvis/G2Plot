@@ -5,7 +5,7 @@ order: 19
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -35,13 +35,13 @@ order: 19
 
 柱子样式配置。
 
-`markdown:docs/common/shape-style.en.md`
+<embed src="@/docs/common/shape-style.en.md"></embed>
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 ### Plot Component
 
-`markdown:docs/common/component-progress.en.md`
+<embed src="@/docs/common/component-progress.en.md"></embed>
 
 #### statistic
 
@@ -49,4 +49,4 @@ order: 19
 
 Metric central text component, contains 'title' and 'content'.
 
-`markdown:docs/common/statistic.en.md`
+<embed src="@/docs/common/statistic.en.md"></embed>

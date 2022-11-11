@@ -1,7 +1,7 @@
-import { toBeDeepCloseTo } from 'jest-matcher-deep-close-to';
 import { group } from '@antv/util';
-import { toBoxValue, PdfOptions, toViolinValue, transformViolinData } from '../../../../src/plots/violin/utils';
+import { toBeDeepCloseTo } from 'jest-matcher-deep-close-to';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/violin/constant';
+import { PdfOptions, toBoxValue, toViolinValue, transformViolinData } from '../../../../src/plots/violin/utils';
 import { BASE_VIOLIN_DATA } from '../../../data/violin';
 
 expect.extend({ toBeDeepCloseTo });

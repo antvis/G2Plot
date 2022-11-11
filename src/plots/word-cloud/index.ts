@@ -1,11 +1,11 @@
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { WordCloudOptions } from './types';
+import { Plot } from '../../core/plot';
 import { adaptor } from './adaptor';
 import { DEFAULT_OPTIONS } from './constant';
-import { processImageMask, transform } from './utils';
 // 注册的shape
 import './shapes/word-cloud';
+import { WordCloudOptions } from './types';
+import { processImageMask, transform } from './utils';
 
 export type { WordCloudOptions };
 

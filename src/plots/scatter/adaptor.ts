@@ -1,12 +1,11 @@
 import { isNumber } from '@antv/util';
-import { Params } from '../../core/adaptor';
-import { flow, deepAssign, pick } from '../../utils';
-import { point } from '../../adaptor/geometries';
 import { brushInteraction } from '../../adaptor/brush';
-import { interaction, animation, theme, scale, annotation, slider, scrollbar } from '../../adaptor/common';
-import { findGeometry, transformLabel } from '../../utils';
-import { getQuadrantDefaultConfig, getPath, getMeta } from './util';
+import { animation, annotation, interaction, scale, scrollbar, slider, theme } from '../../adaptor/common';
+import { point } from '../../adaptor/geometries';
+import { Params } from '../../core/adaptor';
+import { deepAssign, findGeometry, flow, pick, transformLabel } from '../../utils';
 import { ScatterOptions } from './types';
+import { getMeta, getPath, getQuadrantDefaultConfig } from './util';
 
 /**
  * 散点图默认美观

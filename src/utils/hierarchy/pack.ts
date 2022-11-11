@@ -1,7 +1,7 @@
-import * as d3Hierarchy from 'd3-hierarchy';
 import { assign, isArray } from '@antv/util';
-import { getField, getAllNodes } from './util';
+import * as d3Hierarchy from 'd3-hierarchy';
 import { HierarchyOption } from './types';
+import { getAllNodes, getField } from './util';
 
 type Options = Omit<HierarchyOption, 'as'> & { as?: [string, string, string] };
 

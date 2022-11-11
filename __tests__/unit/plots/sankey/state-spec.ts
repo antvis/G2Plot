@@ -1,7 +1,7 @@
 import { Datum, Sankey } from '../../../../src';
-import { createDiv, removeDom } from '../../../utils/dom';
-import { ENERGY_RELATIONS } from '../../../data/sankey-energy';
 import { EDGES_VIEW_ID, NODES_VIEW_ID } from '../../../../src/plots/sankey/constant';
+import { ENERGY_RELATIONS } from '../../../data/sankey-energy';
+import { createDiv, removeDom } from '../../../utils/dom';
 
 describe('sankey', () => {
   const div = createDiv();

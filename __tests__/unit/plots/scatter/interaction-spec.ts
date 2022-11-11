@@ -1,7 +1,7 @@
 import { getInteraction } from '@antv/g2';
 import { Scatter } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { data } from '../../../data/gender';
+import { createDiv } from '../../../utils/dom';
 
 describe('scatter: register interaction', () => {
   const plot = new Scatter(createDiv(), {

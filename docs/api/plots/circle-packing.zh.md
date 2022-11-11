@@ -5,7 +5,7 @@ order: 40
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -33,7 +33,7 @@ type Node = { name: string; value?: number; children: Node[]; }
 
 #### meta
 
-`markdown:docs/common/meta.zh.md`
+<embed src="@/docs/common/meta.zh.md"></embed>
 
 Circle packing 内含的数据字段有：'x', 'y', 'r', 'name', 'value', 'path', 'depth', 这些字段可以在元数据中获取（tooltip、style 回调中使用）.
 
@@ -103,13 +103,13 @@ meta: {
 <!-- 指定点的大小。可以指定大小数组 [minSize, maxSize]，还可以配合 sizeFiled 进行了配置， 也可以通过回调函数的方法根据对应数值进行设置。 -->
 
 <!-- Color 配置 -->
-`markdown:docs/common/color.zh.md`
+<embed src="@/docs/common/color.zh.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.zh.md`
+<embed src="@/docs/common/pattern.zh.md"></embed>
 
 #### pointStyle
 
@@ -167,7 +167,7 @@ meta: {
 
 ### 图表组件
 
-`markdown:docs/common/component-polygon.zh.md`
+<embed src="@/docs/common/component-polygon.zh.md"></embed>
 
 ### 图表交互
 
@@ -177,18 +177,18 @@ meta: {
 | ---|---|---|
 | drill-down | 用于下钻交互，配置该交互后，矩形树图默认显示深度为 1 的节点，点击后下钻。| `drilldown: { enabled: true }`  | -->
 
-<!-- `markdown:docs/common/drill-down.zh.md` -->
+<!-- <embed src="@/docs/common/drill-down.zh.md"></embed> -->
 
-`markdown:docs/common/interactions.zh.md`
+<embed src="@/docs/common/interactions.zh.md"></embed>
 
 ### 图表事件
 
-`markdown:docs/common/events.zh.md`
+<embed src="@/docs/common/events.zh.md"></embed>
 
 ### 图表方法
 
-`markdown:docs/common/chart-methods.zh.md`
+<embed src="@/docs/common/chart-methods.zh.md"></embed>
 
 ### 图表主题
 
-`markdown:docs/common/theme.zh.md`
+<embed src="@/docs/common/theme.zh.md"></embed>

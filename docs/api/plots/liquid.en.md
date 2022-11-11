@@ -5,7 +5,7 @@ order: 6
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -29,7 +29,7 @@ Radius of outer ring( Range:[0-1] ).
 
 Liguid graphic style.
 
-`markdown:docs/common/shape-style.en.md`
+<embed src="@/docs/common/shape-style.en.md"></embed>
 
 #### shape
 
@@ -60,13 +60,13 @@ function shape(x: number, y: number, width: number, height: number) {
 }
 ```
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.en.md`
+<embed src="@/docs/common/pattern.en.md"></embed>
 
 #### outline
 
@@ -106,4 +106,4 @@ The wave configure for liquid plot, includes:
 
 Metric central text component.
 
-`markdown:docs/common/statistic.en.md`
+<embed src="@/docs/common/statistic.en.md"></embed>

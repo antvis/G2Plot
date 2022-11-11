@@ -15,4 +15,4 @@ type ConnectedAreaStyleCfg = ShapeAttrs | ((oldStyle: ShapeAttrs, element: Eleme
 
 **图表示例：**
 
-<playground path="column/stacked/demo/connect-area.ts" rid="connectedArea"></playground>
+<Playground path="column/stacked/demo/connect-area.ts" rid="connectedArea"></playground>

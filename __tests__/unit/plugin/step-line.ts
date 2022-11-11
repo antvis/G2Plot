@@ -1,4 +1,4 @@
-import { Params, Options } from '../../../src';
+import { Options, Params } from '../../../src';
 
 type StepType = 'vh' | 'hv' | 'vhv' | 'hvh';
 

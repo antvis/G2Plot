@@ -1,6 +1,6 @@
-import { groupBy } from '@antv/util';
 import { PaddingCal } from '@antv/g2/lib/chart/layout/padding-cal';
-import { isHorizontal, transformData, syncViewPadding } from '../../../../src/plots/bidirectional-bar/utils';
+import { groupBy } from '@antv/util';
+import { isHorizontal, syncViewPadding, transformData } from '../../../../src/plots/bidirectional-bar/utils';
 
 describe('util', () => {
   it('isHorizontal', () => {

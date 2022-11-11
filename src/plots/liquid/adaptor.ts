@@ -1,10 +1,10 @@
 import { Geometry } from '@antv/g2';
 import { get, isNil } from '@antv/util';
-import { interaction, animation, theme, scale, pattern } from '../../adaptor/common';
-import { Params } from '../../core/adaptor';
-import { flow, deepAssign, renderStatistic } from '../../utils';
+import { animation, interaction, pattern, scale, theme } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
-import { LiquidOptions, CustomInfo } from './types';
+import { Params } from '../../core/adaptor';
+import { deepAssign, flow, renderStatistic } from '../../utils';
+import { CustomInfo, LiquidOptions } from './types';
 import { getLiquidData } from './utils';
 
 /**

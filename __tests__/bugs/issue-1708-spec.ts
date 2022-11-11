@@ -1,5 +1,5 @@
-import { partySupport } from '../data/party-support';
 import { Area } from '../../src';
+import { partySupport } from '../data/party-support';
 import { createDiv } from '../utils/dom';
 
 describe('#1708', () => {

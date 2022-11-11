@@ -1,9 +1,9 @@
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
+import { Plot } from '../../core/plot';
 import { getDataWhetherPercentage } from '../../utils/transform/percent';
-import { AreaOptions } from './types';
 import { adaptor, meta } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
+import { AreaOptions } from './types';
 
 export type { AreaOptions };
 

@@ -1,8 +1,8 @@
 import { get, maxBy } from '@antv/util';
 import { Funnel } from '../../../../src';
+import { FUNNEL_CONVERSATION, FUNNEL_MAPPING_VALUE, FUNNEL_PERCENT } from '../../../../src/plots/funnel/constant';
 import { PV_DATA_COMPARE } from '../../../data/conversion';
 import { createDiv } from '../../../utils/dom';
-import { FUNNEL_PERCENT, FUNNEL_CONVERSATION, FUNNEL_MAPPING_VALUE } from '../../../../src/plots/funnel/constant';
 
 describe('compare funnel', () => {
   let funnel;

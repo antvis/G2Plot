@@ -5,7 +5,7 @@ order: 16
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -17,7 +17,7 @@ Configure the chart data source. The MINI bar chart uses an array of numbers dir
 
 #### meta
 
-`markdown:docs/common/meta.en.md`
+<embed src="@/docs/common/meta.en.md"></embed>
 
 ### Plot Style
 
@@ -33,16 +33,16 @@ Width ratio of histogram [0-1].
 
 Bar chart graphic styles.
 
-`markdown:docs/common/shape-style.en.md`
+<embed src="@/docs/common/shape-style.en.md"></embed>
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.en.md`
+<embed src="@/docs/common/pattern.en.md"></embed>
 
 ### Plot Component
 
-`markdown:docs/common/component-tiny.en.md`
+<embed src="@/docs/common/component-tiny.en.md"></embed>

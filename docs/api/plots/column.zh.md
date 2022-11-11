@@ -7,7 +7,7 @@ order: 2
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -17,7 +17,7 @@ order: 2
 
 设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-`markdown:docs/common/xy-field.zh.md`
+<embed src="@/docs/common/xy-field.zh.md"></embed>
 
 #### seriesField
 
@@ -57,21 +57,21 @@ order: 2
 
 #### meta
 
-`markdown:docs/common/meta.zh.md`
+<embed src="@/docs/common/meta.zh.md"></embed>
 
 ### 图形样式
 
-`markdown:docs/common/coordinate.zh.md`
+<embed src="@/docs/common/coordinate.zh.md"></embed>
 
-`markdown:docs/common/color.zh.md`
+<embed src="@/docs/common/color.zh.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.zh.md`
+<embed src="@/docs/common/pattern.zh.md"></embed>
 
-`markdown:docs/common/column-style.zh.md`
+<embed src="@/docs/common/column-style.zh.md"></embed>
 
 #### columnWidthRatio
 
@@ -97,41 +97,41 @@ order: 2
 
 <description>**可选** _object_</description>
 
-`markdown:docs/common/state-style.zh.md`
+<embed src="@/docs/common/state-style.zh.md"></embed>
 
 ### 图表组件
 
-`markdown:docs/common/common-component.zh.md`
+<embed src="@/docs/common/common-component.zh.md"></embed>
 
 #### 缩略轴 slider
 
-`markdown:docs/common/slider.zh.md`
+<embed src="@/docs/common/slider.zh.md"></embed>
 
 #### 滚动条 scrollbar
 
-`markdown:docs/common/scrollbar.zh.md`
+<embed src="@/docs/common/scrollbar.zh.md"></embed>
 
 #### 转化标签 conversionTag
 
 适用于基础柱形图和基础条形图，转化率组件可以让用户关注到数据的变化比例。
 
-`markdown:docs/common/conversion-tag.zh.md`
+<embed src="@/docs/common/conversion-tag.zh.md"></embed>
 
 #### 联通区域对比 connectedArea
 
-`markdown:docs/common/connected-area.zh.md`
+<embed src="@/docs/common/connected-area.zh.md"></embed>
 
 ### 图表事件
 
-`markdown:docs/common/events.zh.md`
+<embed src="@/docs/common/events.zh.md"></embed>
 
 ### 图表方法
 
-`markdown:docs/common/chart-methods.zh.md`
+<embed src="@/docs/common/chart-methods.zh.md"></embed>
 
 ### 图表主题
 
-`markdown:docs/common/theme.zh.md`
+<embed src="@/docs/common/theme.zh.md"></embed>
 
 ### 图表交互
 
@@ -141,6 +141,6 @@ order: 2
 | ----------- | ---------------------------------------- | ------------------------------ |
 | brush | 用于刷选交互，配置该交互后，可进行刷选。 | `brush: { enabled: true }` |
 
-`markdown:docs/common/brush.zh.md`
+<embed src="@/docs/common/brush.zh.md"></embed>
 
-`markdown:docs/common/interactions.zh.md`
+<embed src="@/docs/common/interactions.zh.md"></embed>

@@ -88,7 +88,7 @@ plot.update({ theme: { defaultColor: '#FF6B3B' } })
 
 另外，还可以通过 G2 提供了自定义主题机制来定义全新的主题结构，以允许用户切换、定义图表主题。前往 [G2 | 自定义主题](https://g2.antv.vision/zh/docs/api/advanced/register-theme) 查看详情。
 
-<playground path="general/theme/demo/register-theme.ts" rid="rect-register-theme"></playground>
+<Playground path="general/theme/demo/register-theme.ts" rid="rect-register-theme"></playground>
 
 🌰 自定义主题 [DEMO](/zh/examples/general/theme#register-theme) 示例
 

@@ -1,1 +1,1 @@
-`markdown:docs/common/annotations/region-filter.zh.md`
+<embed src="@/docs/common/annotations/region-filter.zh.md"></embed>

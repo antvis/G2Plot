@@ -5,7 +5,7 @@ order: 1
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -15,7 +15,7 @@ order: 1
 
 设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-`markdown:docs/common/xy-field.zh.md`
+<embed src="@/docs/common/xy-field.zh.md"></embed>
 
 #### seriesField
 
@@ -25,11 +25,11 @@ order: 1
 
 #### meta
 
-`markdown:docs/common/meta.zh.md`
+<embed src="@/docs/common/meta.zh.md"></embed>
 
 ### 图形样式
 
-`markdown:docs/common/coordinate.zh.md`
+<embed src="@/docs/common/coordinate.zh.md"></embed>
 
 #### smooth
 
@@ -65,7 +65,7 @@ order: 1
 
 面积图形样式。
 
-`markdown:docs/common/shape-style.zh.md`
+<embed src="@/docs/common/shape-style.zh.md"></embed>
 
 #### line
 
@@ -86,41 +86,41 @@ order: 1
 
 面积图数据点图形样式。
 
-`markdown:docs/common/point-style.zh.md`
+<embed src="@/docs/common/point-style.zh.md"></embed>
 
-`markdown:docs/common/color.zh.md`
+<embed src="@/docs/common/color.zh.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.zh.md`
+<embed src="@/docs/common/pattern.zh.md"></embed>
 
 #### state
 
 <description>**可选** _object_</description>
 
-`markdown:docs/common/state-style.zh.md`
+<embed src="@/docs/common/state-style.zh.md"></embed>
 
 ### 图表组件
 
-`markdown:docs/common/component.zh.md`
+<embed src="@/docs/common/component.zh.md"></embed>
 
 ### 图表事件
 
-`markdown:docs/common/events.zh.md`
+<embed src="@/docs/common/events.zh.md"></embed>
 
 ### 图表方法
 
-`markdown:docs/common/chart-methods.zh.md`
+<embed src="@/docs/common/chart-methods.zh.md"></embed>
 
 ### 图表交互
 
-`markdown:docs/common/interactions.zh.md`
+<embed src="@/docs/common/interactions.zh.md"></embed>
 
 ### 图表主题
 
-`markdown:docs/common/theme.zh.md`
+<embed src="@/docs/common/theme.zh.md"></embed>
 
 ### 自定义 ✨
 

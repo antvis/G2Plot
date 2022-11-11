@@ -1,5 +1,5 @@
 import { justify } from './align';
-import { constant, sumBy, maxValueBy, minValueBy } from './helper';
+import { constant, maxValueBy, minValueBy, sumBy } from './helper';
 
 function ascendingSourceBreadth(a, b) {
   return ascendingBreadth(a.source, b.source) || a.index - b.index;

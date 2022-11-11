@@ -1,18 +1,18 @@
 import { View } from '@antv/g2';
 import { get, keys } from '@antv/util';
-import { Params } from '../../core/adaptor';
 import {
-  tooltip,
-  interaction as commonInteraction,
   animation as commonAnimation,
-  theme as commonTheme,
+  interaction as commonInteraction,
   limitInPlot as commonLimitInPlot,
   scale,
+  theme as commonTheme,
+  tooltip,
 } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
-import { flow, findViewById, findGeometry, transformLabel, deepAssign } from '../../utils';
-import { BidirectionalBarOptions } from './types';
+import { Params } from '../../core/adaptor';
+import { deepAssign, findGeometry, findViewById, flow, transformLabel } from '../../utils';
 import { FIRST_AXES_VIEW, SECOND_AXES_VIEW, SERIES_FIELD_KEY } from './constant';
+import { BidirectionalBarOptions } from './types';
 import { isHorizontal, transformData } from './utils';
 
 /**

@@ -1,4 +1,4 @@
-import { registerInteraction, registerAction } from '@antv/g2';
+import { registerAction, registerInteraction } from '@antv/g2';
 import { VennElementActive } from './actions/active';
 import { VennElementHighlight } from './actions/highlight';
 import { VennElementSelected, VennElementSingleSelected } from './actions/selected';

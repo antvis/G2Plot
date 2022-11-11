@@ -5,7 +5,7 @@ order: 3
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -15,7 +15,7 @@ order: 3
 
 Configure the data source. The data source is a collection of objects. For example:`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-`markdown:docs/common/xy-field.en.md`
+<embed src="@/docs/common/xy-field.en.md"></embed>
 
 #### seriesField
 
@@ -55,21 +55,21 @@ Whether the plot is Percent Bar. When isPercent is `true`, isStack must be `true
 
 #### meta
 
-`markdown:docs/common/meta.en.md`
+<embed src="@/docs/common/meta.en.md"></embed>
 
 ### Graphic Style
 
-`markdown:docs/common/coordinate.en.md`
+<embed src="@/docs/common/coordinate.en.md"></embed>
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.en.md`
+<embed src="@/docs/common/pattern.en.md"></embed>
 
-`markdown:docs/common/bar-style.en.md`
+<embed src="@/docs/common/bar-style.en.md"></embed>
 
 #### barWidthRatio
 
@@ -95,41 +95,41 @@ The ratio of spacing between columns in groups( Range:[0-1] ), only for Grouped 
 
 <description>**optional** _object_</description>
 
-`markdown:docs/common/state-style.en.md`
+<embed src="@/docs/common/state-style.en.md"></embed>
 
 ### Plot Components
 
-`markdown:docs/common/common-component.zh.md`
+<embed src="@/docs/common/common-component.zh.md"></embed>
 
 #### Slider
 
-`markdown:docs/common/slider.zh.md`
+<embed src="@/docs/common/slider.zh.md"></embed>
 
 #### Scrollbar
 
-`markdown:docs/common/scrollbar.zh.md`
+<embed src="@/docs/common/scrollbar.zh.md"></embed>
 
 #### Conversion Tag
 
 Applicable to base bar charts and base bar charts, the Conversion Rate component allows the user to focus on the rate of change in the data.
 
-`markdown:docs/common/conversion-tag.en.md`
+<embed src="@/docs/common/conversion-tag.en.md"></embed>
 
 #### Connected Area
 
-`markdown:docs/common/connected-area.en.md`
+<embed src="@/docs/common/connected-area.en.md"></embed>
 
 ### Plot Event
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Method
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>
 
 ### Plot Interactions
 
@@ -139,6 +139,6 @@ Built-in interactions of scatter are as follows:
 | ----------- | ---------------------------------------- | ------------------------------ |
 | brush | 用于刷选交互，配置该交互后，可进行刷选。 | `brush: { enabled: true }` |
 
-`markdown:docs/common/brush.en.md`
+<embed src="@/docs/common/brush.en.md"></embed>
 
-`markdown:docs/common/interactions.en.md`
+<embed src="@/docs/common/interactions.en.md"></embed>

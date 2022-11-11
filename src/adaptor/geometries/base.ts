@@ -1,6 +1,6 @@
-import { uniq, isFunction, isObject, isString, isNumber, isEmpty } from '@antv/util';
+import { isEmpty, isFunction, isNumber, isObject, isString, uniq } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { ColorAttr, ShapeAttr, SizeAttr, StyleAttr, TooltipAttr, Options, Datum, RawFields } from '../../types';
+import { ColorAttr, Datum, Options, RawFields, ShapeAttr, SizeAttr, StyleAttr, TooltipAttr } from '../../types';
 import { Label } from '../../types/label';
 import { State } from '../../types/state';
 import { transformLabel } from '../../utils';

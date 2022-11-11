@@ -1,7 +1,7 @@
 import { Sunburst } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
-import { delay } from '../../../utils/delay';
 import { SUNBRUST_DATA } from '../../../data/sunburst';
+import { delay } from '../../../utils/delay';
+import { createDiv } from '../../../utils/dom';
 
 describe('sunburst', () => {
   it('旧版本', async () => {

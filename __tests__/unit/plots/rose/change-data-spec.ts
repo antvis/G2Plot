@@ -1,5 +1,5 @@
-import { salesByArea, subSalesByArea } from '../../../data/sales';
 import { Rose } from '../../../../src';
+import { salesByArea, subSalesByArea } from '../../../data/sales';
 import { createDiv } from '../../../utils/dom';
 
 describe('rose-changeData', () => {

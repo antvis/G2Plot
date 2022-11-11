@@ -21,7 +21,7 @@ contributors:
   ]
 ---
 
-`markdown:docs/styles/component.md`
+<embed src="@/docs/styles/component.md"></embed>
 
 🏷️  Coordinate axis refers to the axis of statistical chart in two-dimensional space, which is used to define the mapping relationship between **direction** and **value of data** in coordinate system.
 
@@ -53,4 +53,4 @@ xAxis: {
 
 #### Properties - _AxisCfg_
 
-`markdown:docs/common/axis.en.md`
+<embed src="@/docs/common/axis.en.md"></embed>

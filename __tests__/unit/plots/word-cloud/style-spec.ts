@@ -1,7 +1,7 @@
 import { WordCloud } from '../../../../src';
+import { Tag } from '../../../../src/plots/word-cloud/types';
 import { CountryEconomy } from '../../../data/country-economy';
 import { createDiv } from '../../../utils/dom';
-import { Tag } from '../../../../src/plots/word-cloud/types';
 
 describe('word-cloud', () => {
   it('style', () => {

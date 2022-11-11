@@ -1,21 +1,21 @@
-import { get } from '@antv/util';
 import { Types } from '@antv/g2';
+import { get } from '@antv/util';
+import {
+  animation,
+  annotation,
+  interaction as baseInteraction,
+  legend,
+  pattern,
+  scale,
+  theme,
+} from '../../adaptor/common';
 import { point } from '../../adaptor/geometries/point';
 import { Params } from '../../core/adaptor';
-import {
-  interaction as baseInteraction,
-  animation,
-  theme,
-  legend,
-  annotation,
-  scale,
-  pattern,
-} from '../../adaptor/common';
-import { flow, deepAssign } from '../../utils';
+import { deepAssign, flow } from '../../utils';
 import { getAdjustAppendPadding, resolveAllPadding } from '../../utils/padding';
-import { transformData, resolvePaddingForCircle } from './utils';
-import { CirclePackingOptions } from './types';
 import { RAW_FIELDS } from './constant';
+import { CirclePackingOptions } from './types';
+import { resolvePaddingForCircle, transformData } from './utils';
 
 /**
  * 获取默认 option

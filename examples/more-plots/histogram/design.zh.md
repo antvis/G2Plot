@@ -2,4 +2,4 @@
 title: 设计规范
 ---
 
-`markdown:docs/manual/plots/histogram.zh.md`
+<embed src="@/docs/manual/plots/histogram.zh.md"></embed>

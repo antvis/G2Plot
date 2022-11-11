@@ -1,8 +1,8 @@
-import { initCanvas } from '../../../../src/utils/pattern/util';
-import { defaultLinePatternCfg, createLinePattern, drawLine } from '../../../../src/utils/pattern/line';
 import { LinePatternCfg } from '../../../../src/types/pattern';
-import { getPixelColor } from '../../../utils/getPixelColor';
 import { deepAssign } from '../../../../src/utils';
+import { createLinePattern, defaultLinePatternCfg, drawLine } from '../../../../src/utils/pattern/line';
+import { initCanvas } from '../../../../src/utils/pattern/util';
+import { getPixelColor } from '../../../utils/getPixelColor';
 
 describe('utils: line pattern', () => {
   const width = 30,

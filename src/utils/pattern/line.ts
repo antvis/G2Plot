@@ -1,6 +1,6 @@
 import { LinePatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
-import { initCanvas, drawBackground, transformMatrix, getPixelRatio } from './util';
+import { drawBackground, getPixelRatio, initCanvas, transformMatrix } from './util';
 
 /**
  * linePattern 的 默认配置

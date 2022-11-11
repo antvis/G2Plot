@@ -1,1 +1,1 @@
-`markdown:docs/api/plots/tiny-area.en.md`
+<embed src="@/docs/api/plots/tiny-area.en.md"></embed>

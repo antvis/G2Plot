@@ -11,7 +11,7 @@ contributors:
   ]
 ---
 
-`markdown:docs/styles/component.md`
+<embed src="@/docs/styles/component.md"></embed>
 
 #### Statistic
 
@@ -19,8 +19,8 @@ contributors:
 
 #### Properties - _Statistic_
 
-`markdown:docs/common/statistic.en.md`
+<embed src="@/docs/common/statistic.en.md"></embed>
 
 Example:
 
-<playground path="pie/donut/demo/basic.ts" rid="docs-statistic" height="400"></playground>
+<Playground path="pie/donut/demo/basic.ts" rid="docs-statistic" height="400"></playground>

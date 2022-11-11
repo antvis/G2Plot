@@ -1,6 +1,6 @@
-import { deepAssign } from '../utils';
-import { Plot, PickOptions } from '../core/plot';
 import { Adaptor } from '../core/adaptor';
+import { PickOptions, Plot } from '../core/plot';
+import { deepAssign } from '../utils';
 /**
  * 给 G2Plot 提供非常简单的开放开发的机制。目的是能够让社区和业务上自己基于 G2Plot 开发自己的定制图表库。主要分成几类图表：
  * 1. 领域专业的图表，内部同学因为没有场景，不一定能做的完善。

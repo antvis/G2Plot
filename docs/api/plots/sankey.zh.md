@@ -5,7 +5,7 @@ order: 27
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -39,7 +39,7 @@ order: 27
 
 其他原始字段，便于在节点、边定义 tooltip 或者 label 时取用。
 
-<playground path="relation-plots/sankey/demo/draggable.ts" rid="sankey-raw-fields"></playground>
+<Playground path="relation-plots/sankey/demo/draggable.ts" rid="sankey-raw-fields"></playground>
 
 ### Geometry Style
 
@@ -55,7 +55,7 @@ order: 27
 
 桑基图节点状态样式的配置。
 
-`markdown:docs/common/state-style.zh.md`
+<embed src="@/docs/common/state-style.zh.md"></embed>
 
 #### nodeInteractions
 
@@ -69,7 +69,7 @@ order: 27
 
 桑基图变样式的配置。
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 #### edgeState
 
@@ -77,7 +77,7 @@ order: 27
 
 桑基图边状态样式的配置。
 
-`markdown:docs/common/state-style.zh.md`
+<embed src="@/docs/common/state-style.zh.md"></embed>
 
 #### nodeInteractions
 
@@ -135,12 +135,12 @@ order: 27
 
 ### Plot Event
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Method
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>

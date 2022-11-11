@@ -28,11 +28,11 @@ animation: {
 
 #### Configuration（_AnimateOption_）
 
-`markdown:docs/common/animate-option.zh.md`
+<embed src="@/docs/common/animate-option.zh.md"></embed>
 
 #### Easing Effects
 
 Easing method used to control apparent motion in animation. Varied easing effects can be found at [d3-ease](https://github.com/d3/d3-ease)
 
-<playground path="dynamic-plots/animation/demo/easing-effects.ts" rid="easing-effect"></playground>
+<Playground path="dynamic-plots/animation/demo/easing-effects.ts" rid="easing-effect"></playground>
 

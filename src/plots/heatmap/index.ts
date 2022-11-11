@@ -1,11 +1,11 @@
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { HeatmapOptions } from './types';
+import { Plot } from '../../core/plot';
 import { adaptor } from './adaptor';
 import { DEFAULT_OPTIONS } from './constant';
 // registered shapes
 import './shapes/circle';
 import './shapes/square';
+import { HeatmapOptions } from './types';
 
 export type { HeatmapOptions };
 

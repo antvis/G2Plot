@@ -1,6 +1,6 @@
 import { DualAxes } from '../../../../src';
+import { PV_DATA_MULTI, transformData, uvBillData, UV_DATA_MULTI } from '../../../data/pv-uv';
 import { delay } from '../../../utils/delay';
-import { PV_DATA_MULTI, UV_DATA_MULTI, uvBillData, transformData } from '../../../data/pv-uv';
 import { createDiv } from '../../../utils/dom';
 
 describe('slider', () => {

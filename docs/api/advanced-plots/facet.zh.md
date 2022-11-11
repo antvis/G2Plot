@@ -108,7 +108,7 @@ order: 9
 
 标题样式。
 
-`markdown:docs/common/facet-title.zh.md`
+<embed src="@/docs/common/facet-title.zh.md"></embed>
 
 #### FacetCfg.cols
 
@@ -141,7 +141,7 @@ order: 9
 
 列标题的样式。适用于 <tag color="green" text="rect 分面">rect 分面</tag>、<tag color="green" text="matrix 分面">matrix 分面</tag>
 
-`markdown:docs/common/facet-title.zh.md`
+<embed src="@/docs/common/facet-title.zh.md"></embed>
 
 #### FacetCfg.rowTitle
 
@@ -149,7 +149,7 @@ order: 9
 
 行标题的样式。适用于 <tag color="green" text="rect 分面">rect 分面</tag>、 <tag color="green" text="matrix 分面">matrix 分面</tag>
 
-`markdown:docs/common/facet-title.zh.md`
+<embed src="@/docs/common/facet-title.zh.md"></embed>
 
 #### FacetCfg.eachView
 
@@ -161,7 +161,7 @@ order: 9
 type ViewCallback = (innerView: View, facet?: FacetData) => IPlot;
 ```
 
-<playground path="facet/basic/demo/rect.ts" rid="facet-rect-plot"></playground>
+<Playground path="facet/basic/demo/rect.ts" rid="facet-rect-plot"></playground>
 
 其中 _FacetData_ 结构如下：
 
@@ -185,7 +185,7 @@ type ViewCallback = (innerView: View, facet?: FacetData) => IPlot;
 
 ### IPlot
 
-`markdown:docs/common/plot-cfg.zh.md`
+<embed src="@/docs/common/plot-cfg.zh.md"></embed>
 
 <!-- _IView_ 结构具体见下面详细介绍。
 
@@ -210,8 +210,8 @@ const data = [
 
 view 上的图形 geometry 及映射配置，具体见[图层图形](#图层图形)
 
-`markdown:docs/common/common-iview.zh.md`
+<embed src="@/docs/common/common-iview.zh.md"></embed>
 
 ### 图层图形
 
-`markdown:docs/common/geometry-cfg.zh.md` -->
+<embed src="@/docs/common/geometry-cfg.zh.md"></embed> -->

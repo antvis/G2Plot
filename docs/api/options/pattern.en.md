@@ -16,7 +16,7 @@ We can set patterns for geometries.
 
 G2Plot with built-in `'dot' | 'line' | 'square'` several patterns, the pattern inherits the current element's fill color by default.
 
-<playground path="plugin/pattern/demo/pie-pattern.ts" rid="pie-pattern"></playground>
+<Playground path="plugin/pattern/demo/pie-pattern.ts" rid="pie-pattern"></playground>
 
 Usage for scenes:
 
@@ -28,7 +28,7 @@ Usage for scenes:
 
 ### API
 
-`markdown:docs/common/pattern.en.md`
+<embed src="@/docs/common/pattern.en.md"></embed>
 
 ### Attention
 

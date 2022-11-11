@@ -1,1 +1,1 @@
-`markdown:docs/api/plots/sankey.zh.md`
+<embed src="@/docs/api/plots/sankey.zh.md"></embed>

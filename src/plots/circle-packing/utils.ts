@@ -1,7 +1,7 @@
 import { Types } from '@antv/g2';
-import { pack } from '../../utils/hierarchy/pack';
-import { deepAssign, pick } from '../../utils';
 import { HIERARCHY_DATA_TRANSFORM_PARAMS } from '../../interactions/actions/drill-down';
+import { deepAssign, pick } from '../../utils';
+import { pack } from '../../utils/hierarchy/pack';
 import { resolveAllPadding } from '../../utils/padding';
 import { CirclePackingOptions } from './types';
 

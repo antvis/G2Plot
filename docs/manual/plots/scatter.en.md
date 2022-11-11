@@ -22,7 +22,7 @@ contributors:
       <tbody>
         <tr style="height: 33px;">
           <td colspan="1" rowspan="4" style="background:#fff">
-            <playground path='scatter/scatter/demo/color-mapping.ts' rid='rect1'></playground>
+            <Playground path="scatter/scatter/demo/color-mapping.ts" rid="rect1" ratio="0"></playground>
           </td>
           <td class="style1">
           <p><strong>定义</strong></p>
@@ -85,12 +85,12 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/j5ADHaMsZx/scatter.json')
 
 ### RegressionLine
 
-<playground path='scatter/scatter/demo/line.ts' rid='rect2'></playground>
+<Playground path='scatter/scatter/demo/line.ts' rid='rect2'></playground>
 
 ### Bubble
 
 气泡图是一种多变量的统计图表，由笛卡尔坐标系（直角坐标系）和大小不一、颜色不同的圆组成，可以看作是散点图的变形。
 
-<playground path='scatter/bubble/demo/quadrant.ts' rid='rect3'></playground>
+<Playground path='scatter/bubble/demo/quadrant.ts' rid='rect3'></playground>
 
 </div>

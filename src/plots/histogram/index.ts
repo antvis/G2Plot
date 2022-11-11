@@ -1,9 +1,9 @@
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
+import { Plot } from '../../core/plot';
 import { binHistogram } from '../../utils/transform/histogram';
-import { HistogramOptions } from './types';
 import { adaptor } from './adaptor';
 import { DEFAULT_OPTIONS } from './constant';
+import { HistogramOptions } from './types';
 
 export type { HistogramOptions };
 

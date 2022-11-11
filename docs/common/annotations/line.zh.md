@@ -74,4 +74,4 @@ type LineAnnotationTextCfg = {
 
 [Example](/zh/examples/component/annotation#line-annotation-with-text)
 
-`markdown:docs/common/annotations/base-annotation.zh.md`
+<embed src="@/docs/common/annotations/base-annotation.zh.md"></embed>

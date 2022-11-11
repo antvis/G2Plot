@@ -55,7 +55,7 @@ plot.changeData(data: object[] | number);
  - 仪表盘、水波图 等指标类的，直接传入更新的 percent 数值
  - 双轴图等复合类图表，直接传入自己的 data 数据结构
 
- <playground path="dynamic-plots/basic/demo/dynamic-spline.ts" rid="rect"></playground>
+ <Playground path="dynamic-plots/basic/demo/dynamic-spline.ts" rid="rect"></playground>
 
 ### 5. changeSize
 
@@ -144,7 +144,7 @@ dualAxes.addAnnotations(
 
 批量为指定的视图增加标注（默认为当前图表）。通过 id 匹配，如果匹配成功，则更新，匹配不成功则增加。
 
- <!-- <playground path="dynamic-plots/basic/demo/dynamic-spline.ts" rid="addAnnotations"></playground> -->
+ <!-- <Playground path="dynamic-plots/basic/demo/dynamic-spline.ts" rid="addAnnotations"></playground> -->
 
 ### 13. removeAnnotations
 

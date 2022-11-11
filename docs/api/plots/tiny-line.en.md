@@ -5,7 +5,7 @@ order: 14
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -17,7 +17,7 @@ Configure the chart data source. MINI line chart data directly uses a numeric ar
 
 #### meta
 
-`markdown:docs/common/meta.en.md`
+<embed src="@/docs/common/meta.en.md"></embed>
 
 ### Plot Style
 
@@ -39,7 +39,7 @@ For missing values in the line chart, whether to connect the empty data as a lin
 
 Polyline graphic style. You can either pass in the 'shapeStyle' structure directly, or you can use callbacks to return different styles for different data. For the ShapeStyle data structure, see:
 
-`markdown:docs/common/shape-style.en.md`
+<embed src="@/docs/common/shape-style.en.md"></embed>
 
 #### point
 
@@ -47,10 +47,10 @@ Polyline graphic style. You can either pass in the 'shapeStyle' structure direct
 
 Polyline data point chart style.
 
-`markdown:docs/common/point-style.en.md`
+<embed src="@/docs/common/point-style.en.md"></embed>
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 ### Plot Component
 
-`markdown:docs/common/component-tiny.en.md`
+<embed src="@/docs/common/component-tiny.en.md"></embed>

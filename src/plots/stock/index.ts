@@ -1,9 +1,9 @@
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { StockOptions } from './types';
+import { Plot } from '../../core/plot';
 import { adaptor } from './adaptor';
-import { getStockData } from './utils';
 import { DEFAULT_OPTIONS } from './constant';
+import { StockOptions } from './types';
+import { getStockData } from './utils';
 
 export type { StockOptions };
 

@@ -1,5 +1,5 @@
 import { IElement, IGroup } from '@antv/g-base';
-import { Util, Element, Action } from '@antv/g2';
+import { Action, Element, Util } from '@antv/g2';
 import { isEqual } from '@antv/util';
 import { transform } from '../../../../utils/matrix';
 

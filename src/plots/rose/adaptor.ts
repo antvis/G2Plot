@@ -1,8 +1,8 @@
-import { filter, isObject, isArray } from '@antv/util';
-import { Params } from '../../core/adaptor';
-import { flow, findGeometry, log, LEVEL, transformLabel, deepAssign } from '../../utils';
-import { tooltip, interaction, animation, theme, scale, annotation, state, pattern } from '../../adaptor/common';
+import { filter, isArray, isObject } from '@antv/util';
+import { animation, annotation, interaction, pattern, scale, state, theme, tooltip } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
+import { Params } from '../../core/adaptor';
+import { deepAssign, findGeometry, flow, LEVEL, log, transformLabel } from '../../utils';
 import { RoseOptions } from './types';
 
 /**

@@ -1,6 +1,6 @@
 import { Column } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
+import { createDiv } from '../../../utils/dom';
 const data = [
   { country: 'Europe', year: '1750', value: 163 },
   { country: 'Europe', year: '1800', value: 203 },

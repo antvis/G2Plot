@@ -5,7 +5,7 @@ order: 19
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -35,13 +35,13 @@ order: 19
 
 柱子样式配置。
 
-`markdown:docs/common/shape-style.zh.md`
+<embed src="@/docs/common/shape-style.zh.md"></embed>
 
-`markdown:docs/common/color.zh.md`
+<embed src="@/docs/common/color.zh.md"></embed>
 
 ### 图表组件
 
-`markdown:docs/common/component-progress.zh.md`
+<embed src="@/docs/common/component-progress.zh.md"></embed>
 
 #### statistic
 
@@ -49,4 +49,4 @@ order: 19
 
 统计内容组件，主要包含 title、content 来部分内容。
 
-`markdown:docs/common/statistic.zh.md`
+<embed src="@/docs/common/statistic.zh.md"></embed>

@@ -39,7 +39,7 @@ $ npm install @antv/g2plot
 <div id="container"></div>
 ```
 
-<playground path='bar/basic/demo/basic.ts' rid='basic-bar-demo'></playground>
+<Playground path='bar/basic/demo/basic.ts' rid='basic-bar-demo'></playground>
 
 ## Development
 

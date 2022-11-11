@@ -13,22 +13,22 @@ annotations: [
 ];
 ```
 
-`markdown:docs/common/annotations/text.zh.md`
+<embed src="@/docs/common/annotations/text.zh.md"></embed>
 
-`markdown:docs/common/annotations/line.zh.md`
+<embed src="@/docs/common/annotations/line.zh.md"></embed>
 
-`markdown:docs/common/annotations/arc.zh.md`
+<embed src="@/docs/common/annotations/arc.zh.md"></embed>
 
-`markdown:docs/common/annotations/image.zh.md`
+<embed src="@/docs/common/annotations/image.zh.md"></embed>
 
-`markdown:docs/common/annotations/region.zh.md`
+<embed src="@/docs/common/annotations/region.zh.md"></embed>
 
-`markdown:docs/common/annotations/data-marker.zh.md`
+<embed src="@/docs/common/annotations/data-marker.zh.md"></embed>
 
-`markdown:docs/common/annotations/data-region.zh.md`
+<embed src="@/docs/common/annotations/data-region.zh.md"></embed>
 
-`markdown:docs/common/annotations/region-filter.zh.md`
+<embed src="@/docs/common/annotations/region-filter.zh.md"></embed>
 
-`markdown:docs/common/annotations/html.zh.md`
+<embed src="@/docs/common/annotations/html.zh.md"></embed>
 
-`markdown:docs/common/annotations/shape.zh.md`
+<embed src="@/docs/common/annotations/shape.zh.md"></embed>

@@ -1,8 +1,8 @@
-import { deepMix, isEqual, clone } from '@antv/util';
-import { Line, G2, Plot } from '../../../src';
+import { clone, deepMix, isEqual } from '@antv/util';
+import { G2, Line, Plot } from '../../../src';
 import { partySupport } from '../../data/party-support';
-import { createDiv } from '../../utils/dom';
 import { delay } from '../../utils/delay';
+import { createDiv } from '../../utils/dom';
 
 G2.registerTheme('new-theme', {
   colors10: ['green'],

@@ -3,7 +3,7 @@ title: 图表标注 - Annotations
 order: 6
 ---
 
-`markdown:docs/styles/component.md`
+<embed src="@/docs/styles/component.md"></embed>
 
 🏷️  图形标注，Annotation，作为图表的辅助元素，主要用于在图表上标识额外的标记注解。
 
@@ -48,4 +48,4 @@ annotations: [
 
 配置详情：
 
-`markdown:docs/common/annotations.zh.md`
+<embed src="@/docs/common/annotations.zh.md"></embed>

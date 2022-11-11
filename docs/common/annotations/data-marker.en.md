@@ -1,1 +1,1 @@
-`markdown:docs/common/annotations/data-marker.zh.md`
+<embed src="@/docs/common/annotations/data-marker.zh.md"></embed>

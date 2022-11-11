@@ -1,4 +1,4 @@
-import { isArray, isString, filter } from '@antv/util';
+import { filter, isArray, isString } from '@antv/util';
 
 /** export 一些字段常量 */
 /** 在同层级，同一父节点下的节点索引顺序 */

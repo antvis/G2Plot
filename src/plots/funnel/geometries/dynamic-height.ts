@@ -1,11 +1,11 @@
-import { map, reduce, maxBy, isArray, get } from '@antv/util';
 import { Types } from '@antv/g2';
-import { flow } from '../../../utils';
-import { Params } from '../../../core/adaptor';
-import { FUNNEL_PERCENT, FUNNEL_CONVERSATION, FUNNEL_TOTAL_PERCENT, PLOYGON_X, PLOYGON_Y } from '../constant';
+import { get, isArray, map, maxBy, reduce } from '@antv/util';
 import { geometry as baseGeometry } from '../../../adaptor/geometries/base';
+import { Params } from '../../../core/adaptor';
+import { Data, Datum } from '../../../types/common';
+import { flow } from '../../../utils';
 import { getTooltipMapping } from '../../../utils/tooltip';
-import { Datum, Data } from '../../../types/common';
+import { FUNNEL_CONVERSATION, FUNNEL_PERCENT, FUNNEL_TOTAL_PERCENT, PLOYGON_X, PLOYGON_Y } from '../constant';
 import { FunnelOptions } from '../types';
 import { conversionTagComponent } from './common';
 

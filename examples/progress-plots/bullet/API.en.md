@@ -1,1 +1,1 @@
-`markdown:docs/api/plots/bullet.en.md`
+<embed src="@/docs/api/plots/bullet.en.md"></embed>

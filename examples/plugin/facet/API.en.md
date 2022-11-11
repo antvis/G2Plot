@@ -1,1 +1,1 @@
-`markdown:docs/api/facet.en.md`
+<embed src="@/docs/api/facet.en.md"></embed>

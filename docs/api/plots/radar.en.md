@@ -5,7 +5,7 @@ order: 7
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -17,7 +17,7 @@ Configure the data source. The data source is a collection of objects. For examp
 
 #### meta
 
-`markdown:docs/common/meta.en.md`
+<embed src="@/docs/common/meta.en.md"></embed>
 
 ```ts
 const data = [
@@ -84,7 +84,7 @@ The starting angle of the disk.
 
 The termination angle of the disk.
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 #### smooth
 
@@ -98,7 +98,7 @@ Whether to draw as a curve (spline).
 
 Configure the polyline style on the radar chart, which can also be set according to the corresponding data through the method of the callback function. The return parameter is a generic ShapeStyle object
 
-`markdown:docs/common/shape-style.en.md`
+<embed src="@/docs/common/shape-style.en.md"></embed>
 
 Examples of use:
 
@@ -119,7 +119,7 @@ Examples of use:
 
 Configure the points on the radar chart
 
-`markdown:docs/common/point-style.en.md`
+<embed src="@/docs/common/point-style.en.md"></embed>
 
 #### area
 
@@ -151,16 +151,16 @@ Examples of use:
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*KnguSICzqXEAAAAAAAAAAAAAARQnAQ" alt="Load failed" width="600">
 
-`markdown:docs/common/component.en.md`
+<embed src="@/docs/common/component.en.md"></embed>
 
 ### Plot Event
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Method
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>

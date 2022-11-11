@@ -1,1 +1,1 @@
-`markdown:docs/api/plots/histogram.en.md`
+<embed src="@/docs/api/plots/histogram.en.md"></embed>

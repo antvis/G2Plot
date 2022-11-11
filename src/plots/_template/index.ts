@@ -1,7 +1,7 @@
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { TemplateOptions } from './types';
+import { Plot } from '../../core/plot';
 import { adaptor } from './adaptor';
+import { TemplateOptions } from './types';
 
 export type { TemplateOptions };
 

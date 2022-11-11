@@ -1,8 +1,8 @@
-import { get, map, filter, each } from '@antv/util';
 import { Action } from '@antv/g2';
+import { each, filter, get, map } from '@antv/util';
 import { conversionTag as basicConversionTag } from '../geometries/basic';
+import { CONVERSION_TAG_NAME, transformData } from '../geometries/common';
 import { compareConversionTag } from '../geometries/compare';
-import { transformData, CONVERSION_TAG_NAME } from '../geometries/common';
 import { FunnelOptions } from '../types';
 
 /**

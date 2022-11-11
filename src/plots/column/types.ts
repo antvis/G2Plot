@@ -1,8 +1,8 @@
 import { ShapeAttrs } from '@antv/g2';
-import { BrushCfg, Options, StyleAttr } from '../../types';
-import { OptionWithConversionTag } from '../../adaptor/conversion-tag';
 import { OptionWithConnectedArea } from '../../adaptor/connected-area';
+import { OptionWithConversionTag } from '../../adaptor/conversion-tag';
 import { IntervalGeometryOptions } from '../../adaptor/geometries/interval';
+import { BrushCfg, Options, StyleAttr } from '../../types';
 import { Transformations } from '../../types/coordinate';
 
 type PartialIntervalGeometryOptions = Pick<IntervalGeometryOptions, 'dodgePadding' | 'intervalPadding'>;

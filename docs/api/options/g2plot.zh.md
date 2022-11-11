@@ -57,4 +57,4 @@ registerLocale(locale: string, localeCfg: Object): void;
 
 使用 G2 的自定义注册主题机制，进行主题定制。
 
-<playground path="general/theme/demo/register-theme.ts" rid="register-theme"></playground>
+<Playground path="general/theme/demo/register-theme.ts" rid="register-theme"></playground>

@@ -11,7 +11,7 @@ contributors:
   ]
 ---
 
-`markdown:docs/styles/component.md`
+<embed src="@/docs/styles/component.md"></embed>
 
 #### 构成元素
 
@@ -19,8 +19,8 @@ contributors:
 
 #### 配置属性 - _Statistic_
 
-`markdown:docs/common/statistic.zh.md`
+<embed src="@/docs/common/statistic.zh.md"></embed>
 
 示例:
 
-<playground path="pie/donut/demo/basic.ts" rid="docs-statistic" height="400"></playground>
+<Playground path="pie/donut/demo/basic.ts" rid="docs-statistic" height="400"></playground>

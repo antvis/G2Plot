@@ -1,5 +1,5 @@
 import { Violin } from '../../../../src';
-import { MIN_MAX_VIEW_ID, QUANTILE_VIEW_ID, MEDIAN_VIEW_ID } from '../../../../src/plots/violin/constant';
+import { MEDIAN_VIEW_ID, MIN_MAX_VIEW_ID, QUANTILE_VIEW_ID } from '../../../../src/plots/violin/constant';
 import { BASE_VIOLIN_DATA } from '../../../data/violin';
 import { createDiv } from '../../../utils/dom';
 

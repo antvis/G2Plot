@@ -5,7 +5,7 @@ order: 12
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -128,15 +128,15 @@ Default configuration:
 
 #### legend
 
-`markdown:docs/common/legend.en.md`
+<embed src="@/docs/common/legend.en.md"></embed>
 
 #### label
 
-`markdown:docs/common/label.en.md`
+<embed src="@/docs/common/label.en.md"></embed>
 
 #### tooltip
 
-`markdown:docs/common/tooltip.en.md`
+<embed src="@/docs/common/tooltip.en.md"></embed>
 
 ### Plot Interactions ✨
 
@@ -149,16 +149,16 @@ There are interactions for venn diagrams, listed below:
 | venn-element-single-selected | enable the interaction "trigger selected when mouse clicked on venn diagram element", single selected | `interactions:[{ type: 'venn-element-single-selected'}]` |
 | venn-element-highlight | enable the interaction "trigger highlight when mouse clicked on venn diagram element" | `interactions:[{ type: 'venn-element-highlight'}]` |
 
-`markdown:docs/common/interactions.en.md`
+<embed src="@/docs/common/interactions.en.md"></embed>
 
 ### Plot Event
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Method
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>

@@ -1,10 +1,9 @@
-import { Chart } from '@antv/g2';
-import { Types } from '@antv/g2';
+import { Chart, Types } from '@antv/g2';
 import { isArray, isFunction, isString } from '@antv/util';
-import { normalPadding } from '../../utils/padding';
 import { Params } from '../../core/adaptor';
 import { Datum } from '../../types';
-import { log, LEVEL, getContainerSize } from '../../utils';
+import { getContainerSize, LEVEL, log } from '../../utils';
+import { normalPadding } from '../../utils/padding';
 import { functor, wordCloud } from '../../utils/transform/word-cloud';
 import { Tag, Word, WordCloudOptions, WordStyle } from './types';
 

@@ -1,5 +1,5 @@
-import { transformData } from '../../src/plots/bidirectional-bar/utils';
 import { BidirectionalBar } from '../../src';
+import { transformData } from '../../src/plots/bidirectional-bar/utils';
 import { createDiv } from '../utils/dom';
 
 const data = [

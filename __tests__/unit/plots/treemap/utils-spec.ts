@@ -1,4 +1,4 @@
-import { transformData, findInteraction, enableInteraction, resetDrillDown } from '../../../../src/plots/treemap/utils';
+import { enableInteraction, findInteraction, resetDrillDown, transformData } from '../../../../src/plots/treemap/utils';
 
 const data1 = {
   name: 'root',

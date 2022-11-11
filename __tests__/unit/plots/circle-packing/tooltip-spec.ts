@@ -1,8 +1,8 @@
 import { TooltipCfg } from '@antv/g2/lib/interface';
 import { CirclePacking } from '../../../../src';
-import { createDiv, removeDom } from '../../../utils/dom';
-import { DATA } from '../../../data/circle-packing';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/circle-packing/constant';
+import { DATA } from '../../../data/circle-packing';
+import { createDiv, removeDom } from '../../../utils/dom';
 
 describe('Circle-Packing', () => {
   const div = createDiv();

@@ -1,7 +1,7 @@
 import { Lab, Mix, MultiView } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
-import { delay } from '../../../utils/delay';
 import { partySupport } from '../../../data/party-support';
+import { delay } from '../../../utils/delay';
+import { createDiv } from '../../../utils/dom';
 
 describe('multi-view', () => {
   it('simple line', async () => {

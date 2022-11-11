@@ -1,6 +1,6 @@
 import { Sankey } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { ENERGY_RELATIONS } from '../../../data/sankey-energy';
+import { createDiv } from '../../../utils/dom';
 
 describe('sankey animation', () => {
   const sankey = new Sankey(createDiv(), {

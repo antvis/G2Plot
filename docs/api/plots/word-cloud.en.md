@@ -5,7 +5,7 @@ order: 8
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -72,7 +72,7 @@ Sets the maximum execution time of the drawing program in milliseconds. If the t
 
 #### meta
 
-`markdown:docs/common/meta.en.md`
+<embed src="@/docs/common/meta.en.md"></embed>
 
 ### Geometry Style
 
@@ -116,24 +116,24 @@ Above, some properties can be set to a function that takes the following paramet
 | color      | _any_    | Value for color mapping                        |
 | datum      | _object_ | The original data corresponding to the storage |
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 ### Plot Components
 
-`markdown:docs/common/component.en.md`
+<embed src="@/docs/common/component.en.md"></embed>
 
 ### Plot Event
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Method
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>
 
 ### Plot Interactions
 
-`markdown:docs/common/interactions.en.md`
+<embed src="@/docs/common/interactions.en.md"></embed>

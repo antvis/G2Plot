@@ -1,10 +1,10 @@
-import { Params } from '../../core/adaptor';
 import { tooltip } from '../../adaptor/common';
-import { deepAssign, flow } from '../../utils';
+import { Params } from '../../core/adaptor';
 import { Axis } from '../../types';
+import { deepAssign, flow } from '../../utils';
 import { adaptor as columnAdaptor } from '../column/adaptor';
-export { meta } from '../column/adaptor';
 import { BarOptions } from './types';
+export { meta } from '../column/adaptor';
 
 /**
  * 处理默认配置项

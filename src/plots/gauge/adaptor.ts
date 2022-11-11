@@ -1,11 +1,11 @@
 import { Geometry } from '@antv/g2';
 import { get, isString } from '@antv/util';
-import { interaction, animation, theme, scale, annotation } from '../../adaptor/common';
+import { animation, annotation, interaction, scale, theme } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { Params } from '../../core/adaptor';
 import { deepAssign, flow, pick, renderGaugeStatistic } from '../../utils';
-import { RANGE_TYPE, RANGE_VALUE, PERCENT, DEFAULT_COLOR, INDICATEOR_VIEW_ID, RANGE_VIEW_ID } from './constants';
+import { DEFAULT_COLOR, INDICATEOR_VIEW_ID, PERCENT, RANGE_TYPE, RANGE_VALUE, RANGE_VIEW_ID } from './constants';
 import { GaugeOptions } from './types';
 import { getIndicatorData, getRangeData } from './utils';
 

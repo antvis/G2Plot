@@ -1,17 +1,17 @@
-import { isFunction, clone, each } from '@antv/util';
+import { clone, each, isFunction } from '@antv/util';
+import { animation, annotation, scale, theme, tooltip } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
-import { animation, theme, scale, annotation, tooltip } from '../../adaptor/common';
 import { getLocale } from '../../core/locale';
 import { Datum } from '../../types';
-import { flow, deepAssign } from '../../utils';
+import { deepAssign, flow } from '../../utils';
 import { conversionTagFormatter } from '../../utils/conversion';
-import { FunnelOptions } from './types';
+import { FUNNEL_CONVERSATION, FUNNEL_PERCENT } from './constant';
 import { basicFunnel } from './geometries/basic';
 import { compareFunnel } from './geometries/compare';
-import { facetFunnel } from './geometries/facet';
 import { dynamicHeightFunnel } from './geometries/dynamic-height';
-import { FUNNEL_CONVERSATION, FUNNEL_PERCENT } from './constant';
-import { interactionStart, FUNNEL_LEGEND_FILTER } from './interactions';
+import { facetFunnel } from './geometries/facet';
+import { FUNNEL_LEGEND_FILTER, interactionStart } from './interactions';
+import { FunnelOptions } from './types';
 import type { Interaction } from './types';
 
 /**

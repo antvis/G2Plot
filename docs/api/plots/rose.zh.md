@@ -5,7 +5,7 @@ order: 13
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -32,11 +32,11 @@ order: 13
 ];
 ```
 
-`markdown:docs/common/xy-field.zh.md`
+<embed src="@/docs/common/xy-field.zh.md"></embed>
 
 #### meta
 
-`markdown:docs/common/meta.zh.md`
+<embed src="@/docs/common/meta.zh.md"></embed>
 
 ```ts
 const data = [
@@ -113,13 +113,13 @@ piePlot.render();
 
 配置坐标系的结束角度。
 
-`markdown:docs/common/color.zh.md`
+<embed src="@/docs/common/color.zh.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.zh.md`
+<embed src="@/docs/common/pattern.zh.md"></embed>
 
 #### sectorStyle
 
@@ -127,30 +127,30 @@ piePlot.render();
 
 设置扇形样式。sectorStyle 中的`fill`会覆盖 `color` 的配置。sectorStyle 可以直接指定，也可以通过 callback 的方式，根据数据为每个扇形切片指定单独的样式。
 
-`markdown:docs/common/shape-style.zh.md`
+<embed src="@/docs/common/shape-style.zh.md"></embed>
 
 #### state
 
 <description>**可选** _object_</description>
 
-`markdown:docs/common/state-style.zh.md`
+<embed src="@/docs/common/state-style.zh.md"></embed>
 
 ### 图表组件
 
-`markdown:docs/common/component.zh.md`
+<embed src="@/docs/common/component.zh.md"></embed>
 
 ### 图表事件
 
-`markdown:docs/common/events.zh.md`
+<embed src="@/docs/common/events.zh.md"></embed>
 
 ### 图表方法
 
-`markdown:docs/common/chart-methods.zh.md`
+<embed src="@/docs/common/chart-methods.zh.md"></embed>
 
 ### 图表主题
 
-`markdown:docs/common/theme.zh.md`
+<embed src="@/docs/common/theme.zh.md"></embed>
 
 ### 图表交互
 
-`markdown:docs/common/interactions.zh.md`
+<embed src="@/docs/common/interactions.zh.md"></embed>

@@ -1,8 +1,8 @@
-import { Datum, Chord } from '../../../../src';
+import { Chord, Datum } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/chord/constant';
+import { populationMovementData } from '../../../data/chord-population';
 import { delay } from '../../../utils/delay';
 import { createDiv } from '../../../utils/dom';
-import { populationMovementData } from '../../../data/chord-population';
-import { DEFAULT_OPTIONS } from '../../../../src/plots/chord/constant';
 
 describe('chord', () => {
   it('chord', async () => {

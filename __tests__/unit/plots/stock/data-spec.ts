@@ -1,5 +1,5 @@
+import { TREND_DOWN, TREND_FIELD, TREND_UP, Y_FIELD } from '../../../../src/plots/stock/constant';
 import { getStockData } from '../../../../src/plots/stock/utils';
-import { TREND_FIELD, TREND_UP, TREND_DOWN, Y_FIELD } from '../../../../src/plots/stock/constant';
 
 describe('stock data', () => {
   it('stock data', () => {

@@ -1,11 +1,11 @@
-import { isFunction, get } from '@antv/util';
-import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme, scale, state } from '../../adaptor/common';
-import { flow, deepAssign } from '../../utils';
+import { get, isFunction } from '@antv/util';
+import { animation, interaction, scale, state, theme, tooltip } from '../../adaptor/common';
 import { point } from '../../adaptor/geometries';
+import { Params } from '../../core/adaptor';
+import { deepAssign, flow } from '../../utils';
+import { WORD_CLOUD_COLOR_FIELD } from './constant';
 import { WordCloudOptions } from './types';
 import { transform } from './utils';
-import { WORD_CLOUD_COLOR_FIELD } from './constant';
 
 /**
  * geometry 配置处理

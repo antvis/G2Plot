@@ -24,7 +24,7 @@ contributors:
         <tbody>
           <tr style="height: 33px">
             <td colspan="1" rowspan="5" style="background: #fff">
-              <playground path="bar/basic/demo/basic.ts"></playground>
+              <Playground path="bar/basic/demo/basic.ts" ratio="0"></playground>
             </td>
             <td class="style1">
               <p><strong>定义</strong></p>
@@ -135,7 +135,7 @@ bar.render();
 
 通过组合指定柱子最大宽度、最小宽度可以达到指定柱子宽度的效果。
 
-<playground path="bar/basic/demo/width.ts" rid="specify-bar-width"></playground>
+<Playground path="bar/basic/demo/width.ts" rid="specify-bar-width"></playground>
 
 ### 设置柱子的圆角
 
@@ -144,10 +144,10 @@ bar.render();
 当柱子数值为正值时，`const [r1, r2, r3, r4] = radius` 依次代表柱子左上角、右上角、右下角、左下角的 `radius`。
 当柱子数值为负值时，`const [r1, r2, r3, r4] = radius` 依次代表柱子左下角、右下角、右上角、左上角的 `radius`。
 
-<playground path="bar/grouped/demo/corner-radius.ts" rid="corner-radius"></playground>
+<Playground path="bar/grouped/demo/corner-radius.ts" rid="corner-radius"></playground>
 
 ### 设置柱子的背景样式
 
 通过设置 `barBackground.style` 可以指定柱子的背景样式。
 
-<playground path="bar/basic/demo/bar-background.ts" rid="bar-background"></playground>
+<Playground path="bar/basic/demo/bar-background.ts" rid="bar-background"></playground>

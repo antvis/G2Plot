@@ -3,4 +3,4 @@ title: Funnel
 order: 6
 ---
 
-`markdown:docs/manual/plots/funnel.zh.md`
+<embed src="@/docs/manual/plots/funnel.zh.md"></embed>

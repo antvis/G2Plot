@@ -1,11 +1,11 @@
 import { BRUSH_FILTER_EVENTS, VIEW_LIFE_CIRCLE } from '@antv/g2';
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
+import { Plot } from '../../core/plot';
 import { deepAssign } from '../../utils';
-import { ScatterOptions } from './types';
-import { adaptor, transformOptions, meta } from './adaptor';
+import { adaptor, meta, transformOptions } from './adaptor';
 import { DEFAULT_OPTIONS } from './constant';
 import './interactions';
+import { ScatterOptions } from './types';
 
 export type { ScatterOptions };
 

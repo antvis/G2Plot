@@ -2,4 +2,4 @@
 title: API
 ---
 
-`markdown:docs/components/conversion-tag.en.md`
+<embed src="@/docs/components/conversion-tag.en.md"></embed>

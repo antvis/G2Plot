@@ -5,7 +5,7 @@ order: 5
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -53,7 +53,7 @@ order: 5
 | color  | _string \|string[]_ | 辅助圆弧的颜色色板，按照色板顺序取值; 当设置 ticks 时，color 无法使用回调的方式 |
 | width | _number_ | 对辅助圆弧的宽度进行像素级别的设置。默认通过 radius，innerRadius 来计算辅助圆弧的宽度。|
 
-<playground rid="gauge" path="progress-plots/gauge/demo/custom-color.ts"></playground>
+<Playground rid="gauge" path="progress-plots/gauge/demo/custom-color.ts"></playground>
 
 #### type ✨
 
@@ -79,7 +79,7 @@ order: 5
 
 仪表盘的样式设置。
 
-`markdown:docs/common/shape-style.zh.md`
+<embed src="@/docs/common/shape-style.zh.md"></embed>
 
 ### 图表组件
 
@@ -91,7 +91,7 @@ order: 5
 - 💡 在仪表盘中，axis 组件可以使用的配置有：`label`, `tickLine`, `subTickLine`, 其他配置项不建议在仪表盘中使用。
 - 💡 关于 `tick` 的设置, 可以直接在 `range.ticks` 中进行配置。
 
-`markdown:docs/common/axis.zh.md`
+<embed src="@/docs/common/axis.zh.md"></embed>
 
 #### indicator ✨
 
@@ -109,7 +109,7 @@ order: 5
 | ------ | ------ | ------------ |
 | style  | object | ShapeStyle |
 
-`markdown:docs/common/shape-style.zh.md`
+<embed src="@/docs/common/shape-style.zh.md"></embed>
 
 #### statistic
 
@@ -117,8 +117,8 @@ order: 5
 
 指标中心文本组件。
 
-`markdown:docs/common/statistic.zh.md`
+<embed src="@/docs/common/statistic.zh.md"></embed>
 
 #### tooltip
 
-`markdown:docs/common/tooltip.zh.md`
+<embed src="@/docs/common/tooltip.zh.md"></embed>

@@ -32,4 +32,4 @@ line 长度。
 
 文本的配置。
 
-`markdown:docs/common/annotations/base-annotation.zh.md`
+<embed src="@/docs/common/annotations/base-annotation.zh.md"></embed>

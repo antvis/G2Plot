@@ -1,6 +1,6 @@
 import { Scatter } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
+import { createDiv } from '../../../utils/dom';
 
 const data = [
   { x: 1, y: 4.181 },

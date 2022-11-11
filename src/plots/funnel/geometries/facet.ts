@@ -1,5 +1,5 @@
-import { flow, deepAssign } from '../../../utils';
 import { Params } from '../../../core/adaptor';
+import { deepAssign, flow } from '../../../utils';
 import { FunnelOptions } from '../types';
 import { basicFunnel } from './basic';
 

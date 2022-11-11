@@ -1,8 +1,8 @@
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { RoseOptions } from './types';
+import { Plot } from '../../core/plot';
 import { adaptor } from './adaptor';
 import { DEFAULT_OPTIONS } from './constant';
+import { RoseOptions } from './types';
 
 export type { RoseOptions };
 

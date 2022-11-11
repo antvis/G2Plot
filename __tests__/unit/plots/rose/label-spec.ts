@@ -1,8 +1,8 @@
 import { deepMix } from '@antv/util';
 import { Rose } from '../../../../src';
 import { salesByArea, subSalesByArea } from '../../../data/sales';
-import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
+import { createDiv } from '../../../utils/dom';
 
 describe('rose label', () => {
   const options = {

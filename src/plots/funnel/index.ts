@@ -1,10 +1,9 @@
-import { each } from '@antv/util';
 import { Element } from '@antv/g2';
-import { Plot } from '../../core/plot';
+import { each } from '@antv/util';
+import { StateCondition, StateName, StateObject } from '../..';
 import { Adaptor } from '../../core/adaptor';
-import { StateName, StateCondition, StateObject } from '../..';
+import { Plot } from '../../core/plot';
 import { getAllElementsRecursively } from '../../utils';
-import { FunnelOptions } from './types';
 import { adaptor } from './adaptor';
 import {
   DEFAULT_OPTIONS,
@@ -13,9 +12,9 @@ import {
   FUNNEL_TOTAL_PERCENT,
 } from './constant';
 import './interactions';
+import { FunnelOptions } from './types';
 
 export type { FunnelOptions };
-
 export { FUNNEL_CONVERSATION_FIELD };
 
 export class Funnel extends Plot<FunnelOptions> {

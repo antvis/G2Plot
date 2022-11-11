@@ -3,7 +3,7 @@ title: Annotations
 order: 6
 ---
 
-`markdown:docs/styles/component.md`
+<embed src="@/docs/styles/component.md"></embed>
 
 🏷️  Annotation，as an auxiliary element of the chart, it is mainly used to identify additional mark notes on the plot.
 
@@ -47,4 +47,4 @@ annotations: [
 
 Details of configuration:
 
-`markdown:docs/common/annotations.en.md`
+<embed src="@/docs/common/annotations.en.md"></embed>

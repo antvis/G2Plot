@@ -1,4 +1,4 @@
-import { TinyLine, TinyArea, TinyColumn } from '../../src';
+import { TinyArea, TinyColumn, TinyLine } from '../../src';
 import { createDiv } from '../utils/dom';
 
 const DATA = [

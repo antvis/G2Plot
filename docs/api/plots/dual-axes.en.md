@@ -5,7 +5,7 @@ order: 6
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -33,7 +33,7 @@ The array of data field names to which the dot shape maps in the Y direction is 
 
 #### meta
 
-`markdown:docs/common/meta.en.md`
+<embed src="@/docs/common/meta.en.md"></embed>
 
 
 Example:
@@ -98,7 +98,7 @@ The graph corresponding to the column is configured as follows:
 
 #### tooltip
 
-`markdown:docs/common/tooltip.en.md`
+<embed src="@/docs/common/tooltip.en.md"></embed>
 
 #### axis
 
@@ -118,7 +118,7 @@ XAXIS and YAXIS are configured the same, since DualAxes are biaxial and YAXIS ty
 }
 ```
 
-`markdown:docs/common/axis.en.md`
+<embed src="@/docs/common/axis.en.md"></embed>
 
 #### annotations
 
@@ -168,23 +168,23 @@ The configuration for Xaxis and Yaxis is the same, since DualAxes are biaxes, an
 
 #### legend
 
-`markdown:docs/common/legend.en.md`
+<embed src="@/docs/common/legend.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>
 
 #### slider
 
-`markdown:docs/common/slider.en.md`
+<embed src="@/docs/common/slider.en.md"></embed>
 
 ### Plot Events
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Methods
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 <!-- 直接 三级导航展开 -->
-`markdown:docs/common/annotations.en.md`
+<embed src="@/docs/common/annotations.en.md"></embed>

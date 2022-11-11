@@ -1,14 +1,14 @@
 import { get } from '@antv/util';
 import { Funnel } from '../../../../src';
-import { PV_DATA } from '../../../data/conversion';
-import { createDiv } from '../../../utils/dom';
 import {
+  FUNNEL_CONVERSATION,
   FUNNEL_PERCENT,
   FUNNEL_TOTAL_PERCENT,
-  FUNNEL_CONVERSATION,
   PLOYGON_X,
   PLOYGON_Y,
 } from '../../../../src/plots/funnel/constant';
+import { PV_DATA } from '../../../data/conversion';
+import { createDiv } from '../../../utils/dom';
 
 describe('dynamicHeight funnel', () => {
   let funnel;

@@ -22,4 +22,4 @@ label: {
 
 #### Properties
 
-`markdown:docs/common/label.en.md`
+<embed src="@/docs/common/label.en.md"></embed>

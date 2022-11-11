@@ -1,8 +1,8 @@
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { VennOptions } from './types';
+import { Plot } from '../../core/plot';
 import { adaptor } from './adaptor';
 import { DEFAULT_OPTIONS } from './constant';
+import { VennOptions } from './types';
 
 export type { VennOptions };
 

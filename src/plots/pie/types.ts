@@ -1,4 +1,4 @@
-import { Options, Statistic, StyleAttr, ShapeAttr } from '../../types';
+import { Options, ShapeAttr, Statistic, StyleAttr } from '../../types';
 import { Label } from '../../types/label';
 
 export type StatisticData = {

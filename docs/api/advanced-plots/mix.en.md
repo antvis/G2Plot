@@ -5,7 +5,7 @@ order: 8
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### View
 
@@ -30,7 +30,7 @@ see more: [IView](#iview)
 
 在 2.3.9 版本之后，我们提供了 `plots` 的配置项，你可以使用 plots 来代替 views 或者联合使用.
 
-<playground path="plugin/multi-view/demo/series-columns.ts" rid="multi-views-plots"></playground>
+<Playground path="plugin/multi-view/demo/series-columns.ts" rid="multi-views-plots"></playground>
 
 ### IView
 
@@ -52,7 +52,7 @@ region: {
 
 #### IView.data
 
-`markdown:docs/common/data.en.md`
+<embed src="@/docs/common/data.en.md"></embed>
 
 #### IView.geometries
 
@@ -62,7 +62,7 @@ view 上的图形 geometry 及映射配置，具体见[Geometry Configuration](#
 
 <!-- common iview configuration START -->
 
-`markdown:docs/common/common-iview.en.md`
+<embed src="@/docs/common/common-iview.en.md"></embed>
 
 <!-- common iview configuration END -->
 
@@ -70,7 +70,7 @@ view 上的图形 geometry 及映射配置，具体见[Geometry Configuration](#
 
 <!-- common igeometry configuration START -->
 
-`markdown:docs/common/geometry-cfg.en.md`
+<embed src="@/docs/common/geometry-cfg.en.md"></embed>
 
 <!-- common igeometry configuration END -->
 
@@ -123,7 +123,7 @@ region: {
 }
 ```
 
-`markdown:docs/common/plot-cfg.en.md`
+<embed src="@/docs/common/plot-cfg.en.md"></embed>
 
 **示例**：添加一个图层，引入 column plot 和 bar plot
 

@@ -1,8 +1,8 @@
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { ProgressOptions } from './types';
+import { Plot } from '../../core/plot';
 import { adaptor } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
+import { ProgressOptions } from './types';
 import { getProgressData } from './utils';
 
 export type { ProgressOptions };

@@ -1,7 +1,7 @@
 import { Treemap } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { TREEMAP } from '../../../data/treemap';
 import { TREEMAP_CHILDREN } from '../../../data/treemap-nest';
+import { createDiv } from '../../../utils/dom';
 
 describe('treemap tooltip', () => {
   let treemapPlot;

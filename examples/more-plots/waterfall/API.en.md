@@ -1,2 +1,2 @@
-`markdown:docs/api/plots/waterfall.en.md`
+<embed src="@/docs/api/plots/waterfall.en.md"></embed>
 

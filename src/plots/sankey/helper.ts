@@ -1,8 +1,8 @@
+import { Data } from '../../types';
 import { isRealNumber, pick } from '../../utils';
 import { transformDataToNodeLinkData } from '../../utils/data';
-import { Data } from '../../types';
-import { sankeyLayout, SankeyLayoutInputData } from './layout';
 import { cutoffCircle } from './circle';
+import { sankeyLayout, SankeyLayoutInputData } from './layout';
 import { SankeyOptions } from './types';
 
 /**

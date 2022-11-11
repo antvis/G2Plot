@@ -28,7 +28,7 @@
 
 **_shapeStyle_**
 
-`markdown:docs/common/shape-style.zh.md`
+<embed src="@/docs/common/shape-style.zh.md"></embed>
 
 **_label_**
 
@@ -36,7 +36,7 @@
 
 文本标签的配置项，null 表示不展示。
 
-`markdown:docs/common/label.zh.md`
+<embed src="@/docs/common/label.zh.md"></embed>
 
 ##### label
 
@@ -122,7 +122,7 @@ interface AxisLabelAutoHideCfg {
 
 坐标轴线的配置项，null 表示不展示。
 
-`markdown:docs/common/line-style.zh.md`
+<embed src="@/docs/common/line-style.zh.md"></embed>
 
 示例（设置 x 轴的 line 坐标轴线条样式）：
 

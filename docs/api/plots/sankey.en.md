@@ -5,7 +5,7 @@ order: 27
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -39,7 +39,7 @@ Set the weight field information of the relationship between nodes. The larger t
 
 Raw fields of original data. With the 'rawsFields' definition, you can get the original (raw) datum on node or edge elements.
 
-<playground path="relation-plots/sankey/demo/draggable.ts" rid="sankey-raw-fields"></playground>
+<Playground path="relation-plots/sankey/demo/draggable.ts" rid="sankey-raw-fields"></playground>
 
 ### Geometry Style
 
@@ -55,7 +55,7 @@ Sankey diagram node style configuration.
 
 State style configuration of Sankey node.
 
-`markdown:docs/common/state-style.zh.md`
+<embed src="@/docs/common/state-style.zh.md"></embed>
 
 #### nodeInteractions
 
@@ -75,9 +75,9 @@ Sankey diagram variable style configuration.
 
 State style configuration of Sankey edge.
 
-`markdown:docs/common/state-style.zh.md`
+<embed src="@/docs/common/state-style.zh.md"></embed>
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 #### edgeInteractions
 
@@ -135,12 +135,12 @@ Whether the node of sankey is draggable, default is `false`.
 
 ### Plot Event
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Method
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>

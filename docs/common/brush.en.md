@@ -63,7 +63,7 @@ export type ButtonCfg = {
 
 example:
 
-<playground path="dynamic-plots/brush/demo/advanced-brush1.ts" rid="brush-filter-event"></playground>
+<Playground path="dynamic-plots/brush/demo/advanced-brush1.ts" rid="brush-filter-event"></playground>
 
 2. List of vents of `brush-highlight` interaction,
 
@@ -76,4 +76,4 @@ example:
 
 example:
 
-<playground path="dynamic-plots/brush/demo/advanced-brush2.ts" rid="brush-highlight-event"></playground>
+<Playground path="dynamic-plots/brush/demo/advanced-brush2.ts" rid="brush-highlight-event"></playground>

@@ -48,7 +48,7 @@ Result:
 
 ## Configure line styles
 
-`markdown:docs/common/line-style.en.md`
+<embed src="@/docs/common/line-style.en.md"></embed>
 
 In a line plot, you can use `linestyle` directly to configure the Line graphic style. Example:
 

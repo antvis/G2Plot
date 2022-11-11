@@ -1,8 +1,8 @@
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { MixOptions } from './types';
+import { Plot } from '../../core/plot';
 import { adaptor } from './adaptor';
 import './interactions';
+import { MixOptions } from './types';
 
 export type { MixOptions };
 

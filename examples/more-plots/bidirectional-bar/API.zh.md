@@ -1,1 +1,1 @@
-`markdown:docs/api/plots/bidirectional-bar.zh.md`
+<embed src="@/docs/api/plots/bidirectional-bar.zh.md"></embed>

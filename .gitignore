@@ -80,3 +80,7 @@ demos/assets/screenshots
 .vscode
 /stats.json
 .umi
+
+# dumi2 website builder
+.dumi/tmp
+.dumi/tmp-production

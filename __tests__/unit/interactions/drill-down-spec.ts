@@ -1,10 +1,10 @@
 import InteractionContext from '@antv/g2/lib/interaction/context';
-import { isParentNode } from '../../../src/interactions/drill-down';
 import { CirclePacking, Sunburst, Treemap } from '../../../src';
-import { TREEMAP } from '../../data/treemap';
-import { DATA as CirclePackingData } from '../../data/circle-packing';
-import { createDiv } from '../../utils/dom';
 import { BREAD_CRUMB_NAME, DrillDownAction } from '../../../src/interactions/actions/drill-down';
+import { isParentNode } from '../../../src/interactions/drill-down';
+import { DATA as CirclePackingData } from '../../data/circle-packing';
+import { TREEMAP } from '../../data/treemap';
+import { createDiv } from '../../utils/dom';
 
 describe('drill-down interaction', () => {
   it('utils: is-parent-node', () => {

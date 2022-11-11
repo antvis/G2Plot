@@ -3,7 +3,7 @@ title: Theme
 order: 9
 ---
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>
 
 #### Refer
 

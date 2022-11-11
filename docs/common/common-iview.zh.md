@@ -1,6 +1,6 @@
 #### IView.meta
 
-`markdown:docs/common/meta.zh.md`
+<embed src="@/docs/common/meta.zh.md"></embed>
 
 #### IView.coordinate
 

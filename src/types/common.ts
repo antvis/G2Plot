@@ -1,16 +1,16 @@
 import { Geometry, Types } from '@antv/g2';
-import { Axis } from './axis';
-import { Label } from './label';
-import { Tooltip } from './tooltip';
-import { Legend } from './legend';
-import { Interaction } from './interaction';
 import { Animation } from './animation';
 import { Annotation } from './annotation';
-import { State } from './state';
-import { Slider } from './slider';
-import { Scrollbar } from './scrollbar';
 import { ColorAttr, PatternAttr } from './attr';
+import { Axis } from './axis';
+import { Interaction } from './interaction';
+import { Label } from './label';
+import { Legend } from './legend';
 import { Meta } from './meta';
+import { Scrollbar } from './scrollbar';
+import { Slider } from './slider';
+import { State } from './state';
+import { Tooltip } from './tooltip';
 
 /** annotation position */
 export type AnnotationPosition = Types.AnnotationPosition;

@@ -1,5 +1,5 @@
 import { PathCommand } from '@antv/g-base';
-import { Options, StyleAttr, ColorAttr, Statistic, ShapeStyle } from '../../types';
+import { ColorAttr, Options, ShapeStyle, Statistic, StyleAttr } from '../../types';
 
 /**
  * @title 轮廓

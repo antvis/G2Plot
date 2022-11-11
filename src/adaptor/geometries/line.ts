@@ -1,8 +1,8 @@
 import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
-import { getTooltipMapping } from '../../utils/tooltip';
 import { deepAssign } from '../../utils';
-import { GeometryOptions, geometry, MappingOptions } from './base';
+import { getTooltipMapping } from '../../utils/tooltip';
+import { geometry, GeometryOptions, MappingOptions } from './base';
 
 export interface LineGeometryOptions extends GeometryOptions {
   /** x 轴字段 */

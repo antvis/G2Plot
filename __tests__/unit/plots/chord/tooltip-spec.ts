@@ -1,6 +1,6 @@
 import { Chord } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { populationMovementData } from '../../../data/chord-population';
+import { createDiv } from '../../../utils/dom';
 
 describe('chord tooltips', () => {
   const div = createDiv();

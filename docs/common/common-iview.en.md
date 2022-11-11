@@ -1,7 +1,7 @@
 
 #### IView.meta
 
-`markdown:docs/common/meta.en.md`
+<embed src="@/docs/common/meta.en.md"></embed>
 
 #### IView.coordinate
 

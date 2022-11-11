@@ -80,7 +80,7 @@ Configure tooltip crosshairs to work if and only if 'showCrosshairs' is true.
 | textBackground | _textBackgroundStyle_  | Guideline text background configuration                                                       |
 | follow         | _boolean_              | Whether the guide line follows the mouse. Default is false, that is, to locate the data point |
 
-`markdown:docs/common/crosshairs-text.zh.md`
+<embed src="@/docs/common/crosshairs-text.zh.md"></embed>
 
 **_TextBackgroundStyle_**
 

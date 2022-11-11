@@ -80,7 +80,7 @@ true 表示合并当前点对应的所有数据并展示，false 表示只展示
 | textBackground | _TextBackgroundStyle_ | 辅助线文本背景配置                                                  |
 | follow         | _boolean_             | 辅助线是否跟随鼠标移动，默认为 false，即定位到数据点                |
 
-`markdown:docs/common/crosshairs-text.zh.md`
+<embed src="@/docs/common/crosshairs-text.zh.md"></embed>
 
 **_TextBackgroundStyle_**
 

@@ -1,7 +1,7 @@
 import { Chord } from '../../../../src';
+import { populationMovementData as DATA } from '../../../data/chord-population';
 import { createDiv } from '../../../utils/dom';
 import { simulateMouseEvent } from '../../../utils/event';
-import { populationMovementData as DATA } from '../../../data/chord-population';
 
 describe('chord: state', () => {
   const plot = new Chord(createDiv(), {

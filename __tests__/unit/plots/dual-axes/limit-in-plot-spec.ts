@@ -1,7 +1,7 @@
 import { DualAxes } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from '../../../../src/plots/dual-axes/constant';
 import { findViewById } from '../../../../src/utils/view';
+import { createDiv } from '../../../utils/dom';
 
 export const UV_DATA = [
   { date: '0601', uv: -1000 },

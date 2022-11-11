@@ -1,8 +1,8 @@
 import { clone } from '@antv/util';
 import { Sunburst } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { mobile } from '../../../data/mobile';
 import { SUNBRUST_DATA } from '../../../data/sunburst';
+import { createDiv } from '../../../utils/dom';
 
 const MOBILE_DATA = clone(mobile);
 MOBILE_DATA.forEach((m) => {

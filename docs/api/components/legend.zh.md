@@ -11,7 +11,7 @@ contributors:
   ]
 ---
 
-`markdown:docs/styles/component.md`
+<embed src="@/docs/styles/component.md"></embed>
 
 🏷️ 图例（legend）是图表的辅助元素，使用颜色、大小、形状区分不同的数据类型，用于图表中数据的筛选。
 
@@ -79,7 +79,7 @@ legend: {
 
 #### 详细介绍
 
-`markdown:docs/common/legend-cfg.zh.md`
+<embed src="@/docs/common/legend-cfg.zh.md"></embed>
 
 
 

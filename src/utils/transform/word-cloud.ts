@@ -1,4 +1,4 @@
-import { isNil, isFunction, assign } from '@antv/util';
+import { assign, isFunction, isNil } from '@antv/util';
 import { Tag, Word } from '../../plots/word-cloud/types';
 
 type FontWeight = number | 'normal' | 'bold' | 'bolder' | 'lighter';

@@ -1,11 +1,11 @@
-import { uniq } from '@antv/util';
 import { IGroup } from '@antv/g2/lib/dependents';
-import { Column, ColumnOptions, Bar, BarOptions } from '../../../src';
-import { createDiv } from '../../utils/dom';
-import { delay } from '../../utils/delay';
-import { near } from '../../utils/number';
-import { dispatchEvent } from '../../utils/event';
+import { uniq } from '@antv/util';
+import { Bar, BarOptions, Column, ColumnOptions } from '../../../src';
 import { subSalesByArea } from '../../data/sales';
+import { delay } from '../../utils/delay';
+import { createDiv } from '../../utils/dom';
+import { dispatchEvent } from '../../utils/event';
+import { near } from '../../utils/number';
 
 const DATA = [
   { x: 'A', y: 100 },

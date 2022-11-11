@@ -1,8 +1,8 @@
 import { DualAxes } from '../../../../src';
-import { PV_DATA, UV_DATA } from '../../../data/pv-uv';
-import { createDiv } from '../../../utils/dom';
 import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from '../../../../src/plots/dual-axes/constant';
 import { findViewById } from '../../../../src/utils/view';
+import { PV_DATA, UV_DATA } from '../../../data/pv-uv';
+import { createDiv } from '../../../utils/dom';
 
 const RANGE_DATA = [
   { time: '2019-03', value: [200, 350], count: 800 },

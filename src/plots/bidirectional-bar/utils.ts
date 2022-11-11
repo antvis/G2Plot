@@ -1,5 +1,5 @@
-import { groupBy } from '@antv/util';
 import { Types } from '@antv/g2';
+import { groupBy } from '@antv/util';
 import { Datum } from '../../types';
 import { BidirectionalBarOptions } from './types';
 

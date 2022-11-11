@@ -1,11 +1,11 @@
 import { Types } from '@antv/g2';
-import { Data, Meta, Options, Region, Tooltip } from '../../types';
-import { Axis } from '../../types/axis';
-import { Legend } from '../../types/legend';
 import { Geometry } from '../../adaptor/geometries/base';
+import { Data, Meta, Options, Region, Tooltip } from '../../types';
 import { Animation } from '../../types/animation';
 import { Annotation } from '../../types/annotation';
+import { Axis } from '../../types/axis';
 import { Interaction } from '../../types/interaction';
+import { Legend } from '../../types/legend';
 import { Slider } from '../../types/slider';
 import { IPlotTypes } from './utils';
 

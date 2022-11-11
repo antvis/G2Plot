@@ -1,9 +1,8 @@
-import { interaction, animation, theme, scale, tooltip, legend, annotation } from '../../adaptor/common';
-import { Params } from '../../core/adaptor';
-import { flow, deepAssign, findGeometry, transformLabel } from '../../utils';
+import { animation, annotation, interaction, legend, scale, theme, tooltip } from '../../adaptor/common';
 import { interval, point } from '../../adaptor/geometries';
 import { pattern } from '../../adaptor/pattern';
-import { processIllegalData } from '../../utils';
+import { Params } from '../../core/adaptor';
+import { deepAssign, findGeometry, flow, processIllegalData, transformLabel } from '../../utils';
 import { RadialBarOptions } from './types';
 import { getScaleMax, getStackedData } from './utils';
 

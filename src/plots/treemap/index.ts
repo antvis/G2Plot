@@ -1,10 +1,10 @@
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { TreemapOptions } from './types';
+import { Plot } from '../../core/plot';
 import { adaptor } from './adaptor';
 import { DEFAULT_OPTIONS } from './constant';
-import { transformData, enableInteraction, resetDrillDown } from './utils';
 import './interactions';
+import { TreemapOptions } from './types';
+import { enableInteraction, resetDrillDown, transformData } from './utils';
 
 export type { TreemapOptions };
 

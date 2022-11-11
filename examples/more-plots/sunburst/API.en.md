@@ -1,1 +1,1 @@
-`markdown:docs/api/plots/sunburst.en.md`
+<embed src="@/docs/api/plots/sunburst.en.md"></embed>

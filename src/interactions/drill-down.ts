@@ -1,4 +1,4 @@
-import { registerInteraction, registerAction } from '@antv/g2';
+import { registerAction, registerInteraction } from '@antv/g2';
 import { get, isArray } from '@antv/util';
 import { DrillDownAction } from './actions/drill-down';
 

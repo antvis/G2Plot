@@ -5,7 +5,7 @@ order: 4
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -17,7 +17,7 @@ order: 4
 
 #### meta
 
-`markdown:docs/common/meta.zh.md`
+<embed src="@/docs/common/meta.zh.md"></embed>
 
 ```ts
 const data = [
@@ -86,15 +86,15 @@ piePlot.render();
 
 配置坐标系的结束角度。
 
-<playground rid="quarter-circle" path="pie/basic/demo/quarter-circle.ts"></playground>
+<Playground rid="quarter-circle" path="pie/basic/demo/quarter-circle.ts"></playground>
 
-`markdown:docs/common/color.zh.md`
+<embed src="@/docs/common/color.zh.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.zh.md`
+<embed src="@/docs/common/pattern.zh.md"></embed>
 
 #### statistic ✨
 
@@ -104,7 +104,7 @@ piePlot.render();
 
 ![image](https://gw.alipayobjects.com/zos/bmw-prod/860bbf6e-cf20-4bdf-88bd-e8d685d12e9a.svg)
 
-`markdown:docs/common/statistic.zh.md`
+<embed src="@/docs/common/statistic.zh.md"></embed>
 
 #### pieStyle 
 
@@ -112,32 +112,32 @@ piePlot.render();
 
 设置扇形样式。pieStyle 中的`fill`会覆盖 `color` 的配置。pieStyle 可以直接指定，也可以通过 callback 的方式，根据数据为每个扇形切片指定单独的样式。
 
-`markdown:docs/common/shape-style.zh.md`
+<embed src="@/docs/common/shape-style.zh.md"></embed>
 
 #### state
 
 <description>**可选** _object_</description>
 
-`markdown:docs/common/state-style.zh.md`
+<embed src="@/docs/common/state-style.zh.md"></embed>
 
 ### 图表组件
 
 <img src="https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*TBHtTY6RmHIAAAAAAAAAAAAAARQnAQ" alt="加载失败" width="600">
 
-`markdown:docs/common/component-no-axis.zh.md`
+<embed src="@/docs/common/component-no-axis.zh.md"></embed>
 
 ### 图表事件
 
-`markdown:docs/common/events.zh.md`
+<embed src="@/docs/common/events.zh.md"></embed>
 
 ### 图表方法
 
-`markdown:docs/common/chart-methods.zh.md`
+<embed src="@/docs/common/chart-methods.zh.md"></embed>
 
 ### 图表主题
 
-`markdown:docs/common/theme.zh.md`
+<embed src="@/docs/common/theme.zh.md"></embed>
 
 ### 图表交互
 
-`markdown:docs/common/interactions.zh.md`
+<embed src="@/docs/common/interactions.zh.md"></embed>

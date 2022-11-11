@@ -1,8 +1,8 @@
 import { Funnel } from '../../../../src';
-import { PV_DATA, PV_DATA_COMPARE } from '../../../data/conversion';
-import { createDiv } from '../../../utils/dom';
-import { delay } from '../../../utils/delay';
 import { FUNNEL_CONVERSATION, FUNNEL_PERCENT } from '../../../../src/plots/funnel/constant';
+import { PV_DATA, PV_DATA_COMPARE } from '../../../data/conversion';
+import { delay } from '../../../utils/delay';
+import { createDiv } from '../../../utils/dom';
 
 describe('label', () => {
   test('label basic & dynamicHeight', async () => {

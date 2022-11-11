@@ -1,9 +1,9 @@
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { LineOptions } from './types';
+import { Plot } from '../../core/plot';
 import { adaptor, meta } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
 import './interactions';
+import { LineOptions } from './types';
 
 export type { LineOptions };
 

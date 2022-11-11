@@ -1,7 +1,7 @@
 import { Heatmap } from '../../../../src';
+import { DEFAULT_OPTIONS } from '../../../../src/plots/heatmap/constant';
 import { basicHeatmapData, semanticBasicHeatmapData } from '../../../data/basic-heatmap';
 import { createDiv } from '../../../utils/dom';
-import { DEFAULT_OPTIONS } from '../../../../src/plots/heatmap/constant';
 
 describe('heatmap', () => {
   it('x*y with color', () => {

@@ -1,11 +1,11 @@
-import { Params } from '../../core/adaptor';
-import { flow, deepAssign } from '../../utils';
-import { theme, animation, annotation, tooltip } from '../../adaptor/common';
+import { animation, annotation, theme, tooltip } from '../../adaptor/common';
 import { line, point } from '../../adaptor/geometries';
+import { Params } from '../../core/adaptor';
+import { deepAssign, flow } from '../../utils';
 import { meta } from '../tiny-area/adaptor';
-import { getTinyData } from './utils';
-import { TinyLineOptions } from './types';
 import { X_FIELD, Y_FIELD } from './constants';
+import { TinyLineOptions } from './types';
+import { getTinyData } from './utils';
 
 export { meta };
 

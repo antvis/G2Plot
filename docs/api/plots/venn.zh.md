@@ -5,7 +5,7 @@ order: 12
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -126,15 +126,15 @@ const data = [
 
 #### legend
 
-`markdown:docs/common/legend.zh.md`
+<embed src="@/docs/common/legend.zh.md"></embed>
 
 #### label
 
-`markdown:docs/common/label.zh.md`
+<embed src="@/docs/common/label.zh.md"></embed>
 
 #### tooltip
 
-`markdown:docs/common/tooltip.zh.md`
+<embed src="@/docs/common/tooltip.zh.md"></embed>
 
 ### 图表交互 ✨
 
@@ -147,16 +147,16 @@ const data = [
 | venn-element-single-selected | 开启「鼠标点击 venn 图元素时触发 selected」的交互，单选 | `interactions:[{ type: 'venn-element-single-selected' }]` |
 | venn-element-highlight | 开启「鼠标点击 venn 图元素时触发 高亮」的交互 | `interactions:[{ type: 'venn-element-highlight' }]`|
 
-`markdown:docs/common/interactions.zh.md`
+<embed src="@/docs/common/interactions.zh.md"></embed>
 
 ### 图表事件
 
-`markdown:docs/common/events.zh.md`
+<embed src="@/docs/common/events.zh.md"></embed>
 
 ### 图表方法
 
-`markdown:docs/common/chart-methods.zh.md`
+<embed src="@/docs/common/chart-methods.zh.md"></embed>
 
 ### 图表主题
 
-`markdown:docs/common/theme.zh.md`
+<embed src="@/docs/common/theme.zh.md"></embed>

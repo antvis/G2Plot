@@ -1,6 +1,6 @@
 import { Chart } from '@antv/g2';
 import { Radar } from '../../../../src';
-import { SINGLE_DATA, SERIES_DATA } from '../../../data/radar';
+import { SERIES_DATA, SINGLE_DATA } from '../../../data/radar';
 import { createDiv } from '../../../utils/dom';
 
 describe('radar axis 设置', () => {

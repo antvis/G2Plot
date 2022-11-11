@@ -1,12 +1,12 @@
-import { VIEW_LIFE_CIRCLE, Event } from '@antv/g2';
-import { Plot } from '../../core/plot';
+import { Event, VIEW_LIFE_CIRCLE } from '@antv/g2';
 import { Adaptor } from '../../core/adaptor';
+import { Plot } from '../../core/plot';
 import { processIllegalData } from '../../utils';
 import { adaptor, pieAnnotation } from './adaptor';
 import { DEFAULT_OPTIONS } from './contants';
+import './interactions';
 import { PieOptions } from './types';
 import { isAllZero } from './utils';
-import './interactions';
 
 export type { PieOptions };
 

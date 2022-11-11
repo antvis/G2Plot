@@ -1,1 +1,1 @@
-`markdown:docs/api/plots/pie.en.md`
+<embed src="@/docs/api/plots/pie.en.md"></embed>

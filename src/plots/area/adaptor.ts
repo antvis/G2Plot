@@ -1,23 +1,22 @@
 import { Geometry } from '@antv/g2';
 import { each, omit } from '@antv/util';
 import {
-  tooltip,
-  slider,
-  interaction,
   animation,
-  theme,
   annotation,
+  interaction,
   limitInPlot,
   pattern,
+  slider,
+  theme,
+  tooltip,
   transformations,
 } from '../../adaptor/common';
-import { findGeometry } from '../../utils';
+import { area, line, point } from '../../adaptor/geometries';
 import { Params } from '../../core/adaptor';
-import { area, point, line } from '../../adaptor/geometries';
-import { flow, transformLabel, deepAssign } from '../../utils';
-import { getDataWhetherPercentage } from '../../utils/transform/percent';
 import { Datum } from '../../types';
-import { meta, legend, axis } from '../line/adaptor';
+import { deepAssign, findGeometry, flow, transformLabel } from '../../utils';
+import { getDataWhetherPercentage } from '../../utils/transform/percent';
+import { axis, legend, meta } from '../line/adaptor';
 import { AreaOptions } from './types';
 
 export { meta };

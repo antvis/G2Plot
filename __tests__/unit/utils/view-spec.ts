@@ -1,5 +1,5 @@
 import { Mix } from '../../../src';
-import { findViewById, getViews, getSiblingViews } from '../../../src/utils/view';
+import { findViewById, getSiblingViews, getViews } from '../../../src/utils/view';
 import { createDiv } from '../../utils/dom';
 
 describe('utils of view', () => {

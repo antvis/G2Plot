@@ -1,4 +1,4 @@
-import { Geometry, View, Types } from '@antv/g2';
+import { Geometry, Types, View } from '@antv/g2';
 import { each, isFunction } from '@antv/util';
 import { Options } from '../types';
 import { Animation } from '../types/animation';

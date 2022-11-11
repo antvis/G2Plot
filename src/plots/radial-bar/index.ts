@@ -1,8 +1,8 @@
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { RadialBarOptions } from './types';
+import { Plot } from '../../core/plot';
 import { adaptor, meta } from './adaptor';
 import { DEFAULT_OPTIONS } from './constant';
+import { RadialBarOptions } from './types';
 
 export type { RadialBarOptions };
 

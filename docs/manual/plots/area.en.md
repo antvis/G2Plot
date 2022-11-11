@@ -24,7 +24,7 @@ contributors:
         <tbody>
           <tr style="height: 33px">
             <td colspan="1" rowspan="5" style="background: #fff">
-              <playground path="area/basic/demo/basic.ts"></playground>
+              <Playground path="area/basic/demo/basic.ts" ratio="0"></playground>
             </td>
             <td class="style1">
               <p><strong>定义</strong></p>
@@ -124,6 +124,6 @@ fetch('https://gw.alipayobjects.com/os/bmw-prod/360c3eae-0c73-46f0-a982-4746a609
 
 - Add a median line to the area plot by using `annotations`.
 
-<playground path="component/annotation/demo/area-with-line-annotation.ts" rid="area-line-annotations"></playground>
+<Playground path="component/annotation/demo/area-with-line-annotation.ts" rid="area-line-annotations"></playground>
 
 </div>

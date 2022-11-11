@@ -1,8 +1,8 @@
 import { DualAxes } from '../../../../src';
-import { PV_DATA_MULTI, UV_DATA_MULTI } from '../../../data/pv-uv';
-import { createDiv } from '../../../utils/dom';
 import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from '../../../../src/plots/dual-axes/constant';
 import { findViewById } from '../../../../src/utils/view';
+import { PV_DATA_MULTI, UV_DATA_MULTI } from '../../../data/pv-uv';
+import { createDiv } from '../../../utils/dom';
 
 describe('dualAxes: annotation', () => {
   const dualAxes = new DualAxes(createDiv('test DualAxes annotation'), {

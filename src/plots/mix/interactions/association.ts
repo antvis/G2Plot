@@ -1,6 +1,6 @@
-import { each, get, map, isArray } from '@antv/util';
-import { registerAction, registerInteraction, View, Element, Action } from '@antv/g2';
-import { getAllElements, getViews, getSiblingViews } from '../../../utils';
+import { Action, Element, registerAction, registerInteraction, View } from '@antv/g2';
+import { each, get, isArray, map } from '@antv/util';
+import { getAllElements, getSiblingViews, getViews } from '../../../utils';
 import { clearHighlight, getElementValue } from './utils';
 
 type EventItem = { element: Element; view: View; active: boolean; inactive: boolean };

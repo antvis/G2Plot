@@ -5,7 +5,7 @@ order: 5
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -15,11 +15,11 @@ order: 5
 
 设置图表数据源。数据源为对象集合，例如：`[{ time: '1991'，value: 20 }, { time: '1992'，value: 20 }]`。
 
-`markdown:docs/common/xy-field.zh.md`
+<embed src="@/docs/common/xy-field.zh.md"></embed>
 
 #### meta
 
-`markdown:docs/common/meta.zh.md`
+<embed src="@/docs/common/meta.zh.md"></embed>
 
 ```ts
 const data = [
@@ -78,13 +78,13 @@ scatterPlot.render();
 
 ### 图形样式
 
-`markdown:docs/common/color.zh.md`
+<embed src="@/docs/common/color.zh.md"></embed>
 
 #### size
 
 <description>**optional** \_number | [number, number] | Function\_</description>
 
-<playground path="scatter/scatter/demo/color-mapping.ts" rid="rect"></playground>
+<Playground path="scatter/scatter/demo/color-mapping.ts" rid="rect"></playground>
 
 指定点的大小。如没有配置 sizeField，指定一个即可。对 sizeFiled 进行了配置的情况下，可以指定大小数组 `[minSize, maxSize]`， 也可以通过回调函数的方法根据对应数值进行设置。
 
@@ -112,7 +112,7 @@ scatterPlot.render();
 
 <description>**optional** \_string | string[] | Function\_</description>
 
-<playground path="scatter/bubble/demo/quadrant.ts" rid="rect-quadrant"></playground>
+<Playground path="scatter/bubble/demo/quadrant.ts" rid="rect-quadrant"></playground>
 
 指定点的形状。如没有配置 shapeField ，指定一个即可。对 shapeField 进行了配置的情况下，可以指定形状数组 `['cicle', 'square']`， 也可以通过回调函数的方法根据对应数值进行设置。
 
@@ -192,17 +192,17 @@ scatterPlot.render();
 
 #### tooltip
 
-`markdown:docs/common/tooltip.zh.md`
+<embed src="@/docs/common/tooltip.zh.md"></embed>
 
 #### label
 
-`markdown:docs/common/label.zh.md`
+<embed src="@/docs/common/label.zh.md"></embed>
 
 #### axis
 
 xAxis、yAxis 配置相同。**注意**：由于 DualAxes(双轴图) 和 BidirectionalBar(对称条形图) 是双 y 轴， yAxis 类型是以 yField 中的字段作为 `key` 值的 `object`。
 
-`markdown:docs/common/axis.zh.md`
+<embed src="@/docs/common/axis.zh.md"></embed>
 
 #### legend
 
@@ -213,7 +213,7 @@ xAxis、yAxis 配置相同。**注意**：由于 DualAxes(双轴图) 和 Bidirec
 当 shapeField 存在时，且 legend 不为 false，默认会渲染 shape 映射图例。你可以通过设置 `shapeLegend: false` 来隐藏 shape 图例。
 ```
 
-`markdown:docs/common/legend.zh.md`
+<embed src="@/docs/common/legend.zh.md"></embed>
 
 #### shapeLegend
 
@@ -287,15 +287,15 @@ regressionLine: {
 
 ### 图表事件
 
-`markdown:docs/common/events.zh.md`
+<embed src="@/docs/common/events.zh.md"></embed>
 
 ### 图表方法
 
-`markdown:docs/common/chart-methods.zh.md`
+<embed src="@/docs/common/chart-methods.zh.md"></embed>
 
 ### 图表主题
 
-`markdown:docs/common/theme.zh.md`
+<embed src="@/docs/common/theme.zh.md"></embed>
 
 ### 图表交互
 
@@ -305,9 +305,9 @@ regressionLine: {
 | ----------- | ---------------------------------------- | ------------------------------ |
 | brush | 用于刷选交互，配置该交互后，可进行刷选。 | `brush: { enabled: true }` |
 
-`markdown:docs/common/brush.zh.md`
+<embed src="@/docs/common/brush.zh.md"></embed>
 
-`markdown:docs/common/interactions.zh.md`
+<embed src="@/docs/common/interactions.zh.md"></embed>
 
 <!-- 直接 三级导航展开 -->
-`markdown:docs/common/annotations.zh.md`
+<embed src="@/docs/common/annotations.zh.md"></embed>

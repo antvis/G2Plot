@@ -1,12 +1,11 @@
-import { Params } from '../../core/adaptor';
-import { tooltip, interaction, animation, theme, scale, state } from '../../adaptor/common';
-import { pattern } from '../../adaptor/pattern';
-import { findGeometry, deepAssign } from '../../utils';
-import { flow, transformLabel } from '../../utils';
+import { animation, interaction, scale, state, theme, tooltip } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
+import { pattern } from '../../adaptor/pattern';
+import { Params } from '../../core/adaptor';
+import { deepAssign, findGeometry, flow, transformLabel } from '../../utils';
 import { binHistogram } from '../../utils/transform/histogram';
-import { HistogramOptions } from './types';
 import { HISTOGRAM_X_FIELD, HISTOGRAM_Y_FIELD } from './constant';
+import { HistogramOptions } from './types';
 
 /**
  * geometry 处理

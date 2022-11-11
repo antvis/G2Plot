@@ -1,6 +1,6 @@
 import { Line } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { salesByArea, subSalesByArea } from '../../../data/sales';
+import { createDiv } from '../../../utils/dom';
 
 describe('line shape', () => {
   it('undefined shape', () => {

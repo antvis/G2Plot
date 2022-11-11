@@ -1,8 +1,8 @@
 import { Sankey } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
-import { ALIPAY_DATA } from '../../../data/sankey-energy';
-import { NODES_VIEW_ID, EDGES_VIEW_ID } from '../../../../src/plots/sankey/constant';
+import { EDGES_VIEW_ID, NODES_VIEW_ID } from '../../../../src/plots/sankey/constant';
 import { findViewById } from '../../../../src/utils';
+import { ALIPAY_DATA } from '../../../data/sankey-energy';
+import { createDiv } from '../../../utils/dom';
 
 describe('sankey', () => {
   it('changeData', async () => {

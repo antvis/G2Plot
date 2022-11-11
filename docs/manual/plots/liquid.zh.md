@@ -22,7 +22,7 @@ contributors:
       <tbody>
         <tr style="height: 33px;">
           <td colspan="1" rowspan="4" style="background:#fff">
-            <playground path='progress-plots/liquid/demo/basic.ts'></playground>
+            <Playground path="progress-plots/liquid/demo/basic.ts" ratio="0"></playground>
           </td>
           <td class="style1">
           <p><strong>定义</strong></p>
@@ -77,13 +77,13 @@ liquidPlot.render();
 
 水波图有五种内置形状：`circle | diamond | triangle | pin | rect`
 
-<playground path='progress-plots/liquid/demo/diamond.ts' rid='rect1'></playground>
+<Playground path='progress-plots/liquid/demo/diamond.ts' rid='rect1'></playground>
 
 ### 自定义形状的水波图
 
 水波图除了内置的形状之外，同时也支持自定义图形，这个时候需要传入一个构建 Path 的回调函数。
 
-<playground path='progress-plots/liquid/demo/outline-style.ts' rid='rect2'></playground>
+<Playground path='progress-plots/liquid/demo/outline-style.ts' rid='rect2'></playground>
 
 </div>
 

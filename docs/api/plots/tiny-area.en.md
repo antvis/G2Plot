@@ -5,7 +5,7 @@ order: 15
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -17,7 +17,7 @@ Configure the chart data source. The data of MINI area map directly uses a numer
 
 #### meta
 
-`markdown:docs/common/meta.en.md`
+<embed src="@/docs/common/meta.en.md"></embed>
 
 ### Plot Style
 
@@ -33,7 +33,7 @@ Whether Smooth.
 
 Area chart style.
 
-`markdown:docs/common/shape-style.en.md`
+<embed src="@/docs/common/shape-style.en.md"></embed>
 
 #### line
 
@@ -53,16 +53,16 @@ The pattern of polylines in the area.
 
 Area Chart Data Point Graph Style.
 
-`markdown:docs/common/point-style.en.md`
+<embed src="@/docs/common/point-style.en.md"></embed>
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.en.md`
+<embed src="@/docs/common/pattern.en.md"></embed>
 
 ### Plot Component
 
-`markdown:docs/common/component-tiny.en.md`
+<embed src="@/docs/common/component-tiny.en.md"></embed>

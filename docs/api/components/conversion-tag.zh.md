@@ -15,7 +15,7 @@ contributors:
 
 #### 配置项
 
-`markdown:docs/common/conversion-tag.zh.md`
+<embed src="@/docs/common/conversion-tag.zh.md"></embed>
 
 #### 事件交互
 
@@ -32,4 +32,4 @@ plot.on('conversion-tag-group:mouseenter', (evt) => {
 
 示例：
 
-<playground path='general/events/demo/conversion-tag-with-link.ts' rid='conversion-tag-events'></playground>
+<Playground path='general/events/demo/conversion-tag-with-link.ts' rid='conversion-tag-events'></playground>

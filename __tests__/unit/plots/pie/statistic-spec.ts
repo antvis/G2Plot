@@ -2,8 +2,8 @@ import { Chart } from '@antv/g2';
 import { Pie, PieOptions } from '../../../../src';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/pie/contants';
 import { POSITIVE_NEGATIVE_DATA } from '../../../data/common';
-import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
+import { createDiv } from '../../../utils/dom';
 
 const data = POSITIVE_NEGATIVE_DATA.filter((o) => o.value > 0).map((d, idx) =>
   idx === 1 ? { ...d, type: 'item1' } : d

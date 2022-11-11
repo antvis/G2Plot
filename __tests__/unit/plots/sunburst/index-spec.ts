@@ -1,8 +1,8 @@
 import { Sunburst } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
-import { delay } from '../../../utils/delay';
-import { SIMPLE_SUNBURST_DATA } from '../../../data/sunburst';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/sunburst/constant';
+import { SIMPLE_SUNBURST_DATA } from '../../../data/sunburst';
+import { delay } from '../../../utils/delay';
+import { createDiv } from '../../../utils/dom';
 
 describe('sunburst', () => {
   const div = createDiv();

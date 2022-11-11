@@ -3,7 +3,7 @@ title: Slider
 order: 2
 ---
 
-`markdown:docs/styles/component.md`
+<embed src="@/docs/styles/component.md"></embed>
 
 🎨  Go to [AntV Design | 缩略轴 Axis Navigator](https://www.yuque.com/mo-college/vis-design/gs5ow9) of 墨者学院 to learn more about **Design guide**
 
@@ -13,4 +13,4 @@ order: 2
 
 #### Properties - _SliderCfg_
 
-`markdown:docs/common/slider.en.md`
+<embed src="@/docs/common/slider.en.md"></embed>

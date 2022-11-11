@@ -1,6 +1,6 @@
-import { Line, Area, Radar } from '../../src';
-import { createDiv } from '../utils/dom';
+import { Area, Line, Radar } from '../../src';
 import { delay } from '../utils/delay';
+import { createDiv } from '../utils/dom';
 
 const data = [
   {

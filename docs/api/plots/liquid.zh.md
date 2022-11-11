@@ -5,7 +5,7 @@ order: 6
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -29,7 +29,7 @@ order: 6
 
 水波图的配色样式。
 
-`markdown:docs/common/shape-style.zh.md`
+<embed src="@/docs/common/shape-style.zh.md"></embed>
 
 #### shape
 
@@ -60,13 +60,13 @@ function shape(x: number, y: number, width: number, height: number) {
 }
 ```
 
-`markdown:docs/common/color.zh.md`
+<embed src="@/docs/common/color.zh.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.zh.md`
+<embed src="@/docs/common/pattern.zh.md"></embed>
 
 #### outline
 
@@ -106,4 +106,4 @@ _*OutlineStyleCfg*_ 支持配置的样式如下：
 
 指标中心文本组件。
 
-`markdown:docs/common/statistic.zh.md`
+<embed src="@/docs/common/statistic.zh.md"></embed>

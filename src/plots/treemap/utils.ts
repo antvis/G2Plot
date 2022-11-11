@@ -1,5 +1,5 @@
-import { isArray, get } from '@antv/util';
 import { View } from '@antv/g2';
+import { get, isArray } from '@antv/util';
 import { HIERARCHY_DATA_TRANSFORM_PARAMS } from '../../interactions/actions/drill-down';
 import { Interaction } from '../../types/interaction';
 import { treemap } from '../../utils/hierarchy/treemap';

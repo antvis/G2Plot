@@ -84,4 +84,4 @@ ${componentName}:${eventName}
 
 ### 事件监听
 
-`markdown:docs/common/events.zh.md`
+<embed src="@/docs/common/events.zh.md"></embed>

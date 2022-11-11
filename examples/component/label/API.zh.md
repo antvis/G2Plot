@@ -23,4 +23,4 @@ label: {
 
 #### 配置属性
 
-`markdown:docs/common/label.zh.md`
+<embed src="@/docs/common/label.zh.md"></embed>

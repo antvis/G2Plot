@@ -1,15 +1,15 @@
 import { get, isArray } from '@antv/util';
 import { Axis } from '../../../types/axis';
 import { deepAssign } from '../../../utils';
-import {
-  DualAxesOptions,
-  GeometryOption,
-  DualAxesGeometry,
-  GeometryLineOption,
-  GeometryColumnOption,
-  AxisType,
-} from '../types';
 import { DEFAULT_LEFT_YAXIS_CONFIG, DEFAULT_RIGHT_YAXIS_CONFIG } from '../constant';
+import {
+  AxisType,
+  DualAxesGeometry,
+  DualAxesOptions,
+  GeometryColumnOption,
+  GeometryLineOption,
+  GeometryOption,
+} from '../types';
 
 /**
  * 根据 GeometryOption 判断 geometry 是否为 line

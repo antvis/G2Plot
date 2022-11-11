@@ -16,4 +16,4 @@ helpers: { parsePosition: (position: [string | number, string | number] | Datum)
 
 自定义标记的绘制 render 函数，其他 _container_ 为标记绘制的父容器, _view_ 为图形实例, _helpers_ 为辅助函数，其他 _parserPosition_ 可以用来计算数据点对应的坐标位置
 
-`markdown:docs/common/annotations/base-annotation.zh.md`
+<embed src="@/docs/common/annotations/base-annotation.zh.md"></embed>

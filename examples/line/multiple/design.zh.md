@@ -1,1 +1,1 @@
-`markdown:examples/line/basic/design.zh.md`
+<embed src="@/examples/line/basic/design.zh.md"></embed>

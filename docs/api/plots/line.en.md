@@ -5,7 +5,7 @@ order: 0
 
 ### Plot Container
 
-`markdown:docs/common/chart-options.en.md`
+<embed src="@/docs/common/chart-options.en.md"></embed>
 
 ### Data Mapping
 
@@ -30,7 +30,7 @@ const data = [
 ];
 ```
 
-`markdown:docs/common/xy-field.en.md`
+<embed src="@/docs/common/xy-field.en.md"></embed>
 
 #### seriesField
 
@@ -40,7 +40,7 @@ Group fields. Metric requirements to see different situations in a dimension sim
 
 #### meta
 
-`markdown:docs/common/meta.en.md`
+<embed src="@/docs/common/meta.en.md"></embed>
 
 ### Plot Style
 
@@ -68,7 +68,7 @@ For missing values in the line chart, whether to connect the empty data as a lin
 
 For cases where the SeriesField grouping field is present, we can set isStack = true to make the polyline stack stack up.
 
-`markdown:docs/common/color.en.md`
+<embed src="@/docs/common/color.en.md"></embed>
 
 #### lineStyle
 
@@ -76,7 +76,7 @@ For cases where the SeriesField grouping field is present, we can set isStack = 
 
 Polyline graphic style. You can either pass in the 'shapeStyle' structure directly, or you can use callbacks to return different styles for different data. For the ShapeStyle data structure, see:
 
-`markdown:docs/common/shape-style.en.md`
+<embed src="@/docs/common/shape-style.en.md"></embed>
 
 #### point
 
@@ -84,7 +84,7 @@ Polyline graphic style. You can either pass in the 'shapeStyle' structure direct
 
 Polyline data point graph style.
 
-`markdown:docs/common/point-style.en.md`
+<embed src="@/docs/common/point-style.en.md"></embed>
 
 #### area
 
@@ -101,31 +101,31 @@ Polyline data point graph style.
 
 <description>**optional** _object_</description>
 
-`markdown:docs/common/state-style.en.md`
+<embed src="@/docs/common/state-style.en.md"></embed>
 
 ### Plot Components
 
-`markdown:docs/common/component.en.md`
+<embed src="@/docs/common/component.en.md"></embed>
 
 #### Slider
 
-`markdown:docs/common/slider.en.md`
+<embed src="@/docs/common/slider.en.md"></embed>
 
 ### Plot Event
 
-`markdown:docs/common/events.en.md`
+<embed src="@/docs/common/events.en.md"></embed>
 
 ### Plot Method
 
-`markdown:docs/common/chart-methods.en.md`
+<embed src="@/docs/common/chart-methods.en.md"></embed>
 
 ### Plot Theme
 
-`markdown:docs/common/theme.en.md`
+<embed src="@/docs/common/theme.en.md"></embed>
 
 ### Plot Interactions
 
-`markdown:docs/common/interactions.en.md`
+<embed src="@/docs/common/interactions.en.md"></embed>
 
 ### Customize ✨
 

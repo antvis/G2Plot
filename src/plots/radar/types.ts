@@ -1,4 +1,4 @@
-import { PointGeometryOptions, AreaGeometryOptions } from '../../adaptor/geometries';
+import { AreaGeometryOptions, PointGeometryOptions } from '../../adaptor/geometries';
 import { Options, ShapeStyle } from '../../types';
 
 export interface RadarOptions extends Options {

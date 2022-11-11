@@ -5,7 +5,7 @@ order: 17
 
 ### 图表容器
 
-`markdown:docs/common/chart-options.zh.md`
+<embed src="@/docs/common/chart-options.zh.md"></embed>
 
 ### 数据映射
 
@@ -33,7 +33,7 @@ type Node = { name: string; value?: number; children: Node[]; }
 
 #### meta
 
-`markdown:docs/common/meta.zh.md`
+<embed src="@/docs/common/meta.zh.md"></embed>
 
 旭日图内含的数据字段有：
 
@@ -110,13 +110,13 @@ meta: {
 
 <!-- Color 配置 -->
 
-`markdown:docs/common/color.zh.md`
+<embed src="@/docs/common/color.zh.md"></embed>
 
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>
 
-`markdown:docs/common/pattern.zh.md`
+<embed src="@/docs/common/pattern.zh.md"></embed>
 
 #### sunburstStyle
 
@@ -170,7 +170,7 @@ meta: {
 
 ### 图表组件
 
-`markdown:docs/common/component-polygon.zh.md`
+<embed src="@/docs/common/component-polygon.zh.md"></embed>
 
 ### 图表交互
 
@@ -180,18 +180,18 @@ meta: {
 | ---------- | ---------------------------------------- | ------------------------------ |
 | drill-down | 用于下钻交互，配置该交互后，点击可下钻。 | `drilldown: { enabled: true }` |
 
-`markdown:docs/common/drill-down.zh.md`
+<embed src="@/docs/common/drill-down.zh.md"></embed>
 
-`markdown:docs/common/interactions.zh.md`
+<embed src="@/docs/common/interactions.zh.md"></embed>
 
 ### 图表事件
 
-`markdown:docs/common/events.zh.md`
+<embed src="@/docs/common/events.zh.md"></embed>
 
 ### 图表方法
 
-`markdown:docs/common/chart-methods.zh.md`
+<embed src="@/docs/common/chart-methods.zh.md"></embed>
 
 ### 图表主题
 
-`markdown:docs/common/theme.zh.md`
+<embed src="@/docs/common/theme.zh.md"></embed>

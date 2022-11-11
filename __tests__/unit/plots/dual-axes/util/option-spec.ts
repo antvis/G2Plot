@@ -1,11 +1,11 @@
-import {
-  isLine,
-  isColumn,
-  getGeometryOption,
-  transformObjectToArray,
-  getYAxisWithDefault,
-} from '../../../../../src/plots/dual-axes/util/option';
 import { AxisType } from '../../../../../src/plots/dual-axes/types';
+import {
+  getGeometryOption,
+  getYAxisWithDefault,
+  isColumn,
+  isLine,
+  transformObjectToArray,
+} from '../../../../../src/plots/dual-axes/util/option';
 
 const DEFAULT_LEFT_YAXIS_CONFIG = {
   nice: true,

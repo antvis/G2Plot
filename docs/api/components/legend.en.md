@@ -5,7 +5,7 @@ contributors:
   [{ author: '新茗', github: 'visiky', avatar: 'https://gw.alipayobjects.com/zos/antfincdn/KAeYPA3TV0/avatar.jpeg' }]
 ---
 
-`markdown:docs/styles/component.md`
+<embed src="@/docs/styles/component.md"></embed>
 
 🏷️ Legend is an auxiliary component of a plot, which uses color, size, and shape mapping, to show the symbol, color, and name of different series. You can click legends to toggle displaying series in the plot.
 
@@ -74,4 +74,4 @@ legend: {
 
 #### Details
 
-`markdown:docs/common/legend-cfg.en.md`
+<embed src="@/docs/common/legend-cfg.en.md"></embed>

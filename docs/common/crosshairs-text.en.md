@@ -53,4 +53,4 @@ type TooltipCrosshairsTextCallback = (
 ```
 
 <!-- 容器无限变大 -->
-<!-- <playground path="more-plots/stock/demo/custom-crosshairs.ts" rid="crosshairs" height=400></playground> -->
+<!-- <Playground path="more-plots/stock/demo/custom-crosshairs.ts" rid="crosshairs" height=400></playground> -->

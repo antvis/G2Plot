@@ -1,12 +1,12 @@
 import { DotPatternCfg } from '../../types/pattern';
 import { deepAssign } from '../../utils';
 import {
+  drawBackground,
+  getPixelRatio,
+  getSymbolsPosition,
   getUnitPatternSize,
   initCanvas,
-  drawBackground,
-  getSymbolsPosition,
   transformMatrix,
-  getPixelRatio,
 } from './util';
 
 /**

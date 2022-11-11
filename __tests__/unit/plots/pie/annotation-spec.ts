@@ -1,7 +1,7 @@
 import { Pie } from '../../../../src';
 import { salesByArea } from '../../../data/sales';
-import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
+import { createDiv } from '../../../utils/dom';
 
 describe('annotation', () => {
   const pie = new Pie(createDiv(), {

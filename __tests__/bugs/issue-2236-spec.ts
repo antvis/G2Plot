@@ -1,6 +1,6 @@
 import { Liquid } from '../../src';
-import { createDiv } from '../utils/dom';
 import { getRadius } from '../unit/plots/liquid/index-spec';
+import { createDiv } from '../utils/dom';
 
 describe('#2236', () => {
   it('liquid distance', () => {

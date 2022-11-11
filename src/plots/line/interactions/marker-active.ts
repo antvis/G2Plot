@@ -1,5 +1,5 @@
+import { Geometry, InteractionAction, View } from '@antv/g2';
 import { each, findIndex } from '@antv/util';
-import { InteractionAction, View, Geometry } from '@antv/g2';
 
 export class MarkerActiveAction extends InteractionAction {
   public active() {

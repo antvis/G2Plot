@@ -1,6 +1,6 @@
 import { Heatmap } from '../../src';
-import { createDiv } from '../utils/dom';
 import { heatmapData } from '../data/heatmap';
+import { createDiv } from '../utils/dom';
 
 describe('heatmap', () => {
   it('x*y*color and type', async () => {

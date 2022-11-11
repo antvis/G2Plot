@@ -1,12 +1,12 @@
 import { Types } from '@antv/g2';
-import { isArray, get, map } from '@antv/util';
-import { flow, findGeometry } from '../../../utils';
-import { getTooltipMapping } from '../../../utils/tooltip';
-import { Params } from '../../../core/adaptor';
-import { Datum, Data } from '../../../types/common';
+import { get, isArray, map } from '@antv/util';
 import { geometry as baseGeometry } from '../../../adaptor/geometries/base';
+import { Params } from '../../../core/adaptor';
+import { Data, Datum } from '../../../types/common';
+import { findGeometry, flow } from '../../../utils';
+import { getTooltipMapping } from '../../../utils/tooltip';
+import { FUNNEL_CONVERSATION, FUNNEL_MAPPING_VALUE, FUNNEL_PERCENT } from '../constant';
 import { FunnelOptions } from '../types';
-import { FUNNEL_CONVERSATION, FUNNEL_PERCENT, FUNNEL_MAPPING_VALUE } from '../constant';
 import { conversionTagComponent, transformData } from './common';
 
 /**

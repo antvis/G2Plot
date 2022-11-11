@@ -1,11 +1,11 @@
+import { DotPatternCfg } from '../../../../src/types/pattern';
 import {
-  initCanvas,
-  getUnitPatternSize,
-  getSymbolsPosition,
   drawBackground,
+  getSymbolsPosition,
+  getUnitPatternSize,
+  initCanvas,
   transformMatrix,
 } from '../../../../src/utils/pattern/util';
-import { DotPatternCfg } from '../../../../src/types/pattern';
 import { getPixelColor } from '../../../utils/getPixelColor';
 
 describe('utils', () => {

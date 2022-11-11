@@ -1,7 +1,7 @@
 import { RadialBar } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
-import { antvStar } from '../../../data/antv-star';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/radial-bar/constant';
+import { antvStar } from '../../../data/antv-star';
+import { createDiv } from '../../../utils/dom';
 
 const xField = 'name';
 const yField = 'star';

@@ -1,5 +1,5 @@
-import { Types, Element, Geometry } from '@antv/g2';
-import { Datum, Data } from './common';
+import { Element, Geometry, Types } from '@antv/g2';
+import { Data, Datum } from './common';
 
 export type State = Types.StateOption;
 

@@ -1,7 +1,7 @@
 import { WordCloud } from '../../../../src';
 import { CountryEconomy } from '../../../data/country-economy';
-import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
+import { createDiv } from '../../../utils/dom';
 
 describe('word-cloud changeData', () => {
   // 单测偶发性报错，暂时忽略

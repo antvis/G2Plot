@@ -1,10 +1,10 @@
-import { theme, scale, animation, annotation, tooltip, pattern } from '../../adaptor/common';
-import { Params } from '../../core/adaptor';
-import { flow, deepAssign } from '../../utils';
+import { animation, annotation, pattern, scale, theme, tooltip } from '../../adaptor/common';
 import { area, line, point } from '../../adaptor/geometries';
+import { Params } from '../../core/adaptor';
+import { deepAssign, flow } from '../../utils';
+import { adjustYMetaByZero } from '../../utils/data';
 import { X_FIELD, Y_FIELD } from '../tiny-line/constants';
 import { getTinyData } from '../tiny-line/utils';
-import { adjustYMetaByZero } from '../../utils/data';
 import { TinyAreaOptions } from './types';
 
 /**

@@ -1,9 +1,9 @@
+import { Adaptor } from '../../core/adaptor';
 import { Plot } from '../../core/plot';
 import { deepAssign } from '../../utils';
-import { Adaptor } from '../../core/adaptor';
-import { RadarOptions } from './types';
 import { adaptor } from './adaptor';
 import './interactions';
+import { RadarOptions } from './types';
 
 export type { RadarOptions };
 

@@ -1,4 +1,4 @@
-import { get, isNumber, filter } from '@antv/util';
+import { filter, get, isNumber } from '@antv/util';
 import { Data, Datum, Meta, Options } from '../types';
 import { Node, NodeLinkData } from '../types/relation-data';
 import { LEVEL, log } from './invariant';

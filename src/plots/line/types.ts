@@ -1,6 +1,6 @@
 import {
-  GeometryOptions,
   AreaGeometryOptions,
+  GeometryOptions,
   LineGeometryOptions,
   PointGeometryOptions,
 } from '../../adaptor/geometries';

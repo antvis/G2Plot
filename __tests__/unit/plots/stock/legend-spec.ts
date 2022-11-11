@@ -1,6 +1,6 @@
 import { Stock } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { kdata } from '../../../data/stock';
+import { createDiv } from '../../../utils/dom';
 
 describe('Stock Legend', () => {
   it('default legend on', () => {

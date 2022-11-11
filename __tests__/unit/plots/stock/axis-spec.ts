@@ -1,7 +1,7 @@
 import { Stock } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
-import { kdata } from '../../../data/stock';
 import { Y_FIELD } from '../../../../src/plots/stock/constant';
+import { kdata } from '../../../data/stock';
+import { createDiv } from '../../../utils/dom';
 
 describe('Stock axis', () => {
   it('axis: options', () => {

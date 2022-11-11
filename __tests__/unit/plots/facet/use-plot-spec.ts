@@ -1,7 +1,7 @@
 import { groupBy, size } from '@antv/util';
 import { Facet } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
+import { createDiv } from '../../../utils/dom';
 import { simulateMouseEvent } from '../../../utils/event';
 
 describe('facet', () => {

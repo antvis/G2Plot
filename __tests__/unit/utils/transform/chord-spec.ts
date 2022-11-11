@@ -1,5 +1,5 @@
-import { getDefaultOptions, chordLayout } from '../../../../src/utils/transform/chord';
 import { transformDataToNodeLinkData } from '../../../../src/utils/data';
+import { chordLayout, getDefaultOptions } from '../../../../src/utils/transform/chord';
 import { populationMovementData } from '../../../data/chord-population';
 describe('chordLayout', () => {
   it('chordLayout-weight-true', () => {

@@ -1,5 +1,5 @@
 import * as d3Hierarchy from 'd3-hierarchy';
-import { treemap, getTileMethod } from '../../../../src/utils/hierarchy/treemap';
+import { getTileMethod, treemap } from '../../../../src/utils/hierarchy/treemap';
 
 const data = {
   children: [

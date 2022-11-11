@@ -1,4 +1,4 @@
-import { registerInteraction, registerAction } from '@antv/g2';
+import { registerAction, registerInteraction } from '@antv/g2';
 import { SankeyNodeDragAction } from './actions/node-drag';
 
 registerAction('sankey-node-drag', SankeyNodeDragAction);

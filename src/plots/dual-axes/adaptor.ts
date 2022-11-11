@@ -1,24 +1,24 @@
-import { each, findIndex, get, find, isObject, every, isEqual, isBoolean } from '@antv/util';
-import { Scale, Types, Event } from '@antv/g2';
+import { Event, Scale, Types } from '@antv/g2';
+import { each, every, find, findIndex, get, isBoolean, isEqual, isObject } from '@antv/util';
 import {
-  theme as commonTheme,
   animation as commonAnimation,
-  scale,
-  interaction as commonInteraction,
   annotation as commonAnnotation,
+  interaction as commonInteraction,
   limitInPlot as commonLimitInPlot,
+  scale,
+  theme as commonTheme,
 } from '../../adaptor/common';
-import { percent } from '../../utils/transform/percent';
 import { Params } from '../../core/adaptor';
 import { Datum } from '../../types';
-import { flow, deepAssign } from '../../utils';
+import { deepAssign, flow } from '../../utils';
+import { percent } from '../../utils/transform/percent';
 import { findViewById } from '../../utils/view';
-import { isColumn, getYAxisWithDefault, getGeometryOption, transformObjectToArray } from './util/option';
-import { getViewLegendItems } from './util/legend';
-import { drawSingleGeometry } from './util/geometry';
-import { doSliderFilter } from './util/render-sider';
-import { DualAxesOptions, AxisType, DualAxesGeometry } from './types';
 import { LEFT_AXES_VIEW, RIGHT_AXES_VIEW } from './constant';
+import { AxisType, DualAxesGeometry, DualAxesOptions } from './types';
+import { drawSingleGeometry } from './util/geometry';
+import { getViewLegendItems } from './util/legend';
+import { getGeometryOption, getYAxisWithDefault, isColumn, transformObjectToArray } from './util/option';
+import { doSliderFilter } from './util/render-sider';
 
 /**
  * transformOptions，双轴图整体的取参逻辑如下

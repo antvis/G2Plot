@@ -1,7 +1,7 @@
 import { RingProgress } from '../../../../src';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/ring-progress/constants';
-import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
+import { createDiv } from '../../../utils/dom';
 
 describe('ring-progress', () => {
   it('data', () => {

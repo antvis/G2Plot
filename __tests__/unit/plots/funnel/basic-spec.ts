@@ -1,8 +1,8 @@
 import { get } from '@antv/util';
 import { Funnel } from '../../../../src';
+import { FUNNEL_CONVERSATION, FUNNEL_MAPPING_VALUE, FUNNEL_PERCENT } from '../../../../src/plots/funnel/constant';
 import { PV_DATA } from '../../../data/conversion';
 import { createDiv } from '../../../utils/dom';
-import { FUNNEL_CONVERSATION, FUNNEL_PERCENT, FUNNEL_MAPPING_VALUE } from '../../../../src/plots/funnel/constant';
 
 describe('basic funnel', () => {
   let funnel;

@@ -1,9 +1,9 @@
 import { assign, memoize } from '@antv/util';
+import { LEVEL, log } from '../../utils';
 import { blend } from '../../utils/color/blend';
-import { log, LEVEL } from '../../utils';
-import { venn, scaleSolution } from './layout/layout';
-import { intersectionAreaPath, computeTextCentres } from './layout/diagram';
 import { ID_FIELD, PATH_FIELD } from './constant';
+import { computeTextCentres, intersectionAreaPath } from './layout/diagram';
+import { scaleSolution, venn } from './layout/layout';
 import { VennData, VennOptions } from './types';
 
 type ColorMapFunction = (

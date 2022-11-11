@@ -1,10 +1,10 @@
-import { VIEW_LIFE_CIRCLE, Event } from '@antv/g2';
-import { Plot } from '../../core/plot';
+import { Event, VIEW_LIFE_CIRCLE } from '@antv/g2';
 import { Adaptor } from '../../core/adaptor';
+import { Plot } from '../../core/plot';
 import { getProgressData } from '../progress/utils';
-import { RingProgressOptions } from './types';
 import { adaptor, statistic } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
+import { RingProgressOptions } from './types';
 
 export type { RingProgressOptions };
 

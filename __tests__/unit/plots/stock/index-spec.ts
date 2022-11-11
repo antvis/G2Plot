@@ -1,7 +1,7 @@
 import { Stock } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
-import { kdata } from '../../../data/stock';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/stock/constant';
+import { kdata } from '../../../data/stock';
+import { createDiv } from '../../../utils/dom';
 
 describe('Stock', () => {
   it('x*y', () => {

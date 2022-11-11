@@ -1,12 +1,12 @@
 import { Geometry, Types } from '@antv/g2';
 import { each, isNil, isObject } from '@antv/util';
+import { AXIS_META_CONFIG_KEYS } from '../constant';
 import { Params } from '../core/adaptor';
 import { Options } from '../types';
-import { Interaction } from '../types/interaction';
-import { Transformations } from '../types/coordinate';
 import { Axis } from '../types/axis';
-import { AXIS_META_CONFIG_KEYS } from '../constant';
-import { pick, deepAssign, addViewAnimation } from '../utils';
+import { Transformations } from '../types/coordinate';
+import { Interaction } from '../types/interaction';
+import { addViewAnimation, deepAssign, pick } from '../utils';
 
 /**
  * 通用 legend 配置, 适用于带 colorField 或 seriesField 的图表

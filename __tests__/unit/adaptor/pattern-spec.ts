@@ -1,9 +1,9 @@
-import { flow } from '../../../src/utils/flow';
-import { Plot } from '../../../src/core/plot';
-import { pattern } from '../../../src/adaptor/pattern';
 import { theme } from '../../../src/adaptor/common';
-import { createDiv } from '../../utils/dom';
+import { pattern } from '../../../src/adaptor/pattern';
+import { Plot } from '../../../src/core/plot';
+import { flow } from '../../../src/utils/flow';
 import { createSquarePattern } from '../../../src/utils/pattern/square';
+import { createDiv } from '../../utils/dom';
 
 describe('pattern adaptor', () => {
   class APlot extends Plot<any> {

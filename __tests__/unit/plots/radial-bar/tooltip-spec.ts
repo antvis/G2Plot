@@ -1,7 +1,7 @@
 import { RadialBar } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { Datum } from '../../../../src/types';
 import { antvStar } from '../../../data/antv-star';
+import { createDiv } from '../../../utils/dom';
 
 const xField = 'name';
 const yField = 'star';

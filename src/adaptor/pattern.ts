@@ -1,9 +1,9 @@
 import { Util } from '@antv/g2';
 import { get } from '@antv/util';
-import { getCanvasPattern } from '../utils/pattern';
 import { Params } from '../core/adaptor';
 import { Datum, Options, StyleAttr } from '../types';
 import { deepAssign } from '../utils';
+import { getCanvasPattern } from '../utils/pattern';
 
 /**
  * 使用 Pattern 通道的 options，要求有 colorField/seriesField/stackField 作为分类字段（进行颜色映射）

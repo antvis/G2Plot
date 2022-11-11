@@ -1,4 +1,4 @@
-import { registerComponentController, Util, TooltipController, Action } from '@antv/g2';
+import { Action, registerComponentController, TooltipController, Util } from '@antv/g2';
 import { isNil } from '@antv/util';
 import { Point } from '../../../types';
 

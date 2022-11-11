@@ -1,4 +1,4 @@
-import { RingProgress, Progress } from '../../src';
+import { Progress, RingProgress } from '../../src';
 import { createDiv } from '../utils/dom';
 
 describe('#2203', () => {

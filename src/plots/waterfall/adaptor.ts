@@ -1,15 +1,15 @@
 import { Geometry } from '@antv/g2';
 import { get } from '@antv/util';
-import { Datum } from '../../types';
-import { Params } from '../../core/adaptor';
-import { interaction, animation, theme, state, scale, annotation } from '../../adaptor/common';
+import { animation, annotation, interaction, scale, state, theme } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
+import { Params } from '../../core/adaptor';
 import { getLocale } from '../../core/locale';
-import { findGeometry, flow, transformLabel, deepAssign } from '../../utils';
-import { Y_FIELD, ABSOLUTE_FIELD, DIFF_FIELD, IS_TOTAL } from './constant';
+import { Datum } from '../../types';
+import { deepAssign, findGeometry, flow, transformLabel } from '../../utils';
+import { ABSOLUTE_FIELD, DIFF_FIELD, IS_TOTAL, Y_FIELD } from './constant';
+import './shape';
 import { WaterfallOptions } from './types';
 import { transformData } from './utils';
-import './shape';
 
 /**
  *  处理默认配置项

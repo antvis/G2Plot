@@ -1,14 +1,14 @@
+import { View } from '@antv/g2';
+import { get, isArray, isNumber } from '@antv/util';
 import {
-  regressionLinear,
   regressionExp,
+  regressionLinear,
   regressionLoess,
   regressionLog,
   regressionPoly,
   regressionPow,
   regressionQuad,
 } from 'd3-regression';
-import { isArray, get, isNumber } from '@antv/util';
-import { View } from '@antv/g2';
 import { getSplinePath } from '../../utils';
 import { ScatterOptions } from './types';
 

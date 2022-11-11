@@ -1,6 +1,6 @@
-import { assign, isString, isFunction } from '@antv/util';
+import { assign, isFunction, isString } from '@antv/util';
 import { Datum } from '../../types';
-import { sankey, left, right, center, justify } from './sankey';
+import { center, justify, left, right, sankey } from './sankey';
 
 const ALIGN_METHOD = {
   left,

@@ -1,8 +1,8 @@
-import { initCanvas } from '../../../../src/utils/pattern/util';
-import { drawSquare, defaultSquarePatternCfg, createSquarePattern } from '../../../../src/utils/pattern/square';
 import { SquarePatternCfg } from '../../../../src/types/pattern';
-import { getPixelColor } from '../../../utils/getPixelColor';
 import { deepAssign } from '../../../../src/utils';
+import { createSquarePattern, defaultSquarePatternCfg, drawSquare } from '../../../../src/utils/pattern/square';
+import { initCanvas } from '../../../../src/utils/pattern/util';
+import { getPixelColor } from '../../../utils/getPixelColor';
 
 describe('utils: square pattern', () => {
   const width = 30,

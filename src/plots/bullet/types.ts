@@ -1,5 +1,5 @@
 import { Types } from '@antv/g2';
-import { Options, ColorAttr, SizeAttr, StyleAttr, Datum } from '../../types';
+import { ColorAttr, Datum, Options, SizeAttr, StyleAttr } from '../../types';
 
 type GeometryLabelAttr = Types.GeometryLabelCfg | ((datum: Datum) => Types.GeometryLabelCfg);
 

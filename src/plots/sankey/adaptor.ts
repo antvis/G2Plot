@@ -1,12 +1,12 @@
 import { uniq } from '@antv/util';
 import { theme } from '../../adaptor/common';
+import { edge, polygon } from '../../adaptor/geometries';
 import { Params } from '../../core/adaptor';
 import { deepAssign, findViewById, flow } from '../../utils';
 import { addViewAnimation } from '../../utils/view';
-import { polygon, edge } from '../../adaptor/geometries';
+import { COLOR_FIELD, EDGES_VIEW_ID, NODES_VIEW_ID, X_FIELD, Y_FIELD } from './constant';
 import { transformToViewsData } from './helper';
 import { SankeyOptions } from './types';
-import { X_FIELD, Y_FIELD, COLOR_FIELD, EDGES_VIEW_ID, NODES_VIEW_ID } from './constant';
 
 /**
  * 默认配置项 处理

@@ -1,8 +1,8 @@
 import { CirclePacking } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
-import { delay } from '../../../utils/delay';
-import { DATA } from '../../../data/circle-packing';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/circle-packing/constant';
+import { DATA } from '../../../data/circle-packing';
+import { delay } from '../../../utils/delay';
+import { createDiv } from '../../../utils/dom';
 
 describe('Circle-Packing', () => {
   const div = createDiv();

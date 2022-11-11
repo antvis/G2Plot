@@ -7,5 +7,5 @@
  * 4. 通过 align 方法实现 depth 自定义
  */
 import { Sankey as sankey } from './sankey';
-export { center, left, right, justify } from './align';
+export { center, justify, left, right } from './align';
 export { sankey };

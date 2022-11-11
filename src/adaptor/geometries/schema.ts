@@ -1,7 +1,7 @@
 import { Params } from '../../core/adaptor';
-import { getTooltipMapping } from '../../utils/tooltip';
 import { deepAssign } from '../../utils';
-import { geometry, MappingOptions, GeometryOptions } from './base';
+import { getTooltipMapping } from '../../utils/tooltip';
+import { geometry, GeometryOptions, MappingOptions } from './base';
 
 export interface SchemaGeometryOptions extends GeometryOptions {
   /** x 轴字段 */

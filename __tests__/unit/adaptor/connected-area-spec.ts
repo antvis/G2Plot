@@ -1,4 +1,4 @@
-import { Column, ColumnOptions, Bar, BarOptions } from '../../../src';
+import { Bar, BarOptions, Column, ColumnOptions } from '../../../src';
 import { createDiv } from '../../utils/dom';
 
 const DATA = [

@@ -1,17 +1,17 @@
-import { isFunction, isString, isNil, get, isArray, isNumber, each, toString, isEmpty } from '@antv/util';
-import { Params } from '../../core/adaptor';
-import { legend, animation, theme, state, annotation } from '../../adaptor/common';
-import { getMappingFunction } from '../../adaptor/geometries/base';
+import { each, get, isArray, isEmpty, isFunction, isNil, isNumber, isString, toString } from '@antv/util';
+import { animation, annotation, legend, state, theme } from '../../adaptor/common';
 import { interval } from '../../adaptor/geometries';
+import { getMappingFunction } from '../../adaptor/geometries/base';
 import { pattern } from '../../adaptor/pattern';
+import { Params } from '../../core/adaptor';
 import { getLocale } from '../../core/locale';
-import { Interaction } from '../../types/interaction';
-import { flow, template, transformLabel, deepAssign, renderStatistic, processIllegalData } from '../../utils';
 import { Data, Datum } from '../../types';
+import { Interaction } from '../../types/interaction';
+import { deepAssign, flow, processIllegalData, renderStatistic, template, transformLabel } from '../../utils';
 import { DEFAULT_OPTIONS } from './contants';
-import { adaptOffset, getTotalValue, isAllZero } from './utils';
 import { PIE_STATISTIC } from './interactions';
 import { PieOptions } from './types';
+import { adaptOffset, getTotalValue, isAllZero } from './utils';
 
 /**
  * 字段

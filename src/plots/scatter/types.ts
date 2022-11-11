@@ -1,13 +1,13 @@
 import {
+  AnnotationPosition,
+  BrushCfg,
   Options,
   RegionPositionBaseOption,
-  TextOption,
-  AnnotationPosition,
-  ShapeStyle,
-  StyleAttr,
   ShapeAttr,
+  ShapeStyle,
   SizeAttr,
-  BrushCfg,
+  StyleAttr,
+  TextOption,
 } from '../../types';
 
 interface Labels extends Omit<TextOption, 'position'> {

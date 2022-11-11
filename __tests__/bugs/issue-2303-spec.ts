@@ -1,4 +1,4 @@
-import { Column, Area, Bar, Line, Plot, TinyArea, TinyColumn, TinyLine } from '../../src';
+import { Area, Bar, Column, Line, Plot, TinyArea, TinyColumn, TinyLine } from '../../src';
 import { createDiv } from '../utils/dom';
 
 describe('#2303', () => {

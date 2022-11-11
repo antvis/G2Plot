@@ -1,11 +1,11 @@
-import { getInteraction, getActionClass } from '@antv/g2';
+import { getActionClass, getInteraction } from '@antv/g2';
 import InteractionContext from '@antv/g2/lib/interaction/context';
 import { deepMix } from '@antv/util';
+import { Pie } from '../../../../src';
+import { transformStatisticOptions } from '../../../../src/plots/pie/adaptor';
+import { StatisticAction } from '../../../../src/plots/pie/interactions/actions/statistic-active';
 import { delay } from '../../../utils/delay';
 import { createDiv } from '../../../utils/dom';
-import { Pie } from '../../../../src';
-import { StatisticAction } from '../../../../src/plots/pie/interactions/actions/statistic-active';
-import { transformStatisticOptions } from '../../../../src/plots/pie/adaptor';
 
 describe('register interaction', () => {
   it('创建 "pie-statistic" action', () => {

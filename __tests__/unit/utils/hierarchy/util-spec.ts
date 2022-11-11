@@ -1,4 +1,4 @@
-import { getField, getAllNodes } from '../../../../src/utils/hierarchy/util';
+import { getAllNodes, getField } from '../../../../src/utils/hierarchy/util';
 
 describe('hierarchy/util', () => {
   it('getField', () => {

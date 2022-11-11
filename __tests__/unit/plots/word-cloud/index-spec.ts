@@ -1,8 +1,8 @@
 import { deepMix } from '@antv/util';
 import { WordCloud } from '../../../../src';
 import { CountryEconomy } from '../../../data/country-economy';
-import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
+import { createDiv } from '../../../utils/dom';
 
 describe('word-cloud', () => {
   const options = {

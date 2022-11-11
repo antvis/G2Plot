@@ -1,5 +1,5 @@
 import { isArray, map } from '@antv/util';
-import { TREND_FIELD, TREND_DOWN, TREND_UP, Y_FIELD } from './constant';
+import { TREND_DOWN, TREND_FIELD, TREND_UP, Y_FIELD } from './constant';
 
 /**
  * @desc 股票图数据处理

@@ -1,10 +1,9 @@
-import { Params } from '../../core/adaptor';
-import { interaction, animation, theme, annotation, slider } from '../../adaptor/common';
+import { animation, annotation, interaction, slider, theme } from '../../adaptor/common';
 import { schema } from '../../adaptor/geometries';
-import { flow, pick, deepAssign } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
-
-import { Y_FIELD, TREND_FIELD, TREND_UP, TREND_DOWN } from './constant';
+import { Params } from '../../core/adaptor';
+import { deepAssign, flow, pick } from '../../utils';
+import { TREND_DOWN, TREND_FIELD, TREND_UP, Y_FIELD } from './constant';
 import { StockOptions } from './types';
 import { getStockData } from './utils';
 

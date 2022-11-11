@@ -1,8 +1,8 @@
 import { Types } from '@antv/g2';
-import { isFunction, map, isNumber, maxBy, get } from '@antv/util';
-import { Datum, Data } from '../../../types/common';
-import { FUNNEL_PERCENT, FUNNEL_CONVERSATION, FUNNEL_MAPPING_VALUE } from '../constant';
+import { get, isFunction, isNumber, map, maxBy } from '@antv/util';
 import { Params } from '../../../core/adaptor';
+import { Data, Datum } from '../../../types/common';
+import { FUNNEL_CONVERSATION, FUNNEL_MAPPING_VALUE, FUNNEL_PERCENT } from '../constant';
 import { FunnelOptions } from '../types';
 
 export const CONVERSION_TAG_NAME = 'CONVERSION_TAG_NAME';

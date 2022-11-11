@@ -1,8 +1,8 @@
 import { IGroup } from '@antv/g-base';
 import { every } from '@antv/util';
 import { Pie } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
+import { createDiv } from '../../../utils/dom';
 
 describe('饼图 异常数据', () => {
   const data = [];

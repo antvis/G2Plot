@@ -1,6 +1,6 @@
 import { RingProgress } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
+import { createDiv } from '../../../utils/dom';
 
 describe('ringProgress statistic', () => {
   const ringProgress = new RingProgress(createDiv(), {

@@ -1,11 +1,10 @@
-import { interaction, theme, state } from '../../adaptor/common';
+import { interaction, state, theme } from '../../adaptor/common';
+import { edge, polygon } from '../../adaptor/geometries';
 import { Params } from '../../core/adaptor';
-import { flow, pick } from '../../utils';
-import { polygon, edge } from '../../adaptor/geometries';
+import { addViewAnimation, flow, getAllGeometriesRecursively, pick, transformDataToNodeLinkData } from '../../utils';
 import { chordLayout } from '../../utils/transform/chord';
-import { getAllGeometriesRecursively, transformDataToNodeLinkData, addViewAnimation } from '../../utils';
+import { EDGE_COLOR_FIELD, NODE_COLOR_FIELD, X_FIELD, Y_FIELD } from './constant';
 import { ChordOptions } from './types';
-import { X_FIELD, Y_FIELD, NODE_COLOR_FIELD, EDGE_COLOR_FIELD } from './constant';
 
 function transformData(params: Params<ChordOptions>): Params<ChordOptions> {
   // 将弦图数据放到ext中，nodeGeometry edgeGeometry使用

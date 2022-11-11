@@ -1,4 +1,4 @@
-import { registerGeometryLabel, GeometryLabel } from '@antv/g2';
+import { GeometryLabel, registerGeometryLabel } from '@antv/g2';
 
 // Step 1
 // 自定义 Label 类

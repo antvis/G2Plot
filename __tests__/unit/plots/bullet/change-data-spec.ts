@@ -1,7 +1,7 @@
 import { Bullet } from '../../../../src';
+import { transformData } from '../../../../src/plots/bullet/utils';
 import { bulletData } from '../../../data/bullet';
 import { createDiv } from '../../../utils/dom';
-import { transformData } from '../../../../src/plots/bullet/utils';
 
 describe('Bullet changeData', () => {
   it('changeData: normal', () => {

@@ -1,7 +1,7 @@
 import { Sunburst } from '../../../../src';
-import { createDiv, removeDom } from '../../../utils/dom';
-import { SIMPLE_SUNBURST_DATA } from '../../../data/sunburst';
 import { DEFAULT_OPTIONS, SUNBURST_PATH_FIELD } from '../../../../src/plots/sunburst/constant';
+import { SIMPLE_SUNBURST_DATA } from '../../../data/sunburst';
+import { createDiv, removeDom } from '../../../utils/dom';
 
 describe('sunburst', () => {
   const div = createDiv();

@@ -1,6 +1,6 @@
 import { Column } from '../../src';
-import { createDiv } from '../utils/dom';
 import { delay } from '../utils/delay';
+import { createDiv } from '../utils/dom';
 
 describe('#2111', () => {
   test('appendPadding update', async () => {

@@ -1,4 +1,4 @@
-import { View, Action, Util, Types } from '@antv/g2';
+import { Action, Types, Util, View } from '@antv/g2';
 import { each, get } from '@antv/util';
 import { Annotation } from '../../../../types/annotation';
 import { renderStatistic } from '../../../../utils/statistic';

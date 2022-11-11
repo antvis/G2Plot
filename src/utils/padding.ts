@@ -1,5 +1,5 @@
 import { Types } from '@antv/g2';
-import { isNumber, isArray } from '@antv/util';
+import { isArray, isNumber } from '@antv/util';
 
 /**
  * 把 padding 转换成统一的数组写法

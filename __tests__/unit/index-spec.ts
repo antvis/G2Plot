@@ -1,5 +1,5 @@
-import { version, adaptors } from '../../src';
 import pkg from '../../package.json';
+import { adaptors, version } from '../../src';
 
 describe('index', () => {
   it('version', () => {

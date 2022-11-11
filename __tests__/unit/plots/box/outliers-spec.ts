@@ -1,5 +1,5 @@
 import { Box } from '../../../../src';
-import { OUTLIERS_VIEW_ID, BOX_SYNC_NAME, BOX_RANGE } from '../../../../src/plots/box/constant';
+import { BOX_RANGE, BOX_SYNC_NAME, OUTLIERS_VIEW_ID } from '../../../../src/plots/box/constant';
 import { outliersData } from '../../../data/box';
 import { createDiv } from '../../../utils/dom';
 

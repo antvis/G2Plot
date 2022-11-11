@@ -1,7 +1,7 @@
 import { BidirectionalBar } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { FIRST_AXES_VIEW, SECOND_AXES_VIEW } from '../../../../src/plots/bidirectional-bar/constant';
 import { findViewById } from '../../../../src/utils/view';
+import { createDiv } from '../../../utils/dom';
 
 const data = [
   { country: '乌拉圭', '2016年耕地总面积': -13.4, '2016年转基因种植面积': -20.3 },

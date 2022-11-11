@@ -1,8 +1,8 @@
 import { reduce } from '@antv/util';
 import { Pie } from '../../src';
 import { createDiv } from '.././utils/dom';
-import { simulateMouseEvent } from '../utils/event';
 import { delay } from '../utils/delay';
+import { simulateMouseEvent } from '../utils/event';
 
 describe('donut plot', () => {
   test('statistic content formatter', async () => {

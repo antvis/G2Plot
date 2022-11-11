@@ -1,4 +1,4 @@
-import { Sankey, Datum } from '../../src';
+import { Datum, Sankey } from '../../src';
 import { createDiv } from '../utils/dom';
 
 describe('#2353', () => {

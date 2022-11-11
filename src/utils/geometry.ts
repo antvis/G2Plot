@@ -1,5 +1,5 @@
-import { Geometry, View, Element } from '@antv/g2';
-import { reduce, get } from '@antv/util';
+import { Element, Geometry, View } from '@antv/g2';
+import { get, reduce } from '@antv/util';
 
 /**
  * 在 View 中查找第一个指定 type 类型的 geometry

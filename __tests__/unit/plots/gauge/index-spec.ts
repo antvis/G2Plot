@@ -1,6 +1,5 @@
 import { Gauge } from '../../../../src';
-import { INDICATEOR_VIEW_ID, RANGE_VIEW_ID } from '../../../../src/plots/gauge/constants';
-import { DEFAULT_OPTIONS } from '../../../../src/plots/gauge/constants';
+import { DEFAULT_OPTIONS, INDICATEOR_VIEW_ID, RANGE_VIEW_ID } from '../../../../src/plots/gauge/constants';
 import { pick } from '../../../../src/utils';
 import { createDiv } from '../../../utils/dom';
 

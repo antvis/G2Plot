@@ -1,6 +1,6 @@
 import { M, randomFloat } from 'miz';
-import { sankey } from '../../../../../src/plots/sankey/sankey';
 import { cutoffCircle } from '../../../../../src/plots/sankey/circle';
+import { sankey } from '../../../../../src/plots/sankey/sankey';
 import { transformDataToNodeLinkData } from '../../../../../src/utils/data';
 
 const C = [

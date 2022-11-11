@@ -1,6 +1,6 @@
 import { Sunburst } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { SIMPLE_SUNBURST_DATA } from '../../../data/sunburst';
+import { createDiv } from '../../../utils/dom';
 
 describe('sunburst: 字段信', () => {
   const div = createDiv();

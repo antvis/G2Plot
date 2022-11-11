@@ -1,6 +1,6 @@
 import { P } from '../../../src';
-import { createDiv } from '../../utils/dom';
 import { partySupport } from '../../data/party-support';
+import { createDiv } from '../../utils/dom';
 import { adaptor, defaultOptions, StepLineOption } from './step-line';
 
 describe('plugin - P', () => {

@@ -1,15 +1,15 @@
-import { each } from '@antv/util';
 import { Geometry } from '@antv/g2';
+import { each } from '@antv/util';
+import { animation, annotation, interaction, theme, tooltip } from '../../adaptor/common';
 import { geometry as geometryAdaptor } from '../../adaptor/geometries/base';
-import { interaction, animation, theme, tooltip, annotation } from '../../adaptor/common';
+import { AXIS_META_CONFIG_KEYS } from '../../constant';
 import { Params } from '../../core/adaptor';
 import { PLOT_CONTAINER_OPTIONS } from '../../core/plot';
-import { AXIS_META_CONFIG_KEYS } from '../../constant';
-import { deepAssign, flow, pick } from '../../utils';
 import { Axis } from '../../types/axis';
-import { Legend } from '../../types/legend';
 import { Interaction } from '../../types/interaction';
-import { MixOptions, IView, IGeometry } from './types';
+import { Legend } from '../../types/legend';
+import { deepAssign, flow, pick } from '../../utils';
+import { IGeometry, IView, MixOptions } from './types';
 import { execPlotAdaptor } from './utils';
 
 /**

@@ -1,8 +1,8 @@
 import { DualAxes } from '../../../../src';
-import { PV_DATA, UV_DATA, PV_DATA_MULTI, UV_DATA_MULTI } from '../../../data/pv-uv';
-import { createDiv } from '../../../utils/dom';
 import { LEFT_AXES_VIEW } from '../../../../src/plots/dual-axes/constant';
 import { findViewById } from '../../../../src/utils/view';
+import { PV_DATA, PV_DATA_MULTI, UV_DATA, UV_DATA_MULTI } from '../../../data/pv-uv';
+import { createDiv } from '../../../utils/dom';
 
 describe('tooltip', () => {
   it('tooltip: false', () => {

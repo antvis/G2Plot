@@ -1,9 +1,9 @@
 import { get, isFunction } from '@antv/util';
-import { Params } from '../../core/adaptor';
-import { interaction, animation, theme, tooltip, scale } from '../../adaptor/common';
-import { flow, transformLabel, deepAssign } from '../../utils';
-import { Datum } from '../../types';
+import { animation, interaction, scale, theme, tooltip } from '../../adaptor/common';
 import { interval, point } from '../../adaptor/geometries';
+import { Params } from '../../core/adaptor';
+import { Datum } from '../../types';
+import { deepAssign, flow, transformLabel } from '../../utils';
 import { BulletOptions } from './types';
 import { transformData } from './utils';
 

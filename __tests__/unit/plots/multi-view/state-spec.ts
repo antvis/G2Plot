@@ -1,6 +1,6 @@
 import { Mix } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { MIX_POINT_DATAS as data } from '../../../data/mix-data';
+import { createDiv } from '../../../utils/dom';
 
 describe('mix', () => {
   it('plots, setState', () => {

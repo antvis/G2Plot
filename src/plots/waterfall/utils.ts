@@ -1,4 +1,4 @@
-import { isUndefined, isNumber, get, reduce, isObject } from '@antv/util';
+import { get, isNumber, isObject, isUndefined, reduce } from '@antv/util';
 import { Options } from '../../types';
 import { LEVEL, log } from '../../utils';
 import { ABSOLUTE_FIELD, DIFF_FIELD, IS_TOTAL, Y_FIELD } from './constant';

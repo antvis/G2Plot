@@ -1,4 +1,4 @@
-import { invariant, log, LEVEL } from '../../../src/utils';
+import { invariant, LEVEL, log } from '../../../src/utils';
 
 describe('invariant', () => {
   it('invariant', () => {

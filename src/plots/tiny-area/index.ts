@@ -1,9 +1,9 @@
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
+import { Plot } from '../../core/plot';
 import { getTinyData } from '../tiny-line/utils';
-import { TinyAreaOptions } from './types';
 import { adaptor, meta } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
+import { TinyAreaOptions } from './types';
 
 export type { TinyAreaOptions };
 

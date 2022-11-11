@@ -1,7 +1,7 @@
 import { DualAxes } from '../../../../src';
+import { MultipleData } from '../../../data/common';
 import { PV_DATA, UV_DATA } from '../../../data/pv-uv';
 import { createDiv } from '../../../utils/dom';
-import { MultipleData } from '../../../data/common';
 
 describe('dual-axes: pattern', () => {
   it('column pattern: obj', () => {

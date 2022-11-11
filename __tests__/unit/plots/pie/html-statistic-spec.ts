@@ -2,8 +2,8 @@ import InteractionContext from '@antv/g2/lib/interaction/context';
 import { Pie } from '../../../../src';
 import { StatisticAction } from '../../../../src/plots/pie/interactions/actions/statistic-active';
 import { POSITIVE_NEGATIVE_DATA } from '../../../data/common';
-import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
+import { createDiv } from '../../../utils/dom';
 
 describe('html-statistics', () => {
   const div = createDiv();

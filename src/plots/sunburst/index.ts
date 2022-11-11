@@ -1,10 +1,10 @@
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
+import { Plot } from '../../core/plot';
 import { NODE_ANCESTORS_FIELD } from '../../utils/hierarchy/util';
-import { SunburstOptions } from './types';
 import { adaptor } from './adaptor';
 import { DEFAULT_OPTIONS, SUNBURST_ANCESTOR_FIELD, SUNBURST_PATH_FIELD } from './constant';
 import './interactions';
+import { SunburstOptions } from './types';
 
 export type { SunburstOptions };
 

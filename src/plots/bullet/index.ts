@@ -1,9 +1,9 @@
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { BulletOptions } from './types';
+import { Plot } from '../../core/plot';
 import { adaptor, meta } from './adaptor';
-import { transformData } from './utils';
 import { DEFAULT_OPTIONS } from './constant';
+import { BulletOptions } from './types';
+import { transformData } from './utils';
 
 export type { BulletOptions };
 

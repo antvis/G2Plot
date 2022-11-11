@@ -1,6 +1,6 @@
 import { Sankey } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { ALIPAY_DATA } from '../../../data/sankey-energy';
+import { createDiv } from '../../../utils/dom';
 
 describe('sankey', () => {
   it('scales nameType', async () => {

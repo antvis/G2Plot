@@ -1,4 +1,4 @@
-import { registerShape, Util, Types, IGroup, ShapeAttrs } from '@antv/g2';
+import { IGroup, registerShape, ShapeAttrs, Types, Util } from '@antv/g2';
 import { Tag } from '../types';
 
 type Config = Types.ShapeInfo & { data: Tag };

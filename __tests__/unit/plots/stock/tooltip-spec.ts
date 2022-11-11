@@ -1,6 +1,6 @@
 import { Stock } from '../../../../src';
-import { createDiv, removeDom } from '../../../utils/dom';
 import { kdata } from '../../../data/stock';
+import { createDiv, removeDom } from '../../../utils/dom';
 
 describe('Stock tooltip', () => {
   const div = createDiv('default tooltip');

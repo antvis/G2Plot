@@ -1,8 +1,8 @@
-import { reduce, get, isEmpty, isFunction } from '@antv/util';
-import { View, Util } from '@antv/g2';
+import { Util, View } from '@antv/g2';
+import { get, isEmpty, isFunction, reduce } from '@antv/util';
+import { Legend } from '../../../types/legend';
 import { deepAssign, findGeometry } from '../../../utils';
 import { GeometryOption } from '../types';
-import { Legend } from '../../../types/legend';
 import { isLine } from './option';
 
 /**

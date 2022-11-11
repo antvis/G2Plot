@@ -1,12 +1,12 @@
-import { isArray } from '@antv/util';
 import { Types } from '@antv/g2';
-import { Params } from '../../core/adaptor';
-import { interaction, animation, theme, tooltip, annotation } from '../../adaptor/common';
+import { isArray } from '@antv/util';
+import { animation, annotation, interaction, theme, tooltip } from '../../adaptor/common';
 import { point, schema } from '../../adaptor/geometries';
-import { flow, pick, deepAssign } from '../../utils';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
-import { BoxOptions } from './types';
+import { Params } from '../../core/adaptor';
+import { deepAssign, flow, pick } from '../../utils';
 import { BOX_RANGE, BOX_SYNC_NAME, OUTLIERS_VIEW_ID } from './constant';
+import { BoxOptions } from './types';
 import { transformData } from './utils';
 
 /**

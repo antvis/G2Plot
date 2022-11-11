@@ -1,5 +1,5 @@
 import { vec2 } from '@antv/matrix-util';
-import { Position, Point } from '../types/common';
+import { Point, Position } from '../types/common';
 
 export function points2Path(points: Point[], isInCircle: boolean) {
   const path = [];

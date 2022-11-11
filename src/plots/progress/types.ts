@@ -1,4 +1,4 @@
-import { Options, StyleAttr, ColorAttr } from '../../types';
+import { ColorAttr, Options, StyleAttr } from '../../types';
 
 /** mini 图类型定义需要 omit 很多的 G2 Options 配置 */
 export interface ProgressOptions extends Omit<Options, 'data' | 'color'> {

@@ -1,8 +1,8 @@
-import { initCanvas } from '../../../../src/utils/pattern/util';
-import { drawDot, defaultDotPatternCfg, createDotPattern } from '../../../../src/utils/pattern/dot';
 import { DotPatternCfg } from '../../../../src/types/pattern';
-import { getPixelColor } from '../../../utils/getPixelColor';
 import { deepAssign } from '../../../../src/utils';
+import { createDotPattern, defaultDotPatternCfg, drawDot } from '../../../../src/utils/pattern/dot';
+import { initCanvas } from '../../../../src/utils/pattern/util';
+import { getPixelColor } from '../../../utils/getPixelColor';
 
 describe('utils: dot pattern', () => {
   const width = 30,

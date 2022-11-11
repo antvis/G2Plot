@@ -1,6 +1,6 @@
-import { Options, StyleAttr } from '../../types';
 import { MappingOptions } from '../../adaptor/geometries/base';
 import { PointGeometryOptions } from '../../adaptor/geometries/point';
+import { Options, StyleAttr } from '../../types';
 
 /** mini 图类型定义需要 omit 很多的 G2 Options 配置 */
 export interface TinyAreaOptions extends Omit<Options, 'data' | 'legend' | 'label'> {

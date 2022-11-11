@@ -1,5 +1,5 @@
 import { Action, IGroup, Util } from '@antv/g2';
-import { get, last, isNil, size } from '@antv/util';
+import { get, isNil, last, size } from '@antv/util';
 import { Data } from '../../types';
 import { DrillDownCfg } from '../../types/drill-down';
 import { deepAssign } from '../../utils/deep-assign';

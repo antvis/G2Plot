@@ -1,15 +1,14 @@
-import { VIEW_LIFE_CIRCLE, Event } from '@antv/g2';
-import { Plot } from '../../core/plot';
+import { Event, VIEW_LIFE_CIRCLE } from '@antv/g2';
 import { Adaptor } from '../../core/adaptor';
-import { LiquidOptions } from './types';
+import { Plot } from '../../core/plot';
 import { adaptor, statistic } from './adaptor';
 import { DEFAULT_OPTIONS } from './constants';
-import { getLiquidData } from './utils';
 // register liquid shape
 import './shapes/liquid';
+import { LiquidOptions } from './types';
+import { getLiquidData } from './utils';
 
 export { addWaterWave } from './shapes/liquid';
-
 export type { LiquidOptions };
 
 /**

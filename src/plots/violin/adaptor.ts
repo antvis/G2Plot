@@ -1,12 +1,10 @@
-import { get, set, omit, each } from '@antv/util';
-import { Params } from '../../core/adaptor';
-import { interaction, theme, tooltip, annotation as baseAnnotation } from '../../adaptor/common';
+import { each, get, omit, set } from '@antv/util';
+import { annotation as baseAnnotation, interaction, theme, tooltip } from '../../adaptor/common';
 import { interval, point, violin } from '../../adaptor/geometries';
-import { flow, pick, deepAssign, findViewById } from '../../utils';
-import { addViewAnimation } from '../../utils/view';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
-import { ViolinOptions } from './types';
-import { transformViolinData } from './utils';
+import { Params } from '../../core/adaptor';
+import { deepAssign, findViewById, flow, pick } from '../../utils';
+import { addViewAnimation } from '../../utils/view';
 import {
   MEDIAN_FIELD,
   MEDIAN_VIEW_ID,
@@ -19,6 +17,8 @@ import {
   VIOLIN_Y_FIELD,
   X_FIELD,
 } from './constant';
+import { ViolinOptions } from './types';
+import { transformViolinData } from './utils';
 
 const TOOLTIP_FIELDS = ['low', 'high', 'q1', 'q3', 'median'];
 

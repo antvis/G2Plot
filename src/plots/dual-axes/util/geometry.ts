@@ -1,11 +1,11 @@
-import { each } from '@antv/util';
 import { Geometry } from '@antv/g2';
+import { each } from '@antv/util';
+import { line, point } from '../../../adaptor/geometries';
 import { Params } from '../../../core/adaptor';
-import { point, line } from '../../../adaptor/geometries';
-import { pick, deepAssign } from '../../../utils';
+import { deepAssign, pick } from '../../../utils';
 import { adaptor as columnAdaptor } from '../../column/adaptor';
 import { GeometryOption } from '../types';
-import { isLine, isColumn } from './option';
+import { isColumn, isLine } from './option';
 
 /**
  * 绘制单个图形

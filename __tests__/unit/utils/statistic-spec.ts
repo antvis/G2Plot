@@ -1,11 +1,11 @@
 import { Chart } from '@antv/g2';
+import { ShapeStyle } from '../../../src/types';
 import {
   adapteStyle,
-  setStatisticContainerStyle,
-  renderStatistic,
   renderGaugeStatistic,
+  renderStatistic,
+  setStatisticContainerStyle,
 } from '../../../src/utils/statistic';
-import { ShapeStyle } from '../../../src/types';
 import { createDiv, removeDom } from '../../utils/dom';
 
 describe('饼图 statistics 相关处理函数', () => {

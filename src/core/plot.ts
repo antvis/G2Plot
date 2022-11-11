@@ -1,9 +1,9 @@
-import { Chart, Event, Element, View } from '@antv/g2';
-import { each } from '@antv/util';
 import EE from '@antv/event-emitter';
+import { Chart, Element, Event, View } from '@antv/g2';
+import { each } from '@antv/util';
 import { bind } from 'size-sensor';
-import { Options, StateName, StateCondition, Size, StateObject, Annotation } from '../types';
-import { getContainerSize, getAllElementsRecursively, deepAssign, pick } from '../utils';
+import { Annotation, Options, Size, StateCondition, StateName, StateObject } from '../types';
+import { deepAssign, getAllElementsRecursively, getContainerSize, pick } from '../utils';
 import { Adaptor } from './adaptor';
 
 /** 单独 pick 出来的用于基类的类型定义 */

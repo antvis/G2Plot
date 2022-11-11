@@ -1,11 +1,10 @@
 import { filter } from '@antv/util';
 import { Params } from '../core/adaptor';
-import { getInteractionCfg } from '../interactions/brush';
-import { deepAssign } from '../utils';
-import { Options as BaseOptions, BrushCfg, Interaction, Writable } from '../types';
-
 /** 先引入brush 交互 */
 import '../interactions/brush';
+import { getInteractionCfg } from '../interactions/brush';
+import { BrushCfg, Interaction, Options as BaseOptions, Writable } from '../types';
+import { deepAssign } from '../utils';
 
 type Options = Pick<BaseOptions, 'interactions'> & { brush?: BrushCfg };
 

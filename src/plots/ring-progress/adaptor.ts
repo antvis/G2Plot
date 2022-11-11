@@ -1,7 +1,7 @@
 import { get, isNil } from '@antv/util';
+import { animation, annotation, scale, theme } from '../../adaptor/common';
 import { Params } from '../../core/adaptor';
 import { deepAssign, flow, renderStatistic } from '../../utils';
-import { scale, animation, theme, annotation } from '../../adaptor/common';
 import { geometry } from '../progress/adaptor';
 import { RingProgressOptions } from './types';
 

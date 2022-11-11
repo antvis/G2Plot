@@ -1,7 +1,7 @@
 import { RadialBar } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
-import { antvStar } from '../../../data/antv-star';
 import { getScaleMax } from '../../../../src/plots/radial-bar/utils';
+import { antvStar } from '../../../data/antv-star';
+import { createDiv } from '../../../utils/dom';
 
 describe('radial-bar changeData', () => {
   it('changeData: normal', () => {

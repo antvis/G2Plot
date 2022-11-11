@@ -1,4 +1,4 @@
-import { clone, sortBy, valuesOfKey, getRange, each, hasKey, groupBy, isEmpty } from '@antv/util';
+import { clone, each, getRange, groupBy, hasKey, isEmpty, sortBy, valuesOfKey } from '@antv/util';
 import { Data } from '../../types';
 
 type StatisticData = {

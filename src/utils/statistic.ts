@@ -1,7 +1,8 @@
-import { View, IGroup } from '@antv/g2';
-import { each, get, isNumber, isFunction, isString } from '@antv/util';
+import { IGroup, View } from '@antv/g2';
+import { each, get, isFunction, isNumber, isString } from '@antv/util';
 import { Datum, ShapeStyle, Statistic, StatisticText } from '../types';
-import { pick, kebabCase } from '.';
+import { kebabCase } from './kebab-case';
+import { pick } from './pick';
 
 /**
  * @desc 生成 html-statistic 的 style 字符串 (兼容 canvas 的 shapeStyle 到 css样式上)

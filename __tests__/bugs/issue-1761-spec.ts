@@ -1,6 +1,6 @@
-import { Line, Area } from '../../src';
-import { createDiv } from '../utils/dom';
+import { Area, Line } from '../../src';
 import { partySupport } from '../data/party-support';
+import { createDiv } from '../utils/dom';
 
 describe('#1761', () => {
   it('Line: point color should be same with line color', () => {

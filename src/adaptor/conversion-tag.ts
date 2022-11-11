@@ -1,9 +1,9 @@
-import { map, find, each, isObject } from '@antv/util';
-import { Coordinate, IGroup, ShapeAttrs, Element, Geometry, View, getTheme } from '@antv/g2';
+import { Coordinate, Element, Geometry, getTheme, IGroup, ShapeAttrs, View } from '@antv/g2';
+import { each, find, isObject, map } from '@antv/util';
 import { Params } from '../core/adaptor';
+import { Options } from '../types';
 import { deepAssign } from '../utils';
 import { conversionTagFormatter } from '../utils/conversion';
-import { Options } from '../types';
 
 /** 转化率组件配置选项 */
 export interface ConversionTagOptions {

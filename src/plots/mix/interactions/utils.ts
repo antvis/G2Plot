@@ -1,4 +1,4 @@
-import { View, Element } from '@antv/g2';
+import { Element, View } from '@antv/g2';
 import { each, isArray } from '@antv/util';
 import { getAllElements } from '../../../utils';
 

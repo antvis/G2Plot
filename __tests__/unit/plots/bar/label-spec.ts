@@ -1,7 +1,7 @@
 import { Bar } from '../../../../src';
 import { salesByArea, subSalesByArea } from '../../../data/sales';
-import { createDiv } from '../../../utils/dom';
 import { delay } from '../../../utils/delay';
+import { createDiv } from '../../../utils/dom';
 
 describe('bar label', () => {
   it('position: right', async () => {

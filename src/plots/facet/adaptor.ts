@@ -1,9 +1,9 @@
 import { each, omit } from '@antv/util';
 import { theme } from '../../adaptor/common';
-import { Params } from '../../core/adaptor';
 import { AXIS_META_CONFIG_KEYS } from '../../constant';
-import { pick, flow, deepAssign } from '../../utils';
+import { Params } from '../../core/adaptor';
 import { Axis, Interaction } from '../../types';
+import { deepAssign, flow, pick } from '../../utils';
 import { execPlotAdaptor } from '../mix/utils';
 import { FacetOptions, IPlot, IView } from './types';
 import { execViewAdaptor } from './utils';

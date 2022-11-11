@@ -1,4 +1,4 @@
-import { groupBy, min, max } from '@antv/util';
+import { groupBy, max, min } from '@antv/util';
 import pdf from 'pdfast';
 import { quantile } from '../../utils/transform/quantile';
 import { ViolinOptions } from './types';

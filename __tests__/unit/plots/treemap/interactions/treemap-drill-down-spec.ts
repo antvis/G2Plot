@@ -1,13 +1,13 @@
 import { getInteraction } from '@antv/g2';
-import InteractionContext from '@antv/g2/lib/interaction/context';
 import { IGroup, IShape } from '@antv/g2/lib/dependents';
-import { createDiv } from '../../../../utils/dom';
+import InteractionContext from '@antv/g2/lib/interaction/context';
 import { Treemap } from '../../../../../src';
 import {
   BREAD_CRUMB_NAME,
   DrillDownAction as TreemapDrillDownAction,
 } from '../../../../../src/interactions/actions/drill-down';
 import { transformData } from '../../../../../src/plots/treemap/utils';
+import { createDiv } from '../../../../utils/dom';
 
 const data = {
   name: 'root',

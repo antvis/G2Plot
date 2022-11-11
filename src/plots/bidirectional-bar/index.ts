@@ -1,11 +1,11 @@
-import { VIEW_LIFE_CIRCLE, Event } from '@antv/g2';
-import { Plot } from '../../core/plot';
+import { Event, VIEW_LIFE_CIRCLE } from '@antv/g2';
 import { Adaptor } from '../../core/adaptor';
+import { Plot } from '../../core/plot';
 import { deepAssign, findViewById } from '../../utils';
-import { BidirectionalBarOptions } from './types';
 import { adaptor } from './adaptor';
-import { syncViewPadding, transformData, isHorizontal } from './utils';
-import { SERIES_FIELD_KEY, FIRST_AXES_VIEW, SECOND_AXES_VIEW } from './constant';
+import { FIRST_AXES_VIEW, SECOND_AXES_VIEW, SERIES_FIELD_KEY } from './constant';
+import { BidirectionalBarOptions } from './types';
+import { isHorizontal, syncViewPadding, transformData } from './utils';
 
 export type { BidirectionalBarOptions };
 

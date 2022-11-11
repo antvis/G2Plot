@@ -1,14 +1,14 @@
 import { IGroup } from '@antv/g2';
 import InteractionContext from '@antv/g2/lib/interaction/context';
 import { Sunburst } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
-import { SIMPLE_SUNBURST_DATA } from '../../../data/sunburst';
 import {
   BREAD_CRUMB_NAME,
   DEFAULT_BREAD_CRUMB_CONFIG,
   DrillDownAction,
   PADDING_TOP,
 } from '../../../../src/interactions/actions/drill-down';
+import { SIMPLE_SUNBURST_DATA } from '../../../data/sunburst';
+import { createDiv } from '../../../utils/dom';
 
 describe('sunburst: drill-down', () => {
   const div = createDiv();

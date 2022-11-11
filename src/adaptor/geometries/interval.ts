@@ -3,7 +3,7 @@ import { isNil, isObject } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { deepAssign } from '../../utils';
 import { getTooltipMapping } from '../../utils/tooltip';
-import { GeometryOptions, MappingOptions, geometry } from './base';
+import { geometry, GeometryOptions, MappingOptions } from './base';
 
 export interface IntervalGeometryOptions extends GeometryOptions {
   /** x 轴字段 */

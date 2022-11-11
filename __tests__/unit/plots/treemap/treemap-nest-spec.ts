@@ -1,6 +1,6 @@
 import { Treemap } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { TREEMAP_CHILDREN } from '../../../data/treemap-nest';
+import { createDiv } from '../../../utils/dom';
 
 const color = [
   '#5B8FF9',

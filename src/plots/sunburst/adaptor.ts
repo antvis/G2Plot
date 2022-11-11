@@ -1,22 +1,22 @@
-import { isFunction, get, uniq } from '@antv/util';
 import { Types } from '@antv/g2';
-import { Params } from '../../core/adaptor';
-import { polygon as polygonAdaptor } from '../../adaptor/geometries';
+import { get, isFunction, uniq } from '@antv/util';
 import {
-  interaction as baseInteraction,
   animation,
-  theme,
   annotation,
-  scale,
-  pattern,
+  interaction as baseInteraction,
   legend,
+  pattern,
+  scale,
+  theme,
 } from '../../adaptor/common';
-import { flow, findGeometry, transformLabel, deepAssign } from '../../utils';
-import { getAdjustAppendPadding } from '../../utils/padding';
+import { polygon as polygonAdaptor } from '../../adaptor/geometries';
+import { Params } from '../../core/adaptor';
 import { Datum } from '../../types';
+import { deepAssign, findGeometry, flow, transformLabel } from '../../utils';
+import { getAdjustAppendPadding } from '../../utils/padding';
 import { RAW_FIELDS, SUNBURST_ANCESTOR_FIELD, SUNBURST_PATH_FIELD, SUNBURST_Y_FIELD } from './constant';
-import { transformData } from './utils';
 import { SunburstOptions } from './types';
+import { transformData } from './utils';
 
 /**
  * geometry 配置处理

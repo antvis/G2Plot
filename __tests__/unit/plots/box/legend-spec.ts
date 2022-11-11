@@ -1,6 +1,6 @@
 import { Box } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { groupBoxData } from '../../../data/box';
+import { createDiv } from '../../../utils/dom';
 
 describe('box legend', () => {
   it('legend position', () => {

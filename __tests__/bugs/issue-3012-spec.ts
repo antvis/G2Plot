@@ -1,6 +1,6 @@
 import { Bar } from '../../src';
-import { createDiv } from '../utils/dom';
 import { delay } from '../utils/delay';
+import { createDiv } from '../utils/dom';
 
 describe('#3012', () => {
   it('basic bar', async () => {

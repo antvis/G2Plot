@@ -1,12 +1,12 @@
 import { get } from '@antv/util';
+import { animation, annotation, interaction as commonInteraction, legend, theme, tooltip } from '../../adaptor/common';
 import { polygon as basePolygon } from '../../adaptor/geometries/polygon';
-import { Params } from '../../core/adaptor';
-import { interaction as commonInteraction, animation, theme, legend, annotation, tooltip } from '../../adaptor/common';
 import { pattern } from '../../adaptor/pattern';
-import { flow, deepAssign } from '../../utils';
+import { Params } from '../../core/adaptor';
+import { deepAssign, flow } from '../../utils';
 import { getAdjustAppendPadding } from '../../utils/padding';
-import { transformData, findInteraction, enableDrillInteraction } from './utils';
 import { TreemapOptions } from './types';
+import { enableDrillInteraction, findInteraction, transformData } from './utils';
 
 /**
  * 获取默认 option

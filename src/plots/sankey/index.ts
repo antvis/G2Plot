@@ -1,14 +1,14 @@
 import { get } from '@antv/util';
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
+import { Plot } from '../../core/plot';
 import { Data, Datum } from '../../types';
 import { findViewById } from '../../utils';
-import { SankeyOptions } from './types';
 import { adaptor } from './adaptor';
-import { transformToViewsData } from './helper';
 import { EDGES_VIEW_ID, NODES_VIEW_ID } from './constant';
+import { transformToViewsData } from './helper';
 // 桑基图内置交互
 import './interactions';
+import { SankeyOptions } from './types';
 
 export type { SankeyOptions };
 

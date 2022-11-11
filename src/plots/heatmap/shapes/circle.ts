@@ -1,4 +1,4 @@
-import { registerShape, Types, IGroup } from '@antv/g2';
+import { IGroup, registerShape, Types } from '@antv/g2';
 
 registerShape('polygon', 'circle', {
   draw(cfg: Types.ShapeInfo, group: IGroup) {

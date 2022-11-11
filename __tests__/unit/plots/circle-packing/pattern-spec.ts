@@ -1,6 +1,6 @@
 import { CirclePacking } from '../../../../src';
-import { createDiv } from '../../../utils/dom';
 import { DATA } from '../../../data/circle-packing';
+import { createDiv } from '../../../utils/dom';
 
 describe('Circle-Packing', () => {
   const div = createDiv();

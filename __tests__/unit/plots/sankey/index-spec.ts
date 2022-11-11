@@ -1,8 +1,7 @@
 import { Datum, Sankey } from '../../../../src';
-import { createDiv, removeDom } from '../../../utils/dom';
-import { delay } from '../../../utils/delay';
-import { ENERGY_RELATIONS } from '../../../data/sankey-energy';
 import { PARALLEL_SET } from '../../../data/parallel-set';
+import { ENERGY_RELATIONS } from '../../../data/sankey-energy';
+import { createDiv, removeDom } from '../../../utils/dom';
 
 describe('sankey', () => {
   it('sankey', async () => {

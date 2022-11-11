@@ -1,6 +1,6 @@
 import { Options, ShapeAttr, SizeAttr, StyleAttr } from '../../types';
-import { LineOptions } from '../line/types';
 import { ColumnOptions } from '../column/types';
+import { LineOptions } from '../line/types';
 
 export enum AxisType {
   Left = 'Left',

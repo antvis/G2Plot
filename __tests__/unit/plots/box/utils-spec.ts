@@ -1,5 +1,5 @@
-import { transformData } from '../../../../src/plots/box/utils';
 import { BOX_RANGE } from '../../../../src/plots/box/constant';
+import { transformData } from '../../../../src/plots/box/utils';
 import { boxData } from '../../../data/box';
 
 describe('transformData', () => {

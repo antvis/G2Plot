@@ -1,9 +1,9 @@
-import { Plot } from '../../core/plot';
 import { Adaptor } from '../../core/adaptor';
-import { BoxOptions } from './types';
+import { Plot } from '../../core/plot';
 import { adaptor } from './adaptor';
-import { transformData } from './utils';
 import { DEFAULT_OPTIONS, OUTLIERS_VIEW_ID } from './constant';
+import { BoxOptions } from './types';
+import { transformData } from './utils';
 export type { BoxOptions };
 
 export class Box extends Plot<BoxOptions> {

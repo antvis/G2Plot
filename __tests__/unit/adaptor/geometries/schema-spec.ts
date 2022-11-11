@@ -1,4 +1,4 @@
-import { schema, SchemaGeometryOptions, P, Params } from '../../../../src';
+import { P, Params, schema, SchemaGeometryOptions } from '../../../../src';
 import { Y_FIELD } from '../../../../src/plots/stock/constant';
 import { getStockData } from '../../../../src/plots/stock/utils';
 import { createDiv } from '../../../utils/dom';

@@ -1,20 +1,19 @@
 import { Geometry } from '@antv/g2';
 import { each, isArray } from '@antv/util';
-import { Params } from '../../core/adaptor';
 import {
-  tooltip,
-  slider,
-  interaction,
   animation,
-  theme,
-  scale,
   annotation,
+  interaction,
   limitInPlot,
+  scale,
   scrollbar,
+  slider,
+  theme,
+  tooltip,
 } from '../../adaptor/common';
-import { findGeometry, transformLabel, deepAssign } from '../../utils';
-import { point, line, area } from '../../adaptor/geometries';
-import { flow } from '../../utils';
+import { area, line, point } from '../../adaptor/geometries';
+import { Params } from '../../core/adaptor';
+import { deepAssign, findGeometry, flow, transformLabel } from '../../utils';
 import { adjustYMetaByZero } from '../../utils/data';
 import { LineOptions } from './types';
 

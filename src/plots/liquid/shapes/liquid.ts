@@ -1,9 +1,9 @@
-import { registerShape } from '@antv/g2';
 import { IGroup, IShape } from '@antv/g-base';
-import { reduce, isNumber, mix } from '@antv/util';
-import { transform } from '../../../utils/matrix';
+import { registerShape } from '@antv/g2';
+import { isNumber, mix, reduce } from '@antv/util';
 import { Point, ShapeStyle } from '../../../types';
-import { LiquidOptions, CustomInfo } from '../types';
+import { transform } from '../../../utils/matrix';
+import { CustomInfo, LiquidOptions } from '../types';
 
 const DURATION = 5000;
 

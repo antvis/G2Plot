@@ -1,7 +1,7 @@
 import DataSet from '@antv/data-set';
 import { Tag, Word } from '../../../../src/plots/word-cloud/types';
 import { processImageMask } from '../../../../src/plots/word-cloud/utils';
-import { wordCloud, transform } from '../../../../src/utils/transform/word-cloud';
+import { transform, wordCloud } from '../../../../src/utils/transform/word-cloud';
 
 const { View } = DataSet;
 const options = {

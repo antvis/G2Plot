@@ -22,7 +22,7 @@ contributors:
       <tbody>
         <tr style="height: 33px;">
           <td colspan="1" rowspan="4" style="background:#fff">
-            <Playground path='scatter/scatter/demo/color-mapping.ts' rid='rect1'></playground>
+            <Playground path="scatter/scatter/demo/color-mapping.ts" rid="rect1" ratio="0"></playground>
           </td>
           <td class="style1">
           <p><strong>定义</strong></p>

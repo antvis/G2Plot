@@ -16,7 +16,7 @@ order: 9
         <tbody>
           <tr style="height: 33px">
             <td colspan="1" rowspan="5" style="background: #fff">
-              <Playground path="progress-plots/bullet/demo/grouped.ts"></playground>
+              <Playground path="progress-plots/bullet/demo/grouped.ts" ratio="0"></playground>
             </td>
             <td class="style1">
               <p><strong>定义</strong></p>

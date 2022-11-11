@@ -122,7 +122,7 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/K0kfOzo4j%24/column.json')
 
 通过指定 `seriesField` 且设置 `isGroup: true` 就可以创建分组柱状图。
 
-<Playground path="column/grouped/demo/basic.ts" rid="group-column"></playground>
+<Playground path="column/grouped/demo/basic.ts" rid="group-column" ratio="0"></playground>
 
 ### 指定柱子最大宽度、最小宽度
 

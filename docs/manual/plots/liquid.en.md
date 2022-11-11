@@ -22,7 +22,7 @@ contributors:
       <tbody>
         <tr style="height: 33px;">
           <td colspan="1" rowspan="4" style="background:#fff">
-            <Playground path='progress-plots/liquid/demo/basic.ts'></playground>
+            <Playground path="progress-plots/liquid/demo/basic.ts" ratio="0"></playground>
           </td>
           <td class="style1">
           <p><strong>定义</strong></p>

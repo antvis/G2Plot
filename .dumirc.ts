@@ -402,7 +402,6 @@ export default defineConfig({
     ],
     playground: {
       extraLib: '',
-      container: '<div id="container"><div id="container1"></div><div id="container2"></div></div>', // 定义演示的渲染节点，默认 <div id="container" />
       devDependencies: {
         typescript: 'latest',
       },
@@ -416,12 +415,12 @@ export default defineConfig({
       en: ''
     }
   },
-  // analytics: {
-  //   // Google Analytics code, will be enabled after configuration
-  //   ga: 'UA-148148901-2',
-  //   // Baidu statistics code, will be enabled after configuration
-  //   // baidu: '5a66cxxxxxxxxxx9e13',
-  // },
+  analytics: {
+    // Google Analytics code, will be enabled after configuration
+    ga: 'UA-148148901-2',
+    // Baidu statistics code, will be enabled after configuration
+    // baidu: '5a66cxxxxxxxxxx9e13',
+  },
   mfsu: false,
   alias: {
     // 根据自己项目结构书写绝对路径

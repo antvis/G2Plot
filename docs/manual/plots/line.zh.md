@@ -25,7 +25,7 @@ contributors:
         <tbody>
           <tr style="height: 33px">
             <td colspan="1" rowspan="5" style="background: #fff">
-              <Playground path="line/basic/demo/line.ts"></playground>
+              <Playground path="line/basic/demo/line.ts" ratio="0"></playground>
             </td>
             <td class="style1">
               <p><strong>定义</strong></p>

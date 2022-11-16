@@ -45,8 +45,7 @@
     "ci": "run-s lint coverage build",
     "changelog": "generate-changelog",
     "prepublishOnly": "run-s lint test build",
-    "analyze": "webpack --profile --json > dist/stats.json && webpack-bundle-analyzer ./dist/stats.json",
-    "contributors:add": "all-contributors add"
+    "analyze": "webpack --profile --json > dist/stats.json && webpack-bundle-analyzer ./dist/stats.json"
   },
   "husky": {
     "hooks": {
@@ -77,7 +76,6 @@
     "@types/jest": "^25.2.1",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",
-    "all-contributors-cli": "^6.20.0",
     "antd": "^4.8.4",
     "babel-loader": "^8.1.0",
     "chroma-js": "^2.1.2",

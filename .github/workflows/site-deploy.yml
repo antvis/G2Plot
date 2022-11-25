@@ -22,7 +22,7 @@ jobs:
           git init
           git config --local user.name antv
           git config --local user.email antv@antfin.com
-          git add .
+          git add dist
           git commit -m "update by release action"
       - uses: ad-m/github-push-action@master
         with:

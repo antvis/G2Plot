@@ -1,6 +1,5 @@
 import { IGroup } from '@antv/g2';
 import { Gauge } from '../../../../../src';
-import { delay } from '../../../../utils/delay';
 import { createDiv } from '../../../../utils/dom';
 
 describe('gauge', () => {

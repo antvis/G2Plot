@@ -2,24 +2,27 @@ import { defineConfig } from 'dumi';
 import { repository, version } from './package.json';
 
 export default defineConfig({
-  locales: [{ id: 'zh', name: '中文' }, { id: 'en', name: 'English' }],
+  locales: [
+    { id: 'zh', name: '中文' },
+    { id: 'en', name: 'English' },
+  ],
   themeConfig: {
     title: 'G2Plot',
     description: 'A collection of charts made with the Grammar of Graphics',
     defaultLanguage: 'zh',
-    siteUrl: 'https://g2plot.antv.vision',
+    siteUrl: 'https://g2plot.antv.antgroup.com',
     isAntVSite: false,
-    githubUrl: repository.url,                                          // GitHub 地址
-    showSearch: true,                                                   // 是否显示搜索框
-    showGithubCorner: true,                                             // 是否显示头部的 GitHub icon
-    showGithubStars: true,                                              // 是否显示 GitHub star 数量
-    showAntVProductsCard: true,                                         // 是否显示 AntV 产品汇总的卡片
-    showLanguageSwitcher: true,                                         // 是否显示官网语言切换
-    showWxQrcode: true,                                                 // 是否显示头部菜单的微信公众号
-    showChartResize: true,                                              // 是否在 demo 页展示图表视图切换
-    showAPIDoc: true,                                                   // 是否在 demo 页展示API文档
+    githubUrl: repository.url, // GitHub 地址
+    showSearch: true, // 是否显示搜索框
+    showGithubCorner: true, // 是否显示头部的 GitHub icon
+    showGithubStars: true, // 是否显示 GitHub star 数量
+    showAntVProductsCard: true, // 是否显示 AntV 产品汇总的卡片
+    showLanguageSwitcher: true, // 是否显示官网语言切换
+    showWxQrcode: true, // 是否显示头部菜单的微信公众号
+    showChartResize: true, // 是否在 demo 页展示图表视图切换
+    showAPIDoc: true, // 是否在 demo 页展示API文档
     versions: {
-      [version]: 'https://g2plot.antv.vision',
+      [version]: 'https://g2plot.antv.antgroup.com',
       '1.x': 'https://g2plot-v1.antv.vision',
     },
     navs: [
@@ -68,7 +71,7 @@ export default defineConfig({
           zh: '图表性能检测工具',
           en: 'Charts performance test',
         },
-        url: 'https://git.hust.cc/charts-perf/'
+        url: 'https://git.hust.cc/charts-perf/',
       },
       {
         name: {
@@ -120,11 +123,11 @@ export default defineConfig({
           en: 'Forum',
         },
         title: {
-          zh: 'AntV 芒种日 图新物：GraphInsight 发布',
-          en: 'AntV Seeds Day Graph New: GraphInsight Released',
+          zh: '远方 · 远芳 AntV 2022 年度发布',
+          en: 'Yuanyuan · Yuanfang AntV 2022 Annual Release',
         },
-        date: '2022.06.06',
-        link: 'https://github.com/antvis/GraphInsight',
+        date: '2022.11.22',
+        link: 'https://www.yuque.com/antv/blog/1122_6',
       },
       {
         type: {
@@ -132,11 +135,11 @@ export default defineConfig({
           en: 'Forum',
         },
         title: {
-          zh: 'SEE Conf 2022 支付宝体验科技大会',
-          en: 'SEE Conf 2022 Alipay Experience Technology Conference',
+          zh: 'AntV 芒种日 图新物：GraphInsight 发布',
+          en: 'AntV Seeds Day Graph New: GraphInsight Released',
         },
-        date: '2022.01.08',
-        link: 'https://seeconf.antfin.com/',
+        date: '2022.06.06',
+        link: 'https://github.com/antvis/GraphInsight',
       },
     ],
     features: [
@@ -170,7 +173,7 @@ export default defineConfig({
         },
         description: {
           zh: '保证图表在任何显示尺寸、任何数据状态下的可读性',
-          en: 'The responsive ability of g2plot guarantee your chart\'s readability in any display space and data status.',
+          en: "The responsive ability of g2plot guarantee your chart's readability in any display space and data status.",
         },
       },
     ],
@@ -185,7 +188,7 @@ export default defineConfig({
           zh: '来这里尝试一下我们正在开发中的高级图表功能',
           en: 'We are now working on some advanced and powerful chart features.',
         },
-        link: `/examples/plugin/multi-view`,
+        link: `/examples`,
         image: 'https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*SXLtRaVPGvMAAAAAAAAAAABkARQnAQ',
         isAppLogo: true,
       },
@@ -193,13 +196,16 @@ export default defineConfig({
     /** 首页合作公司 */
     companies: [
       { name: '阿里云', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*V_xMRIvw2iwAAAAAAAAAAABkARQnAQ' },
-      { name: '支付宝', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*lYDrRZvcvD4AAAAAAAAAAABkARQnAQ', },
-      { name: '天猫', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*BQrxRK6oemMAAAAAAAAAAABkARQnAQ', },
-      { name: '淘宝网', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*1l8-TqUr7UcAAAAAAAAAAABkARQnAQ', },
-      { name: '网上银行', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ZAKFQJ5Bz4MAAAAAAAAAAABkARQnAQ', },
-      { name: '京东', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*yh-HRr3hCpgAAAAAAAAAAABkARQnAQ', },
-      { name: 'yunos', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_js7SaNosUwAAAAAAAAAAABkARQnAQ', },
-      { name: '菜鸟', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*TgV-RZDODJIAAAAAAAAAAABkARQnAQ', },
+      { name: '支付宝', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*lYDrRZvcvD4AAAAAAAAAAABkARQnAQ' },
+      { name: '天猫', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*BQrxRK6oemMAAAAAAAAAAABkARQnAQ' },
+      { name: '淘宝网', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*1l8-TqUr7UcAAAAAAAAAAABkARQnAQ' },
+      {
+        name: '网上银行',
+        img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*ZAKFQJ5Bz4MAAAAAAAAAAABkARQnAQ',
+      },
+      { name: '京东', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*yh-HRr3hCpgAAAAAAAAAAABkARQnAQ' },
+      { name: 'yunos', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*_js7SaNosUwAAAAAAAAAAABkARQnAQ' },
+      { name: '菜鸟', img: 'https://gw.alipayobjects.com/mdn/rms_2274c3/afts/img/A*TgV-RZDODJIAAAAAAAAAAABkARQnAQ' },
     ],
     // 文档目录的信息
     docs: [
@@ -242,7 +248,7 @@ export default defineConfig({
           en: 'Common Configuration',
         },
         order: 5,
-      }
+      },
     ],
     // 示例分类的信息
     examples: [
@@ -412,8 +418,8 @@ export default defineConfig({
     },
     announcement: {
       zh: '',
-      en: ''
-    }
+      en: '',
+    },
   },
   analytics: {
     // Google Analytics code, will be enabled after configuration
@@ -426,8 +432,6 @@ export default defineConfig({
     // 根据自己项目结构书写绝对路径
     '@': __dirname,
   },
-  links: [
-  ],
-  scripts: [
-  ],
+  links: [],
+  scripts: [],
 });

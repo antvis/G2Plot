@@ -21,15 +21,13 @@ jobs:
       - run: yarn install
       - run: npm run site:build
       - run: |
-          cd public
           git init
           git config --local user.name antv
           git config --local user.email antv@antfin.com
-          git add .
+          git add dist -f
           git commit -m "update by release action"
       - uses: ad-m/github-push-action@master
         with:
           github_token: ${{secrets.PERSONAL_ACCESS_TOKEN}}
-          directory: public
-          branch: gh-pages
+          branch: g2plot-site
           force: true

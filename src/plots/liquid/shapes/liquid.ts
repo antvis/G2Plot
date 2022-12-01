@@ -223,7 +223,7 @@ export function addWaterWave(
 
   // 循环 waveCount 个数
   for (let idx = 0; idx < waveCount; idx++) {
-    const factor = waveCount <= 1 ? 0 : idx / (waveCount - 1);
+    const factor = waveCount <= 1 ? 1 : idx / (waveCount - 1);
 
     // 画波
     const wave = group.addShape('path', {

@@ -389,7 +389,7 @@ registerShape('interval', 'liquid-fill-gauge', {
     const cy = 0.5;
 
     const { customInfo } = cfg;
-    const { radius: radio, shape, background, animation } = customInfo as CustomInfo;
+    const { radius: radio, shape, shapeStyle, background, animation } = customInfo as CustomInfo;
     const outline: LiquidOptions['outline'] = customInfo.outline;
     const wave: LiquidOptions['wave'] = customInfo.wave;
     const { border, distance } = outline;
@@ -417,7 +417,18 @@ registerShape('interval', 'liquid-fill-gauge', {
     const buildPath = typeof shape === 'function' ? shape : builtInShapeByName[shape] || builtInShapeByName['circle'];
     const shapePath = buildPath(center.x, center.y, innerRadius * 2, innerRadius * 2);
 
-    // 1. 绘制一个波
+    // 1. 当 shapeStyle 不为空时，绘制形状样式作为背景
+    if (shapeStyle) {
+      container.addShape('path', {
+        name: 'shape',
+        attrs: {
+          path: shapePath,
+          ...shapeStyle,
+        },
+      });
+    }
+    
+    // 2. 绘制一个波
     const waves = container.addGroup({
       name: 'waves',
     });
@@ -444,7 +455,7 @@ registerShape('interval', 'liquid-fill-gauge', {
       animation
     );
 
-    // 2. 绘制一个 distance 宽的 border
+    // 5. 绘制一个 distance 宽的 border
     container.addShape('path', {
       name: 'distance',
       attrs: {
@@ -455,7 +466,7 @@ registerShape('interval', 'liquid-fill-gauge', {
       },
     });
 
-    // 3. 绘制一个 border 宽的 border
+    // 6. 绘制一个 border 宽的 border
     container.addShape('path', {
       name: 'wrap',
       attrs: mix(outlineAttrs, {

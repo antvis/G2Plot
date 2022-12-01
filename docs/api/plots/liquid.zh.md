@@ -62,6 +62,14 @@ function shape(x: number, y: number, width: number, height: number) {
 
 <embed src="@/docs/common/color.zh.md"></embed>
 
+#### shapeStyle
+
+<description>**optional** _StyleAttr | Function_</description>
+
+形状的样式。
+
+<embed src="@/docs/common/shape-style.zh.md"></embed>
+
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>

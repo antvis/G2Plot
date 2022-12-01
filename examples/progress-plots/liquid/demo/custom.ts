@@ -15,6 +15,9 @@ const liquidPlot = new Liquid('container', {
       ['Z'],
     ];
   },
+  shapeStyle: {
+    fill: 'pink',
+  },
   outline: {
     border: 4,
     distance: 8,

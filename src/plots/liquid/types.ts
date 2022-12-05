@@ -62,6 +62,10 @@ export interface LiquidOptions extends Omit<Options, 'data'> {
    */
   readonly liquidStyle?: StyleAttr;
   /**
+   * @title 形状的样式
+   */
+  readonly shapeStyle?: StyleAttr;
+  /**
    * @title 指标文本组件
    */
   readonly statistic?: Statistic;
@@ -88,6 +92,7 @@ export type CustomInfo = {
   outline?: LiquidOptions['outline'];
   wave?: LiquidOptions['wave'];
   shape?: LiquidOptions['shape'];
+  shapeStyle?: LiquidOptions['shapeStyle'];
   background?: string;
   animation?: LiquidOptions['animation'];
 };

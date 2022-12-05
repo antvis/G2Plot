@@ -62,6 +62,14 @@ function shape(x: number, y: number, width: number, height: number) {
 
 <embed src="@/docs/common/color.en.md"></embed>
 
+#### shapeStyle
+
+<description>**optional** _StyleAttr | Function_</description>
+
+Shape graphic style.
+
+<embed src="@/docs/common/shape-style.en.md"></embed>
+
 #### pattern ✨
 
 <description>**optional** _object | Function_</description>

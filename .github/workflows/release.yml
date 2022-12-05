@@ -18,8 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: cd site
       - run: yarn install
-      - run: npm run site:build
+      - run: npm run build
       - run: |
           git init
           git config --local user.name antv

@@ -1,0 +1,148 @@
+---
+title: 柱状图
+order: 1
+contributors:
+  [
+    {
+      author: '新茗',
+      github: 'visiky',
+      avatar: 'https://gw.alipayobjects.com/zos/antfincdn/KAeYPA3TV0/avatar.jpeg',
+    },
+  ]
+---
+
+<div class="manual-docs">
+  <div data-card-type="block" data-lake-card="table" id="pLwYV" class="">
+      <table
+        class="lake-table"
+        style="width: 100%; outline: none; border-collapse: collapse"
+      >
+        <colgroup>
+          <col width="425" span="1" />
+          <col width="340" span="1" />
+        </colgroup>
+        <tbody>
+          <tr style="height: 33px">
+            <td colspan="1" rowspan="5" style="background: #fff">
+              <Playground path="column/basic/demo/basic.ts" rid='rect1' ratio="0"></playground>
+            </td>
+            <td class="style1">
+              <p><strong>定义</strong></p>
+              <p>
+                <span class="lake-fontsize-12"
+                  >使用柱形显示维度的数值。横轴显示分类维度，纵轴显示相应的值</span
+                >
+              </p>
+               <p>
+                <strong>别名: </strong>
+                <span class="lake-fontsize-12">
+               柱形图</span>
+              </p>
+          </td>
+          </tr>
+          <tr style="height: 33px">
+            <td class="style1">
+              <p><strong>何时使用</strong></p>
+              <p><span class="lake-fontsize-12">柱状图通过垂直柱子长短对比数值大小，适用于对比一组或者多组分类数据。</span></p>
+            </td>
+          </tr>
+          <tr style="height: 33px">
+            <td class="style1">
+              <p><strong>视觉通道</strong></p>
+              <p><span class="lake-fontsize-12">位置、方向、颜色</span></p>
+            </td>
+          </tr>
+          <tr style="height: 33px">
+            <td colspan="1">
+              <p><strong>分析目的</strong></p>
+              <p><span class="lake-fontsize-12">比较、趋势、分布、排名、组成</span></p>
+            </td>
+          </tr>
+          <tr style="height: 33px">
+            <td colspan="1">
+              <p><strong>数据准备</strong></p>
+              <p>
+                <span class="lake-fontsize-12">1 个「时间」或「有序名词」字段</span>
+              </p>
+              <p><span class="lake-fontsize-12">1 个「数值」字段</span></p>
+              <p>
+                <span class="lake-fontsize-12">0 ～ 1 个「无序名词」字段</span>
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+## 设计指引
+
+<embed src="@/examples/column/basic/design.zh.md"></embed>
+
+## 快速上手
+
+<div class='sign'>
+
+```ts
+import { Column } from '@antv/g2plot';
+
+fetch('https://gw.alipayobjects.com/os/antfincdn/K0kfOzo4j%24/column.json')
+   .then(data => data.json())
+   .then(data => {
+      const columnPlot = new Column('container', {
+        data,
+        xField: 'type',
+        yField: 'sales',
+      });
+
+      columnPlot.render();
+   });
+```
+
+</div>
+
+📊 查看更多<a href="/zh/examples/column/basic" target='blank'>示例</a>.
+
+🎨 柱状图详细的配置参考 [API 文档](/zh/docs/api/plots/column)。
+
+</div>
+
+## 柱状图特性
+
+### 堆叠柱状图
+
+使用颜色不同的堆叠的柱形来显示各维度的数值。横轴标示出第一个分类维度，颜色标示出第二个分类维度，纵轴显示相应的值。
+
+通过指定 `seriesField` 且设置 `isStack: true` 就可以创建堆叠柱状图。
+
+<Playground path="column/stacked/demo/basic.ts" rid="stacked-column"></playground>
+
+### 分组柱状图
+
+使用颜色不同的柱形并排组成小组来显示各维度的数值。横轴标示出分组，颜色标示出分类，纵轴显示相应的值。
+
+通过指定 `seriesField` 且设置 `isGroup: true` 就可以创建分组柱状图。
+
+<Playground path="column/grouped/demo/basic.ts" rid="group-column" ratio="0"></playground>
+
+### 指定柱子最大宽度、最小宽度
+
+通过设置 `maxColumnWidth` 可以指定柱子的最大宽度，设置 `minColumnWidth` 可以指定柱子的最小宽度。
+
+通过组合指定柱子最大宽度、最小宽度可以达到指定柱子宽度的效果。
+
+<Playground path="column/basic/demo/width.ts" rid="specify-column-width"></playground>
+
+### 设置柱子的圆角
+
+通过设置 `columnStyle.radius` 可以指定柱子的圆角，数据类型可以是 `number` 也可以是 `number[]`。
+
+当柱子数值为正值时，`const [r1, r2, r3, r4] = radius` 依次代表柱子左上角、右上角、右下角、左下角的 `radius`。
+当柱子数值为负值时，`const [r1, r2, r3, r4] = radius` 依次代表柱子左下角、右下角、右上角、左上角的 `radius`。
+
+<Playground path="column/grouped/demo/corner-radius.ts" rid="corner-radius"></playground>
+
+### 设置柱子的背景样式
+
+通过设置 `columnBackground.style` 可以指定柱子的背景样式。
+
+<Playground path="column/stacked/demo/column-background.ts" rid="column-background"></playground>

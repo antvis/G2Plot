@@ -5,8 +5,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const sourceFilePath = path.resolve('./examples');
-const targetFilePath = path.resolve('./docs/manual/plots');
+const sourceFilePath = path.resolve('./site/examples');
+const targetFilePath = path.resolve('./site/docs/manual/plots');
 const excludeFilesPath = ['gallery']; // 不处理的路径
 const includeFiles = ['API.zh.md', 'API.en.md'];
 

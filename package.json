@@ -145,7 +145,8 @@
   ],
   "resolutions": {
     "d3-array": "2.12.1",
-    "@types/lodash": "4.14.182"
+    "@types/lodash": "4.14.182",
+    "@types/babel__traverse": "7.0.6"
   },
   "license": "MIT"
 }

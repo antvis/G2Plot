@@ -22,11 +22,9 @@ jobs:
       - run: yarn install
       - run: npm run build
       - run: |
-          cd ..
           git init
           git config --local user.name antv
           git config --local user.email antv@antfin.com
-          mv site/dist ./
           git add dist -f
           git commit -m "update by release action"
       - uses: ad-m/github-push-action@master

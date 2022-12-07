@@ -24,11 +24,7 @@
     "url": "https://github.com/antvis/G2plot"
   },
   "scripts": {
-    "start": "npm run site:clean && npm run site:develop",
-    "site:develop": "dumi dev",
-    "site:build": "dumi build",
-    "site:clean": "",
-    "site:deploy": "npm run build && npm run site:build && gh-pages -d public",
+    "start": "cd site && npm start",
     "fix": "eslint --ext .ts ./src ./__tests__ --fix && prettier --write ./src ./__tests__ && lint-md --fix ./examples ./docs",
     "build": "run-s clean lib dist size",
     "size": "limit-size",
@@ -66,7 +62,6 @@
   },
   "devDependencies": {
     "@antv/data-set": "^0.11.5",
-    "@antv/dumi-theme-antv": "^0.3.0-beta.3",
     "@babel/core": "^7.10.4",
     "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.10.4",
@@ -78,16 +73,13 @@
     "@typescript-eslint/parser": "^2.0.0",
     "antd": "^4.8.4",
     "babel-loader": "^8.1.0",
-    "chroma-js": "^2.1.2",
     "conventional-changelog-cli": "^2.0.34",
     "cross-env": "^7.0.2",
-    "dumi": "^2.0.0-beta.11",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.0",
     "generate-changelog": "^1.8.0",
-    "gh-pages": "^3.1.0",
     "husky": "^4.2.3",
     "jest": "^26.0.1",
     "jest-electron": "^0.1.7",
@@ -99,7 +91,6 @@
     "miz": "^1.0.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.1",
-    "rc-for-plots": "^0.0.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-i18next": "^11.7.0",
@@ -154,7 +145,8 @@
   ],
   "resolutions": {
     "d3-array": "2.12.1",
-    "@types/lodash": "4.14.182"
+    "@types/lodash": "4.14.182",
+    "@types/babel__traverse": "7.0.6"
   },
   "license": "MIT"
 }

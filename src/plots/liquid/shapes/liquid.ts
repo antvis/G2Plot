@@ -427,7 +427,7 @@ registerShape('interval', 'liquid-fill-gauge', {
         },
       });
     }
-    
+
     // 2. 绘制一个波
     const waves = container.addGroup({
       name: 'waves',

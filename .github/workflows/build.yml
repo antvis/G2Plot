@@ -11,9 +11,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
-      - name: npm install
+      - name: yarn install
         run: |
-          npm install
+          yarn install
       - name: lint
         run: |
           npm run lint
@@ -26,9 +26,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
-      - name: npm install
+      - name: yarn install
         run: |
-          npm install
+          yarn install
       - name: build
         run: |
           npm run build
@@ -41,7 +41,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
-      - name: npm install
+      - name: yarn install
         run: |
           yarn install
       - name: test

@@ -1,5 +1,5 @@
 import { defineConfig } from 'dumi';
-import { repository, version } from './package.json';
+import { repository, version } from '../package.json';
 
 export default defineConfig({
   locales: [

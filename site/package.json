@@ -1,0 +1,22 @@
+{
+  "version": "",
+  "scripts": {
+    "start": "dumi dev",
+    "build": "dumi build",
+    "preview": "dumi preview"
+  },
+  "dependencies": {
+    "@antv/dumi-theme-antv": "^0.3.0",
+    "@antv/util": "^2.0.17",
+    "antd": "^4.8.4",
+    "chroma-js": "^2.1.2",
+    "dumi": "^2.0.0",
+    "rc-for-plots": "^0.0.1",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antvis/g2plot"
+  }
+}

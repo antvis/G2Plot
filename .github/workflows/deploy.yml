@@ -1,4 +1,4 @@
-name: Release
+name: Deploy
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ jobs:
       - run: yarn install
       - run: npm run lint
 
-  publish-site:
+  deploy-site:
     needs: build
     runs-on: ubuntu-latest
     steps:

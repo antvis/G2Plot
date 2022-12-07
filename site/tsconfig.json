@@ -1,8 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@antv/g2plot": ["../src/index.ts"]
-    }
+    "baseUrl": "."
   }
 }

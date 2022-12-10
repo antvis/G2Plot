@@ -12,3 +12,5 @@ if (window) {
   (window as any).rcForPlots = require('rc-for-plots');
   require('antd/lib/alert/style/index.css');
 }
+
+(window as any).location.href = location.href.replace(location.origin, 'https://g2plot.antv.antgroup.com');

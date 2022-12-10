@@ -21,7 +21,7 @@ const line = new Line('container', {
   yField: 'y',
   xAxis: {
     type: 'time',
-    mask: 'HH:MM:ss',
+    mask: 'HH:mm:ss',
   },
   smooth: true,
   point: {},

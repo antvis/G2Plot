@@ -12,7 +12,7 @@ Legend title configuration is not displayed by default. _G2LegendTitleCfg_ Confi
 
 | Properties | Type     | Default | Description                                                                         |
 | ---------- | -------- | ------- | ----------------------------------------------------------------------------------- |
-| title   | _string_ | Content of legend title                                            |
+| text   | _string_ | Content of legend title                                            |
 | spacing    | _number_ | -       | The spacing between the title and the legend item                                   |
 | style      | _object_ | -       | Text style configuration item, refer to [Graphic Style](/zh/docs/api/graphic-style) |
 

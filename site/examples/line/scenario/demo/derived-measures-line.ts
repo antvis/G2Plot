@@ -9,6 +9,7 @@ function processData(data, yFields, seriesField, meta) {
       const name = meta?.[yField]?.alias || yField;
       result.push({
         ...d,
+        date: d.date,
         [seriesKey]: `${d[seriesField]}:${name}`,
         [valueKey]: d[yField],
         isRCValue: meta?.[yField]?.isRCValue,

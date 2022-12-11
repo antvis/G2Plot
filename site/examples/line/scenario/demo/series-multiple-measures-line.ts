@@ -7,7 +7,7 @@ function processData(data, yFields, seriesField, meta) {
   data.forEach((d) => {
     yFields.forEach((yField) => {
       const name = meta?.[yField]?.alias || yField;
-      result.push({ ...d, [seriesKey]: `${d[seriesField]}:${name}`, [valueKey]: d[yField] });
+      result.push({ ...d, date: d.date, [seriesKey]: `${d[seriesField]}:${name}`, [valueKey]: d[yField] });
     });
   });
   return result;

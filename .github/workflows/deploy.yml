@@ -2,8 +2,9 @@ name: Deploy
 
 on:
   workflow_dispatch:
-  release:
-    types: [created, edited]
+  push:
+    branches:
+     - master
 
 jobs:
   deploy-site:

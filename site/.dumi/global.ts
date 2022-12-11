@@ -13,4 +13,6 @@ if (window) {
   require('antd/lib/alert/style/index.css');
 }
 
-(window as any).location.href = location.href.replace(location.origin, 'https://g2plot.antv.antgroup.com');
+if (location.host !== 'g2plot-site-pre.alipay.com') {
+  (window as any).location.href = location.href.replace(location.origin, 'https://g2plot.antv.antgroup.com');
+}

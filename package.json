@@ -24,8 +24,6 @@
     "url": "https://github.com/antvis/G2plot"
   },
   "scripts": {
-    "start": "cd site && npm start",
-    "site:build": "cd site && npm run build",
     "fix": "eslint --ext .ts ./src ./__tests__ --fix && prettier --write ./src ./__tests__ && lint-md --fix ./examples ./docs",
     "build": "run-s clean lib dist size",
     "size": "limit-size",

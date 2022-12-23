@@ -1,0 +1,97 @@
+.config-panel {
+  height: 100%;
+  width: 100%;
+  padding: 12px 0;
+  background-color: #f2f4f7;
+  box-shadow: -5px 0px 5px -2px rgba(0, 0, 0, 0.05);
+
+  overflow-y: auto;
+
+  * {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.65);
+  }
+  background-color: #ffffff;
+
+  .config-panel-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 14px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+
+    .config-panel-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 8px 0;
+      color: rgba(0, 0, 0, 0.85);
+
+      .title-icon {
+        margin-right: 8px;
+      }
+    }
+
+    .operation {
+      display: flex;
+
+      .ant-btn.btn {
+        padding: 4px 12px;
+        line-height: 1;
+      }
+
+      .btn:not(:first-child) {
+        margin-right: 4px;
+      }
+      .export-btn,
+      .copy-btn {
+        span {
+          color: #fff;
+        }
+        svg {
+          fill: #fff;
+        }
+      }
+    }
+  }
+
+  hr {
+    border-color: transparent;
+    border-bottom-color: rgba(0, 0, 0, 0.15);
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  .justify-between {
+    justify-content: space-between;
+  }
+
+  .color-palette-picker {
+    .color-group {
+      width: fit-content;
+      padding: 4px;
+      margin-bottom: 4px;
+      line-height: 1;
+      background-color: #fff;
+
+      .color-item {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border-radius: 3px;
+
+        & + .color-item {
+          margin-left: 4px;
+        }
+      }
+    }
+  }
+}
+
+body[data-theme='dark'] {
+  .config-panel {
+    box-shadow: -5px 0px 5px -2px rgba(255, 255, 255, 0.1);
+  }
+}

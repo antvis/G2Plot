@@ -1,0 +1,26 @@
+.plot-container {
+  padding: 16px;
+
+  .plot-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    
+  
+    &:hover {
+      .copy-icon {
+        visibility: visible;
+      }
+    }
+  
+    .copy-icon {
+      visibility: hidden;
+      cursor: pointer;
+      opacity: 0.65;
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

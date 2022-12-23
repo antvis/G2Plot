@@ -1,0 +1,50 @@
+.line-dash {
+  .content {
+    background: #efefef;
+    border-radius: 2px;
+    padding: 0px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 4px;
+  }
+
+  // 覆盖 antd 样式
+  // 强制展示
+  :global {
+    .ant-input-number-handler-wrap {
+      opacity: 0.7 !important;
+
+      svg {
+        width: 0.8em;
+        height: 0.8em;
+        transform: translateY(0.08em);
+      }
+    }
+  }
+}
+
+.line-dash:not(.inline) {
+  .content-item {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    .content-item-label {
+      margin-right: 4px;
+    }
+  }
+}
+
+.line-dash.inline {
+  .content-item {
+    align-items: center;
+    position: relative;
+
+    .content-item-label {
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+}

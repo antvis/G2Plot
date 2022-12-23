@@ -1,0 +1,24 @@
+.font-setting {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+
+  > div {
+    margin: 0;
+  }
+
+  > div:not(:last-of-type) {
+    margin-right: 8px;
+  }
+
+  > div:last-of-type {
+    flex: 1;
+  }
+
+  .font-color {
+    border-radius: 2px;
+    padding: 1px;
+    height: fit-content;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+  }
+}

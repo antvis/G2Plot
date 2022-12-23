@@ -1,0 +1,33 @@
+// 复写 antd
+.custom-collapse.ant-collapse {
+  > .custom-panel.ant-collapse-item {
+    overflow: hidden;
+    background: #f7f7f7;
+    border-radius: 0px;
+
+    &:first-child {
+      border-top: 1px solid #dfdfdf !important;
+    }
+
+    &:not(.ant-collapse-item-active),
+    &.ant-collapse-item-active:last-child {
+      border: 0px;
+    }
+
+    > .ant-collapse-header {
+      line-height: 1;
+      border-bottom: 1px solid #dfdfdf;
+      padding-left: 24px;
+      background-color: #f8f8f8;
+      font-size: 14px;
+
+      .ant-collapse-arrow {
+        top: 0px;
+        left: 8px;
+      }
+    }
+    > .ant-collapse-content  {
+      background-color: #ffffff;
+    }
+  }
+}

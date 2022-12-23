@@ -1,0 +1,19 @@
+.attr-label {
+  display: inline-block;
+
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 12px;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  .collapse-icon {
+    margin-right: 5px;
+    
+    :global {
+      // 给旋转 icon 加个过渡效果
+      svg {
+        transition: all 0.3s ease;
+      }
+    }
+  }
+}

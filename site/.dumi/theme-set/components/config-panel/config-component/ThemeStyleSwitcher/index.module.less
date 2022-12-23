@@ -1,0 +1,23 @@
+.theme-style-switcher {
+
+  .radio-group {
+    white-space: nowrap;
+
+    .radio-button {
+      width: 110px;
+      display: inline-flex;
+      justify-content: center;
+    }
+
+    :global {
+      .ant-radio-button-wrapper-checked {
+        .ant-radio-button-checked {
+          background-color: #F9F0FF;
+        }
+        &>span:last-child {
+          color: #873BF4;
+        }
+      }
+    }
+  }
+}

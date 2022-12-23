@@ -1,0 +1,23 @@
+.color-group {
+  overflow: hidden;
+
+  width: 100%;
+  height: 28px;
+  background-color: #fff;
+  border-radius: 6px;
+
+  &:not(:first-child) {
+    margin-top: 6px;
+  }
+
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+
+  .color-item {
+    display: inline-block;
+    cursor: pointer;
+    width: 100%;
+    height: 28px;
+    border-radius: unset;
+  }
+}

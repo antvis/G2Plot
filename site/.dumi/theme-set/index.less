@@ -1,0 +1,84 @@
+@import '~antd/dist/antd.less'; // 引入官方提供的 less 样式入口文件
+
+@footer-height: 52px;
+
+body {
+  line-height: 1;
+}
+
+.theme-set-container {
+  display: flex;
+}
+
+.sider-trigger {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border-radius: 13px;
+  top: 160px;
+  left: -13px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 2;
+  box-shadow: 0 0 2px rgba(0, 0 ,0, 0.08);
+}
+
+.mobile-sider {
+  height: unset !important;
+
+  .sider-trigger {
+    position: fixed;
+    top: -26px - @footer-height;
+    left: 90%;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 0 2px rgba(0, 0 ,0, 0.28);
+    animation: delayShow 0.3s;
+  }
+
+  // 移动端下重新 drawer 样式
+  .ant-drawer-mask {
+    display: none;
+  }
+  .ant-drawer-content-wrapper {
+    height: 50vh !important;
+  
+    .ant-drawer-content {
+      overflow: unset;
+    }
+  }
+  // 重写 drawer 开启时的样式
+  &.ant-drawer-open {
+    .sider-trigger {
+      display: none;
+    }
+  }
+}
+
+@keyframes delayShow {
+  from {
+    opacity: 0;
+  }
+  99% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+// 重写侧边样式
+.ant-layout-sider-collapsed {
+  flex: 0 0 0 !important;
+  min-width: 0 !important;
+
+  .sider-trigger {
+    transform: rotate(180deg);
+
+    svg {
+      transform: translateX(4px) scale(0.8);
+    }
+  }
+}

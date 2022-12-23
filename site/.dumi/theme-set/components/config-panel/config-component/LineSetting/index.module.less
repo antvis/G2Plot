@@ -1,0 +1,23 @@
+.line-setting {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+
+  > div {
+    margin: 0;
+  }
+
+  > div:not(:last-of-type) {
+    margin-right: 8px;
+  }
+
+  .line-color {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 2px;
+    height: fit-content;
+
+    &:not(.inline) {
+      padding: 1px;
+    }
+  }
+}

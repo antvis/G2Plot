@@ -1,0 +1,36 @@
+.canvas-container {
+  width: 100%;
+  height: auto;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    // display: none;
+    width: 8px;
+    height: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2.5px;
+
+    &:hover {
+      background-color: #727272;
+    }
+  }
+  padding: 20px;
+
+  display: grid;
+  // 右间距不生效。每列项各减10px，模拟右间距
+  grid-template-columns: calc(50% - 10px) calc(50% - 10px);
+  grid-column-gap: 14px;
+  grid-row-gap: 14px;
+}
+
+@media only screen and (max-width: 764px) {
+  .canvas-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+body[data-theme='dark'] {
+  .canvas-container {
+    background: rgba(20, 20, 20, 0.92);
+  }
+}

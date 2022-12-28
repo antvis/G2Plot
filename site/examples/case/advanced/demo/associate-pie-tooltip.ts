@@ -14,6 +14,7 @@ insertCss(`
   flex: 1;
 }
 `);
+initContainer();
 
 const { Util } = G2;
 
@@ -142,3 +143,11 @@ plot2.on('tooltip:hide', (e) => {
     plot1.chart.hideTooltip();
   }
 });
+
+function initContainer() {
+  const container = document.getElementById('container');
+  container.innerHTML = `
+    <div id="container1"></div>
+    <div id="container2"></div>
+  `;
+}

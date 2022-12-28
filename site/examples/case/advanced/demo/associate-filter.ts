@@ -15,6 +15,7 @@ insertCss(`
   flex: 1;
 }
 `);
+initContainer();
 
 fetch('https://gw.alipayobjects.com/os/antfincdn/PC3daFYjNw/column-data.json')
   .then((data) => data.json())
@@ -93,8 +94,17 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/PC3daFYjNw/column-data.json')
       }
     });
     // 双击，还原数据
-    pie.on('element:dblclick', () => {
+  pie.on('element:dblclick', () => {
       pie.chart.changeData(pieData);
       column.chart.changeData(data);
     });
   });
+
+  function initContainer() {
+    const container = document.getElementById('container');
+    container.innerHTML = `
+      <div id="container1"></div>
+      <div id="container2"></div>
+    `;
+  }
+  

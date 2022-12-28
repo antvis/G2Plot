@@ -16,6 +16,7 @@ insertCss(`
   height: 120px;
 }
 `);
+initContainer();
 
 fetch('https://gw.alipayobjects.com/os/antfincdn/v6MvZBUBsQ/column-data.json')
   .then((res) => res.json())
@@ -86,3 +87,11 @@ fetch('https://gw.alipayobjects.com/os/antfincdn/v6MvZBUBsQ/column-data.json')
       plot1.setState('active', () => true, false);
     });
   });
+
+function initContainer() {
+  const container = document.getElementById('container');
+  container.innerHTML = `
+    <div id="container1"></div>
+    <div id="container2"></div>
+  `;
+}

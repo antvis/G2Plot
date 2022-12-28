@@ -10,15 +10,15 @@
         "zh": "元素多选交互",
         "en": "Element selected"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/VoiPvFL%26U5/pie-tooltip.gif"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*nA_-SYUCA74AAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "pie-element-selected.ts",
       "title": {
-        "zh": "饼图 - 元素多选交互",
+        "zh": "饼图 元素多选交互",
         "en": "Element selected"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/VoiPvFL%26U5/pie-tooltip.gif"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*PqprTa8VPrEAAAAAAAAAAAAADmJ7AQ/original"
     },
     {
       "filename": "funnel-element-selected.ts",
@@ -26,7 +26,7 @@
         "zh": "漏斗图 元素多选交互",
         "en": "Element selected"
       },
-      "screenshot": "https://gw.alipayobjects.com/zos/antfincdn/VoiPvFL%26U5/pie-tooltip.gif"
+      "screenshot": "https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*WW79RIgfGesAAAAAAAAAAAAADmJ7AQ/original"
     }
   ]
 }

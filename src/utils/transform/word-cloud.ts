@@ -403,11 +403,14 @@ function tagCloud() {
 
   function getContext(canvas: HTMLCanvasElement) {
     canvas.width = canvas.height = 1;
-    const ratio = Math.sqrt(canvas.getContext('2d')!.getImageData(0, 0, 1, 1).data.length >> 2);
+    const ratio = Math.sqrt(
+      (canvas.getContext('2d', { willReadFrequently: true }) as CanvasRenderingContext2D)!.getImageData(0, 0, 1, 1).data
+        .length >> 2
+    );
     canvas.width = (cw << 5) / ratio;
     canvas.height = ch / ratio;
 
-    const context = canvas.getContext('2d') as CanvasRenderingContext2D;
+    const context = canvas.getContext('2d', { willReadFrequently: true }) as CanvasRenderingContext2D;
     context.fillStyle = context.strokeStyle = 'red';
     context.textAlign = 'center';
     return { context, ratio };

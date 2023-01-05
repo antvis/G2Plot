@@ -24,20 +24,5 @@ module.exports = [
       uglify(),
       ...(isBundleVis ? [visualizer()] : []),
     ],
-  },
-  {
-    input: 'src/index.ts',
-    output: {
-      file: 'dist/g2plot-lite.min.js',
-      name: 'G2Plot',
-      format: 'umd',
-      sourcemap: false,
-      globals: {
-        '@antv/g': 'window.G',
-        '@antv/g-canvas': 'window.G.Canvas2D',
-      },
-    },
-    external: ['@antv/g', '@antv/g-canvas'],
-    plugins: [nodePolyfills(), resolve(), commonjs(), typescript(), uglify()],
-  },
+  }
 ];

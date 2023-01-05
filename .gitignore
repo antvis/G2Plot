@@ -1,0 +1,13 @@
+node_modules
+.DS_Store
+
+**/node_modules
+
+# build
+dist
+esm
+lib
+
+# Website cache byb dumi
+site/.dumi/tmp
+site/.dumi/tmp-production

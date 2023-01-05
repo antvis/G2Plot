@@ -1,0 +1,99 @@
+{
+  "name": "@antv/g2plot",
+  "version": "3.0.0-alpha.0",
+  "description": "An interactive and responsive charting library",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "module": "esm/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "src",
+    "lib",
+    "esm",
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "clean": "rimraf lib esm dist",
+    "lint-staged": "lint-staged",
+    "size": "limit-size",
+    "lint": "eslint ./src ./__tests__ && prettier ./src ./__tests__ --check ",
+    "fix": "eslint ./src ./__tests__ --fix && prettier ./src ./__tests__ --write ",
+    "build:umd": "rimraf ./dist && rollup -c && npm run size",
+    "build:cjs": "rimraf ./lib && tsc --module commonjs --outDir lib",
+    "build:esm": "rimraf ./esm && tsc --module ESNext --outDir esm",
+    "build": "run-p build:*",
+    "test": "",
+    "bundle-vis": "cross-env BUNDLE_VIS=1 run-p build:umd",
+    "ci": "run-s lint test build",
+    "prepublishOnly": "npm run ci",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "visualization",
+    "chart",
+    "plot",
+    "grammar",
+    "graphics",
+    "antv",
+    "typescript"
+  ],
+  "peerDependencies": {
+    "@antv/g2": "^5.0.0-beta.5"
+  },
+  "devDependencies": {
+    "@antv/g": "^5.15.6",
+    "@antv/g-canvas": "^1.9.24",
+    "@antv/g2": "^5.0.0-beta.5",
+    "@commitlint/cli": "^11.0.0",
+    "@rollup/plugin-commonjs": "^21.0.2",
+    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/parser": "^4.18.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.22.0",
+    "eslint-plugin-import": "^2.22.1",
+    "husky": "^7.0.0",
+    "limit-size": "^0.1.4",
+    "lint-staged": "^10.5.4",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.39.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-polyfill-node": "^0.8.0",
+    "rollup-plugin-typescript": "^1.0.1",
+    "rollup-plugin-uglify": "^6.0.4",
+    "rollup-plugin-visualizer": "^5.6.0",
+    "typescript": "^4.9.4",
+    "prettier": "^2.8.1",
+    "vite": "^4.0.3"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "limit-size": [
+    {
+      "path": "dist/g2plot.min.js",
+      "limit": "750 Kb",
+      "gzip": true
+    },
+    {
+      "path": "dist/g2plot.min.js",
+      "limit": "1 Mb"
+    }
+  ],
+  "author": {
+    "name": "AntV",
+    "url": "https://antv.vision"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antvis/G2Plot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/antvis/g2plot/issues"
+  }
+}

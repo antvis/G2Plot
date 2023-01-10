@@ -8,6 +8,9 @@ dist
 esm
 lib
 
+# test
+coverage
+
 # Website cache byb dumi
 site/.dumi/tmp
 site/.dumi/tmp-production

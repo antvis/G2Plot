@@ -6,7 +6,7 @@ export function lineAnnotationRange() {
     height: 320,
     data: {
       type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/forecast-range.json',
+      value: 'data/forecast-range.json',
     },
     interactions: [{ type: 'tooltip', series: true }],
     children: [

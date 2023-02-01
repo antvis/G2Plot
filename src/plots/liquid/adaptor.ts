@@ -44,6 +44,7 @@ function geometry(params: Params<LiquidOptions>): Params<LiquidOptions> {
   const geometry = ext.geometry as Geometry;
   const { background } = chart.getTheme();
   const customInfo: CustomInfo = {
+    percent,
     radius,
     outline,
     wave,

@@ -10,7 +10,7 @@ export default defineConfig({
     title: 'G2Plot',
     description: 'A collection of charts made with the Grammar of Graphics',
     defaultLanguage: 'zh',
-    siteUrl: 'https://g2plot.antv.antgroup.com',
+    siteUrl: 'https://antv.antgroup.com',
     isAntVSite: false,
     githubUrl: repository.url, // GitHub 地址
     showSearch: true, // 是否显示搜索框

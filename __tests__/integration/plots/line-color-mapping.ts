@@ -1,7 +1,6 @@
 import { G2PlotLine } from '../../../src';
-import { filterPoint } from './line-series';
 
-export function linePointShape() {
+export function lineColorMapping() {
   return {
     type: 'view',
     height: 320,
@@ -16,21 +15,15 @@ export function linePointShape() {
           x: (d) => new Date(d.year),
           y: 'value',
           color: 'category',
-          pointShape: (d) => (d.category !== 'Gas fuel' ? 'primary' : 'second'),
         },
-        axis: { y: { title: false } },
         scale: {
           x: { mask: 'YYYY-MM', nice: true },
-          pointShape: {
-            domain: ['primary', 'second'],
-            range: ['point', 'square'],
+          color: {
+            relations: [['Gas fuel', 'red']],
           },
         },
-        style: {
-          point: true,
-          pointOpacity: (datum, i, data) =>
-            filterPoint(data, datum, 'category'),
-        },
+        axis: { y: { title: false } },
+        labels: [{ text: 'category', selector: 'last' }],
       },
     ],
   };

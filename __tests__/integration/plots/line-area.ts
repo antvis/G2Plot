@@ -4,14 +4,14 @@ export function lineArea() {
   return {
     type: 'view',
     height: 320,
-    data: {
-      type: 'fetch',
-      value: 'data/year-value-category.json',
-    },
     interactions: [{ type: 'tooltip' }],
     children: [
       {
         type: G2PlotLine,
+        data: {
+          type: 'fetch',
+          value: 'data/year-value-category.json',
+        },
         encode: {
           x: (d) => new Date(d.year),
           y: 'value',

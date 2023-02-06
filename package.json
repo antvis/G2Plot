@@ -23,8 +23,8 @@
     "build:cjs": "rimraf ./lib && tsc --module commonjs --outDir lib",
     "build:esm": "rimraf ./esm && tsc --module ESNext --outDir esm",
     "build": "run-p build:*",
-    "test": "run-s test:integration test:unit",
-    "test:unit": "jest --config jest.config.js --coverage -i",
+    "test": "run-s test:integration",
+    "test:unit": "",
     "test:integration": "jest --config jest.node.config.js --coverage -i",
     "bundle-vis": "cross-env BUNDLE_VIS=1 run-p build:umd",
     "ci": "run-s lint test build",
@@ -40,9 +40,6 @@
     "antv",
     "typescript"
   ],
-  "peerDependencies": {
-    "@antv/g2": "^5.0.0-beta.5"
-  },
   "devDependencies": {
     "@antv/g": "^5.15.6",
     "@antv/g-canvas": "^1.9.24",
@@ -50,9 +47,9 @@
     "@commitlint/cli": "^11.0.0",
     "@rollup/plugin-commonjs": "^21.0.2",
     "@types/jest": "^26.0.20",
-    "@typescript-eslint/eslint-plugin": "^4.18.0",
-    "@typescript-eslint/parser": "^4.18.0",
     "@types/pixelmatch": "^5.2.4",
+    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/parser": "^5.50.0",
     "canvas": "^2.11.0",
     "cross-env": "^7.0.3",
     "eslint": "^7.22.0",

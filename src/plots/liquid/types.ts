@@ -88,6 +88,7 @@ export interface LiquidOptions extends Omit<Options, 'data'> {
  * @title 水波图自定义 的 customInfo
  */
 export type CustomInfo = {
+  percent?: LiquidOptions['percent'];
   radius?: LiquidOptions['radius'];
   outline?: LiquidOptions['outline'];
   wave?: LiquidOptions['wave'];

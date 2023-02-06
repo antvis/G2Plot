@@ -389,7 +389,7 @@ registerShape('interval', 'liquid-fill-gauge', {
     const cy = 0.5;
 
     const { customInfo } = cfg;
-    const { radius: radio, shape, shapeStyle, background, animation } = customInfo as CustomInfo;
+    const { percent, radius: radio, shape, shapeStyle, background, animation } = customInfo as CustomInfo;
     const outline: LiquidOptions['outline'] = customInfo.outline;
     const wave: LiquidOptions['wave'] = customInfo.wave;
     const { border, distance } = outline;
@@ -428,32 +428,35 @@ registerShape('interval', 'liquid-fill-gauge', {
       });
     }
 
-    // 2. 绘制一个波
-    const waves = container.addGroup({
-      name: 'waves',
-    });
+    // 比例大于 0 时才绘制水波
+    if (percent > 0) {
+      // 2. 绘制一个波
+      const waves = container.addGroup({
+        name: 'waves',
+      });
 
-    // 3. 波对应的 clip 裁剪形状
-    const clipPath = waves.setClip({
-      type: 'path',
-      attrs: {
-        path: shapePath,
-      },
-    });
+      // 3. 波对应的 clip 裁剪形状
+      const clipPath = waves.setClip({
+        type: 'path',
+        attrs: {
+          path: shapePath,
+        },
+      });
 
-    // 4. 绘制波形
-    addWaterWave(
-      center.x,
-      center.y,
-      1 - (cfg.points[1] as Point).y,
-      waveCount,
-      waveAttrs,
-      waves,
-      clipPath,
-      radius * 2,
-      waveLength,
-      animation
-    );
+      // 4. 绘制波形
+      addWaterWave(
+        center.x,
+        center.y,
+        1 - (cfg.points[1] as Point).y,
+        waveCount,
+        waveAttrs,
+        waves,
+        clipPath,
+        radius * 2,
+        waveLength,
+        animation
+      );
+    }
 
     // 5. 绘制一个 distance 宽的 border
     container.addShape('path', {

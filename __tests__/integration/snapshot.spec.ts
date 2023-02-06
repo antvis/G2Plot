@@ -12,8 +12,7 @@ describe('Charts', () => {
     // @ts-ignore
     ([, { only = false }]) => only,
   );
-  const finalTests =
-    onlyTests.length === 0 ? tests : Object.fromEntries(onlyTests);
+  const finalTests = onlyTests.length === 0 ? tests : Object.fromEntries(onlyTests);
 
   for (const [name, generateOptions] of Object.entries(finalTests)) {
     // @ts-ignore
@@ -34,15 +33,12 @@ describe('Charts', () => {
             canvas = await renderAndSaveCanvas(options, expectedPath, mounted);
           } else {
             canvas = await renderAndSaveCanvas(options, actualPath, mounted);
-            console.log('actualPath:', actualPath)
             //@ts-ignore
             const maxError = generateOptions.maxError || 0;
-            // expect(
-            //   diff(actualPath, expectedPath, diffPath, maxError),
-            // ).toBeLessThanOrEqual(maxError);
+            expect(diff(actualPath, expectedPath, diffPath, maxError)).toBeLessThanOrEqual(maxError);
 
-            // // Persevere the diff image if do not pass the test.
-            // fs.unlinkSync(actualPath);
+            // Persevere the diff image if do not pass the test.
+            fs.unlinkSync(actualPath);
           }
         } finally {
           if (canvas) canvas.destroy();

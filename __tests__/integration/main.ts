@@ -44,7 +44,7 @@ function onchange() {
 }
 
 async function plot() {
-  const generate = cases[caseSelect.value]
+  const generate = cases[caseSelect.value];
   const options = generate();
 
   // @todo: G2 should support pass a renderer instance, not a G Cavnas instance to the API signature.

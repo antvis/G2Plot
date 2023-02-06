@@ -5,13 +5,13 @@ export function linePointShape() {
   return {
     type: 'view',
     height: 320,
-    data: {
-      type: 'fetch',
-      value: 'data/year-value-category.json',
-    },
     children: [
       {
         type: G2PlotLine,
+        data: {
+          type: 'fetch',
+          value: 'data/year-value-category.json',
+        },
         encode: {
           x: (d) => new Date(d.year),
           y: 'value',
@@ -28,8 +28,7 @@ export function linePointShape() {
         },
         style: {
           point: true,
-          pointOpacity: (datum, i, data) =>
-            filterPoint(data, datum, 'category'),
+          pointOpacity: (datum, i, data) => filterPoint(data, datum, 'category'),
         },
       },
     ],

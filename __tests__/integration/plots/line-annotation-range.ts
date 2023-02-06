@@ -4,14 +4,14 @@ export function lineAnnotationRange() {
   return {
     type: 'view',
     height: 320,
-    data: {
-      type: 'fetch',
-      value: 'data/forecast-range.json',
-    },
     interactions: [{ type: 'tooltip', series: true }],
     children: [
       {
         type: G2PlotLine,
+        data: {
+          type: 'fetch',
+          value: 'data/forecast-range.json',
+        },
         encode: {
           x: (d) => new Date(d[0]),
           y: (d) => d[4],

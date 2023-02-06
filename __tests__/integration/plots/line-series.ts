@@ -4,13 +4,14 @@ export function lineSeries() {
   return {
     type: 'view',
     height: 320,
-    data: {
-      type: 'fetch',
-      value: 'data/year-value-category.json',
-    },
+    interactions: [{ type: 'tooltip' }],
     children: [
       {
         type: G2PlotLine,
+        data: {
+          type: 'fetch',
+          value: 'data/year-value-category.json',
+        },
         encode: {
           x: (d) => new Date(d.year),
           y: 'value',
@@ -20,8 +21,7 @@ export function lineSeries() {
         axis: { y: { title: false } },
         style: {
           point: true,
-          pointOpacity: (datum, i, data) =>
-            filterPoint(data, datum, 'category'),
+          pointOpacity: (datum, i, data) => filterPoint(data, datum, 'category'),
         },
       },
     ],
@@ -29,10 +29,7 @@ export function lineSeries() {
 }
 
 export function filterPoint(data, datum, name) {
-  // 找到当前点在当前系列的索引位置
-  const idx = data
-    .filter((d) => d[name] === datum[name])
-    .findIndex((d) => d === datum);
-  // 每 5 个点展示一次
+  const idx = data.filter((d) => d[name] === datum[name]).findIndex((d) => d === datum);
+  // Display every 5 points.
   return idx % 5 ? 0 : 1;
 }

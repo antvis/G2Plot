@@ -1,23 +1,16 @@
-import { Annotation } from '../../types/annotation';
-import type {
-  Data,
-  Scale,
-  Axis,
-  Legend,
-  Slider,
-  Scrollbar,
-  Label,
-} from '../../types/common';
+import type { Options } from '../../types/common';
+import type { ConditionRangeProps } from '../../adaptor/conditionRange';
 
-export type LineOptions = {
-  data?: Data;
-  scale?: Record<string, Scale>;
-  axis?: Record<string, Axis>;
-  legend?: Record<string, Legend>;
-  slider?: Record<string, Slider>;
-  scrollbar?: Record<string, Scrollbar>;
-  labels?: Label[];
-  annotations?: Annotation[];
-  animate?: Record<string, any>;
-  style?: Record<string, any>;
+export type LineOptions = Options & {
+  type?: 'G2PlotLine' | ((...args: any) => any);
+  width?: number;
+  height?: number;
+  conditionRangeY?: ConditionRangeProps;
+  style?: {
+    /** Whether to display the point mark. */
+    point?: boolean;
+    /** Whether to display the area mark. */
+    area?: boolean;
+    [k: string]: any;
+  };
 };

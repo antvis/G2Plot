@@ -180,7 +180,7 @@ tooltip 偏移量。
     customItems: (originalItems: TooltipItem[]) => {
       // process originalItems, 
       return originalItems;
-    };
+    }
   }
 }
 ```
@@ -197,7 +197,7 @@ tooltip 偏移量。
   tooltip: {
     customContent: (title, data) => {
       return `<div>${title}</div>`;
-    };
+    }
   }
 }
 ```

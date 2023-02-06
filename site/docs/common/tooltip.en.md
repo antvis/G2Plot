@@ -180,7 +180,7 @@ Tooltip offset.
     customItems: (originalItems: TooltipItem[]) => {
       // process originalItems, 
       return originalItems;
-    };
+    }
   }
 }
 ```
@@ -196,7 +196,7 @@ Support for custom templates. [Live demo](/en/examples/case/customize#customize-
   tooltip: {
     customContent: (title, data) => {
       return `<div>${title}</div>`;
-    };
+    }
   }
 }
 ```

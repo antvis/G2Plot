@@ -1,3 +1,42 @@
+#### 2.4.24 (2023-02-06)
+
+##### Chores
+
+*  fix homepage url ([#3454](https://github.com/antvis/G2plot/pull/3454)) ([7479db28](https://github.com/antvis/G2plot/commit/7479db28e7d7101de50e7b8d2b9466bc8e24c49b))
+*  update deploy action ([#3417](https://github.com/antvis/G2plot/pull/3417)) ([4a9c4474](https://github.com/antvis/G2plot/commit/4a9c4474e89a2925f1115a1a735c416bec111b92))
+*  update deploy action ([dd21b520](https://github.com/antvis/G2plot/commit/dd21b5205753bd6d2de3828bb3edcc7b1b6b36b3))
+*  2.4.23 & changelog ([#3413](https://github.com/antvis/G2plot/pull/3413)) ([37245c61](https://github.com/antvis/G2plot/commit/37245c6123e58c617d1709acc559de13432af3b5))
+*  网站配置更新 ([#3405](https://github.com/antvis/G2plot/pull/3405)) ([b3b51ba9](https://github.com/antvis/G2plot/commit/b3b51ba9fbd9652661df226adfb07b3b9c1eeb88))
+*  site ([#3404](https://github.com/antvis/G2plot/pull/3404)) ([739a82fb](https://github.com/antvis/G2plot/commit/739a82fb2074f1e09feb5abb73bce21e133b31d6))
+*  remove all-contributor script ([#3399](https://github.com/antvis/G2plot/pull/3399)) ([4b91cc22](https://github.com/antvis/G2plot/commit/4b91cc22d71d5ca38223927b1c6a4094bf9a0c9c))
+
+##### Documentation Changes
+
+*  fix typo ([#3451](https://github.com/antvis/G2plot/pull/3451)) ([30ace79e](https://github.com/antvis/G2plot/commit/30ace79edf70754c130b4d3c6686c704c580dd1f))
+
+##### New Features
+
+*  add site direct ([#3421](https://github.com/antvis/G2plot/pull/3421)) ([1660ff07](https://github.com/antvis/G2plot/commit/1660ff07360c3060bb59cfb97d1885ba35755f6b))
+*  migrate to dumi-theme-antv from gatsby ([#3388](https://github.com/antvis/G2plot/pull/3388)) ([06609263](https://github.com/antvis/G2plot/commit/06609263f8314eb613516eba30638cdacc0d6ff4))
+* **Liquid:**  Add shapeStyle config ([#3411](https://github.com/antvis/G2plot/pull/3411)) ([f4e797f6](https://github.com/antvis/G2plot/commit/f4e797f62a8f8e31e8cebcf92edcb829ad57e903))
+
+##### Bug Fixes
+
+* **Liquid:**  should render wave only when percent > 0 ([#3455](https://github.com/antvis/G2plot/pull/3455)) ([6fb1e4d0](https://github.com/antvis/G2plot/commit/6fb1e4d0c93ae28158bbafc4471976d9adf56d6d))
+*  several error demo in site ([#3435](https://github.com/antvis/G2plot/pull/3435)) ([18c95e17](https://github.com/antvis/G2plot/commit/18c95e17144bff2761e661bc5769515c08e23c4c))
+*  g2plot.antv.vision & antv-g2plot.gitee.io auto direct ([#3425](https://github.com/antvis/G2plot/pull/3425)) ([d6892888](https://github.com/antvis/G2plot/commit/d689288800375be20481bdcdc51ca9fdd69d2ec0))
+*  pre-site 预发站点不跳转 ([#3420](https://github.com/antvis/G2plot/pull/3420)) ([d14120a7](https://github.com/antvis/G2plot/commit/d14120a7757f8ac200dea5f5a7a8f2a38fde344c))
+*  close issues ([#3419](https://github.com/antvis/G2plot/pull/3419)) ([fcaa2e73](https://github.com/antvis/G2plot/commit/fcaa2e73aa72732425b90dc8861dd9ddab472505))
+*  site button ([#3401](https://github.com/antvis/G2plot/pull/3401)) ([598e65c8](https://github.com/antvis/G2plot/commit/598e65c8f4b99cc3c36f9c5d4d87d04c318ad088))
+
+##### Performance Improvements
+
+* **word-cloud:**   add willReadFrequently option when canvas getContext ([#3438](https://github.com/antvis/G2plot/pull/3438)) ([ab1175ba](https://github.com/antvis/G2plot/commit/ab1175ba9882e4a5d9628380abf2d6b764ae1257))
+
+##### Refactors
+
+*  site ([#3412](https://github.com/antvis/G2plot/pull/3412)) ([5a168321](https://github.com/antvis/G2plot/commit/5a168321307952a1c8461e4e6753920bfdad6f89))
+
 #### 2.4.23 (2022-12-07)
 
 ##### New Features

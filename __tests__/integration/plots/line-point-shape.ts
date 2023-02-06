@@ -28,8 +28,7 @@ export function linePointShape() {
         },
         style: {
           point: true,
-          pointOpacity: (datum, i, data) =>
-            filterPoint(data, datum, 'category'),
+          pointOpacity: (datum, i, data) => filterPoint(data, datum, 'category'),
         },
       },
     ],

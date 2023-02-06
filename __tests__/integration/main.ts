@@ -39,11 +39,7 @@ function createOptions(key) {
 function onchange() {
   const { value } = caseSelect;
   const { value: renderer } = rendererSelect;
-  history.pushState(
-    { value, renderer },
-    '',
-    `?name=${value}&renderer=${renderer}`,
-  );
+  history.pushState({ value, renderer }, '', `?name=${value}&renderer=${renderer}`);
   plot();
 }
 

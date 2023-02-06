@@ -7,11 +7,7 @@ import { Renderer } from '@antv/g-canvas';
 import { Plugin as DragAndDropPlugin } from '@antv/g-plugin-dragndrop';
 import { render } from '@antv/g2';
 
-export async function renderAndSaveCanvas(
-  options,
-  filename: string,
-  mounted = false,
-) {
+export async function renderAndSaveCanvas(options, filename: string, mounted = false) {
   const { width = 640, height = 480 } = options;
   const [canvas, nodeCanvas] = createGCanvas(width, height);
   await new Promise<void>((resolve) => {
@@ -26,13 +22,7 @@ export async function renderAndSaveCanvas(
 /**
  * diff between PNGs
  */
-export function diff(
-  src: string,
-  target: string,
-  diff: string,
-  maxError = 0,
-  showMismatchedPixels = true,
-) {
+export function diff(src: string, target: string, diff: string, maxError = 0, showMismatchedPixels = true) {
   const img1 = PNG.sync.read(fs.readFileSync(src));
   const img2 = PNG.sync.read(fs.readFileSync(target));
   const { width, height } = img1;
@@ -66,9 +56,7 @@ export function createGCanvas(width: number, height: number) {
   const renderer = new Renderer();
   const domInteractionPlugin = renderer.getPlugin('dom-interaction');
   renderer.unregisterPlugin(domInteractionPlugin);
-  renderer.registerPlugin(
-    new DragAndDropPlugin({ dragstartDistanceThreshold: 10 }),
-  );
+  renderer.registerPlugin(new DragAndDropPlugin({ dragstartDistanceThreshold: 10 }));
 
   return [
     new Canvas({

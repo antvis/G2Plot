@@ -21,8 +21,7 @@ export function lineSeries() {
         axis: { y: { title: false } },
         style: {
           point: true,
-          pointOpacity: (datum, i, data) =>
-            filterPoint(data, datum, 'category'),
+          pointOpacity: (datum, i, data) => filterPoint(data, datum, 'category'),
         },
       },
     ],
@@ -30,9 +29,7 @@ export function lineSeries() {
 }
 
 export function filterPoint(data, datum, name) {
-  const idx = data
-    .filter((d) => d[name] === datum[name])
-    .findIndex((d) => d === datum);
+  const idx = data.filter((d) => d[name] === datum[name]).findIndex((d) => d === datum);
   // Display every 5 points.
   return idx % 5 ? 0 : 1;
 }

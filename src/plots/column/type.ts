@@ -1,8 +1,8 @@
-import { ConditionRangeProps } from 'adaptor/conditionRange';
+import type { ConditionRangeProps } from '../../adaptor/conditionRange';
 import type { Options } from '../../types/common';
 
 export type ColumnOptions = Options & {
-  type?: 'G2PlotColumn' | ((...args: any) => any);
+  type?: string | ((...args: any) => any);
   width?: number;
   height?: number;
   conditionRangeY?: ConditionRangeProps;

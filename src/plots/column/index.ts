@@ -14,6 +14,7 @@ const DEFAULT_BACKGROUND_OPTIONS = {
   },
 };
 const OVERRIDE_BACKGROUND_OPTIONS = {
+  interactions: [{ type: 'tooltip' }],
   encode: { y: 1 },
   scale: { y: { independent: true, range: [0, 1] } },
   axis: { y: false },

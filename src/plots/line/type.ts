@@ -1,8 +1,8 @@
-import type { Options } from '../../types/common';
 import type { ConditionRangeProps } from '../../adaptor/conditionRange';
+import type { Options } from '../../types/common';
 
 export type LineOptions = Options & {
-  type?: 'G2PlotLine' | ((...args: any) => any);
+  type?: string | ((...args: any) => any);
   width?: number;
   height?: number;
   conditionRangeY?: ConditionRangeProps;

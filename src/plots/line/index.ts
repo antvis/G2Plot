@@ -17,6 +17,7 @@ const DEFAULT_AREA_OPTIONS = {
 };
 
 const DEFAULT_OPTIONS = {
+  interaction: [{ type: 'tooltip' }],
   axis: { x: { title: false, size: 20 } },
   legend: {
     color: {

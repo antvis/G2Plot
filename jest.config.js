@@ -22,6 +22,6 @@ module.exports = {
   testRegex: '(/__tests__/unit/.*\\.(test|spec))\\.ts$',
   collectCoverageFrom: ['src/**/*.ts'],
   // Transform esm to cjs.
-  transformIgnorePatterns: [`<rootDir>/node_modules/(?!(${esm}))`],
+  transformIgnorePatterns: [`<rootDir>/node_modules(/.pnpm?)/(?!(${esm}))`],
   testPathIgnorePatterns: [],
 };

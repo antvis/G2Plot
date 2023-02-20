@@ -21,7 +21,8 @@ function defineTransform(options: Options) {
   return newTransform;
 }
 
-function inferType(type: string) {
+function inferMarkType(type: string) {
+  if (type === 'background') return 'interval';
   return type;
 }
 
@@ -53,7 +54,7 @@ export const PrimaryMark: Adaptor<Props> = (props, options) => {
 
   return (marks) => {
     const newMark = assignDeep({}, defaults, {
-      type: inferType(type),
+      type: inferMarkType(type),
       encode: { ...encode, ...subObject(encode, type) },
       transform: defineTransform(options),
       ...rest,
@@ -65,7 +66,7 @@ export const PrimaryMark: Adaptor<Props> = (props, options) => {
 /**
  * Attached mark of each plot, optional.
  */
-export const AttachedMark: Adaptor<Props> = (props, options) => {
+export const AttachedMark: Adaptor<Props> = (props, options, overrides) => {
   const { type, defaults } = props;
   const { style: { [type]: enabled } = {} } = options;
 
@@ -73,20 +74,25 @@ export const AttachedMark: Adaptor<Props> = (props, options) => {
     if (!enabled) return marks;
 
     const { data, encode, style, scale = {}, animate } = options;
-    const newMark = assignDeep({}, defaults, {
-      type: inferType(type),
-      data,
-      encode: {
-        ...omit(encode, ['shape']),
-        ...subObject(encode, type),
-        tooltip: null,
-        title: null,
+    const newMark = assignDeep(
+      {},
+      defaults,
+      {
+        type: inferMarkType(type),
+        data,
+        encode: {
+          ...omit(encode, ['shape']),
+          ...subObject(encode, type),
+          tooltip: null,
+          title: null,
+        },
+        transform: defineTransform(options),
+        scale: assignDeep({ ...scale }, subObject(scale, type)),
+        style: subObject(style, type),
+        animate: subObject(animate, type),
       },
-      transform: defineTransform(options),
-      scale: assignDeep({ ...scale }, subObject(scale, type)),
-      style: subObject(style, type),
-      animate: subObject(animate, type),
-    });
+      overrides,
+    );
     return [...marks, newMark];
   };
 };

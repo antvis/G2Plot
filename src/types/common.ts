@@ -46,4 +46,5 @@ type MarkDescriptor = any;
 export type Adaptor<P, O extends Options = Options> = (
   props: P,
   options: O,
+  overrides?: O,
 ) => (marks: MarkDescriptor[]) => MarkDescriptor[];

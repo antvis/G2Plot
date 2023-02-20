@@ -18,6 +18,14 @@ const DEFAULT_AREA_OPTIONS = {
 
 const DEFAULT_OPTIONS = {
   axis: { x: { title: false, size: 20 } },
+  legend: {
+    color: {
+      layout: {
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+      },
+    },
+  },
 };
 
 export function Line(options: LineOptions) {

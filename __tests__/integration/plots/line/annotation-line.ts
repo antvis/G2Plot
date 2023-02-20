@@ -1,6 +1,6 @@
-import { G2PlotLine } from '../../../src';
+import { G2PlotLine } from '../../../../src';
 
-export function lineSlider() {
+export function lineAnnotationLine() {
   return {
     type: 'view',
     height: 320,
@@ -17,7 +17,12 @@ export function lineSlider() {
         },
         scale: { x: { mask: 'YYYY-MM', nice: true } },
         axis: { y: { size: 50 } },
-        slider: { x: {}, y: {} },
+        annotations: [
+          {
+            type: 'lineX',
+            data: [{ Date: '2012-01' }],
+          },
+        ],
       },
     ],
   };

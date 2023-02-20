@@ -1,5 +1,5 @@
-import { G2PlotLine } from '../../../src';
-import type { G2PlotLineOptions } from '../../../src';
+import { G2PlotLine } from '../../../../src';
+import type { G2PlotLineOptions } from '../../../../src';
 
 export function lineConditionRangeY() {
   const options: G2PlotLineOptions = {

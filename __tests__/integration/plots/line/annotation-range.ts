@@ -1,4 +1,4 @@
-import { G2PlotLine } from '../../../src';
+import { G2PlotLine } from '../../../../src';
 
 export function lineAnnotationRange() {
   return {

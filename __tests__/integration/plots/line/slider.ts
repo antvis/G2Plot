@@ -1,6 +1,6 @@
-import { G2PlotLine } from '../../../src';
+import { G2PlotLine } from '../../../../src';
 
-export function lineBasic() {
+export function lineSlider() {
   return {
     type: 'view',
     height: 320,
@@ -17,6 +17,7 @@ export function lineBasic() {
         },
         scale: { x: { mask: 'YYYY-MM', nice: true } },
         axis: { y: { size: 50 } },
+        slider: { x: {}, y: {} },
       },
     ],
   };

@@ -24,7 +24,7 @@
     "build:esm": "rimraf ./esm && tsc --module ESNext --outDir esm",
     "build": "run-p build:*",
     "test": "run-s test:integration",
-    "test:unit": "",
+    "test:unit": "jest __tests__/unit/ --coverage -i",
     "test:integration": "jest --config jest.node.config.js --coverage -i",
     "bundle-vis": "cross-env BUNDLE_VIS=1 run-p build:umd",
     "ci": "run-s lint test build",

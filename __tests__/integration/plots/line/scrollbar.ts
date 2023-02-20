@@ -1,9 +1,10 @@
-import { G2PlotLine } from '../../../src';
+import { G2PlotLine } from '../../../../src';
 
-export function lineAnnotationLine() {
+export function lineScrollbar() {
   return {
     type: 'view',
     height: 320,
+    paddingLeft: 80,
     children: [
       {
         type: G2PlotLine,
@@ -17,13 +18,10 @@ export function lineAnnotationLine() {
         },
         scale: { x: { mask: 'YYYY-MM', nice: true } },
         axis: { y: { size: 50 } },
-        annotations: [
-          {
-            type: 'lineX',
-            data: [{ Date: '2012-01' }],
-          },
-        ],
+        scrollbar: { x: {}, y: {} },
       },
     ],
   };
 }
+
+lineScrollbar.skip = true;

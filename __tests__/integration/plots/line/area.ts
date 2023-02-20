@@ -1,9 +1,10 @@
-import { G2PlotLine } from '../../../src';
+import { G2PlotLine } from '../../../../src';
 
-export function lineColorMapping() {
+export function lineArea() {
   return {
     type: 'view',
     height: 320,
+    interactions: [{ type: 'tooltip' }],
     children: [
       {
         type: G2PlotLine,
@@ -16,14 +17,10 @@ export function lineColorMapping() {
           y: 'value',
           color: 'category',
         },
-        scale: {
-          x: { mask: 'YYYY-MM', nice: true },
-          color: {
-            relations: [['Gas fuel', 'red']],
-          },
-        },
+        isStack: true,
+        scale: { x: { mask: 'YYYY-MM', nice: true } },
         axis: { y: { title: false } },
-        labels: [{ text: 'category', selector: 'last' }],
+        style: { point: false, area: true },
       },
     ],
   };

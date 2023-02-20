@@ -1,5 +1,5 @@
-import { G2PlotLine } from '../../../src';
-import { filterPoint } from './line-series';
+import { G2PlotLine } from '../../../../src';
+import { filterPoint } from './series';
 
 export function linePointShape() {
   return {

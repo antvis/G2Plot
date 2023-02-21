@@ -12,6 +12,8 @@ jobs:
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.5
+        with:
+          node-version: '16'
 
       - name: Run CI
         run: |

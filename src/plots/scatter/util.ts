@@ -1,5 +1,5 @@
 import { View } from '@antv/g2';
-import { get, isArray, isNumber } from '@antv/util';
+import { get, isArray, isFunction, isNumber } from '@antv/util';
 import {
   regressionExp,
   regressionLinear,
@@ -27,8 +27,7 @@ type RenderOptions = {
   options: ScatterOptions;
 };
 
-type RegressionResult = {
-  [index: number]: number;
+type D3RegressionResult = {
   a?: number;
   b?: number;
   c?: number;
@@ -158,17 +157,18 @@ const splinePath = (data: number[][], config: RenderOptions) => {
 export const getPath = (config: RenderOptions) => {
   const { options } = config;
   const { xField, yField, data, regressionLine } = options;
-  const { type = 'linear', algorithm } = regressionLine;
-  let pathData: Array<[number, number]> | any;
+  const { type = 'linear', algorithm, equation: customEquation } = regressionLine;
+  let pathData: Array<[number, number]>;
   let equation = null;
   if (algorithm) {
     pathData = isArray(algorithm) ? algorithm : algorithm(data);
+    equation = isFunction(customEquation) ? customEquation() : customEquation;
   } else {
     const reg = REGRESSION_MAP[type]()
       .x((d) => d[xField])
       .y((d) => d[yField]);
     pathData = reg(data);
-    equation = getRegressionEquation(type, pathData);
+    equation = getRegressionEquation(type, pathData as D3RegressionResult);
   }
   return [splinePath(pathData, config), equation];
 };
@@ -242,10 +242,10 @@ export const getMeta = (
 /**
  * 获取回归函数表达式
  * @param {string} type - 回归函数类型
- * @param {RegressionResult} res - 回归计算结果集
+ * @param {D3RegressionResult} res - 回归计算结果集
  * @return {string}
  */
-export function getRegressionEquation(type: string, res: RegressionResult) {
+export function getRegressionEquation(type: string, res: D3RegressionResult) {
   const safeFormat = (value) => (Number.isFinite(value) ? value : '?');
 
   switch (type) {

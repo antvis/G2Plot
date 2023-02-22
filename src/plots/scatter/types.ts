@@ -61,6 +61,11 @@ export interface RegressionLineOptions {
    */
   readonly algorithm?: Array<[number, number]> | ((data: any) => Array<[number, number]>);
   /**
+   * @title 自定义回归方程式
+   * @description 只有当自定义algorithm时生效
+   */
+  readonly equation?: string | (() => string);
+  /**
    * @title 显示回归方程式
    * @description 默认为不显示回归方程式
    */

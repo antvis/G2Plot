@@ -268,9 +268,12 @@ function regressionLine(params: Params<ScatterOptions>): Params<ScatterOptions> 
       opacity: 0.5,
     };
     const defaulTextStyle = {
-      textAlign: 'center' as const,
+      x: 20,
+      y: 20,
+      textAlign: 'left' as const,
       textBaseline: 'middle' as const,
       fontSize: 14,
+      fillOpacity: 0.5,
     };
     chart.annotation().shape({
       top,

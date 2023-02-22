@@ -266,22 +266,26 @@ xAxis、yAxis 配置相同。**注意**：由于 DualAxes(双轴图) 和 Bidirec
 
 回归线。
 
-| 细分配置  | 类型                                                                | 功能描述                                                         |
-| --------- | ------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| type      | string                                                              | 回归线类型, exp \| linear \| loess \| log \| poly \| pow \| quad |
-| style     | object                                                              | 配置回归线样式，详细配置参考绘图属性                             |
-| algorithm | Array<[number, number]> \| ((data: any) => Array<[number, number]>) | 自定义算法，优先级高于 type                                      |
-| top       | boolean                                                             | 是否顶层显示                                                     |
+| 细分配置     | 类型                                                                | 功能描述                                                               |
+|--------------|---------------------------------------------------------------------|--------------------------------------------------------------------|
+| type         | string                                                              | 回归线类型, exp \| linear \| loess \| log \| poly \| pow \| quad       |
+| style        | object                                                              | 配置回归线样式，详细配置参考绘图属性                                    |
+| algorithm    | Array<[number, number]> \| ((data: any) => Array<[number, number]>) | 自定义算法，优先级高于 type                                             |
+| top          | boolean                                                             | 是否顶层显示                                                           |
+| showEquation | boolean                                                             | 显示回归方程式，默认不显示                                              |
+| equation     | string \| (() => string)                                            | 自定义回归方程式，仅在已经自定义`algorithm`以及启用`showEquation`时生效 |
 
 ```ts
 regressionLine: {
   algorithm: () => {
     return [
-      [8, 6],
-      [16, 7],
-      [24, 7],
+      [1, 3],
+      [4, 9],
+      [7, 15],
     ];
   },
+  showEquation: true,
+  equation: () => 'y = 2x + 1'
 }
 ```
 

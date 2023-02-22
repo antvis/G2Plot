@@ -246,7 +246,8 @@ export const getMeta = (
  * @return {string}
  */
 export function getRegressionEquation(type: string, res: D3RegressionResult) {
-  const safeFormat = (value) => (Number.isFinite(value) ? value : '?');
+  const roundByPrecision = (n, p = 4) => Math.round(n * Math.pow(10, p)) / Math.pow(10, p);
+  const safeFormat = (value) => (Number.isFinite(value) ? roundByPrecision(value) : '?');
 
   switch (type) {
     case 'linear':

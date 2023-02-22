@@ -55,5 +55,11 @@ describe('scatter util', () => {
       const equation = getRegressionEquation(type, { a: 0.1, b: 2, rSquared: 0.92 });
       expect(equation).toBeNull();
     });
+
+    it('should round number by default presicion', () => {
+      const type = 'linear';
+      const equation = getRegressionEquation(type, { a: -0.1234567, b: -0.12345678, rSquared: 0.12345678 });
+      expect(equation).toBe('y = -0.1235x + -0.1235, R^2 = 0.1235');
+    });
   });
 });

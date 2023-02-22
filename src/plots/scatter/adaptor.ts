@@ -261,7 +261,7 @@ function regressionLine(params: Params<ScatterOptions>): Params<ScatterOptions> 
   const { options, chart } = params;
   const { regressionLine } = options;
   if (regressionLine) {
-    const { style, top = false } = regressionLine;
+    const { style, top = false, showEquation = false } = regressionLine;
     const defaultStyle = {
       stroke: '#9ba29a',
       lineWidth: 2,
@@ -274,7 +274,7 @@ function regressionLine(params: Params<ScatterOptions>): Params<ScatterOptions> 
           id: `${chart.id}-regression-line`,
           name: 'regression-line-group',
         });
-        const path = getPath({
+        const [path, equation] = getPath({
           view,
           options,
         });
@@ -286,6 +286,19 @@ function regressionLine(params: Params<ScatterOptions>): Params<ScatterOptions> 
             ...style,
           },
         });
+        if (showEquation) {
+          group.addShape('text', {
+            name: 'regression-equation',
+            attrs: {
+              x: 0,
+              y: 0,
+              text: equation,
+              textAlign: 'center',
+              textBaseline: 'middle',
+              fontSize: 14,
+            },
+          });
+        }
       },
     });
   }

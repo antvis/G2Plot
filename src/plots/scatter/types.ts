@@ -60,6 +60,11 @@ export interface RegressionLineOptions {
    * @description  [[0,0],[100,100]]
    */
   readonly algorithm?: Array<[number, number]> | ((data: any) => Array<[number, number]>);
+  /**
+   * @title 显示回归方程式
+   * @description 默认为不显示回归方程式
+   */
+  readonly showEquation?: boolean;
 }
 
 export interface ScatterOptions extends Options {

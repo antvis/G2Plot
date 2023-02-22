@@ -226,4 +226,59 @@ describe('scatter', () => {
     expect(scatter.chart.getComponents().find((item) => item.type === 'annotation')?.layer).toBe('bg');
     scatter.destroy();
   });
+
+  it('regressionLine: showEquation: default(false)', async () => {
+    const scatter = new Scatter(createDiv('regressionLine'), {
+      data,
+      width: 400,
+      height: 300,
+      xField: 'x',
+      yField: 'y',
+      animation: false,
+      regressionLine: {
+        type: 'linear',
+      },
+    });
+
+    scatter.render();
+
+    const annotationShapes = scatter?.chart
+      ?.getComponents()
+      ?.find((item) => item.type === 'annotation')
+      ?.component.cfg.group.cfg.children[0].getChildren();
+    const regressionLineShape = annotationShapes?.[0];
+    expect(regressionLineShape).not.toBeNull();
+    const equationShape = annotationShapes?.find((shape) => shape?.cfg?.name === 'regression-equation');
+    expect(equationShape).toBeUndefined();
+
+    scatter.destroy();
+  });
+
+  it('regressionLine: showEquation: true', async () => {
+    const scatter = new Scatter(createDiv('regressionLine'), {
+      data,
+      width: 400,
+      height: 300,
+      xField: 'x',
+      yField: 'y',
+      animation: false,
+      regressionLine: {
+        type: 'linear',
+        showEquation: true,
+      },
+    });
+
+    scatter.render();
+
+    const annotationShapes = scatter?.chart
+      ?.getComponents()
+      ?.find((item) => item.type === 'annotation')
+      ?.component.cfg.group.cfg.children[0].getChildren();
+    const equationShape = annotationShapes?.find((shape) => shape?.cfg?.name === 'regression-equation');
+
+    expect(equationShape).not.toBeUndefined();
+    expect(equationShape?.attrs?.text).toMatch(/^y =/);
+
+    scatter.destroy();
+  });
 });

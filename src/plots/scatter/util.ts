@@ -150,7 +150,8 @@ export const getPath = (config: RenderOptions) => {
   const { options } = config;
   const { xField, yField, data, regressionLine } = options;
   const { type = 'linear', algorithm } = regressionLine;
-  let pathData: Array<[number, number]>;
+  let pathData: Array<[number, number]> | any;
+  let equation = null;
   if (algorithm) {
     pathData = isArray(algorithm) ? algorithm : algorithm(data);
   } else {
@@ -158,8 +159,9 @@ export const getPath = (config: RenderOptions) => {
       .x((d) => d[xField])
       .y((d) => d[yField]);
     pathData = reg(data);
+    equation = getRegressionEquation(type, pathData);
   }
-  return splinePath(pathData, config);
+  return [splinePath(pathData, config), equation];
 };
 
 /**
@@ -227,3 +229,11 @@ export const getMeta = (
     },
   };
 };
+
+export function getRegressionEquation(type: string, res: { a?: number; b?: number }) {
+  switch (type) {
+    case 'linear':
+      return `y = ${res.a || ''} x + ${res.b}`;
+  }
+  return null;
+}

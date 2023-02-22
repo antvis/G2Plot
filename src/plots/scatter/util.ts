@@ -27,6 +27,15 @@ type RenderOptions = {
   options: ScatterOptions;
 };
 
+type RegressionResult = {
+  [index: number]: number;
+  a?: number;
+  b?: number;
+  c?: number;
+  coefficients?: number[];
+  rSquared?: number;
+};
+
 /**
  * 获取四象限默认配置
  * @param {number} xBaseline
@@ -230,10 +239,43 @@ export const getMeta = (
   };
 };
 
-export function getRegressionEquation(type: string, res: { a?: number; b?: number }) {
+/**
+ * 获取回归函数表达式
+ * @param {string} type - 回归函数类型
+ * @param {RegressionResult} res - 回归计算结果集
+ * @return {string}
+ */
+export function getRegressionEquation(type: string, res: RegressionResult) {
+  const safeFormat = (value) => (Number.isFinite(value) ? value : '?');
+
   switch (type) {
     case 'linear':
-      return `y = ${res.a || ''} x + ${res.b}`;
+      // y = ax + b
+      return `y = ${safeFormat(res.a)}x + ${safeFormat(res.b)}, R^2 = ${safeFormat(res.rSquared)}`;
+    case 'exp':
+      // y = ae^(bx)
+      return `y = ${safeFormat(res.a)}e^(${safeFormat(res.b)}x), R^2 = ${safeFormat(res.rSquared)}`;
+    case 'log':
+      // y = a · ln(x) + b
+      return `y = ${safeFormat(res.a)}ln(x) + ${safeFormat(res.b)}, R^2 = ${safeFormat(res.rSquared)}`;
+    case 'quad':
+      // y = ax^2 + bx + c
+      return `y = ${safeFormat(res.a)}x^2 + ${safeFormat(res.b)}x + ${safeFormat(res.c)}, R^2 = ${safeFormat(
+        res.rSquared
+      )}`;
+    case 'poly':
+      // y = anx^n + ... + a1x + a0
+      // eslint-disable-next-line no-case-declarations
+      let temp = `y = ${safeFormat(res.coefficients?.[0])} + ${safeFormat(res.coefficients?.[1])}x + ${safeFormat(
+        res.coefficients?.[2]
+      )}x^2`;
+      for (let i = 3; i < res.coefficients.length; ++i) {
+        temp += ` + ${res.coefficients[i]}x^${i}`;
+      }
+      return `${temp}, R^2 = ${safeFormat(res.rSquared)}`;
+    case 'pow':
+      //  y = ax^b
+      return `y = ${safeFormat(res.a)}x^${safeFormat(res.b)}, R^2 = ${safeFormat(res.rSquared)}`;
   }
   return null;
 }

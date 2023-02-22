@@ -415,4 +415,35 @@ describe('scatter', () => {
 
     scatter.destroy();
   });
+
+  it('regressionLine: textStyle', async () => {
+    const scatter = new Scatter(createDiv('regressionLine'), {
+      data,
+      width: 400,
+      height: 300,
+      xField: 'x',
+      yField: 'y',
+      animation: false,
+      regressionLine: {
+        type: 'linear',
+        showEquation: true,
+        textStyle: {
+          fontSize: 24,
+        },
+      },
+    });
+
+    scatter.render();
+
+    const annotationShapes = scatter?.chart
+      ?.getComponents()
+      ?.find((item) => item.type === 'annotation')
+      ?.component.cfg.group.cfg.children[0].getChildren();
+    const equationShape = annotationShapes?.find((shape) => shape?.cfg?.name === 'regression-equation');
+
+    expect(equationShape).not.toBeUndefined();
+    expect(equationShape?.attrs?.fontSize).toBe(24);
+
+    scatter.destroy();
+  });
 });

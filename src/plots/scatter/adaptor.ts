@@ -261,11 +261,16 @@ function regressionLine(params: Params<ScatterOptions>): Params<ScatterOptions> 
   const { options, chart } = params;
   const { regressionLine } = options;
   if (regressionLine) {
-    const { style, top = false, showEquation = false } = regressionLine;
+    const { style, textStyle = {}, top = false, showEquation = false } = regressionLine;
     const defaultStyle = {
       stroke: '#9ba29a',
       lineWidth: 2,
       opacity: 0.5,
+    };
+    const defaulTextStyle = {
+      textAlign: 'center' as const,
+      textBaseline: 'middle' as const,
+      fontSize: 14,
     };
     chart.annotation().shape({
       top,
@@ -290,12 +295,9 @@ function regressionLine(params: Params<ScatterOptions>): Params<ScatterOptions> 
           group.addShape('text', {
             name: 'regression-equation',
             attrs: {
-              x: 0,
-              y: 0,
+              ...defaulTextStyle,
+              ...textStyle,
               text: equation,
-              textAlign: 'center',
-              textBaseline: 'middle',
-              fontSize: 14,
             },
           });
         }

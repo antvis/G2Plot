@@ -8,6 +8,7 @@ import {
   SizeAttr,
   StyleAttr,
   TextOption,
+  TextStyle,
 } from '../../types';
 
 interface Labels extends Omit<TextOption, 'position'> {
@@ -55,6 +56,10 @@ export interface RegressionLineOptions {
    * @title 配置回归线样式
    */
   readonly style?: ShapeStyle;
+  /**
+   * @title 配置回归线方程式样式
+   */
+  readonly textStyle?: TextStyle;
   /**
    * @title 自定义算法
    * @description  [[0,0],[100,100]]

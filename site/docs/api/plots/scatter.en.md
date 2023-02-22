@@ -275,6 +275,9 @@ Regression line.
 | top          | boolean                                                             | Whether top level display                                                                   |
 | showEquation | boolean                                                             | Whether to display regression equation, default is hidden                                   |
 | equation     | string \| (() => string)                                            | Custom algorithm equation, only when enable `showEquation` and custom `algorithm` property  |
+| textStyle    | _TextStyle_                                                         | Custom equation text style                                                                  |
+
+其中，**_TextStyle_** 类型定义详见: [配置文字样式](/en/docs/api/graphic-style)
 
 ```ts
 regressionLine: {
@@ -286,7 +289,10 @@ regressionLine: {
     ];
   },
   showEquation: true,
-  equation: () => 'y = 2x + 1'
+  equation: () => 'y = 2x + 1',
+  textStyle: {
+    fontSize: 20
+  }
 }
 ```
 

@@ -274,6 +274,9 @@ xAxis、yAxis 配置相同。**注意**：由于 DualAxes(双轴图) 和 Bidirec
 | top          | boolean                                                             | 是否顶层显示                                                           |
 | showEquation | boolean                                                             | 显示回归方程式，默认不显示                                              |
 | equation     | string \| (() => string)                                            | 自定义回归方程式，仅在已经自定义`algorithm`以及启用`showEquation`时生效 |
+| textStyle    | _TextStyle_                                                         | 自定义回归方程式文字样式                                               |
+
+其中，**_TextStyle_** 类型定义详见: [配置文字样式](/zh/docs/api/graphic-style)
 
 ```ts
 regressionLine: {
@@ -285,9 +288,13 @@ regressionLine: {
     ];
   },
   showEquation: true,
-  equation: () => 'y = 2x + 1'
+  equation: () => 'y = 2x + 1',
+  textStyle: {
+    fontSize: 20
+  }
 }
 ```
+
 
 ### 图表事件
 

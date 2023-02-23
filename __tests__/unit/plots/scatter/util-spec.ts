@@ -61,5 +61,14 @@ describe('scatter util', () => {
       const equation = getRegressionEquation(type, { a: -0.1234567, b: -0.12345678, rSquared: 0.12345678 });
       expect(equation).toBe('y = -0.1235x + -0.1235, R^2 = 0.1235');
     });
+
+    it('should round polynomial equation with more than 3 coefficients', () => {
+      const type = 'poly';
+      const equation = getRegressionEquation(type, {
+        coefficients: [0.1234567, 0.1234567, 0.1234567, 0.1234567, 0.1234567],
+        rSquared: 0.1234567,
+      });
+      expect(equation).toBe('y = 0.1235 + 0.1235x + 0.1235x^2 + 0.1235x^3 + 0.1235x^4, R^2 = 0.1235');
+    });
   });
 });

@@ -271,7 +271,7 @@ export function getRegressionEquation(type: string, res: D3RegressionResult) {
         res.coefficients?.[2]
       )}x^2`;
       for (let i = 3; i < res.coefficients.length; ++i) {
-        temp += ` + ${res.coefficients[i]}x^${i}`;
+        temp += ` + ${safeFormat(res.coefficients[i])}x^${i}`;
       }
       return `${temp}, R^2 = ${safeFormat(res.rSquared)}`;
     case 'pow':

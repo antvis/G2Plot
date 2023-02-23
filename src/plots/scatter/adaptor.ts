@@ -261,13 +261,13 @@ function regressionLine(params: Params<ScatterOptions>): Params<ScatterOptions> 
   const { options, chart } = params;
   const { regressionLine } = options;
   if (regressionLine) {
-    const { style, textStyle = {}, top = false, showEquation = false } = regressionLine;
+    const { style, equationStyle = {}, top = false, showEquation = false } = regressionLine;
     const defaultStyle = {
       stroke: '#9ba29a',
       lineWidth: 2,
       opacity: 0.5,
     };
-    const defaulTextStyle = {
+    const defaulEquationStyle = {
       x: 20,
       y: 20,
       textAlign: 'left' as const,
@@ -298,8 +298,8 @@ function regressionLine(params: Params<ScatterOptions>): Params<ScatterOptions> 
           group.addShape('text', {
             name: 'regression-equation',
             attrs: {
-              ...defaulTextStyle,
-              ...textStyle,
+              ...defaulEquationStyle,
+              ...equationStyle,
               text: equation,
             },
           });

@@ -266,15 +266,15 @@ xAxis、yAxis 配置相同。**注意**：由于 DualAxes(双轴图) 和 Bidirec
 
 回归线。
 
-| 细分配置     | 类型                                                                | 功能描述                                                               |
-|--------------|---------------------------------------------------------------------|--------------------------------------------------------------------|
-| type         | string                                                              | 回归线类型, exp \| linear \| loess \| log \| poly \| pow \| quad       |
-| style        | object                                                              | 配置回归线样式，详细配置参考绘图属性                                    |
-| algorithm    | Array<[number, number]> \| ((data: any) => Array<[number, number]>) | 自定义算法，优先级高于 type                                             |
-| top          | boolean                                                             | 是否顶层显示                                                           |
-| showEquation | boolean                                                             | 显示回归方程式，默认不显示                                              |
-| equation     | string \| (() => string)                                            | 自定义回归方程式，仅在已经自定义`algorithm`以及启用`showEquation`时生效 |
-| textStyle    | _TextStyle_                                                         | 自定义回归方程式文字样式                                               |
+| 细分配置      | 类型                                                                | 功能描述                                                               |
+|---------------|---------------------------------------------------------------------|--------------------------------------------------------------------|
+| type          | string                                                              | 回归线类型, exp \| linear \| loess \| log \| poly \| pow \| quad       |
+| style         | object                                                              | 配置回归线样式，详细配置参考绘图属性                                    |
+| algorithm     | Array<[number, number]> \| ((data: any) => Array<[number, number]>) | 自定义算法，优先级高于 type                                             |
+| top           | boolean                                                             | 是否顶层显示                                                           |
+| showEquation  | boolean                                                             | 显示回归方程式，默认不显示                                              |
+| equation      | string \| (() => string)                                            | 自定义回归方程式，仅在已经自定义`algorithm`以及启用`showEquation`时生效 |
+| equationStyle | _TextStyle_                                                         | 自定义回归方程式文字样式                                               |
 
 其中，**_TextStyle_** 类型定义详见: [配置文字样式](/zh/docs/api/graphic-style)
 
@@ -289,12 +289,11 @@ regressionLine: {
   },
   showEquation: true,
   equation: () => 'y = 2x + 1',
-  textStyle: {
+  equationStyle: {
     fontSize: 20
   }
 }
 ```
-
 
 ### 图表事件
 
@@ -312,8 +311,8 @@ regressionLine: {
 
 散点图内置了一些交互，列表如下:
 
-| 交互       | 描述                                     | 配置                           |
-| ----------- | ---------------------------------------- | ------------------------------ |
+| 交互  | 描述                                     | 配置                       |
+| ----- | ---------------------------------------- | -------------------------- |
 | brush | 用于刷选交互，配置该交互后，可进行刷选。 | `brush: { enabled: true }` |
 
 <embed src="@/docs/common/brush.zh.md"></embed>
@@ -321,4 +320,5 @@ regressionLine: {
 <embed src="@/docs/common/interactions.zh.md"></embed>
 
 <!-- 直接 三级导航展开 -->
+
 <embed src="@/docs/common/annotations.zh.md"></embed>

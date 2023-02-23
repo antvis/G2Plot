@@ -57,24 +57,25 @@ export interface RegressionLineOptions {
    */
   readonly style?: ShapeStyle;
   /**
-   * @title 配置回归线方程式样式
-   */
-  readonly textStyle?: TextStyle;
-  /**
    * @title 自定义算法
    * @description  [[0,0],[100,100]]
    */
   readonly algorithm?: Array<[number, number]> | ((data: any) => Array<[number, number]>);
+  /**
+   * @title 显示回归方程式
+   * @description 默认为不显示回归方程式
+   */
+  readonly showEquation?: boolean;
   /**
    * @title 自定义回归方程式
    * @description 只有当自定义algorithm时生效
    */
   readonly equation?: string | (() => string);
   /**
-   * @title 显示回归方程式
-   * @description 默认为不显示回归方程式
+   * @title 回归线方程式样式
+   * @description 自定义文本样式，请参考TextStyle配置
    */
-  readonly showEquation?: boolean;
+  readonly equationStyle?: TextStyle;
 }
 
 export interface ScatterOptions extends Options {

@@ -416,7 +416,7 @@ describe('scatter', () => {
     scatter.destroy();
   });
 
-  it('regressionLine: textStyle', async () => {
+  it('regressionLine: equationStyle', async () => {
     const scatter = new Scatter(createDiv('regressionLine'), {
       data,
       width: 400,
@@ -427,7 +427,7 @@ describe('scatter', () => {
       regressionLine: {
         type: 'linear',
         showEquation: true,
-        textStyle: {
+        equationStyle: {
           fontSize: 24,
         },
       },

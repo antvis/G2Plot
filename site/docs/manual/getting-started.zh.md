@@ -104,7 +104,7 @@ const line = new Line('container', {
     },
   },
   yAxis: {
-    // 格式化 y 轴标签加单位，自定义 labal 样式
+    // 格式化 y 轴标签加单位，自定义 label 样式
     label: {
       formatter: (v) => {
         return v + 'k';

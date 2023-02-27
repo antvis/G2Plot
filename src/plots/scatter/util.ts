@@ -1,5 +1,5 @@
 import { View } from '@antv/g2';
-import { get, isArray, isFunction, isNumber } from '@antv/util';
+import { get, isArray, isNumber } from '@antv/util';
 import {
   regressionExp,
   regressionLinear,
@@ -162,7 +162,7 @@ export const getPath = (config: RenderOptions) => {
   let equation = null;
   if (algorithm) {
     pathData = isArray(algorithm) ? algorithm : algorithm(data);
-    equation = isFunction(customEquation) ? customEquation() : customEquation;
+    equation = customEquation;
   } else {
     const reg = REGRESSION_MAP[type]()
       .x((d) => d[xField])
@@ -275,7 +275,7 @@ export function getRegressionEquation(type: string, res: D3RegressionResult) {
       }
       return `${temp}, R^2 = ${safeFormat(res.rSquared)}`;
     case 'pow':
-      //  y = ax^b
+      // y = ax^b
       return `y = ${safeFormat(res.a)}x^${safeFormat(res.b)}, R^2 = ${safeFormat(res.rSquared)}`;
   }
   return null;

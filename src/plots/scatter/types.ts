@@ -70,7 +70,7 @@ export interface RegressionLineOptions {
    * @title 自定义回归方程式
    * @description 只有当自定义algorithm时生效
    */
-  readonly equation?: string | (() => string);
+  readonly equation?: string;
   /**
    * @title 回归线方程式样式
    * @description 自定义文本样式，请参考TextStyle配置

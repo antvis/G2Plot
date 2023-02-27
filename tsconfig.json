@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "lib",
-    "module": "commonjs",
+    "module": "ESNext",
     "target": "es6",
     "jsx": "preserve",
     "moduleResolution": "node",
@@ -15,7 +15,7 @@
     "lib": ["dom", "esnext"],
     "skipLibCheck": true,
     "sourceRoot": "src",
-    "baseUrl": "src",
+    "baseUrl": "./",
     "resolveJsonModule": true
   },
   "include": ["src/**/*"],

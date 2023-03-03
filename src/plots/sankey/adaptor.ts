@@ -38,7 +38,7 @@ function defaultOptions(params: Params<SankeyOptions>): Params<SankeyOptions> {
  */
 function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
   const { chart, options } = params;
-  const { color, nodeStyle, edgeStyle, label, tooltip, nodeState, edgeState } = options;
+  const { color, nodeStyle, edgeStyle, label, tooltip, nodeState, edgeState, rawFields = [] } = options;
 
   // 1. 组件，优先设置，因为子 view 会继承配置
   chart.legend(false);
@@ -62,6 +62,7 @@ function geometry(params: Params<SankeyOptions>): Params<SankeyOptions> {
       xField: X_FIELD,
       yField: Y_FIELD,
       seriesField: COLOR_FIELD,
+      rawFields: ['source', 'target', ...rawFields],
       edge: {
         color,
         style: edgeStyle,

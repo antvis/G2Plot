@@ -1,3 +1,13 @@
+#### 2.4.26 (2023-03-03)
+
+##### Documentation Changes
+
+*  fix typo ([#3480](https://github.com/antvis/G2plot/pull/3480)) ([1b0a0a96](https://github.com/antvis/G2plot/commit/1b0a0a966a1d50102197b53463907f0b6a48df1a))
+
+##### Bug Fixes
+
+* **Sankey:**  insufficient pass-in parameters for the callback function of edgeStyle ([#3483](https://github.com/antvis/G2plot/pull/3483)) ([0a4f376b](https://github.com/antvis/G2plot/commit/0a4f376bbf5b70223ff604af69fea97262fff69d))
+
 #### 2.4.25 (2023-02-06)
 
 ##### Chores

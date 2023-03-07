@@ -68,12 +68,12 @@ export interface RegressionLineOptions {
   readonly showEquation?: boolean;
   /**
    * @title 自定义回归方程式
-   * @description 只有当自定义algorithm时生效
+   * @description 只有当自定义 algorithm 时生效
    */
   readonly equation?: string;
   /**
    * @title 回归线方程式样式
-   * @description 自定义文本样式，请参考TextStyle配置
+   * @description 自定义文本样式，请参考 TextStyle 配置
    */
   readonly equationStyle?: TextStyle;
 }

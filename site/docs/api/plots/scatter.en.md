@@ -274,7 +274,7 @@ Regression line.
 | algorithm     | Array<[number, number]> \| ((data: any) => Array<[number, number]>) | Custom algorithm with a higher priority than type                                           |
 | top           | boolean                                                             | Whether top level display                                                                   |
 | showEquation  | boolean                                                             | Whether to display regression equation, default is hidden                                   |
-| equation      | string                                                              | Custom algorithm equation, only when enable `showEquation` and custom `algorithm` property  |
+| equation      | string                                                              | Custom algorithm equation, only when enable showEquation and custom algorithm property      |
 | equationStyle | _TextStyle_                                                         | Custom equation text style                                                                  |
 
 其中，**_TextStyle_** 类型定义详见: [配置文字样式](/en/docs/api/graphic-style)

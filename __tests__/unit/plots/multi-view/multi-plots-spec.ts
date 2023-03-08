@@ -44,10 +44,9 @@ describe('multi-plots in multi-view', () => {
   it('innormal, 带不合法的 plot type', () => {
     plot.update({
       // @ts-ignore `pass illegal type`
-      plots: [
-        ...plot.options.plots,
+      plots: (plot.options.plots || []).concat([
         {
-          type: 'xxx',
+          type: 'xxx' as any,
           options: {
             data: [
               { x: 'x', y: 1 },
@@ -57,7 +56,7 @@ describe('multi-plots in multi-view', () => {
             yField: 'y',
           },
         },
-      ],
+      ]),
     });
 
     expect(plot.chart.views.length).toBe(3);
@@ -129,7 +128,7 @@ describe('multi-plots in multi-view', () => {
         },
       ],
     });
-    const geometries = [];
+    const geometries: any[] = [];
     plot.chart.views.forEach((view) => geometries.push(...view.geometries));
     expect(geometries.length).toBe(2);
   });

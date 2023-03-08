@@ -114,9 +114,9 @@ describe('scatter', () => {
     const { width } = scatter.chart;
     const pathGroup = scatter.chart
       .getComponents()
-      .find((item) => item.type === 'annotation')
+      .find((item) => item.type === 'annotation')!
       .component.cfg.group.cfg.children[0].getChildren();
-    const { path } = pathGroup?.[0]?.cfg?.attrs;
+    const { path = [] } = pathGroup?.[0]?.cfg?.attrs || {};
     expect(path.length).toBe(3);
     expect(scatter.chart.getXScale().scale(8) * width < path[0][1]).toBeTruthy();
 
@@ -154,9 +154,9 @@ describe('scatter', () => {
     const { width } = scatter.chart;
     const pathGroup = scatter.chart
       .getComponents()
-      .find((item) => item.type === 'annotation')
+      .find((item) => item.type === 'annotation')!
       .component.cfg.group.cfg.children[0].getChildren();
-    const { path } = pathGroup?.[0]?.cfg?.attrs;
+    const { path = [] } = pathGroup?.[0]?.cfg?.attrs || {};
     expect(path.length).toBe(3);
     expect(scatter.chart.getXScale().scale(8) * width < path[0][1]).toBeTruthy();
 
@@ -180,9 +180,9 @@ describe('scatter', () => {
     await delay(100);
     const pathGroup = scatter.chart
       .getComponents()
-      .find((item) => item.type === 'annotation')
+      .find((item) => item.type === 'annotation')!
       .component.cfg.group.cfg.children[0].getChildren();
-    const { path } = pathGroup?.[0]?.cfg?.attrs;
+    const { path = [] } = pathGroup?.[0]?.cfg?.attrs || {};
     expect(path.length).toBe(2); // linear
 
     scatter.destroy();

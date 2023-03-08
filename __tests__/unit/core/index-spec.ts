@@ -211,7 +211,7 @@ describe('core', () => {
 
   it('getChartSize', () => {
     createDiv('', document.body, 'changeSize');
-    document.getElementById('changeSize').style.width = '0px';
+    document.getElementById('changeSize')!.style.width = '0px';
     const line = new Line('changeSize', {
       data: partySupport.filter((o) => o.type === 'FF'),
       xField: 'date',
@@ -259,8 +259,8 @@ describe('core', () => {
 
     line.render();
 
-    expect(line.chart.getOptions().axes['date'].label.autoRotate).toBe(false);
-    expect(line.chart.getOptions().axes['date'].label.autoHide).toEqual({
+    expect(line.chart.getOptions().axes?.['date'].label.autoRotate).toBe(false);
+    expect(line.chart.getOptions().axes?.['date'].label.autoHide).toEqual({
       type: 'equidistance',
       cfg: {
         minGap: 6,
@@ -280,8 +280,8 @@ describe('core', () => {
       },
     });
     line.render();
-    expect(line.chart.getOptions().axes['date'].label.autoRotate).toBe(false);
-    expect(line.chart.getOptions().axes['date'].label.autoHide).toEqual({
+    expect(line.chart.getOptions().axes?.['date'].label.autoRotate).toBe(false);
+    expect(line.chart.getOptions().axes?.['date'].label.autoHide).toEqual({
       type: 'equidistance',
       cfg: {
         minGap: 12,
@@ -296,14 +296,14 @@ describe('core', () => {
       },
     });
     line.render();
-    expect(line.chart.getOptions().axes['date'].label.autoRotate).toBe(false);
-    expect(line.chart.getOptions().axes['date'].label.autoHide).toBe(false);
+    expect(line.chart.getOptions().axes?.['date'].label.autoRotate).toBe(false);
+    expect(line.chart.getOptions().axes?.['date'].label.autoHide).toBe(false);
 
     line.destroy();
   });
 
   it('default-options', () => {
-    type CustomPlotOptions = {};
+    type CustomPlotOptions = Record<string, any>;
     class CustomPlot extends Plot<CustomPlotOptions> {
       type: 'custom';
       getSchemaAdaptor() {
@@ -338,7 +338,7 @@ describe('core', () => {
 
     const annotations = line.chart.getController('annotation').getComponents();
     expect(annotations.length).toBe(2);
-    expect(annotations.find((co) => co.extra.id === 'ID').component.get('type')).toBe('image');
+    expect(annotations.find((co) => co.extra.id === 'ID')?.component.get('type')).toBe('image');
 
     line.addAnnotations([{ type: 'image', start: ['min', 'median'], end: ['max', 'median'], src: 'xx' }]);
     expect(line.chart.getController('annotation').getComponents().length).toBe(3);

@@ -62,8 +62,8 @@ describe('treemap sunburst', () => {
     const geometry = sunburstPlot.chart.geometries[0];
 
     expect(geometry.type).toBe('polygon');
-    // @ts-ignore
     const {
+      // @ts-ignore
       attributeOption: { color },
       coordinate,
     } = geometry;
@@ -105,8 +105,8 @@ describe('treemap sunburst', () => {
     sunburstPlot.render();
     const geometry = sunburstPlot.chart.geometries[0];
     expect(geometry.type).toBe('polygon');
-    // @ts-ignore
     const {
+      // @ts-ignore
       attributeOption: { color },
       coordinate,
     } = geometry;
@@ -155,8 +155,8 @@ describe('treemap sunburst', () => {
     sunburstPlot.render();
     const geometry = sunburstPlot.chart.geometries[0];
     expect(geometry.type).toBe('polygon');
-    // @ts-ignore
     const {
+      // @ts-ignore
       attributeOption: { color },
       coordinate,
     } = geometry;

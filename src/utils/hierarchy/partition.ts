@@ -20,7 +20,7 @@ export interface Options {
   round?: boolean;
   ratio?: number;
   padding?: number;
-  sort?: Function;
+  sort?: (a: any, b: any) => any; // Function;
   as?: [string, string];
 
   ignoreParentValue?: boolean;

@@ -314,7 +314,7 @@ function label(params: Params<BidirectionalBarOptions>): Params<BidirectionalBar
       if (typeof cfg.position === 'string') {
         cfg.position = positionMap[cfg.position];
       } else if (typeof cfg.position === 'function') {
-        cfg.position = (...args) => positionMap[(cfg.position as Function).apply(this, args)];
+        cfg.position = (...args) => positionMap[(cfg.position as any).apply(this, args)];
       }
       // 设置 textBaseline 默认值
       const textBaseline = leftLabelCfg.style?.textBaseline || 'bottom';

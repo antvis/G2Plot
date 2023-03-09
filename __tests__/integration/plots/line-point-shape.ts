@@ -1,24 +1,24 @@
-import { G2PlotLine } from '../../../src';
-import { filterPoint } from './line-series';
+import { Line } from '../../../src';
 
-export function linePointShape() {
-  return {
+export function linePointShape(container, renderer = 'canvas') {
+  return new Line(container, {
+    renderer,
     type: 'view',
     height: 320,
+    data: {
+      type: 'fetch',
+      value: 'data/year-value-category.json',
+    },
+
     children: [
       {
-        type: G2PlotLine,
-        data: {
-          type: 'fetch',
-          value: 'data/year-value-category.json',
-        },
+        type: 'line',
+        axis: { y: { title: false } },
         encode: {
           x: (d) => new Date(d.year),
           y: 'value',
           color: 'category',
-          pointShape: (d) => (d.category !== 'Gas fuel' ? 'primary' : 'second'),
         },
-        axis: { y: { title: false } },
         scale: {
           x: { mask: 'YYYY-MM', nice: true },
           pointShape: {
@@ -26,11 +26,16 @@ export function linePointShape() {
             range: ['point', 'square'],
           },
         },
-        style: {
-          point: true,
-          pointOpacity: (datum, i, data) => filterPoint(data, datum, 'category'),
+      },
+      {
+        type: 'point',
+        encode: {
+          x: (d) => new Date(d.year),
+          y: 'value',
+          color: 'category',
+          shape: (d) => (d.category !== 'Gas fuel' ? 'primary' : 'second'),
         },
       },
     ],
-  };
+  });
 }

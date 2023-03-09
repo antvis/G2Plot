@@ -1,12 +1,13 @@
-import { G2PlotLine } from '../../../src';
+import { Line } from '../../../src';
 
-export function lineSlider() {
-  return {
+export function lineSlider(container, renderer = 'canvas') {
+  return new Line(container, {
+    renderer,
     type: 'view',
     height: 320,
     children: [
       {
-        type: G2PlotLine,
+        type: 'line',
         data: {
           type: 'fetch',
           value: 'data/date-scales.json',
@@ -20,5 +21,5 @@ export function lineSlider() {
         slider: { x: {}, y: {} },
       },
     ],
-  };
+  });
 }

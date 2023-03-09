@@ -1,17 +1,19 @@
-import { G2PlotLine } from '../../../src';
+import { Line } from '../../../src';
 
-export function lineSeries() {
-  return {
+export function lineSeries(container, renderer = 'canvas') {
+  return new Line(container, {
+    renderer,
     type: 'view',
     height: 320,
     interactions: [{ type: 'tooltip' }],
+    data: {
+      type: 'fetch',
+      value: 'data/year-value-category.json',
+    },
     children: [
       {
-        type: G2PlotLine,
-        data: {
-          type: 'fetch',
-          value: 'data/year-value-category.json',
-        },
+        type: 'line',
+
         encode: {
           x: (d) => new Date(d.year),
           y: 'value',
@@ -19,13 +21,21 @@ export function lineSeries() {
         },
         scale: { x: { mask: 'YYYY-MM', nice: true } },
         axis: { y: { title: false } },
+      },
+      {
+        type: 'point',
+        encode: {
+          x: (d) => new Date(d.year),
+          y: 'value',
+          color: 'category',
+        },
         style: {
           point: true,
           pointOpacity: (datum, i, data) => filterPoint(data, datum, 'category'),
         },
       },
     ],
-  };
+  });
 }
 
 export function filterPoint(data, datum, name) {

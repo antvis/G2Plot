@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { PNG } from 'pngjs';
-import { createCanvas } from '@napi-rs/canvas';
+import { createCanvas } from 'canvas';
 import pixelmatch from 'pixelmatch';
 import { Canvas } from '@antv/g';
 import { Renderer } from '@antv/g-canvas';

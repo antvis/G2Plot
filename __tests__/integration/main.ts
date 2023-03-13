@@ -1,4 +1,3 @@
-import { render } from '@antv/g2';
 import * as plots from './plots';
 
 const cases = {
@@ -44,11 +43,9 @@ function onchange() {
 }
 
 async function plot() {
+  container.innerHTML = '';
   const generate = cases[caseSelect.value];
-  const options = generate();
-
-  // @todo: G2 should support pass a renderer instance, not a G Cavnas instance to the API signature.
-  container.replaceChildren(render(options));
+  generate(container, rendererSelect.value);
 }
 
 app.append(caseSelect, rendererSelect, container);

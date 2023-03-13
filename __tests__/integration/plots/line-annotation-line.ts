@@ -1,29 +1,28 @@
-import { G2PlotLine } from '../../../src';
+import { Line } from '../../../src';
 
-export function lineAnnotationLine() {
-  return {
+export function lineAnnotationLine(container, renderer = 'canvas') {
+  return new Line(container, {
+    renderer,
     type: 'view',
     height: 320,
+    encode: {
+      x: (d) => new Date(d.Date),
+      y: 'scales',
+    },
     children: [
       {
-        type: G2PlotLine,
+        type: 'line',
         data: {
           type: 'fetch',
           value: 'data/date-scales.json',
         },
-        encode: {
-          x: (d) => new Date(d.Date),
-          y: 'scales',
-        },
         scale: { x: { mask: 'YYYY-MM', nice: true } },
         axis: { y: { size: 50 } },
-        annotations: [
-          {
-            type: 'lineX',
-            data: [{ Date: '2012-01' }],
-          },
-        ],
+      },
+      {
+        type: 'lineX',
+        data: [{ Date: '2012-01' }],
       },
     ],
-  };
+  });
 }

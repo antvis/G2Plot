@@ -1,47 +1,33 @@
-import { Annotation } from '../../adaptor/annotation';
-import { ConditionRangeY } from '../../adaptor/conditionRange';
-import { PrimaryMark, AttachedMark } from '../../adaptor/mark';
-import { syncScale } from '../../utils/scale';
-import { flow } from '../../utils/flow';
-import type { LineOptions } from './type';
+import { Plot } from '../../core/plot';
+import type { Adaptor } from '../../types';
+import { adaptor } from './adaptor';
+import { LineOptions } from './type';
 
 export type { LineOptions };
 
-const DEFAULT_POINT_OPTIONS = {
-  encode: { shape: 'point' },
-  style: { stroke: '#fff' },
-};
+export class Line extends Plot<LineOptions> {
+  /** 图表类型 */
+  public type = 'line';
 
-const DEFAULT_AREA_OPTIONS = {
-  style: { fillOpacity: 0.25 },
-};
+  /**
+   * 获取 折线图 默认配置项
+   * 供外部使用
+   */
+  static getDefaultOptions(): Partial<LineOptions> {
+    return { type: 'line' };
+  }
 
-const DEFAULT_OPTIONS = {
-  axis: { x: { title: false, size: 20 } },
-  legend: {
-    color: {
-      layout: {
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-      },
-    },
-  },
-};
+  /**
+   * 获取 折线图 默认配置
+   */
+  protected getDefaultOptions() {
+    return Line.getDefaultOptions();
+  }
 
-export function Line(options: LineOptions) {
-  const { annotations = [], conditionRangeY } = options;
-
-  const O = syncScale(options);
-
-  return () => {
-    return flow(
-      ConditionRangeY(conditionRangeY, O),
-      AttachedMark({ type: 'area', defaults: DEFAULT_AREA_OPTIONS }, O),
-      PrimaryMark({ type: 'line', defaults: DEFAULT_OPTIONS }, O),
-      AttachedMark({ type: 'point', defaults: DEFAULT_POINT_OPTIONS }, O),
-      ...annotations.map((d) => Annotation(d, O)),
-    )([]);
-  };
+  /**
+   * 折线图适配器
+   */
+  protected getSchemaAdaptor(): (params: Adaptor<LineOptions>) => void {
+    return adaptor;
+  }
 }
-
-Line.props = { composite: true };

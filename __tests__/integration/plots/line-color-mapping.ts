@@ -1,12 +1,13 @@
-import { G2PlotLine } from '../../../src';
+import { Line } from '../../../src';
 
-export function lineColorMapping() {
-  return {
+export function lineColorMapping(container, renderer = 'canvas') {
+  return new Line(container, {
+    renderer,
     type: 'view',
     height: 320,
     children: [
       {
-        type: G2PlotLine,
+        type: 'line',
         data: {
           type: 'fetch',
           value: 'data/year-value-category.json',
@@ -26,5 +27,5 @@ export function lineColorMapping() {
         labels: [{ text: 'category', selector: 'last' }],
       },
     ],
-  };
+  });
 }

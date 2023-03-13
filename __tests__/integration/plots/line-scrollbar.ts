@@ -1,13 +1,14 @@
-import { G2PlotLine } from '../../../src';
+import { Line } from '../../../src';
 
-export function lineScrollbar() {
-  return {
+export function lineScrollbar(container, renderer = 'canvas') {
+  return new Line(container, {
+    renderer,
     type: 'view',
     height: 320,
     paddingLeft: 80,
     children: [
       {
-        type: G2PlotLine,
+        type: 'line',
         data: {
           type: 'fetch',
           value: 'data/date-scales.json',
@@ -21,7 +22,7 @@ export function lineScrollbar() {
         scrollbar: { x: {}, y: {} },
       },
     ],
-  };
+  });
 }
 
 lineScrollbar.skip = true;

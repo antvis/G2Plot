@@ -1,3 +1,4 @@
+import { deepMix } from '@antv/util';
 import { Params } from '../../core/adaptor';
 import { deepAssign } from '../../utils';
 import { getTooltipMapping } from '../../utils/tooltip';
@@ -34,11 +35,13 @@ export function area<O extends AreaGeometryOptions>(params: Params<O>): Params<O
             type: 'area',
             colorField: seriesField,
             tooltipFields: fields,
-            mapping: {
-              shape: smooth ? 'smooth' : 'area',
-              tooltip: formatter,
-              ...area,
-            },
+            mapping: deepMix(
+              {
+                shape: smooth ? 'smooth' : 'area',
+                tooltip: formatter,
+              },
+              area
+            ),
             args: { useDeferredLabel },
           },
         })

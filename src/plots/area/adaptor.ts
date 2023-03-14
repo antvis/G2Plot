@@ -30,6 +30,7 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
   const {
     data,
     areaStyle,
+    areaShape,
     color,
     point: pointMapping,
     line: lineMapping,
@@ -56,7 +57,11 @@ function geometry(params: Params<AreaOptions>): Params<AreaOptions> {
     : tooltip;
   const primary = deepAssign({}, params, {
     options: {
-      area: { color, style: areaStyle },
+      area: {
+        color,
+        style: areaStyle,
+        shape: areaShape,
+      },
       point: pointMapping && {
         color,
         ...pointMapping,

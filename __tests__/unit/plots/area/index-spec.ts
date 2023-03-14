@@ -1,4 +1,4 @@
-import { Area } from '../../../../src';
+import { G2, Area } from '../../../../src';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/area/constants';
 import { partySupport } from '../../../data/party-support';
 import { createDiv } from '../../../utils/dom';
@@ -150,6 +150,45 @@ describe('area', () => {
     expect(area.chart.geometries[0].customOption).toEqual({ test: 'hello' });
     // @ts-ignore
     expect(area.chart.geometries[1].customOption).toEqual({ test: 'hello' });
+  });
+
+  it('custom shape', () => {
+    G2.registerShape('area', 'my-custom-area', {
+      draw(shapeInfo, container) {
+        return container.addShape('circle', {
+          attrs: {
+            x: 100,
+            y: 100,
+            r: 4,
+          },
+        });
+      },
+    });
+    const data = [
+      { x: 1, y: 1 },
+      { x: 2, y: 4 },
+      { x: 3, y: 5 },
+      { x: 4, y: 2 },
+    ];
+    const area = new Area(createDiv(), {
+      width: 400,
+      height: 300,
+      appendPadding: 10,
+      data: data,
+      xField: 'x',
+      yField: 'y',
+      areaShape: 'my-custom-area',
+      customInfo: { test: 'hello' },
+      line: {
+        shape: 'smooth',
+      },
+    });
+    area.render();
+
+    // @ts-ignore shapeType 是私有属性
+    expect(area.chart.geometries[0].elements[0].shapeType).toBe('my-custom-area');
+    // @ts-ignore shapeType 是私有属性
+    expect(area.chart.geometries[1].elements[0].shapeType).toBe('smooth');
   });
 
   it('defaultOptions 保持从 constants 中获取', () => {

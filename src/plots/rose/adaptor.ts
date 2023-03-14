@@ -11,7 +11,7 @@ import { RoseOptions } from './types';
  */
 function geometry(params: Params<RoseOptions>): Params<RoseOptions> {
   const { chart, options } = params;
-  const { data, sectorStyle, color } = options;
+  const { data, sectorStyle, shape, color } = options;
 
   // 装载数据
   chart.data(data);
@@ -23,6 +23,7 @@ function geometry(params: Params<RoseOptions>): Params<RoseOptions> {
         interval: {
           style: sectorStyle,
           color,
+          shape: shape,
         },
       },
     })

@@ -11,6 +11,7 @@ export async function renderAndSaveCanvas(options, filename: string, mounted = f
   const { width = 640, height = 480 } = options;
   const [canvas, nodeCanvas] = createGCanvas(width, height);
   await new Promise<void>((resolve) => {
+    // @ts-ignore
     render(options, { canvas }, resolve);
   });
   // Wait for the next tick.

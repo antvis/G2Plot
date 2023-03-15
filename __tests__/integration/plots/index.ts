@@ -8,3 +8,4 @@ export { lineColorMapping } from './line-color-mapping';
 export { lineConditionRangeY } from './line-condition-rangeY';
 export { lineScrollbar } from './line-scrollbar';
 export { lineSlider } from './line-slider';
+export { columnBasic } from './column-basic';

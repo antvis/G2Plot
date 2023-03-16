@@ -1,4 +1,4 @@
-import { RadialBar } from '../../../../src';
+import { G2, RadialBar } from '../../../../src';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/radial-bar/constant';
 import { antvStar } from '../../../data/antv-star';
 import { createDiv } from '../../../utils/dom';
@@ -183,5 +183,37 @@ describe('radial-bar', () => {
 
   it('defaultOptions 保持从 constants 中获取', () => {
     expect(RadialBar.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
+  });
+
+  it('custom shape', () => {
+    let customInfo: any = null;
+    G2.registerShape('interval', 'my-custom-interval', {
+      draw(shapeInfo, container) {
+        // 存起来用于单测
+        customInfo = shapeInfo.customInfo;
+        return container.addShape('circle', {
+          attrs: {
+            x: 100,
+            y: 100,
+            r: 4,
+          },
+        });
+      },
+    });
+    const bar = new RadialBar(createDiv(), {
+      width: 400,
+      height: 300,
+      data: antvStar,
+      xField,
+      yField,
+      colorField: yField,
+      shape: 'my-custom-interval',
+      customInfo: { test: 'hello' },
+    });
+    bar.render();
+
+    // @ts-ignore shapeType 是私有属性
+    expect(bar.chart.geometries[0].elements[0].shapeType).toBe('my-custom-interval');
+    expect(customInfo).toEqual({ test: 'hello' });
   });
 });

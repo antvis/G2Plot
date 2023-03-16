@@ -12,7 +12,7 @@ import { getScaleMax, getStackedData } from './utils';
  */
 function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
   const { chart, options } = params;
-  const { barStyle: style, color, tooltip, colorField, type, xField, yField, data } = options;
+  const { barStyle: style, color, tooltip, colorField, type, xField, yField, data, shape } = options;
 
   // 处理不合法的数据
   const processData = processIllegalData(data, yField);
@@ -25,7 +25,7 @@ function geometry(params: Params<RadialBarOptions>): Params<RadialBarOptions> {
       interval: {
         style,
         color,
-        shape: type === 'line' ? 'line' : 'intervel',
+        shape: shape || (type === 'line' ? 'line' : 'intervel'),
       },
       // 柱子的一些样式设置：柱子最小宽度、柱子最大宽度、柱子背景
       minColumnWidth: options.minBarWidth,

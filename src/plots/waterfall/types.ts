@@ -1,3 +1,4 @@
+import { GeometryOptions } from '../../adaptor/geometries';
 import { Options, ShapeStyle, StyleAttr } from '../../types';
 
 /** totalCfg of waterfall */
@@ -20,7 +21,7 @@ type LeaderLineCfg = {
   style?: ShapeStyle;
 };
 
-export interface WaterfallOptions extends Options {
+export interface WaterfallOptions extends Options, Pick<GeometryOptions, 'customInfo'> {
   /**
    * @title x 轴字段
    */
@@ -63,4 +64,9 @@ export interface WaterfallOptions extends Options {
    * @description 范围0-1
    */
   readonly columnWidthRatio?: number;
+  /**
+   * @title 自定义瀑布图
+   * @description interval 图形元素展示形状
+   */
+  readonly shape?: string;
 }

@@ -1,8 +1,11 @@
+import { GeometryOptions } from '../../adaptor/geometries';
 import { ColorAttr, Options, StyleAttr } from '../../types';
 import { DrillDownCfg } from '../../types/drill-down';
 import { HierarchyOption } from '../../utils/hierarchy/types';
 
-export interface SunburstOptions extends Omit<Options, 'data' | 'slider' | 'scrollbar' | 'xAxis' | 'yAxis'> {
+export interface SunburstOptions
+  extends Omit<Options, 'data' | 'slider' | 'scrollbar' | 'xAxis' | 'yAxis'>,
+    Pick<GeometryOptions, 'customInfo'> {
   /**
    * @title 旭日图数据
    */
@@ -65,4 +68,9 @@ export interface SunburstOptions extends Omit<Options, 'data' | 'slider' | 'scro
    * @title 下钻交互
    */
   readonly drilldown?: DrillDownCfg;
+  /**
+   * @title 自定义旭日图形状
+   * @description polygon 图形元素展示形状
+   */
+  readonly shape?: string;
 }

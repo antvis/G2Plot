@@ -24,7 +24,7 @@ import { transformData } from './utils';
  */
 function geometry(params: Params<SunburstOptions>): Params<SunburstOptions> {
   const { chart, options } = params;
-  const { color, colorField = SUNBURST_ANCESTOR_FIELD, sunburstStyle, rawFields = [] } = options;
+  const { color, colorField = SUNBURST_ANCESTOR_FIELD, sunburstStyle, rawFields = [], shape } = options;
   const data = transformData(options);
   chart.data(data);
 
@@ -53,6 +53,7 @@ function geometry(params: Params<SunburstOptions>): Params<SunburstOptions> {
         polygon: {
           color,
           style,
+          shape,
         },
       },
     })

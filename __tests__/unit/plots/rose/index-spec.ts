@@ -1,4 +1,4 @@
-import { Rose } from '../../../../src';
+import { G2, Rose } from '../../../../src';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/rose/constant';
 import { salesByArea, subSalesByArea } from '../../../data/sales';
 import { createDiv } from '../../../utils/dom';
@@ -80,6 +80,41 @@ describe('rose', () => {
     expect(geometry.getAttribute('color')?.getFields()).toEqual(['series']);
 
     rose.destroy();
+  });
+
+  it('custom shape', () => {
+    let customInfo: any = null;
+    G2.registerShape('interval', 'my-custom-interval', {
+      draw(shapeInfo, container) {
+        // 存起来用于单测
+        customInfo = shapeInfo.customInfo;
+        return container.addShape('circle', {
+          attrs: {
+            x: 100,
+            y: 100,
+            r: 4,
+          },
+        });
+      },
+    });
+    const rose = new Rose(createDiv('stacked rose'), {
+      width: 400,
+      height: 300,
+      data: subSalesByArea,
+      xField: 'area',
+      yField: 'sales',
+      seriesField: 'series',
+      shape: 'my-custom-interval',
+      customInfo: {
+        test: 'hello',
+      },
+    });
+
+    rose.render();
+
+    // @ts-ignore shapeType 是私有属性
+    expect(rose.chart.geometries[0].elements[0].shapeType).toBe('my-custom-interval');
+    expect(customInfo).toEqual({ test: 'hello' });
   });
 
   it('defaultOptions 保持从 constants 中获取', () => {

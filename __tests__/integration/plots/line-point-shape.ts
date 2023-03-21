@@ -1,6 +1,6 @@
 import { Line } from '../../../src';
 
-export function linePointShape(container, renderer = 'canvas') {
+export function linePointShape(container, renderer) {
   return new Line(container, {
     renderer,
     type: 'view',

@@ -2,13 +2,13 @@
 import EE from '@antv/event-emitter';
 import { Chart } from '@antv/g2';
 import { bind } from 'size-sensor';
-import { merge, omit } from '../utils';
+import { merge, omit, pick } from '../utils';
 import type { Annotation, Options, Adaptor } from '../types';
 
 const SOURCE_ATTRIBUTE_NAME = 'data-chart-source-type';
 
 /** new Chart options */
-export const CHART_OPTIONS = ['width', 'height', 'renderer', 'autoFit', 'canvas'];
+export const CHART_OPTIONS = ['width', 'height', 'renderer', 'autoFit', 'canvas', 'theme'];
 
 export abstract class Plot<O extends Options> extends EE {
   /** plot 类型名称 */
@@ -25,7 +25,7 @@ export abstract class Plot<O extends Options> extends EE {
   constructor(container: string | HTMLElement, options: O) {
     super();
     this.container = typeof container === 'string' ? document.getElementById(container) : container;
-    this.options = merge({}, this.getDefaultOptions(), options);
+    this.options = merge({}, this.getBaseOptions(), this.getDefaultOptions(), options);
     this.createG2();
     this.render();
     this.bindEvents();
@@ -35,17 +35,15 @@ export abstract class Plot<O extends Options> extends EE {
    * new Chart 所需配置
    */
   private getChartOptions() {
+    const { clientWidth, clientHeight } = this.container;
     // 逻辑简化：如果存在 width 或 height，则直接使用，否则使用容器大小
-    const { clientWidth = 640, clientHeight = 480 } = this.container;
-    const { width = clientWidth, height = clientHeight, renderer = 'canvas', autoFit = true, canvas } = this.options;
-
+    const { width = clientWidth || 640, height = clientHeight || 480, autoFit = true } = this.options;
     return {
+      ...pick(this.options, CHART_OPTIONS),
       container: this.container,
       width,
       height,
       autoFit,
-      renderer,
-      canvas,
     };
   }
 
@@ -81,13 +79,14 @@ export abstract class Plot<O extends Options> extends EE {
     }
   }
 
-  /**
-   * 获取默认的 options 配置项
-   * 每个组件都可以复写
-   */
-  protected getDefaultOptions(): Partial<Options> {
-    return { renderer: 'canvas' };
+  private getBaseOptions(): Partial<Options> {
+    return { theme: 'classic' };
   }
+
+  /**
+   * 获取默认的 options 配置项，每个组件都可以复写
+   */
+  protected getDefaultOptions(): Partial<Options>;
 
   /**
    * 绘制

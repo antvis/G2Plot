@@ -1,6 +1,6 @@
 import { Line } from '../../../src';
 
-export function lineColorMapping(container, renderer = 'canvas') {
+export function lineColorMapping(container, renderer) {
   return new Line(container, {
     renderer,
     type: 'view',

@@ -1,6 +1,6 @@
 import { Line } from '../../../src';
 
-export function lineScrollbar(container, renderer = 'canvas') {
+export function lineScrollbar(container, renderer) {
   return new Line(container, {
     renderer,
     type: 'view',

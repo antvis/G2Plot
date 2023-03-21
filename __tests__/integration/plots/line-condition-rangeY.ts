@@ -1,6 +1,6 @@
 import { Line } from '../../../src';
 
-export function lineConditionRangeY(container, renderer = 'canvas') {
+export function lineConditionRangeY(container, renderer) {
   return new Line(container, {
     renderer,
     type: 'view',

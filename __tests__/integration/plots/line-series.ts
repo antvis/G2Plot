@@ -1,6 +1,6 @@
 import { Line } from '../../../src';
 
-export function lineSeries(container, renderer = 'canvas') {
+export function lineSeries(container, renderer) {
   return new Line(container, {
     renderer,
     type: 'view',

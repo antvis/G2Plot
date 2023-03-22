@@ -1,6 +1,6 @@
 import { Column } from '../../../src';
 
-export function columnBasic(container, renderer = 'canvas') {
+export function columnBasic(container, renderer) {
   return new Column(container, {
     renderer,
     data: [

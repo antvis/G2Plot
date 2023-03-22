@@ -1,6 +1,6 @@
 import { Line } from '../../../src';
 
-export function lineArea(container, renderer = 'canvas') {
+export function lineArea(container, renderer) {
   return new Line(container, {
     type: 'view',
     height: 320,

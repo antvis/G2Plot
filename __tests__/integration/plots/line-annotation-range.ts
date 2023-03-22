@@ -1,6 +1,6 @@
 import { Line } from '../../../src';
 
-export function lineAnnotationRange(container, renderer = 'canvas') {
+export function lineAnnotationRange(container, renderer) {
   new Line(container, {
     renderer,
     type: 'view',

@@ -1,6 +1,6 @@
 import { Line } from '../../../src';
 
-export function lineBasic(container, renderer = 'canvas') {
+export function lineBasic(container, renderer) {
   return new Line(container, {
     renderer,
     data: {

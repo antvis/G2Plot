@@ -1,7 +1,14 @@
+import { Renderer as CanvasRenderer } from '@antv/g-canvas';
+import { Renderer as SVGRenderer } from '@antv/g-svg';
 import * as plots from './plots';
 
 const cases = {
   ...plots,
+};
+
+const renderers = {
+  canvas: CanvasRenderer,
+  svg: SVGRenderer,
 };
 
 const app = document.getElementById('app') as HTMLElement;
@@ -45,7 +52,7 @@ function onchange() {
 async function plot() {
   container.innerHTML = '';
   const generate = cases[caseSelect.value];
-  generate(container, rendererSelect.value);
+  generate(container, new renderers[rendererSelect.value]());
 }
 
 app.append(caseSelect, rendererSelect, container);

@@ -1,6 +1,6 @@
 import { Line } from '../../../src';
 
-export function lineSlider(container, renderer = 'canvas') {
+export function lineSlider(container, renderer) {
   return new Line(container, {
     renderer,
     type: 'view',

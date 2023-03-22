@@ -14,3 +14,12 @@ coverage
 # Website cache byb dumi
 site/.dumi/tmp
 site/.dumi/tmp-production
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/test-results/
+/playwright-report/
+/playwright/.cache/

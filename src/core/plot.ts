@@ -92,8 +92,6 @@ export abstract class Plot<O extends Options> extends EE {
    * 绘制
    */
   public render() {
-    // 暴力处理，先清空再渲染，需要 G2 层自行做好更新渲染
-    this.chart.clear();
     // 执行 adaptor
     this.execAdaptor();
 

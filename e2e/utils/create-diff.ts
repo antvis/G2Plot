@@ -16,7 +16,6 @@ export const createDiff = async () => {
   files.forEach((filename) => {
     if (filename.endsWith(`${STABLE}.png`) || filename.endsWith(`${DIFF}.png`)) return;
     diffFile(IMG_DIR, filename);
-    console.log(filename);
   });
 };
 

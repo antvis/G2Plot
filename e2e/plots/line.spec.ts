@@ -13,7 +13,7 @@ test.afterAll(() => {
 test('Plot snapshots', async ({ page }) => {
   for (const filename of files) {
     const [name] = filename.split('.');
-    await page.goto(`${process.env.HOST}/?name=${toHump(name)}`);
+    await page.goto(`/?name=${toHump(name)}`);
     await sleep(1000);
     await page.locator('.container').screenshot({ path: `${IMG_DIR}/${name}.png` });
   }

@@ -14,6 +14,9 @@ dotenv.config();
 // Alternatively, read from "../my.env" file.
 dotenv.config({ path: path.resolve(__dirname, './e2e/.env') });
 
+// dev server
+const SERVER = 'http://127.0.0.1:8088';
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -41,9 +44,9 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    headless: false,
+    headless: true,
     viewport: { width: 640, height: 480 },
-    baseURL: 'http://localhost:8090',
+    baseURL: SERVER,
   },
 
   /* Configure projects for major browsers */
@@ -59,8 +62,9 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'npm run dev',
-    port: 8090,
+    command: 'pnpm dev',
+    url: SERVER,
+    reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },
 });

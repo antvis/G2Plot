@@ -51,7 +51,7 @@
     "@antv/g-canvas": "^1.9.39",
     "@antv/g-svg": "^1.8.46",
     "@commitlint/cli": "^11.0.0",
-    "@playwright/test": "^1.31.2",
+    "@playwright/test": "^1.32.0",
     "@rollup/plugin-commonjs": "^21.0.2",
     "@types/jest": "^29.4.0",
     "@types/lodash": "^4.14.191",

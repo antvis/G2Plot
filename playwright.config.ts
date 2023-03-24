@@ -15,7 +15,7 @@ dotenv.config();
 dotenv.config({ path: path.resolve(__dirname, './e2e/.env') });
 
 // dev server
-const SERVER = 'http://127.0.0.1:8088';
+const SERVER = 'http://127.0.0.1:8080';
 
 /**
  * See https://playwright.dev/docs/test-configuration.

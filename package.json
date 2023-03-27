@@ -59,7 +59,6 @@
     "@types/pixelmatch": "^5.2.4",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "@typescript-eslint/parser": "^5.50.0",
-    "canvas": "^2.10.2",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
     "eslint": "^7.22.0",

@@ -1,6 +1,6 @@
 import path from 'path';
-import { test, expect } from '@playwright/test';
-import { createDiff, getSnapshotName, toHump, sleep } from '../utils';
+import { test } from '@playwright/test';
+import { createDiff, getSnapshotName, toHump, sleep, logDiff } from '../utils';
 
 const IMG_DIR = path.resolve(__dirname, '..', process.env.SNAPSHOTS_DIR as string);
 
@@ -8,6 +8,7 @@ const files = getSnapshotName();
 
 test.afterAll(() => {
   createDiff();
+  logDiff();
 });
 
 test('Plot snapshots', async ({ page }) => {

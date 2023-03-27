@@ -14,6 +14,7 @@ const renderers = {
 const app = document.getElementById('app') as HTMLElement;
 // Create a plot container.
 const container = document.createElement('div');
+container.className = 'container';
 // Create a case select.
 const caseSelect = document.createElement('select') as HTMLSelectElement;
 caseSelect.style.margin = '12px';

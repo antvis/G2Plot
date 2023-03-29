@@ -48,6 +48,7 @@ export default defineConfig({
     viewport: { width: 640, height: 480 },
     baseURL: SERVER,
   },
+  snapshotPathTemplate: '{testDir}/snapshots/{arg}{ext}',
 
   /* Configure projects for major browsers */
   projects: [

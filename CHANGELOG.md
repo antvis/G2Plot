@@ -1,8 +1,12 @@
+#### 2.4.28 (2023-04-03)
+
+* upgrade version of @antv/component to [0.8.33](https://github.com/antvis/component/pull/299).
+
 #### 2.4.27 (2023-03-16)
 
 ##### Chores
 
-*  upgrade typescript to v4 ([#3488](https://github.com/antvis/G2plot/pull/3488)) ([0e7530d1](https://github.com/antvis/G2plot/commit/0e7530d1257de697e872cad4b79fbed43aeeeda2))
+* upgrade typescript to v4 ([#3488](https://github.com/antvis/G2plot/pull/3488)) ([0e7530d1](https://github.com/antvis/G2plot/commit/0e7530d1257de697e872cad4b79fbed43aeeeda2))
 
 ##### New Features
 

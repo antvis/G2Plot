@@ -1,4 +1,4 @@
-#### 2.4.28 (2023-04-03)
+#### 2.4.29 (2023-04-03)
 
 * upgrade version of @antv/component to [0.8.33](https://github.com/antvis/component/pull/299).
 

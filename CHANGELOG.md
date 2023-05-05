@@ -1,4 +1,10 @@
+#### 2.4.30 (2023-05-05)
+
+* upgrade version of @antv/component to [0.8.33] for dist build.
+
 #### 2.4.29 (2023-04-03)
+
+*  update version in index.ts ([#3513](https://github.com/antvis/G2plot/pull/3513)) ([eff8d4d0](https://github.com/antvis/G2plot/commit/eff8d4d0a0ff923f1ed4f4018caeba107d32326a))
 
 * upgrade version of @antv/component to [0.8.33](https://github.com/antvis/component/pull/299).
 

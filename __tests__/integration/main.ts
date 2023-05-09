@@ -15,6 +15,8 @@ const app = document.getElementById('app') as HTMLElement;
 // Create a plot container.
 const container = document.createElement('div');
 container.className = 'container';
+container.style.width = '800px';
+container.style.height = '500px';
 // Create a case select.
 const caseSelect = document.createElement('select') as HTMLSelectElement;
 caseSelect.style.margin = '12px';

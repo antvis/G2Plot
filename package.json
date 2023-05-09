@@ -1,6 +1,6 @@
 {
   "name": "@antv/g2plot",
-  "version": "3.0.0-alpha.0",
+  "version": "3.0.0-alpha.1",
   "description": "An interactive and responsive charting library",
   "license": "MIT",
   "main": "lib/index.js",
@@ -41,7 +41,7 @@
   ],
   "dependencies": {
     "@antv/event-emitter": "^0.1.3",
-    "@antv/g2": "^5.0.0",
+    "@antv/g2": "^5.0.6",
     "size-sensor": "^1.0.1"
   },
   "peerDependencies": {

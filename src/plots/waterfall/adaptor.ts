@@ -7,7 +7,7 @@ import { getLocale } from '../../core/locale';
 import { Datum } from '../../types';
 import { deepAssign, findGeometry, flow, transformLabel } from '../../utils';
 import { ABSOLUTE_FIELD, DIFF_FIELD, IS_TOTAL, Y_FIELD } from './constant';
-import './shape';
+import './shapes/waterfall';
 import { WaterfallOptions } from './types';
 import { transformData } from './utils';
 

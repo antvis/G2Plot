@@ -134,7 +134,17 @@
   },
   "license": "MIT",
   "sideEffects": [
+    "esm/index.*",
+    "lib/index.*",
+    "esm/interactions/**/*",
+    "lib/interactions/**/*",
+    "esm/adaptor/connected-area.*",
+    "lib/adaptor/connected-area.*",
     "esm/plots/**/interactions/**/*",
-    "lib/plots/**/interactions/**/*"
+    "lib/plots/**/interactions/**/*",
+    "esm/plots/**/shapes/**/*",
+    "lib/plots/**/shapes/**/*",
+    "esm/plots/venn/label.*",
+    "lib/plots/venn/label.*"
   ]
 }

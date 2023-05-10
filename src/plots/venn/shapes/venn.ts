@@ -1,10 +1,10 @@
 import { IGroup } from '@antv/g-base';
 import { registerShape, Types, Util } from '@antv/g2';
 import { parsePathString } from '@antv/path-util';
-import { Datum, Point } from '../../types';
-import { deepAssign } from '../../utils';
-import { PATH_FIELD } from './constant';
-import { CustomInfo } from './types';
+import { Datum, Point } from '../../../types';
+import { deepAssign } from '../../../utils';
+import { PATH_FIELD } from '../constant';
+import { CustomInfo } from '../types';
 
 /**
  * 获取填充属性

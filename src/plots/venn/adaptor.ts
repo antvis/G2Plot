@@ -18,7 +18,7 @@ import {
 import { ID_FIELD } from './constant';
 import './interactions';
 import './label';
-import './shape';
+import './shapes/venn';
 import { CustomInfo, VennData, VennOptions } from './types';
 import { getColorMap, islegalSets, layoutVennData } from './utils';
 

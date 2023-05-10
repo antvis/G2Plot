@@ -1,8 +1,8 @@
 import { IGroup } from '@antv/g-base';
 import { registerShape, Types } from '@antv/g2';
 import { get } from '@antv/util';
-import { Point } from '../../types';
-import { deepAssign } from '../../utils';
+import { Point } from '../../../types';
+import { deepAssign } from '../../../utils';
 
 /**
  * 获取柱子 path

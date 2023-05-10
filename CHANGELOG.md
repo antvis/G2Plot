@@ -1,3 +1,9 @@
+#### 2.4.31 (2023-05-10)
+
+##### Chores
+
+* upgrade version of @antv/component to [0.8.34] for dist build.
+
 #### 2.4.30 (2023-05-05)
 
 * upgrade version of @antv/component to [0.8.33] for dist build.

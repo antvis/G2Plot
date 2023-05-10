@@ -132,5 +132,9 @@
     "@types/lodash": "4.14.182",
     "@types/babel__traverse": "7.0.6"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "sideEffects": [
+    "esm/plots/**/interactions/**/*",
+    "lib/plots/**/interactions/**/*"
+  ]
 }

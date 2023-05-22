@@ -80,7 +80,7 @@ type BoxOption = {
 
 <description>**optional** _'smooth'|'hollow'|'hollow-smooth'_</description>
 
-The shape of violin geometry. Could be 'smooth', 'hollow' or 'hollow-smooth'. Defaults to rough, solid voilins.
+The shape of violin geometry. Could be 'smooth', 'hollow' or 'hollow-smooth'. Defaults to rough, solid violins.
 
 #### violinStyle
 

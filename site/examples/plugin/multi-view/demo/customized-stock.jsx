@@ -32,22 +32,12 @@ const DemoStock = () => {
     data,
     plots: [
       {
-        type: 'stock',
-        // 共享顶层 data
-        top: true,
-        options: {
-          xField: 'trade_date',
-          yField: ['open', 'close', 'high', 'low'],
-        },
-      },
-      {
         type: 'line',
         // 共享顶层 data
         top: true,
         options: {
           xField: 'trade_date',
           yField: 'amount',
-          yAxis: false,
           yAxis: {
             type: 'log',
             grid: null,
@@ -77,6 +67,15 @@ const DemoStock = () => {
           color: '#5FB1EE',
         },
       },
+      {
+        type: 'stock',
+        // 共享顶层 data
+        top: true,
+        options: {
+          xField: 'trade_date',
+          yField: ['open', 'close', 'high', 'low'],
+        },
+      },
     ],
     annotations: [
       {
@@ -90,7 +89,7 @@ const DemoStock = () => {
           content: '顶峰值',
           style: {
             fontSize: 13,
-          }
+          },
         },
         line: {
           length: 12,

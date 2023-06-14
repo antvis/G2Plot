@@ -267,22 +267,32 @@ Quadrant components.
 
 Regression line.
 
-| Properties | Type                                                                | Description                                                                                 |
-| ---------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| type       | string                                                              | The type of regression line, exp \| linear \| loess \| log \| poly \| pow \| quad           |
-| style      | object                                                              | Configure the regression line style. Configure the reference drawing properties for details |
-| algorithm  | Array<[number, number]> \| ((data: any) => Array<[number, number]>) | Custom algorithm with a higher priority than type                                           |
-| top        | boolean                                                             | Whether top level display                                                                   |
+| Properties    | Type                                                                | Description                                                                                 |
+|---------------|---------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| type          | string                                                              | The type of regression line, exp \| linear \| loess \| log \| poly \| pow \| quad           |
+| style         | object                                                              | Configure the regression line style. Configure the reference drawing properties for details |
+| algorithm     | Array<[number, number]> \| ((data: any) => Array<[number, number]>) | Custom algorithm with a higher priority than type                                           |
+| top           | boolean                                                             | Whether top level display                                                                   |
+| showEquation  | boolean                                                             | Whether to display regression equation, default is hidden                                   |
+| equation      | string                                                              | Custom algorithm equation, only when enable showEquation and custom algorithm property      |
+| equationStyle | _TextStyle_                                                         | Custom equation text style                                                                  |
+
+其中，**_TextStyle_** 类型定义详见: [配置文字样式](/en/docs/api/graphic-style)
 
 ```ts
 regressionLine: {
   algorithm: () => {
     return [
-      [8, 6],
-      [16, 7],
-      [24, 7],
+      [1, 3],
+      [4, 9],
+      [7, 15],
     ];
   },
+  showEquation: true,
+  equation: 'y = 2x + 1',
+  equationStyle: {
+    fontSize: 20
+  }
 }
 ```
 

@@ -1,4 +1,4 @@
-import { Sunburst } from '../../../../src';
+import { G2, Sunburst } from '../../../../src';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/sunburst/constant';
 import { SIMPLE_SUNBURST_DATA } from '../../../data/sunburst';
 import { delay } from '../../../utils/delay';
@@ -119,6 +119,34 @@ describe('sunburst', () => {
   it('active-depth', () => {
     plot.update({ hierarchyConfig: { activeDepth: 1 } });
     expect(plot.chart.geometries[0].elements.length).toBe(SIMPLE_SUNBURST_DATA.children.length);
+  });
+
+  it('custom shape', () => {
+    let customInfo: any = null;
+    G2.registerShape('polygon', 'my-custom-polygon', {
+      draw(shapeInfo, container) {
+        // 存起来用于单测
+        customInfo = shapeInfo.customInfo;
+        return container.addShape('circle', {
+          attrs: {
+            x: 100,
+            y: 100,
+            r: 4,
+          },
+        });
+      },
+    });
+
+    plot.update({
+      shape: 'my-custom-polygon',
+      customInfo: {
+        test: 'hello',
+      },
+    });
+
+    // @ts-ignore shapeType 是私有属性
+    expect(plot.chart.geometries[0].elements[0].shapeType).toBe('my-custom-polygon');
+    expect(customInfo).toEqual({ test: 'hello' });
   });
 
   it('defaultOptions 保持从 constants 中获取', () => {

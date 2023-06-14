@@ -1,3 +1,33 @@
+#### 2.4.31 (2023-05-10)
+
+##### Chores
+
+* upgrade version of @antv/component to [0.8.34] for dist build.
+
+#### 2.4.30 (2023-05-05)
+
+* upgrade version of @antv/component to [0.8.33] for dist build.
+
+#### 2.4.29 (2023-04-03)
+
+*  update version in index.ts ([#3513](https://github.com/antvis/G2plot/pull/3513)) ([eff8d4d0](https://github.com/antvis/G2plot/commit/eff8d4d0a0ff923f1ed4f4018caeba107d32326a))
+
+* upgrade version of @antv/component to [0.8.33](https://github.com/antvis/component/pull/299).
+
+#### 2.4.27 (2023-03-16)
+
+##### Chores
+
+* upgrade typescript to v4 ([#3488](https://github.com/antvis/G2plot/pull/3488)) ([0e7530d1](https://github.com/antvis/G2plot/commit/0e7530d1257de697e872cad4b79fbed43aeeeda2))
+
+##### New Features
+
+* **custom shape:**  support custom shape for area/waterfall/radial-bar/rose/sunburst plot ([#3495](https://github.com/antvis/G2plot/pull/3495)) ([65067713](https://github.com/antvis/G2plot/commit/650677134ffb4cf40148b21f173bfc323513a8da))
+
+##### Bug Fixes
+
+* **column:**  修复柱状图拆分维度为空字符串时，错误显示了 xField 作为 title 的问题 ([#3494](https://github.com/antvis/G2plot/pull/3494)) ([dc6679ff](https://github.com/antvis/G2plot/commit/dc6679ffb9bca7374f64d1df11e0e5a87c909894))
+
 #### 2.4.26 (2023-03-03)
 
 ##### Documentation Changes

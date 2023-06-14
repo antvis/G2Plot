@@ -35,8 +35,20 @@ function defaultOptions(params: Params<WaterfallOptions>): Params<WaterfallOptio
  */
 function geometry(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
   const { chart, options } = params;
-  const { data, xField, yField, total, leaderLine, columnWidthRatio, waterfallStyle, risingFill, fallingFill, color } =
-    options;
+  const {
+    data,
+    xField,
+    yField,
+    total,
+    leaderLine,
+    columnWidthRatio,
+    waterfallStyle,
+    risingFill,
+    fallingFill,
+    color,
+    shape,
+    customInfo,
+  } = options;
 
   // 数据处理
   chart.data(transformData(data, xField, yField, total));
@@ -60,7 +72,8 @@ function geometry(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
       widthRatio: columnWidthRatio,
       interval: {
         style: waterfallStyle,
-        shape: 'waterfall',
+        // 支持外部自定义形状
+        shape: shape || 'waterfall',
         color: colorMapping,
       },
     },
@@ -69,7 +82,10 @@ function geometry(params: Params<WaterfallOptions>): Params<WaterfallOptions> {
   const geometry = ext.geometry as Geometry;
 
   // 将 waterfall leaderLineCfg 传入到自定义 shape 中
-  geometry.customInfo({ leaderLine });
+  geometry.customInfo({
+    ...customInfo,
+    leaderLine,
+  });
 
   return params;
 }

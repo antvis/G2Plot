@@ -62,7 +62,7 @@ type SankeyLayoutOutputData = {
 /**
  * 对齐方式的类型定义
  */
-export type NodeAlign = keyof typeof ALIGN_METHOD | Function;
+export type NodeAlign = keyof typeof ALIGN_METHOD | ((...args: any[]) => any);
 
 /**
  * 节点的 depth 自定义

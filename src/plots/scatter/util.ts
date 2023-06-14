@@ -27,6 +27,14 @@ type RenderOptions = {
   options: ScatterOptions;
 };
 
+type D3RegressionResult = {
+  a?: number;
+  b?: number;
+  c?: number;
+  coefficients?: number[];
+  rSquared?: number;
+};
+
 /**
  * 获取四象限默认配置
  * @param {number} xBaseline
@@ -149,17 +157,20 @@ const splinePath = (data: number[][], config: RenderOptions) => {
 export const getPath = (config: RenderOptions) => {
   const { options } = config;
   const { xField, yField, data, regressionLine } = options;
-  const { type = 'linear', algorithm } = regressionLine;
+  const { type = 'linear', algorithm, equation: customEquation } = regressionLine;
   let pathData: Array<[number, number]>;
+  let equation = null;
   if (algorithm) {
     pathData = isArray(algorithm) ? algorithm : algorithm(data);
+    equation = customEquation;
   } else {
     const reg = REGRESSION_MAP[type]()
       .x((d) => d[xField])
       .y((d) => d[yField]);
     pathData = reg(data);
+    equation = getRegressionEquation(type, pathData as D3RegressionResult);
   }
-  return splinePath(pathData, config);
+  return [splinePath(pathData, config), equation];
 };
 
 /**
@@ -227,3 +238,45 @@ export const getMeta = (
     },
   };
 };
+
+/**
+ * 获取回归函数表达式
+ * @param {string} type - 回归函数类型
+ * @param {D3RegressionResult} res - 回归计算结果集
+ * @return {string}
+ */
+export function getRegressionEquation(type: string, res: D3RegressionResult) {
+  const roundByPrecision = (n, p = 4) => Math.round(n * Math.pow(10, p)) / Math.pow(10, p);
+  const safeFormat = (value) => (Number.isFinite(value) ? roundByPrecision(value) : '?');
+
+  switch (type) {
+    case 'linear':
+      // y = ax + b
+      return `y = ${safeFormat(res.a)}x + ${safeFormat(res.b)}, R^2 = ${safeFormat(res.rSquared)}`;
+    case 'exp':
+      // y = ae^(bx)
+      return `y = ${safeFormat(res.a)}e^(${safeFormat(res.b)}x), R^2 = ${safeFormat(res.rSquared)}`;
+    case 'log':
+      // y = a · ln(x) + b
+      return `y = ${safeFormat(res.a)}ln(x) + ${safeFormat(res.b)}, R^2 = ${safeFormat(res.rSquared)}`;
+    case 'quad':
+      // y = ax^2 + bx + c
+      return `y = ${safeFormat(res.a)}x^2 + ${safeFormat(res.b)}x + ${safeFormat(res.c)}, R^2 = ${safeFormat(
+        res.rSquared
+      )}`;
+    case 'poly':
+      // y = anx^n + ... + a1x + a0
+      // eslint-disable-next-line no-case-declarations
+      let temp = `y = ${safeFormat(res.coefficients?.[0])} + ${safeFormat(res.coefficients?.[1])}x + ${safeFormat(
+        res.coefficients?.[2]
+      )}x^2`;
+      for (let i = 3; i < res.coefficients.length; ++i) {
+        temp += ` + ${safeFormat(res.coefficients[i])}x^${i}`;
+      }
+      return `${temp}, R^2 = ${safeFormat(res.rSquared)}`;
+    case 'pow':
+      // y = ax^b
+      return `y = ${safeFormat(res.a)}x^${safeFormat(res.b)}, R^2 = ${safeFormat(res.rSquared)}`;
+  }
+  return null;
+}

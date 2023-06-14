@@ -1,9 +1,13 @@
 import { ShapeAttrs } from '@antv/g-base';
+import { GeometryOptions } from '../../adaptor/geometries';
 import { Options } from '../../types';
 import { BarOptions } from '../bar';
 
 /** 配置类型定义 */
-export interface RadialBarOptions extends Options, Pick<BarOptions, 'barBackground' | 'minBarWidth' | 'maxBarWidth'> {
+export interface RadialBarOptions
+  extends Options,
+    Pick<BarOptions, 'barBackground' | 'minBarWidth' | 'maxBarWidth'>,
+    Pick<GeometryOptions, 'customInfo'> {
   /**
    * @title x轴字段
    */
@@ -55,4 +59,9 @@ export interface RadialBarOptions extends Options, Pick<BarOptions, 'barBackgrou
    * @default false
    */
   readonly isGroup?: boolean;
+  /**
+   * @title 自定义玉珏图
+   * @description interval/line 图形元素展示形状
+   */
+  readonly shape?: string;
 }

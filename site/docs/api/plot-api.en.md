@@ -77,7 +77,7 @@ Destroy the entire canvas completely, recycle all resources, and keep only the D
 plot.on(event: string, callback: Function);
 ```
 
-Keep listening to a plot event and trigger a callback function. The event mechanism is transimitted transparently through G2 events. See [G2 event mechanism](https://g2.antv.vision/zh/docs/api/general/event) for all event lists and callback function parameters.
+Keep listening to a plot event and trigger a callback function. The event mechanism is transmitted transparently through G2 events. See [G2 event mechanism](https://g2.antv.vision/zh/docs/api/general/event) for all event lists and callback function parameters.
 
 ### 8. once
 

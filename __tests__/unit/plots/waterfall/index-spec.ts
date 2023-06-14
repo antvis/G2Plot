@@ -1,4 +1,4 @@
-import { Waterfall } from '../../../../src';
+import { G2, Waterfall } from '../../../../src';
 import { DEFAULT_OPTIONS } from '../../../../src/plots/waterfall/constant';
 import { createDiv } from '../../../utils/dom';
 
@@ -87,5 +87,27 @@ describe('waterfall plot', () => {
 
   it('defaultOptions 保持从 constants 中获取', () => {
     expect(Waterfall.getDefaultOptions()).toEqual(DEFAULT_OPTIONS);
+  });
+
+  it('custom shape', () => {
+    let customInfo: any = null;
+    G2.registerShape('interval', 'my-custom-interval', {
+      draw(shapeInfo, container) {
+        // 存起来用于单测
+        customInfo = shapeInfo.customInfo;
+        return container.addShape('circle', {
+          attrs: {
+            x: 100,
+            y: 100,
+            r: 4,
+          },
+        });
+      },
+    });
+    waterfall.update({ ...waterfall.options, shape: 'my-custom-interval', customInfo: { test: 'hello' } });
+
+    // @ts-ignore shapeType 是私有属性
+    expect(waterfall.chart.geometries[0].elements[0].shapeType).toBe('my-custom-interval');
+    expect(customInfo?.test).toEqual('hello');
   });
 });

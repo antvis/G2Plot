@@ -1,4 +1,9 @@
-import { GeometryOptions, LineGeometryOptions, PointGeometryOptions } from '../../adaptor/geometries';
+import {
+  GeometryOptions,
+  AreaGeometryOptions,
+  LineGeometryOptions,
+  PointGeometryOptions,
+} from '../../adaptor/geometries';
 import { Options, StyleAttr } from '../../types';
 import { Transformations } from '../../types/coordinate';
 
@@ -35,6 +40,10 @@ export interface AreaOptions extends Options, Pick<GeometryOptions, 'customInfo'
    * @title 面积图形样式
    */
   readonly areaStyle?: StyleAttr;
+  /**
+   * @title 面积 shape 配置
+   */
+  readonly areaShape?: Required<AreaGeometryOptions>['area']['shape'];
   /**
    * @title 面积中折线的样式
    */

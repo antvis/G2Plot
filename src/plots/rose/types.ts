@@ -1,6 +1,7 @@
+import { GeometryOptions, IntervalGeometryOptions } from '../../adaptor/geometries';
 import { Options, StyleAttr } from '../../types';
 
-export interface RoseOptions extends Options {
+export interface RoseOptions extends Options, Pick<GeometryOptions, 'customInfo'> {
   /**
    * @title 扇形切片分类所对应的数据字段名
    * @description 每个扇形的弧度相等
@@ -47,4 +48,9 @@ export interface RoseOptions extends Options {
    * @description sectorStyle 中的fill会覆盖 color 的配置,sectorStyle 可以直接指定，也可以通过 callback 的方式，根据数据为每个扇形切片指定单独的样式
    */
   readonly sectorStyle?: StyleAttr;
+  /**
+   * @title 扇形自定义形状
+   * @description interval 图形元素展示形状
+   */
+  readonly shape?: Required<IntervalGeometryOptions>['interval']['shape'];
 }

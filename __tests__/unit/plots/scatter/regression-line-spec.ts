@@ -114,9 +114,9 @@ describe('scatter', () => {
     const { width } = scatter.chart;
     const pathGroup = scatter.chart
       .getComponents()
-      .find((item) => item.type === 'annotation')
+      .find((item) => item.type === 'annotation')!
       .component.cfg.group.cfg.children[0].getChildren();
-    const { path } = pathGroup?.[0]?.cfg?.attrs;
+    const { path = [] } = pathGroup?.[0]?.cfg?.attrs || {};
     expect(path.length).toBe(3);
     expect(scatter.chart.getXScale().scale(8) * width < path[0][1]).toBeTruthy();
 
@@ -154,9 +154,9 @@ describe('scatter', () => {
     const { width } = scatter.chart;
     const pathGroup = scatter.chart
       .getComponents()
-      .find((item) => item.type === 'annotation')
+      .find((item) => item.type === 'annotation')!
       .component.cfg.group.cfg.children[0].getChildren();
-    const { path } = pathGroup?.[0]?.cfg?.attrs;
+    const { path = [] } = pathGroup?.[0]?.cfg?.attrs || {};
     expect(path.length).toBe(3);
     expect(scatter.chart.getXScale().scale(8) * width < path[0][1]).toBeTruthy();
 
@@ -180,9 +180,9 @@ describe('scatter', () => {
     await delay(100);
     const pathGroup = scatter.chart
       .getComponents()
-      .find((item) => item.type === 'annotation')
+      .find((item) => item.type === 'annotation')!
       .component.cfg.group.cfg.children[0].getChildren();
-    const { path } = pathGroup?.[0]?.cfg?.attrs;
+    const { path = [] } = pathGroup?.[0]?.cfg?.attrs || {};
     expect(path.length).toBe(2); // linear
 
     scatter.destroy();
@@ -224,6 +224,191 @@ describe('scatter', () => {
     });
     await delay(100);
     expect(scatter.chart.getComponents().find((item) => item.type === 'annotation')?.layer).toBe('bg');
+    scatter.destroy();
+  });
+
+  it('regressionLine: showEquation: default(false)', async () => {
+    const scatter = new Scatter(createDiv('regressionLine'), {
+      data,
+      width: 400,
+      height: 300,
+      xField: 'x',
+      yField: 'y',
+      animation: false,
+      regressionLine: {
+        type: 'linear',
+      },
+    });
+
+    scatter.render();
+
+    const annotationShapes = scatter?.chart
+      ?.getComponents()
+      ?.find((item) => item.type === 'annotation')
+      ?.component.cfg.group.cfg.children[0].getChildren();
+    const regressionLineShape = annotationShapes?.[0];
+    expect(regressionLineShape).not.toBeNull();
+    const equationShape = annotationShapes?.find((shape) => shape?.cfg?.name === 'regression-equation');
+    expect(equationShape).toBeUndefined();
+
+    scatter.destroy();
+  });
+
+  it('regressionLine: showEquation: true', async () => {
+    const scatter = new Scatter(createDiv('regressionLine'), {
+      data,
+      width: 400,
+      height: 300,
+      xField: 'x',
+      yField: 'y',
+      animation: false,
+      regressionLine: {
+        type: 'linear',
+        showEquation: true,
+      },
+    });
+
+    scatter.render();
+
+    const annotationShapes = scatter?.chart
+      ?.getComponents()
+      ?.find((item) => item.type === 'annotation')
+      ?.component.cfg.group.cfg.children[0].getChildren();
+    const equationShape = annotationShapes?.find((shape) => shape?.cfg?.name === 'regression-equation');
+
+    expect(equationShape).not.toBeUndefined();
+    expect(equationShape?.attrs?.text).toMatch(/^y =/);
+
+    scatter.destroy();
+  });
+
+  it('regressionLine: equation string with customize algorithm', async () => {
+    const mockEquation = 'y = x';
+    const scatter = new Scatter(createDiv('regressionLine'), {
+      data,
+      width: 400,
+      height: 300,
+      xField: 'x',
+      yField: 'y',
+      animation: false,
+      regressionLine: {
+        type: 'linear',
+        showEquation: true,
+        equation: mockEquation,
+        algorithm: [
+          [1, 1],
+          [2, 2],
+          [3, 3],
+        ],
+      },
+    });
+
+    scatter.render();
+
+    const annotationShapes = scatter?.chart
+      ?.getComponents()
+      ?.find((item) => item.type === 'annotation')
+      ?.component.cfg.group.cfg.children[0].getChildren();
+    const equationShape = annotationShapes?.find((shape) => shape?.cfg?.name === 'regression-equation');
+
+    expect(equationShape).not.toBeUndefined();
+    expect(equationShape?.attrs?.text).toBe(mockEquation);
+
+    scatter.destroy();
+  });
+
+  it('regressionLine: equation string without customize algorithm', async () => {
+    const mockEquation = 'y = x';
+    const scatter = new Scatter(createDiv('regressionLine'), {
+      data,
+      width: 400,
+      height: 300,
+      xField: 'x',
+      yField: 'y',
+      animation: false,
+      regressionLine: {
+        type: 'linear',
+        showEquation: true,
+        equation: mockEquation,
+      },
+    });
+
+    scatter.render();
+
+    const annotationShapes = scatter?.chart
+      ?.getComponents()
+      ?.find((item) => item.type === 'annotation')
+      ?.component.cfg.group.cfg.children[0].getChildren();
+    const equationShape = annotationShapes?.find((shape) => shape?.cfg?.name === 'regression-equation');
+
+    expect(equationShape).not.toBeUndefined();
+    expect(equationShape?.attrs?.text).not.toBe(mockEquation);
+
+    scatter.destroy();
+  });
+
+  it('regressionLine: equation string and disabled showEquation', async () => {
+    const mockEquation = 'y = x';
+    const scatter = new Scatter(createDiv('regressionLine'), {
+      data,
+      width: 400,
+      height: 300,
+      xField: 'x',
+      yField: 'y',
+      animation: false,
+      regressionLine: {
+        type: 'linear',
+        showEquation: false,
+        equation: mockEquation,
+        algorithm: [
+          [1, 1],
+          [2, 2],
+          [3, 3],
+        ],
+      },
+    });
+
+    scatter.render();
+
+    const annotationShapes = scatter?.chart
+      ?.getComponents()
+      ?.find((item) => item.type === 'annotation')
+      ?.component.cfg.group.cfg.children[0].getChildren();
+    const equationShape = annotationShapes?.find((shape) => shape?.cfg?.name === 'regression-equation');
+
+    expect(equationShape).toBeUndefined();
+
+    scatter.destroy();
+  });
+
+  it('regressionLine: equationStyle', async () => {
+    const scatter = new Scatter(createDiv('regressionLine'), {
+      data,
+      width: 400,
+      height: 300,
+      xField: 'x',
+      yField: 'y',
+      animation: false,
+      regressionLine: {
+        type: 'linear',
+        showEquation: true,
+        equationStyle: {
+          fontSize: 24,
+        },
+      },
+    });
+
+    scatter.render();
+
+    const annotationShapes = scatter?.chart
+      ?.getComponents()
+      ?.find((item) => item.type === 'annotation')
+      ?.component.cfg.group.cfg.children[0].getChildren();
+    const equationShape = annotationShapes?.find((shape) => shape?.cfg?.name === 'regression-equation');
+
+    expect(equationShape).not.toBeUndefined();
+    expect(equationShape?.attrs?.fontSize).toBe(24);
+
     scatter.destroy();
   });
 });

@@ -99,7 +99,7 @@ function geometry(params: Params<ColumnOptions>): Params<ColumnOptions> {
     ? {
         formatter: (datum: Datum) => ({
           name:
-            isGroup && isStack ? `${datum[seriesField]} - ${datum[groupField]}` : datum[seriesField] || datum[xField],
+            isGroup && isStack ? `${datum[seriesField]} - ${datum[groupField]}` : datum[seriesField] ?? datum[xField],
           value: (Number(datum[yField]) * 100).toFixed(2) + '%',
         }),
         ...tooltip,

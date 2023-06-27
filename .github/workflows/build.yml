@@ -1,55 +1,29 @@
 name: build
 
-on: ["push"]
+on: [push]
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 14
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-      - name: yarn install
-        run: |
-          yarn install
-      - name: lint
-        run: |
-          npm run lint
-
   build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 14
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-      - name: yarn install
-        run: |
-          yarn install
-      - name: build
-        run: |
-          npm run build
+    runs-on: macOS-latest
 
-  test:
-    runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 14
-        uses: actions/setup-node@v2
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.5
         with:
-          node-version: 14
-      - name: yarn install
+          node-version: '14'
+
+      - name: Run CI
         run: |
-          yarn install
-      - name: test
-        run: |
+          npm install
+          npm run lint
+          npm run build
           npm run coverage
-        env:
-          CI: true
-      - name: Coveralls
+
+      - name: Update coverall
+        if: ${{ success() }}
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

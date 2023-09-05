@@ -1,7 +1,7 @@
 import EE from '@antv/event-emitter';
 import { Chart, Element, Event, View } from '@antv/g2';
 import { each } from '@antv/util';
-import { bind } from 'size-sensor';
+import { bind, clear } from 'size-sensor';
 import { Annotation, Options, Size, StateCondition, StateName, StateObject } from '../types';
 import { deepAssign, getAllElementsRecursively, getContainerSize, pick } from '../utils';
 import { Adaptor } from './adaptor';
@@ -285,6 +285,8 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 销毁
    */
   public destroy() {
+    // 清除size-sensor缓存在全局变量上的实例
+    this.clearSizeSensorCache();
     // 取消 size-sensor 的绑定
     this.unbindSizeSensor();
     // G2 的销毁
@@ -350,6 +352,14 @@ export abstract class Plot<O extends PickOptions> extends EE {
     if (this.unbind) {
       this.unbind();
       this.unbind = undefined;
+    }
+  }
+  /**
+   * 清除缓存
+   */
+  private clearSizeSensorCache() {
+    if (this.container) {
+      clear(this.container);
     }
   }
 }

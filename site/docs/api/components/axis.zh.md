@@ -48,7 +48,9 @@ xAxis: false; // 隐藏 x 轴
 
 ```ts
 xAxis: {
-  text: 'x 轴标题'
+  title: {
+     text: 'x 轴标题'
+  }
 }
 ```
 

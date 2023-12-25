@@ -29,7 +29,8 @@
     "import/order": "warn",
     "import/namespace": "warn",
     // Allow `const self = this`.
-    "@typescript-eslint/no-this-alias": "off"
+    "@typescript-eslint/no-this-alias": "off",
+    "@typescript-eslint/ban-types": "warn"
   },
   "env": {
     "node": true,

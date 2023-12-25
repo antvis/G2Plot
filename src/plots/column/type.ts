@@ -1,3 +1,3 @@
-import type { Options } from '../../types/common';
+import type { BarOptions } from '../bar/type';
 
-export type ColumnOptions = Options;
+export type ColumnOptions = BarOptions;

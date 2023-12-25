@@ -1,5 +1,5 @@
-import { flow } from '../../utils';
-import { mark } from '../../components';
+import { flow, transformOptions } from '../../utils';
+import { mark } from '../../adaptor';
 import type { Adaptor } from '../../types';
 import type { LineOptions } from './type';
 
@@ -10,12 +10,5 @@ type Params = Adaptor<LineOptions>;
  * @param options
  */
 export function adaptor(params: Params) {
-  /**
-   * 图表差异化处理
-   */
-  const init = (params: Params) => {
-    return params;
-  };
-
-  return flow(init, mark)(params);
+  return flow(mark, transformOptions)(params);
 }

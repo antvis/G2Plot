@@ -54,8 +54,8 @@ function onchange() {
 
 async function plot() {
   container.innerHTML = '';
-  const generate = cases[caseSelect.value];
-  generate(container, new renderers[rendererSelect.value]());
+  const generate = cases[caseSelect.value](container, new renderers[rendererSelect.value]());
+  generate.render();
 }
 
 app.append(caseSelect, rendererSelect, container);

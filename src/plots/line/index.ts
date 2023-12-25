@@ -1,4 +1,4 @@
-import { Plot } from '../../core/plot';
+import { Plot } from '../../base';
 import type { Adaptor } from '../../types';
 import { adaptor } from './adaptor';
 import { LineOptions } from './type';
@@ -14,7 +14,26 @@ export class Line extends Plot<LineOptions> {
    * 供外部使用
    */
   static getDefaultOptions(): Partial<LineOptions> {
-    return { type: 'line' };
+    return {
+      type: 'view',
+      scale: {
+        y: { nice: true },
+      },
+      interaction: {
+        tooltip: {
+          shared: true,
+        },
+      },
+      axis: {
+        y: { title: false },
+        x: { title: false },
+      },
+      // 使用该动画，会导致线形图-连接空值 一进入页面渲染不出来，必须要更改窗口尺寸触发重新渲染。建议动画暂时使用默认
+      // animate: {
+      //   enter: { type: 'growInX' },
+      // },
+      children: [{ type: 'line' }],
+    };
   }
 
   /**

@@ -1,16 +1,17 @@
-// @ts-nocheck
 import EE from '@antv/event-emitter';
-import { Chart } from '@antv/g2';
-import { bind } from 'size-sensor';
-import { merge, omit, pick } from '../utils';
-import type { Annotation, Options, Adaptor } from '../types';
+import { ChartEvent } from '@antv/g2';
+import { Controller as Annotaion } from '../annotation';
+import { CHART_OPTIONS, SKIP_DEL_CUSTOM_SIGN } from '../constants';
+import { mergeWithArrayCoverage, pick } from '../utils';
+
+import type { Adaptor, Options } from '../types';
+import type { G2Chart } from './chart';
+import { Chart } from './chart';
 
 const SOURCE_ATTRIBUTE_NAME = 'data-chart-source-type';
 
-/** new Chart options */
-export const CHART_OPTIONS = ['width', 'height', 'renderer', 'autoFit', 'canvas', 'theme'];
-
-export abstract class Plot<O extends Options> extends EE {
+type PickOptions = Pick<Options, 'autoFit' | 'width' | 'height'>;
+export abstract class Plot<O extends PickOptions> extends EE {
   /** plot 类型名称 */
   public abstract readonly type: string;
   /** plot 绘制的 dom */
@@ -18,16 +19,14 @@ export abstract class Plot<O extends Options> extends EE {
   /** G2 Spec */
   public options: O;
   /** G2 chart 实例 */
-  public chart: Chart;
-  /** resizer unbind  */
-  private unbind: () => void;
+  public chart: G2Chart;
+  public annotation: Annotaion<O>;
 
   constructor(container: string | HTMLElement, options: O) {
     super();
     this.container = typeof container === 'string' ? document.getElementById(container) : container;
-    this.options = merge({}, this.getBaseOptions(), this.getDefaultOptions(), options);
+    this.options = mergeWithArrayCoverage({}, this.getBaseOptions(), this.getDefaultOptions(), options);
     this.createG2();
-    this.render();
     this.bindEvents();
   }
 
@@ -35,15 +34,9 @@ export abstract class Plot<O extends Options> extends EE {
    * new Chart 所需配置
    */
   private getChartOptions() {
-    const { clientWidth, clientHeight } = this.container;
-    // 逻辑简化：如果存在 width 或 height，则直接使用，否则使用容器大小
-    const { width = clientWidth || 640, height = clientHeight || 480, autoFit = true } = this.options;
     return {
       ...pick(this.options, CHART_OPTIONS),
       container: this.container,
-      width,
-      height,
-      autoFit,
     };
   }
 
@@ -51,7 +44,10 @@ export abstract class Plot<O extends Options> extends EE {
    * G2 options(Spec) 配置
    */
   private getSpecOptions() {
-    return omit(this.options, CHART_OPTIONS);
+    if (this.type === 'base' || this[SKIP_DEL_CUSTOM_SIGN]) {
+      return { ...this.options, ...this.getChartOptions() };
+    }
+    return this.options;
   }
 
   /**
@@ -61,6 +57,7 @@ export abstract class Plot<O extends Options> extends EE {
     if (!this.container) {
       throw Error('The container is not initialized!');
     }
+
     this.chart = new Chart(this.getChartOptions());
     // 给容器增加标识，知道图表的来源区别于 G2
     this.container.setAttribute(SOURCE_ATTRIBUTE_NAME, 'G2Plot');
@@ -80,36 +77,40 @@ export abstract class Plot<O extends Options> extends EE {
   }
 
   private getBaseOptions(): Partial<Options> {
-    return { theme: 'classic' };
+    return { type: 'view', autoFit: true };
   }
 
   /**
    * 获取默认的 options 配置项，每个组件都可以复写
    */
-  protected getDefaultOptions(): Partial<Options>;
+  protected getDefaultOptions(): any {}
 
   /**
    * 绘制
    */
-  public render() {
-    // 执行 adaptor
-    this.execAdaptor();
+  public render(): void {
+    // 执行 adaptor , base 穿透类型不必 adaptor.
+    if (this.type !== 'base') {
+      this.execAdaptor();
+    }
+    console.log(this.getSpecOptions());
 
     // options 转换
     this.chart.options(this.getSpecOptions());
     // 渲染
-    this.chart.render();
+    this.chart.render().then(() => {
+      this.annotation = new Annotaion(this.chart, this.options);
+    });
     // 绑定
     this.bindSizeSensor();
   }
 
   /**
-   * 更新: 更新配置且重新渲染
+   * 更新
    * @param options
    */
   public update(options: Partial<O>) {
     this.updateOption(options);
-    this.render();
   }
 
   /**
@@ -117,7 +118,7 @@ export abstract class Plot<O extends Options> extends EE {
    * @param options
    */
   protected updateOption(options: Partial<O>) {
-    this.options = merge({}, this.options, options);
+    this.options = mergeWithArrayCoverage({}, this.options, options);
   }
 
   /**
@@ -126,8 +127,7 @@ export abstract class Plot<O extends Options> extends EE {
    * @param options
    */
   public changeData(data: any) {
-    this.chart.data(data);
-    this.chart.render();
+    this.chart.changeData(data);
   }
 
   /**
@@ -140,20 +140,9 @@ export abstract class Plot<O extends Options> extends EE {
   }
 
   /**
-   * 增加图表标注。通过 id 标识，如果匹配到，就做更新
-   */
-  public addAnnotations(annotations: Annotation[]): void {}
-
-  /**
-   * 删除图表标注。通过 id 标识，如果匹配到，就做删除
-   */
-  public removeAnnotations(annotations: Array<{ id: string } & Partial<Annotation>>): void {}
-  /**
    * 销毁
    */
   public destroy() {
-    // 取消 size-sensor 的绑定
-    this.unbindSizeSensor();
     // G2 的销毁
     this.chart.destroy();
     // 清空已经绑定的事件
@@ -191,30 +180,11 @@ export abstract class Plot<O extends Options> extends EE {
    * 绑定 dom 容器大小变化的事件
    */
   private bindSizeSensor() {
-    if (this.unbind) {
-      return;
-    }
     const { autoFit = true } = this.options;
     if (autoFit) {
-      this.unbind = bind(this.container, () => {
-        // 获取最新的宽高信息
-        const { clientHeight, clientWidth } = this.container;
-        const { width, height } = this.chart.options();
-        // 主要是防止绑定的时候触发 resize 回调
-        if (clientHeight !== width || clientWidth !== height) {
-          this.triggerResize();
-        }
+      this.chart.on(ChartEvent.AFTER_CHANGE_SIZE, () => {
+        this.annotation.update();
       });
-    }
-  }
-
-  /**
-   * 取消绑定
-   */
-  private unbindSizeSensor() {
-    if (this.unbind) {
-      this.unbind();
-      this.unbind = undefined;
     }
   }
 }

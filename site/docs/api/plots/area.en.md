@@ -45,7 +45,7 @@ Whether the plot is Stacked Area.
 
 #### isPercent
 
-<description>**optional** _boolean_ _default:_ `true`</description>
+<description>**optional** _boolean_ _default:_ `false`</description>
 
 Whether the plot is Percent Area. When the plot is Percent Area, isStack is `true` by default.
 

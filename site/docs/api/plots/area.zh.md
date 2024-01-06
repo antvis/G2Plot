@@ -45,7 +45,7 @@ order: 1
 
 #### isPercent
 
-<description>**optional** _boolean_ _default:_ `true`</description>
+<description>**optional** _boolean_ _default:_ `false`</description>
 
 是否百分比面积图，百分比时默认开启 isStack。
 

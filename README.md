@@ -4,7 +4,7 @@
 
 <div align="center">
 
-基于图形语法（the Grammar of Graphics）的图表库。
+基于 [G2 4.x](https://github.com/antvis/G2) 版本二次封装的图表库。
 
 [![Version](https://badgen.net/npm/v/@antv/g2plot)](https://npmjs.com/@antv/g2plot)
 [![NPM downloads](https://img.shields.io/npm/dm/@antv/g2plot.svg)](https://npmjs.com/@antv/g2plot)
@@ -13,6 +13,8 @@
 [![coverage](https://img.shields.io/coveralls/antvis/G2Plot/master.svg)](https://coveralls.io/github/antvis/G2Plot)
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/antvis/g2plot.svg)](http://isitmaintained.com/project/antvis/g2plot "Percentage of issues still open")
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/antvis/g2plot.svg)](http://isitmaintained.com/project/antvis/g2plot "Average time to resolve an issue")
+
+> 📢 新版本 [G2 v5](https://github.com/antvis/G2) 已经发布，未来不会基于 G2 v5 封装 G2Plot v3 版本，但是可以使用 [Ant Design Charts](https://github.com/ant-design/ant-design-charts) 代替。
 
 <p align="center">
   <a href="https://g2plot.antv.vision/en">网站</a> •
@@ -164,12 +166,6 @@ bar.render();
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-
-## 📧 联系我们
-
-钉钉群组号码: 30233731 / 35686967 (2 群) / 44788198 （3 群）
-
-<img src="https://gw.alipayobjects.com/zos/antfincdn/hTzzaqgHgQ/Antv%252520G2%252520%26%252520G2Plot.png" width="200" height="266" />
 
 ## 🔗 相关链接
 

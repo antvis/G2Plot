@@ -4,7 +4,7 @@
 
 <div align="center">
 
-A charting library based on the Grammar of Graphics.
+A chart library that is a secondary encapsulation based on the [G2 4.x](https://github.com/antvis/G2) version.
 
 [![Version](https://badgen.net/npm/v/@antv/g2plot)](https://npmjs.com/@antv/g2plot)
 [![NPM downloads](https://img.shields.io/npm/dm/@antv/g2plot.svg)](https://npmjs.com/@antv/g2plot)
@@ -13,6 +13,8 @@ A charting library based on the Grammar of Graphics.
 [![coverage](https://img.shields.io/coveralls/antvis/G2Plot/master.svg)](https://coveralls.io/github/antvis/G2Plot)
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/antvis/g2plot.svg)](http://isitmaintained.com/project/antvis/g2plot "Percentage of issues still open")
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/antvis/g2plot.svg)](http://isitmaintained.com/project/antvis/g2plot "Average time to resolve an issue")
+
+> 📢 The new version [G2 v5](https://github.com/antvis/G2) has been released. There are no plans to encapsulate G2Plot v3 based on G2 v5 in the future, you can use [Ant Design Charts](https://github.com/ant-design/ant-design-charts) instead.
 
 <p align="center">
   <a href="https://g2plot.antv.vision/en">Website</a> •
@@ -154,12 +156,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
-
-## 📧 Contact us
-
-DingTalk Group Number: 30233731 / 35686967 (Group 2) / 44788198 （Group 3）
-
-<img src="https://gw.alipayobjects.com/zos/antfincdn/hTzzaqgHgQ/Antv%252520G2%252520%26%252520G2Plot.png" width="200" height="266" />
 
 ## 🔗 Links
 

@@ -7,7 +7,7 @@ G2.registerShape('polygon', 'boundary-polygon', {
       stroke: '#fff',
       lineWidth: 1,
       fill: cfg.color,
-      paht: [],
+      path: [],
     };
     const points = cfg.points;
     const path = [

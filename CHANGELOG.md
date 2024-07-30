@@ -1,3 +1,26 @@
+#### 2.4.32 (2024-07-30)
+
+##### Chores
+
+*  update github action ([#3608](https://github.com/antvis/G2plot/pull/3608)) ([90020297](https://github.com/antvis/G2plot/commit/90020297669dbe0d213ebae7abebf3f7d9509ec8))
+*  fix customized stock demo typo ([#3564](https://github.com/antvis/G2plot/pull/3564)) ([99b9f638](https://github.com/antvis/G2plot/commit/99b9f63863684dc592f79388c99888c5d24184bd))
+*  update version of @antv/component to 0.8.34 for dist build ([#3545](https://github.com/antvis/G2plot/pull/3545)) ([ec015ea5](https://github.com/antvis/G2plot/commit/ec015ea55490621de20cc2e8cdae872272f3789d))
+
+##### Documentation Changes
+
+*  update readme ([#3757](https://github.com/antvis/G2plot/pull/3757)) ([3725803e](https://github.com/antvis/G2plot/commit/3725803e982e7b4eb6595742462afbc23172ea76))
+*  fix link ([#3514](https://github.com/antvis/G2plot/pull/3514)) ([0f570eb0](https://github.com/antvis/G2plot/commit/0f570eb085612910651cd9cd57b3c95cea97a1db))
+*  Fix a few typos ([#3525](https://github.com/antvis/G2plot/pull/3525)) ([ce615a2a](https://github.com/antvis/G2plot/commit/ce615a2a17fae845fd6badf044491447a713cb90))
+
+##### Bug Fixes
+
+*  line,area,radar label style with callback ([02bf66f3](https://github.com/antvis/G2plot/commit/02bf66f36a39539a326d15689bd22f5f0a9b6025))
+
+##### Other Changes
+
+*  the default value of isPercent option should be false ([#3725](https://github.com/antvis/G2plot/pull/3725)) ([bdc1342e](https://github.com/antvis/G2plot/commit/bdc1342e3cc8a71d8cb1284acec9299b64648774))
+* **demo:**   heatmap-base parameter error ([#3679](https://github.com/antvis/G2plot/pull/3679)) ([bd6af004](https://github.com/antvis/G2plot/commit/bd6af0044efe869b503c2d388adac8326d1e6f31))
+
 #### 2.4.31 (2023-05-10)
 
 ##### Chores

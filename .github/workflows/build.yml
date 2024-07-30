@@ -13,11 +13,11 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.5
         with:
-          node-version: '14'
+          node-version: '18'
 
       - name: Run CI
         run: |
-          npm install
+          npm install --legacy-peer-deps
           npm run lint
           npm run build
           npm run coverage

@@ -118,9 +118,9 @@ function label(params: Params<AreaOptions>): Params<AreaOptions> {
   if (!label) {
     areaGeometry.label(false);
   } else {
-    const { callback, ...cfg } = label;
+    const { fields, callback, ...cfg } = label;
     areaGeometry.label({
-      fields: [yField],
+      fields: fields || [yField],
       callback,
       cfg: {
         layout: [

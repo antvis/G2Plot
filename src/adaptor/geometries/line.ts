@@ -31,8 +31,6 @@ export function line<O extends LineGeometryOptions>(params: Params<O>): Params<O
 
   const { fields, formatter } = getTooltipMapping(tooltip, [xField, yField, seriesField]);
 
-  console.log(0, options);
-
   // 如果存在才处理
   return line
     ? geometry(

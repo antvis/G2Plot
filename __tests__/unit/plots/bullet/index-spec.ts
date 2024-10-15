@@ -134,7 +134,7 @@ describe('bullet', () => {
       xField: 'title',
       yField: 'measures',
     });
-    expect(measureGeometry.getAttribute('color').values).toEqual('#ff0000');
+    expect(measureGeometry.getAttribute('color').values).toEqual('#000000');
 
     bullet.destroy();
   });

@@ -21,8 +21,8 @@ export const doSliderFilter = (view: View, sliderValue: [number, number]) => {
   const values = valuesOfKey(data, xScale.field);
   const xValues = isHorizontal ? values : values.reverse();
   const xTickCount = size(xValues);
-  const minIndex = Math.floor(min * (xTickCount - 1));
-  const maxIndex = Math.floor(max * (xTickCount - 1));
+  const minIndex = Math.round(min * (xTickCount - 1));
+  const maxIndex = Math.round(max * (xTickCount - 1));
 
   // 增加 x 轴的过滤器
   view.filter(xScale.field, (value: any) => {

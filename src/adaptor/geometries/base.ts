@@ -46,6 +46,8 @@ export type Geometry = {
   readonly rawFields?: RawFields;
   /** 图形映射规则 */
   readonly mapping?: MappingOptions;
+  /** 自定义映射字段 */
+  readonly customMappingField?: string;
   /** label 映射通道，因为历史原因导致实现略有区别 */
   readonly label?: Label;
   /** 不同状态的样式 */
@@ -156,6 +158,7 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
     label,
     state,
     customInfo,
+    customMappingField,
   } = options;
 
   // 如果没有 mapping 信息，那么直接返回
@@ -179,7 +182,7 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
     colorField ? geometry.color(colorField, color) : geometry.color(color);
   } else if (isFunction(color)) {
     const { mappingFields, tileMappingField } = getMappingField(options, 'color');
-    geometry.color(tileMappingField, getMappingFunction(mappingFields, color));
+    geometry.color(customMappingField || tileMappingField, getMappingFunction(mappingFields, color));
   } else {
     colorField && geometry.color(colorField, color);
   }

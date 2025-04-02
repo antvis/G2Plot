@@ -113,9 +113,9 @@ function label(params: Params<RadarOptions>): Params<RadarOptions> {
   if (!label) {
     geometry.label(false);
   } else {
-    const { callback, ...cfg } = label;
+    const { fields, callback, ...cfg } = label;
     geometry.label({
-      fields: [yField],
+      fields: fields || [yField],
       callback,
       cfg: transformLabel(cfg),
     });

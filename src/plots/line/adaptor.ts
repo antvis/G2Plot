@@ -163,9 +163,9 @@ function label(params: Params<LineOptions>): Params<LineOptions> {
   if (!label) {
     lineGeometry.label(false);
   } else {
-    const { callback, ...cfg } = label;
+    const { fields, callback, ...cfg } = label;
     lineGeometry.label({
-      fields: [yField],
+      fields: fields || [yField],
       callback,
       cfg: {
         layout: [

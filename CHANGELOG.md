@@ -1,5 +1,11 @@
 #### 2.4.33 (2025-04-03)
 
+##### Tests
+
+*  单测修正 ([863846e9](https://github.com/antvis/G2plot/commit/863846e919c3a8fc9c6a487df3a778358c5a59da))
+
+#### 2.4.33 (2025-04-03)
+
 ##### Chores
 
 *  update contact ([#3809](https://github.com/antvis/G2plot/pull/3809)) ([0b5a9af6](https://github.com/antvis/G2plot/commit/0b5a9af69eb285bf138880eee3f8add2efc647ff))

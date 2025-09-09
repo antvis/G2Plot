@@ -112,15 +112,20 @@ function component(params: Params<FacetOptions>): Params<FacetOptions> {
 
   // 7. legend 配置（默认展示）
   chart.legend(legend);
+  const showLegend = legend !== false;
   if (shapeField) {
-    chart.legend(shapeField, shapeLegend ? shapeLegend : false);
+    if (shapeLegend) {
+      chart.legend(shapeField, shapeLegend);
+    } else {
+      chart.legend(shapeField, shapeLegend === false ? false : legend);
+    }
   }
 
   if (sizeField) {
     chart.legend(sizeField, sizeLegend ? sizeLegend : false);
   }
   // /** 默认不展示 shape 图例，当 shapeLegend 为 undefined 也不展示图例 */
-  if (!legend && !shapeLegend && !sizeLegend) {
+  if (!showLegend && !shapeLegend && !sizeLegend) {
     chart.legend(false);
   }
 

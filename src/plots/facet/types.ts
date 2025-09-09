@@ -146,7 +146,7 @@ export interface FacetOptions<T extends keyof Types.FacetCfgMap = keyof Types.Fa
    */
   readonly legend?: Legend;
   /**
-   * @title 图例配置
+   * @title 交互配置
    */
   readonly interactions?: Interaction[];
   /**
@@ -154,6 +154,11 @@ export interface FacetOptions<T extends keyof Types.FacetCfgMap = keyof Types.Fa
    * @description 形状映射字段
    */
   readonly shapeField?: string;
+  /**
+   * @title 颜色字段
+   * @description 颜色映射字段
+   */
+  readonly colorField?: string;
   /**
    * @title 大小字段
    * @description 大小映射字段

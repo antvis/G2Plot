@@ -86,6 +86,7 @@ const data = [
   { year: '1956 年', sales: 61 },
   { year: '1957 年', sales: 145 },
   { year: '1958 年', sales: 48 },
+  { year: '1959 年', sales: 100 },
 ];
 
 const bar = new Bar('container', {

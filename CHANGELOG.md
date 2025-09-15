@@ -1,3 +1,9 @@
+#### 2.4.33 (2025-09-15)
+
+##### Bug Fixes
+
+*  修复分面图下多图例显示配置 ([#3865](https://github.com/antvis/G2plot/pull/3865)) ([6fbc8b45](https://github.com/antvis/G2plot/commit/6fbc8b4512991540bd2bf27766dcab85db1944c5))
+
 #### 2.4.33 (2025-04-03)
 
 ##### Chores

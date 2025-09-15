@@ -146,7 +146,32 @@ export interface FacetOptions<T extends keyof Types.FacetCfgMap = keyof Types.Fa
    */
   readonly legend?: Legend;
   /**
-   * @title 图例配置
+   * @title 交互配置
    */
   readonly interactions?: Interaction[];
+  /**
+   * @title 形状字段
+   * @description 形状映射字段
+   */
+  readonly shapeField?: string;
+  /**
+   * @title 颜色字段
+   * @description 颜色映射字段
+   */
+  readonly colorField?: string;
+  /**
+   * @title 大小字段
+   * @description 大小映射字段
+   */
+  readonly sizeField?: string;
+  /**
+   * @title 形状图例配置
+   * @description 形状图例的配置项
+   */
+  readonly shapeLegend?: Legend | false;
+  /**
+   * @title 大小图例配置
+   * @description 大小图例的配置项
+   */
+  readonly sizeLegend?: Legend | false;
 }

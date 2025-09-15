@@ -41,6 +41,14 @@ function facetAdaptor(params: Params<FacetOptions>): Params<FacetOptions> {
       } else {
         const plot = viewOptions as IPlot;
         const plotOptions = plot.options;
+
+        // 如果 view 内部没有指定映射字段，则使用 options 内指定的映射字段
+        ['seriesField', 'colorField', 'shapeField', 'sizeField', 'groupField'].forEach((key) => {
+          if (options[key] && typeof plotOptions[key] === 'undefined') {
+            plotOptions[key] = options[key];
+          }
+        });
+
         // @ts-ignore 仪表盘没 tooltip
         if (plotOptions.tooltip) {
           // 配置 tooltip 交互
@@ -56,7 +64,20 @@ function facetAdaptor(params: Params<FacetOptions>): Params<FacetOptions> {
 
 function component(params: Params<FacetOptions>): Params<FacetOptions> {
   const { chart, options } = params;
-  const { axes, meta, tooltip, coordinate, theme, legend, interactions, annotations } = options;
+  const {
+    axes,
+    meta,
+    tooltip,
+    coordinate,
+    theme,
+    legend,
+    interactions,
+    annotations,
+    shapeField,
+    sizeField,
+    shapeLegend,
+    sizeLegend,
+  } = options;
 
   // 3. meta 配置
   let scales: Record<string, any> = {};
@@ -91,6 +112,22 @@ function component(params: Params<FacetOptions>): Params<FacetOptions> {
 
   // 7. legend 配置（默认展示）
   chart.legend(legend);
+  const showLegend = legend !== false;
+  if (shapeField) {
+    if (shapeLegend) {
+      chart.legend(shapeField, shapeLegend);
+    } else {
+      chart.legend(shapeField, shapeLegend === false ? false : legend);
+    }
+  }
+
+  if (sizeField) {
+    chart.legend(sizeField, sizeLegend ? sizeLegend : false);
+  }
+  // /** 默认不展示 shape 图例，当 shapeLegend 为 undefined 也不展示图例 */
+  if (!showLegend && !shapeLegend && !sizeLegend) {
+    chart.legend(false);
+  }
 
   // theme 配置
   if (theme) {

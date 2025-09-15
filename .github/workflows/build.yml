@@ -17,7 +17,7 @@ jobs:
 
       - name: Run CI
         run: |
-          npm install --legacy-peer-deps --force
+          npm install --legacy-peer-deps
           npm run lint
           npm run build
           npm run coverage

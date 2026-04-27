@@ -251,7 +251,7 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
       });
     } else {
       geometry.style(colorStyleMappingField, (...args: any[]) => ({
-        fill: getMappingFunction(colorStyleFields, colorStyleCallback)(...args),
+        fill: colorStyleCallback(getMappingDatum(colorStyleFields, args)),
         ...(isObject(style) ? style : {}),
       }));
     }

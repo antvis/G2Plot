@@ -83,6 +83,32 @@ describe('column', () => {
     column.destroy();
   });
 
+  it('x*y with color callback', () => {
+    const column = new Column(createDiv('x*y with color callback'), {
+      width: 400,
+      height: 300,
+      data: salesByArea,
+      xField: 'area',
+      yField: 'sales',
+      slider: {
+        start: 0,
+        end: 0.5,
+      },
+      color: (datum) => (datum.sales > 100 ? 'red' : 'green'),
+    });
+
+    column.render();
+
+    const geometry = column.chart.geometries[0];
+
+    expect(geometry.getAttribute('color')).toBeUndefined();
+    expect(geometry.getAttribute('style').getFields()).toEqual(['area']);
+    expect(column.chart.getGroupScales()).toHaveLength(0);
+    expect(geometry.elements[0].shape.attr('fill')).toBe('green');
+
+    column.destroy();
+  });
+
   it('grouped column', () => {
     const column = new Column(createDiv('grouped column'), {
       width: 400,

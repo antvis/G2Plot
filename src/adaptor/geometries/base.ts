@@ -126,17 +126,22 @@ export function getMappingFunction(mappingFields: string[], func: (datum: Datum)
   if (!func) return undefined;
   // 返回函数
   return (...args: any[]) => {
-    const params: Datum = {};
-
-    mappingFields.forEach((f: string, idx: number) => {
-      params[f] = args[idx];
-    });
-
-    // 删除 undefined
-    delete params['undefined'];
-
+    const params = getMappingDatum(mappingFields, args);
     return func(params);
   };
+}
+
+function getMappingDatum(mappingFields: string[], args: any[]): Datum {
+  const params: Datum = {};
+
+  mappingFields.forEach((f: string, idx: number) => {
+    params[f] = args[idx];
+  });
+
+  // 删除 undefined
+  delete params['undefined'];
+
+  return params;
 }
 
 /**
@@ -170,6 +175,9 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
 
   // 创建 geometry
   const geometry = chart[type](args).position(`${xField}*${yField}`);
+  let colorStyleFields: string[] = [];
+  let colorStyleMappingField: string;
+  let colorStyleCallback: (datum: Datum) => string;
 
   /**
    * color 的几种情况
@@ -182,7 +190,13 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
     colorField ? geometry.color(colorField, color) : geometry.color(color);
   } else if (isFunction(color)) {
     const { mappingFields, tileMappingField } = getMappingField(options, 'color');
-    geometry.color(customMappingField || tileMappingField, getMappingFunction(mappingFields, color));
+    if (type === 'interval' && !colorField) {
+      colorStyleFields = mappingFields;
+      colorStyleMappingField = customMappingField || tileMappingField;
+      colorStyleCallback = color;
+    } else {
+      geometry.color(customMappingField || tileMappingField, getMappingFunction(mappingFields, color));
+    }
   } else {
     colorField && geometry.color(colorField, color);
   }
@@ -224,7 +238,24 @@ export function geometry<O extends GeometryOptions>(params: Params<O>): Params<O
    * g.style({ fill: 'red' });
    * g.style('x*y*color', (x, y, color) => ({ fill: 'red' }));
    */
-  if (isFunction(style)) {
+  if (!isEmpty(colorStyleFields)) {
+    if (isFunction(style)) {
+      const { mappingFields } = getMappingField(options, 'style');
+      const fields = uniq([...colorStyleFields, ...mappingFields]);
+      geometry.style(fields.join('*'), (...args: any[]) => {
+        const datum = getMappingDatum(fields, args);
+        return {
+          fill: colorStyleCallback(datum),
+          ...style(datum),
+        };
+      });
+    } else {
+      geometry.style(colorStyleMappingField, (...args: any[]) => ({
+        fill: getMappingFunction(colorStyleFields, colorStyleCallback)(...args),
+        ...(isObject(style) ? style : {}),
+      }));
+    }
+  } else if (isFunction(style)) {
     const { mappingFields, tileMappingField } = getMappingField(options, 'style');
     geometry.style(tileMappingField, getMappingFunction(mappingFields, style));
   } else if (isObject(style)) {

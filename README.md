@@ -14,7 +14,7 @@
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/antvis/g2plot.svg)](http://isitmaintained.com/project/antvis/g2plot "Percentage of issues still open")
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/antvis/g2plot.svg)](http://isitmaintained.com/project/antvis/g2plot "Average time to resolve an issue")
 
-> 📢 新版本 [G2 v5](https://github.com/antvis/G2) 已经发布，未来不会基于 G2 v5 封装 G2Plot v3 版本，但是可以使用 [Ant Design Charts](https://github.com/ant-design/ant-design-charts) 代替。
+> 📢 新版本 [G2 v5](https://github.com/antvis/G2) 已经发布，G2Plot 正在推进基于 G2 v5 的 v3 升级工作。
 
 <p align="center">
   <a href="https://g2plot.antv.vision/en">网站</a> •

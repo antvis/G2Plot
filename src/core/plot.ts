@@ -5,6 +5,7 @@ import { bind } from 'size-sensor';
 import { Annotation, Options, Size, StateCondition, StateName, StateObject } from '../types';
 import { deepAssign, getAllElementsRecursively, getContainerSize, pick } from '../utils';
 import { Adaptor } from './adaptor';
+import { resetLegacyChartState, resizeChart } from './g2-compat';
 
 /** 单独 pick 出来的用于基类的类型定义 */
 export type PickOptions = Pick<
@@ -15,6 +16,8 @@ export type PickOptions = Pick<
   | 'appendPadding'
   | 'renderer'
   | 'pixelRatio'
+  | 'localRefresh'
+  | 'useDeferredLabel'
   | 'autoFit'
   | 'syncViewPadding'
   | 'supportCSSTransform'
@@ -31,6 +34,9 @@ export const PLOT_CONTAINER_OPTIONS = [
   'appendPadding',
   'renderer',
   'pixelRatio',
+  'localRefresh',
+  'useDeferredLabel',
+  'locale',
   'syncViewPadding',
   'supportCSSTransform',
   'limitInPlot',
@@ -91,13 +97,13 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 创建 G2 实例
    */
   private createG2() {
-    const { width, height, defaultInteractions } = this.options;
+    const { width, height, defaultInteractions, localRefresh = false } = this.options;
 
     this.chart = new Chart({
       container: this.container,
       autoFit: false, // G2Plot 使用 size-sensor 进行 autoFit
       ...this.getChartSize(width, height),
-      localRefresh: false, // 默认关闭，目前 G 还有一些位置问题，难以排查！
+      localRefresh, // 默认关闭，目前 G 还有一些位置问题，难以排查！
       ...pick(this.options, PLOT_CONTAINER_OPTIONS),
       defaultInteractions,
     });
@@ -152,12 +158,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
     // 所以这里给 chart 实例的 options 配置清空
     // 最好的解法是在 G2 view.clear 方法的时候，重置 options 配置。或者提供方法去 resetOptions
     // #1684 理论上在多 view 图形上，只要存在 custom legend，都存在类似问题（子弹图、双轴图）
-    // @ts-ignore
-    this.chart.options = {
-      data: [],
-      animate: true,
-    };
-    this.chart.views = []; // 删除已有的 views
+    resetLegacyChartState(this.chart); // 删除 legacy chart 中已缓存的 options/views
     // 执行 adaptor
     this.execAdaptor();
     // 渲染
@@ -318,7 +319,7 @@ export abstract class Plot<O extends PickOptions> extends EE {
    * 当图表容器大小变化的时候，执行的函数
    */
   protected triggerResize() {
-    this.chart.forceFit();
+    resizeChart(this.chart, this.container);
   }
 
   /**

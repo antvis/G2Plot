@@ -1,5 +1,5 @@
-import { nelderMead } from 'fmin';
 import { distance, getCenter, intersectionArea } from './circleintersection';
+import { nelderMead } from './nelder-mead';
 
 function circleMargin(current, interior, exterior) {
   let margin = interior[0].radius - distance(interior[0], current),

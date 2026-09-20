@@ -1,5 +1,6 @@
-import { bisect, conjugateGradient, nelderMead, norm2, scale, zeros, zerosM } from 'fmin';
+import { bisect, conjugateGradient, norm2, scale, zeros, zerosM } from 'fmin';
 import { circleCircleIntersection, circleOverlap, distance, intersectionArea } from './circleintersection';
+import { nelderMead } from './nelder-mead';
 
 /** given a list of set objects, and their corresponding overlaps.
 updates the (x, y, radius) attribute on each set such that their positions

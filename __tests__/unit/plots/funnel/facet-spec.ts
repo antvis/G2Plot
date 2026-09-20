@@ -67,7 +67,7 @@ describe('facet funnel', () => {
           '2020Q2': PV_DATA_COMPARE.filter((item) => item.quarter === '2020Q2'),
         };
 
-        const { data } = funnel.chart.getOptions();
+        const { data } = funnelView.getOptions();
         data.forEach((item) => {
           const originData = origin[item.quarter];
           const originIndex = originData.findIndex((jtem) => jtem.pv === item.pv);

@@ -16,7 +16,7 @@ const data = [
 
 const chart = new Chart({
   container: 'container',
-  width: 640,
+  autoFit: true, // 宽度随容器自适应，避免坐标轴/图例被遮挡；不要手动设置 spec padding
   height: 360,
 });
 

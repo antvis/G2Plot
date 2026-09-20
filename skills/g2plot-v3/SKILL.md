@@ -73,3 +73,4 @@ curl "https://sive.antv.antgroup.com/api/v1/context/retrieve?query=bar+chart+sta
 3. 禁止 G2Plot v2 写法：`new Line()`、`xField` / `yField` / `seriesField`
 4. 数据用长表，数值字段确保 `number` 类型
 5. 生成代码自包含：示例数据内联，或明确标注数据来源与字段名
+6. 布局用 `autoFit: true`（`new Chart({ container, autoFit: true })`），**不要**手动设置 spec `padding`：保持默认 `auto`，G2 会自动为坐标轴、图例留出空间，手动 padding 容易导致组件被遮挡/裁剪

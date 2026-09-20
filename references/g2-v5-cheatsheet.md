@@ -10,12 +10,13 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container', // DOM 元素 id 或 HTMLElement
-  width: 640,
+  autoFit: true,          // 尺寸随容器自适应；容器高度为 0 时需显式设置 height
   height: 360,
-  autoFit: false,         // true 时尺寸随容器自适应
   theme: 'light',         // 'light' | 'dark' | 'academy' 等
 });
 ```
+
+**不要手动设置 spec 的 `padding`**：默认 `auto` 会自动为坐标轴标题、图例等组件留出空间；手动 padding 容易导致这些组件被遮挡或裁剪。
 
 ## 两种渲染写法
 

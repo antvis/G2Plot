@@ -60,3 +60,7 @@ temp
 # AI
 .claude
 .agent
+
+# Eval results
+evals/results/
+evals/report.json

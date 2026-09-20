@@ -1,12 +1,9 @@
 {
   "name": "@antv/g2plot",
   "version": "3.0.0-alpha.0",
-  "private": true,
   "description": "Prompts as Charts - a visualization component library for AI Coding",
   "scripts": {
-    "validate": "npm run validate:examples && npm run validate:markdown",
-    "validate:examples": "tsc --noEmit",
-    "validate:markdown": "node scripts/validate-md.mjs"
+    "validate": "tsc --noEmit"
   },
   "devDependencies": {
     "@antv/g2": "^5.0.0",

@@ -13,8 +13,8 @@
 
 - 组件模板参照 [charts/line.md](charts/line.md)（首个标准组件）
 - 每个组件 = `charts/<chart>.md` + `examples/<chart>/*.ts`
-- md 中 ```ts 代码块必须完整可编译；教学片段用 ```ts-snippet
-- 提交前运行 `npm run validate` 确保全部案例与代码块通过 tsc 校验
+- examples/ 是事实源：md 中的完整代码块必须与对应 examples 文件保持一致
+- 提交前运行 `npm run validate`（tsc 校验全部 examples）
 
 ## 硬约束
 

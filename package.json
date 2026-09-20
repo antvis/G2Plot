@@ -5,17 +5,12 @@
   "scripts": {
     "validate": "tsc --noEmit",
     "lint": "lint-md \"**/*.md\"",
-    "fix": "lint-md \"**/*.md\" --fix",
-    "eval:generate": "node evals/generate.mjs",
-    "eval:judge": "node evals/judge.mjs"
+    "fix": "lint-md \"**/*.md\" --fix"
   },
   "devDependencies": {
-    "@ai-sdk/openai-compatible": "^3.0.53",
     "@antv/g2": "^5.0.0",
     "@lint-md/cli": "^2.4.0",
-    "ai": "^7.0.107",
-    "typescript": "^5.5.0",
-    "zod": "^4.6.5"
+    "typescript": "^5.5.0"
   },
   "repository": "git@github.com:antvis/G2Plot.git"
 }

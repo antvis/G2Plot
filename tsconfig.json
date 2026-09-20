@@ -1,19 +1,14 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "sourceMap": true,
-    "inlineSources": true,
-    "target": "es5",
-    "outDir": "lib",
-    "declaration": true,
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2020", "DOM"],
+    "strict": true,
+    "noEmit": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true,
     "skipLibCheck": true,
-    "types": ["jest"],
-    "lib": ["esnext", "dom"]
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["src"]
+  "include": ["examples/**/*.ts"]
 }

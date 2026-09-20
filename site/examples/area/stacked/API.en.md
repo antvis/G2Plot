@@ -1,1 +1,0 @@
-<embed src="@/docs/api/plots/area.en.md"></embed>

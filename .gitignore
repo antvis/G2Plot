@@ -56,9 +56,7 @@ temp
 *.un~
 
 .vscode
-/stats.json
-.umi
 
-# dumi2 website builder
-site/.dumi/tmp
-site/.dumi/tmp-production
+# AI
+.claude
+.agent

@@ -1,1 +1,0 @@
-<embed src="@/docs/api/plots/tiny-line.zh.md"></embed>

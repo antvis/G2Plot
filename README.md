@@ -54,26 +54,6 @@ MVP 首批 10 个高频图表：
 
 完整覆盖 G2Plot v2 的 36 个图表类型已在路线图中，见 [设计文档](./docs/design-docs/active/2026-09-20-g2plot-v3-prompt-charts.md)。
 
-## 📖 内容结构
-
-```
-├── skills/g2plot-v3/SKILL.md   # Skill 入口：图表选型决策树 + 文件索引
-├── AGENTS.md                   # 通用 Agent 入口
-├── charts/                     # 每个图表一份提示词文件
-│   └── line.md                 #   选型规则、数据要求、精简代码片段、v4→v5 易错点
-├── examples/                   # 事实源：完整可运行案例（tsc 编译校验）
-│   └── line/
-│       ├── basic.ts
-│       └── multi-series.ts
-├── references/                 # 跨图表共享知识
-│   ├── g2-v5-cheatsheet.md     #   v5 API 速查
-│   ├── v4-to-v5-migration.md   #   v4→v5 迁移对照
-│   └── data-patterns.md        #   常见数据格式与转换
-└── scripts/validate.ts         # 内容校验
-```
-
-**单一内容源**：图表知识只在 `charts/` + `examples/` 维护一份，各 Agent 入口文件仅做索引转发。
-
 ## 🏗️ 工作原理
 
 ```

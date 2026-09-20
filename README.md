@@ -2,7 +2,9 @@
 
 # G2Plot v3
 
-**面向 AI Coding 的可视化组件库 —— 图表组件由 Prompt 组成，让 AI Coding Agent 写出正确的 [G2 v5](https://github.com/antvis/G2) 代码。**
+**Prompts as Charts，提示词即组件：一套没有组件代码的可视化组件库。**
+
+**Prompt in, Charts out，让 AI Coding Agent 写出正确的 [G2](https://github.com/antvis/G2) 可视化代码。**
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 

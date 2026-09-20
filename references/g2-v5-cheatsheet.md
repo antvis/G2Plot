@@ -60,6 +60,8 @@ chart.render();
 | `interaction` | 交互 | `[{ type: 'elementHighlight' }]` |
 | `animate` | 动画，`false` 关闭 | `{ enter: { type: 'fadeIn' } }` |
 | `children` | 子视图（组合图） | 见下文「组合视图」 |
+| `title` | 图表标题（对象，不能是字符串） | `{ title: '月度销售', subtitle: '万元' }` |
+| `theme` | 内置主题 / 自定义主题 | `'classicDark'`、`'academy'` 等 |
 
 ## encode 常用通道
 

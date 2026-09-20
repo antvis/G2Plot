@@ -23,7 +23,7 @@ describe('utils: line pattern', () => {
     });
     const d = `
       M 0 0 L ${width} 0
-      M 0 ${height} L ${width} ${height}
+      M 0 ${height - 1} L ${width} ${height - 1}
     `;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawLine(ctx, cfg as LinePatternCfg, d);
@@ -40,7 +40,7 @@ describe('utils: line pattern', () => {
     });
     const d = `
       M 0 0 L ${width} 0
-      M 0 ${height} L ${width} ${height}
+      M 0 ${height - 1} L ${width} ${height - 1}
     `;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawLine(ctx, cfg as LinePatternCfg, d);

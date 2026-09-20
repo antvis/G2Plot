@@ -58,6 +58,8 @@ chart.render();
 | 多系列 | `encode` 增加 `color: 'series'` | [multi-series.ts](../examples/line/multi-series.ts) |
 | 平滑曲线 | `encode` 增加 `shape: 'smooth'` | [smooth.ts](../examples/line/smooth.ts) |
 | 阶梯线 | `shape: 'hvh'`（或 `'hv'` / `'vh'`） | [step.ts](../examples/line/step.ts) |
+| 折线 + 数据点 | `type: 'view'`，children 叠加 line 与 point | [line-point.ts](../examples/line/line-point.ts) |
+| 带数据标签 | `labels: [{ text: 'value', position: 'top' }]` | [with-label.ts](../examples/line/with-label.ts) |
 
 多系列核心差异（数据需含 `series` 字段）：
 
@@ -66,6 +68,44 @@ chart.options({
   type: 'line',
   data,
   encode: { x: 'month', y: 'value', color: 'series' },
+});
+```
+
+## 样式自定义
+
+常用视觉定制项（以下写法均经 `@antv/g2` ^5 类型校验），完整示例见 [custom-style.ts](../examples/line/custom-style.ts)：
+
+| 定制项 | 写法 | 说明 |
+|---|---|---|
+| 系列调色板 | `scale: { color: { range: ['#5B8FF9', '#5AD8A6'] } }` | 多系列按系列值序着色 |
+| 单系列颜色 | `style: { stroke: '#5B8FF9' }` | 固定线色 |
+| 线宽 | `style: { lineWidth: 3 }` | |
+| 虚线 | `style: { lineDash: [6, 4] }` | 数组为 实线/间隔 长度 |
+| 坐标轴标题 | `axis: { x: { title: '月份' } }` | y 轴同理 |
+| 图例位置 | `legend: { color: { position: 'top' } }` | `'top'` / `'bottom'` / `'left'` / `'right'` |
+| 关闭图例 | `legend: false` | |
+| 关闭坐标轴 | `axis: { x: false }` | |
+
+数据标签与 tooltip 格式化，完整示例见 [with-label.ts](../examples/line/with-label.ts)：
+
+```ts-snippet
+labels: [{ text: 'value', position: 'top', style: { fontSize: 10 } }],
+tooltip: {
+  title: 'month',
+  items: [{ channel: 'y', name: '销售额', valueFormatter: (v) => `${v} 万元` }],
+},
+```
+
+折线叠加数据点（高频组合），完整示例见 [line-point.ts](../examples/line/line-point.ts)：
+
+```ts-snippet
+chart.options({
+  type: 'view',
+  data,
+  children: [
+    { type: 'line', encode: { x: 'month', y: 'value' } },
+    { type: 'point', encode: { x: 'month', y: 'value' }, tooltip: false },
+  ],
 });
 ```
 
@@ -89,3 +129,6 @@ chart.options({
 - [multi-series.ts](../examples/line/multi-series.ts) — 多系列
 - [smooth.ts](../examples/line/smooth.ts) — 平滑曲线
 - [step.ts](../examples/line/step.ts) — 阶梯线
+- [custom-style.ts](../examples/line/custom-style.ts) — 样式自定义（调色板/线宽/虚线/坐标轴/图例）
+- [line-point.ts](../examples/line/line-point.ts) — 折线 + 数据点组合视图
+- [with-label.ts](../examples/line/with-label.ts) — 数据标签与 tooltip 格式化

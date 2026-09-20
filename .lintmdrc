@@ -1,5 +1,6 @@
 {
+  "excludeFiles": ["**/node_modules/**", "**/.git/**"],
+  "extensions": [".md", ".markdown", ".mdx"],
   "rules": {
-    "no-trailing-punctuation": 0
   }
 }

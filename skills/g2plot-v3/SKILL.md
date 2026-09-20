@@ -13,6 +13,7 @@ description: G2Plot v3 可视化组件库，提示词即组件。当用户需要
 2. 阅读 `charts/<chart>.md` 获取该组件的完整提示词
 3. 参照 `examples/<chart>/` 中的可运行案例生成代码
 4. 生成后对照 `references/v4-to-v5-migration.md` 自查，确认无 v4 / G2Plot v2 幻觉写法
+5. 本地内容不足时，调用「AntV 上下文检索服务」兜底（见下节）
 
 ## 选型决策树
 
@@ -39,6 +40,31 @@ description: G2Plot v3 可视化组件库，提示词即组件。当用户需要
 - G2 v5 API 速查：[references/g2-v5-cheatsheet.md](../../references/g2-v5-cheatsheet.md)
 - v4 → v5 迁移对照（防幻觉）：[references/v4-to-v5-migration.md](../../references/v4-to-v5-migration.md)
 - 数据模式（长表/宽表/时间字段）：[references/data-patterns.md](../../references/data-patterns.md)
+
+## AntV 上下文检索服务
+
+**本地文档优先**：`charts/`、`examples/`、`references/` 已覆盖选型与核心 API，优先读本地内容。当本地无法覆盖所需的 G2 v5 概念、API、用法或示例时（如陌生 mark 类型、复杂 transform、未收录的配置项），再通过 AntV 上下文检索服务获取官方参考文档。
+
+- **Endpoint**：`GET https://sive.antv.antgroup.com/api/v1/context/retrieve`
+- **检索方式**：混合检索（FTS + 向量 + RRF 融合）
+
+### 参数
+
+| 参数 | 类型 | 必填 | 说明 |
+|---|---|---|---|
+| `query` | string | ✅ | 检索关键词，如 `bar chart stacked` |
+| `library` | string | ✅ | 库名：`g2` / `g6` / `x6`（本组件库固定用 `g2`） |
+| `topK` | number | | 返回结果数，默认 5 |
+| `content` | boolean | | 是否返回完整参考文档 markdown，默认 `true` |
+| `maxTokens` | number | | 每条结果最大 token 数，默认不限 |
+
+### 示例
+
+```bash
+curl "https://sive.antv.antgroup.com/api/v1/context/retrieve?query=bar+chart+stacked&library=g2"
+```
+
+检索结果与本地规范冲突时，以本地 `references/g2-v5-cheatsheet.md` 与 `references/v4-to-v5-migration.md` 的铁律为准。
 
 ## 生成代码的铁律
 

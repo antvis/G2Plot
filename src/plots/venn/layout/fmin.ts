@@ -9,7 +9,7 @@ export function bisect(f, a, b, parameters?: any) {
   let delta = b - a;
 
   if (fA * fB > 0) {
-    throw 'Initial bisect points must have opposite signs';
+    throw new Error('Initial bisect points must have opposite signs');
   }
 
   if (fA === 0) {

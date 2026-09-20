@@ -14,6 +14,7 @@
 - 组件模板参照 [charts/line.md](charts/line.md)（首个标准组件）
 - 每个组件 = `charts/<chart>.md` + `examples/<chart>/*.ts`
 - examples/ 是事实源：md 中的完整代码块必须与对应 examples 文件保持一致
+- 每个 example 文件必须以头部块注释开头，介绍案例：用途、适用场景、关键要点（与「完整案例」表格中的元信息一致）
 - 「完整案例」章节必须用表格维护每个案例的元信息：案例链接、场景、关键配置
 - 提交前运行 `npm run validate`（tsc 校验全部 examples）
 

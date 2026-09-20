@@ -42,7 +42,7 @@ async function main() {
   }
 
   await fs.writeFile(
-    path.join(RESULTS_DIR, '_generate.json'),
+    path.join(RESULTS_DIR, 'eval-result.json'),
     JSON.stringify(results, null, 2)
   );
 

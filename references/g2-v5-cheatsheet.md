@@ -11,7 +11,6 @@ import { Chart } from '@antv/g2';
 const chart = new Chart({
   container: 'container', // DOM 元素 id 或 HTMLElement
   autoFit: true,          // 尺寸随容器自适应；容器高度为 0 时需显式设置 height
-  height: 360,
   theme: 'light',         // 'light' | 'dark' | 'academy' 等
 });
 ```

@@ -12,6 +12,8 @@
     "@ai-sdk/openai-compatible": "^3.0.53",
     "ai": "^7.0.107",
     "dotenv": "^18.0.1",
+    "esbuild": "^0.28.2",
+    "puppeteer": "^25.11.0",
     "zod": "^4.6.5"
   },
   "repository": "git@github.com:antvis/G2Plot.git"

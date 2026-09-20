@@ -1,5 +1,5 @@
-// OpenAI 兼容 LLM 客户端（默认 Moonshot）
-// 配置从环境变量读取：LLM_BASE_URL / LLM_API_KEY / LLM_MODEL / LLM_TEMPERATURE
+// OpenAI-compatible LLM client (defaults to Moonshot).
+// Config is read from env: LLM_BASE_URL / LLM_API_KEY / LLM_MODEL / LLM_TEMPERATURE.
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 
 export function createModel() {
@@ -9,7 +9,7 @@ export function createModel() {
 
   if (!apiKey) {
     throw new Error(
-      '缺少 LLM_API_KEY。请设置环境变量或创建 evals/.env 文件（参考 evals/.env.example）'
+      'Missing LLM_API_KEY. Set the environment variable or create evals/.env (see evals/.env.example).'
     );
   }
 
@@ -21,7 +21,6 @@ export function createModel() {
 
   return {
     model: provider(modelId),
-    modelId,
     temperature: Number(process.env.LLM_TEMPERATURE ?? 0),
   };
 }

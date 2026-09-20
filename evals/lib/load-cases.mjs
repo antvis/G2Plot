@@ -1,12 +1,7 @@
-// 扫描 evals/cases/<chart>.jsonl，加载全部评估用例
+// Scan evals/cases/<chart>.jsonl and load all evaluation cases.
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-export const EVALS_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-export const ROOT = path.resolve(EVALS_DIR, '..');
-export const RESULTS_DIR = path.join(EVALS_DIR, 'results');
-export const CASES_DIR = path.join(EVALS_DIR, 'cases');
+import { CASES_DIR } from './const.mjs';
 
 export async function loadCases() {
   const cases = [];

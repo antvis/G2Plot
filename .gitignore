@@ -60,3 +60,6 @@ temp
 # AI
 .claude
 .agent
+
+# validate-md 临时目录（脚本中断时可能残留）
+examples/.tmp-md-blocks/

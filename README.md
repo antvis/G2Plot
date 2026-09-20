@@ -2,13 +2,15 @@
 
 <div align="center">
 
-# G2Plot v3, Prompts as Charts for AI!
+# 🍡 G2Plot v3, Prompts as Charts for AI!
 
 **Prompts as Charts** — prompts as components, a visualization component library for AI, with zero component code.
 
 Prompt in, Charts out. Let AI Coding Agents write correct [AntV](https://github.com/antvis) visualization code.
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Version](https://badgen.net/npm/v/@antv/g2plot)](https://npmjs.com/@antv/g2plot) [![NPM downloads](https://img.shields.io/npm/dm/@antv/g2plot.svg)](https://npmjs.com/@antv/g2plot) ![Latest commit](https://badgen.net/github/last-commit/antvis/G2Plot) [![build Status](https://github.com/antvis/G2Plot/workflows/build/badge.svg?branch=v3)](https://github.com/antvis/G2Plot/actions?query=workflow%3Abuild) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+
+![G2Plot v3 preview](https://mdn.alipayobjects.com/huamei_qa8qxu/afts/img/A*VEOjTYpCrjgAAAAAgCAAAAgAemJ7AQ/fmt.avif)
 
 </div>
 

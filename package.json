@@ -1,12 +1,14 @@
 {
   "name": "@antv/g2plot",
   "version": "3.0.0-alpha.0",
-  "description": "Prompts as Charts - a visualization component library for AI Coding",
+  "description": "G2Plot v3, Prompts as Charts - a visualization component library for AI Coding covers 36+ common chart types.",
   "scripts": {
-    "validate": "tsc --noEmit"
+    "validate": "tsc --noEmit",
+    "lint": "lint-md \"**/*.md\" \"!**/node_modules/**\""
   },
   "devDependencies": {
     "@antv/g2": "^5.0.0",
+    "lint-md-cli": "^0.1.2",
     "typescript": "^5.5.0"
   }
 }

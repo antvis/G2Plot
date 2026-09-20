@@ -16,7 +16,7 @@ Prompt in, Charts out，让 AI Coding Agent 写出正确的 [AntV](https://githu
 
 G2Plot v3 不是传统的 JS 图表库，没有运行时、没有 npm 依赖。它是一套**面向 AI Coding 的可视化组件库**：组件不是代码，而是 AI 运行上下文——每个图表组件对应一份提示词文件（选型规则 + 数据要求 + 可运行案例 + 易错点对照），供 Claude Code、CodeFuse、Cursor 等 AI Coding Agent 读取，直接在你的项目中生成原生 AntV 图表代码。
 
-```
+```text
 你: "帮我画一个多系列折线图，数据是每月的销售额和利润"
  ↓
 AI Agent 读取 charts/line.md + examples/line/multi-series.ts
@@ -53,7 +53,7 @@ G2Plot v3 覆盖 36+ 个常用图表类型，更多类型，欢迎提交 PR：
 
 工作原理如下：
 
-```
+```text
 用户需求（自然语言 + 数据）
         ↓
 ┌─────────────────────┐

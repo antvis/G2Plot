@@ -16,7 +16,7 @@ Prompt in, Charts out. Let AI Coding Agents write correct [AntV](https://github.
 
 G2Plot v3 is not a traditional JS charting library — no runtime, no npm dependency. It is a **visualization component library for AI Coding**: components are not code, but AI runtime context. Each chart component is a prompt file (selection rules + data requirements + runnable examples + common-pitfall reference), read by AI Coding Agents such as Claude Code, CodeFuse, and Cursor to generate native AntV chart code directly in your project.
 
-```
+```text
 You: "Draw a multi-series line chart with monthly sales and profit"
  ↓
 AI Agent reads charts/line.md + examples/line/multi-series.ts
@@ -51,7 +51,7 @@ G2Plot v3 covers 36+ common chart types. PRs for more types are welcome:
 
 ## 🏗️ How It Works
 
-```
+```text
 User request (natural language + data)
         ↓
 ┌─────────────────────┐

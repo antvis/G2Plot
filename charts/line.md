@@ -38,7 +38,7 @@ const data = [
 
 const chart = new Chart({
   container: 'container',
-  width: 640,
+  autoFit: true,
   height: 360,
 });
 
@@ -85,6 +85,28 @@ chart.options({
 | 图例位置 | `legend: { color: { position: 'top' } }` | `'top'` / `'bottom'` / `'left'` / `'right'` |
 | 关闭图例 | `legend: false` | |
 | 关闭坐标轴 | `axis: { x: false }` | |
+
+### 图表标题与组件文字样式
+
+完整示例见 [theme.ts](../examples/line/theme.ts)：
+
+```ts-snippet
+title: {
+  title: '月度销售与利润',   // 主标题（title 必须是对象，不能直接写字符串）
+  subtitle: '单位：万元',    // 副标题
+  align: 'left',            // 'left' | 'center' | 'right'
+  titleFontSize: 16,
+  titleFill: '#1d1d1d',
+  subtitleFontSize: 12,
+  subtitleFill: '#8c8c8c',
+},
+```
+
+组件文字样式命名规律：`titleXxx`（轴标题）、`labelXxx`（轴刻度标签）、`itemLabelXxx`（图例项文字）——如 `axis.y.titleFill`、`axis.x.labelFontSize`、`legend.color.itemLabelFill`。
+
+### 内置主题
+
+`theme: 'light' | 'dark' | 'classic' | 'classicDark' | 'academy'`，一行切换整体配色。暗色场景用 `'classicDark'`，坐标轴、图例、标题的文字颜色自动适配，无需逐个设置。
 
 数据标签与 tooltip 格式化，完整示例见 [with-label.ts](../examples/line/with-label.ts)：
 
@@ -136,3 +158,4 @@ chart.options({
 | [custom-style.ts](../examples/line/custom-style.ts) | 多系列 + 品牌视觉定制 | `scale.color.range`、`style.lineWidth/lineDash`、`axis.title`、`legend.position` |
 | [line-point.ts](../examples/line/line-point.ts) | 趋势线同时标出每个数据点 | `type: 'view'` + line/point children |
 | [with-label.ts](../examples/line/with-label.ts) | 数据点旁直接展示数值、提示格式化 | `labels`、`tooltip.items` |
+| [theme.ts](../examples/line/theme.ts) | 图表标题与组件文字样式、内置主题 | `title`（对象）、`axis.titleFill/labelFontSize`、`legend.itemLabelXxx`、`theme` |

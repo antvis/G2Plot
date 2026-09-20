@@ -21,7 +21,7 @@ const data = [
 
 const chart = new Chart({
   container: 'container',
-  width: 640,
+  autoFit: true,
   height: 360,
 });
 

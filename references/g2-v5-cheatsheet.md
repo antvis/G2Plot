@@ -10,12 +10,13 @@ import { Chart } from '@antv/g2';
 
 const chart = new Chart({
   container: 'container', // DOM 元素 id 或 HTMLElement
-  width: 640,
+  autoFit: true,          // 尺寸随容器自适应；容器高度为 0 时需显式设置 height
   height: 360,
-  autoFit: false,         // true 时尺寸随容器自适应
   theme: 'light',         // 'light' | 'dark' | 'academy' 等
 });
 ```
+
+**不要手动设置 spec 的 `padding`**：默认 `auto` 会自动为坐标轴标题、图例等组件留出空间；手动 padding 容易导致这些组件被遮挡或裁剪。
 
 ## 两种渲染写法
 
@@ -59,6 +60,8 @@ chart.render();
 | `interaction` | 交互 | `[{ type: 'elementHighlight' }]` |
 | `animate` | 动画，`false` 关闭 | `{ enter: { type: 'fadeIn' } }` |
 | `children` | 子视图（组合图） | 见下文「组合视图」 |
+| `title` | 图表标题（对象，不能是字符串） | `{ title: '月度销售', subtitle: '万元' }` |
+| `theme` | 内置主题 / 自定义主题 | `'classicDark'`、`'academy'` 等 |
 
 ## encode 常用通道
 

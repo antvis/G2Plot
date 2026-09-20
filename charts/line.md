@@ -125,10 +125,14 @@ chart.options({
 
 ## 完整案例
 
-- [basic.ts](../examples/line/basic.ts) — 基础折线
-- [multi-series.ts](../examples/line/multi-series.ts) — 多系列
-- [smooth.ts](../examples/line/smooth.ts) — 平滑曲线
-- [step.ts](../examples/line/step.ts) — 阶梯线
-- [custom-style.ts](../examples/line/custom-style.ts) — 样式自定义（调色板/线宽/虚线/坐标轴/图例）
-- [line-point.ts](../examples/line/line-point.ts) — 折线 + 数据点组合视图
-- [with-label.ts](../examples/line/with-label.ts) — 数据标签与 tooltip 格式化
+每个案例的元信息（场景与关键配置），代码均通过 `npm run validate` 校验：
+
+| 案例 | 场景 | 关键配置 |
+|---|---|---|
+| [basic.ts](../examples/line/basic.ts) | 单系列趋势，最简起步 | `encode: { x, y }` |
+| [multi-series.ts](../examples/line/multi-series.ts) | 多系列趋势对比 | `encode: { color: 'series' }` |
+| [smooth.ts](../examples/line/smooth.ts) | 弱化单点波动、强调整体趋势 | `encode: { shape: 'smooth' }` |
+| [step.ts](../examples/line/step.ts) | 离散跳变数据（价格、利率） | `encode: { shape: 'hvh' }` |
+| [custom-style.ts](../examples/line/custom-style.ts) | 多系列 + 品牌视觉定制 | `scale.color.range`、`style.lineWidth/lineDash`、`axis.title`、`legend.position` |
+| [line-point.ts](../examples/line/line-point.ts) | 趋势线同时标出每个数据点 | `type: 'view'` + line/point children |
+| [with-label.ts](../examples/line/with-label.ts) | 数据点旁直接展示数值、提示格式化 | `labels`、`tooltip.items` |

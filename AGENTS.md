@@ -16,7 +16,26 @@
 - examples/ 是事实源：md 中的完整代码块必须与对应 examples 文件保持一致
 - 每个 example 文件必须以头部块注释开头，介绍案例：用途、适用场景、关键要点（与「完整案例」表格中的元信息一致）
 - 「完整案例」章节必须用表格维护每个案例的元信息：案例链接、场景、关键配置
+- 组件涉及的 G2 API 用法先用「AntV 上下文检索服务」核实（见下节），不要凭记忆写
 - 提交前运行 `npm run validate`（tsc 校验全部 examples）
+
+## 查询 G2 文档（AntV 上下文检索服务）
+
+本地内容优先（`charts/`、`references/`、`examples/`）；当本地未覆盖所需的 G2 v5 概念、API、用法或示例时，通过 AntV 上下文检索服务查询官方参考文档（混合检索：FTS + 向量 + RRF）：
+
+```bash
+curl "https://sive.antv.antgroup.com/api/v1/context/retrieve?query=bar+chart+stacked&library=g2"
+```
+
+| 参数 | 必填 | 说明 |
+|---|---|---|
+| `query` | ✅ | 检索关键词，如 `axis label style` |
+| `library` | ✅ | 本仓库固定 `g2`（服务另支持 `g6` / `x6`） |
+| `topK` | | 返回结果数，默认 5 |
+| `content` | | 是否返回完整文档 markdown，默认 `true` |
+| `maxTokens` | | 每条结果最大 token 数，默认不限 |
+
+检索结果与本地规范冲突时，以 `references/g2-v5-cheatsheet.md` 与 `references/v4-to-v5-migration.md` 为准；写入仓库的 API 必须通过 `npm run validate` 验证。
 
 ## 硬约束
 

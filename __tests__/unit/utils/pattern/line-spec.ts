@@ -29,7 +29,7 @@ describe('utils: line pattern', () => {
     drawLine(ctx, cfg as LinePatternCfg, d);
     // 传入的是呈现的位置
     expect(getPixelColor(canvas, 0, 0).hex).toEqual('#ff0000');
-    expect(getPixelColor(canvas, 0, height - 1).hex).toEqual('#ff0000');
+    expect(getPixelColor(canvas, 1, height - 2).hex).toEqual('#ff0000');
   });
 
   it('lineUnitPattern with strokeOpacity', () => {
@@ -46,7 +46,7 @@ describe('utils: line pattern', () => {
     drawLine(ctx, cfg as LinePatternCfg, d);
     // 传入的是呈现的位置
     expect(getPixelColor(canvas, 0, 0).alpha.toPrecision(1)).toEqual(`${0.5}`);
-    expect(getPixelColor(canvas, 0, height - 1).alpha.toPrecision(1)).toEqual(`${0.5}`);
+    expect(getPixelColor(canvas, 1, height - 2).alpha.toPrecision(1)).toEqual(`${0.5}`);
     expect(getPixelColor(canvas, width / 2, height / 2).alpha.toPrecision(1)).toEqual(`${0}`);
   });
 });

@@ -22,7 +22,8 @@ npx skills add <repo-url>
 ```
 ├── AGENTS.md             # 通用 Agent 入口
 ├── skills/g2plot-v3/     # Skill 标准入口（图表选型决策树）
-├── charts/               # 核心内容：每个图表一个提示词文件（代码内联）
+├── charts/               # 提示词文件：选型 + 数据要求 + 内联精简片段
+├── examples/             # 事实源：完整可运行案例（tsc 直接校验）
 ├── references/           # 跨图表共享知识（v5 API 速查、v4→v5 迁移对照）
 ├── scripts/              # 内容校验工具
 └── docs/design-docs/     # 设计文档

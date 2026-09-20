@@ -48,8 +48,13 @@ G2Plot (v3 分支)
 ├── skills/
 │   └── g2plot-v3/
 │       └── SKILL.md             # Skill 标准入口：图表选型决策树 + 文件索引
-├── charts/                      # 核心内容：每个图表一个提示词文件，代码全部内联
+├── charts/                      # 提示词文件：选型 + 数据要求 + 内联精简片段
 │   ├── line.md
+│   └── ...
+├── examples/                    # ★ 事实源：完整可运行案例（按图表/变体组织）
+│   ├── line/
+│   │   ├── basic.ts
+│   │   └── multi-series.ts
 │   └── ...
 ├── references/                  # 跨图表共享知识
 │   ├── g2-v5-cheatsheet.md      # v5 API 速查（spec / encode / transform）
@@ -61,7 +66,7 @@ G2Plot (v3 分支)
 ```
 
 已确认的决策：
-- **不建 examples/ 目录**，案例代码全部内联在 md 里，维护单一内容源
+- **examples/ 独立目录**（2026-09-20 修订）：完整可运行案例放 examples/<chart>/<variant>.ts，作为事实源被 tsc 直接强校验；md 中只内联教学精简片段。校验可靠性与 IDE 支持优于纯内联方案
 - **渐进式披露**：SKILL.md 只放选型决策树和索引，Agent 按需加载单个图表文件
 
 ## 4. 内容标准
@@ -78,10 +83,10 @@ G2Plot (v3 分支)
 （字段类型、series 分组字段、示例数据）
 
 ## 基础实现（G2 v5）
-（最小可运行代码，内联）
+（核心 spec 精简片段内联，完整版指向 examples/<chart>/basic.ts）
 
 ## 常见变体
-（多折线 / 平滑 / 阶梯 / 面积叠加，每个一小段内联代码）
+（每个变体：一句话说明 + 差异代码片段 + 指向 examples/<chart>/<variant>.ts）
 
 ## 易错点（v4 → v5）
 （❌ 旧写法 → ✅ 新写法 对照表）
@@ -115,7 +120,8 @@ chart.render();
 ```
 
 - 示例数据自包含（不依赖外部接口），字段名语义化
-- 每个代码块必须能被 scripts/validate.ts 编译通过
+- **examples/ 是事实源**：完整案例以 examples/<chart>/<variant>.ts 为准，md 内联片段是从中提炼的教学精简版，两者需保持同步
+- examples/ 下每个 .ts 文件必须能被 scripts/validate.ts 编译通过；md 内联代码块同样纳入校验
 
 ## 5. MVP 范围
 
@@ -138,7 +144,9 @@ chart.render();
 
 ## 6. 质量保障
 
-- `scripts/validate.ts`：提取所有 md 中的 ts 代码块，用 TypeScript + @antv/g2 v5 类型做静态编译校验（不渲染）
+- `scripts/validate.ts` 两级校验：
+  1. **强校验（主）**：`tsc` 直接编译 `examples/**/*.ts`，类型对齐 @antv/g2 v5（不渲染）
+  2. **弱校验（保底）**：提取 md 中的 ts 代码块做编译，防止内联片段腐烂
 - 提交前本地跑通，后续接 CI
 - 每个图表内容以「AI 生成正确率」为验收标准：用真实 Agent 跑一遍出码流程，验证生成代码可用
 

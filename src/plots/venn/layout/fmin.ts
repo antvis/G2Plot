@@ -144,7 +144,7 @@ export function conjugateGradient(f, initial, params?: any) {
   const yk = initial.slice();
   let current = { x: initial.slice(), fx: 0, fxprime: initial.slice() };
   let next = { x: initial.slice(), fx: 0, fxprime: initial.slice() };
-  let pk;
+  const pk = current.fxprime.slice();
   let temp;
   let a = 1;
 
@@ -152,7 +152,6 @@ export function conjugateGradient(f, initial, params?: any) {
   const maxIterations = params.maxIterations || initial.length * 20;
 
   current.fx = f(current.x, current.fxprime);
-  pk = current.fxprime.slice();
   scale(pk, current.fxprime, -1);
 
   for (let i = 0; i < maxIterations; ++i) {

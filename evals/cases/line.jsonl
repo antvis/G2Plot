@@ -1,0 +1,8 @@
+{"id": "line-basic", "prompt": "画一个基础折线图，展示某指标随月份（Jan-Jun）的变化趋势", "groundTruth": "使用 type: 'line' 的 line mark，encode 只含 x 和 y 两个通道；x 为月份字段，y 为数值字段；单系列、无 color 通道；数据内联且字段语义化"}
+{"id": "line-multi-series", "prompt": "画一个多系列折线图，对比销售额和利润两个系列随月份的走势", "groundTruth": "使用 type: 'line'，encode 必须包含 x、y、color 三个通道；color 映射系列字段（如 series），数据中含销售额和利润两个系列；图例默认展示"}
+{"id": "line-smooth", "prompt": "画一个平滑折线图，弱化单点波动、强调整体趋势", "groundTruth": "encode 中必须设置 shape: 'smooth'；使用 type: 'line'；x/y 通道正常映射；数据内联"}
+{"id": "line-step", "prompt": "画一个阶梯折线图，展示价格在离散时间点的跳变（hvh 中点跳变）", "groundTruth": "encode 中必须设置 shape: 'hvh'（或 hv / vh 亦可，但 hvh 最符合中点跳变）；使用 type: 'line'；数据体现价格跳变"}
+{"id": "line-with-label", "prompt": "画一个带数据标签的折线图，每个点顶部显示数值，tooltip 条目重命名为销售额并追加万元单位", "groundTruth": "包含 labels 配置，labels 中 text 指向数值字段、position 为 'top'；tooltip.items 中对 y 通道设置 name: '销售额' 且 valueFormatter 追加万元单位"}
+{"id": "line-point", "prompt": "画一个折线加数据点的组合图，既要趋势线又要清晰标出每个数据点", "groundTruth": "使用 type: 'view'，children 同时包含 type: 'line' 和 type: 'point' 两个 mark；两者 encode 一致；point 设置 size 和样式（如 stroke/fill）"}
+{"id": "line-custom-style", "prompt": "画一个多系列折线图，自定义调色板、线宽 3、虚线、x/y 轴标题、图例置顶", "groundTruth": "encode 含 color 通道；scale.color.range 自定义调色板（2 个颜色）；style 中 lineWidth: 3 且 lineDash 存在；axis.x 和 axis.y 均有 title；legend.color.position 为 'top'"}
+{"id": "line-theme", "prompt": "画一个带主副标题的多系列折线图，定制坐标轴、图例、tooltip 文字样式", "groundTruth": "title 为对象，含 title 和 subtitle 字段；encode 含 color 通道实现多系列；axis 中设置 titleFill/titleFontSize/labelFill 等文字样式；legend.color 中设置 itemLabelFontSize 或 itemLabelFill；tooltip.items 对字段重命名并格式化"}

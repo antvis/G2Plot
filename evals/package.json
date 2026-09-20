@@ -1,0 +1,17 @@
+{
+  "name": "@antv/g2plot-evals",
+  "private": true,
+  "type": "module",
+  "description": "G2Plot v3 skill evaluation harness (LLM generate + judge)",
+  "scripts": {
+    "generate": "node generate.mjs",
+    "judge": "node judge.mjs",
+    "eval": "node generate.mjs && node judge.mjs"
+  },
+  "dependencies": {
+    "@ai-sdk/openai-compatible": "^3.0.53",
+    "ai": "^7.0.107",
+    "dotenv": "^18.0.1",
+    "zod": "^4.6.5"
+  }
+}

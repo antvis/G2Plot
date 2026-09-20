@@ -2,13 +2,13 @@
 
 # G2Plot v3
 
-**Prompt 驱动的可视化组件知识库，让 AI Coding Agent 写出正确的 [G2 v5](https://github.com/antvis/G2) 代码。**
+**面向 AI Coding 的可视化组件库 —— 图表组件由 Prompt 组成，让 AI Coding Agent 写出正确的 [G2 v5](https://github.com/antvis/G2) 代码。**
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 </div>
 
-G2Plot v3 不是传统的 JS 图表库，没有运行时、没有 npm 依赖。它是一套**结构化的图表知识库**：每个图表类型对应一份提示词文件（选型规则 + 数据要求 + 可运行案例 + 易错点对照），供 Claude Code、CodeFuse、Cursor 等 AI Coding Agent 读取，直接在你的项目中生成原生 G2 v5 图表代码。
+G2Plot v3 不是传统的 JS 图表库，没有运行时、没有 npm 依赖。它是一套**面向 AI Coding 的可视化组件库**：组件不是 class，而是提示词——每个图表组件对应一份提示词文件（选型规则 + 数据要求 + 可运行案例 + 易错点对照），供 Claude Code、CodeFuse、Cursor 等 AI Coding Agent 读取，直接在你的项目中生成原生 G2 v5 图表代码。
 
 ```
 你: "帮我画一个多系列折线图，数据是每月的销售额和利润"
@@ -100,7 +100,7 @@ MVP 首批 10 个高频图表：
 
 ## ✅ 内容质量保障
 
-知识库里的每一段代码都必须能跑通：
+每个组件的每一段代码都必须能跑通：
 
 1. **强校验**：`tsc` 直接编译 `examples/**/*.ts`，类型对齐 G2 v5
 2. **弱校验**：提取 md 内联代码块做编译，防止片段腐烂
@@ -116,7 +116,7 @@ npm run validate   # 校验全部案例与代码片段
 
 ## 🔗 相关项目
 
-- [G2](https://github.com/antvis/G2) - 本知识库的目标渲染引擎（v5）
+- [G2](https://github.com/antvis/G2) - 本组件库的目标渲染引擎（v5）
 - [G2Plot v2](https://github.com/antvis/G2Plot/tree/master) - 经典运行时图表库（G2 4.x）
 - [GPT-Vis](https://github.com/antvis/GPT-Vis) - 面向 LLM 运行时的可视化方案
 - [AVA](https://github.com/antvis/AVA) - AI 原生的可视分析框架

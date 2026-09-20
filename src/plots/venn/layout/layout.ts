@@ -1,4 +1,4 @@
-import { bisect, conjugateGradient, norm2, scale, zeros, zerosM } from 'fmin';
+import { bisect, conjugateGradient, norm2, scale, zeros, zerosM } from './fmin';
 import { circleCircleIntersection, circleOverlap, distance, intersectionArea } from './circleintersection';
 import { nelderMead } from './nelder-mead';
 

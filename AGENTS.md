@@ -1,13 +1,15 @@
 # AGENTS.md
 
+本文件是给**参与开发本仓库**的 AI Coding Agent 的约束与要求。
+
 本仓库是 **G2Plot v3** —— 面向 AI Coding 的可视化组件库，提示词即组件。无运行时、无构建产物，全部内容为 markdown 提示词 + 可运行 TypeScript 案例。
 
-## 生成图表代码
+## 仓库结构
 
-1. 读 [skills/g2plot-v3/SKILL.md](skills/g2plot-v3/SKILL.md) 的选型决策树，确定图表类型
-2. 读对应的 `charts/<chart>.md` 组件提示词（数据要求、变体、易错点）
-3. 参照 `examples/<chart>/` 可运行案例，生成基于 **@antv/g2 ^5** 的代码
-4. 对照 `references/v4-to-v5-migration.md` 自查幻觉
+- `charts/<chart>.md` — 组件提示词：选型、数据要求、变体、样式自定义、易错点
+- `examples/<chart>/*.ts` — 可运行案例（事实源，tsc 校验）
+- `references/` — 跨组件共享规范：G2 v5 API 速查、v4→v5 迁移对照、数据模式
+- `skills/g2plot-v3/SKILL.md` — 组件库对**使用者**的入口（选型决策树），与本文件职责不同
 
 ## 贡献组件
 
@@ -21,7 +23,7 @@
 
 ## 查询 G2 文档（AntV 上下文检索服务）
 
-本地内容优先（`charts/`、`references/`、`examples/`）；当本地未覆盖所需的 G2 v5 概念、API、用法或示例时，通过 AntV 上下文检索服务查询官方参考文档（混合检索：FTS + 向量 + RRF）：
+AI 生成本项目内容时（`charts/`、`references/`、`examples/`）；可以通过 AntV 上下文检索服务查询官方参考文档：
 
 ```bash
 curl "https://sive.antv.antgroup.com/api/v1/context/retrieve?query=bar+chart+stacked&library=g2"
@@ -35,7 +37,7 @@ curl "https://sive.antv.antgroup.com/api/v1/context/retrieve?query=bar+chart+sta
 | `content` | | 是否返回完整文档 markdown，默认 `true` |
 | `maxTokens` | | 每条结果最大 token 数，默认不限 |
 
-检索结果与本地规范冲突时，以 `references/g2-v5-cheatsheet.md` 与 `references/v4-to-v5-migration.md` 为准；写入仓库的 API 必须通过 `npm run validate` 验证。
+避免生成的代码包含不存在，或者错误的 API。
 
 ## 硬约束
 

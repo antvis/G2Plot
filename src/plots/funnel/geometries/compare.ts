@@ -34,7 +34,6 @@ function field(params: Params<FunnelOptions>): Params<FunnelOptions> {
 function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
   const { chart, options } = params;
   const {
-    data,
     xField,
     yField,
     color,
@@ -65,7 +64,7 @@ function geometry(params: Params<FunnelOptions>): Params<FunnelOptions> {
         });
       }
 
-      const formatterData = transformData(facet.data, data, {
+      const formatterData = transformData(facet.data, facet.data, {
         yField,
         maxSize,
         minSize,

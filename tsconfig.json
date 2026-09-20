@@ -12,7 +12,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "types": [],
+    "types": ["jest"],
     "lib": ["esnext", "dom"]
   },
   "include": ["src"]

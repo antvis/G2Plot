@@ -38,10 +38,6 @@ npx skills add https://github.com/antvis/G2Plot
 
 Agent 会自动完成图表选型、读取对应提示词文件、生成 G2 v5 代码并放入你的项目。
 
-### 通用方式
-
-本仓库同时提供 [AGENTS.md](./AGENTS.md) 通用入口，任何支持 AGENTS.md 的 Agent（Cursor、GitHub Copilot 等）都能自动识别。你也可以直接浏览 `charts/` 目录，把提示词文件当作图表开发手册使用。
-
 ## 📊 图表支持
 
 MVP 首批 10 个高频图表：
@@ -77,18 +73,6 @@ MVP 首批 10 个高频图表：
 ### 与 GPT-Vis 的区别
 
 [GPT-Vis](https://github.com/antvis/GPT-Vis) 面向**运行时渲染**：LLM 输出私有 vis 语法，由 GPT-Vis 库在运行时解析渲染，适合 AI 对话应用内嵌图表。G2Plot v3 面向**出码**：生成的是开发者项目中的原生 G2 v5 代码，适合用 AI 辅助开发图表页面。两者互补。
-
-## ✅ 内容质量保障
-
-每个组件的每一段代码都必须能跑通：
-
-1. **强校验**：`tsc` 直接编译 `examples/**/*.ts`，类型对齐 G2 v5
-2. **弱校验**：提取 md 内联代码块做编译，防止片段腐烂
-3. **出码验收**：每个图表用真实 Agent 完成至少一次端到端生成验证
-
-```bash
-npm run validate   # 校验全部案例与代码片段
-```
 
 ## 🤝 贡献
 

@@ -58,6 +58,7 @@ chart.render();
 |---|---|---|
 | 带数值标签 | `labels` text 回调自定义内容（默认居中），深色格子用白字 | [with-label.ts](../examples/heatmap/with-label.ts) |
 | 相关性矩阵 | 发散色阶 `palette: 'RdBu'` + `domain: [-1, 1]` | [correlation.ts](../examples/heatmap/correlation.ts) |
+| 渐变热力（点云密度） | `type: 'heatmap'` + `encode.color`（0~1）+ `encode.size`；颜色数组用 `range` | [gradient.ts](../examples/heatmap/gradient.ts) |
 
 相关性矩阵核心差异（正负相关用发散色阶，0 居中）：
 
@@ -96,3 +97,4 @@ scale: {
 | [basic.ts](../examples/heatmap/basic.ts) | 星期 × 时段访问密度，最简起步 | `type: 'cell'` + `palette: 'YlOrRd'` |
 | [with-label.ts](../examples/heatmap/with-label.ts) | 色阶 + 精确读数 | `labels` text 回调 + 深浅文字适配 |
 | [correlation.ts](../examples/heatmap/correlation.ts) | 指标相关性矩阵 | `palette: 'RdBu'` + `domain: [-1, 1]` |
+| [gradient.ts](../examples/heatmap/gradient.ts) | 经纬度点云密度（渐变热力） | `type: 'heatmap'` + `encode.color/size` + `scale.color.range` |

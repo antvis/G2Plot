@@ -1,0 +1,12 @@
+{"id": "radar-basic-score", "prompt": "展示一款手机在设计、性能、续航、拍照、屏幕、性价比六个维度的评分", "groundTruth": "type: 'view' + coordinate: { type: 'polar' }；children 含 area 和 line；x 为维度、y 为评分；scale.y domainMin: 0"}
+{"id": "radar-multi-compare", "prompt": "对比两款手机在六个维度上的评分，看各自优劣势", "groundTruth": "polar + 各 child 的 encode.color 映射产品字段；area 用低 fillOpacity 避免遮挡"}
+{"id": "radar-point-mark", "prompt": "雷达图每个维度的顶点标出数据点，更清晰", "groundTruth": "children 中额外包含 type: 'point'；polar 坐标；与 area/line 同 encode"}
+{"id": "radar-domain-fixed", "prompt": "雷达图评分是 0~100，刻度固定从这个范围，不要自适应放大差异", "groundTruth": "scale.y 设置 domainMin: 0、domainMax: 100；polar 坐标"}
+{"id": "radar-hide-radial-axis", "prompt": "雷达图只保留网格线，径向那根轴的数字标签隐藏掉更干净", "groundTruth": "axis.y 设置 label: false（可保留 grid）；polar 坐标"}
+{"id": "radar-fill-opacity", "prompt": "雷达图的填充颜色淡一点，半透明就好", "groundTruth": "area child 的 style.fillOpacity 设置 0.15~0.3；polar 坐标"}
+{"id": "radar-legend-top", "prompt": "两个产品对比的雷达图，图例放在顶部", "groundTruth": "legend.color.position 设置为 'top'；polar + encode.color 多系列"}
+{"id": "radar-color-palette", "prompt": "雷达图两个系列分别用 #5B8FF9 和 #F6BD16", "groundTruth": "scale.color.range 设置为指定两个颜色；polar + encode.color 多系列"}
+{"id": "radar-line-width", "prompt": "雷达图的边线加粗一点，更醒目", "groundTruth": "line child 的 style.lineWidth 设置 >= 2；polar 坐标"}
+{"id": "radar-dim-label", "prompt": "雷达图六个维度的名称标签字号大一点", "groundTruth": "axis.x 设置 labelFontSize（如 13~14）；polar 坐标"}
+{"id": "radar-diff-scale", "prompt": "我的维度里有分数（0-100）、金额（万元）、百分比，能直接画雷达图吗", "groundTruth": "量纲不同需先归一化到同一范围（如 0~100），否则图形失真；体现数据处理判断"}
+{"id": "radar-grid-style", "prompt": "雷达图的网格线用虚线，颜色淡一点", "groundTruth": "axis.x 或 axis.y 的 grid 配置 gridLineDash 和 gridStrokeOpacity；polar 坐标"}

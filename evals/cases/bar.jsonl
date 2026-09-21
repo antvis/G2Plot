@@ -1,0 +1,12 @@
+{"id": "bar-basic-longname", "prompt": "对比「产品研发部」「市场营销部」「客户服务部」等部门的人数，部门名太长了竖着放不下", "groundTruth": "使用 type: 'interval' + coordinate: { transform: [{ type: 'transpose' }] }；encode x 为部门、y 为人数；类别名较长"}
+{"id": "bar-ranking-top", "prompt": "做一个城市 GDP 排行榜，从高到低排，数值直接标在条上", "groundTruth": "transpose + transform: [{ type: 'sortX', by: 'y', reverse: true }] 降序；labels 显示数值"}
+{"id": "bar-rank-label", "prompt": "排行榜每个条形里显示「No.1、No.2」这样的名次和数值", "groundTruth": "labels 的 text 用回调拼接名次（index+1）与数值；position: 'inside'；sortX 降序"}
+{"id": "bar-grouped-year", "prompt": "对比各事业部今年和去年的目标达成率，横向分组展示", "groundTruth": "transpose + encode.color 映射年份 + transform: [{ type: 'dodgeX' }]；分组条形图"}
+{"id": "bar-stacked-horizontal", "prompt": "横向展示各地区销售额，并按产品线堆叠看构成", "groundTruth": "transpose + encode.color 映射产品线 + transform: [{ type: 'stackY' }]；水平堆叠条形图"}
+{"id": "bar-axis-title-transpose", "prompt": "横向条形图，数值轴（横向那根）标题写「GDP（万亿元）」", "groundTruth": "transpose 后数值轴仍配置 axis.x.title（轴配置跟随字段通道，不随视觉互换）"}
+{"id": "bar-color-by-category", "prompt": "每个城市的条形用不同颜色区分", "groundTruth": "encode.color 映射类别字段本身；transpose 条形图"}
+{"id": "bar-label-outside", "prompt": "数值标签放在条形外侧末端，不要挡住条形", "groundTruth": "transpose 后 labels position 为 'right'（外侧）；text 指向数值字段"}
+{"id": "bar-many-category", "prompt": "有 15 个商品的销量要对比，竖向柱状图太挤了", "groundTruth": "类别多改用 transpose 横向条形图；type: 'interval' + transpose"}
+{"id": "bar-tooltip-unit", "prompt": "横向条形图展示各门店营业额，tooltip 数值带「万元」单位", "groundTruth": "tooltip.items 中设置 valueFormatter，包含 '万元' 字样；transpose"}
+{"id": "bar-single-color", "prompt": "所有条形统一用 #5B8FF9 蓝色，不要五颜六色", "groundTruth": "style.fill 设置为 '#5B8FF9'；单系列固定色；无 color 分组字段"}
+{"id": "bar-sort-asc", "prompt": "横向条形图按数值从小到大排列，最小的在最上面", "groundTruth": "transform: [{ type: 'sortX', by: 'y' }]（reverse 缺省或 false）升序；transpose"}

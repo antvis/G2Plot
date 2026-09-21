@@ -1,0 +1,12 @@
+{"id": "funnel-basic-conversion", "prompt": "展示电商转化流程：曝光 → 点击 → 加购 → 下单 → 支付，看每一步流失多少", "groundTruth": "type: 'interval' + encode.shape: 'funnel' + transform: [{ type: 'symmetryY' }] + coordinate transpose；axis: false"}
+{"id": "funnel-label-inside", "prompt": "漏斗每一层里面显示「阶段名 + 数值」", "groundTruth": "labels 的 text 用回调拼接阶段与数值；position: 'inside'；funnel shape + symmetryY + transpose"}
+{"id": "funnel-conversion-rate", "prompt": "漏斗每一层显示相对上一步的转化率百分比", "groundTruth": "labels 的 text 回调中用上一层数值计算转化率；funnel shape + symmetryY + transpose"}
+{"id": "funnel-pyramid", "prompt": "展示用户等级分布：VIP 在顶端、访客在底部，用金字塔形状", "groundTruth": "encode.shape: 'pyramid' + style: { reverse: true }；symmetryY + transpose；小值在顶部"}
+{"id": "funnel-color-palette", "prompt": "漏斗各层用一组蓝色渐变色，从深到浅", "groundTruth": "scale.color.range 设置蓝色系渐变数组；funnel shape + symmetryY + transpose"}
+{"id": "funnel-label-contrast", "prompt": "漏斗深色层里的文字看不清，自动适配成白色", "groundTruth": "labels 加 transform: [{ type: 'contrastReverse' }] 或 style.fill 回调适配；funnel shape"}
+{"id": "funnel-hide-axis-legend", "prompt": "漏斗图不要坐标轴也不要图例，干净一点", "groundTruth": "axis: false 且 legend: false；funnel shape + symmetryY + transpose"}
+{"id": "funnel-tooltip", "prompt": "漏斗悬停每一层显示阶段名和具体数值", "groundTruth": "tooltip.items 配置阶段与数值字段；funnel shape + symmetryY + transpose"}
+{"id": "funnel-not-monotonic", "prompt": "我的流程数据中间有一步比上一步还多，还能用漏斗图吗", "groundTruth": "阶段不递减时漏斗会误导，建议改用 bar/column；体现选型判断"}
+{"id": "funnel-animate", "prompt": "漏斗图加载时加一个淡入动画", "groundTruth": "animate.enter 设置 type: 'fadeIn'；funnel shape + symmetryY + transpose"}
+{"id": "funnel-width-gap", "prompt": "漏斗各层之间留一点缝隙，层次分明一些", "groundTruth": "可通过 scale.x padding 或 style 调整层间距；funnel shape + symmetryY + transpose"}
+{"id": "funnel-vs-bar", "prompt": "对比 5 个没有先后顺序的部门的业绩，用漏斗图合适吗", "groundTruth": "无顺序类别对比应用 column/bar，漏斗表达流程转化；体现选型判断"}

@@ -87,6 +87,7 @@ style: { reverse: true }, // 小值在顶部
 |---|---|
 | 忘记 `symmetryY` | 必须加，否则漏斗不居中、偏向一侧 |
 | 忘记 `transpose` | 不加则漏斗竖向单层堆叠，非常规漏斗形态 |
+| 多加 `normalizeY` | 只需 `symmetryY`；`normalizeY` 会把数值归一化到统一比例，破坏漏斗宽度反映真实量级的本质，形状失真 |
 | `type: 'funnel'` | 无此类型；用 `type: 'interval'` + `encode.shape: 'funnel'` |
 | `new Funnel('container', {...})`（G2Plot v2） | `new Chart({ container })` + interval + funnel shape |
 

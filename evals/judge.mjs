@@ -6,6 +6,7 @@ import path from 'node:path';
 import puppeteer from 'puppeteer';
 import { build } from 'esbuild';
 import { RESULTS_DIR } from './lib/const.mjs';
+import { writeSummary } from './score.mjs';
 
 const RESULT_FILE = path.join(RESULTS_DIR, 'eval-result.json');
 const G2_CDN = 'https://unpkg.com/@antv/g2@5/dist/g2.min.js';
@@ -55,6 +56,43 @@ try {
 </html>`;
 }
 
+// Detect a blank/white render by reading canvas pixels in the page.
+// Returns true when no canvas exists, pixels can't be read, or the share of
+// non-white pixels is below the threshold (i.e. the chart barely rendered).
+const NON_WHITE_THRESHOLD = 0.01; // < 1% non-white pixels => blank
+async function isBlank(page) {
+  return page.evaluate((threshold) => {
+    const canvas = document.querySelector('#container canvas');
+    if (!canvas) return true;
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return true;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return true;
+    let data;
+    try {
+      data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    } catch {
+      return true; // cannot read pixels -> treat as blank
+    }
+    // Sample pixels with a stride to keep it cheap on large canvases.
+    const total = data.length / 4;
+    const stride = Math.max(1, Math.floor(total / 5000));
+    let sampled = 0;
+    let nonWhite = 0;
+    for (let i = 0; i < total; i += stride) {
+      const o = i * 4;
+      const r = data[o];
+      const g = data[o + 1];
+      const b = data[o + 2];
+      const a = data[o + 3];
+      sampled += 1;
+      // Count pixels that are neither white-ish nor (near) transparent.
+      if (a > 10 && (r < 245 || g < 245 || b < 245)) nonWhite += 1;
+    }
+    return sampled === 0 || nonWhite / sampled < threshold;
+  }, NON_WHITE_THRESHOLD);
+}
+
 async function judgeCase(browser, item) {
   const screenshot = path.join(RESULTS_DIR, `${item.id}.png`);
   if (!item.code) {
@@ -66,9 +104,13 @@ async function judgeCase(browser, item) {
     await page.setContent(await buildHtml(item.code), { waitUntil: 'networkidle0', timeout: 30000 });
     await page.waitForSelector('#container canvas', { timeout: 10000 }).catch(() => {});
     const errors = await page.evaluate(() => window.__errors);
+    const blank = await isBlank(page);
     await page.screenshot({ path: screenshot });
     if (errors && errors.length > 0) {
       return { ...item, score: 0, error: errors.join('; ').slice(0, 500) };
+    }
+    if (blank) {
+      return { ...item, score: 0, error: 'blank render (white screen)', screenshot: `${item.id}.png` };
     }
     return { ...item, score: 100, screenshot: `${item.id}.png` };
   } catch (err) {
@@ -96,6 +138,10 @@ async function main() {
 
   const passed = judged.filter((r) => r.score === 100).length;
   console.log(`\nJudged ${passed}/${judged.length} passed. Screenshots saved to evals/results/.`);
+
+  const summary = await writeSummary();
+  console.log(`Summary written to evals/results/summary.json (passRate ${summary.passRate}%).`);
+
   if (passed < judged.length) process.exitCode = 1;
 }
 

@@ -1,0 +1,12 @@
+{"id": "scatter-basic-correlation", "prompt": "分析广告花费和销售额之间有没有关系，画个散点图看看", "groundTruth": "使用 type: 'point'；x、y 均为数值字段（花费、销售额）；单系列无 color"}
+{"id": "scatter-grouped-gender", "prompt": "对比男女用户的身高体重分布差异，用不同颜色区分", "groundTruth": "type: 'point' + encode.color 映射性别分组字段；x、y 为身高体重数值"}
+{"id": "scatter-bubble-population", "prompt": "对比几个国家的人均收入、预期寿命，气泡大小表示人口", "groundTruth": "type: 'point' + encode.size 映射人口 + scale.size: { type: 'sqrt' }；气泡图；legend.size 可隐藏"}
+{"id": "scatter-trend-line", "prompt": "散点图上看投入产出关系，再帮我加一条线性的趋势线", "groundTruth": "view children 叠加 point 与 line；line 为拟合趋势线（手动回归或 regression）；与散点同 encode"}
+{"id": "scatter-exp-regression", "prompt": "用户量呈指数增长，散点图上叠加一条指数拟合曲线", "groundTruth": "view children 叠加 point 与 line；line 用 data.transform 的 custom callback 生成指数曲线采样点"}
+{"id": "scatter-opacity-overlap", "prompt": "散点太多重叠在一起了，看不清密度，调一下", "groundTruth": "style.fillOpacity 设置为小于 1（如 0.5~0.7）缓解重叠；type: 'point'"}
+{"id": "scatter-axis-title", "prompt": "散点图 x 轴标题「身高（cm）」，y 轴标题「体重（kg）」", "groundTruth": "axis.x.title 和 axis.y.title 分别设置为对应文字；type: 'point'"}
+{"id": "scatter-shape-by-group", "prompt": "不同品类的散点用不同的形状（圆点、方块、三角）区分", "groundTruth": "encode.shape 映射分组字段 + scale.shape.range 设置形状数组；type: 'point'"}
+{"id": "scatter-bubble-stroke", "prompt": "气泡图的气泡之间加个白色描边，挨在一起的时候能分清", "groundTruth": "style 设置 stroke: '#fff' 和 lineWidth > 0；气泡图 encode.size"}
+{"id": "scatter-tooltip-multi", "prompt": "气泡图悬停时要显示国家名、收入、寿命、人口三项数据", "groundTruth": "tooltip.items 配置多个字段（field + name）；气泡图"}
+{"id": "scatter-log-axis", "prompt": "收入跨度从几千到几十万，散点图 x 轴用对数刻度更均匀", "groundTruth": "scale.x 设置 type: 'log' 或 transform: 'log'；type: 'point'"}
+{"id": "scatter-jitter", "prompt": "很多散点数值完全相同叠在一起，能不能打散一点看清楚数量", "groundTruth": "transform 使用 jitter 或 jitterX/jitterY 抖动；type: 'point'"}

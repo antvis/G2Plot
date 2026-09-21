@@ -75,9 +75,10 @@ chart.options({
 | 定制项 | 写法 | 说明 |
 |---|---|---|
 | 填充透明度 | `style: { fillOpacity: 0.3 }` | 单系列建议 0.2~0.4，堆叠建议 0.6+ |
-| 渐变填充 | `style: { fill: 'linear-gradient(180deg, #1890ff 0%, rgba(24,144,255,0.05) 100%)' }` | CSS 渐变字符串 |
+| 渐变填充 | `style: { fill: 'linear-gradient(180deg, ...)' }` | CSS 渐变字符串，垂直方向用 `180deg`，见 [gradient.ts](../examples/area/gradient.ts) |
 | 系列调色板 | `scale: { color: { range: ['#5B8FF9', '#5AD8A6'] } }` | 堆叠多系列着色 |
 | 平滑曲线 | `encode: { shape: 'smooth' }` | 弱化单点波动 |
+| 断点连接 | `style: { connect: true, connectStroke: '#aaa' }` | 数据含 `null` 时默认断开（`connect: false`）；连接段样式需配 `connectStroke` 等才可见 |
 
 坐标轴标题、图例、主题等通用定制见 [line.md 样式自定义](./line.md#样式自定义)。
 
@@ -87,6 +88,9 @@ chart.options({
 |---|---|
 | 多系列面积不加 `stackY` | `transform: [{ type: 'stackY' }]`，否则系列互相遮挡 |
 | 在 area 上用 `style.stroke` 描边 | 描边会包裹整个区域；要顶部边线用 view 叠加 line |
+| 渐变写 `linear-gradient(90deg, ...)` | 垂直渐变用 `180deg`（从上到下）；`90deg` 是从左到右，见 [gradient.ts](../examples/area/gradient.ts) |
+| 用 `gradient: true` 做单系列渐变 | 单系列垂直渐变在 `style.fill` 写 CSS 字符串；`gradient: true` 是系列值多段渐变 |
+| `connectNulls: true`（属性不存在，运行白屏） | `style: { connect: true, connectStroke: '#aaa' }`；默认 `connect: false` 在 `null` 处断开 |
 | `new Area('container', {...})`（G2Plot v2） | `new Chart({ container })` + `type: 'area'` |
 | `areaStyle: {...}`（v2 配置） | `style: { fill, fillOpacity }` |
 

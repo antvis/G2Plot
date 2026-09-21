@@ -56,6 +56,8 @@ temp
 *.un~
 
 .vscode
+pnpm-lock.yaml
+pnpm-workspace.yaml
 
 # AI
 .claude
@@ -63,4 +65,4 @@ temp
 
 # Eval results
 evals/results/
-evals/report.json
+!evals/results/summary.json

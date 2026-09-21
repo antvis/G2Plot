@@ -16,10 +16,10 @@ const INSTRUCTIONS = `You are an AI Coding Agent that generates runnable G2 v5 c
 
 ## Hard requirements
 
-- Output exactly one \`\`\`ts code block in the final answer, with no explanatory text outside it.
+- The final answer must contain ONLY one \`\`\`ts code block and nothing else: no prose, no explanation, no preamble before or after the fence. Any text outside the code block will break the build.
 - The code must use @antv/g2 v5 (import { Chart } from '@antv/g2'). Do not use any G2 v4 or G2Plot v2 APIs.
 - Data must be self-contained and inlined in the code (const data = [...]) with semantic field names.
-- Create the chart with new Chart({ container: 'container', autoFit: true, height: 360 }) and end with chart.render().`;
+- Create the chart with new Chart({ container: 'container', autoFit: true }) and end with chart.render(). Do not set a fixed width/height; let autoFit fit the container.`;
 
 export function createGenerateAgent({ model, temperature }) {
   return new ToolLoopAgent({

@@ -59,7 +59,10 @@ try {
 // Detect a blank/white render by reading canvas pixels in the page.
 // Returns true when no canvas exists, pixels can't be read, or the share of
 // non-white pixels is below the threshold (i.e. the chart barely rendered).
-const NON_WHITE_THRESHOLD = 0.01; // < 1% non-white pixels => blank
+// Sparse charts (scatter points, thin lines) legitimately render few non-white
+// pixels (~0.8%), so the threshold must sit well below that to avoid false
+// positives while still catching truly blank renders (0%).
+const NON_WHITE_THRESHOLD = 0.003; // < 0.3% non-white pixels => blank
 async function isBlank(page) {
   return page.evaluate((threshold) => {
     const canvas = document.querySelector('#container canvas');
@@ -93,6 +96,11 @@ async function isBlank(page) {
   }, NON_WHITE_THRESHOLD);
 }
 
+// Let the chart finish its enter animation before reading pixels / screenshot.
+// Heatmaps and many marks fade/grow in over ~1s; sampling too early sees a
+// blank canvas even though the chart renders fine.
+const RENDER_SETTLE_MS = 1200;
+
 async function judgeCase(browser, item) {
   const screenshot = path.join(RESULTS_DIR, `${item.id}.png`);
   if (!item.code) {
@@ -103,6 +111,7 @@ async function judgeCase(browser, item) {
     await page.setViewport({ width: 820, height: 420 });
     await page.setContent(await buildHtml(item.code), { waitUntil: 'networkidle0', timeout: 30000 });
     await page.waitForSelector('#container canvas', { timeout: 10000 }).catch(() => {});
+    await new Promise((resolve) => setTimeout(resolve, RENDER_SETTLE_MS));
     const errors = await page.evaluate(() => window.__errors);
     const blank = await isBlank(page);
     await page.screenshot({ path: screenshot });

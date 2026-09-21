@@ -51,7 +51,7 @@ chart.render();
 | `data` | 数据，对象数组 | `[{ month: 'Jan', value: 100 }]` |
 | `encode` | 字段 → 视觉通道映射 | `{ x: 'month', y: 'value', color: 'series' }` |
 | `transform` | 数据变换（堆叠/分组/排序） | `[{ type: 'stackY' }]` |
-| `scale` | 比例尺（颜色枚举、值域） | `{ color: { range: ['#5B8FF9'] } }` |
+| `scale` | 比例尺（颜色枚举、值域） | `{ color: { range: ['#5B8FF9'] } }`。自定义颜色数组用 `range`；`palette` 只接受调色板名字符串（如 `'YlOrRd'`），传数组会报错/白屏 |
 | `axis` | 坐标轴，`false` 关闭 | `{ x: { title: '月份' } }` |
 | `legend` | 图例，`false` 关闭 | `{ color: { position: 'top' } }` |
 | `tooltip` | 提示，`false` 关闭 | `{ title: '销售额' }` |

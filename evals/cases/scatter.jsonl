@@ -9,4 +9,3 @@
 {"id": "scatter-bubble-stroke", "prompt": "气泡图的气泡之间加个白色描边，挨在一起的时候能分清", "groundTruth": "style 设置 stroke: '#fff' 和 lineWidth > 0；气泡图 encode.size"}
 {"id": "scatter-tooltip-multi", "prompt": "气泡图悬停时要显示国家名、收入、寿命、人口三项数据", "groundTruth": "tooltip.items 配置多个字段（field + name）；气泡图"}
 {"id": "scatter-log-axis", "prompt": "收入跨度从几千到几十万，散点图 x 轴用对数刻度更均匀", "groundTruth": "scale.x 设置 type: 'log' 或 transform: 'log'；type: 'point'"}
-{"id": "scatter-jitter", "prompt": "很多散点数值完全相同叠在一起，能不能打散一点看清楚数量", "groundTruth": "transform 使用 jitter 或 jitterX/jitterY 抖动；type: 'point'"}

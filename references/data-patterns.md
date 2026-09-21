@@ -30,6 +30,7 @@ const longData = data.flatMap((d) => [
 
 - x 轴保持字符串（`'2026-01'`）或毫秒时间戳，G2 自动推断类型
 - 需要自定义展示格式时用 `axis: { x: { labelFormatter } }`，不要预先转成展示字符串
+- `labelFormatter` 刻度值格式化，可以传入一个函数或者是 d3-format 支持的字符串
 
 ## 数值必须是 number
 

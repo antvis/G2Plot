@@ -65,4 +65,3 @@ pnpm-workspace.yaml
 
 # Eval results
 evals/results/
-!evals/results/summary.json

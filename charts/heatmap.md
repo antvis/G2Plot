@@ -10,7 +10,7 @@
 
 ## 何时不用
 
-- 连续二维空间的点密度（经纬度、散点云）→ 用 `type: 'heatmap'` 渐变热力（本组件聚焦矩阵型 `cell`）
+- 连续二维空间的点密度（经纬度、散点云）→ 用 `type: 'heatmap'` 渐变热力（本组件聚焦矩阵型 `cell`）。注意：`heatmap` mark **必须配 `encode.color`**（强度值，0~1 或配 `scale.color.domain`），缺 `color` 通道会白屏；`encode.size` 控制热晕半径。自定义颜色数组用 `scale: { color: { range: ['#d0e8ff', '#0050b3'] } }`（`palette` 只接受调色板名字符串，传数组会报错/白屏）
 - 单类别对比 → 用 column 柱状图
 - 时间趋势 → 用 line 折线图
 
@@ -74,7 +74,7 @@ scale: {
 | 色阶 | `scale: { color: { palette: 'YlOrRd' } }` | 顺序色阶：`Blues` / `Greens` / `YlOrRd`；发散：`RdBu` |
 | 格子间距 | `style: { inset: 2 }` | px，0 为无缝 |
 | 格子圆角 | `style: { radius: 2 }` | |
-| 数值标签 | `labels: [{ text: (d) => `${d.value}%` }]` | cell 标签默认居中；text 回调自定义内容，深格子用 `fill` 回调切白字 |
+| 数值标签 | `labels: [{ text: (d) =>`${d.value}%`}]` | cell 标签默认居中；text 回调自定义内容，深格子用 `fill` 回调切白字 |
 
 ## 易错点（v4 → v5）
 
@@ -83,6 +83,8 @@ scale: {
 | 矩阵热力用 `type: 'heatmap'` | 矩阵格子用 `type: 'cell'`；`heatmap` 是高斯渐变密度图 |
 | color 用分类色 | 数值密度用 `scale.color.type: 'sequential'` 顺序色阶 |
 | 相关性矩阵不固定 domain | 发散场景显式 `domain: [-1, 1]`，保证 0 居中 |
+| `type: 'heatmap'` 不配 `encode.color` | 渐变热力必须配 `color` 通道（强度值 0~1 或配 `scale.color.domain`），缺 `color` 会白屏 |
+| `scale: { color: { palette: [...数组] } }` | `palette` 只接受调色板名字符串（如 `'YlOrRd'`）；自定义颜色数组用 `range: [...]`，数组传给 `palette` 会 TS 报错且白屏 |
 | `new Heatmap('container', {...})`（G2Plot v2） | `new Chart({ container })` + `type: 'cell'` |
 
 更多对照见 [v4-to-v5-migration.md](../references/v4-to-v5-migration.md)。

@@ -91,6 +91,7 @@ chart.options({
 | 渐变写 `linear-gradient(90deg, ...)` | 垂直渐变用 `180deg`（从上到下）；`90deg` 是从左到右，见 [gradient.ts](../examples/area/gradient.ts) |
 | 用 `gradient: true` 做单系列渐变 | 单系列垂直渐变在 `style.fill` 写 CSS 字符串；`gradient: true` 是系列值多段渐变 |
 | `connectNulls: true`（属性不存在，运行白屏） | `style: { connect: true, connectStroke: '#aaa' }`；默认 `connect: false` 在 `null` 处断开 |
+| 字符串日期 x 用 `sample` lttb 抽稀 | lttb 要求 x/y 为数值，字符串日期会 `X*1=NaN` 导致渲染白屏；优先数据预处理聚合（按周/月平均），或 x 用数值时间戳 |
 | `new Area('container', {...})`（G2Plot v2） | `new Chart({ container })` + `type: 'area'` |
 | `areaStyle: {...}`（v2 配置） | `style: { fill, fillOpacity }` |
 

@@ -15,6 +15,6 @@
 {"id": "line-area-fill", "prompt": "趋势线下面填充淡淡的颜色，增强视觉效果", "groundTruth": "使用 type: 'area' 或 line + area 组合；设置 fillOpacity 或 style.fill 实现渐变/填充"}
 {"id": "line-legend-top", "prompt": "图例放到图表顶部，节省右侧空间", "groundTruth": "legend.color 或 legend 中设置 position: 'top'"}
 {"id": "line-axis-title", "prompt": "x 轴标题写「日期」，y 轴标题写「销售额（万元）」", "groundTruth": "axis.x.title 和 axis.y.title 分别设置为对应文字"}
-{"id": "line-time-format", "prompt": "x 轴日期显示为「MM-DD」格式，不要年份", "groundTruth": "scale.x 或 axis.x 中设置 labelFormatter 或 tickFormat，只显示月日"}
+{"id": "line-time-format", "prompt": "x 轴日期显示为月-天格式，不要年份", "groundTruth": "scale.x 或 axis.x 中设置 labelFormatter 或 tickFormat，只显示月日"}
 {"id": "line-large-data", "prompt": "有 365 天的数据，直接画太密了，帮忙抽稀显示", "groundTruth": "使用 transform 中的 sample 或 filter；或数据预处理聚合（如周平均）"}
 {"id": "line-dual-axis", "prompt": "销售额和订单量量级差太多，用双 y 轴展示", "groundTruth": "使用 type: 'view'，children 包含两个 line mark，第二个设置 scale: { y: { independent: true } } 或 axis: { y: { position: 'right' } }"}

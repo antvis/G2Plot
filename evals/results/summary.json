@@ -1,0 +1,98 @@
+{
+  "time": "2026-09-21T09:11:22.858Z",
+  "total": 127,
+  "passed": 121,
+  "failed": 6,
+  "passRate": 95.28,
+  "charts": {
+    "area": {
+      "total": 12,
+      "passed": 12,
+      "passRate": 100,
+      "failed": []
+    },
+    "bar": {
+      "total": 12,
+      "passed": 12,
+      "passRate": 100,
+      "failed": []
+    },
+    "column": {
+      "total": 12,
+      "passed": 12,
+      "passRate": 100,
+      "failed": []
+    },
+    "dual-axes": {
+      "total": 12,
+      "passed": 11,
+      "passRate": 91.67,
+      "failed": [
+        {
+          "id": "dual-axes-when-not",
+          "error": "blank render (white screen)"
+        }
+      ]
+    },
+    "funnel": {
+      "total": 12,
+      "passed": 11,
+      "passRate": 91.67,
+      "failed": [
+        {
+          "id": "funnel-label-inside",
+          "error": "Build failed with 1 error:\n<stdin>:1:4: ERROR: Expected \";\" but found \"funnel\""
+        }
+      ]
+    },
+    "heatmap": {
+      "total": 12,
+      "passed": 11,
+      "passRate": 91.67,
+      "failed": [
+        {
+          "id": "heatmap-inset-gap",
+          "error": "Build failed with 1 error:\n<stdin>:1:2: ERROR: Expected \";\" but found \"have\""
+        }
+      ]
+    },
+    "line": {
+      "total": 20,
+      "passed": 18,
+      "passRate": 90,
+      "failed": [
+        {
+          "id": "line-trend-basic",
+          "error": "blank render (white screen)"
+        },
+        {
+          "id": "line-time-format",
+          "error": "blank render (white screen)"
+        }
+      ]
+    },
+    "pie": {
+      "total": 12,
+      "passed": 12,
+      "passRate": 100,
+      "failed": []
+    },
+    "radar": {
+      "total": 12,
+      "passed": 12,
+      "passRate": 100,
+      "failed": []
+    },
+    "scatter": {
+      "total": 11,
+      "passed": 10,
+      "passRate": 90.91,
+      "failed": [
+        {
+          "id": "scatter-opacity-overlap",
+          "error": "Build failed with 1 error:\n<stdin>:1:2: ERROR: Expected \";\" but found \"have\""
+        }
+      ]
+    }
+  }
+}

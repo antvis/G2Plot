@@ -26,10 +26,28 @@ const longData = data.flatMap((d) => [
 ]);
 ```
 
+也可以用 `fold` 变换，但它是**数据变换**，必须放在 `data.transform` 中，**不能**放在 mark 级 `transform`（mark 级 transform 联合类型不含 `fold`，会 TS 报错）。
+
+### data.transform（数据变换）
+
+这些变换放在 `data.transform`（数据级），与 mark 级 `transform`（`stackY`/`dodgeX` 等）区分：
+
+| 变换 | 用途 | 示例 |
+|---|---|---|
+| `fold` | 宽表转长表（多列折成 key/value 两列） | `{ type: 'fold', fields: ['sales', 'profit'], key: 'series', value: 'value' }` |
+| `filter` | 按条件过滤数据行 | `{ type: 'filter', callback: (d) => d.value > 100 }` |
+| `custom` | 自定义回调处理数据（如生成回归采样点） | `{ type: 'custom', callback: (data) => transformed }` |
+| `sort` | 按字段排序 | `{ type: 'sort', callback: (a, b) => a.value - b.value }` |
+| `map` | 逐行映射/派生字段 | `{ type: 'map', callback: (d) => ({ ...d, rate: d.a / d.b }) }` |
+| `pick` | 只保留指定字段 | `{ type: 'pick', fields: ['month', 'value'] }` |
+| `rename` | 重命名字段 | `{ type: 'rename', map: { oldName: 'newName' } }` |
+| `slice` | 截取数据区间 | `{ type: 'slice', start: 0, end: 100 }` |
+
 ## 时间字段
 
 - x 轴保持字符串（`'2026-01'`）或毫秒时间戳，G2 自动推断类型
 - 需要自定义展示格式时用 `axis: { x: { labelFormatter } }`，不要预先转成展示字符串
+- `labelFormatter` 刻度值格式化，可以传入一个函数或者是 d3-format 支持的字符串
 
 ## 数值必须是 number
 

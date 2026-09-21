@@ -59,6 +59,7 @@ chart.render();
 | 阶梯线 | `shape: 'hvh'`（或 `'hv'` / `'vh'`） | [step.ts](../examples/line/step.ts) |
 | 折线 + 数据点 | `type: 'view'`，children 叠加 line 与 point | [line-point.ts](../examples/line/line-point.ts) |
 | 带数据标签 | `labels: [{ text: 'value', position: 'top' }]` | [with-label.ts](../examples/line/with-label.ts) |
+| 大数据抽稀 | 渲染前对数据聚合（按周/月平均），见案例 | [large-data.ts](../examples/line/large-data.ts) |
 
 多系列核心差异（数据需含 `series` 字段）：
 
@@ -80,6 +81,7 @@ chart.options({
 | 单系列颜色 | `style: { stroke: '#5B8FF9' }` | 固定线色 |
 | 线宽 | `style: { lineWidth: 3 }` | |
 | 虚线 | `style: { lineDash: [6, 4] }` | 数组为 实线/间隔 长度 |
+| 断点连接 | `style: { connect: true, connectStroke: '#aaa', connectLineDash: [4, 4] }` | 数据含 `null` 时默认断开（`connect: false`）；置 `true` 跨断点连线，连接段样式需配 `connectStroke` 等才可见 |
 | 坐标轴标题 | `axis: { x: { title: '月份' } }` | y 轴同理 |
 | 图例位置 | `legend: { color: { position: 'top' } }` | `'top'` / `'bottom'` / `'left'` / `'right'` |
 | 关闭图例 | `legend: false` | |
@@ -140,6 +142,8 @@ chart.options({
 | `seriesField: 'series'`（v2 配置） | `encode: { color: 'series' }` |
 | `smooth: true`（v2 配置） | `encode: { shape: 'smooth' }` |
 | `.shape('smooth')`（v4 链式） | `encode: { shape: 'smooth' }` |
+| `connectNulls: true`（属性不存在，运行白屏） | `style: { connect: true, connectStroke: '#aaa' }`；默认 `connect: false` 在 `null` 处断开 |
+| 字符串日期 x 用 `sample` lttb 抽稀 | lttb 要求 x/y 为数值，字符串日期会 `X*1=NaN` 导致渲染报错；优先数据预处理聚合，或 x 用数值时间戳 |
 | `chart.source(data)`（v4） | `chart.options({ data })` |
 
 更多对照见 [v4-to-v5-migration.md](../references/v4-to-v5-migration.md)。
@@ -157,4 +161,6 @@ chart.options({
 | [custom-style.ts](../examples/line/custom-style.ts) | 多系列 + 品牌视觉定制 | `scale.color.range`、`style.lineWidth/lineDash`、`axis.title`、`legend.position` |
 | [line-point.ts](../examples/line/line-point.ts) | 趋势线同时标出每个数据点 | `type: 'view'` + line/point children |
 | [with-label.ts](../examples/line/with-label.ts) | 数据点旁直接展示数值、提示格式化 | `labels`、`tooltip.items` |
+| [connect-nulls.ts](../examples/line/connect-nulls.ts) | 缺失数据用虚线跨断点连接 | `style: { connect, connectStroke, connectLineDash }`、缺失值传 `null` |
+| [large-data.ts](../examples/line/large-data.ts) | 大数据按周聚合抽稀 | 渲染前数据预处理聚合（非 transform sample） |
 | [theme.ts](../examples/line/theme.ts) | 图表标题与组件文字样式、内置主题 | `title`（对象）、`axis.titleFill/labelFontSize`、`legend.itemLabelXxx`、`theme` |

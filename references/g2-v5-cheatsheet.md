@@ -15,6 +15,8 @@ const chart = new Chart({
 });
 ```
 
+**不要写死 `width` / `height`**：`autoFit: true` 已让图表随容器自适应。写死固定尺寸会在容器更高时留白、更矮时裁剪，且与自适应冲突。仅当容器高度为 0（如未设样式的空 div）时才显式给 `height`。
+
 **不要手动设置 spec 的 `padding`**：默认 `auto` 会自动为坐标轴标题、图例等组件留出空间；手动 padding 容易导致这些组件被遮挡或裁剪。
 
 ## 两种渲染写法
@@ -49,7 +51,7 @@ chart.render();
 | `data` | 数据，对象数组 | `[{ month: 'Jan', value: 100 }]` |
 | `encode` | 字段 → 视觉通道映射 | `{ x: 'month', y: 'value', color: 'series' }` |
 | `transform` | 数据变换（堆叠/分组/排序） | `[{ type: 'stackY' }]` |
-| `scale` | 比例尺（颜色枚举、值域） | `{ color: { range: ['#5B8FF9'] } }` |
+| `scale` | 比例尺（颜色枚举、值域） | `{ color: { range: ['#5B8FF9'] } }`。自定义颜色数组用 `range`；`palette` 只接受调色板名字符串（如 `'YlOrRd'`），传数组会报错/白屏 |
 | `axis` | 坐标轴，`false` 关闭 | `{ x: { title: '月份' } }` |
 | `legend` | 图例，`false` 关闭 | `{ color: { position: 'top' } }` |
 | `tooltip` | 提示，`false` 关闭 | `{ title: '销售额' }` |

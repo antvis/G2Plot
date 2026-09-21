@@ -1,0 +1,12 @@
+{"id": "column-basic-sales", "prompt": "对比 5 个产品本月的销量，用柱状图", "groundTruth": "使用 type: 'interval'；x 轴为产品类别，y 轴为销量数值；单系列无 color 通道；无 transpose"}
+{"id": "column-grouped-quarter", "prompt": "对比手机和平板两条产品线在四个季度的营收，并排展示便于比较", "groundTruth": "使用 type: 'interval' + encode.color 映射产品线 + transform: [{ type: 'dodgeX' }]；数据含两产品各四季度"}
+{"id": "column-stacked-channel", "prompt": "看每个月总销量，同时拆分线上和线下渠道的构成", "groundTruth": "使用 type: 'interval' + encode.color 映射渠道 + transform: [{ type: 'stackY' }]；堆叠展示总量与构成"}
+{"id": "column-label-inside", "prompt": "柱状图的数值标签放在柱子里面，并且带上「万」单位", "groundTruth": "labels 配置 position: 'inside'；text 用回调拼接数值与单位（如 `${v} 万`）"}
+{"id": "column-label-custom", "prompt": "每个柱子顶部显示「城市名: 数值」这样的自定义标签", "groundTruth": "labels 的 text 用回调拼接类别与数值；position 为 'top' 或 'outside'"}
+{"id": "column-radius-style", "prompt": "柱状图的柱子顶部要圆角，看起来更柔和", "groundTruth": "style 中设置 radiusTopLeft 和 radiusTopRight（或 radius）大于 0"}
+{"id": "column-color-fixed", "prompt": "品牌主色是 #2FC25B，所有柱子统一用这个颜色", "groundTruth": "style.fill 设置为 '#2FC25B'；单系列固定色"}
+{"id": "column-max-width", "prompt": "类别只有 3 个，柱子太宽了很难看，限制一下最大宽度", "groundTruth": "style 中设置 maxWidth（如 40）限制柱宽"}
+{"id": "column-grouped-vs-stacked", "prompt": "我想对比各区域每个产品的具体数值，而不是看总量，应该用分组还是堆叠？帮我画出来", "groundTruth": "选择分组 transform: [{ type: 'dodgeX' }]（对比单值）而非 stackY；多系列 interval"}
+{"id": "column-axis-title", "prompt": "柱状图对比各部门人数，x 轴标题「部门」，y 轴标题「人数」", "groundTruth": "axis.x.title 和 axis.y.title 分别设置为对应文字；type: 'interval'"}
+{"id": "column-tooltip-format", "prompt": "tooltip 里销售额显示为「¥1,234 元」这种格式", "groundTruth": "tooltip.items 中设置 valueFormatter，包含货币符号与千分位或单位"}
+{"id": "column-negative-value", "prompt": "展示各月利润，有盈有亏（有正有负），用柱状图区分", "groundTruth": "数据含正负数值；type: 'interval'；可通过 color 回调或 scale 区分正负（正一色负一色）"}

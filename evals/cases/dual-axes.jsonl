@@ -1,0 +1,12 @@
+{"id": "dual-axes-column-line", "prompt": "展示各月销售额（万元）和同比增长率（%），量级差太多要双轴", "groundTruth": "type: 'view'；children 一个 interval（销售额）一个 line（增长率）；line 设 scale: { y: { independent: true } }"}
+{"id": "dual-axes-two-lines", "prompt": "对比每天的 PV（百万级）和转化率（%），两条线各用各的 y 轴", "groundTruth": "type: 'view'；两个 line children；第二个 line 设 scale: { y: { independent: true } }"}
+{"id": "dual-axes-axis-title", "prompt": "双轴图左轴标题「销售额（万元）」，右轴标题「增长率」", "groundTruth": "各 child 的 axis.y.title 分别设置左右轴标题；scale.y.independent"}
+{"id": "dual-axes-percent-format", "prompt": "双轴图右轴是比率，刻度显示成「25%」这种百分比格式", "groundTruth": "右轴 child 的 axis.y.labelFormatter 回调将小数转为百分比字符串"}
+{"id": "dual-axes-color-match", "prompt": "双轴图里柱子和左轴用蓝色、线和右轴用橙色，颜色对应方便看", "groundTruth": "各 child 的 style（fill/stroke）与对应 axis 标题颜色呼应；scale.y.independent"}
+{"id": "dual-axes-line-dash", "prompt": "双轴图里代表率的那条线用虚线，和实体的柱子区分开", "groundTruth": "线 child 的 style.lineDash 设置数组（如 [4, 4]）；scale.y.independent"}
+{"id": "dual-axes-smooth-line", "prompt": "双轴图中比率那条线平滑一点，柱子保持不变", "groundTruth": "线 child 的 encode.shape 设置 'smooth'；interval child 不变；scale.y.independent"}
+{"id": "dual-axes-tooltip-both", "prompt": "双轴图悬停某个月时，销售额和增长率两个值都要显示", "groundTruth": "两个 child 共享 x，tooltip 同时展示两系列；或各自配置 tooltip.items"}
+{"id": "dual-axes-when-not", "prompt": "我想把销量和订单量放一张图，它们都是几千的量级，需要双轴吗", "groundTruth": "同量级同单位不需要双轴，用多系列 line/column 单轴即可；体现选型判断"}
+{"id": "dual-axes-area-line", "prompt": "左轴用面积图展示累计营收，右轴用折线展示利润率", "groundTruth": "type: 'view'；children 一个 area 一个 line；line 设 scale: { y: { independent: true } }"}
+{"id": "dual-axes-legend", "prompt": "双轴图加个图例区分「销售额」和「增长率」两个系列", "groundTruth": "通过 encode.color 或 legend 配置区分两系列；scale.y.independent"}
+{"id": "dual-axes-grid-sync", "prompt": "双轴图左右轴的刻度线对不齐看着乱，能不能统一网格", "groundTruth": "可通过 scale.y 的 tickCount/tickMethod 协调，或隐藏一侧 grid；scale.y.independent"}

@@ -23,15 +23,15 @@ description: G2Plot v3 可视化组件库，提示词即组件。当用户需要
 |---|---|---|---|
 | 趋势变化、走势 | 时间/有序 x + 数值 y | line 折线图 | [charts/line.md](../../charts/line.md) |
 | 多系列趋势对比 | x + y + 系列字段 | line（color 分组） | [charts/line.md](../../charts/line.md) |
-| 类别数值对比 | 类别 x + 数值 y | column 柱状图 | charts/column.md（待补充） |
-| 类别数值对比（横向） | 类别多/名称长 | bar 条形图 | charts/bar.md（待补充） |
-| 占比、构成 | 类别 + 数值 | pie 饼图 | charts/pie.md（待补充） |
-| 趋势 + 累积量 | 时间 x + 数值 y | area 面积图 | charts/area.md（待补充） |
-| 双变量相关性 | 两个数值字段 | scatter 散点图 | charts/scatter.md（待补充） |
-| 两个量级不同的指标 | 时间 x + 双数值 y | dual-axes 双轴图 | charts/dual-axes.md（待补充） |
-| 多维能力对比 | 多维度数值 | radar 雷达图 | charts/radar.md（待补充） |
-| 密度/频率分布 | 两个类别 + 数值 | heatmap 热力图 | charts/heatmap.md（待补充） |
-| 流程转化 | 阶段 + 数值 | funnel 漏斗图 | charts/funnel.md（待补充） |
+| 类别数值对比 | 类别 x + 数值 y | column 柱状图 | [charts/column.md](../../charts/column.md) |
+| 类别数值对比（横向） | 类别多/名称长 | bar 条形图 | [charts/bar.md](../../charts/bar.md) |
+| 占比、构成 | 类别 + 数值 | pie 饼图 | [charts/pie.md](../../charts/pie.md) |
+| 趋势 + 累积量 | 时间 x + 数值 y | area 面积图 | [charts/area.md](../../charts/area.md) |
+| 双变量相关性 | 两个数值字段 | scatter 散点图 | [charts/scatter.md](../../charts/scatter.md) |
+| 两个量级不同的指标 | 时间 x + 双数值 y | dual-axes 双轴图 | [charts/dual-axes.md](../../charts/dual-axes.md) |
+| 多维能力对比 | 多维度数值 | radar 雷达图 | [charts/radar.md](../../charts/radar.md) |
+| 密度/频率分布 | 两个类别 + 数值 | heatmap 热力图 | [charts/heatmap.md](../../charts/heatmap.md) |
+| 流程转化 | 阶段 + 数值 | funnel 漏斗图 | [charts/funnel.md](../../charts/funnel.md) |
 
 选型拿不准时，读对应 `charts/<chart>.md` 的「何时使用 / 何时不用」小节。
 
@@ -73,4 +73,4 @@ curl "https://sive.antv.antgroup.com/api/v1/context/retrieve?query=bar+chart+sta
 3. 禁止 G2Plot v2 写法：`new Line()`、`xField` / `yField` / `seriesField`
 4. 数据用长表，数值字段确保 `number` 类型
 5. 生成代码自包含：示例数据内联，或明确标注数据来源与字段名
-6. 布局用 `autoFit: true`（`new Chart({ container, autoFit: true })`），**不要**手动设置 spec `padding`：保持默认 `auto`，G2 会自动为坐标轴、图例留出空间，手动 padding 容易导致组件被遮挡/裁剪
+6. 布局用 `autoFit: true`（`new Chart({ container, autoFit: true })`），**不要**写死 `width` / `height`（autoFit 已自适应容器，写死会留白或裁剪），也**不要**手动设置 spec `padding`：保持默认 `auto`，G2 会自动为坐标轴、图例留出空间，手动 padding 容易导致组件被遮挡/裁剪

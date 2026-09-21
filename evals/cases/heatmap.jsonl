@@ -1,0 +1,12 @@
+{"id": "heatmap-basic-week", "prompt": "展示一周 7 天、每天 3 个时段（上午/中午/晚上）的访问量分布，用颜色深浅看高低峰", "groundTruth": "使用 type: 'cell'；x、y 为两个类别字段（星期、时段），color 映射访问量；scale.color 用 sequential 顺序色阶"}
+{"id": "heatmap-label-value", "prompt": "热力图每个格子中间显示具体数值，并且带上百分号", "groundTruth": "type: 'cell' + labels text 回调拼接数值与单位（如 `${v}%`）；标签默认居中"}
+{"id": "heatmap-correlation", "prompt": "分析销量、价格、广告、评分四个指标两两之间的相关系数，用矩阵展示", "groundTruth": "type: 'cell'；color 映射相关系数；scale.color 用发散色阶（如 RdBu）+ domain: [-1, 1]"}
+{"id": "heatmap-label-contrast", "prompt": "热力图深色格子里数值看不清，深色背景用白字、浅色用黑字", "groundTruth": "labels 的 style.fill 用回调根据数值大小切换文字颜色；type: 'cell'"}
+{"id": "heatmap-color-blues", "prompt": "热力图用蓝色系的色阶，数值越大颜色越深", "groundTruth": "scale.color 设置 type: 'sequential' + palette: 'Blues'（或类似蓝色阶）；type: 'cell'"}
+{"id": "heatmap-inset-gap", "prompt": "热力图格子之间留点缝隙，不要紧紧挨在一起", "groundTruth": "style.inset 设置大于 0 的像素值（如 1~3）；type: 'cell'"}
+{"id": "heatmap-calendar", "prompt": "做一个类似 GitHub 贡献图的日历热力图，展示一年的每日活跃度", "groundTruth": "type: 'cell'；x 为周数、y 为星期几、color 映射数值；scale.y 固定星期 domain；顺序色阶"}
+{"id": "heatmap-axis-title", "prompt": "热力图 x 轴标题「月份」，y 轴标题「地区」", "groundTruth": "axis.x.title 和 axis.y.title 分别设置为对应文字；type: 'cell'"}
+{"id": "heatmap-radius-cell", "prompt": "热力图的格子带一点圆角，更精致", "groundTruth": "style.radius 设置大于 0；type: 'cell'"}
+{"id": "heatmap-vs-scatter", "prompt": "我有几万个经纬度散点想看密度分布，用散点图还是热力图", "groundTruth": "大量点密度用 type: 'heatmap'（高斯渐变）而非 cell 或 point；说明选型理由"}
+{"id": "heatmap-tooltip", "prompt": "热力图悬停时显示「地区 + 月份 + 达标率」完整信息", "groundTruth": "tooltip.items 配置多个字段或 title 回调；type: 'cell'"}
+{"id": "heatmap-domain-fixed", "prompt": "达标率固定在 0~100 之间，颜色映射要按这个范围来，不要自适应", "groundTruth": "scale.color 设置 domain: [0, 100] 固定范围；type: 'cell'"}

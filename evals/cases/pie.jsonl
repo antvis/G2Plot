@@ -1,0 +1,12 @@
+{"id": "pie-basic-source", "prompt": "展示网站流量来源占比：搜索引擎、社交媒体、直接访问、外部链接", "groundTruth": "使用 type: 'interval' + transform: [{ type: 'stackY' }] + coordinate: { type: 'theta' }；encode 只有 y 和 color，无 x"}
+{"id": "pie-donut-total", "prompt": "做一个环形图展示销售品类构成，中间留空显得现代一点", "groundTruth": "coordinate: { type: 'theta', innerRadius: 0.5~0.7 }；stackY + interval；环形"}
+{"id": "pie-percentage-label", "prompt": "饼图上直接显示每项的百分比，不用鼠标悬停就能看到", "groundTruth": "labels 的 text 用回调计算并显示百分比（如 xx.x%）；stackY + theta"}
+{"id": "pie-interaction-highlight", "prompt": "饼图要支持鼠标悬停高亮某个扇形，点图例还能筛选隐藏", "groundTruth": "interaction 包含 elementHighlight 和 legendFilter；stackY + theta"}
+{"id": "pie-animate-wave", "prompt": "饼图加载时要有一个展开动画，更有质感", "groundTruth": "animate.enter 设置 type: 'waveIn'（极坐标专用）；stackY + theta"}
+{"id": "pie-outer-label", "prompt": "标签放在饼图外面，用引线指着对应扇形，避免挤在一起", "groundTruth": "labels position: 'outside'；可配 coordinate outerRadius 留空间；stackY + theta"}
+{"id": "pie-color-palette", "prompt": "饼图用品牌配色 #5B8FF9、#5AD8A6、#F6BD16、#9270CA", "groundTruth": "scale.color.range 设置为指定颜色数组；stackY + theta"}
+{"id": "pie-legend-right", "prompt": "饼图的图例放在右侧，节省底部空间", "groundTruth": "legend.color.position 设置为 'right'；stackY + theta"}
+{"id": "pie-tooltip-percent", "prompt": "tooltip 里除了数值还要显示占比百分比", "groundTruth": "tooltip.items 的 valueFormatter 回调中计算并拼接百分比；stackY + theta"}
+{"id": "pie-donut-center", "prompt": "环形图中心显示「总销售额 1000 万」这样的汇总文字", "groundTruth": "环形（innerRadius）+ 中心文字（title 或 annotations）；stackY + theta"}
+{"id": "pie-many-category", "prompt": "有 12 个品类的销售占比要展示，用饼图合适吗", "groundTruth": "类别过多（>6）建议改用 bar/column；若坚持饼图需说明切片过细问题；groundTruth 体现选型判断"}
+{"id": "pie-start-angle", "prompt": "饼图最大的扇形从 12 点方向开始，顺时针排列", "groundTruth": "coordinate.theta 可配置 startAngle/endAngle；stackY 顺序；stackY + theta"}

@@ -1,0 +1,12 @@
+{"id": "area-basic-uv", "prompt": "做一个流量看板，展示过去 7 天每天的网站 UV，趋势下面带点填充更有量感", "groundTruth": "使用 type: 'area'；x 轴为日期/星期，y 轴为 UV 数值；单系列；style 设置 fillOpacity 或 fill 实现填充"}
+{"id": "area-stacked-channel", "prompt": "对比搜索、社交、直接访问三个渠道过去 6 个月带来的流量，要看总量也要看各渠道构成", "groundTruth": "使用 type: 'area' + encode.color 映射渠道 + transform: [{ type: 'stackY' }]；数据含三个渠道各 6 个月"}
+{"id": "area-gradient-brand", "prompt": "落地页大屏要一个渐变填充的面积图展示本周活跃用户，蓝色从上往下渐隐", "groundTruth": "style.fill 使用 linear-gradient 渐变字符串；单系列 area；可搭配 shape: 'smooth'"}
+{"id": "area-line-combo", "prompt": "面积做背景量感，上面再叠一条清晰的折线看精确走势，展示月度营收", "groundTruth": "使用 type: 'view'，children 同时包含 type: 'area' 和 type: 'line'；两者 encode 一致；area 用低 fillOpacity"}
+{"id": "area-smooth-stock", "prompt": "展示某股票近一个月的收盘价走势，曲线平滑一点更美观", "groundTruth": "encode 中设置 shape: 'smooth'；x 轴为交易日，y 轴为价格；type: 'area' 或 line+area"}
+{"id": "area-multi-overlap-fix", "prompt": "画多条面积图对比两个产品的日活，但发现它们互相遮挡看不清，帮我调整", "groundTruth": "多系列面积加 transform: [{ type: 'stackY' }] 堆叠，或改用多系列 line；避免无 stackY 的遮挡面积"}
+{"id": "area-null-break", "prompt": "有些日期没有统计数据，面积图在这些地方要断开而不是补零连线", "groundTruth": "数据中含 null 值；area/line 默认在 null 处断开（connectNulls: false 或缺省）"}
+{"id": "area-axis-title", "prompt": "面积图展示季度销售额，x 轴标题写「季度」，y 轴标题写「销售额（万元）」", "groundTruth": "axis.x.title 和 axis.y.title 分别设置为对应文字；type: 'area'"}
+{"id": "area-color-palette", "prompt": "堆叠面积图展示三个产品的用户量，用品牌配色 #5B8FF9、#5AD8A6、#F6BD16", "groundTruth": "scale.color.range 设置为指定三个颜色；多系列 stackY 面积图"}
+{"id": "area-time-format", "prompt": "x 轴是日期，面积图展示近 30 天数据，日期标签只显示「月-日」不要年份", "groundTruth": "axis.x.labelFormatter 或 scale.x 配置只显示月日；type: 'area'；x 为日期"}
+{"id": "area-tooltip-unit", "prompt": "面积图展示能耗，tooltip 里数值后面要带「kWh」单位", "groundTruth": "tooltip.items 中设置 valueFormatter，包含 'kWh' 字样"}
+{"id": "area-large-sample", "prompt": "有一整年 365 天的累计访问量数据，直接画面积图太密了，帮忙抽稀", "groundTruth": "数据预处理聚合（如周/月平均）或 transform sample；type: 'area'；说明抽稀方式"}

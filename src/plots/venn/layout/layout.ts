@@ -1,4 +1,5 @@
-import { bisect, conjugateGradient, norm2, scale, zeros, zerosM } from 'fmin';
+// fmin@0.0.4's package root selects a UMD file without named exports in the docs bundle.
+import { bisect, conjugateGradient, norm2, scale, zeros, zerosM } from './fmin';
 import { circleCircleIntersection, circleOverlap, distance, intersectionArea } from './circleintersection';
 import { nelderMead } from './nelder-mead';
 

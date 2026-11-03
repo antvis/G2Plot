@@ -1,6 +1,6 @@
 ---
 name: g2plot-v3
-description: G2Plot v3 可视化组件库，提示词即组件。当用户需要创建、绘制 AntV G2 图表（折线图、柱状图、饼图、面积图、散点图、双轴图、雷达图、热力图、漏斗图等）时使用本 skill。提供 G2 v5 出码规范、图表选型决策、可运行案例与 v4→v5 防幻觉对照。
+description: G2Plot v3 可视化组件库，提示词即组件。当用户需要创建、绘制 AntV G2 图表（折线图、柱状图、饼图、面积图、散点图、双轴图、雷达图、热力图、直方图、漏斗图等）时使用本 skill。提供 G2 v5 出码规范、图表选型决策、可运行案例与 v4→v5 防幻觉对照。
 ---
 
 # G2Plot v3
@@ -30,6 +30,7 @@ description: G2Plot v3 可视化组件库，提示词即组件。当用户需要
 | 双变量相关性 | 两个数值字段 | scatter 散点图 | [charts/scatter.md](../../charts/scatter.md) |
 | 两个量级不同的指标 | 时间 x + 双数值 y | dual-axes 双轴图 | [charts/dual-axes.md](../../charts/dual-axes.md) |
 | 多维能力对比 | 多维度数值 | radar 雷达图 | [charts/radar.md](../../charts/radar.md) |
+| 单变量数值分布、频次 | 一个连续数值字段（原始明细） | histogram 直方图 | [charts/histogram.md](../../charts/histogram.md) |
 | 密度/频率分布 | 两个类别 + 数值 | heatmap 热力图 | [charts/heatmap.md](../../charts/heatmap.md) |
 | 流程转化 | 阶段 + 数值 | funnel 漏斗图 | [charts/funnel.md](../../charts/funnel.md) |
 

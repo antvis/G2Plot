@@ -27,6 +27,7 @@ description: G2Plot v3 可视化组件库，提示词即组件。当用户需要
 | 类别数值对比（横向） | 类别多/名称长 | bar 条形图 | [charts/bar.md](../../charts/bar.md) |
 | 占比、构成 | 类别 + 数值 | pie 饼图 | [charts/pie.md](../../charts/pie.md) |
 | 趋势 + 累积量 | 时间 x + 数值 y | area 面积图 | [charts/area.md](../../charts/area.md) |
+| 空间受限的迷你趋势（表格/卡片内嵌） | 单系列 + 少量点 + 无需刻度 | mini-area 迷你面积图 | [charts/mini-area.md](../../charts/mini-area.md) |
 | 双变量相关性 | 两个数值字段 | scatter 散点图 | [charts/scatter.md](../../charts/scatter.md) |
 | 两个量级不同的指标 | 时间 x + 双数值 y | dual-axes 双轴图 | [charts/dual-axes.md](../../charts/dual-axes.md) |
 | 多维能力对比 | 多维度数值 | radar 雷达图 | [charts/radar.md](../../charts/radar.md) |

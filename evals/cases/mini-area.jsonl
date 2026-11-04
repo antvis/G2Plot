@@ -1,0 +1,12 @@
+{"id": "mini-area-table-trend", "prompt": "客户列表表格里，每一行后面加一条最近 7 天的活跃趋势小图，不要坐标轴", "groundTruth": "使用 type: 'area'；单系列 x 为日期、y 为活跃数；axis: false 关闭坐标轴；容器高度约 40~60px"}
+{"id": "mini-area-kpi-card", "prompt": "KPI 卡片里大数字旁边放一个小的面积趋势图，看最近两周的走势", "groundTruth": "使用 type: 'area'；单系列；关闭坐标轴与图例（axis: false、legend: false）；容器给小高度"}
+{"id": "mini-area-multi-card", "prompt": "一个看板要并排放 6 个渠道的流量趋势缩略图，每个都很小", "groundTruth": "每个渠道一个独立的 type: 'area' 图表实例（单系列）；不带图例与坐标轴；不要用 color 做多系列分组"}
+{"id": "mini-area-no-axis-legend", "prompt": "只要趋势形状，坐标轴、刻度、图例全部不要，尽量干净", "groundTruth": "axis: false（或 axis: { x: false, y: false }）且 legend: false；chart 仍用 new Chart({ container, autoFit: true })"}
+{"id": "mini-area-gradient-brand", "prompt": "用品牌色 #FF6B35 做渐变填充的迷你面积图，下面是透明的", "groundTruth": "style.fill 使用 linear-gradient(180deg, ...) 且渐变到低透明度；不要用 90deg；可用 fillOpacity 辅助"}
+{"id": "mini-area-smooth", "prompt": "卡片里的趋势小图希望曲线平滑一点，不要折角", "groundTruth": "encode 中设置 shape: 'smooth'；仍使用 type: 'area' 且关闭坐标轴"}
+{"id": "mini-area-last-point", "prompt": "迷你面积图里把最新一天的数据点标出来，其他点不要", "groundTruth": "使用 type: 'view'，children 包含 area、line 和 point；point 子 mark 的 data 只包含最后一条记录"}
+{"id": "mini-area-tooltip-unit", "prompt": "鼠标悬浮小图时显示日期和营收，金额换算成万元保留一位小数", "groundTruth": "tooltip.items 中设置 channel: 'y' 与 valueFormatter，输出包含「万元」并保留 1 位小数；tooltip.title 指向日期字段"}
+{"id": "mini-area-fixed-height", "prompt": "这个趋势缩略图只有 56px 高，放在表格单元格里，宽度跟着单元格走", "groundTruth": "容器用 CSS 控制高度（约 56px），图表用 new Chart({ container, autoFit: true })；不要写死 width/height 或手动 padding"}
+{"id": "mini-area-dark-screen", "prompt": "暗色大屏上的迷你面积趋势图，配合深色背景", "groundTruth": "使用 type: 'area' + 关闭坐标轴/图例；theme 设为 'classicDark' 或 'dark'；填充色适配暗色背景"}
+{"id": "mini-area-dense-30-days", "prompt": "有 30 天的每日数据，要放进一个很小的高度里看趋势", "groundTruth": "使用 type: 'area'；30 个数据点可直接绘制；关闭坐标轴与图例；若超过约 60 个点应先按周聚合"}
+{"id": "mini-area-vs-full-area", "prompt": "我要在表格里放趋势小图，但用户也需要能读出具体数值，怎么画", "groundTruth": "表格内嵌用 type: 'area' + axis: false + tooltip 提供精确值；若必须常驻刻度则改用完整 area（保留坐标轴），迷你图不适合承载读数"}

@@ -1,0 +1,12 @@
+{"id": "liquid-basic-completion", "prompt": "运营看板要展示本季度订单目标完成率，目前是 72%，用水波图突出这个核心指标", "groundTruth": "使用 type: 'liquid'；data 直接传 0.72；不需要对象数组或 encode；new Chart({ container: 'container', autoFit: true }) 后调用 chart.render()"}
+{"id": "liquid-percent-convert", "prompt": "接口返回的进度是 85，表示 85%，帮我画成水波图", "groundTruth": "使用 type: 'liquid'；将百分数 85 除以 100 转为 0.85 后传给 data，不能直接使用 85"}
+{"id": "liquid-derived-rate", "prompt": "本月已完成 360 个任务，目标 450 个，用液位展示任务完成率", "groundTruth": "根据 completedTaskCount / targetTaskCount 计算完成率 0.8；type: 'liquid' 的 data 接收该单个数值；变量名具有业务语义"}
+{"id": "liquid-memory-usage", "prompt": "服务器监控卡片展示当前内存使用率 68.3%，用圆形液位和波浪表达", "groundTruth": "使用 type: 'liquid'；定义语义化的 memoryUsageRate = 0.683 并作为 data；展示单个资源利用率"}
+{"id": "liquid-brand-color", "prompt": "水波图波浪使用品牌蓝 #5B8FF9，透明度 0.85", "groundTruth": "type: 'liquid'；style.fill 设置为 '#5B8FF9'，style.fillOpacity 设置为 0.85"}
+{"id": "liquid-outline", "prompt": "水波图外框线宽设为 4px，外框与内部液位圆间隔 8px", "groundTruth": "type: 'liquid'；style.outlineBorder 为 4，style.outlineDistance 为 8"}
+{"id": "liquid-wave-length", "prompt": "把水波图的波浪拉长一些，波长设置为 128", "groundTruth": "type: 'liquid'；style.waveLength 设置为 128"}
+{"id": "liquid-background", "prompt": "水波图未被液体覆盖的圆形背景使用浅蓝色 #E8F0FE", "groundTruth": "type: 'liquid'；通过 style.background.fill 设置 '#E8F0FE'"}
+{"id": "liquid-center-text-style", "prompt": "水波图中心百分比用 32px 加粗深蓝色文字，方便大屏观看", "groundTruth": "type: 'liquid'；style.text.style 中设置 fontSize: 32、fontWeight: 'bold' 和 fill 颜色"}
+{"id": "liquid-center-text-format", "prompt": "中心文字默认读数不够精确，把 0.683 显示成保留一位小数的 68.3%", "groundTruth": "在 style.text.style.formatter 中将数值乘以 100，使用 toFixed(1) 并拼接百分号；不是 labels 配置"}
+{"id": "liquid-clean-dashboard", "prompt": "做一个只突出完成率的干净水波图，不要坐标轴、图例和悬浮提示", "groundTruth": "type: 'liquid'；配置 axis: false、legend: false、tooltip: false；data 为 0~1 单值"}
+{"id": "liquid-storage-custom", "prompt": "存储使用率 76%，水波用绿色、波长 100，中心显示 76.0%，背景用浅绿色", "groundTruth": "type: 'liquid'，data 为 0.76；style.fill 设置绿色，waveLength 为 100，background.fill 设置浅绿色，text.style.formatter 输出一位小数百分比"}

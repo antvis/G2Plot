@@ -46,6 +46,7 @@ G2Plot v3 covers 36+ common chart types. PRs for more types are welcome:
 |---|---|---|---|---|
 | line | column | pie | scatter | dual-axes |
 | area | bar | | heatmap | funnel |
+| | | | beeswarm | radar |
 | | | | | radar |
 
 

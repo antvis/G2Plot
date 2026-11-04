@@ -1,0 +1,10 @@
+{"id": "beeswarm-basic", "prompt": "展示三个不同年龄组的血压分布数据，每个组别约 8-10 个测量值，希望看到每个数据点的具体位置", "groundTruth": "使用 type: 'point'；x 轴编码 category 字段，y 轴编码 value 字段；每个类别展示 8-10 个数据点，展示分布情况而非仅显示均值"} 
+{"id": "beeswarm-labels", "prompt": "神经科学实验中需要展示不同刺激条件下的反应时间分布，并要求每个数据点都标出具体毫秒数", "groundTruth": "包含 labels 配置，text 指向 value 字段，position 为 'top'；type: 'point' + encode x/y，确保数据点数量适中（≤ 40 个）以免标签重叠"} 
+{"id": "beeswarm-multi-group", "prompt": "对比四种不同药物治疗方案的有效性，每种方案有 6-8 名患者的有效性评分数据", "groundTruth": "encode.color映射group字段展示四个治疗组，type: 'point'配合色彩分组， legend.position设为'top'以便对比"} 
+{"id": "beeswarm-horizontal", "prompt": "类别名称较长（如‘北京市、上海市、广州市、深圳市'），希望水平展示以节省垂直空间", "groundTruth": "交换x/y字段编码，或使用 coordinate 配置实现横向展示，类别标签位于左侧 y 轴"} 
+{"id": "beeswarm-size-variable", "prompt": "气候数据可视化，想让点的大小反映降水量的大小，大点表示雨水多，小点表示雨水少", "groundTruth": "encode.size映射value字段，根据数值大小自动调整点的尺寸，配合说明文字说明‘点大=雨水多’"} 
+{"id": "beeswarm-color-scale", "prompt": "展示五个不同城市的空气质量指数分布，想要颜色深浅反映AQI数值的高低", "groundTruth": "encode.color映射value字段，配合scale.color.type: 'sequential'和palette设置发散/顺序色阶，颜色深浅反映AQI数值"} 
+{"id": "beeswarm-axis-custom", "prompt": "需要自定义坐标轴标题，x轴写‘处理方案’，y轴写‘反应时间（ms）’，并希望y轴从0开始固定刻度", "groundTruth": "axis.x.title设为'处理方案'，axis.y.title设为'反应时间（ms）'，axis.y.min设为0确保从0开始"} 
+{"id": "beeswarm-theme-dark", "prompt": "深色模式下的科研数据展示，需要在背景深色的环境下清晰展示数据分布", "groundTruth": "设置theme: 'classicDark'或'dark'，坐标轴、图例、标题文字颜色会自动适配暗色背景"} 
+{"id": "beeswarm-tooltip", "prompt": "医学会议海报展示，tooltip需要显示类别名称和具体的数值分数", "groundTruth": "tooltip.title设为类别字段名，tooltip.items包含channel: 'y'的name: '数值'配置，悬停显示具体分数"} 
+{"id": "beeswarm-null-handle", "prompt": "有些数据点缺失或测量失败，希望缺失的数据点不显示或以不同方式标记", "groundTruth": "数据中对应行的value字段传null，或使用transform过滤掉null行；line mark默认遇null断开，point mark视渲染表现而定"}

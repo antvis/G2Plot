@@ -1,0 +1,14 @@
+{"id": "venn-basic-two-sets", "prompt": "做一个韦恩图，展示使用内容推荐和社交分享两个渠道的用户规模，以及同时使用两个渠道的人数", "groundTruth": "使用 type: 'path'；data 为 inline，value 包含两个单集合和一个交集；data.transform 包含 { type: 'venn' }；encode 为 d: 'path'、color: 'key'；每行含 sets 字符串数组和数值 size"}
+{"id": "venn-three-sets", "prompt": "分析前端、后端、产品设计三类人才的重叠情况，两两交集和三者兼具的人数都要展示", "groundTruth": "使用 path + venn 数据转换；数据包含 3 个单集合、3 个两两交集和 1 个三集合交集，共 7 行；sets 中的集合名称保持一致；encode.d 映射 path，encode.color 映射 key"}
+{"id": "venn-hollow", "prompt": "画一个空心韦恩图，只显示两个技能集合的轮廓和交集，边框稍微粗一点", "groundTruth": "type: 'path' + data.transform venn；encode 增加 shape: 'hollow'；style.lineWidth 设置为 2 或更大；不使用实心填充作为重点"}
+{"id": "venn-label-name-size", "prompt": "韦恩图每个区域里显示集合名称和对应人数，交集区域也要标注", "groundTruth": "保留 path + venn + encode.d/color 核心结构；labels 的 text 使用字段或回调组合 label 与 size，position 为 'inside'；交集数据也提供标签内容"}
+{"id": "venn-custom-colors", "prompt": "三个集合的韦恩图使用品牌配色，每个区域颜色要清楚区分", "groundTruth": "scale.color.range 设置自定义颜色数组；encode.color 映射 venn 转换生成的 key；颜色数组不要传给 palette"}
+{"id": "venn-overlap-opacity", "prompt": "实心韦恩图的交集区域颜色太重了，让交集更透明一些", "groundTruth": "style.opacity 使用回调，根据 d.sets.length 判断交集并设置更低透明度；保留 path、venn transform 和 d/color 编码"}
+{"id": "venn-tooltip-count", "prompt": "鼠标悬停在韦恩图区域时，显示区域名称和人数，人数加上「人」单位", "groundTruth": "tooltip.title 映射 label 或使用回调；tooltip.items 包含 size 字段并用 valueFormatter 添加「人」；图表仍为 path + venn 数据转换"}
+{"id": "venn-element-highlight", "prompt": "韦恩图支持悬停高亮当前集合区域，其他区域变淡", "groundTruth": "配置 interaction: [{ type: 'elementHighlight' }]；state.active 提高 opacity，state.inactive 降低 opacity；使用单数 interaction 而不是 interactions"}
+{"id": "venn-layout-padding", "prompt": "韦恩图太贴近容器边缘了，给布局留 12 像素内边距", "groundTruth": "在 data.transform 的 venn 转换中设置 padding: 12；不要手动设置 spec padding；保持 autoFit: true"}
+{"id": "venn-four-sets", "prompt": "有内容、社交、搜索、广告四个获客渠道，要看它们之间的重叠用户", "groundTruth": "可使用 path + venn 数据转换；每个集合与需要展示的交集用 sets 数组表达，size 为数值；集合数为 4 时提醒标签可能拥挤并控制交集标注"}
+{"id": "venn-too-many-sets", "prompt": "我有 8 个用户分群，想把所有交集都画在一张韦恩图里", "groundTruth": "不建议使用韦恩图，说明超过 4 个集合会难以阅读；建议改用集合交集矩阵（cell 热力图）或柱状图汇总重点交集，而不是强行生成 8 集合 venn"}
+{"id": "venn-aggregate-raw-members", "prompt": "原始数据是一行一个用户及其所在分群，能直接画三集合韦恩图吗", "groundTruth": "先按集合及交集组合聚合成 sets: string[]、size: number 的汇总数据，再使用 path + data.transform venn；不要把一行一个成员的原始明细直接交给 venn 布局"}
+{"id": "venn-inclusive-size", "prompt": "准备韦恩图数据时，单集合的人数要排除交集中的用户吗", "groundTruth": "说明 size 表示该 sets 组合对应集合或交集的总大小，单集合大小包含其交集成员，交集大小也单独提供；不要把单集合改成排除所有交集后的独占人数"}
+{"id": "venn-v2-migration", "prompt": "把旧的 new Venn('container', { setsField, sizeField }) 代码迁移到 G2 v5", "groundTruth": "改为 import { Chart } from '@antv/g2'；new Chart({ container, autoFit: true }) + chart.options + chart.render；options 使用 type: 'path'、inline data.transform venn、encode.d: 'path' 和 encode.color: 'key'，禁止 G2Plot v2 的 Venn 类与字段配置"}

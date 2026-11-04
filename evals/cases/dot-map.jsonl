@@ -1,0 +1,15 @@
+{"id": "dot-map-basic", "prompt": "我在做门店运营看板，想把全国 12 个城市的门店分布画在地图上，每个城市一个点", "groundTruth": "使用 type: 'point'；x 映射经度字段（如 longitude）、y 映射纬度字段（如 latitude）；数据含城市名与经纬度；axis: false 关闭坐标轴"}
+{"id": "dot-map-china-domain", "prompt": "点地图的点位每次换数据就整体偏移，位置对不上，怎么固定成中国地图的范围", "groundTruth": "在 scale.x.domain 设置中国经度范围约 [73, 136]，scale.y.domain 设置纬度范围约 [17, 54]；经纬度字段必须是 number"}
+{"id": "dot-map-bubble", "prompt": "每个城市的订单量差别很大，想让点的大小表示订单量，一眼看出量级", "groundTruth": "encode.size 映射订单量字段；scale.size 使用 type: 'sqrt' 并设置合理 range（如 [6, 34]），避免面积失真；可用 legend.size: false 隐藏大小图例"}
+{"id": "dot-map-color-region", "prompt": "点地图按华东、华南、华北等区域用不同颜色区分，图例放顶部", "groundTruth": "encode.color 映射区域字段；legend.color.position 设为 'top'；可用 scale.color.range 指定颜色数组"}
+{"id": "dot-map-label", "prompt": "点地图上每个点旁边直接标出城市名，点太密别让文字叠在一起", "groundTruth": "配置 labels，text 指向城市字段，position 为 'top' 等；用 transform: [{ type: 'overlapDodgeY' }] 或类似防重叠变换"}
+{"id": "dot-map-density", "prompt": "想用点的数量表示各省人口，规定每个点代表 500 万人，人口多的省点就多", "groundTruth": "点密度地图：按人口 / 500 计算每个省的点数，在省会经纬度附近展开多个点（如黄金角螺旋），所有点等大；encode.x/y 用经纬度，encode.color 区分区域"}
+{"id": "dot-map-tooltip", "prompt": "鼠标悬停点的时候显示城市和订单量，订单量后面带「单」字", "groundTruth": "tooltip.title 设为城市字段；tooltip.items 中 field 指向订单量、name 为中文名，并用 valueFormatter 拼接「单」单位"}
+{"id": "dot-map-geo-basemap", "prompt": "点地图下面想要中国省份的轮廓底图，点和省份边界对齐", "groundTruth": "使用 type: 'geoView'，children 同时包含 type: 'geoPath'（GeoJSON 底图，需 FeatureCollection）和 type: 'point'（经纬度打点）；coordinate 指定投影如 mercator；geoView 内的 point 不要再设 scale.x/y"}
+{"id": "dot-map-projection", "prompt": "画美国各城市网点分布，底图用美国阿尔伯斯投影", "groundTruth": "geoView 的 coordinate.type 设为 'albersUsa'；children 中 geoPath 提供美国 GeoJSON，point 用经纬度打点"}
+{"id": "dot-map-axis-off", "prompt": "点地图上不要出现经纬度刻度和网格线，只要点", "groundTruth": "设置 axis: false（或 axis: { x: false, y: false }）关闭坐标轴；不要用 padding 手动裁剪"}
+{"id": "dot-map-dark", "prompt": "大屏是深色背景，点地图要暗色主题", "groundTruth": "设置 theme: 'classicDark'（或 'dark'）；点的描边可改为深色背景相近的颜色，文字与图例颜色由主题自动适配"}
+{"id": "dot-map-pitfall-mark", "prompt": "G2 v5 里直接用 type: 'dot-map' 画点地图对吧", "groundTruth": "不存在 dot-map 这个 mark；点地图用 type: 'point'，x/y 映射经纬度；需要底图时用 geoView + geoPath"}
+{"id": "dot-map-pitfall-geopath", "prompt": "我把 geoPath 和 point 一起放进 geoView 的 children，但点不显示，可能是什么原因", "groundTruth": "geoView 的 children 只能直接放 geoPath / point 等 mark，不能再嵌套 type: 'view'；point 的 x/y 必须是经纬度数值字段，且不要在 geoView 内重复设置 scale.x/y"}
+{"id": "dot-map-pitfall-string", "prompt": "经纬度是从接口拿的字符串，直接传给点地图可以吗", "groundTruth": "必须先 Number() 转成数值；字符串经纬度会导致点位异常或不渲染；同时用 scale.x/y.domain 固定地理范围"}
+{"id": "dot-map-when-not", "prompt": "我有一批广告花费和销售额数据，想看这两个数值变量的相关性，适合用点地图吗", "groundTruth": "不适合；点地图用于地理点位，两个数值变量的相关性应使用 scatter 散点图（type: 'point' 但不映射经纬度、保留坐标轴）"}

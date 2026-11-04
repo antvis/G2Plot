@@ -1,0 +1,12 @@
+{"id": "pin-map-basic-sites", "prompt": "我有一份售后服务站数据，包含站点名称、经度和纬度，还有区域的 GeoJSON，想在地图上用图钉标出所有站点", "groundTruth": "使用 type: 'geoView'；children 包含 geoPath 底图和 point 标注；point.encode.x 映射经度、y 映射纬度；站点数据每行一个地点"}
+{"id": "pin-map-store-category", "prompt": "画一张门店分布地图，旗舰店、标准店和合作点用不同颜色区分，并显示分类图例", "groundTruth": "使用 geoView + geoPath + point；point.encode 包含 color 映射门店类型字段；保留颜色图例，可通过 scale.color.range 指定分类色板"}
+{"id": "pin-map-order-bubble", "prompt": "在地图标出门店位置，气泡越大表示该门店月订单量越高，气泡大小范围不要失控", "groundTruth": "point.encode.size 映射月订单量数值字段；scale.size 使用 sqrt 类型并设置合理 range；经纬度仍分别映射 x/y"}
+{"id": "pin-map-name-label", "prompt": "充电站地图上的每个标注点旁边都要显示站点名称，尽量避免文字重叠", "groundTruth": "point.labels 中 text 指向站点名称字段，position 使用 top 等位置；可使用 transform: [{ type: 'overlapDodgeY' }] 减少标签重叠"}
+{"id": "pin-map-offline-inline", "prompt": "做一个可离线打开的仓库分布示例，不要请求在线 GeoJSON，地图和业务数据都直接写在代码里", "groundTruth": "内联标准 GeoJSON FeatureCollection 作为 geoPath.data，并内联包含经纬度的仓库数组作为 point.data；不使用远程 fetch 数据"}
+{"id": "pin-map-custom-base-style", "prompt": "地图底图用很浅的灰蓝色，边界清晰一点，地点用醒目的红色标注", "groundTruth": "geoPath.style 分别设置浅灰蓝 fill、stroke 和 lineWidth；point.style.fill 设置醒目红色；样式配置在对应 child 上"}
+{"id": "pin-map-tooltip-format", "prompt": "设备分布地图的 tooltip 标题显示设备名称，同时显示设备类型和在线数量，在线数量后面加「台」", "groundTruth": "point.tooltip.title 指向设备名称字段；items 包含设备类型与在线数量；在线数量通过 valueFormatter 添加「台」单位"}
+{"id": "pin-map-fixed-size", "prompt": "地图上的所有网点标注都保持 8px 大小，不随其他字段变化", "groundTruth": "point.encode.size 使用数值 8，而不是字符串 '8' 或字段名；x/y 继续映射经纬度"}
+{"id": "pin-map-status-color", "prompt": "把全国物联网设备画在地图上，正常、告警、离线三种状态分别用绿、橙、灰表示", "groundTruth": "使用 geoView + geoPath + point；point.encode.color 映射设备状态字段；scale.color.domain/range 或等价映射将正常、告警、离线对应绿、橙、灰"}
+{"id": "pin-map-numeric-coordinates", "prompt": "接口返回的经纬度是字符串，生成图钉地图前帮我处理好，不要出现标点不到地图上的问题", "groundTruth": "渲染前通过 Number() 将经度和纬度转换为 number；point.encode.x 使用经度、y 使用纬度，不能交换"}
+{"id": "pin-map-layer-composition", "prompt": "我已经有一个 geoPath 地图图层，还想再叠加一层城市标注点，应该怎么组织 G2 v5 配置？", "groundTruth": "只调用一次 chart.options；顶层 type 为 geoView，children 中按顺序放 geoPath 和 point，而不是连续调用两次 chart.options"}
+{"id": "pin-map-legend-top", "prompt": "仓库类型分布地图的图例放到顶部，气泡大小图例不用显示", "groundTruth": "point.legend.color.position 设置为 'top'，point.legend.size 设置为 false；color 映射仓库类型，size 可映射业务数值"}

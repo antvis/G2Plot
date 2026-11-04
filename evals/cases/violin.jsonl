@@ -1,0 +1,15 @@
+{"id": "violin-basic-distribution", "prompt": "对比华东、华南、华北三个区域订单配送时长的分布，每个区域有 40 条明细记录，用小提琴图展示", "groundTruth": "使用 type: 'view'；children 包含 density 和 boxplot；density 的 data.transform 配置 kde，field 为配送时长、groupBy 包含区域；boxplot 的 encode.shape 为 'violin'；x 映射区域，原始数值字段映射 boxplot.y"}
+{"id": "violin-multimodal-compare", "prompt": "比较三个实验组测试得分的分布形态，尤其想看看是否存在双峰，并叠加统计摘要", "groundTruth": "使用 density + KDE 展示完整密度轮廓，并叠加 shape: 'violin' 的 boxplot；density.encode 包含 x、y、size、series，KDE 按实验组分组"}
+{"id": "violin-boxplot-summary", "prompt": "画各部门员工年龄的小提琴图，除了密度轮廓，还要看到中位数、四分位数和须线", "groundTruth": "view.children 同时包含 density 与 boxplot；boxplot 直接消费原始年龄明细并自动计算统计量，encode.y 使用原始年龄字段，shape 为 'violin'"}
+{"id": "violin-kde-smooth", "prompt": "不同客服团队的通话时长小提琴图轮廓太粗糙，希望采样更细、曲线更平滑", "groundTruth": "在 density 子图的 data.transform.kde 中增大 size（如 30 或 50）增加采样点，并适当增大 width（如 3）提高平滑程度；不要 KDE 放到 mark 级 transform"}
+{"id": "violin-custom-colors", "prompt": "三个产品线响应时长的分布对比，小提琴分别使用 #5B8FF9、#5AD8A6、#F6BD16 品牌色", "groundTruth": "使用 density + violin boxplot 组合；encode.color 映射产品线，scale.color.range 设置为 ['#5B8FF9', '#5AD8A6', '#F6BD16']，两个子图共享配色"}
+{"id": "violin-fill-opacity", "prompt": "画各门店客单价分布的小提琴图，密度填充半透明一些，避免统计层被遮住", "groundTruth": "density 子图 style 设置 fillOpacity（如 0.4 或 0.65）；boxplot 子图可设置 opacity/strokeOpacity，encode.shape 为 'violin'"}
+{"id": "violin-outliers", "prompt": "比较各班考试分数的小提琴图，需要把离群值用红色点标出来", "groundTruth": "boxplot 子图的 style.point 设置为可见对象并指定红色 fill（如 '#F5222D'）和 size；不能沿用 point: false；density + KDE 保留"}
+{"id": "violin-polar", "prompt": "做一个环形布局的小提琴图，对比四家门店的配送时长分布", "groundTruth": "在 type: 'view' 上设置 coordinate: { type: 'polar' }；children 仍为 density（data.transform.kde）与 encode.shape: 'violin' 的 boxplot"}
+{"id": "violin-density-only", "prompt": "只关心不同地区用户使用时长的密度轮廓，不需要中位数和箱线统计层", "groundTruth": "可只使用 density mark 配合 data.transform.kde；encode.x 为地区，encode.y 和 size 使用 KDE 输出字段，series 映射地区；不叠加 boxplot"}
+{"id": "violin-axis-title", "prompt": "各仓库拣货时长的小提琴图，x 轴标题写「仓库」，y 轴标题写「拣货时长（分钟）」", "groundTruth": "view 的 axis.x.title 和 axis.y.title 分别设置为「仓库」和「拣货时长（分钟）」；图形使用 density + violin boxplot 组合"}
+{"id": "violin-legend-top", "prompt": "按产品类别着色的小提琴图，把图例放到顶部，x 轴不再重复显示类别名称", "groundTruth": "legend.color.position 设置为 'top'；axis.x.label 设置为 false 或等效隐藏标签；density 与 boxplot 的 color/series 映射产品类别"}
+{"id": "violin-dark-theme", "prompt": "数据大屏需要暗色主题的小提琴图，展示各服务区网络延迟分布", "groundTruth": "Chart 构造参数或 spec 设置 theme: 'classicDark' 或 'dark'；保留 density + KDE 与 violin boxplot 组合，文字和轴线适配暗色背景"}
+{"id": "violin-custom-output-fields", "prompt": "原始数值字段叫 waitingSeconds，KDE 输出想命名为 densitySeconds 和 densityWeight，避免字段混淆", "groundTruth": "kde.field 为 'waitingSeconds'，as 为 ['densitySeconds', 'densityWeight']；density.encode.y 必须为 'densitySeconds'、encode.size 必须为 'densityWeight'；boxplot.y 仍为 'waitingSeconds'"}
+{"id": "violin-density-tooltip", "prompt": "小提琴图悬浮时只保留箱线统计信息，不要让密度采样点重复弹 tooltip", "groundTruth": "density 子图设置 tooltip: false；boxplot 子图保留统计 tooltip；density 的 KDE 与 boxplot 的原始数据输入保持分离"}
+{"id": "violin-kde-range", "prompt": "页面响应耗时限定在 0 到 3000 毫秒，画三组分布的小提琴图时 KDE 也固定使用这个范围", "groundTruth": "density 子图的 data.transform.kde 设置 field、groupBy，并显式 min: 0、max: 3000；encode.y/size 使用 KDE 输出字段"}

@@ -1,0 +1,12 @@
+{"id": "dumbbell-two-periods", "prompt": "对比各部门 2025 年和 2026 年的员工满意度，用哑铃图展示得分和差距", "groundTruth": "使用 type: 'view'，children 包含 link 和两个 point；每行数据包含 department、previousScore、currentScore；link 的 encode.x 为 [previousScore, currentScore]，encode.y 为 [department, department]"}
+{"id": "dumbbell-actual-target", "prompt": "画各大区实际销售额与目标销售额的哑铃图，看看目标差距有多大", "groundTruth": "每个大区一条记录，包含 actualSales 和 targetSales 两个数值字段；link 连接实际值与目标值，两个 point 标出端点；数值使用同一单位"}
+{"id": "dumbbell-horizontal-long-labels", "prompt": "产品名称比较长，横向展示每个产品改版前后的任务完成时长", "groundTruth": "类别字段映射到 y 轴，两个时长数值映射到 x 轴；link 的 y 通道重复绑定同一个产品字段；scale.y.type 为 'point'，不使用 transpose 也能形成横向哑铃"}
+{"id": "dumbbell-endpoint-colors", "prompt": "哑铃图中去年用灰色圆点，今年用品牌蓝 #2F6BFF 圆点", "groundTruth": "使用两个独立 point mark，分别 encode 去年和今年字段；去年 point 的 style.fill 使用灰色，今年 point 的 style.fill 为 '#2F6BFF'；link 用 stroke 设置连线颜色"}
+{"id": "dumbbell-period-legend", "prompt": "给两个年度的哑铃图端点加上图例，图例放在顶部", "groundTruth": "将端点转换为含 period 字段的长表，point 使用 encode.color: 'period'；view 设置 legend.color.position: 'top'；link 仍使用每行含两个端点字段的宽表"}
+{"id": "dumbbell-delta-label", "prompt": "在每个哑铃的连接线上方标出今年相对去年的增减值，正数带加号", "groundTruth": "渲染前计算 scoreChange、midpointScore 和 changeLabel；增加 type: 'text' 子标记，encode.x 为中点、y 为类别、text 为差值字段；正差值格式化为带 + 的字符串"}
+{"id": "dumbbell-sort-by-gap", "prompt": "按改善幅度从大到小排列各部门的年度满意度哑铃图", "groundTruth": "先计算 currentScore - previousScore 并降序排序，再将排序后的部门数组赋给 scale.y.domain；不能仅依赖原始数据顺序"}
+{"id": "dumbbell-negative-change", "prompt": "有些门店今年评分下降了，哑铃图也要正确表现下降方向和负差值", "groundTruth": "保留 previousScore 和 currentScore 原始值，link 直接连接两个端点，不强制交换大小；差值按当前值减历史值计算，下降时为负数"}
+{"id": "dumbbell-endpoint-labels", "prompt": "在哑铃图两个端点旁边直接显示具体数值，避免只看大概位置", "groundTruth": "在 point mark 上配置 labels，text 指向对应端点数值字段；两个 point 可分别使用 position: 'left' 和 'right'；也可叠加 text mark 显示格式化数值"}
+{"id": "dumbbell-tooltip-unit", "prompt": "哑铃图 tooltip 里的完成率要显示百分号，并标明是改版前还是改版后", "groundTruth": "point 的 tooltip.items 配置端点名称和 valueFormatter，将数值格式化为带 % 的文本；两个端点有明确业务名称；link 可设置 tooltip: false 避免重复信息"}
+{"id": "dumbbell-fixed-domain", "prompt": "满意度哑铃图的得分范围固定为 0 到 100，不要让不同图表的横轴范围自动变化", "groundTruth": "在共享 view 上设置 scale.x.domain: [0, 100]，link 和 point 使用同一数值 x 通道；类别 y 轴使用 point scale"}
+{"id": "dumbbell-dark-theme", "prompt": "做一个暗色大屏用的年度业绩哑铃图，端点和连线在暗背景上要清晰", "groundTruth": "Chart 或 spec 使用 theme: 'classicDark' 或 'dark'；link stroke 与 point fill 使用在暗色背景上有足够对比度的颜色；仍是 view + link + point 组合"}

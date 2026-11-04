@@ -1,0 +1,14 @@
+{"id": "calendar-year-contributions", "prompt": "做一个 GitHub 风格的年度贡献图，展示 2025 年每天的代码提交次数，周作为列、星期作为行", "groundTruth": "使用 type: 'cell'；encode.x 映射周索引，encode.y 映射星期，encode.color 映射提交次数；x/y 使用 band 比例尺，color 使用 sequential 顺序色阶"}
+{"id": "calendar-month-revenue", "prompt": "用月历展示 2026 年 4 月每天的营收，每个格子里显示日号", "groundTruth": "使用 type: 'cell'；encode.x 映射星期，encode.y 映射月内周索引，encode.color 映射营收；labels 的 text 映射 dayOfMonth 或通过回调返回日号"}
+{"id": "calendar-monday-first", "prompt": "画一个周一开始、周日结束的日历热力图，不要把星期顺序弄乱", "groundTruth": "显式设置 weekday 的 band domain 为 Mon 到 Sun（或中文周一到周日）；星期索引按周一为 0 计算，不能直接使用周日为 0 的 getDay/getUTCDay 返回值"}
+{"id": "calendar-custom-colors", "prompt": "年度活跃日历想用从浅灰到深绿的自定义颜色，不要默认蓝色", "groundTruth": "color 使用 sequential 比例尺，并通过 range 提供浅灰到深绿的颜色数组；若使用 palette 则只能传调色板名称，不能传数组"}
+{"id": "calendar-fill-zero", "prompt": "接口只返回有订单的日期，但日历上没订单的日子也要显示为 0 单", "groundTruth": "渲染前生成完整日期序列，将缺失日期与已有数据按日期关联并显式补 orderCount: 0；保留每个日期的周索引和星期字段"}
+{"id": "calendar-missing-not-zero", "prompt": "设备离线时没有数据，这些日期不要当成 0 次告警，日历里该怎么处理？", "groundTruth": "区分缺失与真实零值；预处理时保留 null/缺失状态并说明业务含义，不将离线日期直接补成 0，可用独立底色或图例表达无数据"}
+{"id": "calendar-tooltip-date", "prompt": "鼠标放到日历格子上时显示完整日期和步数，步数后面加「步」单位", "groundTruth": "tooltip.title 设置为 date 字段或返回完整日期的回调；tooltip.items 包含 stepCount 字段，valueFormatter 返回带「步」单位的字符串"}
+{"id": "calendar-rounded-cells", "prompt": "日历格子之间留 2px 间距，并带一点圆角", "groundTruth": "cell mark 的 style 中设置 inset: 2，并设置大于 0 的 radius（如 radius: 2）"}
+{"id": "calendar-fixed-domain", "prompt": "我要并排比较两年的活跃日历，两张图的颜色必须按同一个 0 到 50 的标准解读", "groundTruth": "两张图的 scale.color 都显式设置相同 domain: [0, 50]，并使用相同 sequential 色阶，避免各自按数据最大值自动缩放"}
+{"id": "calendar-day-label-contrast", "prompt": "月历里显示每天日期数字，颜色深的格子上日期要用白字，浅色格子用深字", "groundTruth": "labels 显示 dayOfMonth；labels.style.fill 使用基于每日数值的回调，在高数值/深色格返回白色，其余返回深色"}
+{"id": "calendar-not-line", "prompt": "我想看全年每天活跃量的分布，按日历格子定位星期和月份，不要折线趋势", "groundTruth": "选择 calendar 的 cell 实现而非 line；先派生周索引和星期，再encode.x/y/color，不能直接把 date 和活跃量作为普通折线图 x/y"}
+{"id": "calendar-duplicate-date", "prompt": "原始数据是一天多条订单记录，怎样画每日订单量日历，避免同一天的格子重叠？", "groundTruth": "绘制前按日期聚合并对订单量求和或计数，使每个日期只有一条记录，再计算 weekIndex/weekday；或等价地对 cell 的 x/y 分组并聚合 color"}
+{"id": "calendar-utc-leap-year", "prompt": "生成 2024 闰年的完整年历，包含 2 月 29 日，避免服务器时区让日期前后错一天", "groundTruth": "生成 366 天日期；使用 Date.UTC、getUTCDay/getUTCDate 等 UTC API 或全程一致的日期库时区；日期序列包含 2024-02-29"}
+{"id": "calendar-legend-bottom", "prompt": "月历图的颜色图例放到底部，并隐藏没有业务意义的周序号轴", "groundTruth": "legend.color.position 设置为 'bottom'；月历 encode.y 使用 weekIndex，并通过 axis.y: false 隐藏周序号轴"}

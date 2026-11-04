@@ -1,0 +1,15 @@
+{"id": "mix-column-line-basic", "prompt": "做一个月度经营看板，用柱状图展示实际营收，再叠一条折线表示目标营收，方便对比达成情况", "groundTruth": "type: 'view' + children；柱子用 type: 'interval' 并 encode x: 'month', y: 'actual'；折线用 type: 'line' 并 encode x: 'month', y: 'target'；两个子 mark 共享同一套 x/y 比例尺"}
+{"id": "mix-area-line-point", "prompt": "日活趋势图，希望既有面积填充的氛围感，又有折线强调走势，还能看到每个采样点", "groundTruth": "type: 'view' 的 children 依次放 area、line、point；父级 encode { x, y } 让三个子 mark 继承；point 可设 tooltip: false 避免重复提示"}
+{"id": "mix-stacked-line-total", "prompt": "各渠道营收用堆叠柱展示构成，同时在柱子上方叠一条总营收折线", "groundTruth": "view + children；interval 配 transform: [{ type: 'stackY' }] 且 encode.color 映射渠道；line 使用独立 data（每月总量）并 encode y 为 total；不要在 children 内嵌套 view"}
+{"id": "mix-target-line", "prompt": "月度订单量柱状图，加一条 500 的目标线，一眼看出哪些月没达标", "groundTruth": "view 的 children 为 interval + lineY；lineY 使用独立 data（如 [{ threshold: 500 }]），encode: { y: 'threshold' }，style 配 lineDash 画虚线；参考线设 tooltip: false"}
+{"id": "mix-dual-axis-column-line", "prompt": "销售额和增长率量级差很多，想在一张图里用柱子和折线分别表示，左右各一根 y 轴", "groundTruth": "view children：interval（销售额）+ line（增长率）；第二个 child 设置 scale: { y: { independent: true } } 启用独立右轴；各自配置 axis.y.title"}
+{"id": "mix-brand-color", "prompt": "品牌主色是 #FF6B35，用它画柱状图，再叠一条蓝色折线表示利润率，颜色要区分清楚", "groundTruth": "view children 分别设置 style.fill（柱）与 style.stroke（线）；也可在 view 级用 scale.color.range 指定颜色数组；type: 'view' + children 结构"}
+{"id": "mix-dark-theme-title", "prompt": "大屏用的暗色混合图：柱状营收加折线利润，标题「营收与利润」、副标题「单位：万元」，左对齐", "groundTruth": "view 级设置 theme: 'classicDark'（或 'dark'）；title 为对象，包含 title、subtitle、align: 'left'；children 为 interval + line"}
+{"id": "mix-tooltip-unit", "prompt": "混合图 tooltip 里柱子和折线两个系列都要带「万元」单位，数值保留一位小数", "groundTruth": "各 child 的 tooltip.items 配置 valueFormatter，拼接「万元」并用 toFixed(1) 格式化；整体为 view + children 结构"}
+{"id": "mix-labels-both", "prompt": "柱线混合图，柱顶显示营收数值，折线上也标出利润数值", "groundTruth": "分别在 interval 与 line 两个 child 上配置 labels: [{ text: 'revenue' / 'profit', position: 'top' }]；使用 type: 'view' + children"}
+{"id": "mix-legend-top", "prompt": "多系列堆叠柱加总量折线，图例放到顶部，别挡住图形", "groundTruth": "view 级配置 legend: { color: { position: 'top' } }；interval 用 encode.color 映射系列并配 transform: [{ type: 'stackY' }]；line 表示总量"}
+{"id": "mix-transpose-bar-line", "prompt": "各品类销量用横向条形展示，并叠一条目标销量折线，整体横向排布", "groundTruth": "view 级配置 coordinate: { transform: [{ type: 'transpose' }] } 转置坐标系；children 为 interval + line，均 encode x 为品类、y 为销量/目标销量"}
+{"id": "mix-smooth-line", "prompt": "柱状图表示每月新增用户，上面叠一条平滑折线看增长趋势", "groundTruth": "line child 的 encode 增加 shape: 'smooth'；interval 与 line 同时放在 type: 'view' 的 children 中"}
+{"id": "mix-shared-axis", "prompt": "混合图里柱子和折线是同一个单位，想共用一根 y 轴，不要双轴", "groundTruth": "view children 的 y 通道保持默认共享比例尺；不要设置 scale.y.independent；只保留左侧一根 y 轴"}
+{"id": "mix-options-override", "prompt": "我在一个图表里先画柱状图再画折线，结果只剩折线了，怎么把两种图叠加起来？", "groundTruth": "不要连续调用 chart.options（后一次会覆盖前一次）；改为单个 type: 'view' spec，children 数组同时放 interval 和 line"}
+{"id": "mix-auxiliary-tooltip", "prompt": "混合图里的散点只是辅助标记，鼠标悬浮时不想出现重复的提示条目", "groundTruth": "给辅助 mark（如 point）设置 tooltip: false；主 mark（interval/line）保留 tooltip 配置"}

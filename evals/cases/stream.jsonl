@@ -1,0 +1,14 @@
+{"id": "stream-basic-genre", "prompt": "用河流图展示流行、摇滚、电子、古典四类音乐过去 6 个月的收听时长变化，看看整体内容消费形态怎么流动", "groundTruth": "使用 type: 'area'；encode 映射月份、收听时长和 color: 'genre'，并设置 shape: 'smooth'；transform 按顺序为 stackY、symmetryY；数据为四个品类各 6 个月的长表"}
+{"id": "stream-horizontal", "prompt": "把内容品类收听趋势的河流图横向展示，月份纵着排，河流左右展开", "groundTruth": "在基础 stream 配置上增加 coordinate: { transform: [{ type: 'transpose' }] }；仍保留 area 以及 stackY → symmetryY 的变换顺序"}
+{"id": "stream-color-palette", "prompt": "河流图展示四个视频品类的播放量，品牌配色依次用 #5B8FF9、#5AD8A6、#F6BD16、#9270CA", "groundTruth": "scale.color.range 设置为指定四个颜色；encode.color 映射视频品类；area + stackY + symmetryY"}
+{"id": "stream-layer-border", "prompt": "河流图每层颜色有点糊在一起，加白色细分隔线，填充稍微透明一点", "groundTruth": "style 中设置 stroke: '#fff'、lineWidth 约 1，并设置 fillOpacity；保持 stream 的 area、stackY 和 symmetryY 配置"}
+{"id": "stream-hide-y-axis", "prompt": "河流图居中以后 y 轴数值没有业务意义，只保留时间轴和图例", "groundTruth": "设置 axis: { y: false }，保留 x 轴和 color 图例；说明 symmetryY 会平移堆叠坐标，y 轴不再是原始值"}
+{"id": "stream-tooltip-raw-value", "prompt": "河流图悬浮时要显示该品类真实的播放量，不要显示堆叠和对称偏移后的坐标", "groundTruth": "tooltip.items 使用 field 指向原始播放量字段，而不是 channel: 'y'；可配置 name 和 valueFormatter 添加单位"}
+{"id": "stream-missing-stack", "prompt": "我画河流图时几个系列互相遮住了，现在只用了 area 和 symmetryY，应该怎么修？", "groundTruth": "在 symmetryY 前添加 transform: [{ type: 'stackY' }]，最终顺序为 stackY → symmetryY；encode.color 映射系列字段"}
+{"id": "stream-missing-symmetry", "prompt": "我的图看起来像普通堆叠面积图，所有色带都从底部开始，怎么变成居中的河流图？", "groundTruth": "在 stackY 后添加 symmetryY，即 transform: [{ type: 'stackY' }, { type: 'symmetryY' }]；通常配合 shape: 'smooth' 和隐藏 y 轴"}
+{"id": "stream-wrong-order", "prompt": "河流图已经写了 symmetryY 再 stackY，但形态不对，请修正变换顺序", "groundTruth": "将 transform 改为先 stackY 再 symmetryY；先形成各系列堆叠区间，再整体居中对称"}
+{"id": "stream-vs-line", "prompt": "需要精确比较三个产品每个月的销量，每条线都要从同一个零轴读数，还要用河流图吗？", "groundTruth": "不推荐 stream，应改用多系列 line；河流图的对称偏移没有共同零基线，不适合精确比较单系列数值"}
+{"id": "stream-vs-stacked-area", "prompt": "运营要看每月总访问量以及各渠道在统一零基线上的累计量，应该选河流图还是堆叠面积图？", "groundTruth": "选择普通堆叠面积图 area + stackY，不使用 symmetryY；stream 更侧重整体流动形态而非从共同基线读取累计量"}
+{"id": "stream-negative-values", "prompt": "我有各品类每月相对上月的正负增长量，能直接画成河流图吗？", "groundTruth": "不直接推荐；本 stream 组件要求非负数值，正负变化应改用 line 或 column；若坚持使用需先明确变换与业务含义，不能混用普通非负堆叠"}
+{"id": "stream-complete-data", "prompt": "画各频道每日观看人数的河流图，有些频道某些日期没有记录，数据上要注意什么？", "groundTruth": "使用完整长表并保证各系列覆盖一致的时间点；只有业务上代表没有观看时才补 0，不能盲目把缺失数据补零；x 为日期、y 为非负观看人数、color 为频道"}
+{"id": "stream-legend-title", "prompt": "内容消费河流图需要标题「品类收听趋势」，图例放顶部，时间轴标题写「月份」", "groundTruth": "title 为对象且 title 字段为指定文字；legend.color.position 为 'top'；axis.x.title 为 '月份'；保留 stream 核心 area + stackY + symmetryY"}

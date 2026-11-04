@@ -1,0 +1,16 @@
+{"id": "mirror-bar-population-pyramid", "prompt": "帮我画一个人口金字塔，按年龄段对比男女两组人口，男性放左边、女性放右边", "groundTruth": "使用 type: 'interval' + coordinate: { transform: [{ type: 'transpose' }] }；encode.x 为年龄段、encode.y 对男性取负值、encode.color 映射性别；axis.y.labelFormatter 用 Math.abs 隐藏负号"}
+{"id": "mirror-bar-income-expense", "prompt": "财务月报要对比每个月的收入和支出，收入在右、支出在左，形成对称条形图", "groundTruth": "type: 'interval' + transpose；encode.y 回调把支出一侧取负值、收入保持正值；encode.color 映射收入/支出"}
+{"id": "mirror-bar-completion", "prompt": "项目看板里按部门对比「已完成」和「未完成」的任务数量，左右对称展示", "groundTruth": "type: 'interval' + transpose；一侧（未完成）encode.y 取负值；encode.color 映射完成状态；axis.y.labelFormatter 显示绝对值"}
+{"id": "mirror-bar-diverging-profit", "prompt": "各产品利润有正有负，想把亏损的产品画在左边、盈利的画在右边，并用颜色区分", "groundTruth": "数据保留带符号的 profit 字段，encode.y 直接映射 profit；encode.color 按 profit >= 0 返回「盈利」/「亏损」；transpose 横向"}
+{"id": "mirror-bar-tornado", "prompt": "做一份调研结果对比，非常满意和不满意两组答案左右排列，类似龙卷风图", "groundTruth": "type: 'interval' + transpose；一组答案的 encode.y 取负值形成左侧；encode.color 映射两组答案"}
+{"id": "mirror-bar-label-abs", "prompt": "对称条形图每个条形末端要显示数量，但左侧不要显示负号", "groundTruth": "labels 的 text 回调用 Math.abs 取绝对值；position 为 'outside'；transpose 后的 interval 条形图"}
+{"id": "mirror-bar-axis-abs", "prompt": "镜像条形图的数值轴刻度全是负数，帮我显示成绝对值", "groundTruth": "axis.y.labelFormatter 使用 Math.abs（返回字符串），只影响刻度展示，不修改数据"}
+{"id": "mirror-bar-color-brand", "prompt": "对称条形图两侧分别用品牌蓝 #5B8FF9 和品牌橙 #F6BD16", "groundTruth": "scale.color.range 设置为 ['#5B8FF9', '#F6BD16']；如顺序需要固定，同时设置 scale.color.domain"}
+{"id": "mirror-bar-sort-total", "prompt": "对称条形图想按每个年龄段男女总人数从多到少排序，直接用 sortX by y 好像不对", "groundTruth": "不要直接用 sortX by y（负值会干扰排序）；先按类别汇总正负两侧的绝对值得到 total，按 total 排序后再绘制"}
+{"id": "mirror-bar-legend-top", "prompt": "对称条形图的图例放到图表顶部，节省右侧空间", "groundTruth": "legend.color.position 设置为 'top'；transpose 后的 interval 对称条形图"}
+{"id": "mirror-bar-tooltip-abs", "prompt": "对称条形图 tooltip 里的数值要显示绝对值，并带上「万元」单位", "groundTruth": "tooltip.items 中设置 valueFormatter，使用 Math.abs 后拼接 '万元'；数据仍保留带符号值用于镜像"}
+{"id": "mirror-bar-cashflow", "prompt": "按渠道对比资金流入和流出，每个渠道左右各一条，流入在右", "groundTruth": "type: 'interval' + transpose；encode.y 对流出取负值；encode.color 映射流入/流出；axis.y 标题与绝对值刻度"}
+{"id": "mirror-bar-percentage", "prompt": "男女比例用百分比展示成对称条形图，数值轴刻度要带 % 号", "groundTruth": "encode.y 一侧取负值；axis.y.labelFormatter 用 Math.abs(d) + '%'（或等价格式化）；数据字段为百分比数值"}
+{"id": "mirror-bar-not-suitable", "prompt": "对比华东、华南、华北三个区域今年的销售额，都是正数，用对称条形图是不是更酷", "groundTruth": "不应使用 mirror-bar；两组数据都是正向、没有相反语义，应使用普通 bar/column 或分组条形图（dodgeX），强行镜像会误导"}
+{"id": "mirror-bar-dark-theme", "prompt": "大屏展示用，做一个暗色主题的对称条形图", "groundTruth": "设置 theme: 'classicDark' 或 'dark'；仍使用 type: 'interval' + transpose + 一侧 y 取负值"}
+{"id": "mirror-bar-rounded", "prompt": "对称条形图的条形末端想加一点圆角，看起来更柔和", "groundTruth": "style.radius 设置为 3~4；transpose 后的 interval 条形图；不影响一侧取负值的镜像逻辑"}

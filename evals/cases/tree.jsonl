@@ -1,0 +1,15 @@
+{"id": "tree-basic-org", "prompt": "帮我画一个公司组织架构图，从总公司往下分研发中心、市场中心、产品中心", "groundTruth": "使用 type: 'tree'；data 为嵌套 children 对象，并用 { type: 'inline', value: treeData } 包裹；encode.value 指向叶子节点的人数/权重字段；style.labelText 用回调读 d.data 展示部门名"}
+{"id": "tree-horizontal", "prompt": "树图要从左往右展开，根节点在最左边，部门名称比较长", "groundTruth": "coordinate 设置 { transform: [{ type: 'transpose' }] } 把层级转为横向；标签用 labelPosition 区分内部节点（left）与叶子节点（right）"}
+{"id": "tree-label-value", "prompt": "树图每个节点旁边显示部门名称和该部门的总人数，内部节点的数字要是子部门之和", "groundTruth": "数值只挂在叶子节点，内部节点由 d3 布局自动累加；style.labelText 回调同时读 d.data.department 和 d.value 拼出文本；labelBackground 设为 true 避免与连线重叠"}
+{"id": "tree-flat-data", "prompt": "后端返回的是 id 和 parentId 的扁平部门列表，怎么用它画树图", "groundTruth": "先在前端按 id 建索引、按 parentId 把节点挂到父节点 children 上，组装成嵌套结构；再以 { type: 'inline', value: tree } 传给 type: 'tree'（5.4.8 不支持 layout.path 直接吃扁平数据）"}
+{"id": "tree-radial", "prompt": "层级比较多的产品模块地图，想画成放射状/圆形的树图", "groundTruth": "coordinate 设置 { type: 'polar' }；根节点位于圆心，层级深度映射为半径；不需要 transpose"}
+{"id": "tree-depth-color", "prompt": "树图里根节点、一级部门、叶子节点用不同颜色区分层级", "groundTruth": "style.nodeFill 传入回调，根据 d.depth 返回不同颜色；叶子节点可用 d.height === 0 判断"}
+{"id": "tree-tooltip", "prompt": "鼠标悬浮到树图节点上时，tooltip 显示部门名称和人数", "groundTruth": "tooltip 按 node/link 前缀配置：tooltip: { nodeTitle: 'name', nodeItems: [{ field: 'value', name: '人数' }] }；顶层的 title/items 对 tree 不生效"}
+{"id": "tree-sort", "prompt": "树图同一层的节点想按子树总人数从小到大排列", "groundTruth": "layout.sortBy 传入比较函数，如 (a, b) => a.value - b.value；a.value 是该节点的子树汇总值"}
+{"id": "tree-link-style", "prompt": "树图的连线颜色太深了，改成浅灰色细线，标签加白色底", "groundTruth": "style 用复合 mark 前缀：linkStroke: '#bfbfbf'、linkLineWidth: 1；标签底色 labelBackground: true + labelBackgroundFill: '#ffffff'"}
+{"id": "tree-no-axis", "prompt": "树图不要显示坐标轴和网格线，只要节点和连线", "groundTruth": "tree 是复合 mark，节点所在 point 默认已关闭 axis/legend，无需额外配置；不要给 tree 配 encode.x / encode.y 或坐标轴相关选项"}
+{"id": "tree-dark", "prompt": "大屏用暗色背景，画一个深色主题的组织架构树", "groundTruth": "theme 设置为 'classicDark'；节点用 nodeFill 亮色、连线用 linkStroke 灰色，标签用 labelFill 浅色保证对比度"}
+{"id": "tree-vs-treemap", "prompt": "我想看各品类占总销售额的比例，用树图行不行", "groundTruth": "占比应使用 type: 'treemap' 矩形树图（面积表达权重）；tree 用于展示层级连接关系，不适合比较占比"}
+{"id": "tree-label-overlap", "prompt": "树图节点标签文字和连线叠在一起看不清", "groundTruth": "style 中设置 labelBackground: true、labelBackgroundFill: '#fff'、labelBackgroundOpacity；用 labelPosition（left/right）与 labelDx 把叶子标签挪到节点外侧"}
+{"id": "tree-migrate-v2", "prompt": "之前用 G2Plot 的 Tree 组件写的组织架构图，现在要迁到新版本", "groundTruth": "改为 import { Chart } from '@antv/g2'；new Chart({ container }) + chart.options({ type: 'tree', data: { type: 'inline', value: treeData } })；不再使用 new Tree()、data.childrenField 等 G2Plot v2 配置"}
+{"id": "tree-node-size", "prompt": "树图的节点圆点太小了，想调大一点", "groundTruth": "tree 内部 point 节点的 encode.size 固定为 2，style.nodeSize 不生效；layout.nodeSize 是 d3 布局间距而非视觉大小；提升可读性应使用 labelBackground / labelFontSize，或改用 treemap 表达规模"}

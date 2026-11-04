@@ -23,6 +23,7 @@ description: G2Plot v3 可视化组件库，提示词即组件。当用户需要
 |---|---|---|---|
 | 趋势变化、走势 | 时间/有序 x + 数值 y | line 折线图 | [charts/line.md](../../charts/line.md) |
 | 多系列趋势对比 | x + y + 系列字段 | line（color 分组） | [charts/line.md](../../charts/line.md) |
+| 按类别拆成多个同构子图（小多图） | 分面字段 + 子图 x/y 字段 | facet 矩形分面图 | [charts/facet.md](../../charts/facet.md) |
 | 类别数值对比 | 类别 x + 数值 y | column 柱状图 | [charts/column.md](../../charts/column.md) |
 | 类别数值对比（横向） | 类别多/名称长 | bar 条形图 | [charts/bar.md](../../charts/bar.md) |
 | 占比、构成 | 类别 + 数值 | pie 饼图 | [charts/pie.md](../../charts/pie.md) |

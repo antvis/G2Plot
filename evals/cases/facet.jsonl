@@ -1,0 +1,12 @@
+{"id": "facet-basic-region", "prompt": "把华东、华南、华北三个区域的月度销售额趋势分别画成子图，横向排列，方便比较各区域走势", "groundTruth": "使用 type: 'facetRect'；父级 data 为长表，encode.x 映射区域字段；children 包含 type: 'line'，子图 encode.x 为月份、encode.y 为销售额"}
+{"id": "facet-row-product", "prompt": "每个产品单独一行展示全年订单量变化，不要把这些线叠在同一个坐标系里", "groundTruth": "使用 facetRect 行分面；父级 encode.y 映射产品字段；children 使用共享的 line 或 interval Mark，子图映射月份和订单量"}
+{"id": "facet-matrix-channel", "prompt": "做一个区域 × 渠道的小多图矩阵，列是区域，行是线上和线下，每格展示季度销售额", "groundTruth": "使用 type: 'facetRect'；父级 encode.x 映射区域、encode.y 映射渠道；children 的 Mark 映射季度与销售额，数据包含区域和渠道组合"}
+{"id": "facet-column-category", "prompt": "按门店分面，每家门店画一张各品类销量的柱状小图", "groundTruth": "父级 facetRect 的 encode.x 或 encode.y 映射门店字段；children 包含 type: 'interval'，子图 encode.x 为品类、encode.y 为销量"}
+{"id": "facet-scatter-group", "prompt": "按客户群拆分散点图，每群单独展示广告花费和收入的关系", "groundTruth": "使用 facetRect 按客户群字段分面；children 包含 type: 'point'，子图 encode.x/y 分别映射广告花费和收入两个数值字段"}
+{"id": "facet-inner-series", "prompt": "每个产品一个趋势子图，子图里再用两种颜色对比实际销售额和预测销售额", "groundTruth": "父级 facetRect 按产品字段分面；children 的 line Mark 中 encode.color 映射实际/预测系列字段，分面字段和系列字段分别配置"}
+{"id": "facet-axis-title", "prompt": "分面折线图的每个子图都要显示坐标轴标题，x 轴是月份，y 轴是营收（万元）", "groundTruth": "在 children 的 line Mark 上配置 axis.x.title 为月份、axis.y.title 为营收（万元）；父级 encode 仍用于分面字段"}
+{"id": "facet-custom-style", "prompt": "按地区分面的销售趋势图使用品牌蓝 #1677FF，折线宽 3px，并加总标题「区域销售趋势」", "groundTruth": "children 的 line Mark 设置 style.stroke 为 #1677FF、lineWidth 为 3；facetRect 父级 title 为对象且 title.title 为区域销售趋势"}
+{"id": "facet-data-inheritance", "prompt": "用同一份长表数据做部门分面，不要为每个部门复制数据或复制一个 Chart", "groundTruth": "只在 facetRect 父级配置完整长表 data；children 的 Mark 不写 data，继承并自动过滤各分面数据；只创建一个 Chart"}
+{"id": "facet-long-table", "prompt": "这份数据有月份、地区、销售额三列，想把每个地区拆成独立趋势图，应该怎么组织数据和配置？", "groundTruth": "保持每行一个月份地区观测的长表；父级 data 使用该数组，facetRect 的 encode.x 或 y 映射地区，children 的 line encode.x/y 映射月份和数值型销售额"}
+{"id": "facet-dark-theme", "prompt": "数据大屏上按业务线拆分访问量趋势小图，整体用暗色主题", "groundTruth": "使用 facetRect 按业务线字段分面，并在父级设置 theme: 'classicDark' 或 'dark'；children 配置共享的趋势 Mark"}
+{"id": "facet-legend-tooltip", "prompt": "各渠道分面内对比新客和老客收入，图例放顶部，tooltip 金额保留两位小数并显示万元", "groundTruth": "facetRect 按渠道分面；子 Mark encode.color 映射客群，legend.color.position 为 top，tooltip.items 的 valueFormatter 使用 toFixed(2) 并包含万元"}

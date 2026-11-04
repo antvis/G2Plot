@@ -11,5 +11,7 @@
 {"id": "chord-top-n-aggregate", "prompt": "有 40 个城市的迁徙数据，直接画和弦图太挤了，怎么处理", "groundTruth": "先在数据侧聚合：按每个城市的流入 + 流出总量排序取 TopN（如 10~12 个），其余合并为「其他」后再用 type: 'chord' 绘制；不要直接画 40 个节点"}
 {"id": "chord-encode-mapping", "prompt": "我的数据字段叫 begin、end、amount，字段名不想改，怎么画和弦图", "groundTruth": "保留原字段名，用 encode: { source: 'begin', target: 'end', value: 'amount' } 映射；data 仍写 { value: { links } }"}
 {"id": "chord-explicit-nodes", "prompt": "和弦图里有一个节点暂时没有流量，也要显示在圆周上，并且固定节点的先后顺序", "groundTruth": "data.value 中显式提供 nodes 数组（形如 { key: '城市名' }）与 links，节点顺序即数组顺序；孤立节点 value 为 0，弧段宽度为 0"}
-{"id": "chord-string-value", "prompt": "后端返回的流量字段是字符串 '12.4'，画出来的和弦图弦带宽度不对", "groundTruth": "渲染前用 Number() 把 value 字段转成 number，再传给 data: { value: { links } }；chord 的弦带宽度依赖数值权重"}
+{"id": "chord-zero-weight", "prompt": "有一条迁徙记录的数值是 0，画出来却还有一条很细的弦，怎么让它完全不显示", "groundTruth": "chord 布局对权重有 `|| 1` 兜底，value 为 0 的边会被当作 1 绘制；应在数据侧过滤掉 0 值边，而不是依赖 chord 自动隐藏"}
 {"id": "chord-no-axis", "prompt": "和弦图能不能加个 x 轴图例，标一下每个节点", "groundTruth": "chord 没有 x/y 坐标轴，axis 配置不生效；节点信息由圆弧外侧的标签（style.labelFontSize / labelFill）和颜色区分，无需设置图例或坐标轴"}
+{"id": "chord-tooltip-unit", "prompt": "和弦图悬停弦带时想看到「北京 → 上海，12.4 万人」，悬停城市时看总流量", "groundTruth": "tooltip 用平铺前缀：tooltip.linkTitle 回调拼 `${d.source} → ${d.target}`、linkItems 的 name 写单位；nodeTitle/nodeItems 配置节点提示；不是嵌套的 tooltip.link"}
+{"id": "chord-style-prefix", "prompt": "和弦图弦带太实了，想调半透明、标签加粗，样式怎么写", "groundTruth": "chord 的 style 按作用对象加前缀：style.linkFillOpacity（0.4~0.7）、style.labelFontWeight: 'bold'；无前缀的 fillOpacity / fontWeight 会被丢弃"}

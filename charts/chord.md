@@ -20,9 +20,9 @@
 
 - 长表边列表，每行一条关系：`{ source, target, value }`
 - `source` / `target`：节点名字符串；**同一实体在每条边里的写法必须完全一致**（`'北京'` 与 `'北京市'` 会被当成两个节点）
-- `value`：数值（number）权重，决定弦带宽度与节点弧长；0 或负数不产生可见弦带
+- `value`：正数值（number）权重，决定弦带宽度与节点弧长；布局对权重有 `|| 1` 兜底，`0` 会被当作 1 画出一条极细的弦，负数会让弧长计算异常，应在数据侧过滤
 - 字段名可自定义，用 `encode.source` / `encode.target` / `encode.value` 映射，优先保留业务语义（如 `from` / `to` / `migrants`）
-- 数据容器写成 `{ value: { links } }`：外层 `value` 是 data connector 字段，不是权重
+- 数据容器写成 `{ value: { links } }`：外层 `value` 是 data connector 字段，不是权重；直接传 `links` 数组也能渲染，但无法同时附带 `nodes`
 - 节点默认由边自动推导；需要固定顺序或加入孤立节点时才额外提供 `nodes: [{ key: '北京' }]`
 - 推荐节点 5 ~ 15 个、边 10 ~ 40 条；节点过多时先聚合
 
@@ -75,6 +75,7 @@ chart.render();
 | 自定义配色 + 节点排序 | `scale.color.range`、`layout.sortBy: 'weight'` | [custom-style.ts](../examples/chord/custom-style.ts) |
 | 双向互流 | 同一对节点各写一条 `source` / `target` 相反的边 | [bidirectional.ts](../examples/chord/bidirectional.ts) |
 | 暗色大屏 | `theme: 'classicDark'` + 浅色标签 | [dark-theme.ts](../examples/chord/dark-theme.ts) |
+| 自定义 tooltip | `tooltip.linkTitle/linkItems/nodeTitle/nodeItems` | [with-tooltip.ts](../examples/chord/with-tooltip.ts) |
 
 自定义配色与节点排序核心差异（按总流量从大到小排列节点，便于阅读主要流向）：
 
@@ -102,6 +103,17 @@ chord 是复合 mark，`style` 用前缀区分作用对象：`link*` 作用于�
 | 标签透明度 | `style: { labelFillOpacity: 0.8 }` | |
 | 内置主题 | `theme: 'classicDark'` | 暗色场景自动适配背景与文字 |
 
+tooltip 同样按前缀平铺（不是嵌套对象）：`link*` 作用于弦带、`node*` 作用于节点，完整示例见 [with-tooltip.ts](../examples/chord/with-tooltip.ts)：
+
+```ts-snippet
+tooltip: {
+  linkTitle: (d) => `${d.source} → ${d.target}`,
+  linkItems: [{ field: 'value', name: '迁徙人数（万人）' }],
+  nodeTitle: '城市',
+  nodeItems: [{ field: 'value', name: '总流量（万人）' }],
+},
+```
+
 ## 易错点（v4 → v5）
 
 | ❌ 错误（幻觉高发） | ✅ 正确 |
@@ -113,9 +125,10 @@ chord 是复合 mark，`style` 用前缀区分作用对象：`link*` 作用于�
 | 用 chord 画单向分层流转（A → B → C） | 用 `type: 'sankey'` 桑基图 |
 | 节点超过 15 个还硬画，标签与弦带互相遮挡 | 先按总量聚合 TopN，或改用关系图 |
 | 节点名不统一（`'北京'` / `'北京市'`） | 渲染前统一命名，否则会被拆成两个节点 |
-| `value` 为字符串数字 `'12.4'` | 先 `Number()` 转换，否则弦带宽度计算异常 |
+| 边权重写 `0` 却期望完全不可见 | 布局对权重有 `|| 1` 兜底，0 会画成极细的弦；不需要的边先过滤 |
+| `style: { fillOpacity: 0.4 }` / `style: { fontSize: 12 }`（无前缀，被丢弃） | 按作用对象加前缀：`linkFillOpacity`、`labelFontSize`、`nodeStroke` |
+| `tooltip: { link: { items: [] } }`（嵌套写法不生效） | `tooltip: { linkItems: [] }`，平铺前缀 |
 | `scale: { color: { palette: [...数组] } }` | `palette` 只接受调色板名字符串；颜色数组用 `range: [...]` |
-| 弦带不透明度保持 1，多条弦互相遮挡 | `style: { linkFillOpacity: 0.5 }` |
 | 期待坐标轴、图例、x/y 通道 | chord 无坐标轴；节点分类由颜色与标签表达 |
 | 忘记 `chart.render()` | 配置完 spec 后必须调用 |
 
@@ -131,3 +144,4 @@ chord 是复合 mark，`style` 用前缀区分作用对象：`link*` 作用于�
 | [custom-style.ts](../examples/chord/custom-style.ts) | 部门协作工单量，品牌配色与节点排序 | `scale.color.range`、`layout.nodeWidthRatio/nodePaddingRatio/sortBy`、`style.link*/label*` |
 | [bidirectional.ts](../examples/chord/bidirectional.ts) | 城市往返迁徙，区分去程与返程 | `source` / `target` 互换的两条边、`layout.nodePaddingRatio` |
 | [dark-theme.ts](../examples/chord/dark-theme.ts) | 监控大屏展示服务调用量 | `theme: 'classicDark'`、`style.linkFillOpacity`、`style.labelFill` |
+| [with-tooltip.ts](../examples/chord/with-tooltip.ts) | 弦带/节点提示带单位，区分流向与总量 | `tooltip.linkTitle/linkItems/nodeTitle/nodeItems` |

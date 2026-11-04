@@ -1,0 +1,15 @@
+{"id": "chord-city-migration", "prompt": "我有一份城市之间的人口迁徙数据，想看看哪些城市之间流动最密切，用和弦图展示", "groundTruth": "使用 type: 'chord'；数据为边列表，每行含 from / to / migrants 字段，并用 data: { value: { links } } 包裹；encode 映射 source: 'from'、target: 'to'、value: 'migrants'；chord 没有 x/y 坐标轴"}
+{"id": "chord-trade-flow", "prompt": "展示中国、美国、日本、韩国之间的进出口贸易额，要看双向流量和每个国家的贸易总量", "groundTruth": "使用 type: 'chord'；边数据含出口国 / 进口国 / 贸易额，encode.source/target/value 映射；用 scale.color.range 区分国家；节点外弧长度体现该国进出口总量"}
+{"id": "chord-team-collaboration", "prompt": "统计前端、后端、设计、产品、测试几个团队之间的协作工单量，做一个团队协作关系图", "groundTruth": "使用 type: 'chord'；边数据含 team / partner / tickets；encode 映射 source/target/value；可用 layout.sortBy: 'weight' 按协作总量排序节点"}
+{"id": "chord-service-calls", "prompt": "微服务架构里网关、订单、库存、支付、风控之间有调用关系，想用环形关系图展示调用量", "groundTruth": "使用 type: 'chord'；边数据含 caller / callee / calls，encode 映射 source/target/value；用 style.linkFillOpacity 降低弦带不透明度避免遮挡"}
+{"id": "chord-bidirectional", "prompt": "北京到上海和上海到北京的迁徙人数不一样，想在同一个图里分别看出两个方向的流量", "groundTruth": "使用 type: 'chord'；同一对节点写两条 source/target 相反的边（A→B 与 B→A 各一条），value 分别取各自方向的数值；节点由边自动合并，无需重复声明 nodes"}
+{"id": "chord-custom-color", "prompt": "和弦图想用我们品牌的 5 个颜色 #5B8FF9 #5AD8A6 #F6BD16 #E8684A #6DC8EC 区分节点", "groundTruth": "scale.color 设置 type: 'ordinal' 且用 range 数组传品牌色；不能用 palette 传数组（palette 只接受调色板名字符串）"}
+{"id": "chord-node-sort", "prompt": "和弦图节点顺序有点乱，希望按总流量从大到小排列，方便看主要流向", "groundTruth": "layout.sortBy 设置为 'weight'（按节点总权重降序）；可选 nodeWidthRatio / nodePaddingRatio 调整节点弧宽与间距"}
+{"id": "chord-link-overlap", "prompt": "弦带太多了叠在一起看不清，能不能让连接带半透明一点、再加个描边区分", "groundTruth": "style.linkFillOpacity 设置 0.4~0.7 的透明度；style.linkStroke 设置描边颜色（如 '#fff'）"}
+{"id": "chord-dark-theme", "prompt": "大屏用暗色背景，画一个暗色主题的和弦图，标签文字要看得清", "groundTruth": "设置 theme: 'classicDark'；style.labelFill 用浅色（如 '#E8E8E8'），linkFillOpacity 约 0.5；不要手动设置背景色和坐标轴"}
+{"id": "chord-vs-sankey", "prompt": "用户从曝光到点击到加购到下单是逐级递减的转化漏斗，想看清楚每一级流失了多少", "groundTruth": "这是单向分层流转，应使用 type: 'sankey' 桑基图而不是 chord；chord 适合节点之间的双向互流"}
+{"id": "chord-top-n-aggregate", "prompt": "有 40 个城市的迁徙数据，直接画和弦图太挤了，怎么处理", "groundTruth": "先在数据侧聚合：按每个城市的流入 + 流出总量排序取 TopN（如 10~12 个），其余合并为「其他」后再用 type: 'chord' 绘制；不要直接画 40 个节点"}
+{"id": "chord-encode-mapping", "prompt": "我的数据字段叫 begin、end、amount，字段名不想改，怎么画和弦图", "groundTruth": "保留原字段名，用 encode: { source: 'begin', target: 'end', value: 'amount' } 映射；data 仍写 { value: { links } }"}
+{"id": "chord-explicit-nodes", "prompt": "和弦图里有一个节点暂时没有流量，也要显示在圆周上，并且固定节点的先后顺序", "groundTruth": "data.value 中显式提供 nodes 数组（形如 { key: '城市名' }）与 links，节点顺序即数组顺序；孤立节点 value 为 0，弧段宽度为 0"}
+{"id": "chord-string-value", "prompt": "后端返回的流量字段是字符串 '12.4'，画出来的和弦图弦带宽度不对", "groundTruth": "渲染前用 Number() 把 value 字段转成 number，再传给 data: { value: { links } }；chord 的弦带宽度依赖数值权重"}
+{"id": "chord-no-axis", "prompt": "和弦图能不能加个 x 轴图例，标一下每个节点", "groundTruth": "chord 没有 x/y 坐标轴，axis 配置不生效；节点信息由圆弧外侧的标签（style.labelFontSize / labelFill）和颜色区分，无需设置图例或坐标轴"}

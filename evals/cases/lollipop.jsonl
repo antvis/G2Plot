@@ -1,0 +1,16 @@
+{"id": "lollipop-basic-channel", "prompt": "运营后台想看各获客渠道带来的订单量，类别只有六七个，柱状图感觉太笨重，想要更轻一点的表达", "groundTruth": "使用 type: 'view' 组合 link（茎）与 point（糖头）；link 的 encode.x 传 ['channel','channel']，encode.y 传 ['baseline','orders']；数据每行含 baseline: 0"}
+{"id": "lollipop-horizontal-dept", "prompt": "我们部门名称都很长（客户成功部、供应链管理部这类），画棒棒糖图时 x 轴标签全叠在一起了，怎么办", "groundTruth": "改为横向：数值字段走 x 通道、类别字段走 y 通道；link 的 encode.x 为 ['baseline','headcount']，encode.y 为 ['department','department']"}
+{"id": "lollipop-sorted-rank", "prompt": "做一个文章阅读量 Top 6 的排行榜，长的排上面，棒棒糖图形式", "groundTruth": "数据侧按阅读量降序 sort 后再渲染；使用 view + link + point；x 为文章标题、y 为阅读量，含 baseline: 0"}
+{"id": "lollipop-value-label", "prompt": "棒棒糖图上每个点的具体数值也要标出来，不然读者还得对刻度", "groundTruth": "在 point mark 上配置 labels，text 指向数值字段，position 为 'top'（横向时为 'right'），可配 dy 微调"}
+{"id": "lollipop-dumbbell-target", "prompt": "我想对比五个大区的实际达成和目标值，用一根线把两个点连起来那种图", "groundTruth": "使用 view + 一条 link 连接 target 与 actual 两字段（encode.x: ['region','region']，encode.y: ['target','actual']）+ 两个 point mark 分别标记 actual 和 target，两个点颜色不同"}
+{"id": "lollipop-color-brand", "prompt": "棒棒糖图要换成我们的品牌色 #FF6B35，茎和圆点都用这个色", "groundTruth": "link 用 style.stroke: '#FF6B35'（线段颜色走 stroke 不是 fill），point 用 style.fill: '#FF6B35'；单系列不需要 color 通道"}
+{"id": "lollipop-stem-thin", "prompt": "棒棒糖图的竖线太粗了，想更细一点，圆点也小一点", "groundTruth": "link 的 style.lineWidth 调小（如 1~2），point 的 style.r 调小（如 3~4）；r 写在 style 里"}
+{"id": "lollipop-dashed-stem", "prompt": "预测值的棒棒糖用虚线茎，和实际值区分开", "groundTruth": "对应 link mark 的 style 加 lineDash（如 [4,4]），实际值那组用实线；两组可拆成不同 link mark 或按 color 分组"}
+{"id": "lollipop-dot-hollow", "prompt": "棒棒糖的圆点想要空心带描边的效果，不要实心", "groundTruth": "point 默认 shape 为空心圆、颜色走 stroke；显式设置 style.stroke 为颜色、style.fill 为 'transparent'（或不设 fill）"}
+{"id": "lollipop-tooltip-unit", "prompt": "悬浮提示里显示「人」单位，并且保留千分位", "groundTruth": "tooltip.items 中给对应项设置 valueFormatter，使用 toLocaleString 等千分位格式化并拼接 '人'；title 取类别字段"}
+{"id": "lollipop-dark-screen", "prompt": "大屏用暗色背景，棒棒糖图要适配暗色主题", "groundTruth": "设置 theme: 'classicDark'（或 'dark'）；茎与糖头颜色选浅色，坐标轴/图例文字由主题自动适配"}
+{"id": "lollipop-close-legend", "prompt": "单系列的棒棒糖图不需要图例，帮我把图例去掉腾出空间", "groundTruth": "设置 legend: false（或 legend: { color: false }）"}
+{"id": "lollipop-baseline-zero", "prompt": "棒棒糖的线要从 0 开始往上画，不要从最小值开始悬空", "groundTruth": "数据中加 baseline: 0 字段，link 的 encode.y 传 ['baseline','value']；G2 没有隐式零起点，需要显式字段"}
+{"id": "lollipop-too-many-categories", "prompt": "我有 40 个城市的数据，想用棒棒糖图展示用户数", "groundTruth": "类别过多不适合棒棒糖（茎会拥挤），应改用 bar 条形图（横向、可滚动/分词）；如坚持棒棒糖需先筛 Top N"}
+{"id": "lollipop-not-native-mark", "prompt": "G2 v5 里直接写 type: 'lollipop' 为什么图表是空白的", "groundTruth": "G2 v5 没有 lollipop mark；必须用 type: 'view' + children 组合 link 与 point 实现，link 的 x/y 传 [起点,终点] 数组"}
+{"id": "lollipop-multi-group", "prompt": "同一批渠道要对比今年和去年两组数据的棒棒糖图，用颜色区分年份", "groundTruth": "使用 encode.color 映射年份字段（如 color: 'year'），配合 scale.color.range 指定两色；两个年份各一条 link + point，或哑铃式两端对比"}

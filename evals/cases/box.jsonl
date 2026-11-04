@@ -1,0 +1,14 @@
+{"id": "box-basic-salary", "prompt": "把研发、设计、市场、运营四个部门每个员工的月薪分布画出来，一眼看出各组的薪资中位数和离散程度", "groundTruth": "使用 type: 'boxplot'；encode.x 为部门、encode.y 为月薪；每行一个员工观测值，分位数与异常值由 boxplot 自动计算，不要预先聚合"}
+{"id": "box-grouped-region", "prompt": "对比华东和华北两个地区在 1 到 3 月的订单金额分布，每个地区一个箱体并排显示", "groundTruth": "type: 'boxplot'；encode 为 { x: 'month', y: 'orderValue', color: 'region', series: 'region' }；color 负责配色、series 负责并排偏移，只写 color 会导致箱体重叠"}
+{"id": "box-outlier-highlight", "prompt": "接口响应耗时里有几个特别大的值，箱线图要把离群点标出来，并用红色圆点突出", "groundTruth": "type: 'boxplot' 默认 point: true，按 1.5 × IQR 规则自动标出离群点；用 style.pointFill 设为红色、style.pointR 控制半径，不要用不存在的 outlierFill"}
+{"id": "box-hide-points", "prompt": "我只想要干净的箱体，不要那些离群散点", "groundTruth": "设置 style: { point: false } 关闭离群点 mark；同时说明须的定义会从 1.5 × IQR 变成最小值/最大值，type 仍为 'boxplot'"}
+{"id": "box-precomputed-five-number", "prompt": "我已经算好了每个部门的最小值、Q1、中位数、Q3、最大值，直接拿这些统计量画箱线图", "groundTruth": "使用 type: 'box'（单 mark）并显式 encode y=最小值、y1=Q1、y2=中位数、y3=Q3、y4=最大值；不要用 boxplot，也不要把 y 当成中位数"}
+{"id": "box-log-scale", "prompt": "接口耗时从 5ms 到 3000ms 跨度太大，箱体全挤在一起看不清，换个比例尺", "groundTruth": "type: 'boxplot' + scale: { y: { type: 'log' } } 压缩长尾；log 要求所有 y > 0，需提醒过滤 0 与负值"}
+{"id": "box-log-nonpositive", "prompt": "耗时数据里有 0 毫秒的记录，我想用对数坐标轴画箱线图", "groundTruth": "log 比例尺不接受 0 与负数；先过滤或给非正值加偏移再用 scale.y.type: 'log'，否则改用线性比例尺，不要直接开 log"}
+{"id": "box-horizontal", "prompt": "部门名称比较长，箱线图想做成横向的，类别放 y 轴", "groundTruth": "type: 'boxplot'；encode 改为 x 为数值字段、y 为类别字段，并加 coordinate: { transform: [{ type: 'transpose' }] }"}
+{"id": "box-not-enough-samples", "prompt": "每个部门只有 2 个员工的薪资，我想用箱线图比较各部门薪资分布", "groundTruth": "不推荐箱线图：样本量不足时四分位数没有统计意义，箱体退化成一条线；应改用 column 直接展示原始值，并说明选型理由"}
+{"id": "box-vs-histogram", "prompt": "我想看这次考试分数的分布形状，判断是不是双峰，用箱线图可以吗", "groundTruth": "不推荐：箱线图只给五数概括，看不出双峰/长尾形状；应改用 histogram 直方图，箱线图只适合组间分布汇总对比"}
+{"id": "box-style-prefix", "prompt": "箱线图的箱体要浅蓝填充、深蓝边框，中位数线和须线颜色能不能单独调", "groundTruth": "type: 'boxplot'；style.boxFill/boxFillOpacity 与 boxStroke/boxLineWidth 控制箱体，箱体、须、中位数共用一条 path，G2 5.4 无法单独设置中位数线或须线颜色，需说明该限制"}
+{"id": "box-tooltip-channels", "prompt": "箱线图悬停时用中文显示最小值、Q1、中位数、Q3、最大值", "groundTruth": "复合 mark 用 tooltip.boxItems 配置 5 项，channel 依次为 y（下须）、y1（Q1）、y2（中位数）、y3（Q3）、y4（上须）；直接写 tooltip.items 会被丢弃"}
+{"id": "box-vs-line-trend", "prompt": "我想看过去 12 个月的销售额趋势，是不是该用箱线图", "groundTruth": "不该：单个指标随时间的走势用 line 折线图；箱线图用于同一类别下多组观测值的分布对比，不用于时间趋势"}
+{"id": "box-zero-baseline", "prompt": "箱线图看着都挤在图顶部，是不是要把 y 轴强制从 0 开始", "groundTruth": "不要设置 scale.y.zero: true；箱线图默认不强制 0 基线，强制归零会把箱体压到顶部；应检查数据是否有极端离群值，或用 log 比例尺"}

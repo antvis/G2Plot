@@ -1,0 +1,15 @@
+{"id": "ring-progress-basic", "prompt": "做一个项目完成率 72% 的环形进度条，中间显示百分比", "groundTruth": "使用 type: 'view'，children 包含 interval 和 text；interval 用 transform: [{ type: 'stackY' }] + coordinate: { type: 'theta', innerRadius: 0.76, outerRadius: 0.94 }；数据两行（已完成 72 / 未完成 28）；中心 text 用 style.x/style.y 为 '50%'，textAlign/textBaseline 居中"}
+{"id": "ring-progress-semicircle", "prompt": "要一个仪表盘样式的半环进度，展示季度 KPI 达成度 68%", "groundTruth": "theta 坐标系设置 startAngle: Math.PI、endAngle: Math.PI * 2，只保留上半圆；innerRadius/outerRadius 控制环宽；中心叠加两个 text mark 分别显示 68% 和说明文案"}
+{"id": "ring-progress-threshold", "prompt": "预算使用率 92%，超过 80% 就变红预警，用环形进度展示", "groundTruth": "进度颜色由业务阈值计算（如 >=80 绿色、>=60 橙色、否则红色），通过 scale.color.range: [progressColor, 底色] 应用；两段数据 sum 为 100；中心文案同步显示状态"}
+{"id": "ring-progress-no-legend", "prompt": "环形进度条不需要图例，只想看一个进度", "groundTruth": "设置 legend: false；数据仍是「已完成 / 剩余」两段，但只用进度色和底环色区分，不展示分类图例"}
+{"id": "ring-progress-track-color", "prompt": "进度环的底环用浅灰色，进度用品牌蓝 #1677FF", "groundTruth": "scale.color.range 设置 ['#1677FF', '#E8EDF3']，数组顺序与数据行顺序一致（第一行进度段、第二行底环段）；coordinate theta + innerRadius 形成环"}
+{"id": "ring-progress-thickness", "prompt": "环做得细一点，看起来更精致", "groundTruth": "调整 coordinate.innerRadius 与 outerRadius 的差值（如 innerRadius: 0.85、outerRadius: 0.95），差值越小环越细；不能把 innerRadius 设成大于等于 outerRadius"}
+{"id": "ring-progress-unit", "prompt": "环形进度中间显示 1.2 万 / 3 万，不要百分比", "groundTruth": "由 value/target 计算比例作为 interval 的 y 值与 stackY 分段；中心 text 内容用模板字符串或 text 回调输出业务数值和单位；tooltip.items 用 valueFormatter 补充单位"}
+{"id": "ring-progress-two-metrics", "prompt": "一个页面放三个环形进度：任务完成率、预算使用率、服务可用性", "groundTruth": "每个指标创建一个独立的 Chart 实例（各自 container），不要在一个环里堆多组数据；每个环内部仍是「已完成 / 剩余」两段 + 中心 text"}
+{"id": "ring-progress-vs-pie", "prompt": "我有 5 个渠道的流量占比，想用环形进度条画出来", "groundTruth": "应改用 pie 环形图：interval + transform stackY + coordinate theta + innerRadius，encode.color 映射渠道类别并保留图例；进度环只适用于单指标两段（进度 + 剩余）"}
+{"id": "ring-progress-vs-gauge", "prompt": "想要 0-100 刻度、带指针指示当前值的仪表盘", "groundTruth": "使用 type: 'gauge'（radial 坐标系 + 刻度 + 指针）；ring-progress 只有弧长表达比例，没有刻度与指针"}
+{"id": "ring-progress-liquid", "prompt": "想要水波填充的百分比球，像水位一样起伏", "groundTruth": "使用 type: 'liquid'；环形进度条是实心弧形填充，没有水波效果"}
+{"id": "ring-progress-start-angle", "prompt": "环从 12 点方向开始顺时针画，这个默认满足吗", "groundTruth": "满足：coordinate theta 默认 startAngle 为 -Math.PI / 2（12 点方向）并顺时针画满；不要改用 polar 坐标系"}
+{"id": "ring-progress-dark", "prompt": "大屏暗色背景下的环形进度条", "groundTruth": "设置 theme: 'classicDark'；底环色改为深色背景可辨识的灰（而不是浅灰），中心文字 fill 调亮；仍用 theta + innerRadius + stackY"}
+{"id": "ring-progress-animation", "prompt": "页面加载时进度环从 0 展开到 72%，要有点动画", "groundTruth": "interval 设置 animate: { enter: { type: 'waveIn', duration: 800 } }（极坐标弧形展开）；不需要动画时设 animate: false"}
+{"id": "ring-progress-zero", "prompt": "完成率是 0 的时候也要显示一个空环和 0%", "groundTruth": "数据仍保留两行（0 / 100）以渲染完整底环；中心 text 显示 0%；不要因为进度为 0 就省略数据行"}

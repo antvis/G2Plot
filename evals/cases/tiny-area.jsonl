@@ -1,0 +1,12 @@
+{"id": "tiny-area-basic-card", "prompt": "在运营指标卡里画一块迷你面积图，展示最近 10 天每日活跃用户的走势和量级，不需要坐标轴", "groundTruth": "使用 @antv/g2 的 Chart 和 type: 'area'；encode.x 映射日期、encode.y 映射活跃用户数；axis.x 和 axis.y 均为 false；数据内联且字段有业务语义"}
+{"id": "tiny-area-table-trend", "prompt": "商品列表每一行都要放一个近 7 天销量小面积趋势图，只看走向和量感，不占太多空间", "groundTruth": "选择 tiny-area 而非完整面积图；使用 area mark + 有序日期 x + 数值销量 y；关闭 x/y 坐标轴和图例，保持紧凑布局"}
+{"id": "tiny-area-smooth-temperature", "prompt": "天气卡片里用一小块平滑曲线面积展示今天逐三小时的气温变化", "groundTruth": "使用 type: 'area'，encode 包含 x: 'hour'、y: 'temperature' 和 shape: 'smooth'；axis.x/y 为 false；数据为自包含的小时与温度数值"}
+{"id": "tiny-area-brand-gradient", "prompt": "做一个品牌色为 #FF6B35 的迷你营收趋势图，用从上到下的渐变填充放在看板卡片里", "groundTruth": "type: 'area'；style.fill 为 linear-gradient(180deg, ...) 渐变字符串；关闭坐标轴；autoFit 为 true；不使用 G2Plot v2 的 color 或 TinyArea API"}
+{"id": "tiny-area-fill-opacity", "prompt": "迷你面积图的填充色太重，把透明度调到 0.4，其他辅助元素都不要", "groundTruth": "style.fillOpacity 设置为 0.4；axis.x/y 为 false，legend 为 false；保留 type: 'area' 和 x/y encode"}
+{"id": "tiny-area-hide-components", "prompt": "画一块纯面积趋势，不要 x 轴、y 轴、图例和数据点，只展示过去一个月的订单波动", "groundTruth": "使用 type: 'area' 而非 view + point；axis: { x: false, y: false } 且 legend: false；encode 映射日期和订单量"}
+{"id": "tiny-area-disable-tooltip", "prompt": "表格里的迷你访问趋势只作视觉参考，鼠标悬停时不要出现 tooltip", "groundTruth": "在 area mark spec 中显式设置 tooltip: false；同时使用 axis.x/y: false 保持迷你面积形态"}
+{"id": "tiny-area-tooltip-format", "prompt": "卡片里的迷你营收趋势默认很简洁，但悬停时要显示日期和以万元为单位、保留两位小数的营收", "groundTruth": "不要设置 tooltip: false；tooltip.title 映射日期，tooltip.items 配置 y 通道或营收字段，并用 valueFormatter 添加万元和 toFixed(2)"}
+{"id": "tiny-area-auto-fit", "prompt": "迷你面积图要随表格列宽自适应，容器由 CSS 设置高度，不要写死图表宽高", "groundTruth": "new Chart({ container: 'container', autoFit: true })；不写死 width/height；说明容器需要非零 CSS 高度；最后调用 chart.render()"}
+{"id": "tiny-area-null-data", "prompt": "最近一周的访问量有两天缺失，迷你面积图在缺失处断开，不要当成 0", "groundTruth": "缺失日期的访问量字段使用 null 而非 0；使用 area mark，保持默认 connect: false 或显式 style.connect: false；其余点仍按日期顺序绘制"}
+{"id": "tiny-area-vs-full-area", "prompt": "我需要准确读取每天的销售额和坐标刻度，还要对比三个区域的构成，应该用迷你面积图吗", "groundTruth": "不应选择 tiny-area；改用带坐标轴的多系列 area + encode.color 映射区域 + transform: [{ type: 'stackY' }]；说明 tiny-area 适合紧凑空间内看单系列整体趋势与量级而非精确读数"}
+{"id": "tiny-area-top-edge", "prompt": "迷你面积图想要填充上面再压一条清晰的边缘线，直接给 area 加 stroke 可以吗", "groundTruth": "不应在 area 上用 style.stroke 描边（会包裹整个区域）；改用 type: 'view'，children 叠加 area（低 fillOpacity 填充）与 line（stroke/lineWidth），两者 encode 一致，并保持坐标轴与图例关闭"}

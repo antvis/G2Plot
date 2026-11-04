@@ -1,0 +1,12 @@
+{"id": "jitter-basic-distribution", "prompt": "比较桌面端、移动端和平板端的页面加载耗时分布，每个设备都有多次采样，希望看到每个原始点", "groundTruth": "使用 type: 'point'；x 映射设备类别，y 映射数值耗时；mark 级 transform 包含 { type: 'jitterX' }；每行是一条原始观测"}
+{"id": "jitter-repeated-values", "prompt": "各门店有多条顾客评分记录，很多评分相同，点画出来全叠在一起了，帮我散开但别改评分值", "groundTruth": "使用 point + jitterX，仅对门店分类轴方向添加视觉偏移；y 仍映射原始评分字段，不修改或聚合源数据"}
+{"id": "jitter-horizontal", "prompt": "横向展示几个仓库的配送时长分布，仓库名称放在 y 轴，点上下错开", "groundTruth": "x 映射配送时长数值，y 映射仓库类别；transform 使用 { type: 'jitterY' } 而不是 jitterX"}
+{"id": "jitter-boxplot-overlay", "prompt": "画各部门薪资分布，既要看箱线图的中位数和四分位数，也要保留每个员工的数据点", "groundTruth": "使用 type: 'view' 和共享数据；children 同时包含 boxplot 与 point；point 配置 jitterX，二者 x/y 字段一致"}
+{"id": "jitter-color-group", "prompt": "按产品类别展示用户客单价分布，并用不同颜色区分类别", "groundTruth": "使用 point + jitterX；encode.color 映射产品类别字段；x 为类别，y 为客单价数值"}
+{"id": "jitter-padding", "prompt": "分类散点的横向抖动范围需要收窄一些，给类别边缘留些空白", "groundTruth": "jitterX transform 中设置 0 到 0.5 之间的 padding，例如 padding: 0.2；transform 位于 point mark 配置层级"}
+{"id": "jitter-opacity-size", "prompt": "抖动散点有点拥挤，把点设小一些并加透明度，缓解遮挡", "groundTruth": "point 使用 encode.size 设置较小固定点径，并通过 style.fillOpacity 设置小于 1 的透明度；保留 jitterX 或 jitterY"}
+{"id": "jitter-custom-colors", "prompt": "三组实验样本的测量值用抖动图展示，配色分别用 #5B8FF9、#5AD8A6、#F6BD16", "groundTruth": "encode.color 映射实验组字段；scale.color.range 设置为指定的三个颜色数组；使用 point + jitterX"}
+{"id": "jitter-reproducible", "prompt": "报告每次重新渲染时散点位置都不一样，希望抖动结果可以复现", "groundTruth": "在 jitterX/jitterY transform 的 random 配置中传入自定义固定种子伪随机函数，而不是直接使用 Math.random"}
+{"id": "jitter-two-categorical", "prompt": "x 和 y 都是离散类别，交叉位置有大量重复点，希望两个方向都随机散开", "groundTruth": "使用 point mark，x/y 均映射类别字段；transform 使用 { type: 'jitter' }，或组合 jitterX 与 jitterY"}
+{"id": "jitter-axis-tooltip", "prompt": "做客服首次响应时长抖动图，y 轴标题写「响应时间（分钟）」，tooltip 显示原始响应时间", "groundTruth": "axis.y.title 设置为「响应时间（分钟）」；point + jitterX 保留原始数据；tooltip 指向原始响应时间数值字段"}
+{"id": "jitter-outliers", "prompt": "比较多个批次的零件误差，既要观察每批集中在哪里，也要识别异常离群点", "groundTruth": "每行保留一个零件的原始误差观测；x 为批次、y 为误差值；point + jitterX 展示离散程度与离群点，不只绘制每批均值"}

@@ -28,6 +28,7 @@ description: G2Plot v3 可视化组件库，提示词即组件。当用户需要
 | 占比、构成 | 类别 + 数值 | pie 饼图 | [charts/pie.md](../../charts/pie.md) |
 | 趋势 + 累积量 | 时间 x + 数值 y | area 面积图 | [charts/area.md](../../charts/area.md) |
 | 双变量相关性 | 两个数值字段 | scatter 散点图 | [charts/scatter.md](../../charts/scatter.md) |
+| 分类下原始观测分布、减少点重叠 | 类别 x + 数值 y + 每类多个观测 | jitter 抖动图 | [charts/jitter.md](../../charts/jitter.md) |
 | 两个量级不同的指标 | 时间 x + 双数值 y | dual-axes 双轴图 | [charts/dual-axes.md](../../charts/dual-axes.md) |
 | 多维能力对比 | 多维度数值 | radar 雷达图 | [charts/radar.md](../../charts/radar.md) |
 | 密度/频率分布 | 两个类别 + 数值 | heatmap 热力图 | [charts/heatmap.md](../../charts/heatmap.md) |

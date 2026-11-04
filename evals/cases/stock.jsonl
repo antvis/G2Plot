@@ -1,0 +1,12 @@
+{"id": "stock-basic-kline", "prompt": "帮我画一只股票最近 10 个交易日的 K 线图，数据有开盘价、收盘价、最高价、最低价", "groundTruth": "G2 v5 没有 stock/candlestick mark；使用 type: 'view' + 两个 type: 'link' children：影线 encode: { x: 'date', y: 'low', y1: 'high' }，实体 encode: { x: 'date', y: 'open', y1: 'close' } 并加大 lineWidth"}
+{"id": "stock-rise-fall-color", "prompt": "K 线要红涨绿跌：收盘价高于开盘价用红色，低于开盘价用绿色", "groundTruth": "影线与实体的 style.stroke 用回调函数按 datum 取色，如 (d) => d.close >= d.open ? '#EF5350' : '#26A69A'；不能用 color 字段分组或 seriesField"}
+{"id": "stock-ma-overlay", "prompt": "在这段 K 线图上叠加 5 日和 10 日均线，用不同颜色区分", "groundTruth": "在数据层计算 MA5/MA10 字段（窗口不足处传 null），同一 view 的 children 追加两条 type: 'line'，encode: { x: 'date', y: 'ma5' } / y: 'ma10'，style.stroke 用不同颜色（可配 lineDash）"}
+{"id": "stock-volume-subchart", "prompt": "K 线图下面加一个成交量柱状副图，上下两个图共用日期轴", "groundTruth": "使用 type: 'spaceFlex' + direction: 'col' + ratio: [3, 1]，children 为两个 type: 'view'：上图两个 link 画 K 线（axis: { x: false }），下图 type: 'interval' + encode: { x: 'date', y: 'volume' }，成交量柱颜色也可按涨跌回调"}
+{"id": "stock-tooltip-ohlc", "prompt": "鼠标悬停时 tooltip 显示当天的开盘、收盘、最高、最低价，还要带上涨跌幅", "groundTruth": "tooltip.title: 'date'，tooltip.items 用 field 逐个列出 open/close/high/low，涨跌幅在数据层算好新增字段后用 field 引用；影线 mark 设 tooltip: false 避免重复"}
+{"id": "stock-us-color", "prompt": "做美股的 K 线，习惯是绿涨红跌，跟 A 股相反", "groundTruth": "与 A 股相同的 view + 两个 link 结构，只交换涨跌色值：上涨 '#26A69A'，下跌 '#EF5350'"}
+{"id": "stock-dark-screen", "prompt": "大屏看盘用，暗色背景的 K 线图，坐标轴文字要能在深色底上看清", "groundTruth": "spec 设置 theme: 'classicDark'（或 'dark'）让坐标轴、图例文字自动适配深色底，不要逐个手写文字颜色"}
+{"id": "stock-intraday-hourly", "prompt": "画比特币最近 48 小时的 1 小时 K 线，时间要精确到小时", "groundTruth": "数据结构不变（每行一个周期，含 date/open/close/high/low），date 用带小时的字符串或时间戳；仍是 view + 两个 link，x 轴标签用 labelFormatter 控制展示格式"}
+{"id": "stock-invalid-range", "prompt": "接口返回的数据里 high 有时比 open/close 还低，影线画出来穿过了实体，怎么修", "groundTruth": "数据层修正：high = Math.max(open, close, high)，low = Math.min(open, close, low)，保证 high >= max(open, close) 且 low <= min(open, close)；图表结构不变"}
+{"id": "stock-suspended-day", "prompt": "停牌那天没有行情数据，怎么处理才不会让 K 线塌下去", "groundTruth": "整行剔除停牌日，或价格字段传 null；不要用 0 补齐，0 会拉低 y 轴范围导致其余 K 线被压扁"}
+{"id": "stock-close-only", "prompt": "我只要看这只股票收盘价的走势，不需要开盘最高最低", "groundTruth": "不用 stock/K 线；改用 type: 'line'，encode: { x: 'date', y: 'close' }，需要时可叠加 area 或 labels"}
+{"id": "stock-many-bars", "prompt": "两年日 K 一共 500 根，全画出来挤成一团，怎么展示", "groundTruth": "数据层截取窗口（如最近 60/120 根）或聚合为周 K（open 取首、close 取尾、high 取最大、low 取最小）；也可用 slider + interaction.sliderFilter 做区间缩放，不要靠减小 lineWidth 硬塞"}

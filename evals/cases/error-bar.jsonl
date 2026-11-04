@@ -1,0 +1,10 @@
+{"id": "error-bar-basic", "prompt": "在做一个科学报告，需要展示不同月份化学反应的催化剂活性均值及其标准差误差范围", "groundTruth": "使用 type: 'interval'；x 轴为月份字段；encode 中包含 y（均值）、y0（下界 y-error）、y1（上界 y+error）三个通道；数据包含 value 和 error 字段，error 表示标准差"}
+{"id": "error-bar-multi", "prompt": "做一个实验对比图，展示三个不同实验组在同一时间点的测量值均值及置信区间", "groundTruth": "使用 type: 'interval'；encode 必须包含 color 通道映射实验组字段；x 轴为时间/类别；每个组有对应的 y/y0/y1 字段"}
+{"id": "error-bar-asymmetric", "prompt": "实验数据呈现非对称误差，下界和上界幅度不同，需要分别展示下误差和上误差", "groundTruth": "使用 type: 'interval'；encode 中单独指定 y0 字段表示下界，y1 字段表示上界，不再使用统一的 error 计算， y0 和 y1 为预先计算好的独立数值"}
+{"id": "error-bar-with-label", "prompt": "误差棒图需要在每个数据点上方标注具体的均值数值，便于快速读数", "groundTruth": "在 encode 中添加 labels 配置，text 指向 value 字段，position 为 'top' 或 'outside'；配合 type: 'interval' 使用"}
+{"id": "error-bar-color-group", "prompt": "需要按实验组颜色区分误差棒，便于多组数据一图展示对比", "groundTruth": "encode 中添加 color 通道映射 series 字段；配合 scale.color.range 设置系列颜色；type: 'interval'  mark 类型"}
+{"id": "error-bar-transparency", "prompt": "展示多个实验组的误差重叠区域，希望通过透明度区分不同组的分布重叠程度", "groundTruth": "style 中设置 fillOpacity 为 0.3 或更低；配合 color 通道分组；type: 'interval' 类型"}
+{"id": "error-bar-time", "prompt": "展示过去 30 天每天的测量值均值及其 95% 置信区间", "groundTruth": "x 轴为日期字符串（'2026-01' 格式）；encode 包含 y（均值）、y0（下界）、y1（上界）；type: 'interval'；数据量 ≥ 20 条"}
+{"id": "error-bar-custom-color", "prompt": "品牌色是 #FF6B35，误差棒需要使用品牌色，且主体颜色浅透明展示分布", "groundTruth": "style 中设置 fill: '#FF6B35' 和 fillOpacity: 0.3；stroke: '#FF6B35'；type: 'interval' 类型"}
+{"id": "error-bar-null-data", "prompt": "部分日期没有测量数据，误差棒在这些日期处应该断开或不显示", "groundTruth": "数据中含 null 值；interval mark 默认会在 y/y0/y1 任意一项为 null 时断开；若需跨断点连接可显式配置 style: { connect: true }"}
+{"id": "error-bar-title", "prompt": "图表需要标题 '实验结果误差范围' 和副标单位 '单位：次/分钟'，左对齐", "groundTruth": "title 为对象，包含 title: '实验结果误差范围' 和 subtitle: '单位：次/分钟'；align: 'left'；type: 'interval' 类型"}

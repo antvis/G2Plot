@@ -1,0 +1,12 @@
+{"id": "tiny-column-basic-kpi", "prompt": "在运营 KPI 卡片里放一个近 14 天活跃用户的迷你柱状图，只看每天相对高低，不需要坐标轴", "groundTruth": "使用 type: 'interval'；x 映射日期、y 映射活跃用户数；axis.x 和 axis.y 均为 false；数据为自包含的有序日期与数值"}
+{"id": "tiny-column-compact-table", "prompt": "在表格的「近 7 天订单」单元格里嵌入紧凑型柱形趋势，不要图例和任何坐标轴", "groundTruth": "使用 interval 实现 tiny-column；axis 为 { x: false, y: false }，legend 为 false；x 为有序日期或星期，y 为订单量"}
+{"id": "tiny-column-positive-negative", "prompt": "用迷你柱状图展示最近 12 个交易日的净利润，盈利蓝色、亏损红色，有正有负", "groundTruth": "数据保留正负号；type: 'interval'；encode.color 按净利润正负返回盈亏类别，scale.color 用 domain/range 或等效配置固定蓝红两色；隐藏坐标轴"}
+{"id": "tiny-column-brand-color", "prompt": "KPI 卡片里的迷你柱状图统一使用品牌绿色 #2FC25B", "groundTruth": "type: 'interval'；style.fill 固定为 '#2FC25B'；单系列无需 encode.color 分组"}
+{"id": "tiny-column-rounded", "prompt": "迷你柱状图的柱顶做成 2px 圆角，视觉上柔和一些", "groundTruth": "style 中设置 radiusTopLeft: 2 和 radiusTopRight: 2，或使用等效的 radius 配置；其余保持迷你柱状图的隐藏轴配置"}
+{"id": "tiny-column-max-width", "prompt": "小卡片里只有 7 根柱子，不希望柱子太宽，最大宽度限制为 10px", "groundTruth": "type: 'interval'；style.maxWidth 设置为 10；x 为有序类别，y 为数值"}
+{"id": "tiny-column-tooltip-format", "prompt": "访问量迷你柱状图默认不显示轴，但鼠标悬停时要看到日期和「1,234 次」格式的访问量", "groundTruth": "axis.x/y 隐藏；tooltip.title 指向日期字段；tooltip.items 配置 y 通道名称与 valueFormatter，格式包含千分位和「次」单位"}
+{"id": "tiny-column-tooltip-disabled", "prompt": "做一个纯装饰性的迷你柱状图，放在指标数字旁边，不需要坐标轴、图例，也不要悬浮提示", "groundTruth": "使用 interval；axis.x 和 axis.y 为 false，legend 为 false，tooltip 为 false；数据仍映射 x/y 通道"}
+{"id": "tiny-column-highlight-peak", "prompt": "近 30 天销量的迷你柱状图中，其他柱子用浅蓝色，最高销量那天用橙色突出", "groundTruth": "通过 encode.color 回调或预处理字段区分峰值与普通值，并用 scale.color.range 设置橙色和浅蓝色；y 保持销量数值，隐藏坐标轴与图例"}
+{"id": "tiny-column-shared-domain", "prompt": "两个 KPI 卡片分别展示本店和同行近 7 天订单的迷你柱状图，要用相同的 0 到 200 纵轴范围，避免柱高误导", "groundTruth": "两个 interval 图均设置 scale.y.domain 为 [0, 200]；各自 x/y 映射订单数据并隐藏坐标轴，保持相同值域以便跨卡片比较"}
+{"id": "tiny-column-zero-values", "prompt": "近一周有些日期确实没有订单，迷你柱状图里这些日期要显示为零高度，不要当成缺失数据删掉", "groundTruth": "零订单日期的数据行保留且数值字段显式为 number 类型的 0；不得传 null 或过滤掉；type: 'interval' 且 x 日期连续有序"}
+{"id": "tiny-column-v2-migration", "prompt": "把旧的 G2Plot v2 TinyColumn（xField、yField、columnStyle）迁移成 G2 v5 的迷你柱状图", "groundTruth": "改为 import { Chart } from '@antv/g2'；new Chart({ container, autoFit: true }) + chart.options + chart.render；type: 'interval'，encode 映射 x/y，样式放 style，禁止 TinyColumn、xField、yField、columnStyle"}

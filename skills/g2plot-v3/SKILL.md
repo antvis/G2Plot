@@ -22,6 +22,7 @@ description: G2Plot v3 可视化组件库，提示词即组件。当用户需要
 | 用户想表达 | 数据特征 | 组件 | 提示词文件 |
 |---|---|---|---|
 | 趋势变化、走势 | 时间/有序 x + 数值 y | line 折线图 | [charts/line.md](../../charts/line.md) |
+| 卡片或表格行内展示单系列趋势，无需精确读数 | 时间/有序 x + 数值 y，小空间 | tiny-line 迷你折线图 | [charts/tiny-line.md](../../charts/tiny-line.md) |
 | 多系列趋势对比 | x + y + 系列字段 | line（color 分组） | [charts/line.md](../../charts/line.md) |
 | 类别数值对比 | 类别 x + 数值 y | column 柱状图 | [charts/column.md](../../charts/column.md) |
 | 类别数值对比（横向） | 类别多/名称长 | bar 条形图 | [charts/bar.md](../../charts/bar.md) |

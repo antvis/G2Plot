@@ -1,0 +1,12 @@
+{"id": "tiny-line-basic-card", "prompt": "在运营指标卡里画一条迷你折线，展示最近 10 天每日活跃用户的整体趋势，不需要坐标轴", "groundTruth": "使用 @antv/g2 的 Chart 和 type: 'line'；encode.x 映射日期、encode.y 映射活跃用户数；axis.x 和 axis.y 均为 false；数据内联且字段有业务语义"}
+{"id": "tiny-line-table-trend", "prompt": "商品列表每一行都要放一个近 7 天销量小趋势图，只看走向，不占太多空间", "groundTruth": "选择 tiny-line 而非完整折线图；使用 line mark + 有序日期 x + 数值销量 y；关闭 x/y 坐标轴和图例，保持紧凑布局"}
+{"id": "tiny-line-smooth-temperature", "prompt": "天气卡片里用一条平滑的小曲线展示今天逐三小时的气温变化", "groundTruth": "使用 type: 'line'，encode 包含 x: 'hour'、y: 'temperature' 和 shape: 'smooth'；axis.x/y 为 false；数据为自包含的小时与温度数值"}
+{"id": "tiny-line-brand-color", "prompt": "做一个品牌色为 #FF6B35 的迷你销售趋势图，放在看板卡片里", "groundTruth": "type: 'line'；style.stroke 为 '#FF6B35'；关闭坐标轴；autoFit 为 true；不使用 G2Plot v2 的 color 或 TinyLine API"}
+{"id": "tiny-line-line-width", "prompt": "迷你折线在小卡片里太细了，把线宽调成 4，其他辅助元素都不要", "groundTruth": "style.lineWidth 设置为 4；axis.x/y 为 false，legend 为 false；保留 type: 'line' 和 x/y encode"}
+{"id": "tiny-line-dashed-forecast", "prompt": "未来 7 天的预测收入用橙色虚线迷你趋势图展示，和实际值区分开", "groundTruth": "line mark 的 style 中设置 stroke 为橙色、lineDash 为数组（如 [6, 4]）；数据字段表达预测收入；坐标轴关闭"}
+{"id": "tiny-line-hide-components", "prompt": "画一个纯趋势线，不要 x 轴、y 轴、图例和数据点，只展示过去一个月的订单波动", "groundTruth": "使用 type: 'line' 而非 view + point；axis: { x: false, y: false } 且 legend: false；encode 映射日期和订单量"}
+{"id": "tiny-line-disable-tooltip", "prompt": "表格里的迷你访问趋势只作视觉参考，鼠标悬停时不要出现 tooltip", "groundTruth": "在 line mark spec 中显式设置 tooltip: false；同时使用 axis.x/y: false 保持迷你折线形态"}
+{"id": "tiny-line-tooltip-format", "prompt": "卡片里的迷你营收趋势默认很简洁，但悬停时要显示日期和以万元为单位、保留两位小数的营收", "groundTruth": "不要设置 tooltip: false；tooltip.title 映射日期，tooltip.items 配置 y 通道或营收字段，并用 valueFormatter 添加万元和 toFixed(2)"}
+{"id": "tiny-line-auto-fit", "prompt": "迷你折线要随表格列宽自适应，容器由 CSS 设置高度，不要写死图表宽高", "groundTruth": "new Chart({ container: 'container', autoFit: true })；不写死 width/height；说明容器需要非零 CSS 高度；最后调用 chart.render()"}
+{"id": "tiny-line-null-data", "prompt": "最近一周的访问量有两天缺失，迷你趋势线在缺失处断开，不要当成 0", "groundTruth": "缺失日期的访问量字段使用 null 而非 0；使用 line mark，保持默认 connect: false 或显式 style.connect: false；其余点仍按日期顺序绘制"}
+{"id": "tiny-line-vs-full-line", "prompt": "我需要准确读取每天的销售额和坐标刻度，还要对比三个区域，应该用迷你折线吗", "groundTruth": "不应选择 tiny-line；改用带坐标轴的多系列 line，encode.color 映射区域字段；说明 tiny-line 适合紧凑空间内看单系列整体趋势而非精确读数"}

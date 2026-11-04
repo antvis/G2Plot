@@ -1,0 +1,16 @@
+{"id": "gantt-project-basic", "prompt": "做一个项目排期甘特图，展示每个任务的开始和结束时间", "groundTruth": "使用 type: 'interval'；encode 包含 x（任务名）、y（开始时间）、y1（结束时间）；coordinate 设置 transform: [{ type: 'transpose' }]；y 使用 time scale"}
+{"id": "gantt-phase-color", "prompt": "甘特图里的任务按规划、开发、测试、发布四个阶段用不同颜色区分", "groundTruth": "encode 增加 color 通道映射阶段字段（如 phase）；scale.color.range 提供阶段配色；图例默认可按阶段筛选"}
+{"id": "gantt-milestone", "prompt": "在项目甘特图上标出需求评审、提测、上线这些关键里程碑", "groundTruth": "使用 type: 'view'，children 包含 interval（任务条）和 point（里程碑）；point 使用 shape: 'diamond'，encode.y 映射里程碑日期，与 interval 共享 y 时间轴"}
+{"id": "gantt-today-line", "prompt": "甘特图里加一条竖线表示今天，方便看当前进度到哪了", "groundTruth": "在 view 的 children 中增加 lineY 标注；encode.y 传当前日期；transpose 后 lineY 变为垂直参考线；style 设置 stroke 和 lineDash"}
+{"id": "gantt-single-color", "prompt": "所有任务条用同一个品牌蓝色，不需要按任务或阶段分色", "groundTruth": "encode 不含 color 通道；通过 style.fill 固定颜色（如 #5B8FF9）；可关闭 legend"}
+{"id": "gantt-date-axis", "prompt": "甘特图顶部的时间轴显示成 03-02 这种月-日格式", "groundTruth": "axis.y（时间轴）设置 labelFormatter 为函数，用 getMonth/getDate 拼接月日；不能把 'MM-DD' 字符串直接传给 labelFormatter"}
+{"id": "gantt-task-order", "prompt": "甘特图的任务顺序要按我给的顺序从上到下排列，不要自动排序", "groundTruth": "默认按数据出现顺序；可用 scale.x.domain 显式指定任务顺序，或渲染前对数据排序"}
+{"id": "gantt-many-tasks", "prompt": "有 40 多个任务，全画在一个甘特图里太挤了，怎么办", "groundTruth": "甘特图建议不超过 20 行；对任务分页/滚动/按阶段折叠，或只保留关键路径任务；不要一次性渲染全部"}
+{"id": "gantt-duration-label", "prompt": "在每个任务条上直接显示工期多少天", "groundTruth": "interval 配置 labels，text 用回调根据起止时间计算天数并返回字符串；position 为 'inside'；任务条过窄时改用 tooltip"}
+{"id": "gantt-tooltip", "prompt": "鼠标悬浮任务条时显示任务名、开始日期、结束日期和负责人", "groundTruth": "tooltip 配置 title 为任务名字段，items 列出开始/结束日期和负责人字段；可对日期用 valueFormatter 格式化；不要把日期字段预先转成展示字符串"}
+{"id": "gantt-title", "prompt": "甘特图要有标题「2026 年 3 月迭代排期」和副标题「数据截至 2026-03-16」，左对齐", "groundTruth": "title 为对象，包含 title、subtitle 字段，align: 'left'；不能把标题直接写成字符串"}
+{"id": "gantt-dark-theme", "prompt": "大屏展示用的暗色甘特图", "groundTruth": "设置 theme: 'classicDark' 或 'dark'；坐标轴、图例、标题文字颜色由主题自动适配"}
+{"id": "gantt-dependency-overlap", "prompt": "想看出哪些任务时间上有重叠、并行进行", "groundTruth": "同一任务使用唯一 x 值，interval 的 y/y1 映射起止时间；通过水平时间条的自然重叠观察并行关系；如需连线依赖需额外叠加自定义图形，G2 v5 无内置依赖箭头"}
+{"id": "gantt-pitfall-mark", "prompt": "G2 v5 里有没有 gantt 这个图表类型，直接 type: 'gantt' 可以吗", "groundTruth": "G2 v5 没有 gantt mark；type: 'gantt' 无效；应使用 type: 'interval' + encode.y1 表示时间区间 + coordinate.transform transpose"}
+{"id": "gantt-pitfall-y1", "prompt": "画出来的甘特图任务条都是从 0 开始一直画到开始时间，不是一段区间", "groundTruth": "缺少 y1 编码；encode 需同时提供 y（开始时间）和 y1（结束时间），并确保 start < end"}
+{"id": "gantt-time-field", "prompt": "我的数据里日期是 '2026-03-02' 这样的字符串，直接传给 y 轴可以吗", "groundTruth": "优先转成 Date 对象（new Date('2026-03-02')）或数值时间戳；y/y1 使用 Date 并配 scale.y.type: 'time'；展示格式交给 axis labelFormatter 函数"}

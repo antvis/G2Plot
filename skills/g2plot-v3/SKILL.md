@@ -31,6 +31,7 @@ description: G2Plot v3 可视化组件库，提示词即组件。当用户需要
 | 两个量级不同的指标 | 时间 x + 双数值 y | dual-axes 双轴图 | [charts/dual-axes.md](../../charts/dual-axes.md) |
 | 多维能力对比 | 多维度数值 | radar 雷达图 | [charts/radar.md](../../charts/radar.md) |
 | 密度/频率分布 | 两个类别 + 数值 | heatmap 热力图 | [charts/heatmap.md](../../charts/heatmap.md) |
+| 关键词权重、词频概览 | 词语 + 数值权重 | word-cloud 词云图 | [charts/word-cloud.md](../../charts/word-cloud.md) |
 | 流程转化 | 阶段 + 数值 | funnel 漏斗图 | [charts/funnel.md](../../charts/funnel.md) |
 
 选型拿不准时，读对应 `charts/<chart>.md` 的「何时使用 / 何时不用」小节。

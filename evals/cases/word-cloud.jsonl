@@ -1,0 +1,14 @@
+{"id": "word-cloud-basic-search", "prompt": "用词云展示电商站内搜索关键词，搜索次数越多的词字号越大", "groundTruth": "使用 type: 'wordCloud'；encode.text 映射关键词字段，encode.value 映射搜索次数字段；layout.fontSize 设置字号范围"}
+{"id": "word-cloud-review-frequency", "prompt": "把用户评论中提及最多的产品特点做成词云，数据已经按关键词统计好次数", "groundTruth": "每行包含关键词和 number 类型提及次数；type: 'wordCloud' + encode.text/value；不要直接传入未聚合的评论原文"}
+{"id": "word-cloud-category-color", "prompt": "评论关键词词云按「屏幕、续航、影像」三个维度着色，并显示图例", "groundTruth": "数据包含分类字段；encode.color 映射分类字段；可用 scale.color.range 配置分类色板，并保留 color 图例"}
+{"id": "word-cloud-sequential-color", "prompt": "词云里热度越高的词颜色越深，用蓝色渐变表示热度", "groundTruth": "encode.color 映射数值热度字段；scale.color 使用 sequential 顺序色阶（如 Blues）或自定义 range；字号仍由 encode.value 和 layout.fontSize 控制"}
+{"id": "word-cloud-font-range", "prompt": "词云最小字号 12px、最大字号 60px，不要所有词都一样大", "groundTruth": "encode.value 映射权重字段；layout.fontSize 设置为 [12, 60]，不要把 field/range 对象写入 encode.fontSize"}
+{"id": "word-cloud-horizontal", "prompt": "所有关键词都水平显示，不要随机旋转，方便阅读", "groundTruth": "layout.rotate 设置为 0；type: 'wordCloud'"}
+{"id": "word-cloud-rotated", "prompt": "高热度词水平展示，低热度词旋转 90 度，做横竖混排词云", "groundTruth": "layout.rotate 使用回调，根据词语权重返回 0 或 90；encode.value 映射同一权重字段"}
+{"id": "word-cloud-rectangular-spiral", "prompt": "词云排布紧凑一点，使用矩形螺旋而不是默认的阿基米德螺旋", "groundTruth": "layout.spiral 设置为 'rectangular'；type: 'wordCloud'"}
+{"id": "word-cloud-padding", "prompt": "词与词之间太挤了，给每个关键词增加 4px 间距", "groundTruth": "layout.padding 设置为 4；padding 属于词云布局而不是 spec 顶层 padding"}
+{"id": "word-cloud-font-family", "prompt": "词云使用 Verdana 字体，测量和渲染要保持一致", "groundTruth": "layout.font 设置为 'Verdana'（或 sans-serif 字体栈）；字体属于词云布局配置"}
+{"id": "word-cloud-tooltip", "prompt": "鼠标悬停关键词时显示词和对应提及次数", "groundTruth": "使用 type: 'wordCloud' 并正确映射 encode.text/value；保留默认 tooltip（默认展示词语和权重），或通过 tooltip.items 自定义"}
+{"id": "word-cloud-numeric-weight", "prompt": "接口返回的词频是字符串数字，生成词云前需要怎么处理", "groundTruth": "先用 Number() 将词频转换为 number，再映射 encode.value；layout.fontSize 用二元数组指定最小和最大字号"}
+{"id": "word-cloud-preprocess-text", "prompt": "我只有一批原始评论文本，想直接用词云看高频关键词", "groundTruth": "先分词、去除停用词并按关键词聚合计数，再转换成词语 + 数值权重的长表；wordCloud 不负责原始文本分词"}
+{"id": "word-cloud-vs-bar", "prompt": "需要精确比较 10 个关键词的搜索量并读出排名，还适合用词云吗", "groundTruth": "不适合精确比较，推荐 bar 或 column；词云只适合快速概览关键词相对权重"}

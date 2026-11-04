@@ -1,0 +1,12 @@
+{"id": "treemap-basic-sales", "prompt": "做一个商品销售构成图，先看数码、家电、图书三个品类，再看每个品类下各商品的销售额，面积越大代表销售越高", "groundTruth": "使用 type: 'treemap'；数据为 name/children 嵌套树并以 data: { value: treeData } 传入；encode.value 映射叶节点销售额数值"}
+{"id": "treemap-disk-usage", "prompt": "用矩形树图分析磁盘空间，目录下嵌套子目录和文件，矩形大小表示文件占用 MB 数", "groundTruth": "使用 type: 'treemap'；children 表达目录层级；encode.value 映射非负的文件大小字段，父级占用由叶节点自动汇总"}
+{"id": "treemap-branch-color", "prompt": "矩形树图里同一个一级品类的商品用同一种颜色，不同一级品类颜色不同", "groundTruth": "encode.color 使用回调返回 d.path[1]（根节点可回退 d.data.name）；可配 scale.color.range；不要直接读取不存在的层次节点自定义字段"}
+{"id": "treemap-label-value", "prompt": "每个商品矩形里显示商品名称和销售额，销售额后面加「万元」", "groundTruth": "style.labelText 使用回调，从 d.data.name 读取名称，并拼接 d.value 或 d.data 中的销售额及万元单位；可设置 labelFill/labelFontSize"}
+{"id": "treemap-drilldown", "prompt": "矩形树图默认只看部门汇总，点击某个部门后进入项目明细，还要能通过面包屑返回", "groundTruth": "使用多层 children 数据并配置 interaction.treemapDrillDown（true 或含面包屑样式的对象）；不是 partition 的 drillDown"}
+{"id": "treemap-tile-binary", "prompt": "矩形树图不要用默认的近似正方形分割，改成二叉分割布局", "groundTruth": "type: 'treemap' 且 layout.tile 设置为 'treemapBinary'；encode.value 仍映射面积字段"}
+{"id": "treemap-padding", "prompt": "矩形之间留 3px 缝隙，父级四周再留 5px 内边距，避免挤在一起", "groundTruth": "layout.paddingInner 设置为 3，layout.paddingOuter 设置为 5；不要把布局间距写到 spec 顶层 padding"}
+{"id": "treemap-custom-palette", "prompt": "三个业务线分别使用 #5B8FF9、#5AD8A6、#F6BD16，图例放顶部", "groundTruth": "encode.color 按业务线或一级分支映射；scale.color.range 使用给定三色数组；legend.color.position 为 'top'"}
+{"id": "treemap-diverging-change", "prompt": "股票板块矩形树图，面积表示市值，颜色表示涨跌幅，固定 -5 到 +5 的红黄绿发散色阶", "groundTruth": "encode.value 映射非负市值；encode.color 用回调 d.data.changeRate 读取涨跌幅；scale.color 使用 diverging、RdYlGn 等发散色阶及 domain [-5, 0, 5]"}
+{"id": "treemap-tooltip-path", "prompt": "悬停矩形时，提示标题显示从一级品类到当前商品的完整路径，数值格式化为万元", "groundTruth": "tooltip.title 回调使用 d.path.join 拼接路径；tooltip.items 使用 field: 'value' 并配置 valueFormatter 添加万元单位"}
+{"id": "treemap-parent-values", "prompt": "后端返回的树中父节点和叶节点都有数值，但父节点值已经等于子节点之和，画面积时不要重复计算", "groundTruth": "保持 layout.ignoreParentValue: true（默认），让父级仅由叶节点汇总；或移除父节点数值；不能设置 false 后仍保留重复汇总值"}
+{"id": "treemap-vs-pie", "prompt": "既要比较各产品线的营收占比，又想继续看产品线内部各产品的构成，该用饼图还是矩形树图？", "groundTruth": "选择 treemap，因为存在产品线到产品的层级构成；说明饼图更适合单层少量类别占比，treemap 以嵌套矩形保留层级"}

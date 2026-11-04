@@ -1,0 +1,11 @@
+{ "id": "bidirectional-basic", "prompt": "展示各部门的满意度得分，正值表示满意，负值表示不满意，需要从中心 baseline 判断正负趋势", "groundTruth": "使用 type: 'interval' + encode x 为 value、y 为 category；scale x 确保包含负负正正；coordinate transform: ['transpose'] 实现横向；正数向右延伸，负数向左延伸，中心 0 为分界线" }
+{ "id": "bidirectional-survey", "prompt": "用户满意度调查结果，5级 Likert 量表（非常不同意到非常同意），正负值从中心分布展示", "groundTruth": "类别字段为评级选项，数值字段为得分（正负均有）；center 0 为中性点；coordinate transpose 实现横向展示；正负值自动分别向两侧延伸" }
+{ "id": "bidirectional-election", "prompt": "选举得票正负对比，正值表示支持票，负值表示反对票，各选区对比", "groundTruth": "encode x 为得票值（含正负），encode y 为选区类别；正值向右（支持），负值向左（反对）；center 0 为分界线；coordinate transpose 实现横向" }
+{ "id": "bidirectional-profit", "prompt": "季度利润正负对比图，正值表示盈利，负值表示亏损，需要直观看到哪个季度亏损", "groundTruth": "x 为利润数值（正负），y 为季度类别；scale x nice: false 确保包含负域；coordinate transpose  horizontal；正值右延伸表示盈利，左延伸表示亏损" }
+{ "id": "bidirectional-grouped", "prompt": "对比 2023 年和 2024 年各地区的正负业绩变化，多年份数据分组展示", "groundTruth": "数据含 year 字段映射 encode.color；transpose 实现横向；dodgeX 避免同一年份条形重叠；正负值自动从 0 两侧延伸" }
+{ "id": "bidirectional-negative", "prompt": "展示亏损项目，所有值为负数，需要全部向左延伸展示", "groundTruth": "所有 value 为负数；scale x domain 包含负值范围；coordinate transpose 所有条形向左（负方向）延伸，长短表示亏损程度" }
+{ "id": "bidirectional-positive", "prompt": "展示收益项目，所有值为正数，需要全部向右延伸展示", "groundTruth": "所有 value 为正数；coordinate transpose 所有条形向右（正方向）延伸；可通过 scale color 进一步区分子类别" }
+{ "id": "bidirectional-label-right", "prompt": "双向条形图需要数值标签直接标在条端，右侧正值、左侧负值", "groundTruth": "labels 配置 text 为 value 字段；正值 position 'right'，负值 position 'left' 或统一用回调根据正负判断位置；style 可设置字体颜色" }
+{ "id": "bidirectional-center-line", "prompt": "双向条形图需要中心虚线基线帮助判断正负分界，便于比估值大小", "groundTruth": "style 配置 centerLine 或用额外 interval mark 在 x=0 处绘制 lineDash: [4, 4] 的虚线；坐标轴 x 保持默认包含 0；便于肉眼判断正负偏离程度" }
+{ "id": "bidirectional-sort-abs", "prompt": "按绝对值大小排序的双向条形图，最大的在最显眼位置，正负均衡展示", "groundTruth": "数据渲染前按 |value| 从大到小排序；coordinate transpose 后绝对值大的条形靠近中心更显眼；正负均等从中心两侧延伸" }
+{ "id": "bidirectional-color-range", "prompt": "正负值用不同色区分，正一色（如蓝）负一色（如红），便于快速视觉识别", "groundTruth": "scale: { color: { range: ['#1890ff', '#f5222d'] } } 正负色区分；encode x 为 value，encode y 为 category；coordinate transpose；色值正负均可自定义" }

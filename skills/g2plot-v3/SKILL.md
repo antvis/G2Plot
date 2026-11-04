@@ -26,6 +26,7 @@ description: G2Plot v3 可视化组件库，提示词即组件。当用户需要
 | 类别数值对比 | 类别 x + 数值 y | column 柱状图 | [charts/column.md](../../charts/column.md) |
 | 类别数值对比（横向） | 类别多/名称长 | bar 条形图 | [charts/bar.md](../../charts/bar.md) |
 | 占比、构成 | 类别 + 数值 | pie 饼图 | [charts/pie.md](../../charts/pie.md) |
+| 单一指标完成率、进度或利用率 | 0~1 的单个数值 | liquid 水波图 | [charts/liquid.md](../../charts/liquid.md) |
 | 趋势 + 累积量 | 时间 x + 数值 y | area 面积图 | [charts/area.md](../../charts/area.md) |
 | 双变量相关性 | 两个数值字段 | scatter 散点图 | [charts/scatter.md](../../charts/scatter.md) |
 | 两个量级不同的指标 | 时间 x + 双数值 y | dual-axes 双轴图 | [charts/dual-axes.md](../../charts/dual-axes.md) |

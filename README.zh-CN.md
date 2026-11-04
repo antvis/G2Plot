@@ -46,7 +46,7 @@ G2Plot v3 覆盖 36+ 个常用图表类型，更多类型，欢迎提交 PR：
 |---|---|---|---|---|
 | line 折线图 | column 柱状图 | pie 饼图 | scatter 散点图 | dual-axes 双轴图 |
 | area 面积图 | bar 条形图 | | heatmap 热力图 | funnel 漏斗图 |
-| | | | | radar 雷达图 |
+| | | | density 密度图 | radar 雷达图 |
 
 
 ## 🏗️ 工作原理

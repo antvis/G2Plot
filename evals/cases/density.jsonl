@@ -1,0 +1,12 @@
+{"id": "density-basic-channel", "prompt": "对比在线、电话、邮件三个客服渠道的首次响应时长分布，不只看平均值，要看整体形状", "groundTruth": "使用 type: 'density'；data.transform 配置 { type: 'kde', field: '响应时长字段', groupBy: ['channel'] }；encode 为 { x: 'channel', y: 'y', size: 'size' }，引用 KDE 默认输出字段"}
+{"id": "density-multi-series", "prompt": "同一门店类型下，对比新会员和老会员的客单价分布，两组形状并排显示", "groundTruth": "type: 'density'；kde 的 groupBy 同时包含门店类型和会员类型；encode 增加 series: 'memberType' 与 color: 'memberType'；scale.color 可用 range 自定义颜色"}
+{"id": "density-horizontal", "prompt": "部门名称比较长，密度图想横向展开，部门放在纵轴", "groundTruth": "type: 'density' + coordinate: { transform: [{ type: 'transpose' }] }；转置后 axis.x / axis.y 的标题作用轴互换"}
+{"id": "density-smooth-params", "prompt": "密度曲线有点锯齿，样本量挺大的，想更平滑细腻一点", "groundTruth": "调整 kde 参数：size（采样点数量，默认 10，调大更细腻）、width（核宽，默认 2，调大更平滑）；仍使用 type: 'density'"}
+{"id": "density-kde-location", "prompt": "用 G2 v5 画密度图，已经写了 type: 'density' 但图表空白，kde 变换怎么配", "groundTruth": "kde 必须放在 data.transform 中（不是 mark 顶层 transform）：data: { value: 原始数据, transform: [{ type: 'kde', field: '数值字段', groupBy: ['类别字段'] }] }；encode 用 y: 'y', size: 'size'"}
+{"id": "density-encode-field", "prompt": "原始数值字段叫 amount，密度图的 encode 里 y 是不是直接写 amount", "groundTruth": "不是。kde 的 field 是输入（amount），输出默认写到 as: ['y', 'size']；encode 必须是 y: 'y', size: 'size'（或自定义 as 后引用对应字段）"}
+{"id": "density-zero-variance", "prompt": "有些分组的数据完全一样，密度图里这几组不显示，怎么处理", "groundTruth": "零方差/单点会让 pdfast 的 KDE 退化（min=max）而不渲染；显式设置 kde.min / kde.max 扩大区间，或样本不足时改用散点图/箱线图"}
+{"id": "density-vs-heatmap", "prompt": "我想看一万条订单金额的分布形状，用热力图还是密度图", "groundTruth": "数值分布看密度图（type: 'density' + kde）；热力图适合两个类别交叉的矩阵或二维点云密度，不用于单变量分布"}
+{"id": "density-vs-histogram", "prompt": "想看各年龄段用户人数的分布，用密度图还是柱状图", "groundTruth": "都可行：连续分布的平滑形态用 type: 'density' + kde；若要精确的区间频数，用 interval 分箱直方图；不要用密度图读取具体人数"}
+{"id": "density-color-style", "prompt": "密度图用品牌色 #FF6B35，填充透明度低一些，不要挡住后面的组", "groundTruth": "style 设置 fill: '#FF6B35'、stroke: '#FF6B35'、fillOpacity 约 0.3；type: 'density'；多系列自定义颜色用 scale.color.range 数组"}
+{"id": "density-title-theme", "prompt": "大屏上的密度图，暗色主题，标题「响应时长分布」左对齐", "groundTruth": "theme: 'classicDark' 或 'dark'；title 为对象 { title: '响应时长分布', align: 'left' }；type: 'density'"}
+{"id": "density-tooltip", "prompt": "密度图不需要 tooltip，鼠标悬停太乱了", "groundTruth": "设置 tooltip: false 关闭提示；type: 'density'"}

@@ -1,6 +1,6 @@
 ---
 name: g2plot-v3
-description: G2Plot v3 可视化组件库，提示词即组件。当用户需要创建、绘制 AntV G2 图表（折线图、柱状图、饼图、面积图、散点图、双轴图、雷达图、热力图、漏斗图等）时使用本 skill。提供 G2 v5 出码规范、图表选型决策、可运行案例与 v4→v5 防幻觉对照。
+description: G2Plot v3 可视化组件库，提示词即组件。当用户需要创建、绘制 AntV G2 图表（折线图、柱状图、饼图、面积图、散点图、双轴图、雷达图、热力图、密度图、漏斗图等）时使用本 skill。提供 G2 v5 出码规范、图表选型决策、可运行案例与 v4→v5 防幻觉对照。
 ---
 
 # G2Plot v3
@@ -31,6 +31,7 @@ description: G2Plot v3 可视化组件库，提示词即组件。当用户需要
 | 两个量级不同的指标 | 时间 x + 双数值 y | dual-axes 双轴图 | [charts/dual-axes.md](../../charts/dual-axes.md) |
 | 多维能力对比 | 多维度数值 | radar 雷达图 | [charts/radar.md](../../charts/radar.md) |
 | 密度/频率分布 | 两个类别 + 数值 | heatmap 热力图 | [charts/heatmap.md](../../charts/heatmap.md) |
+| 数值分布形态、多组分布对比 | 类别 x + 一组数值样本 | density 密度图 | [charts/density.md](../../charts/density.md) |
 | 流程转化 | 阶段 + 数值 | funnel 漏斗图 | [charts/funnel.md](../../charts/funnel.md) |
 
 选型拿不准时，读对应 `charts/<chart>.md` 的「何时使用 / 何时不用」小节。

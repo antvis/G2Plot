@@ -24,6 +24,7 @@ description: G2Plot v3 可视化组件库，提示词即组件。当用户需要
 | 趋势变化、走势 | 时间/有序 x + 数值 y | line 折线图 | [charts/line.md](../../charts/line.md) |
 | 多系列趋势对比 | x + y + 系列字段 | line（color 分组） | [charts/line.md](../../charts/line.md) |
 | 类别数值对比 | 类别 x + 数值 y | column 柱状图 | [charts/column.md](../../charts/column.md) |
+| 关键少数、累计贡献（80/20 分析） | 类别 + 可求和数值，需降序与累计占比 | pareto 帕累托图 | [charts/pareto.md](../../charts/pareto.md) |
 | 类别数值对比（横向） | 类别多/名称长 | bar 条形图 | [charts/bar.md](../../charts/bar.md) |
 | 占比、构成 | 类别 + 数值 | pie 饼图 | [charts/pie.md](../../charts/pie.md) |
 | 趋势 + 累积量 | 时间 x + 数值 y | area 面积图 | [charts/area.md](../../charts/area.md) |

@@ -1,0 +1,12 @@
+{"id": "pareto-basic-quality", "prompt": "做一个质量分析看板，按缺陷次数从高到低展示各类问题，并画出累计占比曲线，方便找主要问题", "groundTruth": "使用 type: 'view'；children 包含降序 interval 和累计占比 line；line 设置 scale.y.independent: true 并使用右轴"}
+{"id": "pareto-sort-before-cumulative", "prompt": "后端返回的问题类别没有排序，帮我生成帕累托图，累计百分比必须正确", "groundTruth": "绘制前先按数值降序排序，再沿排序结果累加并除以总值；不能先累计再仅用 sortX 调整展示顺序"}
+{"id": "pareto-percent-right-axis", "prompt": "帕累托图左边显示投诉次数，右边累计占比固定从 0% 到 100%", "groundTruth": "左轴 interval 映射次数；右轴 line 映射 0~1 累计占比，scale.y 设置 independent: true、domain: [0, 1]，axis.y.labelFormatter 转百分比"}
+{"id": "pareto-threshold-80", "prompt": "在帕累托图上加一条 80% 的水平虚线，看看前几个问题累计到了八成", "groundTruth": "children 添加 type: 'lineY'，data 为 [0.8]；参考线使用与累计折线一致的独立百分比轴 domain [0, 1]，并设置虚线样式"}
+{"id": "pareto-count-percent-labels", "prompt": "做质量汇报用的 Pareto 图，柱子上显示次数，累计线上每个点显示百分比", "groundTruth": "interval 和 line 分别配置 labels；柱形标签映射次数字段，折线标签通过 text 回调将累计占比乘以 100 并添加 %"}
+{"id": "pareto-custom-colors", "prompt": "帕累托图柱子用品牌蓝 #1677FF，累计线用橙色，线宽 3", "groundTruth": "interval child 的 style.fill 设置为 #1677FF；line child 的 style.stroke 设置为橙色且 lineWidth 为 3"}
+{"id": "pareto-tooltip-format", "prompt": "帕累托图悬停时，缺陷数显示「次」，累计占比保留一位小数并显示百分号", "groundTruth": "两个 child 的 tooltip.items 分别配置 valueFormatter；次数追加「次」，累计占比使用 toFixed(1) 并格式化百分比"}
+{"id": "pareto-raw-events", "prompt": "我有一千条售后明细，每条只有一个故障类型字段，想做故障原因的 Pareto 分析", "groundTruth": "先按故障类型聚合计数，再按计数降序并计算累计占比；不能直接把未聚合明细交给 interval 和 line"}
+{"id": "pareto-key-categories", "prompt": "帮我从 Pareto 数据中找出累计贡献首次达到 80% 之前（含当前项）的关键类别", "groundTruth": "数据已按数值降序且含累计占比；选取累计占比首次大于等于 0.8 的位置及其之前所有类别，可配合 80% 参考线展示"}
+{"id": "pareto-last-point-100", "prompt": "校验一下我的帕累托累计线，为什么最后一个点不是 100%？", "groundTruth": "检查是否先降序再累计、分母是否为全部类别总值、是否遗漏类别；累计字段应为累计值除以总值，最后一点为 1（100%）"}
+{"id": "pareto-when-not-column", "prompt": "只想比较五个产品的销量排名，不需要累计贡献，还要用帕累托图吗", "groundTruth": "不需要 Pareto；只需类别数值对比和排名时使用 column 或 bar，无需累计占比折线和第二根 y 轴"}
+{"id": "pareto-when-not-line", "prompt": "展示过去 12 个月销售额和累计销售额，能按销售额从高到低排成帕累托图吗", "groundTruth": "不应按数值重排时间；时间趋势和累计趋势使用 line/area 或柱线组合，保持月份自然顺序，而不是 Pareto 的类别降序分析"}

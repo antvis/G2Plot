@@ -1,0 +1,13 @@
+{"id": "partition-budget-basic", "prompt": "用矩形分区图展示公司年度预算如何分配到产品研发、市场增长和运营支持，再展开到具体项目", "groundTruth": "使用 type: 'partition'；data 为包含单个根节点的树形数组；encode.value 映射预算字段；根节点和中间节点都显式提供数值"}
+{"id": "partition-custom-fields", "prompt": "我的层级数据字段叫 department 和 cost，不想改成 name 和 value，画一个成本分区图", "groundTruth": "使用 type: 'partition'；在 encode 中设置 name: 'department' 和 value: 'cost'（不是 layout.nameField/valueField，layout 只支持 sort / fillParent）；data 仍为树根数组，父节点 cost = 子节点之和"}
+{"id": "partition-branch-colors", "prompt": "画预算层级分区图，同一个一级部门下面的所有项目用同一种颜色，不同部门颜色不同", "groundTruth": "encode.color 使用回调返回 d.path[1] || d.path[0]，按一级分支着色；不要直接使用 ancestor-node 作为一级分支"}
+{"id": "partition-node-labels", "prompt": "矩形分区里显示每个节点的名称，太窄放不下的标签自动隐藏", "groundTruth": "labels 中 text 设置为展平后的 'name' 字段，position 为 'inside'，并配置 transform: [{ type: 'overflowHide' }]"}
+{"id": "partition-drill-down", "prompt": "做一个文件目录占用空间的矩形分区图，点击目录可以下钻查看下一层", "groundTruth": "使用 type: 'partition' 和树形目录数据；interaction 中设置 drillDown: true；数值字段表示各节点存储占用"}
+{"id": "partition-color-palette", "prompt": "层级分区图按一级分支着色，并使用我给的蓝、绿、黄、紫四个品牌色", "groundTruth": "encode.color 按 path 的一级分支返回值分组；scale.color.range 设置包含四个自定义颜色的数组"}
+{"id": "partition-inset-border", "prompt": "分区矩形之间留 1px 缝隙，并加白色边框，让层级边界更清楚", "groundTruth": "style 中设置 inset: 1，并设置 stroke: '#fff' 或 '#ffffff' 与 lineWidth"}
+{"id": "partition-legend-top", "prompt": "矩形分区图的分支图例放到顶部，方便横向看板布局", "groundTruth": "legend.color 中设置 position: 'top'；encode.color 映射可区分的分支字段或路径回调"}
+{"id": "partition-axis-title", "prompt": "预算分区图横轴标题显示「预算（万元）」，层级轴不要显示", "groundTruth": "axis.x.title 设置为「预算（万元）」，axis.y 设置为 false；encode.value 映射预算数值"}
+{"id": "partition-root-total", "prompt": "我的分区图所有矩形挤在一起了，根节点只有 children 没有数值，应该怎么修？", "groundTruth": "为根节点和所有中间节点补充数值字段；父节点数值应等于其子节点数值之和；encode.value 指向该数值字段"}
+{"id": "partition-storage-hierarchy", "prompt": "不要用圆环图，用直角矩形逐层展示云存储中文档、素材、代码和备份的空间占比", "groundTruth": "使用核心 type: 'partition'，保持笛卡尔坐标，不使用 polar 或 sunburst；数据为树形数组并映射存储数值"}
+{"id": "partition-deep-hierarchy", "prompt": "有一个六层的组织成本树，希望每一层从上到下展开，并能看到各层成本占比", "groundTruth": "选择 partition 矩形分区（冰柱）图；每层由节点深度展开，节点宽度由成本值决定；所有父节点维护正确的汇总成本"}
+{"id": "partition-sort-desc", "prompt": "云服务成本分区图中，每一层都把成本最高的节点排在最前面", "groundTruth": "layout.sort 使用比较回调按节点数值降序排列，例如 (a, b) => b.value - a.value；各同层节点按排序后的顺序布局"}

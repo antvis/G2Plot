@@ -1,0 +1,16 @@
+{"id": "radial-basic-channel", "prompt": "我想用环形图对比自然搜索、社交推荐、广告投放、邮件营销四个渠道的转化率，弧越长表示转化率越高", "groundTruth": "使用 type: 'interval'；coordinate 设置 type: 'radial'；encode x 映射渠道字段、y 映射转化率字段、color 映射渠道；scale.y 固定 domain [0, 1]"}
+{"id": "radial-inner-radius", "prompt": "玉珏图中间空出一大块，我想在圆心位置放一个总数文字", "groundTruth": "coordinate 设置 type: 'radial' 并增大 innerRadius（如 0.35~0.45）留出圆心空间；type 为 'interval'；中心文字用 HTML 叠加，不要伪造不存在的 mark"}
+{"id": "radial-fixed-domain", "prompt": "各渠道转化率都是百分比，希望所有圆弧从 0 开始按 100% 为满格来画，不要自动缩放", "groundTruth": "scale.y 显式设置 domain: [0, 100]（或 [0, 1]）；coordinate.type 为 'radial'；type: 'interval'"}
+{"id": "radial-rounded", "prompt": "玉珏图每段圆弧的两端想要圆角效果，看起来更柔和", "groundTruth": "style 设置 radius 为大于 0 的数值（如 4~8）；coordinate.type: 'radial'；type: 'interval'"}
+{"id": "radial-label-outside", "prompt": "每段圆弧末端直接标出具体分数，文字不要跟着弧旋转，保持水平", "groundTruth": "labels 配置 text 回调拼出数值与单位，position: 'outside'，autoRotate: false；coordinate.type: 'radial'"}
+{"id": "radial-semi-circle", "prompt": "做一个半圆形的玉珏图，只占 180 度，放在大屏顶部", "groundTruth": "coordinate 设置 type: 'radial'，并用 startAngle: -Math.PI / 2、endAngle: Math.PI / 2（或等价半圆角度）；type: 'interval'"}
+{"id": "radial-custom-palette", "prompt": "玉珏图不要默认配色，用我们品牌的蓝绿黄红紫五个颜色", "groundTruth": "scale.color.range 传入自定义颜色数组；encode.color 映射类别字段；type: 'interval' + coordinate.type: 'radial'；不要用 palette 传数组"}
+{"id": "radial-legend-top", "prompt": "玉珏图的图例放到顶部，横向排开，别占右侧空间", "groundTruth": "legend.color.position 设置为 'top'；coordinate.type: 'radial'；type: 'interval'"}
+{"id": "radial-hide-axis", "prompt": "玉珏图只要圆环和图例，坐标轴、刻度、网格线都隐藏掉", "groundTruth": "axis 中把 x、y 的 label/tick/line/grid 设为 false，或直接 axis: { x: false, y: false }；type: 'interval' + coordinate.type: 'radial'"}
+{"id": "radial-tooltip-percent", "prompt": "悬停圆弧时 tooltip 显示渠道名和百分比，保留一位小数", "groundTruth": "tooltip.title 映射渠道字段，tooltip.items 的 valueFormatter 把数值转成百分比并 toFixed(1)；type: 'interval' + coordinate.type: 'radial'"}
+{"id": "radial-vs-pie", "prompt": "我要展示各部门在总营收中的占比，用玉珏图还是饼图？希望一眼看出整体构成", "groundTruth": "看整体构成和 100% 加总用 pie 饼图；玉珏图适合类别间排名/对比、每环独立不成整体；应说明选型理由而不是硬套 radial-bar"}
+{"id": "radial-sort-desc", "prompt": "玉珏图的圆环顺序很乱，想按完成度从高到低排列", "groundTruth": "渲染前对 data 按数值字段降序排序（或用 data.transform 的 sort），再传给 interval；不要依赖图例顺序；coordinate.type: 'radial'"}
+{"id": "radial-dark-theme", "prompt": "大屏是暗色背景，玉珏图也要暗色主题，文字和网格自动适配", "groundTruth": "设置 theme: 'classicDark' 或 'dark'；type: 'interval' + coordinate.type: 'radial'；无需逐项改文字颜色"}
+{"id": "radial-negative-values", "prompt": "有几个月是负增长，想用玉珏图同时表达正负", "groundTruth": "玉珏图用弧长表达数值，无法表达正负方向；负值应改用 bar 条形图或发散条形图，并说明原因"}
+{"id": "radial-many-categories", "prompt": "我有 20 个城市的销售额想用玉珏图对比", "groundTruth": "类别过多时玉珏图每环过薄不可读；建议改用 bar 条形图，或先取 Top N 收敛到 5~8 个类别；若坚持用 radial 需说明类别上限"}
+{"id": "radial-v2-migration", "prompt": "旧项目里用的是 G2Plot v2 的 RadialBar，现在要迁移到 G2 v5", "groundTruth": "改为 import { Chart } from '@antv/g2'；new Chart({ container, autoFit: true })；options 中使用 type: 'interval' + coordinate: { type: 'radial', innerRadius }；xField/yField/seriesField 改为 encode，radius/innerRadius 移入 coordinate"}

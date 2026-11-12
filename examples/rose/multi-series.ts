@@ -1,10 +1,10 @@
+/**
+ * 分组多系列玫瑰图
+ * 场景：在同一类别下并排对比 Q1、Q2 的销售量，便于比较单系列绝对值
+ * 要点：color 只负责分色；分组布局必须显式使用 dodgeX
+ */
 import { Chart } from '@antv/g2';
 
-/**
- * 多系列玫瑰图
- * 场景：对比不同时期或不同部门的产品类别分布，展示多组数据的类别级别比较
- * 要点：在 encode 中增加 color 通道映射 series 字段，实现系列分组显色；type: 'rose'
- */
 const data = [
   { product: '产品A', value: 120, series: 'Q1' },
   { product: '产品B', value: 200, series: 'Q1' },
@@ -26,9 +26,11 @@ const chart = new Chart({
 });
 
 chart.options({
-  type: 'rose',
+  type: 'interval',
   data,
-  encode: { value: 'value', color: 'series' },
+  coordinate: { type: 'polar' },
+  encode: { x: 'product', y: 'value', color: 'series' },
+  transform: [{ type: 'dodgeX' }],
 });
 
 chart.render();

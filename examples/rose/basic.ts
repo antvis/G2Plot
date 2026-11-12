@@ -1,10 +1,10 @@
-import { Chart } from '@antv/g2';
-
 /**
  * 基础玫瑰图
- * 场景：展示不同产品线的 relative sales proportion（相对销售比例）
- * 要点：type: 'rose' + encode 使用 radius 映射数值；类别自动环绕圆心分布
+ * 场景：比较不同产品线的销售量，花瓣等角分布，半径表示数值大小
+ * 要点：interval + polar；encode.x 显式映射类别，encode.y 映射数值
  */
+import { Chart } from '@antv/g2';
+
 const data = [
   { product: '产品A', value: 120 },
   { product: '产品B', value: 200 },
@@ -20,9 +20,10 @@ const chart = new Chart({
 });
 
 chart.options({
-  type: 'rose',
+  type: 'interval',
   data,
-  encode: { value: 'value' },
+  coordinate: { type: 'polar' },
+  encode: { x: 'product', y: 'value', color: 'product' },
 });
 
 chart.render();

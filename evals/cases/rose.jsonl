@@ -1,10 +1,12 @@
-{"id": "rose-basic", "prompt": "我想展示不同产品在季度销售中的相对规模，用圆形图表直观比较各产品销售量的大小", "groundTruth": "使用 type: 'rose'；x/angle 通过 category 字段映射类别，y/radius 通过 value 字段映射数值；数据为长表格式，包含 category 和 value 两个字段"} 
-{"id": "rose-multi-series", "prompt": "需要对比不同时期（Q1/Q2）同一产品线的销售规模分布，看每个季度产品之间的相对差异", "groundTruth": "使用 type: 'rose'；在 encode 中增加 color 通道映射 series 字段（如 series: 'Q1'/'Q2'），实现不同时期的分色展示；数据需含 series 字段以区分时期"} 
-{"id": "rose-with-label", "prompt": "玫瑰图需要在每个花瓣上直接标注数值，便于快速阅读具体数值而不依赖悬停提示", "groundTruth": "在 chart.options 中配置 labels: [{ text: 'value', position: 'outside' }]；确保数据 value 字段为数值类型，position 设置 'outside' 将标签置于花瓣外侧"} 
-{"id": "rose-dark-theme", "prompt": "大屏展示用，需要暗色主题的玫瑰图，文字颜色自动适配背景", "groundTruth": "设置 theme: 'classicDark' 或 'dark'；背景、文字颜色自动适配暗色主题，无需逐个设置 fill/fontColor"} 
-{"id": "rose-legend-position", "prompt": "图例需要放到图表右侧，而不是默认位置，以免遮挡图表核心区域", "groundTruth": "设置 legend: { color: { position: 'right' } } 或 legend.position = 'right'；将图例移至右侧保留左侧空间给玫瑰图主体"} 
-{"id": "rose-category-field", "prompt": "玫瑰图的类别字段应该怎么命名，字段名有什么语义要求", "groundTruth": "类别字段建议命名为 category 或维度字段；数值字段建议命名为 value 或 metrics；禁止使用 a/b/c/val 等无语义字段名，应具有业务语义"} 
-{"id": "rose-value-range", "prompt": "数据值跨度较大（从 10 到 500），如何确保玫瑰图颜色分布均匀且可读", "groundTruth": "使用 scale: { color: { type: 'sequential', palette: 'YlOrRd' } } 或自定义 range；数值为正数时玫瑰图自动按比例展示，避免负值混淆展示"} 
-{"id": "rose-null-data", "prompt": "部分类别没有数据值，玫瑰图中缺失的花瓣应该如何表现", "groundTruth": "数据中缺失的类别直接不渲染花瓣；确保 value 字段为 number 类型，undefined/null 会导致该类别不显示，符合预期"} 
-{"id": "rose-axis-label", "prompt": "玫瑰图的坐标轴标题应该如何设置，以及标签的字体样式", "groundTruth": "通过 axis: { x: { title: '类别' } } 设置坐标轴标题；通过 axis.x.labelFontSize / axis.y.labelFontSize 调整标签字体大小；文字颜色可用 axis.x.labelFill / axis.y.labelFill 设置"} 
+{"id": "rose-basic", "prompt": "我想展示不同产品在季度销售中的相对规模，用圆形图表直观比较各产品销售量的大小", "groundTruth": "使用 type: 'interval'，并设置 coordinate: { type: 'polar' }；encode 显式设置 x: 'product'、y: 'value'、color: 'product'，其中 x 映射类别角度、y 映射数值半径；数据为长表格式，包含 product 和 value 两个字段"}
+{"id": "rose-multi-series", "prompt": "需要对比不同时期（Q1/Q2）同一产品线的销售规模分布，看每个季度产品之间的相对差异", "groundTruth": "使用 type: 'interval' 和 coordinate: { type: 'polar' }；encode 设置 x: 'product'、y: 'value'、color: 'series'；颜色只负责分色，分组比较需设置 transform: [{ type: 'dodgeX' }]，若比较总量与构成则改用 stackY；数据需含 series 字段"}
+{"id": "rose-stacked", "prompt": "希望在玫瑰图中比较各产品的销售总量，同时观察 Q1 和 Q2 的构成", "groundTruth": "使用 interval + polar，encode 设置 x: 'product'、y: 'value'、color: 'series'，并显式设置 transform: [{ type: 'stackY' }]；stackY 用于总量与构成，不要与分组 dodgeX 混用"}
+{"id": "rose-with-label", "prompt": "玫瑰图需要在每个花瓣上直接标注数值，便于快速阅读具体数值而不依赖悬停提示", "groundTruth": "在 chart.options 中配置 labels: [{ text: 'value', position: 'outside' }]；确保数据 value 字段为数值类型，position 设置 'outside' 将标签置于花瓣外侧"}
+{"id": "rose-inner-radius", "prompt": "玫瑰图中心需要留空，做成环形以预留中心展示区域", "groundTruth": "在 interval + polar 的基础上设置 coordinate: { type: 'polar', innerRadius: 0.25 }；innerRadius 位于 coordinate 中，用于控制中心内孔大小"}
+{"id": "rose-dark-theme", "prompt": "大屏展示用，需要暗色主题的玫瑰图，文字颜色自动适配背景", "groundTruth": "设置 theme: 'classicDark' 或 'dark'；背景、文字颜色自动适配暗色主题，无需逐个设置 fill/fontColor"}
+{"id": "rose-legend-position", "prompt": "图例需要放到图表右侧，而不是默认位置，以免遮挡图表核心区域", "groundTruth": "设置 legend: { color: { position: 'right' } } 或 legend.position = 'right'；将图例移至右侧保留左侧空间给玫瑰图主体"}
+{"id": "rose-category-field", "prompt": "玫瑰图的类别字段应该怎么命名，字段名有什么语义要求", "groundTruth": "类别字段建议命名为 category 或维度字段；数值字段建议命名为 value 或 metrics；禁止使用 a/b/c/val 等无语义字段名，应具有业务语义"}
+{"id": "rose-value-range", "prompt": "数据值跨度较大（从 10 到 500），如何确保玫瑰图颜色分布均匀且可读", "groundTruth": "使用 scale: { color: { type: 'sequential', palette: 'YlOrRd' } } 或自定义 range；数值为正数时玫瑰图自动按比例展示，避免负值混淆展示"}
+{"id": "rose-null-data", "prompt": "部分类别没有数据值，玫瑰图中缺失的花瓣应该如何表现", "groundTruth": "数据中缺失的类别直接不渲染花瓣；确保 value 字段为 number 类型，undefined/null 会导致该类别不显示，符合预期"}
+{"id": "rose-axis-label", "prompt": "玫瑰图的坐标轴标题应该如何设置，以及标签的字体样式", "groundTruth": "通过 axis: { x: { title: '类别' } } 设置坐标轴标题；通过 axis.x.labelFontSize / axis.y.labelFontSize 调整标签字体大小；文字颜色可用 axis.x.labelFill / axis.y.labelFill 设置"}
 {"id": "rose-custom-palette", "prompt": "品牌要求使用特定配色（#1890FF, #FF6B35, #7D3CFF），玫瑰图需要按品牌色展示", "groundTruth": "设置 scale: { color: { range: ['#1890FF', '#FF6B35', '#7D3CFF'] } }；range 数组长度应与系列或类别数量匹配，超出部分自动循环或使用默认渐变"}

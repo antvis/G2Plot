@@ -1,10 +1,10 @@
+/**
+ * 带数据标签的环形玫瑰图
+ * 场景：预留中心区域，并在花瓣外侧直接展示数值以便阅读
+ * 要点：polar.innerRadius 设置内孔；labels 展示标签；tooltip.items 用 field 指定原始字段
+ */
 import { Chart } from '@antv/g2';
 
-/**
- * 带数据标签的玫瑰图
- * 场景：需要在每个花瓣上直接标注数值的场景，便于快速阅读具体数值而不依赖 tooltip
- * 要点：通过 `labels` 配置将数值文本展示在花瓣外侧，`position: 'outside'` 确保标签不被遮挡
- */
 const data = [
   { product: '产品A', value: 120 },
   { product: '产品B', value: 200 },
@@ -20,13 +20,14 @@ const chart = new Chart({
 });
 
 chart.options({
-  type: 'rose',
+  type: 'interval',
   data,
-  encode: { value: 'value' },
+  coordinate: { type: 'polar', innerRadius: 0.25 },
+  encode: { x: 'product', y: 'value', color: 'product' },
   labels: [{ text: 'value', position: 'outside', style: { fontSize: 10 } }],
   tooltip: {
     title: 'product',
-    items: [{ channel: 'value', name: '数值', valueFormatter: (v) => `${v}` }],
+    items: [{ field: 'value', name: '数值', valueFormatter: (v) => `${v}` }],
   },
 });
 

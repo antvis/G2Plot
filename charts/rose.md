@@ -18,13 +18,20 @@
 ## 数据要求
 
 - 长表数据，每行一个数据点，见 [数据模式](../references/data-patterns.md)
-- `product` 字段：类别字符串（如 '产品 A', '季度 1'）；rose 图的每个花瓣对应一个类别
-- `value` 字段：数值（number），决定花瓣的半径/长度
-- 玫瑰图会自动将类别环绕圆心均匀分布
+- `product` 字段：类别字符串，显式映射到 `encode.x`，在极坐标中决定角度位置
+- `value` 字段：数值（number），显式映射到 `encode.y`，决定花瓣半径
+- `series` 字段（多系列时）：系列字符串，映射到 `encode.color`；布局另由 `dodgeX` 或 `stackY` 决定
 
 ## 基础实现（G2 v5）
 
+G2 v5 没有独立的 rose mark。玫瑰图由 `interval` 与 `polar` 组合实现：`x` 映射类别角度，`y` 映射数值半径，`color` 按类别着色。
+
 ```ts
+/**
+ * 基础玫瑰图
+ * 场景：比较不同产品线的销售量，花瓣等角分布，半径表示数值大小
+ * 要点：interval + polar；encode.x 显式映射类别，encode.y 映射数值
+ */
 import { Chart } from '@antv/g2';
 
 const data = [
@@ -42,9 +49,10 @@ const chart = new Chart({
 });
 
 chart.options({
-  type: 'rose',
+  type: 'interval',
   data,
-  encode: { value: 'value' },
+  coordinate: { type: 'polar' },
+  encode: { x: 'product', y: 'value', color: 'product' },
 });
 
 chart.render();
@@ -54,23 +62,43 @@ chart.render();
 
 | 变体 | 关键改动 | 完整案例 |
 |---|---|---|
-| 多系列 | `encode` 增加 `color: 'series'`，支持按系列分组比较 | [multi-series.ts](../examples/rose/multi-series.ts) |
-| 数据标签 | `labels: [{ text: 'value', position: 'outside' }]` | [with-label.ts](../examples/rose/with-label.ts) |
+| 分组多系列 | `encode.color` 映射 `series` + `transform` 使用 `dodgeX` | [multi-series.ts](../examples/rose/multi-series.ts) |
+| 堆叠多系列 | `encode.color` 映射 `series` + `transform` 使用 `stackY` | [stacked.ts](../examples/rose/stacked.ts) |
+| 环形玫瑰图 | `coordinate` 增加 `innerRadius` | [with-label.ts](../examples/rose/with-label.ts) |
+| 数据标签与 tooltip | `labels` + `tooltip.items` 使用 `field` 指定原始字段 | [with-label.ts](../examples/rose/with-label.ts) |
 | 主题深浅 | `theme: 'dark'` / `theme: 'light'` | - |
 
 ### 多系列核心差异（数据需含 `series` 字段）
 
+`color` 只负责颜色编码，不会自动产生分组或堆叠布局。分组用于比较各系列绝对值，堆叠用于比较总量及其构成。
+
+分组布局：
+
 ```ts-snippet
 chart.options({
-  type: 'rose',
+  type: 'interval',
   data,
-  encode: { value: 'value', color: 'series' },
+  coordinate: { type: 'polar' },
+  encode: { x: 'product', y: 'value', color: 'series' },
+  transform: [{ type: 'dodgeX' }],
+});
+```
+
+堆叠布局：
+
+```ts-snippet
+chart.options({
+  type: 'interval',
+  data,
+  coordinate: { type: 'polar' },
+  encode: { x: 'product', y: 'value', color: 'series' },
+  transform: [{ type: 'stackY' }],
 });
 ```
 
 ## 样式自定义
 
-常用视觉定制项（以下写法均经 `@antv/g2` ^5 类型校验），完整示例见 [custom-style.ts](../examples/rose/custom-style.ts)：
+常用视觉定制项：
 
 | 定制项 | 写法 | 说明 |
 |---|---|---|
@@ -78,7 +106,7 @@ chart.options({
 | 花瓣颜色 | `style: { fill: '#5B8FF9' }` | 固定单系列颜色 |
 | 线宽 | `style: { lineWidth: 2 }` | 花瓣边线粗细 |
 | 虚线 | `style: { lineDash: [4, 2] }` | 花瓣边线虚线 |
-| 花瓣圆角 | `style: { radius: 3 }` |  controls petal roundness |
+| 花瓣圆角 | `style: { radius: 3 }` | 控制花瓣圆角 |
 | 坐标轴标题 | `axis: { x: { title: '类别' } }` | y 轴同理 |
 | 关闭图例 | `legend: false` | |
 | 内置主题 | `theme: 'dark'` | 暗色场景自适配文字颜色 |
@@ -91,39 +119,36 @@ chart.options({
 
 `theme: 'light' | 'dark' | 'classic' | 'classicDark'`，一行切换整体配色。暗色场景用 `'classicDark'`，坐标轴、图例、标题的文字颜色自动适配，无需逐个设置。
 
-数据标签与 tooltip 格式化，完整示例见 [with-label.ts](../examples/rose/with-label.ts)：
+### 环形、数据标签与 tooltip
 
-```ts-snippet
-labels: [{ text: 'value', position: 'outside', style: { fontSize: 10 } }],
-tooltip: {
-  title: '产品',
-  items: [{ channel: 'value', name: '数值', valueFormatter: (v) => `${v}` }],
-},
-```
-
-花瓣叠加数据点（高频组合），完整示例见 [with-label.ts](../examples/rose/with-label.ts)：
+`innerRadius` 控制中心内孔，`labels` 在花瓣外侧展示数值文本；完整示例见 [with-label.ts](../examples/rose/with-label.ts)：
 
 ```ts-snippet
 chart.options({
-  type: 'rose',
+  type: 'interval',
   data,
-  encode: { value: 'value' },
-  labels: [{ text: 'value', position: 'outside' }],
+  coordinate: { type: 'polar', innerRadius: 0.25 },
+  encode: { x: 'product', y: 'value', color: 'product' },
+  labels: [{ text: 'value', position: 'outside', style: { fontSize: 10 } }],
+  tooltip: {
+    title: 'product',
+    items: [{ field: 'value', name: '数值', valueFormatter: (v) => `${v}` }],
+  },
 });
 ```
 
-## 易错点（v4 → v5）
+## 易错点
 
 | ❌ 错误（幻觉高发） | ✅ 正确 |
 |---|---|
-| `.position('category*value')` | `encode: { value: 'value' }`（category 由 rose mark 自动映射）|
-| `import { Rose } from '@antv/g2plot'` | `import { Chart } from '@antv/g2'` |
-| `new Rose('container', { ... })` | `new Chart({ container })` + `chart.options(spec)` |
-| `radiusField: 'value'`（v2 配置） | `encode: { value: 'value' }` |
-| `encode: { category }`（v2/v4 写法） | `encode: { value: 'value' }`（v5 写法，类别由 rose mark 自动分布）|
-| `chart.source(data)`（v4） | `chart.options({ data })` |
+| 使用 G2 v5 不存在的 `rose` mark | `type: 'interval'` + `coordinate: { type: 'polar' }` |
+| `encode: { value: 'value' }`，依赖类别自动映射 | 显式设置 `x: 'product'`、`y: 'value'`、`color: 'product'`；x 决定角度，y 决定半径 |
+| 用 `theta` 实现玫瑰图 | 玫瑰图用 `polar`；`theta` 配合 `stackY` 用于饼图 |
+| 多系列只设置 `color: 'series'`，期待自动分组 | `color` 只负责分色；分组加 `dodgeX`，堆叠加 `stackY` |
+| 分组与堆叠混用 transform | 比较单系列绝对值只用 `dodgeX`；比较总量与构成只用 `stackY` |
+| 把 `innerRadius` 放在 mark 顶层 | 放入 `coordinate: { type: 'polar', innerRadius: 0.25 }` |
 
-更多对照见 [v4-to-v5-migration.md](../references/v4-to-v5-migration.md)。
+通用 API 迁移对照见 [v4-to-v5-migration.md](../references/v4-to-v5-migration.md)。
 
 ## 完整案例
 
@@ -131,7 +156,7 @@ chart.options({
 
 | 案例 | 场景 | 关键配置 |
 |---|---|---|
-| [basic.ts](../examples/rose/basic.ts) | 单系列基本起步，展示类别间比较 | `type: 'rose'` + `encode: { value: 'value' }`|
-| [multi-series.ts](../examples/rose/multi-series.ts) | 多系列玫瑰图对比不同系列的类别分布 | `encode: { color: 'series' }` |
-| [with-label.ts](../examples/rose/with-label.ts) | 数值标签展示在花瓣外侧，便于数值阅读 | `labels` + `tooltip` 格式化 |
-| [custom-style.ts](../examples/rose/custom-style.ts) | 多系列 + 品牌视觉定制 | `scale.color.range`、`style.lineWidth`、`axis.title`、`legend.position` |
+| [basic.ts](../examples/rose/basic.ts) | 单系列类别比较，最简起步 | `interval` + `polar` + `encode: { x, y, color }` |
+| [multi-series.ts](../examples/rose/multi-series.ts) | 同类别下分组比较各系列绝对值 | `encode.color` + `transform: [{ type: 'dodgeX' }]` |
+| [stacked.ts](../examples/rose/stacked.ts) | 各类别总量对比与系列构成 | `encode.color` + `transform: [{ type: 'stackY' }]` |
+| [with-label.ts](../examples/rose/with-label.ts) | 环形玫瑰图展示外侧数值标签与格式化提示 | `innerRadius` + `labels` + `tooltip.items.field` |

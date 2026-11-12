@@ -92,7 +92,8 @@ chart.render();
 | 分组并排 | `encode` 同时加 `color` 与 `series` | [grouped.ts](../examples/box/grouped.ts) |
 | 突出异常点 | `style.pointFill` / `pointR` 定制离群点 | [outliers.ts](../examples/box/outliers.ts) |
 | 品牌样式 + 中文 tooltip | `style.boxFill/boxStroke` + `tooltip.boxItems` | [custom-style.ts](../examples/box/custom-style.ts) |
-| 水平箱线图 | `coordinate: { transform: [{ type: 'transpose' }] }` | 见下方片段 |
+| 中位数数据标签 | `labels` 的 `text` 回调读取自动统计后的 `channel.y2` | [with-label.ts](../examples/box/with-label.ts) |
+| 水平箱线图 | 保持 `x` 为类别、`y` 为数值，仅加 `transpose` | 见下方片段 |
 | 已聚合五数概括 | `type: 'box'` + `encode: { x, y, y1, y2, y3, y4 }` | 见下方片段 |
 
 分组核心差异（`color` 只负责配色，**`series` 才负责并排偏移**，只写 `color` 箱体会重叠）：
@@ -107,13 +108,13 @@ chart.options({
 });
 ```
 
-水平箱线图（类别名称长时更易读，x 放数值、y 放类别）：
+水平箱线图（类别名称长时更易读，保持 x 为类别、y 为数值，仅转置坐标）：
 
 ```ts-snippet
 chart.options({
   type: 'boxplot',
   data,
-  encode: { x: 'salary', y: 'department' },
+  encode: { x: 'department', y: 'salary' },
   coordinate: { transform: [{ type: 'transpose' }] },
 });
 ```
@@ -195,3 +196,4 @@ tooltip: {
 | [grouped.ts](../examples/box/grouped.ts) | 地区 × 月份的订单金额分布并排对比 | `encode.color` + `encode.series`、`legend.color.position` |
 | [outliers.ts](../examples/box/outliers.ts) | 长尾耗时数据，突出离群点 | `style.pointFill/pointStroke/pointR`、`style.boxFill/boxStroke` |
 | [custom-style.ts](../examples/box/custom-style.ts) | 品牌配色 + 中文 tooltip 指标名 | `style.box*` / `style.point*`、`axis.title`、`tooltip.boxItems/pointItems` |
+| [with-label.ts](../examples/box/with-label.ts) | 各组箱体内直接显示中位数 | `labels[].text` 回调读取 `channel.y2[index]`、`position: 'inside'` |

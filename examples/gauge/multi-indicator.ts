@@ -4,6 +4,7 @@ import { Chart } from '@antv/g2';
  * 多指标仪表盘并排
  * 场景：一屏内对比少量同量纲指标（资源使用率、多个渠道达成率）
  * 要点：一个 gauge 只能画一个指标；多个指标用 spaceFlex 组合多个 gauge 子图；
+ *       textContent 通过闭包拼接 item.metric，避免只剩百分比而无法辨认；
  *       子图之间共享色彩语义（同色 = 同状态）时更易读
  */
 const data = [
@@ -33,8 +34,9 @@ chart.options({
     },
     style: {
       textContent: (target: number, total: number) =>
-        `${((target / total) * 100).toFixed(0)}%`,
-      textFontSize: 22,
+        `${((target / total) * 100).toFixed(0)}%\n${item.metric}`,
+      textFontSize: 20,
+      textY: '68%',
     },
     axis: false,
     legend: false,

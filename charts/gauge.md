@@ -90,14 +90,43 @@ chart.render();
 | 变体 | 关键改动 | 完整案例 |
 |---|---|---|
 | 阈值分档配色 | `thresholds` + `scale.color.range`（色数 = 段数） | [custom-style.ts](../examples/gauge/custom-style.ts) |
+| 渐变配色 | 已完成部分的颜色使用 CSS `linear-gradient` | [gradient.ts](../examples/gauge/gradient.ts) |
+| 米轨式分段 | 等距 `thresholds` + `arcInset` 控制段数与间隙 | [segmented.ts](../examples/gauge/segmented.ts) |
 | 环形进度 | 起止角差 2π（`-π/2 → 3π/2`）+ 隐藏指针轴心 | [progress-ring.ts](../examples/gauge/progress-ring.ts) |
-| 多指标并排 | `type: 'spaceFlex'`，children 放多个 gauge 子图 | [multi-indicator.ts](../examples/gauge/multi-indicator.ts) |
+| 多指标并排 | `type: 'spaceFlex'`，中心文字通过闭包显示各指标名 | [multi-indicator.ts](../examples/gauge/multi-indicator.ts) |
+| 自定义指示器与 tooltip | `pointerShape` 返回 G 图形 + `interaction.tooltip.render` | [custom-indicator.ts](../examples/gauge/custom-indicator.ts) |
 
 阈值分档核心差异（整条弧按区间染色，指针定位当前值）：
 
 ```ts-snippet
 data: { value: { target: 96.2, total: 100, thresholds: [90, 95, 100] } },
 scale: { color: { range: ['#F4664A', '#FAAD14', '#30BF78'] } },
+```
+
+渐变配色核心差异（第一个颜色对应已完成部分，第二个对应剩余部分）：
+
+```ts-snippet
+scale: {
+  color: {
+    range: [
+      'linear-gradient(90deg, #5B8FF9 0%, #9254DE 100%)',
+      '#EEF1F6',
+    ],
+  },
+},
+```
+
+米轨式核心差异（10 个等距阈值对应 10 色；`arcInset` 的单位为角度）：
+
+```ts-snippet
+data: {
+  value: {
+    target: 72,
+    total: 100,
+    thresholds: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+  },
+},
+style: { arcInset: 1.5 },
 ```
 
 环形进度核心差异（画满整圈，隐藏指针与轴心）：
@@ -113,16 +142,38 @@ coordinate: {
 style: { pointerShape: false, pinShape: false },
 ```
 
-多指标并排核心差异（一个 gauge 只能画一个指标）：
+多指标并排核心差异（一个 gauge 只能画一个指标；不要只显示百分比，必须用闭包补上 `item.metric`）：
 
 ```ts-snippet
 chart.options({
   type: 'spaceFlex',
-  children: [
-    { type: 'gauge', data: { value: { target: 72, total: 100, name: 'CPU' } } },
-    { type: 'gauge', data: { value: { target: 58, total: 100, name: '内存' } } },
-  ],
+  children: data.map((item) => ({
+    type: 'gauge',
+    data: {
+      value: { target: item.completionRate, total: item.target, name: item.metric },
+    },
+    style: {
+      textContent: (target, total) =>
+        `${((target / total) * 100).toFixed(0)}%\n${item.metric}`,
+    },
+  })),
 });
+```
+
+自定义指示器与 tooltip 核心差异（完整几何计算见案例）：
+
+```ts-snippet
+style: { pointerShape: diamondPointer }, // 回调返回 new Path(...)
+
+tooltip: {
+  title: () => data.metric,
+  items: [() => ({ name: '当前完成率', value: `${data.completionRate}%` })],
+},
+interaction: {
+  tooltip: {
+    render: (event, { title, items }) => `<div>${title}: ${items[0].value}</div>`,
+  },
+},
 ```
 
 ## 样式自定义
@@ -167,5 +218,8 @@ chart.options({
 |---|---|---|
 | [basic.ts](../examples/gauge/basic.ts) | 单指标完成度，最简起步 | `type: 'gauge'` + `data.value` + `textContent` |
 | [custom-style.ts](../examples/gauge/custom-style.ts) | 分档预警 + 弧/指针/文字定制 | `thresholds` + `scale.color.range` + `coordinate.innerRadius/outerRadius` + `pointerXxx` / `pinXxx` / `textXxx` |
+| [gradient.ts](../examples/gauge/gradient.ts) | 已完成弧使用蓝紫渐变 | `scale.color.range` + CSS `linear-gradient` |
+| [segmented.ts](../examples/gauge/segmented.ts) | 10 段米轨式负载仪表盘 | 等距 `thresholds` + 10 色 `scale.color.range` + `arcInset` |
 | [progress-ring.ts](../examples/gauge/progress-ring.ts) | 环形进度，隐藏指针 | 整圈 radial 坐标（`-π/2 → 3π/2`）+ `pointerShape: false` / `pinShape: false` |
-| [multi-indicator.ts](../examples/gauge/multi-indicator.ts) | 少量同量纲指标并排对比 | `type: 'spaceFlex'` + 多个 gauge children |
+| [multi-indicator.ts](../examples/gauge/multi-indicator.ts) | CPU、内存、磁盘并排且显示各自名称 | `type: 'spaceFlex'` + `textContent` 闭包拼接 `item.metric` |
+| [custom-indicator.ts](../examples/gauge/custom-indicator.ts) | 菱形指针与深色自定义 tooltip | `pointerShape` 返回 `Path` + `tooltip.items` + `interaction.tooltip.render` |

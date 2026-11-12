@@ -1,37 +1,54 @@
 # Bullet 子弹图
 
-> 组件用途：展示单个指标的实际值与目标值的对比，并在背景中展示定性区间（如 Poor/Fair/Good/Great），常用于 KPI 考核、目标达成报告。
+> 组件用途：用定性区间背景、实际值条形和目标刻线展示 KPI 达成情况，常用于目标管理与经营报表。
 
 ## 何时使用
 
-- KPI 考核：展示实际完成情况相对于目标的达成百分比
-- 目标达成报告：多指标并列展示，一目了然地看到哪些达标、哪些未达标
-- 需要在同一图表中展示定性区间（如： Poor / Fair / Good / Great）和量化数值的场景
+- KPI 考核：同时观察实际完成情况、目标差距和所处等级
+- 目标达成报告：多指标并列展示，快速定位未达标指标
+- 多实际值构成：将多个系列堆叠为总实际值，再与统一目标比较
 
 ## 何时不用
 
-- 多类别间数值对比 → 用 column 柱状图或 bar 条形图
+- 多类别间单纯数值对比 → 用 column 柱状图或 bar 条形图
 - 连续时间趋势 → 用 line 折线图
-- 占比/构成 → 用 pie 饼图
+- 占比/构成而不需要目标值 → 用 pie 饼图或堆叠柱状图
 
 ## 数据要求
 
-- 长表数据，每行一个指标，见 [数据模式](../references/data-patterns.md)
-- `category` 字段：类别名称（如 'Sales', 'Profit', 'Conversion'）
-- `measure` 字段：实际数值（number），需要对比的指标值
-- `target` 字段：目标值（number），用于展示达成情况
-- 可选 `range` 字段：定性区间标签（如 'poor', 'fair', 'good', 'great'），用于背景色块着色
+- 实际值数据：每行包含 `category`、`measure`、`target`，分别表示指标类别、实际值和目标值
+- 定性区间数据：每行包含 `category`、`range`、`level`，同一类别的多行区间通过 `stackY` 堆叠
+- 多实际值堆叠：实际值数据增加 `series` 字段；目标数据仍保持每个类别一行，避免目标刻线重复
+- 数据应自包含且字段名语义化，长表模式见 [数据模式](../references/data-patterns.md)
+
+## 核心结构
+
+子弹图必须在同一个 `view` 中按以下顺序组合三层：
+
+1. 背景区间：`interval` 映射 `range`，使用 `stackY` 和较大的 `maxWidth`
+2. 实际值：`interval` 映射 `measure`，使用较小的 `maxWidth`
+3. 目标刻线：`point` 映射 `target`，设置 `shape: 'line'`
+
+所有层始终保持 `x: 'category'`，数值字段映射到 `y`。添加 `coordinate.transform: [{ type: 'transpose' }]` 得到横向子弹图；移除该配置即为竖向子弹图，不要交换类别与数值字段。
 
 ## 基础实现（G2 v5）
 
 ```ts
+/**
+ * 基础横向子弹图
+ * 场景：展示单个 KPI 的实际值、目标值与定性区间
+ * 要点：宽 interval 绘制堆叠背景区间，窄 interval 绘制实际值，point 的 line 形状绘制目标刻线
+ */
 import { Chart } from '@antv/g2';
 
-const data = [
-  { category: 'Sales', measure: 65, target: 75 },
-  { category: 'Profit', measure: 45, target: 50 },
-  { category: 'Conversion', measure: 72, target: 80 },
-];
+const data = [{ category: 'Sales', measure: 65, target: 75 }];
+
+const rangeData = data.flatMap(({ category }) => [
+  { category, range: 40, level: 'Poor' },
+  { category, range: 20, level: 'Fair' },
+  { category, range: 20, level: 'Good' },
+  { category, range: 20, level: 'Great' },
+]);
 
 const chart = new Chart({
   container: 'container',
@@ -39,20 +56,50 @@ const chart = new Chart({
 });
 
 chart.options({
-  type: 'interval',
-  data,
-  encode: {
-    x: 'category',
-    y: 'measure',
-    y2: 0,
-    color: 'category',
-  },
-  state: {
-    target: {
-      symbol: 'triangle',
-      style: { fill: '#5B8FF9', stroke: '#5B8FF9' },
+  type: 'view',
+  coordinate: { transform: [{ type: 'transpose' }] },
+  children: [
+    {
+      type: 'interval',
+      data: rangeData,
+      encode: { x: 'category', y: 'range', color: 'level' },
+      transform: [{ type: 'stackY' }],
+      scale: {
+        color: {
+          domain: ['Poor', 'Fair', 'Good', 'Great'],
+          range: ['#F0F0F0', '#D9D9D9', '#BFBFBF', '#8C8C8C'],
+        },
+      },
+      style: { maxWidth: 36 },
+      tooltip: false,
     },
-  },
+    {
+      type: 'interval',
+      data,
+      encode: { x: 'category', y: 'measure', color: '#5B8FF9' },
+      style: { maxWidth: 16 },
+      tooltip: {
+        title: 'category',
+        items: [
+          { field: 'measure', name: '实际值' },
+          { field: 'target', name: '目标值' },
+        ],
+      },
+    },
+    {
+      type: 'point',
+      data,
+      encode: {
+        x: 'category',
+        y: 'target',
+        shape: 'line',
+        color: '#262626',
+        size: 8,
+      },
+      tooltip: false,
+    },
+  ],
+  legend: false,
 });
 
 chart.render();
@@ -62,27 +109,30 @@ chart.render();
 
 | 变体 | 关键改动 | 完整案例 |
 |---|---|---|
-| 多指标对比 | 数据包含多行类别，每行有 measure 和 target | [multi-indicator.ts](../examples/bullet/multi-indicator.ts) |
-| 包含定性区间 | 在背景添加 range 色块标记 Poor/Fair/Good/Great | [ranges.ts](../examples/bullet/ranges.ts) |
-| 目标达成进度条 |  measure bar 显示已完成比例，左侧留白显示未完成 | [progress.ts](../examples/bullet/progress.ts) |
-| 竖向布局 | x/y 轴互换，纵向展示的子弹图 | [vertical.ts](../examples/bullet/vertical.ts) |
+| 竖向布局 | 保持三层 encode 不变，移除 `transpose` | [vertical.ts](../examples/bullet/vertical.ts) |
+| 多指标对比 | 每个类别提供实际值、目标值和一组定性区间 | [multi-indicator.ts](../examples/bullet/multi-indicator.ts) |
+| 四段定性区间 | 背景按 Poor/Fair/Good/Great 堆叠并设置独立色阶 | [ranges.ts](../examples/bullet/ranges.ts) |
+| 达成率标签 | 在实际值层显示实际值与目标完成百分比 | [progress.ts](../examples/bullet/progress.ts) |
+| 多实际值堆叠 | 实际值按 `series` 分色并 `stackY`，目标数据每类一行 | [compare.ts](../examples/bullet/compare.ts) |
+| 标签与提示格式化 | 标签读取完整数据行，tooltip 读取真实 `target` 字段 | [with-label.ts](../examples/bullet/with-label.ts) |
 
 ## 样式自定义
 
-常用视觉定制项（以下写法均经 `@antv/g2` ^5 类型校验），完整示例见 [custom-style.ts](../examples/bullet/custom-style.ts):
+以下配置均作用于对应 mark，完整示例见 [custom-style.ts](../examples/bullet/custom-style.ts)。
 
 | 定制项 | 写法 | 说明 |
 |---|---|---|
-| 目标线样式 | `style: { lineDash: [4, 4] }` | 虚线目标，实线表示实际值 |
-| 目标点样式 | `state.target.symbol: 'diamond'` | 目标标记形状 |
-| 配色方案 | `scale: { color: { range: ['#5AD8A6', '#5B8FF9'] } }` | 单色渐变或多色分段 |
-| 定性区间颜色 | `scale: { color: { range: ['#D8E2DC', '#8C9EAB', '#5B8FF9', '#2F4554'] } }` | Poor/Fair/Good/Great 四段色 |
-| 刻度隐藏 | `axis: { y: false }` | 隐藏数值轴，仅保留类别标签 |
-| 图例位置 | `legend: { color: { position: 'right' } }` | |
+| 背景区间宽度 | `style: { maxWidth: 36 }` | 宽于实际值条形 |
+| 实际值宽度 | `style: { maxWidth: 16 }` | 与背景形成宽窄层次 |
+| 目标刻线 | `encode: { shape: 'line', size: 8 }` | 使用 point 的线形状 |
+| 虚线目标 | `style: { stroke: '#FF6B35', lineDash: [4, 4] }` | 配置在目标 point 上 |
+| 实际值配色 | `encode: { color: '#5B8FF9' }` | 固定实际值颜色 |
+| 定性区间颜色 | `scale.color: { domain, range }` | domain 与 level 顺序一致 |
+| 数值轴标题 | `axis: { y: { title: '完成度 (%)' } }` | transpose 前后都保持数值字段为 y |
 
-### 图表标题与组件文字样式
+### 图表标题与内置主题
 
-完整示例见 [theme.ts](../examples/bullet/theme.ts):
+完整示例见 [theme.ts](../examples/bullet/theme.ts)。`theme: 'classicDark'` 可一行切换暗色主题，标题配置如下：
 
 ```ts-snippet
 title: {
@@ -90,26 +140,38 @@ title: {
   subtitle: '单位：%',
   align: 'left',
   titleFontSize: 16,
-  titleFill: '#1d1d1d',
+  titleFill: '#FFFFFF',
   subtitleFontSize: 12,
-  subtitleFill: '#8c8c8c',
+  subtitleFill: '#A6A6A6',
 },
 ```
 
-组件文字样式命名规律：`titleXxx`（轴标题）、`labelXxx`（轴刻度标签）、`itemLabelXxx`（图例项文字）——如 `axis.y.titleFill`、`axis.x.labelFontSize`、`legend.color.itemLabelFill`。
+### 数据标签与 tooltip
 
-### 内置主题
-
-`theme: 'light' | 'dark' | 'classic' | 'classicDark' | 'academy'`，一行切换整体配色。暗色场景用 `'classicDark'`，坐标轴、图例、标题的文字颜色自动适配，无需逐个设置。
-
-数据标签与 tooltip 格式化，完整示例见 [with-label.ts](../examples/bullet/with-label.ts):
+完整示例见 [with-label.ts](../examples/bullet/with-label.ts)。标签和 tooltip 都配置在实际值 interval 上；目标值直接读取 `target` 字段，不使用其他数值通道代替。
 
 ```ts-snippet
-labels: [{ text: 'measure', position: 'end', style: { fontSize: 10 } }],
+labels: [
+  {
+    text: (d: any) => `${d.measure} (${Math.round((d.measure / d.target) * 100)}%)`,
+    position: 'right',
+    style: { fontSize: 11, fill: '#262626' },
+  },
+],
 tooltip: {
   title: 'category',
-  items: [{ channel: 'y', name: '实际值', valueFormatter: (v) => `${v} 单位` },
-    { channel: 'y2', name: '目标值', valueFormatter: (v) => `${v} 单位` }],
+  items: [
+    {
+      field: 'measure',
+      name: '实际值',
+      valueFormatter: (value) => `${value} 单位`,
+    },
+    {
+      field: 'target',
+      name: '目标值',
+      valueFormatter: (value) => `${value} 单位`,
+    },
+  ],
 },
 ```
 
@@ -117,27 +179,29 @@ tooltip: {
 
 | ❌ 错误（幻觉高发） | ✅ 正确 |
 |---|---|
-| `.position('category*measure')` | `.encode('x', 'category').encode('y', 'measure')` |
-| `import { Bullet } from '@antv/g2plot'` | `import { Chart } from '@antv/g2'` + `type: 'interval'` |
-| `new Bullet('container', { ... })` | `new Chart({ container })` + `chart.options(spec)` |
-| `targetField: 'target'`（v2 配置） | 通过 `encode` 或 `state` 配置目标样式 |
-| `rangeField: 'range'`（v2 配置） | 通过数据字段直接映射 `color` 通道实现 |
-| `chart.source(data)`（v4） | `chart.options({ data })` |
+| `.position('category*measure')` | 在各层使用 `encode: { x: 'category', y: 'measure' }` |
+| `import { Bullet } from '@antv/g2plot'` | `import { Chart } from '@antv/g2'` + `type: 'view'` |
+| `targetField: 'target'`（v2 配置） | 目标 point 使用 `encode.y: 'target'` 和 `encode.shape: 'line'` |
+| `rangeField: 'range'`（v2 配置） | 背景 interval 映射 `range` 并添加 `stackY` |
+| 用柱子状态模拟目标值 | 单独添加目标 point 层 |
+| 用恒为 0 的通道显示目标 tooltip | `tooltip.items` 使用 `{ field: 'target' }` |
+| 竖向图交换类别和数值字段 | 保持 encode 一致，仅增删 `transpose` |
+| 堆叠实际值的每行都生成目标点 | 目标数据单独保持每个类别一行 |
 
 更多对照见 [v4-to-v5-migration.md](../references/v4-to-v5-migration.md)。
 
 ## 完整案例
 
-每个案例的元信息（场景与关键配置），代码均通过 `npm run validate` 校验：
+每个案例的元信息如下，代码均通过 `npm run validate` 校验。
 
 | 案例 | 场景 | 关键配置 |
 |---|---|---|
-| [basic.ts](../examples/bullet/basic.ts) | 最简单个指标的实际值 vs 目标值 | `type: 'interval'` + `encode: { x, y, y2, color }` |
-| [multi-indicator.ts](../examples/bullet/multi-indicator.ts) | 多指标并列展示，一目了然达成情况 | `type: 'interval'` + 多类别数据 |
-| [ranges.ts](../examples/bullet/ranges.ts) | 背景添加 Poor/Fair/Good/Great 定性区间 | `scale.color.range` 四段色 + `encode.color` |
-| [progress.ts](../examples/bullet/progress.ts) | measure bar 显示已完成比例，留白显示未完成 | `y2` 编码控制 bar 长度 |
-| [vertical.ts](../examples/bullet/vertical.ts) | 纵向排列的子弹图，适合长类别名称 | x/y 轴互换 |
-| [custom-style.ts](../examples/bullet/custom-style.ts) | 多指标 + 品牌视觉定制 | `scale.color.range`、`style.lineWidth`、`axis.title` |
-| [with-label.ts](../examples/bullet/with-label.ts) | 数据标签展示实际/目标数值、提示格式化 | `labels` + `tooltip.items` |
-| [theme.ts](../examples/bullet/theme.ts) | 标题与组件文字样式、内置主题 | `title`（对象）、`theme: 'classicDark'` |
-| [compare.ts](../examples/bullet/compare.ts) | 多组对比，展示不同类别的达成差异 | 多组 interval 叠加对比 |
+| [basic.ts](../examples/bullet/basic.ts) | 单个 KPI 的横向完整子弹图 | 三层组合 + 背景 `stackY` + 宽窄 `maxWidth` |
+| [multi-indicator.ts](../examples/bullet/multi-indicator.ts) | 多指标横向并列比较 | 每类三层结构 + 定性区间图例 |
+| [ranges.ts](../examples/bullet/ranges.ts) | Poor/Fair/Good/Great 四段定性区间 | 背景 `stackY` + `scale.color.domain/range` |
+| [progress.ts](../examples/bullet/progress.ts) | 显示实际值与目标完成百分比 | 实际值 `labels` + 虚线目标 point |
+| [vertical.ts](../examples/bullet/vertical.ts) | 竖向完整子弹图 | 保持 `x=category`、不使用 `transpose` |
+| [custom-style.ts](../examples/bullet/custom-style.ts) | 品牌配色与虚线目标刻线 | 背景色阶 + 实际值描边 + point `lineDash` |
+| [with-label.ts](../examples/bullet/with-label.ts) | 达成率标签与提示格式化 | 实际值 `labels` + tooltip `field: 'target'` |
+| [theme.ts](../examples/bullet/theme.ts) | 带标题的暗色主题子弹图 | `title` + `theme: 'classicDark'` |
+| [compare.ts](../examples/bullet/compare.ts) | Online/Retail 多实际值堆叠后对比目标 | 实际值按 `series` 分色 + `stackY` + 独立目标数据 |

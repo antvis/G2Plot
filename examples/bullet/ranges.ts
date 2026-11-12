@@ -1,17 +1,23 @@
+/**
+ * 四段定性区间子弹图
+ * 场景：通过 Poor/Fair/Good/Great 背景区间观察指标等级，同时对比实际值与目标值
+ * 要点：背景 interval 使用 stackY 堆叠四段 range，实际值 interval 更窄，目标使用 point 刻线
+ */
 import { Chart } from '@antv/g2';
 
-/**
- * 定性区间子弹图
- * 场景：在子弹图背景中展示 Poor/Fair/Good/Great 四个定性区间，配合实际值和目标值观察达成等级
- * 要点：type: 'view' 组合布局，interval color 映射 range 字段，point mark 表示目标值
- * scale.color 四段色：Poor/Fair/Good/Great
- */
 const data = [
-  { category: 'Sales', measure: 65, target: 75, range: 'good' },
-  { category: 'Profit', measure: 45, target: 50, range: 'fair' },
-  { category: 'Conversion', measure: 72, target: 80, range: 'great' },
-  { category: 'Retention', measure: 88, target: 90, range: 'poor' },
+  { category: 'Sales', measure: 65, target: 75 },
+  { category: 'Profit', measure: 45, target: 50 },
+  { category: 'Conversion', measure: 72, target: 80 },
+  { category: 'Retention', measure: 88, target: 90 },
 ];
+
+const rangeData = data.flatMap(({ category }) => [
+  { category, range: 40, level: 'Poor' },
+  { category, range: 20, level: 'Fair' },
+  { category, range: 20, level: 'Good' },
+  { category, range: 20, level: 'Great' },
+]);
 
 const chart = new Chart({
   container: 'container',
@@ -20,31 +26,48 @@ const chart = new Chart({
 
 chart.options({
   type: 'view',
-  data,
+  coordinate: { transform: [{ type: 'transpose' }] },
   children: [
     {
       type: 'interval',
-      encode: {
-        x: 'category',
-        y: 'measure',
-        color: 'range',
+      data: rangeData,
+      encode: { x: 'category', y: 'range', color: 'level' },
+      transform: [{ type: 'stackY' }],
+      scale: {
+        color: {
+          domain: ['Poor', 'Fair', 'Good', 'Great'],
+          range: ['#D8E2DC', '#8C9EAB', '#5B8FF9', '#2F4554'],
+        },
+      },
+      style: { maxWidth: 36 },
+      tooltip: false,
+    },
+    {
+      type: 'interval',
+      data,
+      encode: { x: 'category', y: 'measure', color: '#FF6B35' },
+      style: { maxWidth: 16 },
+      tooltip: {
+        title: 'category',
+        items: [
+          { field: 'measure', name: '实际值' },
+          { field: 'target', name: '目标值' },
+        ],
       },
     },
     {
       type: 'point',
+      data,
       encode: {
         x: 'category',
         y: 'target',
+        shape: 'line',
+        color: '#262626',
+        size: 8,
       },
-      style: { symbol: 'triangle', fill: '#FF6B35', stroke: '#FF6B35' },
+      tooltip: false,
     },
   ],
-  scale: {
-    color: {
-      type: 'ordinal',
-      range: ['#D8E2DC', '#8C9EAB', '#5B8FF9', '#2F4554'],
-    },
-  },
   legend: { color: { position: 'right' } },
 });
 

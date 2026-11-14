@@ -115,7 +115,7 @@ style: { inset: 0 },
 | 只写 `encode: { x: 'amount', y: 'count' }`，不加 transform | 必须加 `transform: [{ type: 'binX', y: 'count' }]`，否则不会分箱统计 |
 | `transform: [{ type: 'binX' }]` 缺少 `y` | 明确写 `{ type: 'binX', y: 'count', thresholds: 10 }`，告诉 binX 统计什么 |
 | 对类别字段使用 `binX` | `binX` 只能处理数值字段；类别聚合用 `groupX`，类别对比用 column 柱状图 |
-| 先按区间聚合数据再画图 | 直接把原始明细交给 `binX`，用 `thresholds` / `domain` 控制分箱 |
+| 先按区间聚合数据再画图 | 直接把原始明细交给 `binX`，用 `thresholds` 控制分箱粒度 |
 | `thresholds: 500` 追求「越细越好」 | 分箱过细会让每根柱只有 1~2 条数据，失去分布形态；常用 8 ~ 30 |
 | `binWidth` / `binNumber`（G2Plot v2 Histogram 配置） | G2 v5 用 `transform: [{ type: 'binX', thresholds }]` |
 | `new Histogram('container', { xField, yField })` | `new Chart({ container })` + `chart.options({ type: 'rect', ... })` |

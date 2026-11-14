@@ -1,11 +1,11 @@
-import { Chart } from '@antv/g2';
-
 /**
  * 样式自定义的瀑布图
  * 场景：汇报大屏 / 品牌视觉统一，关注配色、留白、标题与图例位置
  * 要点：scale.color.range 固定语义色；style.radius 给柱体圆角；
  *       scale.x.padding 控制柱间距；title 必须是对象而不是字符串
  */
+import { Chart } from '@antv/g2';
+
 const steps = [
   { stage: '期初现金', change: 200, kind: 'start' },
   { stage: '销售回款', change: 150, kind: 'change' },

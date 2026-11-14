@@ -127,6 +127,7 @@ running = after; // 一定要在计算完当前项后再更新累计值
 | 带数据标签 + tooltip | `labels` 回调按方向加正负号，`tooltip.items` 用 `field: 'change'` | [with-label.ts](../examples/waterfall/with-label.ts) |
 | 横向瀑布图 | `coordinate: { transform: [{ type: 'transpose' }] }` | [horizontal.ts](../examples/waterfall/horizontal.ts) |
 | 品牌样式定制 | `scale.color.range`、`style.radius`、`scale.x.padding`、`title` | [custom-style.ts](../examples/waterfall/custom-style.ts) |
+| 阶段小计 + 连接线 + 累计标签 | 小计按当前累计值画整柱且不参与累计；`link` 画相邻阶段连接线；`labels` 同时给变动金额与累计值 | [subtotal-connector.ts](../examples/waterfall/subtotal-connector.ts) |
 
 横向瀑布图核心差异（类别名长、项数多时更易读）：
 
@@ -151,6 +152,30 @@ labels: [
   },
 ],
 ```
+
+### 阶段小计与连接线
+
+小计只回答「到这里累计多少」，本身不产生新的变动，后续阶段仍从同一个累计值继续：
+
+```ts-snippet
+if (kind === 'subtotal') {
+  // base 固定为 0、end 为当前累计值；running 不动，避免小计被重复累加
+  return { stage, base: 0, end: running, change: 0, cumulative: running, direction: '小计' };
+}
+```
+
+相邻阶段的连接线用 `link` mark 画在同一累计水平上。线先于柱体绘制，柱体会盖住线，只露出柱间空隙：
+
+```ts-snippet
+{
+  type: 'link',
+  data: connectors, // 每段一条：{ from, to, level: 前一阶段的累计值 }
+  encode: { x: 'from', x1: 'to', y: 'level', y1: 'level' },
+  style: { stroke: '#BFBFBF', lineDash: [4, 4] },
+}
+```
+
+变动金额与阶段累计值分成两条 label：变动金额带正负号、按增减着色，累计值用灰色小字压在上方，完整写法见 [subtotal-connector.ts](../examples/waterfall/subtotal-connector.ts)。
 
 ## 样式自定义
 
@@ -184,7 +209,7 @@ tooltip: {
 | 减少项把负值直接给 `y` | 负数柱会倒挂且与相邻柱断开；取 `Math.min/Math.max` 得到正向区间 |
 | 先更新 `running` 再算 `base` / `end` | 当前柱的区间错位一格；先算区间，最后更新 `running` |
 | 期初 / 期末也用 `change` 当区间 | 合计项必须从 0 画到累计值，`base` 固定为 `0` |
-| `chart.options` 里再调一次 `chart.options` | `options` 是全量替换，后一次会覆盖前一次；所有配置写在同一个 spec |
+| 小计项把累计值又加进 `running` | 小计只是当前累计值的快照，`running` 保持不变；只有真实变动才更新累计 |
 | `encode: { y1: 'end' }` 只写 y1 不写 y | `y` 是区间起点，两个通道必须同时给 |
 | G2Plot v2 的 `new Waterfall('container', { xField, yField })` | `new Chart({ container })` + `chart.options(spec)` |
 | `import { Waterfall } from '@antv/g2plot'` | `import { Chart } from '@antv/g2'` |
@@ -202,3 +227,4 @@ tooltip: {
 | [with-label.ts](../examples/waterfall/with-label.ts) | 复盘会直接读每一项变动金额 | `labels` 正负号回调、`tooltip.items` 的 `field: 'change'` |
 | [horizontal.ts](../examples/waterfall/horizontal.ts) | 成本构成拆解，类别名长 | `coordinate.transform: transpose`、`labels.position: 'outside'` |
 | [custom-style.ts](../examples/waterfall/custom-style.ts) | 汇报大屏的品牌配色与留白 | `scale.color.range`、`style.radius`、`scale.x.padding`、`title` |
+| [subtotal-connector.ts](../examples/waterfall/subtotal-connector.ts) | 活动复盘：活动期小计后再看后续变化 | `link` 连接线、小计项不参与累计、变动金额与「累计」双 label |

@@ -1,11 +1,11 @@
-import { Chart } from '@antv/g2';
-
 /**
  * 横向瀑布图
  * 场景：类别名较长或项数较多（如成本拆解），横向排列更易读
  * 要点：coordinate 加 transpose 转置；y / y1 区间语义不变，
  *       labels 的 position 用 'outside' 贴在柱体末端
  */
+import { Chart } from '@antv/g2';
+
 type CostStep = {
   item: string;
   change: number;

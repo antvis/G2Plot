@@ -1,11 +1,11 @@
-import { Chart } from '@antv/g2';
-
 /**
  * 带数据标签与 tooltip 的瀑布图
  * 场景：经营复盘会上需要直接读出每一项变动的金额与方向
  * 要点：labels.text 用回调按方向加 +/- 号；position 'top' 相对柱体上边缘；
  *       tooltip.items 用 field 取原始变动值（range 柱的 y 通道是累计起点）
  */
+import { Chart } from '@antv/g2';
+
 type GmvStep = {
   stage: string;
   change: number;

@@ -1,11 +1,11 @@
-import { Chart } from '@antv/g2';
-
 /**
  * 基础瀑布图：月度利润构成拆解
  * 场景：从期初值出发，逐项展示增减变化如何累积到最终结果
  * 要点：G2 没有 waterfall mark —— 用 interval 的 y / y1 画浮动柱；
  *       先把「变动金额」累加成 [起, 止] 区间，再用 color 区分增加 / 减少 / 合计
  */
+import { Chart } from '@antv/g2';
+
 type ProfitStep = {
   stage: string;
   /** 该阶段的变动金额；期初项填起始值，期末项由累计结果决定 */

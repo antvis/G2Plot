@@ -3,8 +3,8 @@ import { Chart } from '@antv/g2';
 /**
  * 多层级能源流向桑基图
  * 场景：一次能源经过发电、交通等中间环节，最终流向终端消费的多级流转
- * 要点：显式声明 nodes 固定节点顺序与轨道；layout 调整节点宽度、间距和迭代次数；
- *       节点颜色按 key 自动映射，链接保持低透明度以突出流向
+ * 要点：显式声明 nodes 且列全全部链接端点，配合 layout.nodeSort: null 固定节点顺序（默认会自动重排）；
+ *       layout 调整节点宽度、间距和迭代次数；节点颜色按 key 自动映射，链接保持低透明度以突出流向
  */
 const links = [
   { source: '煤炭', target: '发电', value: 280 },
@@ -50,6 +50,7 @@ chart.options({
   data: { value: { links, nodes } },
   layout: {
     nodeAlign: 'justify',
+    nodeSort: null, // 关闭自动重排，保持上面 nodes 的顺序
     nodeWidth: 0.02,
     nodePadding: 0.02,
     iterations: 10,

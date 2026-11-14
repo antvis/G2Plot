@@ -1,16 +1,18 @@
 {"id": "sankey-user-journey", "prompt": "我想看用户从访问官网到注册、激活、付费的完整转化路径，还要体现每个环节流失到哪去了", "groundTruth": "使用 type: 'sankey'；data 包装为 { value: { links } }；links 每项含 source/target/value，并包含「直接离开」「放弃试用」「免费使用」等流失分支；不应用漏斗图"}
-{"id": "sankey-energy-flow", "prompt": "画一个能源流向图，煤炭石油天然气经过发电和交通，最后流向工业、居民等终端消费", "groundTruth": "使用 type: 'sankey'；links 覆盖一次能源 → 中间环节 → 终端消费的多级流向；可用 nodes 显式固定节点顺序；layout.nodeAlign 设为 'justify'"}
+{"id": "sankey-energy-flow", "prompt": "画一个能源流向图，煤炭石油天然气经过发电和交通，最后流向工业、居民等终端消费", "groundTruth": "使用 type: 'sankey'；links 覆盖一次能源 → 中间环节 → 终端消费的多级流向；可用 nodes（列全全部链接端点）加 layout.nodeSort: null 显式固定节点顺序；layout.nodeAlign 设为 'justify'"}
 {"id": "sankey-budget-alloc", "prompt": "公司总营收拆分到产品收入和服务收入，再分配到研发、市场、交付、利润，想看每一笔钱流到哪", "groundTruth": "使用 type: 'sankey'；links 为多级 source/target/value；data: { value: { links } }；节点由 links 自动推导或显式 nodes"}
 {"id": "sankey-custom-fields", "prompt": "我的数据字段叫 from、to、amount，不想改字段名，直接画桑基图", "groundTruth": "使用 type: 'sankey'；encode 设置为 { source: 'from', target: 'to', value: 'amount' }；data 仍用 { value: { links } } 包装"}
-{"id": "sankey-node-order", "prompt": "桑基图节点上下顺序太乱了，我想固定成 煤炭、石油、天然气、发电、交通 这个顺序", "groundTruth": "显式传 nodes 数组（如 [{ key: '煤炭' }, ...]），顺序即节点排列顺序；data 为 { value: { links, nodes } }；type: 'sankey'"}
+{"id": "sankey-node-order", "prompt": "桑基图节点上下顺序太乱了，我想固定成 煤炭、石油、天然气、发电、交通 这个顺序", "groundTruth": "显式传 nodes 数组（如 [{ key: '煤炭' }, ...]），且必须列全全部链接端点（漏列会报 missing: 节点名）；同时设 layout.nodeSort: null，否则默认布局仍会自动重排；data 为 { value: { links, nodes } }；type: 'sankey'"}
 {"id": "sankey-align-left", "prompt": "桑基图节点都靠左对齐，不要被推到最右边", "groundTruth": "layout.nodeAlign 设置为 'left'（可选 'right' / 'center' / 'justify'）；type: 'sankey'"}
 {"id": "sankey-compact-layout", "prompt": "桑基图节点条太宽、间距太大，帮我做得紧凑一点", "groundTruth": "减小 layout.nodeWidth（如 0.01~0.02）和 layout.nodePadding（如 0.01~0.02）；type: 'sankey'"}
 {"id": "sankey-brand-colors", "prompt": "桑基图节点用我们品牌的蓝绿配色，链接淡一点不要抢眼", "groundTruth": "scale.color.range 设置品牌色数组；style.linkFillOpacity 设小值（如 0.3~0.4），可配 style.linkFill 统一链接颜色；type: 'sankey'"}
 {"id": "sankey-node-label-value", "prompt": "桑基图节点名字旁边要显示具体金额，比如「研发投入 2400 万元」", "groundTruth": "使用 style.labelText 回调替换默认节点名标签，读取节点 d.key 和 d.value 拼接单位；type: 'sankey'"}
 {"id": "sankey-link-opacity", "prompt": "桑基图链接太实了，挡住节点了，调成半透明", "groundTruth": "style.linkFillOpacity 设置为 0.3~0.4（链接样式用 link 前缀）；type: 'sankey'"}
 {"id": "sankey-vs-funnel", "prompt": "我们只有访问、注册、付费三个阶段的汇总人数，没有分支，应该用桑基图还是漏斗图", "groundTruth": "推荐 funnel 漏斗图：单一链路无分支的阶段转化用 funnel；sankey 适合有分支、多来源多去向的流量拆解"}
-{"id": "sankey-cycle-data", "prompt": "我的流向数据里有 A 到 B、B 又回到 A 的记录，直接画桑基图报错/布局很奇怪", "groundTruth": "桑基图要求有向无环图（DAG），不能有环；应先拆分或删除回环链路，再传 { value: { links } } 给 type: 'sankey'"}
+{"id": "sankey-cycle-data", "prompt": "我的流向数据里有 A 到 B、B 又回到 A 的记录，直接画桑基图报错/布局很奇怪", "groundTruth": "桑基图要求有向无环图（DAG），有环会报 circular link；业务确有阶段时按阶段区分节点（如 A(第1期) → B → A(第2期)），拆出的虚拟节点不能再连回原节点形成新环；无阶段语义的真实循环关系改用合适的图表（heatmap 关系矩阵或网络图）；最终传 { value: { links } } 给 type: 'sankey'"}
 {"id": "sankey-name-mismatch", "prompt": "桑基图里「电力」和「电力公司」被画成了两个节点，本来应该是同一个", "groundTruth": "source/target 中同一节点必须使用完全一致的名称；统一为「电力」后再画 type: 'sankey'"}
 {"id": "sankey-value-type", "prompt": "接口返回的 flow 值是字符串 \"4200\"，桑基图宽度看起来不对", "groundTruth": "value 必须是 number；渲染前用 Number() 转换（或 map 处理数据），再传给 type: 'sankey' 的 links"}
 {"id": "sankey-node-count", "prompt": "桑基图有 80 多个节点，挤在一起完全看不清，怎么办", "groundTruth": "先聚合小流量节点（如合并到「其他」）再画；type: 'sankey' 节点过多时轨道不可读，必要时改用汇总视图或 tree/partition"}
 {"id": "sankey-dark-bg", "prompt": "大屏深色背景上放桑基图，节点之间想要白色细边分隔", "groundTruth": "style.nodeStroke 设 '#fff'（或浅色）、style.nodeLineWidth 设 1；可配 theme: 'classicDark'；type: 'sankey'"}
+{"id": "sankey-highlight", "prompt": "桑基图节点链接太多了，鼠标悬停某个节点时想高亮它、让其余的都变淡", "groundTruth": "interaction 包含 { type: 'elementHighlight' }；顶层 state 配 active（命中元素的高亮样式）与 inactive（如 fillOpacity 0.15，其余变淡），state 与 encode/style 并列不能写进 style；type: 'sankey'"}
+{"id": "sankey-node-drag", "prompt": "桑基图想让节点可以拖拽调整位置（类似别的库的 nodeDraggable），配置怎么写", "groundTruth": "内置 sankey 不提供 nodeDraggable 开关，写 layout.nodeDraggable 属于幻觉配置；需说明能力边界，要实现拖拽得自定义交互（监听指针事件改数据后重新 render）；type: 'sankey'"}

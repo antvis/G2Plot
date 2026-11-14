@@ -85,6 +85,7 @@ chart.render();
 |---|---|---|
 | 分支配色 + 数值标签 | `encode.color` 按 `path[1]` 分组；`style.labelText` 自定义标签 | [custom-style.ts](../examples/treemap/custom-style.ts) |
 | 层级下钻 | `interaction: { treemapDrillDown: { ... } }` | [drill-down.ts](../examples/treemap/drill-down.ts) |
+| 市值涨跌热力图 | 面积映射市值，`encode.color` 回调读涨跌幅并发散配色 | [diverging-color.ts](../examples/treemap/diverging-color.ts) |
 
 按一级分支着色的核心差异（同一分支使用相同颜色）：
 
@@ -103,13 +104,14 @@ encode: {
 |---|---|---|
 | 分割算法 | `layout: { tile: 'treemapSquarify' }` | 默认接近正方形；也可选 `treemapBinary` / `treemapDice` / `treemapSlice` / `treemapSliceDice` |
 | 矩形间距 | `layout: { paddingInner: 2 }` | 同层矩形之间的像素间距 |
-| 外边距 | `layout: { paddingOuter: 4 }` | 子矩形相对父级边缘的留白 |
+| 四周留白 | `layout: { paddingTop: 5, paddingRight: 5, paddingBottom: 5, paddingLeft: 5 }` | 单独使用 `paddingOuter` 会被默认四侧 padding 覆盖，实际不生效，需显式设置四个方向 |
 | 父级标题空间 | `layout: { paddingTop: 20 }` | 在父级顶部预留空间，适合展示多层级标签 |
 | 分类调色板 | `scale: { color: { range: ['#5B8FF9', '#5AD8A6'] } }` | 配合 `encode.color` 的分支回调使用 |
-| 连续/发散色阶 | `scale: { color: { type: 'diverging', palette: 'RdBu', domain: [-5, 0, 5] } }` | 涨跌等正负指标；`encode.color` 用 `d.data` 读取原始字段 |
+| 发散色阶 | `scale: { color: { type: 'linear', domain: [-5, 0, 5], range: ['#D73027', '#FEE08B', '#1A9850'] } }` | 涨跌等正负指标：`linear` + 三色 `range` + 三段 `domain` 实现发散映射；G2 v5 未注册 `diverging` 色阶，不要使用 |
 | 边框 | `style: { stroke: '#fff', lineWidth: 1 }` | 增强相邻矩形边界 |
 | 填充透明度 | `style: { fillOpacity: 0.9 }` | 取值 0～1 |
 | 标签内容与样式 | `style: { labelText: (d) => d.data.name, labelFill: '#fff', labelFontSize: 12 }` | 原始名称从 `d.data.name` 读取 |
+| 标签换行 | `style: { labelMaxLines: 2 }` | 标签含 `\n` 或自动换行时必须设置；默认 `maxLines: 1` 会截断成只显示第一行 |
 | 图例位置 | `legend: { color: { position: 'top' } }` | 也可 `legend: false` 关闭 |
 | 提示格式化 | `tooltip.items` 配置 `field: 'value'` 与 `valueFormatter` | `value` 是当前节点的汇总值 |
 
@@ -126,7 +128,11 @@ encode: {
 | 标签回调使用 `d.name` | 使用 `d.data.name`；默认标签也可直接显示路径末级名称 |
 | 父节点和叶节点都填数值，又设置 `ignoreParentValue: false` | 通常只填叶节点数值并保持默认 `ignoreParentValue: true`，避免重复求和 |
 | `interaction: { drillDown: true }` | treemap 专用交互为 `interaction: { treemapDrillDown: true }` |
+| `scale: { color: { type: 'diverging', ... } }` | G2 v5 未注册 `diverging` 色阶，会报 `Unknown Component`；发散配色用 `type: 'linear'` + `domain: [-5, 0, 5]` + 三色 `range` |
+| 单独设置 `layout: { paddingOuter: 5 }` 留白 | `paddingOuter` 会被默认四侧 padding 覆盖不生效；显式设置 `paddingTop` / `paddingRight` / `paddingBottom` / `paddingLeft` |
+| 标签写 `\n` 换行就以为会多行显示 | 必须同时设置 `style.labelMaxLines: 2`，默认 `maxLines: 1` 只显示第一行 |
 | 负值或字符串数字直接映射面积 | 面积值需为非负 `number`；负向指标仅用于颜色，不用于 `encode.value` |
+| 颜色回调直接 `rate.toFixed(1)` | 涨跌幅字段可能缺失，先判空回退（如 `?? 0` 或显示 `—`），避免运行时报错 |
 
 更多对照见 [v4-to-v5-migration.md](../references/v4-to-v5-migration.md)。
 
@@ -137,5 +143,6 @@ encode: {
 | 案例 | 场景 | 关键配置 |
 |---|---|---|
 | [basic.ts](../examples/treemap/basic.ts) | 品类 → 商品销售额构成，最简起步 | `data: { value }` + `encode.value` + `layout.tile` |
-| [custom-style.ts](../examples/treemap/custom-style.ts) | 分支配色、名称与数值标签、提示格式化 | `encode.color` 分支回调、`scale.color.range`、`style.labelText` |
+| [custom-style.ts](../examples/treemap/custom-style.ts) | 分支配色、名称与数值标签、提示格式化 | `encode.color` 分支回调、`scale.color.range`、`style.labelText`、`style.labelMaxLines` |
+| [diverging-color.ts](../examples/treemap/diverging-color.ts) | 面积表示市值、颜色红黄绿表示涨跌幅的发散配色 | `encode.color` 回调读 `d.data`、`scale.color` linear 三色发散、缺失值回退 |
 | [drill-down.ts](../examples/treemap/drill-down.ts) | 从业务线下钻到产品并返回上级 | `interaction.treemapDrillDown` + 面包屑样式 |

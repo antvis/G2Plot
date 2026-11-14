@@ -1,7 +1,8 @@
 /**
  * 自定义分支配色与标签的矩形树图
  * 场景：经营看板需要按一级品类固定品牌色，并直接显示商品名称和销售额
- * 要点：颜色回调通过 path 取得一级分支；标签和提示使用层次节点的计算值
+ * 要点：颜色回调通过 path 取得一级分支；标签换行显示需显式设置 style.labelMaxLines，
+ * 默认 maxLines: 1 会把「名称 + 换行 + 数值」截断成只显示名称；标签和提示使用层次节点的计算值
  */
 import { Chart } from '@antv/g2';
 
@@ -57,6 +58,7 @@ chart.options({
   layout: { tile: 'treemapSquarify', paddingInner: 3 },
   style: {
     labelText: (node: SalesNode) => `${node.data.name}\n${node.value} 万元`,
+    labelMaxLines: 2,
     labelFill: '#fff',
     labelFontSize: 12,
     fillOpacity: 0.9,

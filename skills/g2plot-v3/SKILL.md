@@ -55,7 +55,7 @@ description: G2Plot v3 可视化组件库，提示词即组件。当用户需要
 | 参数 | 类型 | 必填 | 说明 |
 |---|---|---|---|
 | `query` | string | ✅ | 检索关键词，如 `bar chart stacked` |
-| `library` | string | ✅ | 库名：`g2`（本组件库固定用 `g2`） |
+| `library` | string | ✅ | 库名：`g2` / `g6` / `x6`（本组件库固定用 `g2`） |
 | `topK` | number | | 返回结果数，默认 5 |
 | `content` | boolean | | 是否返回完整参考文档 markdown，默认 `true` |
 | `maxTokens` | number | | 每条结果最大 token 数，默认不限 |

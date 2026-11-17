@@ -1,0 +1,15 @@
+{"id": "progress-kpi-basic", "prompt": "后台首页要放一个季度目标达成率的进度条，现在完成了 72%，要一眼看出离目标还有多远", "groundTruth": "使用 type: 'view' 组合两层 type: 'interval'（轨道 + 进度）；coordinate 用 transpose 转成横向；scale.y.domain 固定 [0, 1]；单类别用 style.maxWidth 限制条厚；关闭 axis 和 legend"}
+{"id": "progress-single-cpu", "prompt": "做一个 CPU 使用率 45% 的横向进度条，配色简洁一点", "groundTruth": "单指标进度条：view + 两个 interval（轨道恒为 1、进度为 0.45）；transpose；scale.y.domain [0, 1]；用 maxWidth 控制条厚"}
+{"id": "progress-team-list", "prompt": "一屏展示华东、华南、华北、西南、东北五个团队的完成率，每行一条进度", "groundTruth": "多类别进度条：x 映射团队字段，轨道层与进度层共用同一份数据；transpose；axis.x 保留团队名、axis.y 设为 false；scale.y.domain [0, 1]；不要循环创建多个 Chart"}
+{"id": "progress-service-list", "prompt": "监控页有 6 个服务的健康度百分比，纵向排列，想一眼看出哪个最差", "groundTruth": "多指标进度条：每个服务一行；可按 completionRate 排序；transpose + axis.y false；条厚用 maxWidth；不写死宽高"}
+{"id": "progress-segmented", "prompt": "项目进度拆成已完成、进行中、未开始三段，想在一根横条上按比例显示", "groundTruth": "堆叠进度条：type interval + transform stackY + encode.color 映射状态；coordinate transpose；scale.y.domain [0, 100]；三段数值之和为 100"}
+{"id": "progress-segmented-legend", "prompt": "三段式进度条需要图例说明三种颜色分别代表什么", "groundTruth": "legend.color 开启并设置 position 为 top；用 scale.color.domain 固定 [已完成, 进行中, 未开始] 的顺序；堆叠使用 stackY"}
+{"id": "progress-threshold-color", "prompt": "完成率按档位变色：80% 以上绿色，50% 到 80% 橙色，50% 以下红色", "groundTruth": "style.fill 传回调，按 completionRate 返回对应颜色；保持两层 view 结构；不要用多个 mark 分别配色"}
+{"id": "progress-inside-label", "prompt": "百分比用白字压在进度条里面靠右的位置", "groundTruth": "labels 配 position right、textAlign end、dx 负值把文字收进条内；fill 用白色且必须写 fillOpacity 1，否则主题默认 0.65 会发灰"}
+{"id": "progress-small-percent", "prompt": "有的指标只有 5% 完成，这时候百分比标签也要看得见", "groundTruth": "标签不能死贴条尾：用回调在低完成度时改成 textAlign start、dx 为正，把文字翻到条外；或把数值交给图表外层布局渲染"}
+{"id": "progress-full-100", "prompt": "完成度 100% 的时候，进度条要整条填满，百分比也要完整显示", "groundTruth": "scale.y.domain [0, 1]；100% 时进度层与轨道等长；labels 不能超出绘图区，必要时按完成度切换文字位置"}
+{"id": "progress-over-100", "prompt": "实际完成 120%，怎么在进度条上表达超额完成", "groundTruth": "说明 0~1 的数据契约：domain [0, 1] 会裁掉超出的 20%，应先把数值截断到 1，再用文字标注 120%；不要把 1.2 直接传给现有 domain"}
+{"id": "progress-v2-trap", "prompt": "用 G2Plot 的 Progress 组件画一个 70% 的进度条", "groundTruth": "禁止使用 G2Plot v2 的 new Progress、percent、progressStyle；必须 import { Chart } from '@antv/g2'，用 interval 两层组合实现"}
+{"id": "progress-not-pie", "prompt": "用饼图展示这个指标的完成率", "groundTruth": "单个 0~100% 的完成度应选 progress 而不是 pie；pie 用于各部分占比构成，完成度是相对目标的单一比例"}
+{"id": "progress-tooltip-format", "prompt": "鼠标悬停时显示完成率是 86%，不要显示 0.86", "groundTruth": "tooltip.items 中用 valueFormatter 把 0~1 的小数转成百分比；不要依赖默认 tooltip 直接显示原始数值"}
+{"id": "progress-compact-card", "prompt": "卡片里高度只有 40px 的细长进度条，别让条撑满整个区域", "groundTruth": "autoFit 自适应容器；style.maxWidth 控制条厚；axis 与 legend 关闭；不写死 width/height，也不手动设置 padding"}

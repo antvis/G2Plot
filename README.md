@@ -45,7 +45,7 @@ G2Plot v3 covers 36+ common chart types. PRs for more types are welcome:
 | Trend | Comparison | Proportion | Distribution | Relationship/Other |
 |---|---|---|---|---|
 | line | column | pie | scatter | dual-axes |
-| area | bar | | heatmap | funnel |
+| area | bar | liquid | heatmap | funnel |
 | | | | box | radar |
 
 
@@ -54,18 +54,18 @@ G2Plot v3 covers 36+ common chart types. PRs for more types are welcome:
 ```text
 User request (natural language + data)
         ↓
-┌─────────────────────┐
+┌─────────────────────────────────────┐
 │ SKILL.md selection  │ → Match chart type by data and intent
 │ decision tree       │
-└─────────────────────┘
+└─────────────────────────────────────┘
         ↓
-┌─────────────────────┐
+┌─────────────────────────────────────┐
 │ charts/<chart>.md   │ → Data requirements / snippets / pitfalls
-└─────────────────────┘
+└─────────────────────────────────────┘
         ↓
-┌─────────────────────┐
+┌─────────────────────────────────────┐
 │ examples/<chart>/   │ → Complete runnable examples (source of truth)
-└─────────────────────┘
+└─────────────────────────────────────┘
         ↓
 Native G2 v5 code generated into your project — yours to modify freely
 ```

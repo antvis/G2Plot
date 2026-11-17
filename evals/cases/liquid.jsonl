@@ -1,0 +1,12 @@
+{"id":"liquid-basic-completion","prompt":"画一个季度目标完成率水波图，目前完成了 72%","groundTruth":"使用 G2 v5 Spec：new Chart({ container: 'container', autoFit: true })，chart.options 中 type: 'liquid'、data: 0.72；不需要 encode，最后调用 chart.render()"}
+{"id":"liquid-percentage-conversion","prompt":"后端返回 storagePercent: 68，取值范围是 0 到 100，帮我画存储使用率水波图","groundTruth":"先把 0～100 的百分比除以 100，将 68 转为 0.68 后传给 data；type 为 'liquid'，不能直接传 data: 68，也不要传 '68%' 字符串"}
+{"id":"liquid-single-value-not-array","prompt":"把 [{ name: '本季度', value: 0.72 }] 这个数据画成水波图，x 用 name，y 用 value","groundTruth":"liquid 的数据应简化为单个比例数值 data: 0.72，不使用长表数组，也不配置 encode.x / encode.y；一个水波图只表达一个比例"}
+{"id":"liquid-custom-colors","prompt":"单个容量使用率水波图要用半透明的绿色波浪和浅绿色背景","groundTruth":"type: 'liquid'，data 为 0～1 单值；用 style.fill 设置绿色、style.fillOpacity 设置透明度、style.backgroundFill 设置浅绿色背景，不要使用饼图的 color encode"}
+{"id":"liquid-shape-variant","prompt":"我想把默认的圆形水波图改成矩形，用来显示存储容量使用率","groundTruth":"保持 type: 'liquid' 和单个 0～1 的 data，设置 style.shape: 'rect'；可用外形包括 circle、rect、diamond、triangle、pin"}
+{"id":"liquid-outline-wave","prompt":"水波图外框太细，波浪也太密，想加粗边框、拉开边框间距并调整波长和波数","groundTruth":"在 style 中使用 outlineBorder 控制边框宽度、outlineDistance 控制间距、waveLength 控制波长、waveCount 控制波数；不要发明 borderWidth 或 waveAmplitude 等配置"}
+{"id":"liquid-center-text","prompt":"68% 的使用率要在水波图中心显示成 68.0%，字号 28，加粗并改成深绿色","groundTruth":"data 仍为 0.68；用同一个比例值计算 style.textText: `${(0.68 * 100).toFixed(1)}%`，并设置 textFontSize: 28、textFontWeight: 'bold'、textFill 为深绿色；不要使用嵌套 text.style 或把 textText 回调参数当成原始比例"}
+{"id":"liquid-zero-one-boundary","prompt":"任务进度可能是 0%，也可能是 100%，水波图能展示这两个边界吗","groundTruth":"可以，分别传 data: 0 和 data: 1；0～1 是有效范围，不要把 100% 传成 100，也不要为了显示边界改用其他数据结构"}
+{"id":"liquid-invalid-value","prompt":"接口有时返回 null、NaN 或 1.2，我想直接把这些完成率交给水波图处理","groundTruth":"传入前先校验并处理空值、NaN、无穷值和越界值；Number.isFinite 检查后再按业务规则拒绝或显式裁剪到 0～1，不能依赖绘图库兜底，更不能把 1.2 当成合法的 120%"}
+{"id":"liquid-trend-not-suitable","prompt":"用一张水波图展示过去 12 个月每月的储蓄率变化趋势","groundTruth":"不应使用 liquid；时间序列趋势应选 line 折线图，x 为月份、y 为储蓄率。水波图只展示单个当前比例，无法表达时间顺序"}
+{"id":"liquid-multi-category-not-suitable","prompt":"有四个销售渠道，各自占总销售额的比例都已算好，用水波图精确比较它们合适吗","groundTruth":"不合适；类别构成和占比比较应选 pie（类别较少时）或 bar / column。liquid 适合单个完成率或资源使用率，不适合多个类别的精确比较"}
+{"id":"liquid-v5-spec","prompt":"给一份可自适应容器的水波图代码，但不要使用旧版 G2Plot 的 Liquid 类，也不要写死宽高和 padding","groundTruth":"从 @antv/g2 导入 Chart，使用 new Chart({ container: 'container', autoFit: true }) 和 chart.options({ type: 'liquid', data: 0～1 单值 })，再 chart.render()；禁止 new Liquid，不写固定 width / height，也不手动设置 padding"}

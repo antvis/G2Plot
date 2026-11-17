@@ -1,6 +1,6 @@
 ---
 name: g2plot-v3
-description: G2Plot v3 可视化组件库，提示词即组件。当用户需要创建、绘制 AntV G2 图表（折线图、柱状图、饼图、面积图、散点图、双轴图、雷达图、热力图、漏斗图、箱线图等）时使用本 skill。提供 G2 v5 出码规范、图表选型决策、可运行案例与 v4→v5 防幻觉对照。
+description: G2Plot v3 可视化组件库，提示词即组件。当用户需要创建、绘制 AntV G2 图表（折线图、柱状图、饼图、面积图、散点图、双轴图、雷达图、热力图、漏斗图、箱线图、进度图等）时使用本 skill。提供 G2 v5 出码规范、图表选型决策、可运行案例与 v4→v5 防幻觉对照。
 ---
 
 # G2Plot v3
@@ -26,6 +26,7 @@ description: G2Plot v3 可视化组件库，提示词即组件。当用户需要
 | 类别数值对比 | 类别 x + 数值 y | column 柱状图 | [charts/column.md](../../charts/column.md) |
 | 类别数值对比（横向） | 类别多/名称长 | bar 条形图 | [charts/bar.md](../../charts/bar.md) |
 | 占比、构成 | 类别 + 数值 | pie 饼图 | [charts/pie.md](../../charts/pie.md) |
+| 完成度、进度 | 单个百分比（0~100%） | progress 进度图 | [charts/progress.md](../../charts/progress.md) |
 | 趋势 + 累积量 | 时间 x + 数值 y | area 面积图 | [charts/area.md](../../charts/area.md) |
 | 双变量相关性 | 两个数值字段 | scatter 散点图 | [charts/scatter.md](../../charts/scatter.md) |
 | 两个量级不同的指标 | 时间 x + 双数值 y | dual-axes 双轴图 | [charts/dual-axes.md](../../charts/dual-axes.md) |

@@ -1,0 +1,12 @@
+{"id":"tiny-line-basic-trend","prompt":"在 KPI 卡片里画一个近 7 天访问量的迷你折线图，只看整体趋势","groundTruth":"使用 new Chart({ container: 'container', autoFit: true }) 和 type: 'line'；自包含数据按天排序，encode.x 为日期、encode.y 为访问量；关闭 axis、legend、tooltip，最后 chart.render()"}
+{"id":"tiny-line-compact-components","prompt":"这个迷你趋势图放在很小的卡片里，不要坐标轴、图例和悬停提示","groundTruth":"保持 type: 'line' 与 encode { x, y }，在 Spec 中设置 axis: false、legend: false、tooltip: false；不要使用旧版 xAxis / yAxis 配置"}
+{"id":"tiny-line-smooth","prompt":"把逐小时响应耗时的迷你折线改成平滑曲线，减少单点抖动的视觉干扰","groundTruth":"type: 'line'，encode 中除 x / y 外增加 shape: 'smooth'；不要使用 G2 v4 的 .shape('smooth')，平滑只改变视觉插值，不改变数据"}
+{"id":"tiny-line-with-points","prompt":"迷你折线图上还想看到每天的实际数据点，怎么加","groundTruth":"使用 type: 'view'，在 children 中叠加 line 与 point，两者共享 data 和 x / y encode；point 可配置 size 与 fill / stroke，不要使用旧版 point: { visible: true }，也不要连续调用两次 chart.options()"}
+{"id":"tiny-line-area-background","prompt":"给卡片里的迷你折线下方加一层很浅的蓝色面积背景，顶部仍要有清晰折线","groundTruth":"使用 type: 'view' + children 叠加 area 和 line；area 用 fill / fillOpacity 设置浅蓝背景，line 用 stroke / lineWidth 绘制顶部线，不要只在 area 上写 stroke"}
+{"id":"tiny-line-style","prompt":"把单系列迷你折线改成绿色，线宽为 2，其他配置不变","groundTruth":"在 style 中设置 stroke: '#5AD8A6'（或其他绿色）和 lineWidth: 2；数据仍使用 encode { x, y }，不需要为固定单色添加 color 字段"}
+{"id":"tiny-line-missing-value","prompt":"有两天没有采到数据，我想把它们当 0 画，再用 connectNulls 把其他点连起来","groundTruth":"缺失值不能用 0 替代，应使用 null，默认保留断点；只有业务允许表达估算趋势时才设置 style.connect: true，并用 connectStroke / connectLineDash 区分连接段。G2 v5 不使用 connectNulls"}
+{"id":"tiny-line-datetime-order","prompt":"接口返回的日期没有排序，可以直接按返回顺序画迷你时间趋势图吗","groundTruth":"不可以直接依赖乱序返回结果；先按真实时间排序，需要时间比例尺时将日期字符串转换为 Date。无序类别不应连成趋势线"}
+{"id":"tiny-line-unordered-not-suitable","prompt":"用迷你折线比较苹果、香蕉、橘子三种水果的销量，类别没有先后顺序","groundTruth":"不应使用 tiny-line；x 是无序类别且目标是比较数值，应选 column 或 bar，避免折线暗示不存在的连续趋势"}
+{"id":"tiny-line-multi-series-not-suitable","prompt":"把 6 个产品过去一年的销量趋势都塞进一个小卡片，还要精确比较每月数值","groundTruth":"不推荐 tiny-line；多系列精确比较应使用标准 line，配置 encode.color，并保留坐标轴、图例和 tooltip。迷你折线适合单系列轻量趋势"}
+{"id":"tiny-line-v5-spec","prompt":"给迷你折线图升级旧代码，不能用 G2Plot v2 的 TinyLine 类或链式 position API","groundTruth":"从 @antv/g2 导入 Chart，使用 new Chart() + chart.options({ type: 'line', data, encode: { x, y } }) + chart.render()；禁止 new TinyLine、.position() 和其他 v2 / v4 API"}
+{"id":"tiny-line-responsive","prompt":"迷你折线要跟随卡片自适应，不要写死图表宽高，也不要手动调 padding","groundTruth":"Chart 初始化使用 { container: 'container', autoFit: true }；Spec 不写固定 width / height，也不设置 padding；页面布局负责提供可用的容器尺寸"}

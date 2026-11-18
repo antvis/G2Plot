@@ -8,7 +8,7 @@
 
 Prompt in, Charts out，让 AI Coding Agent 写出正确的 [AntV](https://github.com/antvis) 可视化代码。
 
-[![Version](https://badgen.net/npm/v/@antv/g2plot)](https://npmjs.com/@antv/g2plot) [![NPM downloads](https://img.shields.io/npm/dm/@antv/g2plot.svg)](https://npmjs.com/@antv/g2plot) ![Latest commit](https://badgen.net/github/last-commit/antvis/G2Plot) [![build Status](https://github.com/antvis/G2Plot/workflows/build/badge.svg?branch=v3)](https://github.com/antvis/G2Plot/actions?query=workflow%3Abuild) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Version](https://badgen.net/npm/v/@antv/g2plot)](https://npmjs.com/@antv/g2plot) [![NPM downloads](https://img.shields.io/npm/dm/@antv/g2plot.svg)](https://img.shields.io/npm/dm/@antv/g2plot) ![Latest commit](https://badgen.net/github/last-commit/antvis/G2Plot) [![build Status](https://github.com/antvis/G2Plot/workflows/build/badge.svg?branch=v3)](https://github.com/antvis/G2Plot/actions?query=workflow%3Abuild) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 ![G2Plot v3 preview](https://github.com/user-attachments/assets/28e51eeb-b0f5-4150-a97e-114b3117a66c)
 
@@ -26,7 +26,7 @@ AI Agent 读取 charts/line.md + examples/line/multi-series.ts
 
 ## 🚀 快速开始
 
-G2Plot v3 不是传统的 UI 组件库，而是作为 Skill，给 AI 安装和使用。
+G2Plot v3 不是传统的 UI 图表库，而是作为 Skill，给 AI 安装和使用。
 
 ```bash
 npx skills add https://github.com/antvis/G2Plot
@@ -46,7 +46,7 @@ G2Plot v3 覆盖 36+ 个常用图表类型，更多类型，欢迎提交 PR：
 |---|---|---|---|---|
 | line 折线图 | column 柱状图 | pie 饼图 | scatter 散点图 | dual-axes 双轴图 |
 | area 面积图 | bar 条形图 | | heatmap 热力图 | funnel 漏斗图 |
-| | | | | radar 雷达图 |
+| tiny-line 迷你折线图 | | | | radar 雷达图 |
 
 
 ## 🏗️ 工作原理
@@ -57,7 +57,8 @@ G2Plot v3 覆盖 36+ 个常用图表类型，更多类型，欢迎提交 PR：
 用户需求（自然语言 + 数据）
         ↓
 ┌─────────────────────┐
-│ SKILL.md 选型决策树  │ → 根据数据特征与意图匹配图表类型
+│ SKILL.md 选型决策树 │ → 根据数据特征与意图匹配图表类型
+│ decision tree       │
 └─────────────────────┘
         ↓
 ┌─────────────────────┐
@@ -77,12 +78,12 @@ G2Plot v3 覆盖 36+ 个常用图表类型，更多类型，欢迎提交 PR：
 
 ## 🔗 相关项目
 
-[GPT-Vis](https://github.com/antvis/GPT-Vis) 面向**运行时渲染**：LLM 输出私有 vis 语法，由 GPT-Vis 库在运行时解析渲染，适合 AI 对话应用内嵌图表。G2Plot v3 面向**出码**：生成的是开发者项目中的原生 G2 v5 代码，适合用 AI 辅助开发图表页面。两者互补。
+[GPT-Vis](https://github.com/antvis/GPT-Vis) 面向**运行时渲染**：LLM 输出私有 vis 语法，由 GPT-Vis 运行时解析并渲染，适合嵌入 AI 聊天应用。G2Plot v3 面向**出码**：由 AI 辅助生成开发者项目中的原生 G2 v5 图表代码。两者互补。
 
 - [G2](https://github.com/antvis/G2) - 一套简明和渐进式的可视化语法，本组件库的目标渲染引擎（v5）
 - [G2Plot v2](https://github.com/antvis/G2Plot/tree/master) - 经典运行时图表库（G2 4.x）
-- [GPT-Vis](https://github.com/antvis/GPT-Vis) - 面向 LLM 运行时的可视化方案
-- [AVA](https://github.com/antvis/AVA) - AI 原生的可视分析框架
+- [GPT-Vis](https://github.com/antvis/GPT-Vis) - AI 原生的可视化方案
+- [AVA](https://github.com/antvis/AVA) - AI 原生的可视化分析框架
 
 ## 📄 License
 

@@ -8,7 +8,7 @@
 
 Prompt in, Charts out. Let AI Coding Agents write correct [AntV](https://github.com/antvis) visualization code.
 
-[![Version](https://badgen.net/npm/v/@antv/g2plot)](https://npmjs.com/@antv/g2plot) [![NPM downloads](https://img.shields.io/npm/dm/@antv/g2plot.svg)](https://npmjs.com/@antv/g2plot) ![Latest commit](https://badgen.net/github/last-commit/antvis/G2Plot) [![build Status](https://github.com/antvis/G2Plot/workflows/build/badge.svg?branch=v3)](https://github.com/antvis/G2Plot/actions?query=workflow%3Abuild) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Version](https://badgen.net/npm/v/@antv/g2plot)](https://npmjs.com/@antv/g2plot) [![NPM downloads](https://img.shields.io/npm/dm/@antv/g2plot.svg)](https://img.shields.io/npm/dm/@antv/g2plot) ![Latest commit](https://badgen.net/github/last-commit/antvis/G2Plot) [![build Status](https://github.com/antvis/G2Plot/workflows/build/badge.svg?branch=v3)](https://github.com/antvis/G2Plot/actions?query=workflow%3Abuild) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 ![G2Plot v3 preview](https://github.com/user-attachments/assets/28e51eeb-b0f5-4150-a97e-114b3117a66c)
 
@@ -46,7 +46,7 @@ G2Plot v3 covers 36+ common chart types. PRs for more types are welcome:
 |---|---|---|---|---|
 | line | column | pie | scatter | dual-axes |
 | area | bar | | heatmap | funnel |
-| | | | box | radar |
+| tiny-line | | | box | radar |
 
 
 ## 🏗️ How It Works

@@ -45,8 +45,8 @@ G2Plot v3 covers 36+ common chart types. PRs for more types are welcome:
 | Trend | Comparison | Proportion | Distribution | Relationship/Other |
 |---|---|---|---|---|
 | line | column | pie | scatter | dual-axes |
-| area | bar | liquid | heatmap | funnel |
-| | | | | radar |
+| area | bar | | heatmap | funnel |
+| | | | box | radar |
 
 
 ## 🏗️ How It Works

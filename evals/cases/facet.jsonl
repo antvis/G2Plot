@@ -1,0 +1,12 @@
+{"id": "facet-regions", "prompt": "把三个地区的周工单拆成三个面板，同样 24 单必须看起来等高", "groundTruth": "G2 v5 facetRect 顶层 encode.x 分配地区；interval 子图 x 为周、y 为工单量；统一周序与零基线线性域"}
+{"id": "facet-grid", "prompt": "按渠道做列，按手机和桌面设备做行，看每格的周会话走势", "groundTruth": "facetRect 顶层 encode.x=渠道、encode.y=设备；children 中复用 line；公共周序和同一数值域"}
+{"id": "facet-same-ticks", "prompt": "各仓店单日订单差距悬殊，分面里还是要公平比较数量", "groundTruth": "根据所有面板全量有效观测设置子图的共同数值域；条形图零起点；不要独立自动缩放"}
+{"id": "facet-swap-fields", "prompt": "把每个设备运行模式拆成面板，面板内画温度随时间的线，别把运行模式放面板内横轴", "groundTruth": "外层字段只用于 facetRect 分区；子线图的 x 仍是有序时间、y 是温度"}
+{"id": "facet-unequal", "prompt": "两地区每周分别有不同次数的记录，我不希望分面宽度随样本数变", "groundTruth": "保持面板等宽，不能把 shareSize 当作共享数值尺度；子层还要固定可比域及周序"}
+{"id": "facet-missing-week", "prompt": "某地区第二周没有上报但另外两地区有值，子图周次位置应保持一致", "groundTruth": "公共类别域保留缺失周，缺失值不补成真实零；按图形类型留空或断线，并说明无观测"}
+{"id": "facet-missing-combination", "prompt": "两渠道和两设备的网格里有一组没有观测，能不能补零填满", "groundTruth": "允许空组合并标明无观测；不要把不存在的记录当零；共有时间与数值尺度保持"}
+{"id": "facet-too-many", "prompt": "想把 64 个小组的明细全部塞进一屏小多图，仍得看清各周", "groundTruth": "先筛选、聚合、分批或使用其他图形；不要牺牲可读性强行铺满网格"}
+{"id": "facet-units", "prompt": "想对比不同单位的运行成本和转化率，直接做分面然后共享一条线性轴", "groundTruth": "原始单位不可比，不能假定共享量轴；按指标用独立且清楚标注的视图，或明示合法标准化"}
+{"id": "facet-grid-order", "prompt": "行应固定桌面在上、移动在下，列固定直接访问在左、推荐来源在右", "groundTruth": "用 facetRect 顶层分类域明确行与列顺序；单格时间顺序由 children 的 x 域另设"}
+{"id": "facet-clarity", "prompt": "只有一个渠道和两种同口径设备，趋势不重叠，优先在一张图直接对比", "groundTruth": "不必强行分面；优先同轴多系列 line 按设备着色；需要去遮挡时才考虑 facetRect"}
+{"id": "facet-migration", "prompt": "旧代码用 chart.facet(rect) 和 eachView，我要改成 v5 Spec", "groundTruth": "使用 Chart、chart.options({type: facetRect, encode, children}) 和 chart.render()；不要保留 v4 eachView 或 G2Plot v2 API"}

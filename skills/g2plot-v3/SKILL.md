@@ -25,6 +25,7 @@ description: G2Plot v3 可视化组件库，提示词即组件。当用户需要
 | 多系列趋势对比 | x + y + 系列字段 | line（color 分组） | [charts/line.md](../../charts/line.md) |
 | 类别数值对比 | 类别 x + 数值 y | column 柱状图 | [charts/column.md](../../charts/column.md) |
 | 类别数值对比（横向） | 类别多/名称长 | bar 条形图 | [charts/bar.md](../../charts/bar.md) |
+| 左右镜像比较 | 两个同口径组、相同类别、共用零线；或按正负方向堆叠的态度分布 | bidirectional-bar 对称条形图 | [charts/bidirectional-bar.md](../../charts/bidirectional-bar.md) |
 | 占比、构成 | 类别 + 数值 | pie 饼图 | [charts/pie.md](../../charts/pie.md) |
 | 趋势 + 累积量 | 时间 x + 数值 y | area 面积图 | [charts/area.md](../../charts/area.md) |
 | 双变量相关性 | 两个数值字段 | scatter 散点图 | [charts/scatter.md](../../charts/scatter.md) |

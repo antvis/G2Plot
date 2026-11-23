@@ -1,0 +1,12 @@
+{"id": "bidirectional-bar-tickets", "prompt": "比较白班与晚班各工单类别的处理量，左边白班，右边晚班，中间是零", "groundTruth": "使用 transposed interval；类别映射 x，左组 y 用 -count，右组用 +count；同一零基线和对称线性域；原始工单数非负"}
+{"id": "bidirectional-bar-age-bands", "prompt": "将两城区按年龄段的人数画成左右相对的对称条形图，年龄顺序从低到高", "groundTruth": "明确年龄段顺序；两个地区使用相同单位与零基线，类别和位置对齐；共用对称域，不能各自缩放"}
+{"id": "bidirectional-bar-wide-table", "prompt": "表里每行是服务类型、工作日请求数、周末请求数，请画镜像对比", "groundTruth": "宽表先转换为长表，保留请求数，派生左负右正的布局字段；按服务类型对齐；同一尺度"}
+{"id": "bidirectional-bar-missing", "prompt": "某些站点缺失夜班数据，画日夜工单镜像图，但不能把未知当成 0", "groundTruth": "缺失的一侧不画并说明，真实零保留；类别顺序与共同零线保持一致，提示与表格不把缺失填零"}
+{"id": "bidirectional-bar-labels", "prompt": "镜像图左边显示了负的工单数，请把刻度和鼠标提示改为原始数量", "groundTruth": "仅布局字段带负号；此数据的横向刻度标签用绝对值，提示绑定原始非负字段及组别，不污染输入"}
+{"id": "bidirectional-bar-outlier", "prompt": "一个部门晚班工单是其他部门的五倍，左右轴仍要能公平比较", "groundTruth": "对全部组与类别取最大绝对量级确定对称线性域；不独立缩放、不截断零线；可备注离群，不改变数值"}
+{"id": "bidirectional-bar-stacked", "prompt": "一份问卷中两项不赞同放左，两项赞同放右，保持各题全部答卷的百分比为分母，中立不显示", "groundTruth": "transposed interval + stackY 按正负分别堆叠；保留以全部答卷为分母的百分比并明确中立未显示；对称域覆盖两侧堆叠总量"}
+{"id": "bidirectional-bar-large-stack", "prompt": "一题很赞同 40%，赞同 45%，另一侧仅 15%，请避免长条被裁", "groundTruth": "先处理正负分侧，再以较大一侧的堆叠合计 85% 决定对称域；不按单段 45% 定范围"}
+{"id": "bidirectional-bar-signed", "prompt": "月度库存变化有真实正负值，一类货品一个净变化，不是两组镜像，标签保留减号", "groundTruth": "按原始正负呈现，以零为起点的发散条形图即可；不人为复制两侧、不取绝对值掩盖真实负号"}
+{"id": "bidirectional-bar-incommensurate", "prompt": "想把每站成本金额和完成率放到左右两侧，好比较条长度", "groundTruth": "指出单位不同，不能用同一镜像数轴比较原始长度；优先并列小图；若进行标准化需说明定义"}
+{"id": "bidirectional-bar-three-groups", "prompt": "每个渠道有三个方案的同口径转化率，需要直接比较三个方案而非两边", "groundTruth": "选择分组条形图，颜色映射三个方案；不要把第三组藏成镜像内部堆叠造成误读"}
+{"id": "bidirectional-bar-zero", "prompt": "所有实验组与对照组的故障次数恰为零，仍要保留左右结构", "groundTruth": "保留真实零及分类，范围用对称非零兜底，不能得到 [0,0]、填造条长或把零当缺失"}

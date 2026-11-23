@@ -75,3 +75,9 @@ curl "https://sive.antv.antgroup.com/api/v1/context/retrieve?query=bar+chart+sta
 4. 数据用长表，数值字段确保 `number` 类型
 5. 生成代码自包含：示例数据内联，或明确标注数据来源与字段名
 6. 布局用 `autoFit: true`（`new Chart({ container, autoFit: true })`），**不要**写死 `width` / `height`（autoFit 已自适应容器，写死会留白或裁剪），也**不要**手动设置 spec `padding`：保持默认 `auto`，G2 会自动为坐标轴、图例留出空间，手动 padding 容易导致组件被遮挡/裁剪
+
+## 复合场景
+
+当任务是完整报告而非单图时，先读取场景约定，再组合已有图表和可复用的 DOM 元素：
+
+- [图像分类公开权重选型短名单](../../scenarios/model-deployment-shortlist.md)：同一发布快照按准确率、运算量和参数量筛选，配合指标、散点、条形与证据表

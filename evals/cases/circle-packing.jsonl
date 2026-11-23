@@ -1,0 +1,10 @@
+{"id": "circle-packing-basic", "prompt": "我需要展示公司组织结构，根节点是公司总部，下面有市场部和研发部，每个部门再有两个子分部，想看每个部门的面积比例", "groundTruth": "使用 type: 'circle-packing'；数据需包含 name value parent 字段；encode 映射 name value；可选 encode.color 映射分类字段"}
+{"id": "circle-packing-color", "prompt": "展示不同类别的产品销售结构，电子产品和服装两大类，每类下有多个子产品，想用颜色快速区分所属类别", "groundTruth": "使用 type: 'circle-packing'；encode.color 映射 category 字段；scale.color 配合 range 设置不同类别颜色；数据需包含 name value category 字段"}
+{"id": "circle-packing-deep", "prompt": "展示四层层级结构：公司 -> 事业部 -> 部门 -> 小组，每一层都有面积比例展示", "groundTruth": "使用 type: 'circle-packing'；数据需包含 name value parent 字段体现四层层级；parent 字段分别指向上一层节点名"}
+{"id": "circle-packing-label", "prompt": "圆包裹图上需要标注数值和百分比，每个小圆圈旁边都要显示具体数值", "groundTruth": "配置 labels: [{ text: 'value', position: 'top', style: { fontSize: 10 } }]；确保数据 value 为 number 类型"}
+{"id": "circle-packing-size", "prompt": "要展示各子部门在总公司占比的大小，面积大小要准确反映 value 数值", "groundTruth": "使用 type: 'circle-packing'；encode.value 映射数值字段；圆的面积自动随 value 大小变化；数据 value 必须为 number 类型"}
+{"id": "circle-packing-parent", "prompt": "父子关系数据，母公司下有两个子公司，每个子公司下又有三个部门，需要正确构建层级", "groundTruth": "数据结构包含 parent 字段；每个子节点的 parent 字段值为其上级节点的 name；circle-packing 会自动根据 parent 构建层级嵌套"}
+{"id": "circle-packing-tooltip", "prompt": "悬停在圆圈上时，tooltip 显示节点名称和对应的数值", "groundTruth": "配置 tooltip: { title: 'name', items: [{ channel: 'value', name: '数值', valueFormatter: (v) => String(v) }] }"}
+{"id": "circle-packing-theme-dark", "prompt": "深色模式下的圆包裹图，文字和边界要清晰可见", "groundTruth": "设置 theme: 'classicDark' 或 'dark'；背景、文字颜色自动适配暗色模式"}
+{"id": "circle-packing-inset", "prompt": "希望子节点与父节点之间有间距，防止圆圈重叠过紧", "groundTruth": "配置 style: { inset: 5 }；inset 控制子节点与父节点之间的间距（px）"}
+{"id": "circle-packing-border", "prompt": "圆圈需要显示边框，便于 visually 识别每个独立的圆", "groundTruth": "配置 style: { stroke: '#ddd', lineWidth: 1 }；stroke 为边框颜色 lineWidth 为边框宽度"}

@@ -1,0 +1,15 @@
+{"id": "histogram-order-amount", "prompt": "帮我看看近 90 天订单金额主要落在哪些区间，用直方图展示订单金额的分布", "groundTruth": "使用 type: 'rect'，encode: { x: 'amount', y: 'count' }，transform: [{ type: 'binX', y: 'count', thresholds: 8 }]；数据为每笔订单的原始金额明细，不做预先聚合，x 轴标题为订单金额（元），y 轴为订单笔数"}
+{"id": "histogram-salary", "prompt": "公司有 300 名员工的月薪数据，我想看薪资分布是集中在低区间还是长尾很高", "groundTruth": "使用直方图 type: 'rect' + transform binX（y: 'count'，thresholds 约 12），x 编码月薪数值字段，y 编码分箱频次；不要用柱状图或预先按薪资区间聚合"}
+{"id": "histogram-api-latency", "prompt": "统计接口响应耗时的分布，重点看长尾请求集中在哪些耗时区间", "groundTruth": "使用 type: 'rect'，encode: { x: 'latency', y: 'count' }，transform: [{ type: 'binX', y: 'count', thresholds: 15 }]；原始数据每行一次请求的耗时，长尾通过分箱后的低频高耗时区间体现"}
+{"id": "histogram-user-age", "prompt": "把注册用户的年龄画成直方图，看看用户年龄结构", "groundTruth": "使用 type: 'rect' + binX 对 age 数值字段分箱，encode: { x: 'age', y: 'count' }，thresholds 建议 10 左右；x 轴标题为年龄，y 轴为人数"}
+{"id": "histogram-fine-bins", "prompt": "订单金额直方图的分箱太粗了，帮我分成 20 个区间看得更细一点", "groundTruth": "保持 type: 'rect' 和 transform binX，设置 thresholds: 20；不要改成柱状图，也不要在数据里手动按区间聚合"}
+{"id": "histogram-grouped-channel", "prompt": "对比线上商城和线下门店的订单金额分布，把两个渠道叠在同一个直方图里", "groundTruth": "使用 type: 'rect'，encode: { x: 'amount', y: 'count', color: 'channel' }，transform: [{ type: 'binX', y: 'count', thresholds: 10 }, { type: 'stackY' }]；通过 color 分组并用 stackY 堆叠同一分箱内各渠道的订单数"}
+{"id": "histogram-brand-color", "prompt": "把订单金额直方图的柱子改成品牌色 #FF6B35，透明度 0.85", "groundTruth": "在 rect mark 的 style 中设置 fill: '#FF6B35'、fillOpacity: 0.85；保留 binX transform，不要通过 encode.color 映射固定颜色"}
+{"id": "histogram-title-subtitle", "prompt": "给订单金额分布直方图加标题「订单金额分布」和副标题「样本：近 90 天 40 笔订单」", "groundTruth": "使用 title: { title: '订单金额分布', subtitle: '样本：近 90 天 40 笔订单', align: 'left' }；title 必须是对象，不能直接写字符串"}
+{"id": "histogram-tooltip-unit", "prompt": "直方图 tooltip 里的订单数要带单位「笔」，显示成 12 笔这样", "groundTruth": "配置 tooltip.items: [{ channel: 'y', name: '订单数', valueFormatter: (v) => `${v} 笔` }]；不要用 v4 的 tooltip.formatter 写法"}
+{"id": "histogram-axis-title", "prompt": "直方图的 x 轴写「订单金额（元）」，y 轴写「订单笔数」", "groundTruth": "使用 axis: { x: { title: '订单金额（元）' }, y: { title: '订单笔数' } }；分箱统计仍由 transform binX 完成"}
+{"id": "histogram-large-sample", "prompt": "有 5000 条用户消费金额明细，直接画直方图会不会卡？要不要先自己聚合", "groundTruth": "不需要手动聚合，直接把明细交给 type: 'rect' + transform binX（y: 'count'，thresholds 20~30），由 G2 在渲染前分箱统计；分箱数不要设置过大以免每箱样本过少"}
+{"id": "histogram-no-gap", "prompt": "直方图的柱子之间不要留空隙，让分布看起来连续一些", "groundTruth": "在 rect mark 的 style 中设置 inset: 0 去掉柱形间距；不要用 column 的 padding 或 v4 的 columnWidth 配置"}
+{"id": "histogram-dark-theme", "prompt": "做一个暗色大屏用的渠道订单金额分布直方图，要能看清坐标轴和图例", "groundTruth": "使用 type: 'rect' + binX + stackY，encode.color 按 channel 分组，并设置 theme: 'classicDark'，让坐标轴、图例、标题文字自动适配暗色背景"}
+{"id": "histogram-legend-top", "prompt": "分组直方图的图例放到图表顶部，不要挡住柱形", "groundTruth": "配置 legend: { color: { position: 'top' } }；分组直方图仍使用 encode.color + binX + stackY"}
+{"id": "histogram-review-score", "prompt": "把商品评分 1 到 5 分的评价数量做成分布图，看看评分集中在几分", "groundTruth": "评分是离散的 1~5 分，优先使用 column 柱状图按评分类别统计数量；如果坚持用直方图，需使用 rect + binX 并设置 thresholds: 5，但类别型评分更适合 column"}

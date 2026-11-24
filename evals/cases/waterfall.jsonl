@@ -1,0 +1,15 @@
+{"id": "waterfall-profit-basic", "prompt": "我想展示这个月利润从期初 120 万经过新增订单、涨价、退款、渠道费用几项变化后变成期末 138 万，要能看出每一步贡献了多少", "groundTruth": "使用 type: 'interval'；把 change 换算成累计区间后用 encode: { y: 'base', y1: 'end', color: 'direction' }；期初和期末从 0 画到累计值；color 区分增加/减少/合计"}
+{"id": "waterfall-cashflow", "prompt": "画一个现金流瀑布图，期初现金 200 万，销售回款 +150、采购付款 -80、工资 -60、税费 -25，最后是期末现金", "groundTruth": "type: 'interval' + y/y1 区间通道；数据按业务顺序排列；最后一项为合计，base 为 0、end 为累计余额；增减用 color 区分"}
+{"id": "waterfall-negative", "prompt": "瀑布图里有减少项，柱子要往下走，不要出现负数柱子倒挂或者断开的奇怪效果", "groundTruth": "减少项用 base = min(前值, 后值)、end = max(前值, 后值)，保证区间从下往上；禁止直接把负的 change 映射到 y"}
+{"id": "waterfall-label", "prompt": "瀑布图每根柱子上面标出金额，增加项带 + 号，减少项带 - 号", "groundTruth": "配置 labels，text 用回调判断 direction 拼 + / - 号；position 为 'top'；style.fill 可按增减切换颜色"}
+{"id": "waterfall-horizontal", "prompt": "成本拆解的项目名称比较长，瀑布图能不能横着放", "groundTruth": "type: 'interval' + y/y1 区间通道 + coordinate: { transform: [{ type: 'transpose' }] }；标签 position 用 'outside'"}
+{"id": "waterfall-color-semantic", "prompt": "增加用绿色、减少用红色、期初期末用蓝色，颜色要固定不要被数据顺序影响", "groundTruth": "scale.color 设置 domain: ['增加', '减少', '合计'] 和对应的 range 颜色数组；type: 'interval'"}
+{"id": "waterfall-subtotal", "prompt": "瀑布图中间想插一个小计，把前几项先汇总一下", "groundTruth": "小计项按合计处理：base 固定为 0、end 为当前累计值，direction 标记为 '合计'；后续变动项从该累计值继续累加"}
+{"id": "waterfall-tooltip", "prompt": "鼠标悬停瀑布图柱子时，显示这一项的名称和变动金额（带万元单位）", "groundTruth": "tooltip.title 指向阶段字段，tooltip.items 用 field: 'change' 或 channel 取变动值并配 valueFormatter；注意 y 通道是区间起点不是变动值"}
+{"id": "waterfall-vs-column", "prompt": "我要对比各部门的支出金额，但不需要看累计过程，应该用瀑布图吗", "groundTruth": "不需要累计过程时用 column 柱状图（type: 'interval'）；瀑布图只在需要表达从起始值到最终值的增减累积时使用"}
+{"id": "waterfall-many-items", "prompt": "瀑布图有 20 多项变化，柱子太挤了看不清", "groundTruth": "先合并小项为「其他」再渲染，保留 8~12 项；或改用横向瀑布（transpose）；不应依赖自动旋转标签硬塞"}
+{"id": "waterfall-zero-cross", "prompt": "利润先亏到负数再赚回来，瀑布图跨过 0 轴的时候要注意什么", "groundTruth": "base/end 取 min/max 保证区间方向；y 轴比例尺自动包含负值，不要手动截断 domain；合计项仍从 0 画到累计值"}
+{"id": "waterfall-title-legend", "prompt": "瀑布图要有标题「季度现金流变动」和副标题「单位：万元」，图例放顶部", "groundTruth": "title 为对象（含 title、subtitle、align）；legend: { color: { position: 'top' } }；type: 'interval'"}
+{"id": "waterfall-antipattern-mark", "prompt": "G2 v5 里有没有 waterfall 这个 mark，直接写 type: 'waterfall' 可以吗", "groundTruth": "没有 waterfall mark；用 type: 'interval' + encode 的 y / y1 区间通道（或 stackY 方案）实现浮动柱"}
+{"id": "waterfall-antipattern-change-y", "prompt": "我把每项变动金额直接放到 encode.y 了，为什么画出来是普通柱状图，看不出累计效果", "groundTruth": "encode.y 只是区间起点；需要额外提供 base/end 并映射 y + y1，或使用 stackY 累加，否则每根柱子都从 0 开始"}
+{"id": "waterfall-subtotal-connector", "prompt": "活动复盘要画瀑布图：活动前 GMV 320，直播带货 +180、优惠券核销 -60，然后显示活动期小计，再继续自然流量 +75、退货退款 -45、期末 GMV；相邻阶段要用连接线连起来，每根柱子还要同时标出变动金额和当前累计值", "groundTruth": "type: 'view' + children 组合：interval 用 y/y1 画区间柱；小计项 base 固定 0、end 为当前累计值、direction 标为 '小计' 且不更新 running；相邻阶段用 link mark，encode: { x: 'from', x1: 'to', y: 'level', y1: 'level' } 连线（先画 link 再画 interval）；labels 分两条，一条是带正负号的变动金额，一条是「累计」值，用颜色和字号区分"}

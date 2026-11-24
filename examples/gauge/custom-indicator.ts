@@ -4,8 +4,9 @@ import { Chart } from '@antv/g2';
 /**
  * 自定义指示器与 Tooltip
  * 场景：需要菱形指针和品牌化悬浮提示的单指标仪表盘
- * 要点：pointerShape 接收点、颜色值和坐标系，返回 @antv/g 图形；
- *       tooltip.items 定义业务内容，interaction.tooltip.render 自定义 HTML
+ * 要点：pointerShape 使用 () => diamondPointer 工厂写法，并设置 pinShape: false；
+ *       diamondPointer 返回 @antv/g 图形；tooltip.items 定义业务内容，
+ *       interaction.tooltip.render 自定义 HTML
  */
 const data = {
   metric: '季度目标完成率',
@@ -62,9 +63,8 @@ chart.options({
     color: { range: ['#5B8FF9', '#EEF1F6'] },
   },
   style: {
-    pointerShape: diamondPointer,
-    pinR: 6,
-    pinFill: '#5B8FF9',
+    pointerShape: () => diamondPointer,
+    pinShape: false,
     textContent: (target: number, total: number) =>
       `${Math.round((target / total) * 100)}%\n${data.metric}`,
     textFontSize: 24,

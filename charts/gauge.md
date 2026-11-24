@@ -94,7 +94,7 @@ chart.render();
 | 米轨式分段 | 等距 `thresholds` + `arcInset` 控制段数与间隙 | [segmented.ts](../examples/gauge/segmented.ts) |
 | 环形进度 | 起止角差 2π（`-π/2 → 3π/2`）+ 隐藏指针轴心 | [progress-ring.ts](../examples/gauge/progress-ring.ts) |
 | 多指标并排 | `type: 'spaceFlex'`，中心文字通过闭包显示各指标名 | [multi-indicator.ts](../examples/gauge/multi-indicator.ts) |
-| 自定义指示器与 tooltip | `pointerShape` 返回 G 图形 + `interaction.tooltip.render` | [custom-indicator.ts](../examples/gauge/custom-indicator.ts) |
+| 自定义指示器与 tooltip | `pointerShape: () => diamondPointer` + `pinShape: false` + `interaction.tooltip.render` | [custom-indicator.ts](../examples/gauge/custom-indicator.ts) |
 
 阈值分档核心差异（整条弧按区间染色，指针定位当前值）：
 
@@ -163,7 +163,11 @@ chart.options({
 自定义指示器与 tooltip 核心差异（完整几何计算见案例）：
 
 ```ts-snippet
-style: { pointerShape: diamondPointer }, // 回调返回 new Path(...)
+style: {
+  // 必须返回自定义指针回调，不能直接传 diamondPointer
+  pointerShape: () => diamondPointer,
+  pinShape: false,
+},
 
 tooltip: {
   title: () => data.metric,
@@ -222,4 +226,4 @@ interaction: {
 | [segmented.ts](../examples/gauge/segmented.ts) | 10 段米轨式负载仪表盘 | 等距 `thresholds` + 10 色 `scale.color.range` + `arcInset` |
 | [progress-ring.ts](../examples/gauge/progress-ring.ts) | 环形进度，隐藏指针 | 整圈 radial 坐标（`-π/2 → 3π/2`）+ `pointerShape: false` / `pinShape: false` |
 | [multi-indicator.ts](../examples/gauge/multi-indicator.ts) | CPU、内存、磁盘并排且显示各自名称 | `type: 'spaceFlex'` + `textContent` 闭包拼接 `item.metric` |
-| [custom-indicator.ts](../examples/gauge/custom-indicator.ts) | 菱形指针与深色自定义 tooltip | `pointerShape` 返回 `Path` + `tooltip.items` + `interaction.tooltip.render` |
+| [custom-indicator.ts](../examples/gauge/custom-indicator.ts) | 菱形指针与深色自定义 tooltip | `pointerShape: () => diamondPointer` + `pinShape: false` + `tooltip.items` + `interaction.tooltip.render` |

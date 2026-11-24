@@ -36,6 +36,12 @@ description: G2Plot v3 可视化组件库，提示词即组件。当用户需要
 
 选型拿不准时，读对应 `charts/<chart>.md` 的「何时使用 / 何时不用」小节。
 
+## 复合场景
+
+当需求是一份分析报告、仪表盘或监控视图，需要把多个图表、指标与结论文字组合表达时，读取 `scenarios/` 下的场景提示词，按其中声明的数据口径与组成部分实现：
+
+- [SaaS 试用转付费诊断报告](../../scenarios/saas-trial-conversion.md)：指标卡 + 转化漏斗 + 渠道转化条形 + 动态结论
+
 ## 共享规范（生成前必读）
 
 - G2 v5 API 速查：[references/g2-v5-cheatsheet.md](../../references/g2-v5-cheatsheet.md)

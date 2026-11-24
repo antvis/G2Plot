@@ -1,0 +1,12 @@
+{"id": "radial-bar-channel", "prompt": "我在做电商后台，想用环形图对比 App、小程序、H5、Web 四个渠道的订单量，中间留个空放总数", "groundTruth": "使用 type: 'interval'，coordinate 为 { type: 'polar', innerRadius: 大于 0 的值（如 0.35）}；encode 的 x 映射渠道字段、y 映射订单量数值；不要使用 theta 坐标系"}
+{"id": "radial-bar-hour", "prompt": "展示一天 24 个时段的服务请求量分布，希望首尾相接成一个环", "groundTruth": "使用 type: 'interval' + coordinate: { type: 'polar', innerRadius: 0.3 左右 }；x 映射小时字段、y 映射请求量；分类数量较多时建议关闭图例（legend: false）"}
+{"id": "radial-bar-rounded", "prompt": "运营大屏上的环带柱子边角太硬，想要圆角并且中间空得更大一点", "groundTruth": "在 polar 坐标系基础上设置 style: { radius: 4~6 } 实现圆角，coordinate.innerRadius 提高到 0.4~0.5；可用 axis: { x: { grid: false } } 关闭径向网格"}
+{"id": "radial-bar-inner", "prompt": "我的环形图看起来像饼图，中间是实心的，怎么把中间挖空", "groundTruth": "问题在于缺少 innerRadius。玉珏图必须使用 coordinate: { type: 'polar', innerRadius: 0.3 及以上 }，innerRadius 写在 coordinate 内而非 spec 顶层；同时 type 应为 'interval'"}
+{"id": "radial-bar-label", "prompt": "每个环带外侧直接显示数值，不想鼠标悬浮才看到", "groundTruth": "使用 labels: [{ text: '<数值字段>', position: 'outside' }]（可选 style 调字号颜色）；可配合 tooltip.items 补充字段名与单位"}
+{"id": "radial-bar-half", "prompt": "页面比较窄，环形图只画上半圈或者半圆就够了", "groundTruth": "coordinate 用 { type: 'polar', innerRadius: 0.25, startAngle: -Math.PI / 2, endAngle: Math.PI / 2 } 截取半圆；不要用 theta 或自定义 SVG 绘制"}
+{"id": "radial-bar-dark", "prompt": "监控大屏是暗色背景，环形图文字和网格要跟着变成浅色", "groundTruth": "使用 theme: 'classicDark'（或 'dark'）让坐标轴、图例、标题文字自动适配暗色；无需逐个设置 fill 颜色"}
+{"id": "radial-bar-brand", "prompt": "公司要求按品牌色板固定每个分类的颜色，另外加一个居中的标题和单位说明", "groundTruth": "使用 scale: { color: { range: ['#5B8FF9', ...] } } 按分类顺序固定颜色；title 必须是对象 { title, subtitle, align }；半径轴可用 axis: { y: { title: '<单位>' } } 标注量纲"}
+{"id": "radial-bar-month", "prompt": "用环形方式展示 12 个月各月的营收对比", "groundTruth": "使用 type: 'interval' + coordinate: { type: 'polar', innerRadius: 0.3 左右 }；x 映射月份、y 映射营收；12 个分类接近上限，可考虑关闭图例与角度轴网格"}
+{"id": "radial-bar-share", "prompt": "我想用环形图展示各品类销售额占总销售额的比例，加起来是 100%", "groundTruth": "占比场景不应使用玉珏图，应使用 type: 'interval' + coordinate: { type: 'theta' }（饼图/环形饼图），或使用 pie 组件；玉珏图的弧长表达的是各自数值而非占比"}
+{"id": "radial-bar-many", "prompt": "我有 30 个门店的销售额要在一个环形图里全部展示", "groundTruth": "分类数过多不适合玉珏图，环带会过窄且标签重叠；应先做 Top-N 聚合，其余归为“其他”，或改用 bar 条形图逐个对比"}
+{"id": "radial-bar-v2-api", "prompt": "帮我用 G2Plot 的 RadialBar 组件画一个环图，配置 angleField 和 radiusField", "groundTruth": "禁止使用 G2Plot v2 的 RadialBar 组件与 angleField/radiusField 配置。正确写法基于 @antv/g2 ^5：import { Chart } from '@antv/g2'，new Chart({ container, autoFit: true })，chart.options({ type: 'interval', encode: { x, y }, coordinate: { type: 'polar', innerRadius } })"}

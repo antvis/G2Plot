@@ -15,6 +15,10 @@ description: G2Plot v3 可视化组件库，提示词即组件。当用户需要
 4. 生成后对照 `references/v4-to-v5-migration.md` 自查，确认无 v4 / G2Plot v2 幻觉写法
 5. 本地内容不足时，调用「AntV 上下文检索服务」兜底（见下节）
 
+## 复合场景
+
+- [模型升级回归评审报告](../../scenarios/model-regression-review.md)：用配对用例判断质量和延迟门槛，结合任务图表、样本矩阵和明细复核回归。
+
 ## 选型决策树
 
 按用户意图与数据特征选择组件：

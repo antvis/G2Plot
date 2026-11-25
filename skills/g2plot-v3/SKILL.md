@@ -36,6 +36,10 @@ description: G2Plot v3 可视化组件库，提示词即组件。当用户需要
 
 选型拿不准时，读对应 `charts/<chart>.md` 的「何时使用 / 何时不用」小节。
 
+## 复合场景示例
+
+- [Agent 工作流耗时诊断报告](../../scenarios/agent-workflow-latency-diagnosis.md)：用同一批请求组合 P95、超时率、阶段耗时占比和慢请求明细。
+
 ## 共享规范（生成前必读）
 
 - G2 v5 API 速查：[references/g2-v5-cheatsheet.md](../../references/g2-v5-cheatsheet.md)

@@ -1,0 +1,10 @@
+{"id":"tiny-area-basic-token-usage","prompt":"在 Agent 的 KPI 卡里画近 14 天每日消耗 Token 数的迷你面积图，曲线下方要填色。","groundTruth":"使用 G2 v5 Spec 的 area 标记表达单系列，采用 14 条自包含的日用量记录，填充至零基线，隐藏坐标轴和图例。"}
+{"id":"tiny-area-sort-days","prompt":"接口返回的 11 月 25 日、12 日和 13 日 Token 用量记录是乱序的，画迷你面积图时最旧的日期在左边。","groundTruth":"按日期升序排序，离散日期域使用相同顺序，或用连续时间比例尺；使面积按时间顺序连接。"}
+{"id":"tiny-area-compact-card","prompt":"在 240 像素宽、84 像素高的 KPI 卡片里展示 Token 走势，容器变窄时自动适配。","groundTruth":"容器高度明确，使用 autoFit: true；隐藏坐标轴、网格和图例，清除默认 margin 并保留少量 padding。"}
+{"id":"tiny-area-tooltip-date-usage","prompt":"迷你面积图不显示坐标轴，鼠标悬停时要告诉我完整日期和当天消耗了多少 Token。","groundTruth":"tooltip 标题使用完整日期，数值项显示当天用量和 Token 单位；叠加标记时只在一个用量层提供该提示。"}
+{"id":"tiny-area-budget-reference","prompt":"在近 14 天 Token 迷你面积图上加入 9,000 Token 的水平日预算线，让读者能看出哪些日期超预算。","groundTruth":"用 view 组合 area 和 lineY，固定线可用 data: [9000]，与用量共享 y 比例尺；用虚线和带单位标签标出日预算。"}
+{"id":"tiny-area-reference-outside-observations","prompt":"所有日期的 Token 用量都不到 6,000，但我希望在图上仍能看见 9,000 Token 的日预算线。","groundTruth":"从零开始设置 y 域，上限至少覆盖参考值和最大观测值；lineY 与面积共享比例尺，预算位置不依赖当天最大值。"}
+{"id":"tiny-area-missing-day","prompt":"11 月 22 日 Token 数据缺测，17 日确认没有消耗。这两天在图上要表达成不同情况，预算线保持连续。","groundTruth":"时间域保留两天；22 日用 null，面积和用量折线断开；17 日用数值 0，让趋势降到零基线；lineY 使用独立的固定预算数据。"}
+{"id":"tiny-area-gradient-fill","prompt":"将 KPI 卡里的迷你面积图做成蓝色纵向渐变，靠近顶部颜色深，靠近零基线颜色浅。","groundTruth":"G2 v5 的 area 在 style.fill 使用由上到下的线性渐变，使用 AntV 画布的 90deg 或等效方向；靠近基线的不透明度较低。"}
+{"id":"tiny-area-zero-baseline","prompt":"Agent 近两周每天消耗 8,000 到 10,000 Token，我想看实际量级，别从 8,000 起画面积。","groundTruth":"y 域下限设为零，上限覆盖全部观测值，面积填充到零基线。"}
+{"id":"tiny-area-shared-domain","prompt":"四张并排的 Agent 指标卡都展示近两周的 Token 用量，我想直接比较彼此的曲线高度。","groundTruth":"统一日期范围、时间粒度、单位、绘图区高度和从零起的 y 域，上限覆盖所有卡片的用量和参考值。"}

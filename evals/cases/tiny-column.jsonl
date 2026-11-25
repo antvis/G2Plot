@@ -1,0 +1,10 @@
+{"id":"tiny-column-agent-calls","prompt":"在一个小指标卡里用迷你柱形图展示最近 7 天的 Agent 调用次数。示例数据请写在代码里。","groundTruth":"使用 G2 v5 interval 标记，每天一根纵向柱，encode.x 映射日期、encode.y 映射数值调用量；日期按时间顺序；代码内联数据并使用 autoFit: true。"}
+{"id":"tiny-column-chronological-order","prompt":"在卡片里用迷你柱形图看 Agent 每日调用量。数据顺序是 11 月 22 日 26 次、11 月 19 日 12 次、11 月 21 日 15 次。柱子要从左到右按日期排。","groundTruth":"把聚合后的日期按 19 日、21 日、22 日排序；柱高依次对应 12、15、26；用排序后的数据或显式 x.domain 固定类别顺序；不要按数值排序。"}
+{"id":"tiny-column-compact-card","prompt":"做一个放进低矮 KPI 卡的迷你柱形图。容器尺寸由页面控制，图里只留竖柱和悬停提示，隐藏坐标轴和图例。","groundTruth":"Chart 采用 autoFit: true，不设置固定宽高；interval 默认直角坐标且不转置；axis: false 或分别关闭 x 与 y，legend: false；保留 tooltip。"}
+{"id":"tiny-column-tooltip","prompt":"给每日调用量迷你柱形图加鼠标悬停提示，顶部显示完整日期，数值明确显示为「调用量 18 次」这种形式。","groundTruth":"用 G2 v5 tooltip.title 映射日期、tooltip.items 指向调用量字段或 y 通道；名称为调用量，值格式化时附加次，柱身纵向展示且保留日期顺序。"}
+{"id":"tiny-column-single-peak","prompt":"最近四次运行调用数是 3、8、5、4，用迷你柱形图标出最高的一根，其他柱用低饱和度颜色。如果换数据，峰值也要重新计算。","groundTruth":"从数据计算最大值，用峰值分类字段和显式颜色映射或等效样式突出 8；其余三根保持普通颜色与原始顺序；不能硬编码第二根或数值 8。"}
+{"id":"tiny-column-tied-peaks","prompt":"用迷你柱形图画 6、11、4、11 四天的调用量。最高值一样的日期都要高亮，其他日期用灰蓝色。","groundTruth":"从数据计算正的最大值，所有等于最大值的记录使用同一强调色，6 和 4 使用普通色；顺序保持不变，颜色映射稳定。"}
+{"id":"tiny-column-all-zero","prompt":"最近四天的 Agent 调用量都是真实的 0。画成迷你柱形图，量程是 0 到 30，全为零时不要标出峰值。","groundTruth":"保留四条零值记录；y.domain 明确为 [0, 30] 且关闭 nice；只有最大值大于 0 时才可将等于最大值的记录标为峰值，不伪造非零柱。"}
+{"id":"tiny-column-missing-day","prompt":"最近三天的调用记录是 19 日 12 次、20 日没有采集到数据、21 日真实为 0。用迷你柱形图显示并保留 20 日的空位。","groundTruth":"使用包含三天的 x.domain，缺失日期保留类别位置但不产生数值柱；21 日的真实 0 保留在有效记录中；不得把缺测填 0 或用邻日数据填补。"}
+{"id":"tiny-column-zero-baseline","prompt":"将 97、99、98、100 四天调用量画成迷你柱形图。希望视觉变化保持真实比例，纵轴从零开始，最大值取 100。","groundTruth":"encode.y 映射原始数值，scale.y.domain 设为 [0, 100] 且 nice: false；不要用 [97, 100] 截断柱形基线，也不要把数值改写为相对差值。"}
+{"id":"tiny-column-shared-scale","prompt":"两个指标卡都展示近几天的 Agent 调用量，A 卡的数值是 4、12、8，B 卡是 8、24、15。请保证两张迷你柱形图的柱高能直接比较，共用 0 到 30 的纵轴。","groundTruth":"两个 interval 图分别使用各自数据，y.domain 都为 [0, 30] 且 nice: false，两张卡的绘图区高度一致；不能让两个比例尺分别自动按各自最大值缩放。"}
